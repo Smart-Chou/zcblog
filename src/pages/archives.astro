@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro'
+import BlogPost from '../components/BlogPost.astro';
+
+const allPosts = await Astro.glob('../pages/posts/*.md');
+const pageTitle = "我的 Astro 学习博客";
+---
+<Layout pageTitle={pageTitle}>
+<div id="app" data-server-rendered="true">
+    <main class="main">
+        <div>
+            <h1 class="text-center space-bottom">Archives</h1>
+            <div class="posts content-box">
+                <p style="opacity: 0.6"><strong>(｡･∀･)ﾉﾞ I have published a total of 0 posts, 0 words since 2019.</strong></p>
+                <ul>
+                    {allPosts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
+                </ul>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="./assets/js/page--src--pages--archives-vue.88abd6e8.js" defer is:inline></script>
+</Layout>

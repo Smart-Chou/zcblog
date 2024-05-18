@@ -1,0 +1,51 @@
+---
+import Head from '../components/Head.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<html lang="zh-cn">
+    <Head />
+    <body>
+        <script is:inline>
+            // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
+            (function () {
+                window.__onThemeChange = function () {};
+                function setTheme(newTheme) {
+                    window.__theme = newTheme;
+                    preferredTheme = newTheme;
+                    document.body.setAttribute('data-theme', newTheme);
+                    window.__onThemeChange(newTheme);
+                }
+
+                var preferredTheme;
+                try {
+                    preferredTheme = localStorage.getItem('theme');
+                } catch (err) {}
+
+                window.__setPreferredTheme = function (newTheme) {
+                    setTheme(newTheme);
+                    try {
+                        localStorage.setItem('theme', newTheme);
+                    } catch (err) {}
+                };
+
+                var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+                darkQuery.addListener(function (e) {
+                    window.__setPreferredTheme(e.matches ? 'dark' : 'light');
+                });
+
+                setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
+            })();
+        </script>
+        <Header />
+        <div id="app" data-server-rendered="true">
+        <main class="main">
+        <slot />
+        </main>
+        <Footer />
+    </div>
+        <script src="../../public/assets/js/app.9340ece8.js" defer is:inline></script>
+    </body>
+</html>
