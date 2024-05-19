@@ -1,18 +1,11 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Netlify or VuePress：大型悬疑推理篇之——报错到底是谁的锅？
 pubDate: 2020-05-08T16:23:00.000+00:00
-
-slug: debugging-netlify-static-site
-tags:
-- Debug
-- VuePress
-- Netlify
-- Frontend
-image: "../images/debugging-netlify-static-site.png"
-
+tags: ['Debug','VuePress','Netlify','Frontend']
+image: 
+    url: "/postImage/debugging-netlify-static-site.png"
+    alt: 'debugging-netlify-static-site'
 description: 记录一次横跨一个月的 debug 之路，还要千万分感谢帮我精准 debug 的 @geekdada。
-
 ---
 Dev on Windows with WSL 是我目前维护比较频繁的一个文档，它介绍了在 Windows 上使用 WSL 进行开发的环境配置、注意事项以及高阶操作等，我们称它为 `dowww`。我使用的是非常优秀的基于 Vue 的静态文档生成器：VuePress，来构建 `dowww` 的文档网站，并（曾经）借助于 Netlify 来将文档的静态页面部署在网络上，让大家可以访问参考。
 

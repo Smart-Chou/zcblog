@@ -1,17 +1,11 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Yadm：我是如何同步并管理我的 Dotfiles 的？
 pubDate: 2020-07-24T21:45:00+08:00
-
-slug: how-i-manage-my-dotfiles
-tags:
-- CLI
-- Dev Environment
-- Terminal
-image: "../images/how-i-manage-my-dotfiles.gif"
-
+tags: ['CLI','Dev Environment','Terminal']
+image: 
+    url: "/postImage/how-i-manage-my-dotfiles.gif"
+    alt: 'how-i-manage-my-dotfiles'
 description: Yet Another Dotfiles Manager，基于 Git 的 Dotfiles 管理器。
-
 ---
 没想到啊，[我的 dotfiles 仓库](https://github.com/spencerwooo/dotfiles "我的 dotfiles 仓库")竟然是目前我 GitHub 上面星星数量最多的单仓库。
 

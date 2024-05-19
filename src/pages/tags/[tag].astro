@@ -1,43 +1,29 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import BlogPost from '../../components/BlogPost.astro';
+import { getCollection } from "astro:content";
+import Layout from '../../layouts/BaseLayout.astro';
+import PostCardTagLayout from '../../layouts/PostCardTagLayout.astro';
 
 export async function getStaticPaths() {
-    const allPosts = await Astro.glob('../posts/*.md');
+    const allPosts = await getCollection("posts");
 
-    const uniqueTags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
+    const uniqueTags = [...new Set(allPosts.map(post => post.data.tags).flat())];
 
-    return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post) => post.frontmatter.tags.includes(tag));
-    return {
-      params: { tag },
-      props: { posts: filteredPosts },
-    };
-  });
+    return uniqueTags.map(tag => {
+        const filteredPosts = allPosts.filter(post => post.data.tags.includes(tag));
+        return {
+            params: { tag },
+            props: { posts: filteredPosts },
+        };
+    });
 }
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
 ---
-<Layout pageTitle={tag}>
 
-        <div>
-            <h1 class="tag-title text-center space-bottom"># {tag}</h1>
-            <div class="posts">
-                <div class="post-card content-box">
-                    <div class="post-card__content">
-                        {posts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
-                        <!-- <h2 class="post-card__title"></h2>
-                        <p class="post-card__description">新年快乐。</p>
-                        <div class="post-meta post-card__meta">
-                            Posted January 1. 2021. 1239 words.
-                            <strong>6 min read.</strong>
-                        </div>
-                        <div class="post-tags post-card__tags"></div>
-                        <a href="/2021/01/new-year-2021/" class="post-card__link">Link</a> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-<script src="./assets/js/page--src--templates--tag-vue.f2416488.js" defer></script>
+<Layout pageTitle={tag}>
+    <h1 class="tag-title text-center space-bottom"># {tag}</h1>
+    <div class="posts">
+        {posts.map(post => <PostCardTagLayout title={post.data.title} url={`/posts/${post.slug}/`} description={post.data.description} pubDate={post.data.pubDate} />)}
+    </div>
 </Layout>

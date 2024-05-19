@@ -1,13 +1,11 @@
 ---
-layout: ../../layouts/PostLayout.astro
-title: 'Tiny Tiny RSS：部署中的普遍问题与注意事项总结'
+title: Tiny Tiny RSS：部署中的普遍问题与注意事项总结
 pubDate: 2020-03-13
-
-slug: ttrss-noteworthy
 tags: ['Server', 'RSS', 'Tech']
-image: "../images/ttrss-noteworthy.png"
-
-description: 'Tiny Tiny RSS 部署踩坑'
+image: 
+    url: "/postImage/ttrss-noteworthy.png"
+    alt: 'ttrss-noteworthy'
+description: Tiny Tiny RSS 部署踩坑
 ---
 
 最近一直在折腾 Tiny Tiny RSS，包括升级、添加样式和持久化。由于我是直接使用了 Awesome TTRSS 项目提供的 `docker-compose.yml` 部署的 Docker 版本 Tiny Tiny RSS，所以一些经验还是具有普遍性、值得分享的。这里我总结一下我在部署 Tiny Tiny RSS 过程中遇到的一些「普遍问题」和「注意事项」。

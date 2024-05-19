@@ -1,9 +1,8 @@
 ---
-const { frontmatter } = Astro.props;
+const { tag, url } = Astro.props;
 ---
-<div class="post-tags post-card__tags">
-    <a href="/tag/Life/" class="post-tags__link">
-        <span>#</span>
-        Link
-    </a>
-</div>
+
+<a href={url} class="post-tags__link">
+    <span>#</span>
+    {tag}
+</a>

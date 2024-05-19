@@ -1,9 +1,21 @@
 ---
-import PostImage from "./PostImage.astro";
-import PostContent from "./PostContent.astro";
-
+import PostCardLayout from '../layouts/PostCardLayout.astro';
+import PostTag from './PostTag.astro';
+const { imageUrl, title, description, pubDate, tags, postUrl } = Astro.props;
 ---
-<div class="post-card content-box">
-    <PostImage />
-    <PostContent />
-</div>
+
+<PostCardLayout>
+    <div class="post-card__header">
+        <img src={imageUrl} class="post-card__image" width="1280" alt="Cover image" />
+    </div>
+    <h2 class="post-card__title">{title}</h2>
+    <p class="post-card__description">{description}</p>
+    <div class="post-meta post-card__meta">
+        Posted {pubDate.toString().slice(0, 10)}. 1239 words.
+        <strong>6 min read.</strong>
+    </div>
+    <div class="post-tags post-card__tags">
+        {tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}`} />)}
+    </div>
+    <a href={postUrl} class="post-card__link">Link</a>
+</PostCardLayout>

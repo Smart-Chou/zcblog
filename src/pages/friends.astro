@@ -1,49 +1,51 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/BaseLayout.astro';
+import Author from '../components/Author.astro';
 ---
+
 <Layout>
     <div>
         <h1 class="friends-title text-center space-bottom">Friends &amp; Guestbook</h1>
         <div class="friends-container text-center space-bottom">
             <a href="https://code.felinae98.cn/" target="_blank" class="btn" style="color: #fff; background-color: #473922">
-                <img alt="avatar" src="https://avatars3.githubusercontent.com/u/23295345?s=160" class="avatar g-image" />
+                <img alt="avatar" src="https://avatars3.githubusercontent.com/u/23295345?s=160" class="avatar" />
                 <span>@Felinae</span>
             </a>
             <a href="https://jychuuu.com/" target="_blank" class="btn" style="color: #fff; background-color: #191919">
-                <img alt="avatar" src="https://avatars1.githubusercontent.com/u/46088026?s=160" class="avatar g-image" />
+                <img alt="avatar" src="https://avatars1.githubusercontent.com/u/46088026?s=160" class="avatar" />
                 <span>@agnoCJY</span>
             </a>
             <a href="https://blog.tenkeyseven.com/" target="_blank" class="btn" style="color: #fff; background-color: #b59672">
-                <img alt="avatar" src="https://avatars2.githubusercontent.com/u/33371927?s=160" class="avatar g-image" />
+                <img alt="avatar" src="https://avatars2.githubusercontent.com/u/33371927?s=160" class="avatar" />
                 <span>@TenkeySeven</span>
             </a>
             <a href="https://silvester.wang/" target="_blank" class="btn" style="color: #fff; background-color: #595058">
-                <img alt="avatar" src="https://avatars0.githubusercontent.com/u/34436920?s=160" class="avatar g-image" />
+                <img alt="avatar" src="https://avatars0.githubusercontent.com/u/34436920?s=160" class="avatar" />
                 <span>@Silvester</span>
             </a>
             <a href="https://blog.ash0ne.com/" target="_blank" class="btn" style="color: #fff; background-color: #9f8cd1">
-                <img alt="avatar" src="https://avatars3.githubusercontent.com/u/28522665?s=160" class="avatar g-image" />
+                <img alt="avatar" src="https://avatars3.githubusercontent.com/u/28522665?s=160" class="avatar" />
                 <span>@ash0ne</span>
             </a>
             <a href="http://blog.fkynjyq.com/" target="_blank" class="btn" style="color: #fff; background-color: #005240">
-                <img alt="avatar" src="https://avatars2.githubusercontent.com/u/16451516?s=160" class="avatar g-image" />
+                <img alt="avatar" src="https://avatars2.githubusercontent.com/u/16451516?s=160" class="avatar" />
                 <span>@FKY</span>
             </a>
             <a href="https://idealclover.top/" target="_blank" class="btn" style="color: #fff; background-color: #487747">
-                <img alt="avatar" src="https://avatars2.githubusercontent.com/u/24428416?s=160" class="avatar g-image" />
+                <img alt="avatar" src="https://avatars2.githubusercontent.com/u/24428416?s=160" class="avatar" />
                 <span>@idealclover</span>
             </a>
             <a href="https://github.com/kastnerorz" target="_blank" class="btn" style="color: #fff; background-color: #26498e">
-                <img alt="avatar" src="https://avatars3.githubusercontent.com/u/26199342?s=160" class="avatar g-image" />
+                <img alt="avatar" src="https://avatars3.githubusercontent.com/u/26199342?s=160" class="avatar" />
                 <span>@kastnerorz</span>
             </a>
             <a href="https://patrickwu.space/" target="_blank" class="btn" style="color: #fff; background-color: #61a3cf">
-                <img alt="avatar" src="https://avatars0.githubusercontent.com/u/15316889?s=160" class="avatar g-image" />
+                <img alt="avatar" src="https://avatars0.githubusercontent.com/u/15316889?s=160" class="avatar" />
                 <span>@Patrick Wu</span>
             </a>
             <p class="note">* I don't accept friend link requests from someone I don't know.</p>
         </div>
         <div class="post-comments"><div id="disqus_thread"></div></div>
     </div>
-    <script src="./assets/js/page--src--pages--friends-vue.1bcebb7c.js" defer></script>
+    <Author />
 </Layout>

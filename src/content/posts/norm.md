@@ -1,12 +1,10 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: 'Norm：简单介绍如何衡量机器学习中向量的「大小」'
 pubDate: 2020-04-08
-
-slug: norm
 tags: ['Linear Algebra', 'Machine Learning']
-image: ../images/norm.png
-
+image: 
+    url: /postImage/norm.png
+    alt: 'norm'
 description: '定量的衡量向量（Vector）的大小：Vector Norms in Machine Learning'
 ---
 

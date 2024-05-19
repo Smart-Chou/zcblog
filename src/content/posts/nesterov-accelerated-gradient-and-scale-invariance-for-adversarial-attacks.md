@@ -1,17 +1,11 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: 论文阅读：Nesterov Accelerated Gradient And Scale Invariance For Adversarial Attacks
 pubDate: 2020-05-21T21:00:00+08:00
-published: false
-slug: nifgsm-sim-adversarial-attack
-tags:
-- Literature Notes
-- Neural Network
-- Machine Learning
-image: "../images/nifgsm-sim-adversarial-attack.png"
-
+tags: ['Literature Notes', 'Neural Network', 'Machine Learning']
+image: 
+    url: "/postImage/nifgsm-sim-adversarial-attack.png"
+    alt: 'nifgsm-sim-adversarial-attack'
 description: ICLR 2020 的一篇论文，主要提出了 NI-FGSM 和 SIM 两种高性能基于迁移的黑盒攻击。
-
 ---
 这周组会分享了一篇论文：[Nesterov Accelerated Gradient And Scale Invariance For Adversarial Attacks](https://arxiv.org/abs/1908.06281)。这篇论文是一篇 ICLR 2020 的文章，作者是华中科技大学、北京大学和康奈尔大学的实验室。主要提出了 NI-FGSM 和 SIM 两种 Transfer-based 黑盒攻击。
 

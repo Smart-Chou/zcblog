@@ -1,17 +1,11 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: 震惊！竟然有人在 GitHub 上冒充我的身份！
 pubDate: 2020-08-30T17:50:00+08:00
-
-slug: wait-this-is-not-my-commit
-tags:
-- Security
-- GitHub
-- Git
-image: '../images/wait-this-is-not-my-commit.png'
-
+tags: ['Security','GitHub','Git']
+image: 
+    url: '/postImage/wait-this-is-not-my-commit.png'
+    alt: 'wait-this-is-not-my-commit'
 description: 所以 GPG Key 是必备，不要心存侥幸啦！快让 GitHub 给你的 commit 标上 verified 小勾勾。
-
 ---
 ## 起因
 

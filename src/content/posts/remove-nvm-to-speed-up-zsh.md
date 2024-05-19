@@ -1,17 +1,14 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Quit using nvm：快删掉这个占据 Zsh 启动时间一半的怪物！
 pubDate: 2020-07-28T14:30:00.000+08:00
-
-slug: remove-nvm-to-speed-up-zsh
 tags:
 - Shell
 - Dev Environment
 - CLI
-image: "../images/remove-nvm-to-speed-up-zsh.gif"
-
+image: 
+    url: "/postImage/remove-nvm-to-speed-up-zsh.gif"
+    alt: 'remove-nvm-to-speed-up-zsh'
 description: 没想到啊 nvm，竟然是你这个浓眉大眼的让我 Zsh 开一次足足等 2 秒！
-
 ---
 > ✍ Sept 5. 2020 的更新：
 

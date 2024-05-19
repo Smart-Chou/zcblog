@@ -1,15 +1,11 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Eureka！对，正是那个时刻
 pubDate: 2020-06-24T00:10:00+08:00
-
-slug: that-eureka-moment
-tags:
-- Life
-image: "../images/that-eureka-moment.png"
-
+tags: ['Life']
+image: 
+    url: '/postImage/that-eureka-moment.png'
+    alt: 'that-eureka-moment'
 description: 本来想让博客里面专注写技术，可惜想了想也没有别的特别好的地方发了。(#_<-) 大伙看个乐呵好啦~
-
 ---
 
 昨天晚上我们松散的大学班级在腾讯会议上结束了大学最后一次「班会」，很多人也可能是最后一次「见面」。昨天的活动也让我在这个毕业季终于有了一点毕业的感觉。情感不能像纯理性的论文或者科普教程一样能掰开了揉碎了来介绍讲解，我也不知道纯情感的「牢骚」适不适合发出来让大伙一起看看，甚至不知道直接发在我这个想要专注写技术的博客上面会不会太一言难尽。不管了，总之它来了。

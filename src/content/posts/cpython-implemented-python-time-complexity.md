@@ -1,14 +1,12 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Time Complexity：CPython 实现的 Python 操作的时间复杂度
 pubDate: 2020-08-20T11:00:00+08:00
-
-slug: cpython-implemented-python-time-complexity
 tags:
 - Algorithm
 - Python
-image: "../images/cpython-implemented-python-time-complexity.png"
-
+image: 
+    url: "/postImage/cpython-implemented-python-time-complexity.png"
+    alt: 'cpython-implemented-python-time-complexity'
 description: "「哎！这也能直接用！那也能直接用！快排都不用我手写了！」"
 
 ---

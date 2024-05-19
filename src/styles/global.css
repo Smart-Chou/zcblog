@@ -2367,12 +2367,12 @@ svg:not(:root).svg-inline--fa {
 .posts p span:after {
     content: ' ';
 }
-.not-found-container[data-v-fbe73250] {
+.not-found-container {
     text-align: center;
     max-width: var(--content-width);
     margin: 0 auto;
 }
-.not-found-container .description[data-v-fbe73250] {
+.not-found-container .description {
     opacity: 0.8;
 }
 .post-meta {
@@ -2653,4 +2653,21 @@ nav a {
     padding: 3px 10px;
     border: 2px var(--link-color);
     border-style: dashed;
+}
+
+.feather.feather-moon,
+.feather.feather-sun {
+    display: none;
+}
+
+body[data-theme='light'] .feather-moon {
+    display: block;
+}
+
+body[data-theme='dark'] .feather-sun {
+    display: block;
+}
+
+a {
+    text-decoration: none;
 }

@@ -1,12 +1,10 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Working Copy + iA Writer：第二次尝试从我的 iPad 上面更新博客
 pubDate: 2019-11-14
-
-slug: update-from-ipad-iawriter
 tags: ['iPad', 'Git']
-image: "../images/update-from-ipad-iawriter.png"
-
+image: 
+    url: '/postImage/update-from-ipad-iawriter.png'
+    alt: 'update-from-ipad-iawriter'
 description: "我又开始玩我的 iPad 了"
 ---
 

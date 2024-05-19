@@ -1,10 +1,9 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Recap 2020
 pubDate: 2021-01-02T02:00:00+08:00
 tags: ['Life']
 image: 
-    url: '../images/new-year-2021.png'
+    url: './postImage/new-year-2021.png'
     alt: 'new-year-2021'
 description: 新年快乐。
 ---

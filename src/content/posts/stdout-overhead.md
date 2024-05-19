@@ -1,12 +1,10 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: '「输出」开销：为什么我们向 stdout 输出时那么慢？'
 pubDate: 2020-02-22
-
-slug: stdout-overhead
 tags: ['Tech', 'Neural Network', 'Terminal', 'Principle']
-image: "../images/stdout-overhead.png"
-
+image: 
+    url: "/postImage/stdout-overhead.png"
+    alt: 'stdout-overhead'
 description: 'Console output overhead: why is writing to stdout so slow?'
 ---
 

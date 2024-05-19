@@ -1,12 +1,10 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: "Reverse Proxy | 反向代理是什么？"
 pubDate: 2019-11-22
-
-slug: reverse-proxy
 tags: ['Tech', 'Server']
-image: "../images/reverse-proxy.png"
-
+image: 
+    url: "/postImage/reverse-proxy.png"
+    alt: 'reverse-proxy'
 description: "Nginx 反向代理的工作原理"
 ---
 

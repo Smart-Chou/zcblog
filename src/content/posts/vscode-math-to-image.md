@@ -1,17 +1,11 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: VS Code Math to Image：在不支持 LaTeX 的地方插入数学公式
 pubDate: 2020-08-04T13:50:00+08:00
-
-slug: vscode-math-to-image
-tags:
-- Automation
-- Tech
-- VS Code
-image: "../images/vscode-math-to-image.png"
-
+tags: ['Automation','Tech','VS Code']
+image: 
+    url: '/postImage/vscode-math-to-image.png'
+    alt: vscode-math-to-image
 description: 为了解决 GitHub 无法渲染 LaTeX 数学公式的问题，我们编写了一个 VS Code 插件。
-
 ---
 :::note 🛹 同步发布
 * **在少数派上阅读本文** — [不支持 LaTeX 也能插入数学公式，这个小插件帮你实现「徒手渲染」](https://sspai.com/post/61877)。

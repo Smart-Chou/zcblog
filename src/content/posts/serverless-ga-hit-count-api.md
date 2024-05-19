@@ -1,18 +1,11 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Hit count：用 Google Analytics + Vercel Serverless 为文章添加浏览量统计
 pubDate: 2020-06-25T23:00:00+08:00
-
-slug: serverless-ga-hit-count-api
-tags:
-- Tech
-- Server
-- Vercel
-- Serverless
-image: "../images/serverless-ga-hit-count-api.png"
-
+tags: ['Tech', 'Server', 'Vercel', 'Serverless']
+image: 
+    url: "/postImage/serverless-ga-hit-count-api.png"
+    alt: 'serverless-ga-hit-count-api'
 description: 借助 Google Analytics 为数据支撑，使用 Vercel Serverless 为静态博客添加文章阅读数量统计 API。
-
 ---
 :::note 🍍 编者按
 本文灵感和部分方法极大程度来源于 @printempw 的文章：[使用 Google Analytics API 实现博客阅读量统计](https://printempw.github.io/google-analytics-api-page-views-counter/)，感谢。(　o=^•ェ•)o

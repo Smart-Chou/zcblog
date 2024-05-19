@@ -1,12 +1,10 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: "别用 Anaconda：如何搭建一个 decent 的机器学习开发环境？"
 pubDate: 2020-02-08
-
-slug: dont-use-anaconda
 tags: ['Dev Environment', 'Machine Learning', 'Medium']
-image: "../images/dont-use-anaconda.png"
-
+image: 
+    url: "/postImage/dont-use-anaconda.png"
+    alt: 'dont-use-anaconda'
 description: "Don’t use Anaconda: How to setup a decent machine learning environment?"
 ---
 
