@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import Layout from '../../layouts/BaseLayout.astro';
+import PostCardLayout from '../../layouts/PostCardLayout.astro';
+import BlogPost from '../../components/BlogPost.astro';
+
+const allPosts = await getCollection("archives");
+---
+
+<Layout>
+    <h1 class="text-center space-bottom">Archives</h1>
+    <PostCardLayout>
+        <p style="opacity: 0.6"><strong>(｡･∀･)ﾉﾞ I have published a total of 0 posts, 0 words since 2019.</strong></p>
+            {allPosts.map(post => <BlogPost url={`/archives/${post.slug}/`} title={post.data.title} pubDate={post.data.pubDate} />)}
+    </PostCardLayout>
+</Layout>

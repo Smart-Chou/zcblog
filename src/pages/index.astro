@@ -5,7 +5,7 @@ import Author from '../components/Author.astro';
 import PostCard from '../components/PostCard.astro';
 import Pager from '../components/Pager.astro';
 
-const allPosts = await getCollection('posts');
+const allPosts = await getCollection('archives');
 ---
 
 <Layout>
@@ -14,7 +14,7 @@ const allPosts = await getCollection('posts');
         <PostCard
             title={post.data.title}
             pubDate={post.data.pubDate}
-            postUrl={`/posts/${post.slug}/`}
+            postUrl={`/archives/${post.slug}/`}
             imageUrl={post.data.image.url}
             description={post.data.description}
             tags={post.data.tags}

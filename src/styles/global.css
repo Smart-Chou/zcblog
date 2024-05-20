@@ -362,8 +362,8 @@ code {
     font-size: 0.9em;
     padding: 0.2em 0.5em;
 }
-code[class*='language-'],
-pre[class*='language-'] {
+code,
+pre {
     font-family: var(--monospace-font-family);
     text-align: left;
     white-space: pre-wrap;
@@ -378,22 +378,22 @@ pre[class*='language-'] {
     hyphens: none;
 }
 @media print {
-    code[class*='language-'],
-    pre[class*='language-'] {
+    code,
+    pre {
         text-shadow: none;
     }
 }
-pre[class*='language-'] {
+pre {
     overflow: auto;
     color: var(--text-code-block);
 }
-:not(pre) > code[class*='language-'] {
+:not(pre) > code {
     color: var(--text-code);
     white-space: normal;
     background-color: var(--bg-content-color);
 }
-:not(pre) > code[class*='language-']:after,
-:not(pre) > code[class*='language-']:before {
+:not(pre) > code:after,
+:not(pre) > code:before {
     content: '`';
 }
 .token.cdata,
