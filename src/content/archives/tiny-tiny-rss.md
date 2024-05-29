@@ -3,7 +3,7 @@ title: Tiny Tiny RSS | 最速部署私有 RSS 服务器
 pubDate: 2019-11-18
 tags: ['RSS', 'Tech', 'Server']
 image: 
-    url: './postImage/tiny-tiny-rss.png'
+    url: '/postImage/tiny-tiny-rss.png'
     alt: 'tiny-tiny-rss'
 description: 使用 Awesome TTRSS 部署 Tiny Tiny RSS 的 Docker 镜像
 ---

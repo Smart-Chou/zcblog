@@ -1,0 +1,40 @@
+---
+const { page } = Astro.props as any;
+---
+
+<nav aria-label="Pagination Navigation">
+    <a href={page.url.prev ?? '#'} aria-label="Previous" class={page.url.prev ? '' : 'disabled'}>Previous</a>
+    {
+        Array.from({ length: page.totalPages }).map((_, i) => {
+            const pageNumber = i + 1;
+            const href = pageNumber === 1 ? '/' : `/${pageNumber}`;
+            return (
+                <a data-key={pageNumber} href={href} aria-current={pageNumber === page.currentPage ? 'page' : null} class={pageNumber === page.currentPage ? 'active' : ''}>
+                    {pageNumber}
+                </a>
+            );
+        })
+    }
+    <a href={page.url.next ?? '#'} aria-label="Next" class={page.url.next ? '' : 'disabled'}>Next</a>
+</nav>
+
+<style>
+    nav a {
+        margin: 0 5px;
+        padding: 5px 10px;
+        text-decoration: none;
+        border: 1px dashed blue;
+        color: blue;
+    }
+
+    nav a.active {
+        font-weight: bold;
+        border: 1px solid blue;
+    }
+
+    nav a.disabled {
+        pointer-events: none;
+        color: gray;
+        border: 1px dashed gray;
+    }
+</style>

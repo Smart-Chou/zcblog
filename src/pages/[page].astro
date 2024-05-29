@@ -14,13 +14,13 @@ const allPosts = await getCollection('archives');
 const pageSize = 10;
 
 // 计算总页数
-const currentPage = 1;
+const currentPage = parseInt(Astro.url.pathname.split('/').pop() ?? '1', 10);
 const totalPages = Math.ceil(allPosts.length / pageSize);
 
 // 计算前一页和后一页的URL
 const pageData = {
     url: {
-        prev: null,
+        prev: currentPage > 1 ? (currentPage === 2 ? '/' : `/${currentPage - 1}`) : null,
         next: currentPage < totalPages ? `/${currentPage + 1}` : null,
     },
     totalPages,
@@ -52,4 +52,3 @@ const pagePosts = allPosts.slice(start, end).sort((a, b) => new Date(b.data.pubD
 <style>
     
 </style>
-
