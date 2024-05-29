@@ -3,12 +3,14 @@ import { getCollection } from 'astro:content';
 import Layout from '~/layouts/BaseLayout.astro';
 import Author from '~/components/Author.astro';
 import PostCard from '~/components/PostCard.astro';
-import Pagination from '~/components/Pagination.astro';
+// import Pagination from '~/components/Pagination.astro';
 
 export async function getStaticPaths({ paginate }) {
     const allPostsPages = await getCollection('archives');
     return paginate(allPostsPages, { pageSize: 10 });
 }
+
+const { page } = Astro.props as any;
 
 const allPosts = await getCollection('archives');
 const pageSize = 10;
@@ -46,9 +48,41 @@ const pagePosts = allPosts.slice(start, end).sort((a, b) => new Date(b.data.pubD
             />
         ))}
     </div>
-    <Pagination page={pageData} />
+    <!-- <Pagination page={pageData} /> -->
+    <nav aria-label="Pagination Navigation">
+        <a href={pageData.url.prev ?? '#'} aria-label="Previous" class={pageData.url.prev ? '' : 'disabled'}>Previous</a>
+        {
+            Array.from({ length: pageData.totalPages }).map((_, i) => {
+                const pageNumber = i + 1;
+                const href = pageNumber === 1 ? '/' : `/${pageNumber}`;
+                return (
+                    <a data-key={pageNumber} href={href} aria-current={pageNumber === pageData.currentPage ? 'page' : null} class={pageNumber === pageData.currentPage ? 'active' : ''}>
+                        {pageNumber}
+                    </a>
+                );
+            })
+        }
+        <a href={pageData.url.next ?? '#'} aria-label="Next" class={pageData.url.next ? '' : 'disabled'}>Next</a>
+    </nav>
 </Layout>
 
 <style>
-    
+    nav a {
+        margin: 0 5px;
+        padding: 5px 10px;
+        text-decoration: none;
+        border: 1px dashed blue;
+        color: blue;
+    }
+
+    nav a.active {
+        font-weight: bold;
+        border: 1px solid blue;
+    }
+
+    nav a.disabled {
+        pointer-events: none;
+        color: gray;
+        border: 1px dashed gray;
+    }
 </style>
