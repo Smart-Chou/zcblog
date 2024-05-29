@@ -1,8 +1,9 @@
 ---
-import Layout from './BaseLayout.astro';
-import Author from '../components/Author.astro';
-import PostTag from '../components/PostTag.astro';
-import PostTagLayout from './PostTagLayout.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Author from '~/components/Author.astro';
+import PostTag from '~/components/PostTag.astro';
+import BackToTop from '~/components/BackToTop.astro';
+import PostTagLayout from '~/layouts/PostTagLayout.astro';
 
 const { frontmatter } = Astro.props;
 
@@ -11,7 +12,7 @@ const publishTime = new Date(frontmatter.pubDate);
 const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (1000 * 60 * 60 * 24));
 ---
 
-<Layout pageTitle={frontmatter.title}>
+<BaseLayout pageTitle={frontmatter.title}>
     <div class="post-title">
         <h1 class="post-title__text">
             {frontmatter.title}
@@ -44,10 +45,7 @@ const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (10
         </PostTagLayout>
         <div class="post__navigation"><a href="/2021/01/new-year-2021/" class="navlink" style="float: left;">◀ Recap 2020</a><a href="/2020/08/cpython-implemented-python-time-complexity/" class="navlink" style="float: right;">Time Complexity：CPython 实现的 Python 操作的时间复杂度 ▶</a></div>
     </div>
-    <div id="back-to-top">
-        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="back-to-top-icon" class="svg-inline--fa fa-arrow-up fa-w-14">
-            <path fill="currentColor" d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"></path>
-        </svg>
-    </div>
+    <BackToTop />
     <Author />
-</Layout>
+</BaseLayout>
+

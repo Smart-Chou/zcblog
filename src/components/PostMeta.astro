@@ -1,0 +1,47 @@
+---
+const { date } = Astro.props;
+---
+
+
+<div class="post-meta post-card__meta">
+    Posted {date}.
+    <span id="word-count">words.</span>
+    <span id="read-time"></span>
+    <script is:inline>
+        try {
+            const wordCountElementRef = document.getElementById('word-count');
+            const readTimeElementRef = document.getElementById('read-time');
+
+            const wordCount = function() {
+                const element = document.querySelector('.post-card__content');
+                const text = element.textContent || element.innerText;
+                const words = text.split(/\s+/).filter(word => word !== '').length;
+                wordCountElementRef.innerText = `${words} words.`;
+            }
+
+            const calculateReadTime = function() {
+                const element = document.querySelector('.post-card__content');
+                const text = element.textContent || element.innerText;
+                const words = text.split(/\s+/).filter(word => word !== '').length;
+                const minutes = Math.ceil(words / 25);
+                readTimeElementRef.innerText = ` ${minutes} min read.`;
+            }
+
+            wordCount();
+            calculateReadTime();
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const observer = new MutationObserver(() => {
+                    calculateReadTime();
+                });
+
+                observer.observe(document.querySelector('.post-card__content'), {
+                    childList: true,
+                    subtree: true
+                });
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    </script>
+</div>
