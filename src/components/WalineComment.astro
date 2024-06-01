@@ -5,7 +5,11 @@
 <div id="waline"></div>
 
 <script>
-  // 中文默认
+  import { init } from '@waline/client'
+  import '@waline/client/style'
+  import '@waline/client/meta'
+
+  document.addEventListener('astro:page-load', () => {
   const locale = {
     level0: '炼体',
     level1: '炼气',
@@ -22,9 +26,6 @@
     reaction5: '周公叫我',
   }
 
-  import { init } from '@waline/client'
-  import '@waline/client/style'
-  import '@waline/client/meta'
   const walineElement = document.getElementById('waline')
   if (walineElement) {
     const origin = window.location.hostname == 'localhost' ? 'https://waline.marxchou.com/' : window.location.origin
@@ -45,6 +46,7 @@
       emoji: ['https://unpkg.com/@waline/emojis@1.2.0/qq', 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili'],
     })
   }
+  })
 </script>
 
 <style>

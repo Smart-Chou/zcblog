@@ -1,15 +1,16 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from 'astro-icon/components'
 ---
 
 <div class="header__right">
   <button id="theme-btn" role="button" aria-label="Toggle dark/light" class="toggle-theme">
-    <Icon name="tabler:sun" class="feather feather-sun"/>
-    <Icon name="tabler:moon-stars" class="feather feather-moon"/>
+    <Icon name="tabler:sun" class="feather feather-sun" />
+    <Icon name="tabler:moon-stars" class="feather feather-moon" />
   </button>
 </div>
 
-<script is:inline>
+<script>
+document.addEventListener('astro:page-load', () => {
   // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
   function __setPreferredTheme(theme) {
     document.body.setAttribute('data-theme', theme)
@@ -29,15 +30,28 @@ import { Icon } from 'astro-icon/components';
       __setPreferredTheme(newTheme)
     })
   }
+})
+</script>
+
+<script>
+  document.addEventListener('astro:after-swap', () => {
+    const preferredTheme = localStorage.getItem('preferredTheme') || 'light';
+    document.body.setAttribute('data-theme', preferredTheme);
+    if (preferredTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  });
 </script>
 
 <style>
-  [data-icon="tabler:sun"] {
+  [data-icon='tabler:sun'] {
     width: 30px;
     height: 30px;
   }
-  
-  [data-icon="tabler:moon-stars"] {
+
+  [data-icon='tabler:moon-stars'] {
     width: 30px;
     height: 24px;
   }

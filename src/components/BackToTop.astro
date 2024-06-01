@@ -1,34 +1,40 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from 'astro-icon/components'
 ---
 
 <div id="back-to-top">
-    <Icon name="simple-icons:spaceship" />
+  <Icon name="simple-icons:spaceship" />
 </div>
 
-<script is:inline>
+<script>
+  document.addEventListener('astro:page-load', () => {
     window.addEventListener('scroll', function (e) {
-        const scrollHeight = window.scrollY;
-        if (scrollHeight > 1000) {
-            document.getElementById('back-to-top').classList.add('active');
-        } else {
-            document.getElementById('back-to-top').classList.remove('active');
-        }
-    });
-    document.getElementById('back-to-top').addEventListener('click', function (e) {
+      const scrollHeight = window.scrollY
+      const backToTopElement = document.getElementById('back-to-top')
+      if (backToTopElement && scrollHeight > 1000) {
+        backToTopElement.classList.add('active')
+      } else if (backToTopElement) {
+        backToTopElement.classList.remove('active')
+      }
+    })
+    const backToTopElement = document.getElementById('back-to-top')
+    if (backToTopElement) {
+      backToTopElement.addEventListener('click', function (e) {
         window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
-    });
+          top: 0,
+          behavior: 'smooth',
+        })
+      })
+    }
+  })
 </script>
 
 <style>
-#back-to-top {
+  #back-to-top {
     display: none;
-}
+  }
 
-#back-to-top.active {
+  #back-to-top.active {
     display: block;
-}
+  }
 </style>

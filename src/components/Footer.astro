@@ -3,36 +3,26 @@ import { Icon } from 'astro-icon/components'
 ---
 
 <footer class="footer">
-  <div class="footer__copyright">Copyright ©2017 - 2024.</div>
+  <div class="footer__copyright"><span>Copyright ©2017 - 2024.</span></div>
   <div class="footer__links">
-    Runs on
-    <Icon name="logos:astro-icon" />
-    <a href="//astro.build">Astro</a>
-    and
-    <Icon name="tabler:heart-filled" />
-    Love.
+    <span>Runs on</span><Icon name="logos:astro-icon" /><a href="//astro.build">Astro</a><span>and</span><Icon name="tabler:heart-filled" /><span>Love.</span>
   </div>
   <div class="footer__links">
-    Deployed on
-    <Icon name="logos:vercel-icon" />
-    <a href="//vercel.com/">Vercel</a>
-    .
+    <span>Statistics provided by</span><Icon name="simple-icons:umami" /><a href="//umami.is/">Umami</a><span>.</span>
   </div>
   <div class="footer__links">
-    Statistics provided by
-    <Icon name="simple-icons:umami" />
-    <a href="//umami.is/">Umami</a>
-    .
+    <span>Deployed on</span><Icon name="logos:vercel-icon" /><a href="//vercel.com/">Vercel</a><span>.</span>
   </div>
   <div id="rss-stats">
-    <Icon name="simple-icons:rss" />
-    <a href="/rss.xml">
-      RSS
-    </a>
-    &nbsp; & &nbsp;&nbsp;&nbsp;
-    <Icon name="tabler:sitemap" />
-    <a href="/sitemap-index.xml">
-      Sitemap
-    </a>
+    &nbsp;&nbsp;<a href="/rss.xml"><span>RSS</span></a><Icon name="tabler:point-filled" /><a href="/sitemap-index.xml"><span>Sitemap</span></a>
   </div>
 </footer>
+
+<style>
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  span {
+    margin: 0.25rem;
+  }
+</style>

@@ -54,6 +54,7 @@ const postsWithMeta = archives.map(post => {
     import { pageviewCount } from '@waline/client/pageview';
     import { commentCount } from '@waline/client/comment';
 
+    document.addEventListener('astro:page-load', () => {
     const origin = window.location.hostname == 'localhost' ? 'https://waline.marxchou.com/' : window.location.origin
     const serverURL = origin
     const path =  window.location.pathname
@@ -66,5 +67,6 @@ const postsWithMeta = archives.map(post => {
     commentCount({
         serverURL,
         path,
+    });
     });
 </script>

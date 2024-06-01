@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components'
+import authorImg from '~/assets/author.jpg'
 
 const localList = [
   {
@@ -85,7 +86,7 @@ const socials = socialsList.map(social => {
 ---
 
 <div class="author">
-  <img src="/assets/static/author.e6b6009.39e7de96836586e14662ec7a3092de84.jpg" class="author__image" width="180" alt="Author image" />
+  <img src={authorImg.src} alt="Author image" class="author__image" width="180" />
   <h1 class="author__site-title">Spencer's Blog</h1>
   <p class="author__intro">阿巴阿巴 o((&gt;ω&lt; ))o</p>
   <p class="author__links">
@@ -96,7 +97,7 @@ const socials = socialsList.map(social => {
         </a>
       ))
     }
-    /
+    <span>/</span>
     {
       socials.map(social => (
         <a href={social.url} target="_blank" title={social.title} rel="noopener" class="has-tooltip active" style={social.style}>

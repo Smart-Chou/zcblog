@@ -1,5 +1,7 @@
 ---
-import Layout from '~/layouts/BaseLayout.astro';
+import Layout from '~/layouts/BaseLayout.astro'; 
+import { Image } from 'astro:assets';
+import notFound from '~/assets/404.svg'
 ---
 <Layout>
     <div>
@@ -9,7 +11,7 @@ import Layout from '~/layouts/BaseLayout.astro';
                 🍌 Oh, no, not here.
                 <a href="/" class="active" >Take me back home. ↩</a>
             </p>
-            <img src="/assets/static/404.74ecd2d.0bc97a81b234628e05fec80dcdf3e3a4.svg" class="not-found-bg--loaded" width="1440" alt="404 Not Found" />
+            <Image src={notFound} alt="404 Not Found" class="not-found-bg--loaded" width="600"/>
         </div>
     </div>
 </Layout>

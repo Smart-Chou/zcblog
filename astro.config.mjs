@@ -17,5 +17,8 @@ export default defineConfig({
         limitInputPixels: false,
       },
     },
+    domains: ["avatars.githubusercontent.com"],
+    remotePatterns: [{ protocol: "https" }],
+    trailingSlash: 'always',
   },
 })

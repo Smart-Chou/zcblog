@@ -62,12 +62,12 @@ const currentSlug = Astro.params.slug
               return (
                 <>
                   {prevPost && (
-                    <a href={`/archives/${prevPost.slug}`} class="navlink" style="float: left;">
+                    <a href={`/archives/${prevPost.slug}/`} class="navlink" style="float: left;">
                       ◀ {prevPost.data.title}
                     </a>
                   )}
                   {nextPost && (
-                    <a href={`/archives/${nextPost.slug}`} class="navlink" style="float: right;">
+                    <a href={`/archives/${nextPost.slug}/`} class="navlink" style="float: right;">
                       {nextPost.data.title} ▶
                     </a>
                   )}

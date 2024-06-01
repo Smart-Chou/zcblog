@@ -2531,6 +2531,7 @@ svg:not(:root).svg-inline--fa {
 
 .footer svg {
     margin-right: 0.2rem;
+    max-width: 0.9rem;
 }
 
 .footer #rss-stats {
@@ -2950,4 +2951,8 @@ a {
     .wl-editor {
         min-height: auto !important;
     }
+}
+
+svg {
+    vertical-align: middle;
 }
