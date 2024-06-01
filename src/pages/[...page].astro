@@ -1,88 +1,76 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '~/layouts/BaseLayout.astro';
-import Author from '~/components/Author.astro';
-import PostCard from '~/components/PostCard.astro';
-// import Pagination from '~/components/Pagination.astro';
+import { getCollection } from 'astro:content'
+import Layout from '~/layouts/BaseLayout.astro'
+import Author from '~/components/Author.astro'
+import PostCard from '~/components/PostCard.astro'
+import Pagination from '~/components/Pagination.astro'
+import { calculateReadTime, calculateWordCount } from '~/utils'
 
 export async function getStaticPaths({ paginate }) {
-    const allPostsPages = await getCollection('archives');
-    return paginate(allPostsPages, { pageSize: 10 });
+  const allPosts = await getCollection('archives')
+  const sortedPosts = allPosts.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  return paginate(sortedPosts, { pageSize: 10 })
 }
 
-const { page } = Astro.props as any;
+const { page } = Astro.props as any
 
-const allPosts = await getCollection('archives');
-const pageSize = 10;
+const postsWithMeta = page.data.map(post => {
+  const wordCount = calculateWordCount(post.body)
+  const readTime = calculateReadTime(wordCount)
+  
+  return {
+      ...post,
+      wordCount,
+      readTime,
+      slug: post.slug
+    }
+})
 
-// 计算总页数
-const currentPage = parseInt(Astro.url.pathname.split('/').pop() ?? '1', 10);
-const totalPages = Math.ceil(allPosts.length / pageSize);
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 
-// 计算前一页和后一页的URL
-const pageData = {
-    url: {
-        prev: currentPage > 1 ? (currentPage === 2 ? '/' : `/${currentPage - 1}`) : null,
-        next: currentPage < totalPages ? `/${currentPage + 1}` : null,
-    },
-    totalPages,
-    currentPage,
-};
+dayjs.extend(utc)
 
-const start = (currentPage - 1) * pageSize;
-const end = currentPage * pageSize;
-const pagePosts = allPosts.slice(start, end).sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+const lastModified = dayjs(page.lastModified).utc().format('YYYY-MM-DD')
 ---
+
 <Layout>
-    <Author />
-    <div class="post">
-        {pagePosts.map(post => (
-            <PostCard
-                key={post.slug}
-                title={post.data.title}
-                pubDate={post.data.pubDate}
-                postUrl={`/archives/${post.slug}/`}
-                imageUrl={post.data.image.url}
-                description={post.data.description}
-                tags={post.data.tags}
-            />
-        ))}
-    </div>
-    <!-- <Pagination page={pageData} /> -->
-    <nav aria-label="Pagination Navigation">
-        <a href={pageData.url.prev ?? '#'} aria-label="Previous" class={pageData.url.prev ? '' : 'disabled'}>Previous</a>
-        {
-            Array.from({ length: pageData.totalPages }).map((_, i) => {
-                const pageNumber = i + 1;
-                const href = pageNumber === 1 ? '/' : `/${pageNumber}`;
-                return (
-                    <a data-key={pageNumber} href={href} aria-current={pageNumber === pageData.currentPage ? 'page' : null} class={pageNumber === pageData.currentPage ? 'active' : ''}>
-                        {pageNumber}
-                    </a>
-                );
-            })
-        }
-        <a href={pageData.url.next ?? '#'} aria-label="Next" class={pageData.url.next ? '' : 'disabled'}>Next</a>
-    </nav>
+  <Author />
+  <div class="post">
+    {postsWithMeta.map(post => (
+      <PostCard 
+        key={post.slug} 
+        title={post.data.title} 
+        pubDate={post.data.pubDate} 
+        postUrl={`/archives/${post.slug}/`} 
+        imageUrl={post.data.image.url} 
+        description={post.data.description} 
+        tags={post.data.tags} 
+        wordCount={post.wordCount} 
+        readTime={post.readTime} 
+        currentSlug={post.slug}
+        lastModified={lastModified}
+      />
+    ))}
+  </div>
+  <Pagination page={page} />
 </Layout>
 
-<style>
-    nav a {
-        margin: 0 5px;
-        padding: 5px 10px;
-        text-decoration: none;
-        border: 1px dashed blue;
-        color: blue;
-    }
+<script>
+    import { pageviewCount } from '@waline/client/pageview';
+    import { commentCount } from '@waline/client/comment';
 
-    nav a.active {
-        font-weight: bold;
-        border: 1px solid blue;
-    }
+    const origin = window.location.hostname == 'localhost' ? 'https://waline.marxchou.com/' : window.location.origin
+    const serverURL = origin
+    const path =  window.location.pathname
 
-    nav a.disabled {
-        pointer-events: none;
-        color: gray;
-        border: 1px dashed gray;
-    }
-</style>
+    pageviewCount({
+        serverURL,
+        path,
+    });
+
+    commentCount({
+        serverURL,
+        path,
+    });
+</script>

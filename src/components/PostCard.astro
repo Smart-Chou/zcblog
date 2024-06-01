@@ -2,7 +2,8 @@
 import PostCardLayout from '~/layouts/PostCardLayout.astro';
 import PostTag from '~/components/PostTag.astro';
 import PostMeta from '~/components/PostMeta.astro';
-const { imageUrl, title, description, pubDate, tags, postUrl } = Astro.props;
+
+const { imageUrl, title, description, pubDate, tags, postUrl, wordCount, readTime, currentSlug, lastModified} = Astro.props;
 ---
 
 <PostCardLayout>
@@ -11,7 +12,7 @@ const { imageUrl, title, description, pubDate, tags, postUrl } = Astro.props;
     </div>
     <h2 class="post-card__title">{title}</h2>
     <p class="post-card__description">{description}</p>
-    <PostMeta date={pubDate.toString().slice(0, 10)} />
+    <PostMeta date={pubDate.toISOString().slice(0, 10)} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} lastModified={lastModified}/>
     <div class="post-tags post-card__tags">
         {tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}`} />)}
     </div>

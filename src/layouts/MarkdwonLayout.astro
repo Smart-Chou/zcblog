@@ -1,51 +1,82 @@
 ---
-import BaseLayout from '~/layouts/BaseLayout.astro';
-import Author from '~/components/Author.astro';
-import PostTag from '~/components/PostTag.astro';
-import BackToTop from '~/components/BackToTop.astro';
-import PostTagLayout from '~/layouts/PostTagLayout.astro';
+import { getCollection } from 'astro:content'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import Author from '~/components/Author.astro'
+import PostTag from '~/components/PostTag.astro'
+import BackToTop from '~/components/BackToTop.astro'
+import PostTagLayout from '~/layouts/PostTagLayout.astro'
+import PostMeta from '~/components/PostMeta.astro'
+import { calculateReadTime, calculateWordCount } from '~/utils'
+import WalineComment from '~/components/WalineComment.astro'
 
-const { frontmatter } = Astro.props;
+const { frontmatter,lastModified } = Astro.props
+const today = new Date()
+const publishTime = new Date(frontmatter.pubDate)
+const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (1000 * 60 * 60 * 24))
 
-const today = new Date();
-const publishTime = new Date(frontmatter.pubDate);
-const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (1000 * 60 * 60 * 24));
+const allPosts = await getCollection('archives')
+const postWithMeta = allPosts.find(post => post.slug === Astro.params.slug)
+const wordCount = postWithMeta?.body ? calculateWordCount(postWithMeta.body) : undefined
+const readTime = wordCount ? calculateReadTime(wordCount) : undefined
+const currentSlug = Astro.params.slug
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-    <div class="post-title">
-        <h1 class="post-title__text">
-            {frontmatter.title}
-        </h1>
-        <div class="post-meta">
-            Posted {frontmatter.pubDate.toString().slice(0, 10)}
-            <!-- 1239 words.<strong>6 min read.</strong> -->
-        </div>
+  <div class="post-title">
+    <h1 class="post-title__text">
+      {frontmatter.title}
+    </h1>
+    <PostMeta date={publishTime.toISOString().slice(0, 10)} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} lastModified={lastModified}/>
+  </div>
+  <div class="post content-box">
+    <div class="post-card__header">
+      <img src={frontmatter.image.url} class="post-card__image" width="1280" alt="Cover image" />
     </div>
-    <div class="post content-box">
-        <div class="post-card__header">
-            <img src={frontmatter.image.url} class="post-card__image" width="1280" alt="Cover image" />
+    {
+      publishedDays >= 180 ? (
+        <div class="admonition admonition-warning">
+          <p style="margin-bottom: 0;">
+            🌶 <strong>过期警告：</strong> 本页面距今已有
+            {publishedDays}
+            天未更新，年久失修，内容可能有所偏颇，还请仔细甄别！
+          </p>
         </div>
-        {
-            publishedDays >= 180 ? (
-                <div class="admonition admonition-warning">
-                    <p style="margin-bottom: 0;">
-                        🌶 <strong>过期警告：</strong> 本页面距今已有
-                        {publishedDays}
-                        天未更新，年久失修，内容可能有所偏颇，还请仔细甄别！
-                    </p>
-                </div>
-            ) : null
-        }
-        <div class="post__content">
-            <slot />
-        </div>
-        <PostTagLayout>
-            {frontmatter.tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}`} />)}
-        </PostTagLayout>
-        <div class="post__navigation"><a href="/2021/01/new-year-2021/" class="navlink" style="float: left;">◀ Recap 2020</a><a href="/2020/08/cpython-implemented-python-time-complexity/" class="navlink" style="float: right;">Time Complexity：CPython 实现的 Python 操作的时间复杂度 ▶</a></div>
+      ) : null
+    }
+    <div class="post__content">
+      <slot />
     </div>
-    <BackToTop />
-    <Author />
+    <PostTagLayout>
+      {frontmatter.tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}`} />)}
+    </PostTagLayout>
+    <div class="post__navigation">
+      {
+        allPosts
+          .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+          .map((post, index) => {
+            if (post.slug === Astro.params.slug) {
+              const prevPost = index > 0 ? allPosts[index - 1] : null
+              const nextPost = index < allPosts.length - 1 ? allPosts[index + 1] : null
+              return (
+                <>
+                  {prevPost && (
+                    <a href={`/archives/${prevPost.slug}`} class="navlink" style="float: left;">
+                      ◀ {prevPost.data.title}
+                    </a>
+                  )}
+                  {nextPost && (
+                    <a href={`/archives/${nextPost.slug}`} class="navlink" style="float: right;">
+                      {nextPost.data.title} ▶
+                    </a>
+                  )}
+                </>
+              )
+            }
+          })
+      }
+    </div>
+  </div>
+  <BackToTop />
+  <Author />
+  <WalineComment />
 </BaseLayout>
-

@@ -1,26 +1,55 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
 import Layout from '~/layouts/BaseLayout.astro';
 import PostCardLayout from '~/layouts/PostCardLayout.astro';
 import BlogPost from '~/components/BlogPost.astro';
 
-const allPosts = await getCollection("archives");
+const allPosts = await getCollection('archives');
+
+const postsByYear = allPosts.reduce((acc, post) => {
+    const year = new Date(post.data.pubDate).getFullYear();
+    if (!acc[year]) {
+        acc[year] = [];
+    }
+    acc[year].push(post);
+    return acc;
+}, {});
+
+const calculateWordCount = text => {
+    const regex = /[\u4e00-\u9fa5]|[a-zA-Z]+|\d+/g;
+    const matches = text.match(regex);
+    return matches ? matches.length : 0;
+};
+
+const totalPosts = allPosts.length;
+const totalWords = allPosts.reduce((sum, post) => sum + calculateWordCount(post.body), 0)
+const totalWordsInThousands = (totalWords / 1000).toFixed(1) + `k`;
+const startYear = Math.min(...allPosts.map(post => new Date(post.data.pubDate).getFullYear()));
 ---
 
 <Layout>
     <h1 class="text-center space-bottom">Archives</h1>
     <PostCardLayout>
         <p style="opacity: 0.6">
-            <strong>(｡･∀･)ﾉﾞ I have published a total of 0 posts, 0 words since 2019.</strong>
+            <strong>(｡･∀･)ﾉﾞ I have published a total of {totalPosts} posts, {totalWordsInThousands} words since {startYear}.</strong>
         </p>
-            {allPosts
-            .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
-            .map(post => 
-                <BlogPost 
-                    url={`/archives/${post.slug}/`} 
-                    title={post.data.title} 
-                    pubDate={post.data.pubDate} 
-                />
-            )}
+        {
+            Object.keys(postsByYear)
+                .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+                .map(year => (
+                    <section data-key={year}>
+                        <h2>{year}</h2>
+                        {postsByYear[year]
+                            .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+                            .map(post => (
+                                <BlogPost 
+                                    key={post.slug} 
+                                    url={`/archives/${post.slug}/`} 
+                                    title={post.data.title} 
+                                    pubDate={post.data.pubDate} />
+                            ))}
+                    </section>
+                ))
+        }
     </PostCardLayout>
 </Layout>

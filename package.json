@@ -1,15 +1,53 @@
 {
-  "name": "",
+  "name": "@marxchou/spwblog",
+  "version": "1.0.0",
+  "description": "AstroWind: A free template using Astro 4.0 and Tailwind CSS. Astro starter theme.",
   "type": "module",
-  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": "^18.17.1 || ^20.3.0 || >= 21.0.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier -w .",
+    "lint:eslint": "eslint ."
   },
   "dependencies": {
-    "astro": "^4.9.2"
+    "@astrojs/rss": "^4.0.6",
+    "@astrojs/sitemap": "^3.1.5",
+    "@astrolib/analytics": "^0.5.0",
+    "@astrolib/seo": "^1.0.0-beta.5",
+    "@waline/client": "^3.2.1",
+    "astro": "^4.9.2",
+    "astro-embed": "^0.7.2",
+    "astro-icon": "^1.1.0",
+    "astro-pagefind": "^1.5.0",
+    "dayjs": "^1.11.11"
+  },
+  "devDependencies": {
+    "@iconify-json/simple-icons": "^1.1.10",
+    "@iconify-json/tabler": "^1.1.111",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead",
+    "Firefox 52",
+    "IE >=8",
+    "Chrome 49"
+  ],
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "proseWrap": "always"
   }
 }

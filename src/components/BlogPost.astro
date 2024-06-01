@@ -1,8 +1,30 @@
 ---
 const { title, url, pubDate } = Astro.props;
+const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
+    month: 'short',
+    day: '2-digit'
+});
 ---
 
-<p>
-    <span>{pubDate.toString().slice(0, 10)}</span>
-    <a href={url}>{title}</a>
+<p class="archive-meta">
+    <span class="archive-date">{formattedDate}</span>
+    <a class="archive-title" href={url}>{title}</a>
 </p>
+
+<style>
+    .archive-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .archive-date {
+        color: gray;
+    }
+    .archive-title {
+        text-decoration: none;
+        color: blue;
+    }
+    .archive-title:hover {
+        text-decoration: underline;
+    }
+</style>

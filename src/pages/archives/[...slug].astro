@@ -1,18 +1,27 @@
 ---
-import { getCollection } from 'astro:content';
-import MarkdwonLayout from '~/layouts/MarkdwonLayout.astro';
+import { getCollection } from 'astro:content'
+import MarkdwonLayout from '~/layouts/MarkdwonLayout.astro'
+
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+
+dayjs.extend(utc)
 
 export async function getStaticPaths() {
-    const blogEntries = await getCollection('archives');
-    return blogEntries.map(entry => ({
-        params: { slug: entry.slug },
-        props: { entry },
-    }));
+  const archives = await getCollection('archives')
+  return archives.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }))
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { entry } = Astro.props
+
+const { Content, remarkPluginFrontmatter } = await entry.render()
+
+const lastModified = dayjs(remarkPluginFrontmatter.lastModified).utc().format('YYYY-MM-DD')
 ---
-<MarkdwonLayout frontmatter={entry.data}>
-    <Content />
+
+<MarkdwonLayout frontmatter={entry.data} lastModified={lastModified}>
+  <Content />
 </MarkdwonLayout>

@@ -1,40 +1,74 @@
 ---
+import { Icon } from 'astro-icon/components';
 const { page } = Astro.props as any;
 ---
 
 <nav aria-label="Pagination Navigation">
-    <a href={page.url.prev ?? '#'} aria-label="Previous" class={page.url.prev ? '' : 'disabled'}>Previous</a>
+    <a href={page.url.prev ?? '#'} aria-label="Previous" class={page.url.prev ? '' : 'disabled'}><Icon name="tabler:arrow-badge-left-filled" /></a>
     {
-        Array.from({ length: page.totalPages }).map((_, i) => {
+        Array.from({ length: page.lastPage }).map((_, i) => {
             const pageNumber = i + 1;
             const href = pageNumber === 1 ? '/' : `/${pageNumber}`;
             return (
-                <a data-key={pageNumber} href={href} aria-current={pageNumber === page.currentPage ? 'page' : null} class={pageNumber === page.currentPage ? 'active' : ''}>
-                    {pageNumber}
-                </a>
+                <a  data-key={pageNumber} 
+                    href={href} 
+                    aria-current={pageNumber === page.currentPage ? 'page' : null} 
+                    class={pageNumber === page.currentPage ? 'active' : ''
+                }>{pageNumber}</a>
             );
         })
     }
-    <a href={page.url.next ?? '#'} aria-label="Next" class={page.url.next ? '' : 'disabled'}>Next</a>
+    <a href={page.url.next ?? '#'} aria-label="Next" class={page.url.next ? '' : 'disabled'}><Icon name="tabler:arrow-badge-right-filled" /></a>
 </nav>
 
 <style>
+    nav {
+        max-width: var(--content-width);
+        margin: 0 auto;
+        text-align: center;
+    }
     nav a {
-        margin: 0 5px;
-        padding: 5px 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+        padding: 3px 10px;
+        border: 2px var(--link-color);
+        border-style: dashed;
         text-decoration: none;
-        border: 1px dashed blue;
         color: blue;
+        width: 40px; 
+        height: 40px;
+        line-height: 1; 
+        box-sizing: border-box; 
+        vertical-align: middle;
     }
 
     nav a.active {
         font-weight: bold;
-        border: 1px solid blue;
+        border: 2.5px solid var(--link-color);
     }
 
     nav a.disabled {
         pointer-events: none;
         color: gray;
         border: 1px dashed gray;
+        display: none;
+    }
+
+    @media screen and (max-width: 650px) {
+        /* 隐藏所有页码链接 */
+        nav a:not([aria-label]) {
+            display: none;
+        }
+
+        nav a.active {
+        font-weight: bold;
+        border: 2.5px solid var(--link-color);
+        }
+
+        nav a.disabled {
+            display: inline-flex;
+        }
     }
 </style>
