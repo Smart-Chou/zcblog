@@ -1,6 +1,7 @@
 ---
 title: VS Code Math to Image：在不支持 LaTeX 的地方插入数学公式
-pubDate: 2020-08-04T13:50:00+08:00
+pubDate: 2020-08-04
+upDate: 2024-01-01
 tags: ['Automation','Tech','VS Code']
 image: 
     url: '/postImage/vscode-math-to-image.png'

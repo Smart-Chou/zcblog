@@ -1,6 +1,7 @@
 ---
 title: 'Norm：简单介绍如何衡量机器学习中向量的「大小」'
 pubDate: 2020-04-08
+upDate: 2024-01-01
 tags: ['Linear Algebra', 'Machine Learning']
 image: 
     url: /postImage/norm.png

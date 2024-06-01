@@ -1,6 +1,7 @@
 ---
 title: Eureka！对，正是那个时刻
-pubDate: 2020-06-24T00:10:00+08:00
+pubDate: 2020-06-24
+upDate: 2024-01-01
 tags: ['Life']
 image: 
     url: '/postImage/that-eureka-moment.png'

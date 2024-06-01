@@ -1,6 +1,7 @@
 ---
 title: Netlify or VuePress：大型悬疑推理篇之——报错到底是谁的锅？
-pubDate: 2020-05-08T16:23:00.000+00:00
+pubDate: 2020-05-08
+upDate: 2024-01-01
 tags: ['Debug','VuePress','Netlify','Frontend']
 image: 
     url: "/postImage/debugging-netlify-static-site.png"

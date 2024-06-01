@@ -1,6 +1,7 @@
 ---
 title: Substats：快速统计你在各个平台的关注者!
 pubDate: 2020-03-16
+upDate: 2024-01-01
 tags: ['Tech', 'Server', 'Serverless', 'Cloudflare']
 image: 
     url: '/postImage/substats.png'

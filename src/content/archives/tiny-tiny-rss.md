@@ -1,6 +1,7 @@
 ---
 title: Tiny Tiny RSS | 最速部署私有 RSS 服务器
 pubDate: 2019-11-18
+upDate: 2024-01-01
 tags: ['RSS', 'Tech', 'Server']
 image: 
     url: '/postImage/tiny-tiny-rss.png'

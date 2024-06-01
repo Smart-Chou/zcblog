@@ -1,6 +1,7 @@
 ---
 title: Batch Git Pull：分享一个维护多个 Git 仓库的小脚本
 pubDate: 2019-11-13
+upDate: 2024-01-01
 tags: ['Git', 'Tech']
 image: 
     url: '/postImage/batch-git-pull.png'

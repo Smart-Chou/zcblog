@@ -1,17 +1,21 @@
-import { defineConfig } from 'astro/config';
-import { remarkModifiedTime } from './remark-modified-time.mjs';
-import sitemap from '@astrojs/sitemap';
-import icon from "astro-icon";
+import { defineConfig } from 'astro/config'
+import sitemap from '@astrojs/sitemap'
+import icon from 'astro-icon'
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://marxchou.com",
+  site: 'https://marxchou.com',
   markdown: {
     syntaxHighlight: 'prism',
-    remarkPlugins: [remarkModifiedTime],
   },
-  integrations: [
-    sitemap(),
-    icon()
-  ]
-});
+  integrations: [sitemap(), icon()],
+  image: {
+    // 示例：通过自定义配置启用基于 Sharp 的图像服务
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+      config: {
+        limitInputPixels: false,
+      },
+    },
+  },
+})

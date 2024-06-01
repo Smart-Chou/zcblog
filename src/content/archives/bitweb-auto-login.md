@@ -1,6 +1,7 @@
 ---
 title: BIT-Web Automation：如何利用 iOS 快捷指令自动化登录 BIT-Web 校园网
 pubDate: 2019-12-29
+upDate: 2024-01-01
 tags: ['Automation', 'Shortcuts', 'BIT']
 image: 
     url: '/postImage/bitweb-auto-login.png'

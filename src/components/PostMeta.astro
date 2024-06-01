@@ -1,11 +1,12 @@
 ---
-const { date, wordCount, readTime, currentSlug, lastModified } = Astro.props;
+const { date, wordCount, readTime, currentSlug, upDate } = Astro.props;
 ---
 
 <div class="post-meta post-card__meta">
-    Posted {date}.Update {lastModified}.
-    <span id="word-count">{wordCount} words.</span>
-    <span id="read-time">{readTime} min read.</span>
-    <span class="waline-pageview-count" data-path={`/archives/${currentSlug}/`}>0</span> views.
+    Posted {date.toISOString().slice(0, 10)}.&nbsp;
+    Updated {upDate.toISOString().slice(0, 10)}.&nbsp;
+    <span id="word-count">{wordCount} words.</span>&nbsp;
+    <span id="read-time">{readTime} min read.</span>&nbsp;
+    <span class="waline-pageview-count" data-path={`/archives/${currentSlug}/`}>0</span> views.&nbsp;
     <span class="waline-comment-count" data-path={`/archives/${currentSlug}/`}>0</span> messages.
 </div>

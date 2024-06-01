@@ -25,13 +25,6 @@ const postsWithMeta = page.data.map(post => {
       slug: post.slug
     }
 })
-
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-
-dayjs.extend(utc)
-
-const lastModified = dayjs(page.lastModified).utc().format('YYYY-MM-DD')
 ---
 
 <Layout>
@@ -43,13 +36,14 @@ const lastModified = dayjs(page.lastModified).utc().format('YYYY-MM-DD')
         title={post.data.title} 
         pubDate={post.data.pubDate} 
         postUrl={`/archives/${post.slug}/`} 
-        imageUrl={post.data.image.url} 
+        imagePath={post.data.image.url} 
         description={post.data.description} 
         tags={post.data.tags} 
         wordCount={post.wordCount} 
         readTime={post.readTime} 
         currentSlug={post.slug}
-        lastModified={lastModified}
+        upDate={post.data.upDate}
+        altText={post.data.image.alt}
       />
     ))}
   </div>

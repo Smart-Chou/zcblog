@@ -1,6 +1,6 @@
 ---
 import PostMeta from '~/components/PostMeta.astro';
-const { title, url, description, pubDate, wordCount, readTime, currentSlug, lastModified } = Astro.props;
+const { title, url, description, pubDate, wordCount, readTime, currentSlug, upDate } = Astro.props;
 ---
 
 <div class="post-card content-box">
@@ -8,11 +8,11 @@ const { title, url, description, pubDate, wordCount, readTime, currentSlug, last
         <h2 class="post-card__title">{title}</h2>
         <p class="post-card__description">{description}</p>
             <PostMeta 
-                date={pubDate.toISOString().slice(0, 10)} 
+                date={pubDate} 
                 wordCount={wordCount} 
                 readTime={readTime} 
                 currentSlug={currentSlug}
-                lastModified={lastModified}/>
+                upDate={upDate}/>
         <a href={url} class="post-card__link">Link</a>
     </div>
 </div>

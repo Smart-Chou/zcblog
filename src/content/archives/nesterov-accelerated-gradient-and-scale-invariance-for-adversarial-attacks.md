@@ -1,6 +1,7 @@
 ---
 title: 论文阅读：Nesterov Accelerated Gradient And Scale Invariance For Adversarial Attacks
-pubDate: 2020-05-21T21:00:00+08:00
+pubDate: 2020-05-21
+upDate: 2024-01-01
 tags: ['Literature Notes', 'Neural Network', 'Machine Learning']
 image: 
     url: "/postImage/nifgsm-sim-adversarial-attack.png"

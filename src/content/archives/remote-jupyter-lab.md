@@ -1,6 +1,7 @@
 ---
 title: "Remote Jupyter Lab：如何用 Jupyter Lab 将远程服务器资源最大化利用"
 pubDate: 2020-03-12
+upDate: 2024-01-01
 tags: ['Machine Learning', 'Jupyter', 'Server', 'Dev Environment']
 image: 
     url: "/postImage/remote-jupyter-lab.png"

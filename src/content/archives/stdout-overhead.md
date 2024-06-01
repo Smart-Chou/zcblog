@@ -1,6 +1,7 @@
 ---
 title: '「输出」开销：为什么我们向 stdout 输出时那么慢？'
 pubDate: 2020-02-22
+upDate: 2024-01-01
 tags: ['Tech', 'Neural Network', 'Terminal', 'Principle']
 image: 
     url: "/postImage/stdout-overhead.png"

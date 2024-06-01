@@ -8,8 +8,9 @@ import PostTagLayout from '~/layouts/PostTagLayout.astro'
 import PostMeta from '~/components/PostMeta.astro'
 import { calculateReadTime, calculateWordCount } from '~/utils'
 import WalineComment from '~/components/WalineComment.astro'
+import PostImage from '~/components/PostImage.astro'
 
-const { frontmatter,lastModified } = Astro.props
+const { frontmatter } = Astro.props
 const today = new Date()
 const publishTime = new Date(frontmatter.pubDate)
 const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (1000 * 60 * 60 * 24))
@@ -26,11 +27,12 @@ const currentSlug = Astro.params.slug
     <h1 class="post-title__text">
       {frontmatter.title}
     </h1>
-    <PostMeta date={publishTime.toISOString().slice(0, 10)} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} lastModified={lastModified}/>
+    <PostMeta date={publishTime} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} upDate={frontmatter.upDate}/>
   </div>
   <div class="post content-box">
     <div class="post-card__header">
-      <img src={frontmatter.image.url} class="post-card__image" width="1280" alt="Cover image" />
+      <PostImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt}/>
+
     </div>
     {
       publishedDays >= 180 ? (

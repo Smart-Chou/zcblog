@@ -1,6 +1,7 @@
 ---
 title: cwim 背后的故事：Rust 与 Ownership
 pubDate: 2020-01-23
+upDate: 2024-01-01
 tags: ['Tech', 'Rust', 'CLI']
 image: 
     url: '/postImage/cli-app-in-rust.png'

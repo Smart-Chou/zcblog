@@ -1,20 +1,21 @@
 ---
-import PostCardLayout from '~/layouts/PostCardLayout.astro';
-import PostTag from '~/components/PostTag.astro';
-import PostMeta from '~/components/PostMeta.astro';
+import PostCardLayout from '~/layouts/PostCardLayout.astro'
+import PostTag from '~/components/PostTag.astro'
+import PostMeta from '~/components/PostMeta.astro'
+import PostImage from '~/components/PostImage.astro'
 
-const { imageUrl, title, description, pubDate, tags, postUrl, wordCount, readTime, currentSlug, lastModified} = Astro.props;
+const { altText, imagePath, title, description, pubDate, tags, postUrl, wordCount, readTime, currentSlug, upDate } = Astro.props
 ---
 
 <PostCardLayout>
-    <div class="post-card__header">
-        <img src={imageUrl} class="post-card__image" width="1280" alt="Cover image" />
-    </div>
-    <h2 class="post-card__title">{title}</h2>
-    <p class="post-card__description">{description}</p>
-    <PostMeta date={pubDate.toISOString().slice(0, 10)} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} lastModified={lastModified}/>
-    <div class="post-tags post-card__tags">
-        {tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}`} />)}
-    </div>
-    <a href={postUrl} class="post-card__link">Link</a>
+  <div class="post-card__header">
+    <PostImage imagePath={imagePath} altText={altText} />
+  </div>
+  <h2 class="post-card__title">{title}</h2>
+  <p class="post-card__description">{description}</p>
+  <PostMeta date={pubDate} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} upDate={upDate} />
+  <div class="post-tags post-card__tags">
+    {tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}`} />)}
+  </div>
+  <a href={postUrl} class="post-card__link">Link</a>
 </PostCardLayout>

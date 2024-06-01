@@ -1,6 +1,7 @@
 ---
 title: Recap 2020
-pubDate: 2021-01-02T02:00:00+08:00
+pubDate: 2021-01-02
+upDate: 2024-01-01
 tags: ['Life']
 image: 
     url: '/postImage/new-year-2021.png'

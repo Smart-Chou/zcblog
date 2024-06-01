@@ -1,6 +1,7 @@
 ---
 title: "Reverse Proxy | 反向代理是什么？"
 pubDate: 2019-11-22
+upDate: 2024-01-01
 tags: ['Tech', 'Server']
 image: 
     url: "/postImage/reverse-proxy.png"

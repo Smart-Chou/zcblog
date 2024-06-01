@@ -6,9 +6,7 @@ import { calculateReadTime, calculateWordCount } from '~/utils';
 
 export async function getStaticPaths() {
     const allPosts = await getCollection('archives');
-
     const uniqueTags = [...new Set(allPosts.map(post => post.data.tags).flat())];
-
     return uniqueTags.map(tag => {
         const filteredPosts = allPosts.filter(post => post.data.tags.includes(tag));
         return {
@@ -32,14 +30,6 @@ const postsWithMeta = archives.map(post => {
         slug: post.slug
     };
 });
-
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-
-dayjs.extend(utc)
-
-const lastModified = dayjs().utc(archives.data.lastModified).format('YYYY-MM-DD')
-console.log(lastModified)
 ---
 
 <Layout pageTitle={tag}>
@@ -54,7 +44,7 @@ console.log(lastModified)
                 wordCount={post.wordCount}
                 readTime={post.readTime}
                 currentSlug={post.slug}
-                lastModified={lastModified}
+                upDate={post.data.upDate}
             />)
         }
     </div>

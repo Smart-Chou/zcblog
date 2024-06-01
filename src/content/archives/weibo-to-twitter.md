@@ -1,6 +1,7 @@
 ---
 title: IFTTT x Integromat：微博 to Twitter 自动转发的最佳实践
 pubDate: 2019-11-26
+upDate: 2024-01-01
 tags: ['Automation','IFTTT','Twitter','Weibo']
 image: 
     url: '/postImage/weibo-to-twitter.png'

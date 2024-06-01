@@ -1,6 +1,7 @@
 ---
 title: Quit using nvm：快删掉这个占据 Zsh 启动时间一半的怪物！
-pubDate: 2020-07-28T14:30:00.000+08:00
+pubDate: 2020-07-28
+upDate: 2024-01-01
 tags:
 - Shell
 - Dev Environment

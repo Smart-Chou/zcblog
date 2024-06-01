@@ -1,6 +1,7 @@
 ---
 title: Working Copy + iA Writer：第二次尝试从我的 iPad 上面更新博客
 pubDate: 2019-11-14
+upDate: 2024-01-01
 tags: ['iPad', 'Git']
 image: 
     url: '/postImage/update-from-ipad-iawriter.png'
