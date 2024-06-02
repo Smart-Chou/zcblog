@@ -32,7 +32,6 @@ const currentSlug = Astro.params.slug
   <div class="post content-box">
     <div class="post-card__header">
       <PostImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt}/>
-
     </div>
     {
       publishedDays >= 180 ? (
