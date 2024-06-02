@@ -55,7 +55,7 @@ const postsWithMeta = page.data.map(post => {
     import { commentCount } from '@waline/client/comment';
 
     document.addEventListener('astro:page-load', () => {
-    const origin = window.location.hostname == 'localhost' ? 'https://waline.marxchou.com/' : window.location.origin
+    const origin = 'https://waline.marxchou.com/'
     const serverURL = origin
     const path =  window.location.pathname
 

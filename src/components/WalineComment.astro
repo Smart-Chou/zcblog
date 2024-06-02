@@ -28,7 +28,7 @@
 
   const walineElement = document.getElementById('waline')
   if (walineElement) {
-    const origin = window.location.hostname == 'localhost' ? 'https://waline.marxchou.com/' : window.location.origin
+    const origin = 'https://waline.marxchou.com/'
     const walineProps = walineElement!.dataset
     init({
       el: '#waline',
