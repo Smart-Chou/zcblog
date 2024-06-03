@@ -8,7 +8,7 @@ import PostTagLayout from '~/layouts/PostTagLayout.astro'
 import PostMeta from '~/components/PostMeta.astro'
 import { calculateReadTime, calculateWordCount } from '~/utils'
 import WalineComment from '~/components/WalineComment.astro'
-import PostImage from '~/components/PostImage.astro'
+import PostCardImage from '~/components/PostCardImage.astro'
 
 const { frontmatter } = Astro.props
 const today = new Date()
@@ -31,7 +31,7 @@ const currentSlug = Astro.params.slug
   </div>
   <div class="post content-box">
     <div class="post-card__header">
-      <PostImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt}/>
+      <PostCardImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt}/>
     </div>
     {
       publishedDays >= 180 ? (
@@ -48,7 +48,7 @@ const currentSlug = Astro.params.slug
       <slot />
     </div>
     <PostTagLayout>
-      {frontmatter.tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}`} />)}
+      {frontmatter.tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}/`} />)}
     </PostTagLayout>
     <div class="post__navigation">
       {

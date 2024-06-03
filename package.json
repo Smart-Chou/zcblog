@@ -16,11 +16,11 @@
     "format": "prettier -w ."
   },
   "dependencies": {
+    "@astrojs/mdx": "^3.0.1",
     "@astrojs/rss": "^4.0.6",
     "@astrojs/sitemap": "^3.1.5",
     "@astrolib/analytics": "^0.5.0",
     "@astrolib/seo": "^1.0.0-beta.5",
-    "@iconify-json/logos": "^1.1.42",
     "@waline/client": "^3.2.1",
     "astro": "^4.9.2",
     "astro-embed": "^0.7.2",
@@ -29,6 +29,7 @@
     "sharp": "^0.33.4"
   },
   "devDependencies": {
+    "@iconify-json/logos": "^1.1.42",
     "@iconify-json/simple-icons": "^1.1.10",
     "@iconify-json/tabler": "^1.1.111",
     "prettier": "^3.2.5",
