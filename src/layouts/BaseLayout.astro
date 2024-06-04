@@ -4,11 +4,11 @@ import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 import '~/styles/global.css';
 
-const { title, description } = Astro.props
+const { title, description, image, imageAlt } = Astro.props
 ---
 
 <html lang="en">
-    <BaseHead title={title} description={description}/>
+    <BaseHead title={title} description={description} image={image} imageAlt={imageAlt}/>
     <body>
         <div id="app">
             <Header />

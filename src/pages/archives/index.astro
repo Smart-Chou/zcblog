@@ -1,57 +1,57 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '~/layouts/BaseLayout.astro';
-import PostLayout from '~/layouts/PostLayout.astro';
-import Archives from '~/components/Archives.astro';
-import { site, archivesPage } from '~/self.config';
+import { getCollection } from 'astro:content'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import PostLayout from '~/layouts/PostLayout.astro'
+import Archives from '~/components/Archives.astro'
+import { site, archivesPage } from '~/self.config'
 
-const allPosts = await getCollection('archives');
+const allPosts = await getCollection('archives')
 
 const postsByYear = allPosts.reduce((acc, post) => {
-    const year = new Date(post.data.pubDate).getFullYear();
-    if (!acc[year]) {
-        acc[year] = [];
-    }
-    acc[year].push(post);
-    return acc;
-}, {});
+  const year = new Date(post.data.pubDate).getFullYear()
+  if (!acc[year]) {
+    acc[year] = []
+  }
+  acc[year].push(post)
+  return acc
+}, {})
 
 const calculateWordCount = text => {
-    const regex = /[\u4e00-\u9fa5]|[a-zA-Z]+|\d+/g;
-    const matches = text.match(regex);
-    return matches ? matches.length : 0;
-};
+  const regex = /[\u4e00-\u9fa5]|[a-zA-Z]+|\d+/g
+  const matches = text.match(regex)
+  return matches ? matches.length : 0
+}
 
-const totalPosts = allPosts.length;
+const totalPosts = allPosts.length
 const totalWords = allPosts.reduce((sum, post) => sum + calculateWordCount(post.body), 0)
-const totalWordsInThousands = (totalWords / 1000).toFixed(1) + `k`;
-const startYear = Math.min(...allPosts.map(post => new Date(post.data.pubDate).getFullYear()));
+const totalWordsInThousands = (totalWords / 1000).toFixed(1) + `k`
+const startYear = Math.min(...allPosts.map(post => new Date(post.data.pubDate).getFullYear()))
 ---
 
-<BaseLayout title={archivesPage.title + ` - ` + site.title} description={archivesPage.description + ` - ` + site.description}>
-    <h1 class="text-center space-bottom">Archives</h1>
-    <PostLayout>
-        <p style="opacity: 0.6">
-            <strong>(｡･∀･)ﾉﾞ I have published a total of {totalPosts} posts, {totalWordsInThousands} words since {startYear}.</strong>
-        </p>
-        {
-            Object.keys(postsByYear)
-                .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
-                .map(year => (
-                    <section data-key={year}>
-                        <h2>{year}</h2>
-                        {postsByYear[year]
-                            .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
-                            .map(post => (
-                                <Archives
-                                    key={post.slug} 
-                                    url={`/archives/${post.slug}/`} 
-                                    title={post.data.title} 
-                                    pubDate={post.data.pubDate} 
-                                />
-                            ))}
-                    </section>
-                ))
-        }
-    </PostLayout>
+<BaseLayout 
+    title={archivesPage.title + ` - ` + site.title} 
+    description={archivesPage.description + ` - ` + site.description}
+    image={Astro.site + site.coverImage}
+    imageAlt={archivesPage.description}
+>
+  <h1 class="text-center space-bottom">Archives</h1>
+  <PostLayout>
+    <p style="opacity: 0.6">
+      <strong>(｡･∀･)ﾉﾞ I have published a total of {totalPosts} posts, {totalWordsInThousands} words since {startYear}.</strong>
+    </p>
+    {
+      Object.keys(postsByYear)
+        .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+        .map(year => (
+          <section data-key={year}>
+            <h2>{year}</h2>
+            {postsByYear[year]
+              .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+              .map(post => (
+                <Archives key={post.slug} url={`/archives/${post.slug}/`} title={post.data.title} pubDate={post.data.pubDate} />
+              ))}
+          </section>
+        ))
+    }
+  </PostLayout>
 </BaseLayout>

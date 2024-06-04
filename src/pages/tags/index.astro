@@ -8,7 +8,12 @@ const allPosts = await getCollection('archives');
 const tags = [...new Set(allPosts.map(post => post.data.tags).flat())];
 ---
 
-<BaseLayout title={tagsPage.title + ` - ` + site.title} description={tagsPage.description + ` - ` + site.description}>
+<BaseLayout 
+    title={tagsPage.title + ` - ` + site.title} 
+    description={tagsPage.description + ` - ` + site.description}
+    image={Astro.site + site.coverImage}
+    imageAlt={tagsPage.title}
+>
     <h1 class="tag-title text-center space-bottom">{tagsPage.title}</h1>
     <PostLayout>
         <div class="tags">

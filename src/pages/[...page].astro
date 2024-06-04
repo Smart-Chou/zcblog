@@ -28,7 +28,12 @@ const postsWithMeta = page.data.map(post => {
 })
 ---
 
-<BaseLayout title={site.subtitle + ` - ` + site.title} description={site.title + ` - ` + site.description}>
+<BaseLayout 
+    title={site.subtitle + ` - ` + site.title} 
+    description={site.title + ` - ` + site.description}
+    image={Astro.site + site.coverImage}
+    imageAlt={site.coverImageAlt}
+>
   <Author />
   <div class="post">
     {postsWithMeta.map(post => (

@@ -10,39 +10,39 @@ import { Icon } from 'astro-icon/components'
 </div>
 
 <script>
-document.addEventListener('astro:page-load', () => {
-  // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
-  function __setPreferredTheme(theme: string) {
-    document.body.setAttribute('data-theme', theme)
-    localStorage.setItem('preferredTheme', theme)
-  }
+  document.addEventListener('astro:page-load', () => {
+    // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
+    function __setPreferredTheme(theme: string) {
+      document.body.setAttribute('data-theme', theme)
+      localStorage.setItem('preferredTheme', theme)
+    }
 
-  // 从 localStorage 获取首选主题
-  const preferredTheme = localStorage.getItem('preferredTheme') || 'light'
-  __setPreferredTheme(preferredTheme)
+    // 从 localStorage 获取首选主题
+    const preferredTheme = localStorage.getItem('preferredTheme') || 'light'
+    __setPreferredTheme(preferredTheme)
 
-  // 主题切换功能
-  const themeBtn = document.getElementById('theme-btn')
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      const currentTheme = document.body.getAttribute('data-theme')
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark'
-      __setPreferredTheme(newTheme)
-    })
-  }
-})
+    // 主题切换功能
+    const themeBtn = document.getElementById('theme-btn')
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = document.body.getAttribute('data-theme')
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark'
+        __setPreferredTheme(newTheme)
+      })
+    }
+  })
 </script>
 
 <script>
   document.addEventListener('astro:after-swap', () => {
-    const preferredTheme = localStorage.getItem('preferredTheme') || 'light';
-    document.body.setAttribute('data-theme', preferredTheme);
+    const preferredTheme = localStorage.getItem('preferredTheme') || 'light'
+    document.body.setAttribute('data-theme', preferredTheme)
     if (preferredTheme === 'dark') {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add('dark')
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove('dark')
     }
-  });
+  })
 </script>
 
 <style>

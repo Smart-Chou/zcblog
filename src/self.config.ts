@@ -25,7 +25,7 @@ export const site = {
   author: 'Spencer Woo',
   avatar: 'author.jpg',
   coverImage: 'cover.png',
-  coverImageAlt: 'SpencerWoo',
+  coverImageAlt: "Spencer's Blog",
   url: '//marxchou.com',
   startYear: '2017' // Blog start year
   // motto: 'Actions speak louder than words.',

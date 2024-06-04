@@ -18,22 +18,32 @@ const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (10
 const allPosts = await getCollection('archives')
 const postWithMeta = allPosts.find(post => post.slug === Astro.params.slug)
 
-
 const wordCount = postWithMeta?.body ? calculateWordCount(postWithMeta.body) : undefined
 const readTime = wordCount ? calculateReadTime(wordCount) : undefined
 const currentSlug = Astro.params.slug
 ---
 
-<BaseLayout title={frontmatter.title + ` - ` + site.title} description={frontmatter.title + ` - ` + frontmatter.description}>
+<BaseLayout 
+    title={frontmatter.title + ` - ` + site.title} 
+    description={frontmatter.title + ` - ` + frontmatter.description}
+    image={Astro.site + frontmatter.image.url}
+    imageAlt={frontmatter.image.alt}
+>
   <div class="post-title">
     <h1 class="post-title__text">
       {frontmatter.title}
     </h1>
-    <PostMeta pubDate={publishTime} upDate={frontmatter.upDate} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} />
+    <PostMeta 
+        pubDate={publishTime} 
+        upDate={frontmatter.upDate} 
+        wordCount={wordCount} r
+        eadTime={readTime} 
+        currentSlug={currentSlug} 
+    />
   </div>
   <div class="post content-box">
     <div class="post-card__header">
-      <PostCardImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt}/>
+      <PostCardImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt} />
     </div>
     {
       publishedDays >= 180 ? (
@@ -53,7 +63,7 @@ const currentSlug = Astro.params.slug
       <div class="post-tags post-card__tags">
         {frontmatter.tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}/`} />)}
       </div>
-  </div>
+    </div>
     <div class="post__navigation">
       {
         allPosts

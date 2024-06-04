@@ -6,7 +6,12 @@ import { site, friendsPage } from '~/self.config'
 
 ---
 
-<BaseLayout title={friendsPage.title} description={site.title + ` - ` + friendsPage.description}>
+<BaseLayout 
+    title={friendsPage.title} 
+    description={site.title + ` - ` + friendsPage.description}
+    image={Astro.site + site.coverImage}
+    imageAlt={friendsPage.title}
+>
   <h1 class="friends-title text-center space-bottom">Friends &amp; Guestbook</h1>
   <div class="friends-container text-center space-bottom">
     {

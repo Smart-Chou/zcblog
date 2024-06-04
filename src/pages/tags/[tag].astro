@@ -34,7 +34,12 @@ const postsWithMeta = archives.map(post => {
 })
 ---
 
-<BaseLayout title={tag + ` - ` + site.title} description={tag + ` - ` + site.description}>
+<BaseLayout 
+    title={tag + ` - ` + site.title} 
+    description={tag + ` - ` + site.description}
+    image={Astro.site + site.coverImage}
+    imageAlt={tag}
+>
   <h1 class="tag-title text-center space-bottom"># {tag}</h1>
   <div class="posts">
     {
