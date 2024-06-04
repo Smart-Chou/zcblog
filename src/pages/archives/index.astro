@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '~/layouts/BaseLayout.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
 import PostLayout from '~/layouts/PostLayout.astro';
 import Archives from '~/components/Archives.astro';
-import { archivesPage } from '~/self.config';
+import { site, archivesPage } from '~/self.config';
 
 const allPosts = await getCollection('archives');
 
@@ -28,7 +28,7 @@ const totalWordsInThousands = (totalWords / 1000).toFixed(1) + `k`;
 const startYear = Math.min(...allPosts.map(post => new Date(post.data.pubDate).getFullYear()));
 ---
 
-<Layout title={archivesPage.title} description={archivesPage.description}>
+<BaseLayout title={archivesPage.title + ` - ` + site.title} description={archivesPage.description + ` - ` + site.description}>
     <h1 class="text-center space-bottom">Archives</h1>
     <PostLayout>
         <p style="opacity: 0.6">
@@ -54,4 +54,4 @@ const startYear = Math.min(...allPosts.map(post => new Date(post.data.pubDate).g
                 ))
         }
     </PostLayout>
-</Layout>
+</BaseLayout>

@@ -7,6 +7,7 @@ import BackToTop from '~/components/BackToTop.astro'
 import PostMeta from '~/components/PostMeta.astro'
 import WalineComment from '~/components/WalineComment.astro'
 import PostCardImage from '~/components/PostCardImage.astro'
+import { site } from '~/self.config'
 import { calculateReadTime, calculateWordCount } from '~/utils'
 
 const { frontmatter } = Astro.props
@@ -23,7 +24,7 @@ const readTime = wordCount ? calculateReadTime(wordCount) : undefined
 const currentSlug = Astro.params.slug
 ---
 
-<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+<BaseLayout title={frontmatter.title + ` - ` + site.title} description={frontmatter.title + ` - ` + frontmatter.description}>
   <div class="post-title">
     <h1 class="post-title__text">
       {frontmatter.title}

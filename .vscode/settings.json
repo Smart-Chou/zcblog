@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "mdfm"
-    ]
+    ],
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
+    "terminal.integrated.fontFamily": "'MesloLGS NF'"
 }

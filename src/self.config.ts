@@ -17,6 +17,7 @@
  */
 export const site = {
   title: "Spencer's Blog",
+  subtitle: 'Spencer Woo',
   description: 'Astro builds fast content sites, powerful web applications, dynamic server APIs, and everything in-between.',
   keywords: 'Astro, Theme, Yi',
   favicon: 'favicon.svg',
