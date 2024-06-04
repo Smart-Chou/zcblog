@@ -4,11 +4,10 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import Author from '~/components/Author.astro'
 import PostTag from '~/components/PostTag.astro'
 import BackToTop from '~/components/BackToTop.astro'
-import PostTagLayout from '~/layouts/PostTagLayout.astro'
 import PostMeta from '~/components/PostMeta.astro'
-import { calculateReadTime, calculateWordCount } from '~/utils'
 import WalineComment from '~/components/WalineComment.astro'
 import PostCardImage from '~/components/PostCardImage.astro'
+import { calculateReadTime, calculateWordCount } from '~/utils'
 
 const { frontmatter } = Astro.props
 const today = new Date()
@@ -17,17 +16,19 @@ const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (10
 
 const allPosts = await getCollection('archives')
 const postWithMeta = allPosts.find(post => post.slug === Astro.params.slug)
+
+
 const wordCount = postWithMeta?.body ? calculateWordCount(postWithMeta.body) : undefined
 const readTime = wordCount ? calculateReadTime(wordCount) : undefined
 const currentSlug = Astro.params.slug
 ---
 
-<BaseLayout pageTitle={frontmatter.title}>
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
   <div class="post-title">
     <h1 class="post-title__text">
       {frontmatter.title}
     </h1>
-    <PostMeta date={publishTime} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} upDate={frontmatter.upDate}/>
+    <PostMeta pubDate={publishTime} upDate={frontmatter.upDate} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} />
   </div>
   <div class="post content-box">
     <div class="post-card__header">
@@ -47,9 +48,11 @@ const currentSlug = Astro.params.slug
     <div class="post__content">
       <slot />
     </div>
-    <PostTagLayout>
-      {frontmatter.tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}/`} />)}
-    </PostTagLayout>
+    <div class="post__footer">
+      <div class="post-tags post-card__tags">
+        {frontmatter.tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}/`} />)}
+      </div>
+  </div>
     <div class="post__navigation">
       {
         allPosts

@@ -1,15 +1,16 @@
 ---
 import Layout from '~/layouts/BaseLayout.astro'
 import Author from '~/components/Author.astro'
-import { friendshipLinks } from '~/self.config'
 import WalineComment from '~/components/WalineComment.astro'
+import { friendsPage } from '~/self.config'
+
 ---
 
-<Layout>
+<Layout title={friendsPage.title} description={friendsPage.description}>
   <h1 class="friends-title text-center space-bottom">Friends &amp; Guestbook</h1>
   <div class="friends-container text-center space-bottom">
     {
-      friendshipLinks.map(friend => (
+      friendsPage.list.map(friend => (
         <a class="btn" href={friend.link} target="_blank" style={friend.style}>
           <img src={friend.avatar} alt={friend.id} class="avatar" width="160" />
           <span>{friend.id}</span>

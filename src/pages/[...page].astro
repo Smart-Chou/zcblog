@@ -5,11 +5,12 @@ import Author from '~/components/Author.astro'
 import PostCard from '~/components/PostCard.astro'
 import Pagination from '~/components/Pagination.astro'
 import { calculateReadTime, calculateWordCount } from '~/utils'
+import { site } from '~/self.config'
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection('archives')
   const sortedPosts = allPosts.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
-  return paginate(sortedPosts, { pageSize: 10 })
+  return paginate(sortedPosts, { pageSize: 8 })
 }
 
 const { page } = Astro.props as any
@@ -27,7 +28,7 @@ const postsWithMeta = page.data.map(post => {
 })
 ---
 
-<Layout>
+<Layout title={site.title} description={site.description}>
   <Author />
   <div class="post">
     {postsWithMeta.map(post => (

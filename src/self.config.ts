@@ -16,21 +16,38 @@
  * beian {string} Chinese policy
  */
 export const site = {
-  title: "Spencer Woo - Spencer's Blog",
-  description: 'stro builds fast content sites, powerful web applications, dynamic server APIs, and everything in-between.',
+  title: "Spencer's Blog",
+  description: 'Astro builds fast content sites, powerful web applications, dynamic server APIs, and everything in-between.',
   keywords: 'Astro, Theme, Yi',
   favicon: 'favicon.svg',
+  logo: 'logo.svg',
   author: 'Spencer Woo',
   avatar: 'author.jpg',
   coverImage: 'cover.png',
   coverImageAlt: 'SpencerWoo',
   url: '//marxchou.com',
+  startYear: '2017' // Blog start year
   // motto: 'Actions speak louder than words.',
   // recentBlogSize: 5,
   // archivePageSize: 25,
   // postPageSize: 10,
   // feedPageSize: 20,
   // beian: '',
+}
+
+export const notFoundPage = {
+  title: '404 - Page Not Found',
+  description: 'The page you are looking for does not exist.',
+}
+
+export const tagsPage = {
+  title: 'Tags',
+  description: 'All Tags',
+}
+
+export const archivesPage = {
+  title: 'Archives',
+  description: 'All Archives',
 }
 
 /**
@@ -133,63 +150,67 @@ export const donate = {
  * avatar {string}
  * description {string}
  */
-export const friendshipLinks = [
-  {
-    id: '@Felinae',
-    link: 'https://code.felinae98.cn/',
-    avatar: 'https://avatars.githubusercontent.com/u/23295345',
-    style: 'color: #fff; background-color: #473922',
-  },
-  {
-    id: '@agnoCJY',
-    link: 'https://jychuuu.com/',
-    avatar: 'https://avatars.githubusercontent.com/u/46088026',
-    style: 'color: #fff; background-color: #191919',
-  },
-  {
-    id: '@TenkeySeven',
-    link: 'https://blog.tenkeyseven.com/',
-    avatar: 'https://avatars.githubusercontent.com/u/33371927',
-    style: 'color: #fff; background-color: #b59672',
-  },
-  {
-    id: '@Silvester',
-    link: 'https://silvester.wang/',
-    avatar: 'https://avatars.githubusercontent.com/u/34436920',
-    style: 'color: #fff; background-color: #595058',
-  },
-  {
-    id: '@ash0ne',
-    link: 'https://blog.ash0ne.com/',
-    avatar: 'https://avatars.githubusercontent.com/u/28522665',
-    style: 'color: #fff; background-color: #9f8cd1',
-  },
-  {
-    id: '@FKY',
-    link: 'http://blog.fkynjyq.com/',
-    avatar: 'https://avatars.githubusercontent.com/u/16451516',
-    style: 'color: #fff; background-color: #005240',
-  },
-  {
-    id: '@idealclover',
-    link: 'https://idealclover.top/',
-    avatar: 'https://avatars.githubusercontent.com/u/24428416',
-    style: 'color: #fff; background-color: #487747',
-  },
-  {
-    id: '@kastnerorz',
-    link: 'https://github.com/kastnerorz',
-    avatar: 'https://avatars.githubusercontent.com/u/26199342',
-    style: 'color: #fff; background-color: #26498e',
-  },
-  {
-    id: '@Patrick Wu',
-    link: 'https://patrickwu.space/',
-    avatar: 'https://avatars.githubusercontent.com/u/15316889',
-    style: 'color: #fff; background-color: #61a3cf',
-  },
-]
-
+export const friendsPage = {
+  title: 'Friends & Guestbook',
+  description:
+    "Friends & Guestbook - I don't accept friend link requests from someone I don't know.",
+  list: [
+    {
+      id: '@Felinae',
+      link: 'https://code.felinae98.cn/',
+      avatar: 'https://avatars.githubusercontent.com/u/23295345',
+      style: 'color: #fff; background-color: #473922',
+    },
+    {
+      id: '@agnoCJY',
+      link: 'https://jychuuu.com/',
+      avatar: 'https://avatars.githubusercontent.com/u/46088026',
+      style: 'color: #fff; background-color: #191919',
+    },
+    {
+      id: '@TenkeySeven',
+      link: 'https://blog.tenkeyseven.com/',
+      avatar: 'https://avatars.githubusercontent.com/u/33371927',
+      style: 'color: #fff; background-color: #b59672',
+    },
+    {
+      id: '@Silvester',
+      link: 'https://silvester.wang/',
+      avatar: 'https://avatars.githubusercontent.com/u/34436920',
+      style: 'color: #fff; background-color: #595058',
+    },
+    {
+      id: '@ash0ne',
+      link: 'https://blog.ash0ne.com/',
+      avatar: 'https://avatars.githubusercontent.com/u/28522665',
+      style: 'color: #fff; background-color: #9f8cd1',
+    },
+    {
+      id: '@FKY',
+      link: 'http://blog.fkynjyq.com/',
+      avatar: 'https://avatars.githubusercontent.com/u/16451516',
+      style: 'color: #fff; background-color: #005240',
+    },
+    {
+      id: '@idealclover',
+      link: 'https://idealclover.top/',
+      avatar: 'https://avatars.githubusercontent.com/u/24428416',
+      style: 'color: #fff; background-color: #487747',
+    },
+    {
+      id: '@kastnerorz',
+      link: 'https://github.com/kastnerorz',
+      avatar: 'https://avatars.githubusercontent.com/u/26199342',
+      style: 'color: #fff; background-color: #26498e',
+    },
+    {
+      id: '@Patrick Wu',
+      link: 'https://patrickwu.space/',
+      avatar: 'https://avatars.githubusercontent.com/u/15316889',
+      style: 'color: #fff; background-color: #61a3cf',
+    },
+  ],
+}
 /**
  * Comment Feature
  * enable {boolean}
@@ -235,3 +256,24 @@ export const comment = {
     crossorigin: 'anonymous',
   },
 }
+
+export const footerList = [
+  {
+    title: 'Umami',
+    text: 'Analytics by',
+    icon: 'simple-icons:umami',
+    url: '//umami.is',
+  },
+  {
+    title: 'Astro',
+    text: 'Runs on',
+    icon: 'simple-icons:astro',
+    url: '//astro.build',
+  },
+  {
+    title: 'Vercel',
+    text: 'Deployed on',
+    icon: 'simple-icons:vercel',
+    url: '//vercel.com',
+  },
+]

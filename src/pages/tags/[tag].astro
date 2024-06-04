@@ -1,72 +1,79 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '~/layouts/BaseLayout.astro';
-import PostCardTagLayout from '~/layouts/PostCardTagLayout.astro';
-import { calculateReadTime, calculateWordCount } from '~/utils';
+import { getCollection } from 'astro:content'
+import Layout from '~/layouts/BaseLayout.astro'
+import PostLayout from '~/layouts/PostLayout.astro'
+import PostMeta from '~/components/PostMeta.astro'
+import { calculateReadTime, calculateWordCount } from '~/utils'
 
 export async function getStaticPaths() {
-    const allPosts = await getCollection('archives');
-    const uniqueTags = [...new Set(allPosts.map(post => post.data.tags).flat())];
-    return uniqueTags.map(tag => {
-        const filteredPosts = allPosts.filter(post => post.data.tags.includes(tag));
-        return {
-            params: { tag },
-            props: { archives: filteredPosts },
-        };
-    });
+  const allPosts = await getCollection('archives')
+  const uniqueTags = [...new Set(allPosts.map(post => post.data.tags).flat())]
+  return uniqueTags.map(tag => {
+    const filteredPosts = allPosts.filter(post => post.data.tags.includes(tag))
+    return {
+      params: { tag },
+      props: { archives: filteredPosts },
+    }
+  })
 }
 
-const { tag } = Astro.params;
-const { archives } = Astro.props;
+const { tag } = Astro.params
+const { archives } = Astro.props
 
 const postsWithMeta = archives.map(post => {
-    const wordCount = calculateWordCount(post.body);
-    const readTime = calculateReadTime(wordCount);
+  const wordCount = calculateWordCount(post.body)
+  const readTime = calculateReadTime(wordCount)
 
-    return {
-        ...post,
-        wordCount,
-        readTime,
-        slug: post.slug
-    };
-});
+  return {
+    ...post,
+    wordCount,
+    readTime,
+    slug: post.slug,
+  }
+})
 ---
 
-<Layout pageTitle={tag}>
-    <h1 class="tag-title text-center space-bottom"># {tag}</h1>
-    <div class="posts">
-        {postsWithMeta.map(post => 
-            <PostCardTagLayout 
-                title={post.data.title} 
-                url={`/archives/${post.slug}/`} 
-                description={post.data.description} 
+<Layout title={tag} description={tag}>
+  <h1 class="tag-title text-center space-bottom"># {tag}</h1>
+  <div class="posts">
+    {
+      postsWithMeta.map(post => (
+        <PostLayout>
+          <h2 class="post-card__title">{post.data.title}</h2>
+          <p class="post-card__description">{post.data.description}</p>
+          <PostMeta 
                 pubDate={post.data.pubDate} 
-                wordCount={post.wordCount}
-                readTime={post.readTime}
-                currentSlug={post.slug}
-                upDate={post.data.upDate}
-            />)
-        }
-    </div>
+                upDate={post.data.upDate} 
+                wordCount={post.wordCount} 
+                readTime={post.readTime} 
+                currentSlug={post.slug} 
+            />
+          <a href={`/archives/${post.slug}/`} class="post-card__link">
+            Link
+          </a>
+        </PostLayout>
+      ))
+    }
+  </div>
 </Layout>
 
 <script>
-    import { pageviewCount } from '@waline/client/pageview';
-    import { commentCount } from '@waline/client/comment';
+  import { pageviewCount } from '@waline/client/pageview'
+  import { commentCount } from '@waline/client/comment'
 
-    document.addEventListener('astro:page-load', () => {
+  document.addEventListener('astro:page-load', () => {
     const origin = 'https://waline.marxchou.com/'
     const serverURL = origin
-    const path =  window.location.pathname
+    const path = window.location.pathname
 
     pageviewCount({
-        serverURL,
-        path,
-    });
+      serverURL,
+      path,
+    })
 
     commentCount({
-        serverURL,
-        path,
-    });
-    });
+      serverURL,
+      path,
+    })
+  })
 </script>
