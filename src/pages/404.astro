@@ -1,17 +1,17 @@
 ---
-import Layout from '~/layouts/BaseLayout.astro'; 
-import { Image } from 'astro:assets';
+import Layout from '~/layouts/BaseLayout.astro'
 import notFound from '~/assets/404.svg'
 ---
+
 <Layout>
-    <div>
-        <h1 class="not-found-title text-center space-bottom" >404</h1>
-        <div class="not-found-container" >
-            <p class="description" >
-                🍌 Oh, no, not here.
-                <a href="/" class="active" >Take me back home. ↩</a>
-            </p>
-            <Image src={notFound} alt="404 Not Found" class="not-found-bg--loaded" width="600"/>
-        </div>
+  <div>
+    <h1 class="not-found-title text-center space-bottom">404</h1>
+    <div class="not-found-container">
+      <p class="description">
+        🍌 Oh, no, not here.
+        <a href="/" class="active">Take me back home. ↩</a>
+      </p>
+      <img src={notFound.src} alt="404 Not Found" class="not-found-bg--loaded" width="600" />
     </div>
+  </div>
 </Layout>

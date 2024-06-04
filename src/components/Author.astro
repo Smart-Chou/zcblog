@@ -1,105 +1,23 @@
 ---
 import { Icon } from 'astro-icon/components'
-const authorImage = await import('~/assets/author.jpg');
-
-const localList = [
-  {
-    url: '//mch.icu',
-    title: '🚀 Portfolio',
-    style: undefined,
-    svg: 'tabler:user-filled',
-  },
-  {
-    url: '/archives/',
-    title: '📂 Archives',
-    style: 'color: var(--title-color)',
-    svg: 'tabler:archive-filled',
-  },
-  {
-    url: '/tags/',
-    title: '🏷️ tags',
-    style: undefined,
-    svg: 'tabler:tags',
-  },
-  {
-    url: '/friends/',
-    title: '🧑🏿‍🚒 Friends',
-    style: 'color: #06a878',
-    svg: 'tabler:message-chatbot-filled',
-  },
-]
-
-const locals = localList.map(local => {
-  const url = local.url
-  const title = local.title
-  const style = local.style
-  const svg = local.svg
-
-  return {
-    url,
-    title,
-    style,
-    svg,
-  }
-})
-
-const socialsList = [
-  {
-    url: '//qq.com/realSpencerWoo',
-    title: '🔗 @realSpencerWoo',
-    style: 'color: #12b7f5',
-    svg: 'simple-icons:tencentqq',
-  },
-  {
-    url: '//twitter.com/realSpencerWoo',
-    title: '🔗 @realSpencerWoo',
-    style: 'color: #1da1f2',
-    svg: 'logos:twitter',
-  },
-  {
-    url: '//t.me/realSpencerWoo',
-    title: '🔗 @realSpencerWoo',
-    style: 'color: #179cde',
-    svg: 'logos:telegram',
-  },
-  {
-    url: '//github.com/spencerwooo',
-    title: '🔗 @spencerwooo',
-    style: 'color: var(--title-color)',
-    svg: 'simple-icons:github',
-  },
-]
-
-const socials = socialsList.map(social => {
-  const url = social.url
-  const title = social.title
-  const style = social.style
-  const svg = social.svg
-
-  return {
-    url,
-    title,
-    style,
-    svg,
-  }
-})
+import { site, categories, socialLinks } from '~/self.config'
 ---
 
 <div class="author">
-  <img src={authorImage.default.src} alt="Author image" class="author__image" width="180" />
+  <img src={Astro.site + site.avatar} alt="Author image" class="author__image" width="180" />
   <h1 class="author__site-title">Spencer's Blog</h1>
   <p class="author__intro">阿巴阿巴 o((&gt;ω&lt; ))o</p>
   <p class="author__links">
     {
-      locals.map(local => (
-        <a href={local.url} title={local.title} rel="noopener" class="has-tooltip active" style={local.style}>
-          <Icon name={local.svg} />
+      categories.map(categorie => (
+        <a href={categorie.url} title={categorie.title} rel="noopener" class="has-tooltip active" style={categorie.style}>
+          <Icon name={categorie.svg} />
         </a>
       ))
     }
     <span>/</span>
     {
-      socials.map(social => (
+      socialLinks.map(social => (
         <a href={social.url} target="_blank" title={social.title} rel="noopener" class="has-tooltip active" style={social.style}>
           <Icon name={social.svg} />
         </a>

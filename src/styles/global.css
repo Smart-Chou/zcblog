@@ -2574,10 +2574,11 @@ svg:not(:root).svg-inline--fa {
     margin-left: 2.6em;
 }
 
-.friends-container .note {
+.friends-note {
     margin: calc(var(--space) / 2) 0;
     font-size: 0.9em;
     opacity: 0.8;
+    text-align: center;
 }
 
 .posts p span {

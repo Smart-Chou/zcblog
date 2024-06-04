@@ -12,7 +12,7 @@ import { Icon } from 'astro-icon/components'
 <script>
 document.addEventListener('astro:page-load', () => {
   // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
-  function __setPreferredTheme(theme) {
+  function __setPreferredTheme(theme: string) {
     document.body.setAttribute('data-theme', theme)
     localStorage.setItem('preferredTheme', theme)
   }
