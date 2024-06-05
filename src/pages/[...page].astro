@@ -59,10 +59,10 @@ const postsWithMeta = page.data.map(post => {
 <script>
     import { pageviewCount } from '@waline/client/pageview';
     import { commentCount } from '@waline/client/comment';
+    import { comment } from '~/self.config';
 
-    document.addEventListener('astro:page-load', () => {
-    const origin = 'https://waline.marxchou.com/'
-    const serverURL = origin
+    document.addEventListener('astro:page-load', () => { 
+    const serverURL = comment.serverUrl
     const path =  window.location.pathname
 
     pageviewCount({

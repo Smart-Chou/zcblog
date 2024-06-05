@@ -6,46 +6,48 @@
 
 <script>
   import { init } from '@waline/client'
+  import { comment } from '~/self.config'
   import '@waline/client/style'
   import '@waline/client/meta'
 
   document.addEventListener('astro:page-load', () => {
-  const locale = {
-    level0: '炼体',
-    level1: '炼气',
-    level2: '筑基',
-    level3: '金丹',
-    level4: '元婴',
-    level5: '化神',
-    reactionTitle: '你认为这篇文章怎么样？',
-    reaction0: '牛逼哄哄',
-    reaction1: '不太行哦',
-    reaction2: '还不错呦',
-    reaction3: '你觉得呢',
-    reaction4: '自己看看',
-    reaction5: '周公叫我',
-  }
+    const locale = {
+      level0: '炼体',
+      level1: '炼气',
+      level2: '筑基',
+      level3: '金丹',
+      level4: '元婴',
+      level5: '化神',
+      reactionTitle: '你认为这篇文章怎么样？',
+      reaction0: '牛逼哄哄',
+      reaction1: '不太行哦',
+      reaction2: '还不错呦',
+      reaction3: '你觉得呢',
+      reaction4: '自己看看',
+      reaction5: '周公叫我',
+    }
 
-  const walineElement = document.getElementById('waline')
-  if (walineElement) {
-    const origin = 'https://waline.marxchou.com/'
-    const walineProps = walineElement!.dataset
-    init({
-      el: '#waline',
-      serverURL: origin,
-      locale,
-      path: walineProps.walinePath!,
-      lang: 'zh-CN',
-      requiredMeta: ['nick', 'mail'],
-      login: 'disable',
-      search: false,
-      reaction: true,
-      pageview: true,
-      comment: true,
-      dark: 'body[data-theme="dark"]',
-      emoji: ['https://unpkg.com/@waline/emojis@1.2.0/qq', 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili'],
-    })
-  }
+    const walineElement = document.getElementById('waline')
+    if (comment.enable && walineElement) {
+      const origin = comment.serverUrl
+      const walineProps = walineElement!.dataset
+      init({
+        el: '#waline',
+        serverURL: origin,
+        comment: true,
+        locale,
+        path: walineProps.walinePath!,
+        lang: comment.lang,
+        pageSize: comment.pageSize,
+        pageview: true,
+        requiredMeta: ['nick', 'mail'],
+        reaction: comment.whiteList.includes(location.pathname) ? false : comment.reaction,
+        login: 'disable',
+        search: comment.search,
+        dark: 'body[data-theme="dark"]',
+        emoji: ['https://unpkg.com/@waline/emojis@1.2.0/qq', 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili'],
+      })
+    }
   })
 </script>
 
@@ -64,7 +66,7 @@
     }
   }
 
-  body[data-theme="dark"] {
+  body[data-theme='dark'] {
     --waline-color: #ced8de !important;
   }
 </style>

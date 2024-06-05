@@ -1,6 +1,5 @@
 ---
 import { donate } from '~/self.config'
-import { Icon } from 'astro-icon/components';
 ---
 
 <div class="donate">
@@ -11,20 +10,17 @@ import { Icon } from 'astro-icon/components';
     <div class="donate-text">
       <div id="alipay" class="alipay">
         <a href="#" target="_blank">
-          <!-- <img src="/alipay.svg" style="height: 1rem;" alt="alipay" /> -->
-          <Icon name="alipay" />
+          <img src="/alipay.svg" style="height: 1rem;" alt="alipay" />
         </a>
       </div>
       <div id="wechatpay" class="wechatpay">
         <a href="#" target="_blank">
-          <!-- <img src="/wechat.svg" style="height: 1rem;" alt="wechat" /> -->
-          <Icon name="wechat" />
+          <img src="/wechat.svg" style="height: 1rem;" alt="wechat" />
         </a>
       </div>
       <div id="paypal" class="paypal">
         <a href={donate.paypalUrl} target="_blank">
-          <!-- <img src="/paypal.svg" style="height: 1rem;" alt="paypal" /> -->
-          <Icon name="paypal" />
+          <img src="/paypal.svg" style="height: 1rem;" alt="paypal" />
         </a>
       </div>
     </div>

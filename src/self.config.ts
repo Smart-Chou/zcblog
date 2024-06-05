@@ -140,8 +140,8 @@ export const socialLinks = [
 export const donate = {
   enable: true,
   tip: 'Thanks for the coffee !!!☕',
-  wechatQRCode: '/WeChatQR.png',
-  alipayQRCode: '/AliPayQR.png',
+  wechatQRCode: '/WeChatQR.jpg',
+  alipayQRCode: '/AliPayQR.jpg',
   paypalUrl: 'https://paypal.me/xxxxxxxxxx',
 }
 
@@ -229,34 +229,12 @@ export const friendsPage = {
  */
 export const comment = {
   enable: true,
-  type: 'giscus', // waline | giscus,
-  //waline config
-  serverUrl: 'https://xxxxx.xxxxx.app',
-  // waline config
-  lang: 'en',
-  pageSize: 20,
-  wordLimit: '',
-  count: 5,
-  pageview: true,
+  serverUrl: 'https://waline.marxchou.com',
+  lang: 'zh-CN',
+  pageSize: 16,
   reaction: true,
-  requiredMeta: ['nick', 'mail'],
+  search: false,
   whiteList: ['/message/', '/friends/'],
-
-  // giscus config
-  giscusConfig: {
-    'data-repo': 'cirry/astro-yi',
-    'data-repo-id': 'R_kgDOJNr3Jw',
-    'data-category': 'Announcements',
-    'data-category-id': 'DIC_kwDOJNr3J84CftB-',
-    'data-mapping': 'pathname',
-    'data-strict': '0',
-    'data-reactions-enabled': '1',
-    'data-emit-metadata': '0',
-    'data-input-position': 'bottom',
-    'data-theme': 'light',
-    'data-lang': 'zh-CN',
-    crossorigin: 'anonymous',
-  },
 }
 
 export const footerList = [
