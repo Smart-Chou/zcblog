@@ -1,6 +1,7 @@
 ---
 import { site, config } from '~/self.config'
 import { ViewTransitions } from 'astro:transitions'
+import { GoogleAnalytics } from '@astrolib/analytics'
 // const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image, imageAlt } = Astro.props
 ---
@@ -18,9 +19,9 @@ const { title, description, image, imageAlt } = Astro.props
   <!-- Open Graph -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={image}/>
+  <meta property="og:image" content={image} />
   <meta property="og:image:alt" content={imageAlt} />
-  <meta property="og:url" content={Astro.url}/>
+  <meta property="og:url" content={Astro.url} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content={site.author} />
   <meta property="og:locale" content={config.lang} />
@@ -29,10 +30,10 @@ const { title, description, image, imageAlt } = Astro.props
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={image}/>
+  <meta name="twitter:image" content={image} />
   <meta name="twitter:image:alt" content={imageAlt} />
   <meta name="twitter:url" content={Astro.url} />
-  <meta name="twitter:creator" content={'@'+`${site.author}`} />
+  <meta name="twitter:creator" content={'@' + `${site.author}`} />
   <meta name="twitter:site" content={site.title} />
 
   <!-- 浏览器和搜索引擎相关 -->
@@ -47,8 +48,22 @@ const { title, description, image, imageAlt } = Astro.props
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/svg+xml" href={Astro.site + site.favicon} />
 
-  <!-- Umami Analytics -->
-  <script is:inline src="https://umami.marxchou.com/script.js" defer data-website-id="73b29141-fccf-4d54-9c2f-f7d0d146f86b"></script>
-  
-  <ViewTransitions/>
+  <!-- Analytics -->
+  {
+    config.umami && (
+      <>
+        <script is:inline src="https://umami.marxchou.com/script.js" defer data-website-id={String(config.umami)} />
+      </>
+    )
+  }
+  {
+    config.ga && (
+      <>
+        <GoogleAnalytics id={String(config.ga)} />
+      </>
+    )
+  }
+
+  <!-- Style -->
+  <ViewTransitions />
 </head>

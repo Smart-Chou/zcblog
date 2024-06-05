@@ -61,7 +61,8 @@ export const config = {
   busuanzi: false,
   lang: 'en', // en | zh-cn
   codeFoldingStartLines: 16, // Need to re-run the project to take effect
-  ga: false, // If you want to integrate with Google Analytics, just enter your GA-ID here.
+  ga: 'UA-123-456', // If you want to integrate with Google Analytics, just enter your GA-ID here.
+  umami: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
 }
 
 /**
@@ -137,7 +138,7 @@ export const socialLinks = [
  * paypalUrl {string}
  */
 export const donate = {
-  enable: false,
+  enable: true,
   tip: 'Thanks for the coffee !!!☕',
   wechatQRCode: '/WeChatQR.png',
   alipayQRCode: '/AliPayQR.png',

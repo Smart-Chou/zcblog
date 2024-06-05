@@ -1,0 +1,127 @@
+---
+import { donate } from '~/self.config'
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="donate">
+  <div class="esa-sponsor">
+    <div class="tip">
+      {donate.tip}
+    </div>
+    <div class="donate-text">
+      <div id="alipay" class="alipay">
+        <a href="#" target="_blank">
+          <!-- <img src="/alipay.svg" style="height: 1rem;" alt="alipay" /> -->
+          <Icon name="alipay" />
+        </a>
+      </div>
+      <div id="wechatpay" class="wechatpay">
+        <a href="#" target="_blank">
+          <!-- <img src="/wechat.svg" style="height: 1rem;" alt="wechat" /> -->
+          <Icon name="wechat" />
+        </a>
+      </div>
+      <div id="paypal" class="paypal">
+        <a href={donate.paypalUrl} target="_blank">
+          <!-- <img src="/paypal.svg" style="height: 1rem;" alt="paypal" /> -->
+          <Icon name="paypal" />
+        </a>
+      </div>
+    </div>
+    <div class="qrshow">
+      <img src={donate.alipayQRCode} alt="alipayQRCode" />
+    </div>
+    <div class="qrshow">
+      <img src={donate.wechatQRCode} alt="wechatQRCode" />
+    </div>
+  </div>
+</div>
+
+<script>
+  import { donate } from '~/self.config'
+
+  document.addEventListener('astro:page-load', () => {
+    const qrDiv = document.getElementsByClassName('qrshow') as HTMLCollectionOf<HTMLElement>
+    const aliDiv = document.getElementById('alipay')
+    const wechatDiv = document.getElementById('wechatpay')
+
+    if (qrDiv.length > 0) {
+      if (aliDiv && donate.alipayQRCode) {
+        aliDiv.addEventListener('mouseenter', () => {
+          qrDiv[0].style.display = 'block'
+        })
+        aliDiv.addEventListener('mouseleave', () => {
+          qrDiv[0].style.display = 'none'
+        })
+      }
+      if (wechatDiv && donate.wechatQRCode) {
+        wechatDiv.addEventListener('mouseenter', () => {
+          qrDiv[1].style.display = 'block'
+        })
+        wechatDiv.addEventListener('mouseleave', () => {
+          qrDiv[1].style.display = 'none'
+        })
+      }
+    }
+  })
+</script>
+
+<style>
+  .donate {
+    margin-top: 1rem;
+  }
+
+  .esa-sponsor {
+    position: relative;
+    width: 100%;
+    margin: 40px 0;
+  }
+
+  .esa-sponsor .qrshow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    left: calc(50% - 100px);
+    top: -170px;
+    z-index: 999;
+    display: none;
+    box-shadow:
+      0 1px 15px rgba(27, 31, 35, 0.15),
+      0 0 1px rgba(106, 115, 125, 0.35);
+  }
+
+  .tip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .donate-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .alipay {
+    padding: 0.5rem;
+    border-width: 1px;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+
+  .wechatpay {
+    padding: 0.5rem;
+    border-top-width: 0.5rem;
+    border-bottom-width: 1px;
+  }
+
+  .paypal {
+    padding: 0.5rem;
+    border-width: 1px;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+</style>

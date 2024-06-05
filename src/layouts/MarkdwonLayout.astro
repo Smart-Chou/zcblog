@@ -9,6 +9,7 @@ import WalineComment from '~/components/WalineComment.astro'
 import PostCardImage from '~/components/PostCardImage.astro'
 import { site } from '~/self.config'
 import { calculateReadTime, calculateWordCount } from '~/utils'
+import Donate from '~/components/Donate.astro'
 
 const { frontmatter } = Astro.props
 const today = new Date()
@@ -92,6 +93,7 @@ const currentSlug = Astro.params.slug
     </div>
   </div>
   <BackToTop />
+  <Donate />
   <Author />
   <WalineComment />
 </BaseLayout>
