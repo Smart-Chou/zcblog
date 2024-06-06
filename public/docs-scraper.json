@@ -1,42 +1,90 @@
 {
     "index_uid": "marxchou",
-    "start_urls": ["https://marxchou.com/"],
-    "sitemap_urls": ["https://marxchou.com/sitemap.xml"],
-    "stop_urls": [
-        "https://marxchou.com/tag", 
-        "https://marxchou.com/category", 
-        "https://marxchou.com/404.html", 
-        "https://marxchou.com/timeline/", 
-        "https://marxchou.com/article", 
-        "https://marxchou.com/star", 
-        "https://marxchou.com/slide", 
-        "https://marxchou.com/encrypt", 
-        "https://marxchou.com/author.html", 
-        "https://marxchou.com/message.html", 
-        "https://marxchou.com/friends.html", 
-        "https://marxchou.com/projects/", 
-        "https://marxchou.com/latest.html", 
-        "https://marxchou.com/home.html"
+    "start_urls": [
+        "https://marxchou.com/archives/"
     ],
+    "sitemap_urls": [
+        "https://marxchou.com/sitemap-0.xml"
+    ],
+    "stop_urls": [],
     "selectors": {
         "lvl0": {
-            "selector": ".page-title h1 span",
+            "selector": ".post-title h1",
             "global": true,
-            "default_value": "Documentation"
+            "default_value": "Archives"
         },
-        "lvl1": ".theme-default-content h2",
-        "lvl2": ".theme-default-content h3",
-        "lvl3": ".theme-default-content h4",
-        "lvl4": ".theme-default-content h5",
-        "lvl5": ".theme-default-content h6",
-        "lvl6": ".theme-default-content p code",
-        "text": ".theme-default-content p, .theme-default-content li"
+        "lvl1": ".content-box .post__content h2",
+        "lvl2": ".content-box .post__content h3",
+        "lvl3": ".content-box .post__content h4",
+        "lvl4": ".content-box .post__content blockquote",
+        "lvl5": ".content-box .post__content aside p",
+        "lvl6": ".content-box .post__content .expressive-code code",
+        "text": ".content-box .post__content p"
     },
+    "min_indexed_level": 2,
     "strip_chars": " .,;:#",
     "scrap_start_urls": true,
-    "selectors_exclude": ["iframe", ".katex-block", ".md-flowchart", ".md-mermaid", ".md-presentation.reveal.reveal-viewport", ".line-numbers-mode", ".code-group", ".footnotes", "footer.page-meta", ".page-nav", ".comments-wrapper"],
+    "selectors_exclude": [
+        ".header",
+        ".gutter",
+        ".post__footer",
+        ".post__navigation",
+        ".donate",
+        ".author",
+        "#waline",
+        ".footer"
+    ],
     "custom_settings": {
         "synonyms": {},
-        "stopWords": ["什么", "哪个", "谁", "这个", "那个", "这些", "那些", "是", "曾经", "存在", "有", "做", "直到", "同时", "的", "在", "通过", "为", "与", "关于", "反对", "之间", "进入", "通过", "期间", "之前", "之后", "上方", "下方", "到", "从", "上", "下", "进", "出", "开", "关", "任何", "两者", "每个", "少数", "更多", "大多数", "其他", "一些", "这样", "应该", "不"]
-        }
+        "stopWords": [
+            "什么",
+            "哪个",
+            "谁",
+            "这个",
+            "那个",
+            "这些",
+            "那些",
+            "是",
+            "曾经",
+            "存在",
+            "有",
+            "做",
+            "直到",
+            "同时",
+            "的",
+            "在",
+            "通过",
+            "为",
+            "与",
+            "关于",
+            "反对",
+            "之间",
+            "进入",
+            "通过",
+            "期间",
+            "之前",
+            "之后",
+            "上方",
+            "下方",
+            "到",
+            "从",
+            "上",
+            "下",
+            "进",
+            "出",
+            "开",
+            "关",
+            "任何",
+            "两者",
+            "每个",
+            "少数",
+            "更多",
+            "大多数",
+            "其他",
+            "一些",
+            "这样",
+            "应该",
+            "不"
+        ]
+    }
 }
