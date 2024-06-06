@@ -55,8 +55,12 @@ jobs:
         steps:
             - name: Test Connect
               run: |
-                  curl https://marxchou.com --connect-timeout 5
-                  curl https://meilisearh.marxchou.com/health --connect-timeout 5
+                  echo "Pinging marxchou.com"
+                  ping -c 4 marxchou.com
+                  echo "Testing connection to https://marxchou.com"
+                  curl -v https://marxchou.com --connect-timeout 10
+                  echo "Testing connection to https://meilisearch.marxchou.com/health"
+                  curl -v https://meilisearch.marxchou.com/health --connect-timeout 10
 
     scrape-docs:
         needs: test_website
