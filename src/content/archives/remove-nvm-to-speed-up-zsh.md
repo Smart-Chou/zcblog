@@ -121,7 +121,7 @@ curl -L https://git.io/n-install | bash
 
 `n-install` 可以自动帮我们在 `$HOME` 文件夹下创建 `n` 所使用的安装目录，并将环境变量替我们设定完整，应该是目前为止最方便的 `n` 安装方法。
 
-:::important 🎍 阅读更多
+:::tip[🎍 阅读更多]
 有关 `n-install` 的更多使用细节（包括安装、更新、卸载……）请参考 `n-install` 官方仓库：[mklement0/n-install](https://github.com/mklement0/n-install)。
 :::
 

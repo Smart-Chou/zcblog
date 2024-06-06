@@ -2,12 +2,10 @@
 import { Icon } from 'astro-icon/components'
 ---
 
-<div class="header__right">
-  <button id="theme-btn" role="button" aria-label="Toggle dark/light" class="toggle-theme">
-    <Icon name="tabler:sun" class="feather feather-sun" />
-    <Icon name="tabler:moon-stars" class="feather feather-moon" />
-  </button>
-</div>
+<button id="theme-btn" role="button" aria-label="Toggle dark/light" class="toggle-theme">
+  <Icon name="tabler:sun" class="feather feather-sun" />
+  <Icon name="tabler:moon-stars" class="feather feather-moon" />
+</button>
 
 <script>
   document.addEventListener('astro:page-load', () => {

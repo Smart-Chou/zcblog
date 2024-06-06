@@ -8,7 +8,7 @@ image:
     alt: 'serverless-ga-hit-count-api'
 description: 借助 Google Analytics 为数据支撑，使用 Vercel Serverless 为静态博客添加文章阅读数量统计 API。
 ---
-:::note 🍍 编者按
+:::note[🍍 编者按]
 本文灵感和部分方法极大程度来源于 @printempw 的文章：[使用 Google Analytics API 实现博客阅读量统计](https://printempw.github.io/google-analytics-api-page-views-counter/)，感谢。(　o=^•ェ•)o
 :::
 
@@ -79,7 +79,7 @@ export default {
 * `allFilter`：是通过 Google API 查询时的前缀过滤器，比如你的网站中文章路径以 `/post` 开头，那么就可以设置为 `['/post']`。默认为 `['/20']`（因为我的文章路径是以 `/2020` 或 `/2019` 开头的）；
 * `startDate`：是通过 Google API 查询时设定时间段的开始时间，设定一个比较久远的时间即可，默认为 `2010-01-01`。
 
-:::warning 🚨 请注意！
+:::caution[🚨 请注意！]
 这里千万千万不要直接将刚刚凭证中获取到的私钥直接粘贴进入 `privateKey` 一项之中，因为这样当我们将 `config.ts` 签入 `git` 之后，`privateKey` 将以明文形式保存，非常危险。
 :::
 

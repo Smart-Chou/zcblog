@@ -1,15 +1,16 @@
 ---
 import { getCollection } from 'astro:content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import Author from '~/components/Author.astro'
+import PostMeta from '~/components/PostMeta.astro'
+import PostCardImage from '~/components/PostCardImage.astro'
 import PostTag from '~/components/PostTag.astro'
 import BackToTop from '~/components/BackToTop.astro'
-import PostMeta from '~/components/PostMeta.astro'
+import Donate from '~/components/Donate.astro'
+import Author from '~/components/Author.astro'
 import WalineComment from '~/components/WalineComment.astro'
-import PostCardImage from '~/components/PostCardImage.astro'
+import PostCopyright from '~/components/PostCopyright.astro'
 import { site } from '~/self.config'
 import { calculateReadTime, calculateWordCount } from '~/utils'
-import Donate from '~/components/Donate.astro'
 
 const { frontmatter } = Astro.props
 const today = new Date()
@@ -63,6 +64,9 @@ const currentSlug = Astro.params.slug
     <div class="post__footer">
       <div class="post-tags post-card__tags">
         {frontmatter.tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}/`} />)}
+      </div>
+      <div class="post-tags post-card__tags">
+        <PostCopyright />
       </div>
     </div>
     <div class="post__navigation">

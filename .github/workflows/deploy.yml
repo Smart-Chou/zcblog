@@ -1,0 +1,72 @@
+name: Deploy blog
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    deploy-gh-pages:
+        runs-on: ubuntu-22
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  submodules: true
+                  fetch-depth: 0
+            
+            - name: node-version
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+
+            - uses: actions/cache@v4
+              id: node-modules
+              with:
+                  path: node_modules/
+                  key: ${{ runner.os }}-node-modules-${{ hashFiles('pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-modules-
+
+            - name: Install Blog
+              if: steps.node-modules.outputs.cache-hit != 'true'
+              run: pnpm install
+
+            - name: Build Blog
+              run: pnpm run build
+
+            - name: Deploy
+              uses: JamesIves/github-pages-deploy-action@4.1.5
+              with:
+                  branch: gh-pages
+                  folder: dist
+
+    test_website:
+        needs: deploy-gh-pages
+        runs-on: ubuntu-22
+        steps:
+            - name: Test Connect
+              run: |
+                  curl https://marxhcou.com --connect-timeout 5
+                  curl https://meilisearh.marxchou.com/health --connect-timeout 5
+
+    scrape-docs:
+        needs: test_website
+        runs-on: ubuntu-22
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  registry-url: https://registry.npmjs.org/
+            - name: Run docs-scraper
+              env:
+                  HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
+                  API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
+                  CONFIG_FILE_PATH: ${{ github.workspace }}/blog/public/docs-scraper.json
+              run: |
+                  docker run -t --rm \
+                    -e MEILISEARCH_HOST_URL=$HOST_URL \
+                    -e MEILISEARCH_API_KEY=$API_KEY \
+                    -v $CONFIG_FILE_PATH:/docs-scraper/config.json \
+                    getmeili/docs-scraper:v0.12.12 pipenv run ./docs_scraper config.json

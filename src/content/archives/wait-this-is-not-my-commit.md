@@ -87,7 +87,7 @@ git push -f
 
 ## 使用 GPG key 来证明 commit 著作权
 
-:::note 💙 GitHub 官方文档
+:::note[💙 GitHub 官方文档]
 GitHub 官方文档拥有更为详细的 GPG 密钥构建和添加方法：[Managing commit signature verification](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification).
 :::
 
@@ -189,7 +189,7 @@ $ git cat-file -p c407d4e
 $ git config --global gpg.program /usr/bin/gpg
 ```
 
-:::important 🥦 GPG 可执行文件路径
+:::important[🥦 GPG 可执行文件路径]
 Windows 上的同学，也可以使用 `which` 命令！只需要用 scoop 安装：`scoop install which`，即可方便的用类似 Linux 上的语法找到相应的可执行文件具体路径。
 :::
 

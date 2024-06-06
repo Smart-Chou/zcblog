@@ -1,12 +1,18 @@
 ---
 import Logo from '~/components/Logo.astro'
+import SearchBox from '~/components/SearchBox.astro'
 import ToggleTheme from '~/components/ToggleTheme.astro'
 ---
 
 <header id="nprogress-container" class="header">
   <div class="fullwidth">
-    <Logo />
-    <ToggleTheme />
+    <div class="header__left">
+      <Logo />
+    </div>
+    <div class="header__right">
+      <SearchBox />
+      <ToggleTheme />
+    </div>
   </div>
 </header>
 

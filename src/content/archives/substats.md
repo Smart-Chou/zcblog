@@ -22,7 +22,7 @@ Serverless Function to Count How Many People are Subscribed to You in Your Favor
 
 其实，最初的 Substats 实际上叫做 RSS-stats，也就是集合多个 RSS 服务商提供的订阅人数数据得到的一个 API 服务。但是后来经过我一番思考，既然都是调用 API，那么为什么不把其他的平台和服务，比如微博粉丝、知乎、少数派、以及 GitHub 和 Twitter 的关注者等等，一起支持一下呢？💡 可行！于是 Substats 就这样诞生啦。(≧∇≦)ﾉ
 
-:::tip 相关链接
+:::tip[相关链接]
 - **Substats API 地址**：[API - Substats](https://api.spencerwoo.com/substats/)
 - **Substats GitHub 项目地址**：[spencerwooo/Substats](https://github.com/spencerwooo/Substats)
 :::

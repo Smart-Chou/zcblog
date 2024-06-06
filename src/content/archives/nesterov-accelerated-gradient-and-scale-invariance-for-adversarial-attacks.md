@@ -12,7 +12,7 @@ description: ICLR 2020 的一篇论文，主要提出了 NI-FGSM 和 SIM 两种�
 
 ## 论文贡献
 
-:::note 🍗 主要贡献
+:::note[🍗 主要贡献]
 In this work, from the perspective of regarding the adversarial example generation as an optimization process, we propose two new methods to improve the transferability of adversarial examples, namely **Nesterov Iterative Fast Gradient Sign Method (NI-FGSM) and Scale-Invariant attack Method (SIM).**
 :::
 
