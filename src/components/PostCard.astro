@@ -4,12 +4,12 @@ import PostTag from '~/components/PostTag.astro'
 import PostMeta from '~/components/PostMeta.astro'
 import PostCardImage from '~/components/PostCardImage.astro'
 
-const { altText, imagePath, title, description, pubDate, tags, postUrl, wordCount, readTime, currentSlug, upDate } = Astro.props
+const { altText, imagePath, title, description, pubDate, tags, postUrl, wordCount, readTime, currentSlug, upDate, loading } = Astro.props
 ---
 
 <PostLayout>
   <div class="post-card__header">
-    <PostCardImage imagePath={imagePath} altText={altText} />
+    <PostCardImage imagePath={imagePath} altText={altText} loading={loading}/>
   </div>
   <h2 class="post-card__title">{title}</h2>
   <p class="post-card__description">{description}</p>

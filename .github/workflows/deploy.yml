@@ -45,7 +45,7 @@ jobs:
                   branch: gh-pages
                   folder: dist
                   clean: true
-                  token: ${{ secrets.PAGE_GITHUB_TOKEN }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
 
     test_website:
         needs: deploy-gh-pages

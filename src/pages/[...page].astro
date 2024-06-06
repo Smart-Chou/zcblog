@@ -36,7 +36,7 @@ const postsWithMeta = page.data.map(post => {
 >
   <Author />
   <div class="post">
-    {postsWithMeta.map(post => (
+    {postsWithMeta.map((post, index) => (
       <PostCard 
         key={post.slug} 
         title={post.data.title} 
@@ -50,6 +50,7 @@ const postsWithMeta = page.data.map(post => {
         currentSlug={post.slug}
         upDate={post.data.upDate}
         altText={post.data.image.alt}
+        loading={index < 3 ? 'eager' : 'lazy'}
       />
     ))}
   </div>

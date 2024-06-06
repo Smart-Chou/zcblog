@@ -5,9 +5,10 @@ import { Picture } from 'astro:assets'
 interface Props {
   imagePath: string
   altText: string
+  loading?: 'eager' | 'lazy'
 }
 
-const { imagePath, altText } = Astro.props
+const { imagePath, altText, loading } = Astro.props
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{jpeg,jpg,png,gif}')
 
 if (!images[`/src/assets${imagePath}`]) {
@@ -17,4 +18,4 @@ if (!images[`/src/assets${imagePath}`]) {
 const imageModule = await images[`/src/assets${imagePath}`]()
 ---
 
-<Picture src={imageModule.default} alt={altText} formats={['webp', 'png']} class="post-card__image"/>
+<Picture src={imageModule.default} alt={altText} formats={['webp', 'png']} class="post-card__image" loading={loading}/>
