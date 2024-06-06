@@ -78,7 +78,7 @@ jobs:
               env:
                   HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
                   API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
-                  CONFIG_FILE_PATH: ${{ github.workspace }}/blob/main/public/docs-scraper.json
+                  CONFIG_FILE_PATH: ${{ github.workspace }}/public/docs-scraper.json
 
               run: |
                   docker run -t --rm \
