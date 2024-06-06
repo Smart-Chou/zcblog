@@ -15,12 +15,16 @@ jobs:
                   submodules: true
                   fetch-depth: 0
             
-            - name: node-version
+            - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: 20
 
-            - uses: actions/cache@v4
+            - name: Install pnpm
+              run: npm install -g pnpm
+
+            - name: Setup pnpm
+              uses: actions/cache@v4
               id: node-modules
               with:
                   path: node_modules/
@@ -28,11 +32,11 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-node-modules-
 
-            - name: Install Blog
+            - name: Install Dependencies
               if: steps.node-modules.outputs.cache-hit != 'true'
               run: pnpm install
 
-            - name: Build Blog
+            - name: Build
               run: pnpm run build
 
             - name: Deploy
