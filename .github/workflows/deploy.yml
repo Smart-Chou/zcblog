@@ -55,7 +55,7 @@ jobs:
         steps:
             - name: Test Connect
               run: |
-                  curl https://marxhcou.com --connect-timeout 5
+                  curl https://marxchou.com --connect-timeout 5
                   curl https://meilisearh.marxchou.com/health --connect-timeout 5
 
     scrape-docs:
