@@ -54,6 +54,7 @@ jobs:
         runs-on: ubuntu-20.04
         steps:
             - name: Test Connect
+              continue-on-error: true
               run: |
                   echo "Pinging marxchou.com"
                   ping -c 4 marxchou.com || exit 0 # Don't fail the workflow on ping failure
@@ -77,7 +78,7 @@ jobs:
               env:
                   HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
                   API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
-                  CONFIG_FILE_PATH: ${{ github.workspace }}/blog/public/docs-scraper.json
+                  CONFIG_FILE_PATH: ${{ github.workspace }}/blog/main/public/docs-scraper.json
               run: |
                   docker run -t --rm \
                     -e MEILISEARCH_HOST_URL=$HOST_URL \
