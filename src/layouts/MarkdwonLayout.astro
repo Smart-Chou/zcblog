@@ -11,7 +11,8 @@ import WalineComment from '~/components/WalineComment.astro'
 import PostCopyright from '~/components/PostCopyright.astro'
 import { site } from '~/self.config'
 
-const { frontmatter, lastModified, readingTime, comment } = Astro.props
+const { frontmatter, lastModified, readingTime } = Astro.props
+console.log(frontmatter.comment)
 
 const today = new Date()
 const publishTime = new Date(frontmatter.pubDate)
@@ -96,5 +97,5 @@ const currentSlug = Astro.params.slug
   <BackToTop />
   <Donate />
   <Author />
-  {comment && <WalineComment />}
+  {frontmatter.comment && <WalineComment />}
 </BaseLayout>
