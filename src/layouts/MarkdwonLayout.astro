@@ -12,7 +12,6 @@ import PostCopyright from '~/components/PostCopyright.astro'
 import { site } from '~/self.config'
 
 const { frontmatter, lastModified, readingTime } = Astro.props
-console.log(frontmatter.comment)
 
 const today = new Date()
 const publishTime = new Date(frontmatter.pubDate)

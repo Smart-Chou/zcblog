@@ -1,12 +1,13 @@
 ---
 title: Batch Git Pull：分享一个维护多个 Git 仓库的小脚本
+description: 如何一次更新多个 Git 仓库
 pubDate: 2019-11-13
-upDate: 2024-01-01
-tags: ['Git', 'Tech']
+tags:
+  - Git
+  - Tech
 image:
   url: '/postImage/batch-git-pull.png'
   alt: 'batch-git-pull'
-description: 如何一次更新多个 Git 仓库
 sticky: 2
 comment: false
 ---
