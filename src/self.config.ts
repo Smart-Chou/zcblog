@@ -59,7 +59,7 @@ export const archivesPage = {
  */
 export const config = {
   busuanzi: false,
-  lang: 'en', // en | zh-cn
+  lang: 'en', // en | zh-CN
   codeFoldingStartLines: 16, // Need to re-run the project to take effect
   ga: 'UA-123-456', // If you want to integrate with Google Analytics, just enter your GA-ID here.
   umami: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
