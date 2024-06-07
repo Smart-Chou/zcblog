@@ -8,6 +8,7 @@ image:
   alt: 'batch-git-pull'
 description: 如何一次更新多个 Git 仓库
 sticky: 2
+commnet: false
 ---
 
 不废话，放脚本：
