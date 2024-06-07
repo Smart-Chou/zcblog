@@ -7,9 +7,9 @@ import { site } from '~/self.config'
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('archives')
-  const uniqueTags = [...new Set(allPosts.map(post => post.data.tags).flat())]
+  const uniqueTags = [...new Set(allPosts.map(post => post.data.tags || []).flat())]
   return uniqueTags.map(tag => {
-    const filteredPosts = allPosts.filter(post => post.data.tags.includes(tag))
+    const filteredPosts = allPosts.filter(post => (post.data.tags || []).includes(tag))
     return {
       params: { tag },
       props: { archives: filteredPosts },
@@ -25,13 +25,13 @@ const lastModified = remarkPluginFrontmatter.lastModified
 const readingTime = remarkPluginFrontmatter.readingTime
 
 const postsWithMeta = archives.map(post => {
-  const upData =  new Date(lastModified)
+  const upDate =  new Date(lastModified)
   const wordCount = readingTime.words
   const readTime = readingTime.text
 
   return {
     ...post,
-    upData,
+    upDate,
     wordCount,
     readTime,
     slug: post.slug,
@@ -54,7 +54,7 @@ const postsWithMeta = archives.map(post => {
           <p class="post-card__description">{post.data.description}</p>
           <PostMeta 
                 pubDate={post.data.pubDate} 
-                upDate={post.data.upDate} 
+                upDate={post.upDate} 
                 wordCount={post.wordCount} 
                 readTime={post.readTime} 
                 currentSlug={post.slug} 
