@@ -7,7 +7,18 @@ import { site, archivesPage } from '~/self.config'
 
 const allPosts = await getCollection('archives')
 
-const postsByYear = allPosts.reduce((acc, post) => {
+// 获取每篇文章的 remarkPluginFrontmatter 信息
+const postsWithMeta = await Promise.all(
+  allPosts.map(async post => {
+    const { remarkPluginFrontmatter } = await post.render()
+    return {
+      ...post,
+      remarkPluginFrontmatter
+    }
+  })
+)
+
+const postsByYear = postsWithMeta.reduce((acc, post) => {
   const year = new Date(post.data.pubDate).getFullYear()
   if (!acc[year]) {
     acc[year] = []
@@ -16,23 +27,18 @@ const postsByYear = allPosts.reduce((acc, post) => {
   return acc
 }, {})
 
-const calculateWordCount = text => {
-  const regex = /[\u4e00-\u9fa5]|[a-zA-Z]+|\d+/g
-  const matches = text.match(regex)
-  return matches ? matches.length : 0
-}
-
-const totalPosts = allPosts.length
-const totalWords = allPosts.reduce((sum, post) => sum + calculateWordCount(post.body), 0)
-const totalWordsInThousands = (totalWords / 1000).toFixed(1) + `k`
-const startYear = Math.min(...allPosts.map(post => new Date(post.data.pubDate).getFullYear()))
+// 计算总词数
+const totalPosts = postsWithMeta.length
+const totalWords = postsWithMeta.reduce((sum, post) => sum + post.remarkPluginFrontmatter.readingTime.words, 0)
+const totalWordsInThousands = (totalWords / 1000).toFixed(1) + 'k'
+const startYear = Math.min(...postsWithMeta.map(post => new Date(post.data.pubDate).getFullYear()))
 ---
 
 <BaseLayout 
-    title={archivesPage.title + ` - ` + site.title} 
-    description={archivesPage.description + ` - ` + site.description}
-    image={Astro.site + site.coverImage}
-    imageAlt={archivesPage.description}
+  title={archivesPage.title + ` - ` + site.title} 
+  description={archivesPage.description + ` - ` + site.description}
+  image={Astro.site + site.coverImage}
+  imageAlt={archivesPage.description}
 >
   <h1 class="text-center space-bottom">Archives</h1>
   <PostLayout>
@@ -48,7 +54,12 @@ const startYear = Math.min(...allPosts.map(post => new Date(post.data.pubDate).g
             {postsByYear[year]
               .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
               .map(post => (
-                <Archives key={post.slug} url={`/archives/${post.slug}/`} title={post.data.title} pubDate={post.data.pubDate} />
+                <Archives 
+                  key={post.slug} 
+                  url={`/archives/${post.slug}/`} 
+                  title={post.data.title} 
+                  pubDate={post.data.pubDate} 
+                />
               ))}
           </section>
         ))

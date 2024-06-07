@@ -7,6 +7,7 @@ image:
     url: '/postImage/how-i-manage-my-dotfiles.gif'
     alt: 'how-i-manage-my-dotfiles'
 description: Yet Another Dotfiles Manager，基于 Git 的 Dotfiles 管理器。
+sticky: 22
 ---
 没想到啊，[我的 dotfiles 仓库](https://github.com/spencerwooo/dotfiles "我的 dotfiles 仓库")竟然是目前我 GitHub 上面星星数量最多的单仓库。
 

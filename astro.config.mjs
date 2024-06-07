@@ -1,15 +1,15 @@
-import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
-import icon from 'astro-icon';
-import mdx from '@astrojs/mdx';
-import remarkDirective from 'remark-directive';
-import { remarkModifiedTime } from './src/remarkPlugin/remark-modified-time.mjs';
-import { resetRemark } from './src/remarkPlugin/reset-remark.js';
-import { remarkAsides } from './src/remarkPlugin/remark-asides.js';
-import astroExpressiveCode from 'astro-expressive-code';
-import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
-import { visit } from 'unist-util-visit';
-import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections';
+import { defineConfig } from 'astro/config'
+import sitemap from '@astrojs/sitemap'
+import icon from 'astro-icon'
+import mdx from '@astrojs/mdx'
+import remarkDirective from 'remark-directive'
+import { remarkModifiedTime } from './src/remarkPlugin/remark-modified-time.mjs'
+import { resetRemark } from './src/remarkPlugin/reset-remark.js'
+import { remarkAsides } from './src/remarkPlugin/remark-asides.js'
+import astroExpressiveCode from 'astro-expressive-code'
+import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
+import { visit } from 'unist-util-visit'
+import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections'
 
 // function customRehypeLazyLoadImage() {
 //   return function (tree) {
@@ -28,29 +28,41 @@ import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-s
 export default defineConfig({
   site: 'https://marxchou.com',
   markdown: {
-    remarkPlugins: [remarkModifiedTime, resetRemark, remarkDirective, remarkAsides({})],
+    remarkPlugins: [
+      remarkModifiedTime,
+      resetRemark,
+      remarkDirective,
+      remarkAsides({}),
+    ],
     // rehypePlugins: [customRehypeLazyLoadImage],
-    syntaxHighlight: 'prism'
+    syntaxHighlight: 'prism',
   },
-  integrations: [sitemap(), icon(), astroExpressiveCode({
-    plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
-    themes: ['github-dark-dimmed'],
-    themeCssSelector: theme => `body[data-theme=${theme.name}]`,
-    useDarkModeMediaQuery: false
-  }), mdx()],
+  integrations: [
+    sitemap(),
+    icon(),
+    astroExpressiveCode({
+      plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
+      themes: ['github-dark-dimmed'],
+      themeCssSelector: theme => `body[data-theme=${theme.name}]`,
+      useDarkModeMediaQuery: false,
+    }),
+    mdx(),
+  ],
   image: {
     // 示例：通过自定义配置启用基于 Sharp 的图像服务
     service: {
       entrypoint: 'astro/assets/services/sharp',
       config: {
-        limitInputPixels: false
-      }
-    }
+        limitInputPixels: false,
+      },
+    },
   },
   domains: ['avatars.githubusercontent.com'],
-  remotePatterns: [{
-    protocol: 'https'
-  }],
+  remotePatterns: [
+    {
+      protocol: 'https',
+    },
+  ],
   trailingSlash: 'always',
-  output: 'static'
-});
+  output: 'static',
+})

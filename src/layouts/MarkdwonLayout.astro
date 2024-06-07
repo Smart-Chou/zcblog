@@ -10,18 +10,15 @@ import Author from '~/components/Author.astro'
 import WalineComment from '~/components/WalineComment.astro'
 import PostCopyright from '~/components/PostCopyright.astro'
 import { site } from '~/self.config'
-import { calculateReadTime, calculateWordCount } from '~/utils'
 
-const { frontmatter } = Astro.props
+const { frontmatter, lastModified, readingTime } = Astro.props
+
 const today = new Date()
 const publishTime = new Date(frontmatter.pubDate)
-const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (1000 * 60 * 60 * 24))
+const lastModifiedTime = new Date(lastModified)
+const publishedDays = Math.floor((today.getTime() - lastModifiedTime.getTime()) / (1000 * 60 * 60 * 24))
 
 const allPosts = await getCollection('archives')
-const postWithMeta = allPosts.find(post => post.slug === Astro.params.slug)
-
-const wordCount = postWithMeta?.body ? calculateWordCount(postWithMeta.body) : undefined
-const readTime = wordCount ? calculateReadTime(wordCount) : undefined
 const currentSlug = Astro.params.slug
 ---
 
@@ -37,9 +34,9 @@ const currentSlug = Astro.params.slug
     </h1>
     <PostMeta 
         pubDate={publishTime} 
-        upDate={frontmatter.upDate} 
-        wordCount={wordCount} r
-        eadTime={readTime} 
+        upDate={lastModifiedTime} 
+        wordCount={readingTime.words}
+        readTime={readingTime.text}
         currentSlug={currentSlug} 
     />
   </div>

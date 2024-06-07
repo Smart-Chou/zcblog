@@ -95,7 +95,6 @@ aside,
 details,
 figcaption,
 figure,
-footer,
 header,
 hgroup,
 menu,
@@ -191,6 +190,12 @@ body[data-theme='dark'] {
 
 html {
   font-size: var(--base-font-size);
+  scrollbar-gutter: stable;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
@@ -2503,6 +2508,9 @@ svg:not(:root).svg-inline--fa {
 }
 
 #app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
   scroll-behavior: smooth;
 }
 
@@ -2528,6 +2536,8 @@ svg:not(:root).svg-inline--fa {
   line-height: 1.8;
   font-size: 0.9em;
   font-family: var(--base-font-family);
+  grid-row-start: 3; /* 页脚位于第三行 */
+  grid-row-end: 4; /* 页脚结束于第四行 */
 }
 
 .footer > span {

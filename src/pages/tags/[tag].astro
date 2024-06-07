@@ -4,7 +4,6 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import PostLayout from '~/layouts/PostLayout.astro'
 import PostMeta from '~/components/PostMeta.astro'
 import { site } from '~/self.config'
-import { calculateReadTime, calculateWordCount } from '~/utils'
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('archives')
@@ -21,12 +20,18 @@ export async function getStaticPaths() {
 const { tag } = Astro.params
 const { archives } = Astro.props
 
+const { remarkPluginFrontmatter } = await archives[0].render()
+const lastModified = remarkPluginFrontmatter.lastModified
+const readingTime = remarkPluginFrontmatter.readingTime
+
 const postsWithMeta = archives.map(post => {
-  const wordCount = calculateWordCount(post.body)
-  const readTime = calculateReadTime(wordCount)
+  const upData =  new Date(lastModified)
+  const wordCount = readingTime.words
+  const readTime = readingTime.text
 
   return {
     ...post,
+    upData,
     wordCount,
     readTime,
     slug: post.slug,

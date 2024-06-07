@@ -1,19 +1,22 @@
 ---
-import { getCollection } from 'astro:content'
-import MarkdwonLayout from '~/layouts/MarkdwonLayout.astro'
+import { getCollection } from 'astro:content';
+import MarkdwonLayout from '~/layouts/MarkdwonLayout.astro';
 
 export async function getStaticPaths() {
-  const archives = await getCollection('archives')
+  const archives = await getCollection('archives');
   return archives.map(entry => ({
     params: { slug: entry.slug },
     props: { entry },
-  }))
+  }));
 }
 
-const { entry } = Astro.props
-const { Content } = await entry.render()
+const { entry } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await entry.render();
+
+const lastModified = remarkPluginFrontmatter.lastModified;
+const readingTime = remarkPluginFrontmatter.readingTime;
 ---
 
-<MarkdwonLayout frontmatter={entry.data} >
+<MarkdwonLayout frontmatter={entry.data} lastModified={lastModified} readingTime={readingTime}>
   <Content />
 </MarkdwonLayout>

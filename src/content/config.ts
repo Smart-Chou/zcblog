@@ -13,6 +13,7 @@ const postsCollection = defineCollection({
       alt: z.string(),
     }),
     tags: z.array(z.string()),
+    sticky: z.number().default(0).nullable(),
   }),
 })
 

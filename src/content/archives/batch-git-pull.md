@@ -7,6 +7,7 @@ image:
   url: '/postImage/batch-git-pull.png'
   alt: 'batch-git-pull'
 description: 如何一次更新多个 Git 仓库
+sticky: 2
 ---
 
 不废话，放脚本：
