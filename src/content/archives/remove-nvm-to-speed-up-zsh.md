@@ -164,8 +164,10 @@ curl -L https://git.io/n-install | bash
 `n-install` 可以自动帮我们在 `$HOME` 文件夹下创建 `n` 所使用的安装目录，并将环境
 变量替我们设定完整，应该是目前为止最方便的 `n` 安装方法。
 
-:::tip[🎍 阅读更多] 有关 `n-install` 的更多使用细节（包括安装、更新、卸载……）请参
-考 `n-install` 官方仓库：[mklement0/n-install](https://github.com/mklement0/n-install)。:::
+:::tip[🎍 阅读更多] 
+有关 `n-install` 的更多使用细节（包括安装、更新、卸载……）请参
+考 `n-install` 官方仓库：[mklement0/n-install](https://github.com/mklement0/n-install)。
+:::
 
 安装成功 `n` 之后，我们就可以像往常一样，安装使用多个版本的 Node.js 啦。
 

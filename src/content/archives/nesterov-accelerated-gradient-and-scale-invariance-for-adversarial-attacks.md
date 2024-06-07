@@ -15,10 +15,12 @@ description: ICLR 2020 的一篇论文，主要提出了 NI-FGSM 和 SIM 两种�
 
 ## 论文贡献
 
-:::note[🍗 主要贡献] In this work, from the perspective of regarding the adversarial
+:::note[🍗 主要贡献] 
+In this work, from the perspective of regarding the adversarial
 example generation as an optimization process, we propose two new methods to improve
 the transferability of adversarial examples, namely **Nesterov Iterative Fast Gradient
-Sign Method (NI-FGSM) and Scale-Invariant attack Method (SIM).** :::
+Sign Method (NI-FGSM) and Scale-Invariant attack Method (SIM).** 
+:::
 
 论文在将对抗攻击过程看作是一个「优化的过程」，基于提升对抗样本可迁移性的考虑，提
 出了 NI-FGSM 和 SIM 两种对抗攻击方法：
@@ -209,9 +211,11 @@ Res-101）：
 
 **因此，NI-FGSM 不仅比 MI-FGSM 有更好的迁移性，还有更高的攻击效率。**
 
-:::important Nesterov Accelerated Gradient 全因为 NAG 这个优化算法啊！NAG 虽然只
+:::important 
+Nesterov Accelerated Gradient 全因为 NAG 这个优化算法啊！NAG 虽然只
 比 Momentum 优化多了一步，相当于根据前方的梯度地形，多走一步，但正因为这一步，让
-NAG 比 Momentum 优化收敛的更快。[^1] :::
+NAG 比 Momentum 优化收敛的更快。[^1] 
+:::
 
 同时，论文还和 FGSM、I-FGSM、PGD 和 C&W 传统攻击进行了对比，实验表明 NI-FGSM 和
 SI-NI-FGSM 在白盒设定下和 C&W 一样能够达到 100% 的攻击成功率，黑盒设定下性能远远

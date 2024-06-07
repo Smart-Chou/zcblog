@@ -14,13 +14,16 @@ sticky: 97
 ![#](https://cdn.jsdelivr.net/gh/justacoder99/r2coding@master/img/r2coding_logo_index.15y992dieibg.png)
 :::
 
-::: center ![Github](https://img.shields.io/badge/Github-r2coding-red.svg)
+::: center 
+![Github](https://img.shields.io/badge/Github-r2coding-red.svg)
 ![Gitee](https://img.shields.io/badge/Gitee-r2coding-blue.svg)
-![bilibili](https://img.shields.io/badge/bilibili-哔哩哔哩-critical) :::
+![bilibili](https://img.shields.io/badge/bilibili-哔哩哔哩-critical) 
+:::
 
 ## 为什么会有这个网站
 
-::: tip本网站取名 **r2coding**，即 **Road To Coding**，意为「编程自学之路」，是
+::: tip
+本网站取名 **r2coding**，即 **Road To Coding**，意为「编程自学之路」，是
 自学编程以来所用资源和分享内容的大聚合。旨在为编程自学者提供一系列：
 
 - **清晰的编程自学路线**
@@ -29,7 +32,8 @@ sticky: 97
 - **高效的工具**
 - **务实的技术文章**
 
-方便自己也方便他人。网站内容会保持**持续更新**，欢迎收藏品鉴！:::
+方便自己也方便他人。网站内容会保持**持续更新**，欢迎收藏品鉴！
+:::
 
 ## 本网站内容地图
 
@@ -37,14 +41,17 @@ sticky: 97
 
 ## 编程自学路线+知识大梳理
 
-::: info本网站目前整理收录了6个大方向（岗位）的学习路线+知识点大梳理，分别为：
+::: info
+本网站目前整理收录了6个大方向（岗位）的学习路线+知识点大梳理，分别为：
 
 - **Java后端开发**
 - **前端开发**
 - **C/C++后台开发**
 - **大数据开发**
 - **嵌入式开发**
-- **网络安全方向** :::
+- **网络安全方向** 
+
+:::
 
 后续本网站也会持续更新和增加更多方向岗位的学习路线...
 

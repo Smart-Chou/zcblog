@@ -9,7 +9,8 @@ tags:
   - FODI
 ---
 
-::: warning腾讯云停止维护，请部署 [Cloudflare](/document/fodi-cloudflare.md) 版
+:::warning
+腾讯云停止维护，请部署 [Cloudflare](/document/fodi-cloudflare.md) 版
 :::
 
 FODI，Fast OneDrive Index 的缩写，意为 OneDrive 快速列表，是我自用的一版

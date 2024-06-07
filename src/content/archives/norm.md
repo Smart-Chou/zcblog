@@ -19,9 +19,11 @@ description: '定量的衡量向量（Vector）的大小：Vector Norms in Machi
 用向量来表示，在 Python 中使用 Numpy 矩阵来存储和运算。这篇文章简单介绍（记录）
 一下一些 $\ell_p$ 范数的计算方法以及代码实现。
 
-:::note[对抗样本的概念] 对抗样本（Adversarial Examples）是神经网络模型中的一种
+:::note[对抗样本的概念] 
+对抗样本（Adversarial Examples）是神经网络模型中的一种
 Vulnerability，其中面向图像分类模型的对抗样本指的是：对模型输入图片上添加一个微
-小的「扰动」，使得模型对输入图片进行错误的分类的一种问题。:::
+小的「扰动」，使得模型对输入图片进行错误的分类的一种问题。
+:::
 
 ## $\ell_p$ 范数
 
