@@ -1,19 +1,24 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+// 在这个文件中放置全局数据。
+// 您可以在整个网站中使用 `import` 关键字从任何地方导入此数据。
+// icon/Icon 从 https://icon-sets.iconify.design/ 生成
 
 /**
- * title {string} website title
- * favicon {string} website favicon url
- * description {string} website description
- * author {string} author
- * avatar {string} Avatar used in the profile
- * motto {string} used in the profile
- * url {string} Website link
- * recentBlogSize {number} Number of recent articles displayed in the sidebar
- * archivePageSize {number} Number of articles on archive pages
- * postPageSize {number} Number of articles on blog pages
- * feedPageSize {number} Number of articles on feed pages
- * beian {string} Chinese policy
+ * title {string} 网站标题
+ * subtitle {string} 网站副标题
+ * description {string} 网站描述
+ * keywords {string} 网站关键字
+ * favicon {string} 网站图标URL
+ * logo {string} 网站logo
+ * author {string} 作者
+ * motto {string} 个人资料中使用的口头禅
+ * avatar {string} 个人资料中使用的头像
+ * coverImage {string} 网站封面
+ * coverImageAlt {string} 网站封面Alt
+ * url {string} 网站链接
+ * startYear {string} 网站开始年份
+ * PageSize {number} 文章页面上的文章数
+ * beian {string} 中国政策 / 萌 ICP
+ * beianURL {string} URL
  */
 export const site = {
   title: "Spencer's Blog",
@@ -23,54 +28,36 @@ export const site = {
   favicon: 'favicon.svg',
   logo: 'logo.svg',
   author: 'Spencer Woo',
+  motto: '阿巴阿巴 o((>ω< ))o',
   avatar: 'author.jpg',
   coverImage: 'cover.png',
   coverImageAlt: "Spencer's Blog",
   url: '//marxchou.com',
-  startYear: '2017' // Blog start year
-  // motto: 'Actions speak louder than words.',
-  // recentBlogSize: 5,
-  // archivePageSize: 25,
-  // postPageSize: 10,
-  // feedPageSize: 20,
-  // beian: '',
-}
-
-export const notFoundPage = {
-  title: '404 - Page Not Found',
-  description: 'The page you are looking for does not exist.',
-}
-
-export const tagsPage = {
-  title: 'Tags',
-  description: 'All Tags',
-}
-
-export const archivesPage = {
-  title: 'Archives',
-  description: 'All Archives',
+  startYear: '2017',
+  PageSize: 9,
+  beian: '豫ICP备20006179号',
+  beianURL: 'https://beian.miit.gov.cn',
 }
 
 /**
- * busuanzi {boolean} link: https://busuanzi.ibruce.info/
- * lang {string} Default website language
- * codeFoldingStartLines {number}
- * ga {string|false}
+ * lang {string} 默认网站语言，en | zh-CN
+ * codeFoldingStartLines {number} 代码折叠起始行数
+ * ga {string|false} 如果您想与Google Analytics进行集成，只需在此处输入您的GA-ID即可。
+ * umami {string|false} 如果您想与Umami进行集成，只需在此处输入您的Umami网站ID即可。
  */
 export const config = {
-  busuanzi: false,
-  lang: 'en', // en | zh-CN
-  codeFoldingStartLines: 16, // Need to re-run the project to take effect
-  ga: 'UA-123-456', // If you want to integrate with Google Analytics, just enter your GA-ID here.
+  lang: 'en',
+  codeFoldingStartLines: 16, 
+  ga: 'UA-123-456',
   umami: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
 }
 
 /**
- * Navigator
- * name {string}
- * iconClass {string} icon style
- * href {string}  link url
- * target {string} optional "_self|_blank" open in current window / open in new window
+ * 导航栏
+ * url {string} 链接
+ * title {string} ID
+ * style {string} 颜色样式
+ * svg {string} icon
  */
 export const categories = [
   {
@@ -100,7 +87,11 @@ export const categories = [
 ]
 
 /**
- * Personal link address
+ * 个人社交链接地址
+ * url {string} 链接
+ * title {string} ID
+ * style {string} 颜色样式
+ * svg {string} icon
  */
 export const socialLinks = [
   {
@@ -130,12 +121,12 @@ export const socialLinks = [
 ]
 
 /**
- * donate
- * enable {boolean}
- * tip {string}
- * wechatQRCode: Image addresses should be placed in the public directory.
- * alipayQRCode: Image addresses should be placed in the public directory.
- * paypalUrl {string}
+ * 捐赠
+ * enable {boolean} 是否启用捐赠功能
+ * tip {string} 捐赠提示
+ * wechatQRCode: 微信二维码图片地址, 图片地址应该放在 public 目录下
+ * alipayQRCode: 支付宝二维码图片地址, 图片地址应该放在 public 目录下
+ * paypalUrl {string} PayPal 捐赠地址
  */
 export const donate = {
   enable: true,
@@ -146,16 +137,17 @@ export const donate = {
 }
 
 /**
- * Friendship Links Page
- * name {string}
- * url {string}
- * avatar {string}
- * description {string}
- */
+ * 友链页面
+* title {string} 标题
+* note {string} 描述
+* id {string} friends ID
+* link {string} 链接
+* avatar {string} 头像
+* style {string} 背景颜色样式
+*/
 export const friendsPage = {
   title: 'Friends & Guestbook',
-  description:
-    "Friends & Guestbook - I don't accept friend link requests from someone I don't know.",
+  note: "I don't accept friend link requests from someone I don't know.",
   list: [
     {
       id: '@Felinae',
@@ -213,19 +205,16 @@ export const friendsPage = {
     },
   ],
 }
+
 /**
- * Comment Feature
- * enable {boolean}
- * type {string} required waline | giscus
- * serverUrl {string} server link
- * lang {string} link: https://waline.js.org/guide/features/i18n.html
- * pageSize {number} number of comments per page. default 10
- * wordLimit {number} Comment word s limit. When a single number is filled in, it 's the maximum number of comment words. No limit when set to 0
- * count {number} recent comment numbers
- * pageview {boolean} display the number of page views and comments of the article
- * reaction {string | string[]} Add emoji interaction function to the article
- * requiredMeta {string[]}  Set required fields, default anonymous
- * whiteList {string[]} set some pages not to display reaction
+ * Waline评论功能配置
+ * enable {boolean} 是否启用
+ * serverUrl {string} 评论服务器地址
+ * lang {string} 评论语言
+ * pageSize {number} 评论分页大小
+ * reaction {boolean} 是否开启表情
+ * search {boolean} 是否开启搜索
+ * whiteList {string[]} 白名单 总是开启
  */
 export const comment = {
   enable: true,
@@ -237,6 +226,13 @@ export const comment = {
   whiteList: ['/message/', '/friends/'],
 }
 
+/**
+ * 页脚列表
+ * title {string} 标题
+ * text {string} 描述
+ * icon {string} 图标
+ * url {string} 链接
+ */
 export const footerList = [
   {
     title: 'Umami',
@@ -257,3 +253,37 @@ export const footerList = [
     url: '//vercel.com',
   },
 ]
+
+/**
+ * MeiliSearch Host / Cloud
+ * enable {boolean} 是否启用
+ * host {string} MeiliSearch Host
+ * apiKey {string} MeiliSearch API Key
+ * indexUid {string} MeiliSearch Index UID
+ * hotKeys {string[]} 搜索热词
+ **/
+export const search = {
+  enable: true,
+  host: 'https://meilisearch.marxchou.com',
+  apiKey: '883ea017368299f1ed7f13dbe6ab79f148a1d7da877b29dc04020c8d96d27bf3',
+  indexUid: 'marxchou',
+  hotKeys: ['/', 's'],
+}
+
+// 404 Page
+export const notFoundPage = {
+  title: '404 - Page Not Found',
+  description: 'The page you are looking for does not exist.',
+}
+
+// Tags Page
+export const tagsPage = {
+  title: 'Tags',
+  description: 'All Tags',
+}
+
+// Archives Page
+export const archivesPage = {
+  title: 'Archives',
+  description: 'All Archives',
+}

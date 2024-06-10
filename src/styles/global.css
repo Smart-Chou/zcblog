@@ -473,7 +473,7 @@ pre {
 :not(pre) > code {
   color: var(--text-code);
   white-space: normal;
-  background-color: var(--bg-content-color);
+  /* background-color: var(--bg-content-color); */
 }
 
 :not(pre) > code:after,
@@ -2990,4 +2990,8 @@ svg {
   .post .post-meta {
     display: none;
   }
+}
+
+.expressive-code {
+  margin-bottom: 1.25rem;
 }

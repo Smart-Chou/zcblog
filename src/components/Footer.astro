@@ -7,6 +7,7 @@ const currentYear = new Date().getFullYear()
 
 <footer class="footer">
   <div class="footer__copyright"><span>© {site.startYear} - {currentYear}.&nbsp;All rights reserved</span></div>
+  <div class="footer__links"><a href={site.beianURL} target="_blank"><span>{site.beian}</span></a></div>
   {
     footerList.map(footer => (
       <div class="footer__links">

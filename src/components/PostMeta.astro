@@ -7,6 +7,6 @@ const { pubDate, upDate, wordCount, readTime, currentSlug } = Astro.props;
     Updated {upDate.toISOString().slice(0, 10)}.&nbsp;
     <span id="word-count">{wordCount} words.</span>&nbsp;
     <span id="read-time">{readTime}.</span>&nbsp;
-    <span class="waline-pageview-count" data-path={`/archives/${currentSlug}/`}>0</span> views.&nbsp;
-    <span class="waline-comment-count" data-path={`/archives/${currentSlug}/`}>0</span> messages.
+    <span class="waline-pageview-count" data-path={`/archives/${currentSlug}/`}>0</span><span> views.&nbsp;</span>
+    <span class="waline-comment-count" data-path={`/archives/${currentSlug}/`}>0</span><span> messages.</span>
 </div>

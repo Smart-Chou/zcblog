@@ -1,5 +1,5 @@
 ---
-// SearchBox.astro
+
 ---
 
 <div id="docsearch"></div>
@@ -7,14 +7,20 @@
 <script>
   import { docsearch } from 'meilisearch-docsearch'
   import 'meilisearch-docsearch/css'
+  import { search } from '~/self.config'
 
   document.addEventListener('astro:page-load', () => {
+    const host = search.host
+    const apiKey = search.apiKey
+    const indexUid = search.indexUid
+    const hotKeys = search.hotKeys
+
     docsearch({
-      host: 'https://meilisearch.marxchou.com',
-      apiKey: '883ea017368299f1ed7f13dbe6ab79f148a1d7da877b29dc04020c8d96d27bf3',
-      indexUid: 'marxchou',
       container: '#docsearch',
-      hotKeys: ['/', 's'],
+      host,
+      apiKey,
+      indexUid,
+      hotKeys,
     })
   })
 </script>

@@ -8,12 +8,13 @@ import { site } from '~/self.config'
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection('archives')
+  const pageSize = site.PageSize || 10
   const sortedPosts = allPosts.sort((a, b) => {
     if (b.data.sticky && !a.data.sticky) return 1;
     if (!b.data.sticky && a.data.sticky) return -1;
     return new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime();
   });
-  return paginate(sortedPosts, { pageSize: 10 })
+  return paginate(sortedPosts, { pageSize })
 }
 
 const { page } = Astro.props as any
