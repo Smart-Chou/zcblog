@@ -3,7 +3,7 @@ title: Yadm：我是如何同步并管理我的 Dotfiles 的？
 pubDate: 2020-07-24
 tags: ['CLI', 'Dev Environment', 'Terminal']
 image:
-  url: '/postImage/how-i-manage-my-dotfiles.gif'
+  url: '/postImage/new-year-2021.png'
   alt: 'how-i-manage-my-dotfiles'
 description: Yet Another Dotfiles Manager，基于 Git 的 Dotfiles 管理器。
 sticky: 22

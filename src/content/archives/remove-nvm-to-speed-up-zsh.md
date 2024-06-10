@@ -6,7 +6,7 @@ tags:
   - Dev Environment
   - CLI
 image:
-  url: '/postImage/remove-nvm-to-speed-up-zsh.gif'
+  url: '/postImage/new-year-2021.png'
   alt: 'remove-nvm-to-speed-up-zsh'
 description: 没想到啊 nvm，竟然是你这个浓眉大眼的让我 Zsh 开一次足足等 2 秒！
 ---

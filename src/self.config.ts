@@ -34,7 +34,7 @@ export const site = {
   coverImageAlt: "Spencer's Blog",
   url: '//marxchou.com',
   startYear: '2017',
-  PageSize: 9,
+  PageSize: 6,
   beian: '豫ICP备20006179号',
   beianURL: 'https://beian.miit.gov.cn',
 }

@@ -8,7 +8,7 @@ import { site, friendsPage } from '~/self.config'
 
 <BaseLayout 
     title={friendsPage.title} 
-    description={site.title + ` - ` + friendsPage.description}
+    description={friendsPage.title + ` - ` + friendsPage.note}
     image={Astro.site + site.coverImage}
     imageAlt={friendsPage.title}
 >

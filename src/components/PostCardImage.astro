@@ -18,4 +18,4 @@ if (!images[`/src/assets${imagePath}`]) {
 const imageModule = await images[`/src/assets${imagePath}`]()
 ---
 
-<Picture src={imageModule.default} alt={altText} formats={['webp', 'png']} class="post-card__image" loading={loading}/>
+<Picture src={imageModule.default} alt={altText} formats={['avif', 'webp', 'png']} class="post-card__image" loading={loading}/>

@@ -425,7 +425,7 @@ tell application "Foo" beep end tell
 
 会被转换为:
 
-```htnl
+```html
 <p>Here is an example of AppleScript:</p>
 
 <pre><code>tell application "Foo"

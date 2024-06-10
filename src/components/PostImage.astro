@@ -1,0 +1,55 @@
+---
+import type { ImageMetadata, GetImageResult } from 'astro';
+import { getImage } from 'astro:assets';
+
+interface Props {
+  webpImageUrl: string | ImageMetadata;
+  avifImageUrl: string | ImageMetadata;
+  imageUrl: string | ImageMetadata;
+  imageAlt: string;
+  loading: 'eager' | 'lazy';
+}
+
+const { webpImageUrl, avifImageUrl, imageUrl, imageAlt, loading } = Astro.props;
+
+// Helper function to determine image format
+const getImageFormat = (url: string | ImageMetadata): string => {
+  if (typeof url === 'string') {
+    return url.split('.').pop()?.toLowerCase() || '';
+  } else if (url && 'src' in url) {
+    return url.src.split('.').pop()?.toLowerCase() || '';
+  } else {
+    return '';
+  }
+};
+
+// Determine the format of the main image
+const mainImageFormat = getImageFormat(imageUrl);
+
+// Conditionally create webp or avif images based on the main image format
+let webpImage: GetImageResult | null = null;
+let avifImage: GetImageResult | null = null;
+
+if (mainImageFormat === 'gif') {
+  // GIF images should be converted to webp
+  webpImage = await getImage({ src: imageUrl, width: 1280, height: 400, format: 'webp' });
+} else if (imageUrl) {
+  // Other static images (png, jpg, etc.) should be converted to both webp and avif
+  if (webpImageUrl) {
+    webpImage = await getImage({ src: webpImageUrl, width: 1280, height: 400, format: 'webp' });
+  }
+  if (avifImageUrl) {
+    avifImage = await getImage({ src: avifImageUrl, width: 1280, height: 400, format: 'avif' });
+  }
+}
+
+const image = await getImage({ src: imageUrl, width: 1280, height: 400, format: mainImageFormat });
+
+---
+
+<picture>
+  {avifImage && <source srcset={avifImage.src} type="image/avif" />}
+  {webpImage && <source srcset={webpImage.src} type="image/webp" />}
+  <img src={image.src} alt={imageAlt} loading={loading} />
+</picture>
+
