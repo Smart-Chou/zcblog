@@ -23,7 +23,8 @@
 export const site = {
   title: "Spencer's Blog",
   subtitle: 'Spencer Woo',
-  description: 'Astro builds fast content sites, powerful web applications, dynamic server APIs, and everything in-between.',
+  description:
+    'Astro builds fast content sites, powerful web applications, dynamic server APIs, and everything in-between.',
   keywords: 'Astro, Theme, Yi',
   favicon: 'favicon.svg',
   logo: 'logo.svg',
@@ -47,7 +48,7 @@ export const site = {
  */
 export const config = {
   lang: 'en',
-  codeFoldingStartLines: 16, 
+  codeFoldingStartLines: 16,
   ga: 'UA-123-456',
   umami: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
 }
@@ -67,22 +68,28 @@ export const categories = [
     svg: 'tabler:user-filled',
   },
   {
+    url: '/feed/',
+    title: '🥳 Feed',
+    style: 'color: orange',
+    svg: 'tabler:brand-wechat',
+  },
+  {
     url: '/archives/',
     title: '📂 Archives',
     style: 'color: var(--title-color)',
     svg: 'tabler:archive-filled',
   },
   {
-    url: '/tags/',
-    title: '🏷️ tags',
-    style: undefined,
-    svg: 'tabler:tags',
-  },
-  {
     url: '/friends/',
     title: '🧑🏿‍🚒 Friends',
     style: 'color: #06a878',
     svg: 'tabler:message-chatbot-filled',
+  },
+  {
+    url: '/tags/',
+    title: '🏷️ tags',
+    style: undefined,
+    svg: 'tabler:tags',
   },
 ]
 
@@ -118,6 +125,12 @@ export const socialLinks = [
     style: 'color: var(--title-color)',
     svg: 'simple-icons:github',
   },
+  {
+    url: '//youtube.com/realSpencerWoo',
+    title: '🔗 @realSpencerWoo',
+    style: 'color: #ff0000',
+    svg: 'logos:youtube-icon'
+  }
 ]
 
 /**
@@ -138,13 +151,13 @@ export const donate = {
 
 /**
  * 友链页面
-* title {string} 标题
-* note {string} 描述
-* id {string} friends ID
-* link {string} 链接
-* avatar {string} 头像
-* style {string} 背景颜色样式
-*/
+ * title {string} 标题
+ * note {string} 描述
+ * id {string} friends ID
+ * link {string} 链接
+ * avatar {string} 头像
+ * style {string} 背景颜色样式
+ */
 export const friendsPage = {
   title: 'Friends & Guestbook',
   note: "I don't accept friend link requests from someone I don't know.",
