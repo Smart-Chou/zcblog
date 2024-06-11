@@ -287,3 +287,9 @@ export const archivesPage = {
   title: 'Archives',
   description: 'All Archives',
 }
+
+// feed Page
+export const feedPage = {
+  title: 'Feed',
+  description: 'Feed',
+}

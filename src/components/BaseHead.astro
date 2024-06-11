@@ -2,6 +2,7 @@
 import { site, config } from '~/self.config'
 import { ViewTransitions } from 'astro:transitions'
 import { GoogleAnalytics } from '@astrolib/analytics'
+import '~/styles/global.css';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const { title, description, image, imageAlt } = Astro.props
 ---

@@ -43,7 +43,7 @@ const startYear = Math.min(...postsWithMeta.map(post => new Date(post.data.pubDa
   <h1 class="text-center space-bottom">Archives</h1>
   <PostLayout>
     <p style="opacity: 0.6">
-      <strong>(｡･∀･)ﾉﾞ I have published a total of {totalPosts} posts, {totalWordsInThousands} words since {startYear}.</strong>
+      <strong>(｡･∀･)ﾉﾞ 我共发布了 {totalPosts} 篇文章，自 {startYear} 以来共计 {totalWordsInThousands} 字。</strong>
     </p>
     {
       Object.keys(postsByYear)

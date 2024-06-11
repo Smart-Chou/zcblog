@@ -27,7 +27,8 @@ const currentSlug = Astro.params.slug
     description={frontmatter.title + ` - ` + frontmatter.description}
     image={Astro.site + frontmatter.image.url}
     imageAlt={frontmatter.image.alt}
->
+> 
+  <progress id="content_progress" value="0"></progress>
   <div class="post-title">
     <h1 class="post-title__text">
       {frontmatter.title}
@@ -42,7 +43,7 @@ const currentSlug = Astro.params.slug
   </div>
   <div class="post content-box">
     <div class="post-card__header">
-      <PostCardImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt} loading="eager"/>
+      <PostCardImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt} loading="eager" />
     </div>
     {
       publishedDays >= 180 ? (
@@ -98,3 +99,60 @@ const currentSlug = Astro.params.slug
   <Author />
   {frontmatter.comment && <WalineComment />}
 </BaseLayout>
+
+<script>
+  document.addEventListener('astro:page-load', function () {
+    var winHeight = window.innerHeight,
+      docHeight = document.documentElement.scrollHeight
+
+    const progressBar = document.querySelector('#content_progress')
+    if (progressBar instanceof HTMLProgressElement) {
+      progressBar.max = docHeight - winHeight
+      progressBar.value = window.scrollY
+
+      const setProgressBarColor = () => {
+        const scrollPercent = (window.scrollY / (docHeight - winHeight)) * 100
+        const hue = 150 + scrollPercent * 0.6
+        progressBar.style.setProperty('--progress-color', `hsl(${hue}, 100%, 50%)`)
+      }
+
+      document.addEventListener('scroll', function () {
+        if (progressBar instanceof HTMLProgressElement) {
+          progressBar.max = document.documentElement.scrollHeight - window.innerHeight
+          progressBar.value = window.scrollY
+          setProgressBarColor()
+        }
+      })
+      setProgressBarColor()
+    }
+  })
+</script>
+
+<style>
+  #content_progress {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 2px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    color: #2ea997;
+  }
+
+  #content_progress::-webkit-progress-bar {
+    background-color: transparent;
+  }
+
+  #content_progress::-webkit-progress-value {
+    background-color: var(--progress-color, #2ea997);
+  }
+
+  #content_progress::-moz-progress-bar {
+    background-color: var(--progress-color, #2ea997);
+  }
+</style>

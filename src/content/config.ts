@@ -16,6 +16,15 @@ const postsCollection = defineCollection({
   }),
 })
 
+const feedCollection = defineCollection({
+  schema: z.object({
+    pubDate: z.date(),
+    image: z.string().optional(),
+    feeling: z.string().optional(),
+  }),
+})
+
 export const collections = {
   archives: postsCollection,
+  feed: feedCollection,
 }
