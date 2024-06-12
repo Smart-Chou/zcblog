@@ -44,7 +44,7 @@
         reaction: comment.whiteList.includes(location.pathname) ? false : comment.reaction,
         login: 'disable',
         search: comment.search,
-        dark: 'body[data-theme="dark"]',
+        dark: 'html[data-theme="dark"]',
         emoji: ['https://unpkg.com/@waline/emojis@1.2.0/qq', 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili'],
       })
     }
@@ -66,7 +66,7 @@
     }
   }
 
-  body[data-theme='dark'] {
+  html[data-theme='dark'] {
     --waline-color: #ced8de !important;
   }
 </style>

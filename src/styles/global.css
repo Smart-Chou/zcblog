@@ -142,7 +142,7 @@ html {
     Menlo, monospace;
 }
 
-body {
+html {
   --bg-color: #fafafa;
   --bg-color-rgb: 250, 250, 250;
   --bg-content-color: #fff;
@@ -175,7 +175,7 @@ body {
   }
 }
 
-body[data-theme='dark'] {
+html[data-theme='dark'] {
   --bg-color: #101213;
   --bg-color-rgb: 16, 18, 19;
   --bg-content-color: #2d3235;
@@ -2958,11 +2958,11 @@ svg:not(:root).svg-inline--fa {
 }
 
 /* 自定义 */
-body[data-theme='light'] .feather-moon {
+html[data-theme='light'] .feather-moon {
   display: block;
 }
 
-body[data-theme='dark'] .feather-sun {
+html[data-theme='dark'] .feather-sun {
   display: block;
 }
 

@@ -43,7 +43,7 @@ export default defineConfig({
     astroExpressiveCode({
       plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
       themes: ['github-dark-dimmed'],
-      themeCssSelector: theme => `body[data-theme=${theme.name}]`,
+      themeCssSelector: theme => `html[data-theme=${theme.name}]`,
       useDarkModeMediaQuery: false,
     }),
     mdx(),
