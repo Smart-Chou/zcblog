@@ -4,6 +4,7 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import PostMeta from '~/components/PostMeta.astro'
 import PostCardImage from '~/components/PostCardImage.astro'
 import PostTag from '~/components/PostTag.astro'
+import Toc from '~/components/Toc.astro'
 import BackToTop from '~/components/BackToTop.astro'
 import Donate from '~/components/Donate.astro'
 import Author from '~/components/Author.astro'
@@ -94,6 +95,7 @@ const currentSlug = Astro.params.slug
       }
     </div>
   </div>
+  <Toc />
   <BackToTop />
   <Donate />
   <Author />

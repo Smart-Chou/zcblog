@@ -1,0 +1,41 @@
+---
+import '~/styles/tocsdf.css'
+---
+
+<div class="toc">
+    <div class="toc__title">目录</div>
+    <div class="toc__content">
+    </div>
+</div>
+
+<div data-v-3f52d3ac="" data-v-4c610104="" class="right-side-directory rightSideTop">
+    <div data-v-3f52d3ac="" class="directory-container">
+        <div data-v-3f52d3ac="" class="item" style="margin-bottom: 10px;">
+            <div data-v-3f52d3ac="" class="circle"></div>
+            <div data-v-3f52d3ac="" class="title">01 🍚</div>
+        </div>
+    </div>
+    <div data-v-3f52d3ac="" class="directory-container">
+        <div data-v-3f52d3ac="" class="item" style="margin-bottom: 10px;">
+            <div data-v-3f52d3ac="" class="circle"></div>
+            <div data-v-3f52d3ac="" class="title">02 🥘</div>
+        </div>
+    </div>
+    <div data-v-3f52d3ac="" class="directory-container">
+        <div data-v-3f52d3ac="" class="item" style="margin-bottom: 0px;">
+            <div data-v-3f52d3ac="" class="circle"></div>
+            <div data-v-3f52d3ac="" class="title">03 🍻</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    import * as tocbot from "tocbot"
+    document.addEventListener('astro:page-load', () => {
+        tocbot.init({
+            tocSelector: '.toc__content',
+            contentSelector: '.post',
+            headingSelector: 'h2, h3',
+        })
+    })
+</script>
