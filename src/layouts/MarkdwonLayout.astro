@@ -95,7 +95,7 @@ const currentSlug = Astro.params.slug
       }
     </div>
   </div>
-  <Toc />
+  {frontmatter.toc && <Toc />}
   <BackToTop />
   <Donate />
   <Author />

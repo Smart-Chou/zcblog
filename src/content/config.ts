@@ -11,6 +11,7 @@ const postsCollection = defineCollection({
       url: z.string(),
       alt: z.string(),
     }),
+    toc: z.boolean().default(true),
     comment: z.boolean().default(true).nullable(),
     sticky: z.number().default(0).nullable(),
   }),
