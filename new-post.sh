@@ -4,14 +4,14 @@
 read -p "请输入文件名（不包括扩展名）: " filename
 
 # Step 2: 选择文件格式
-read -p "请选择文件格式（输入 'md' 或 'mdx'）: " extension
+read -p "请选择文件格式（输入 'md' 或 'mdx'): " extension
 while [[ "$extension" != "md" && "$extension" != "mdx" ]]; do
   echo "无效的格式，请重新输入。"
-  read -p "请选择文件格式（输入 'md' 或 'mdx'）: " extension
+  read -p "请选择文件格式（输入 'md' 或 'mdx'): " extension
 done
 
 # Step 3: 选择文件创建的位置
-read -p "请输入文件创建的位置（默认目录 './src/content/archives'）: " filepath
+read -p "请输入文件创建的位置（默认目录 './src/content/archives'): " filepath
 if [ -z "$filepath" ]; then
   filepath="./src/content/archives"
 fi
@@ -21,6 +21,7 @@ mkdir -p "$filepath"
 
 # 完整文件路径
 fullpath="$filepath/$filename.$extension"
+
 # Step 4: 是否写入默认formatter
 read -p "是否写入默认formatter (输入 'Yes' 或 'No'): " write_formatter
 write_formatter=$(echo "$write_formatter" | tr '[:upper:]' '[:lower:]')
@@ -31,7 +32,7 @@ while [[ "$write_formatter" != "yes" && "$write_formatter" != "no" && "$write_fo
 done
 
 # Step 5: 根据选择写入默认formatter
-if [ "$write_formatter" == "Yes" ]; then
+if [[ "$write_formatter" == "yes" || "$write_formatter" == "y" ]]; then
   cat <<EOL > "$fullpath"
 ---
 title: 
