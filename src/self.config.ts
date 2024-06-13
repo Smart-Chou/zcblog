@@ -49,7 +49,7 @@ export const site = {
 export const config = {
   lang: 'en',
   codeFoldingStartLines: 16,
-  ga: 'UA-123-456',
+  ga: false,
   umami: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
 }
 
