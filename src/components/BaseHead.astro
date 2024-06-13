@@ -4,7 +4,8 @@ import { ViewTransitions } from 'astro:transitions'
 import { GoogleAnalytics } from '@astrolib/analytics'
 import '~/styles/global.css'
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-const { title, description, image, imageAlt, mathjax = false, mermaid = false } = Astro.props
+const { title, description, image, imageAlt, mathjax, mermaid } = Astro.props
+console.log(mathjax)
 ---
 
 <head>
@@ -66,7 +67,7 @@ const { title, description, image, imageAlt, mathjax = false, mermaid = false } 
   }
 
   <!-- Style / Scripts -->
-  {mathjax && <script async type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" />}
-  {mermaid && <script async type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/mermaid/10.9.0/mermaid.min.js" />}
+  {mathjax && <script is:inline type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" />}
+  {mermaid && <script is:inline type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/mermaid/10.9.0/mermaid.min.js" />}
   <ViewTransitions />
 </head>

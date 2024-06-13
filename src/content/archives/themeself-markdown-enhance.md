@@ -7,6 +7,8 @@ image:
   alt: 'wait-this-is-not-my-commit'
 tags:
   - MarkDown
+mathjax: true
+mermaid: true
 ---
 
 `vuepress-theme-hope` 通过内置
@@ -139,6 +141,15 @@ graph TD;
 ````
 
 :::
+
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
 
 - [点击查看](https://vuepress-theme-hope.github.io/zh/guide/markdown/mermaid/)
 

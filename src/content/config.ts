@@ -11,13 +11,13 @@ const postsCollection = defineCollection({
       url: z.string(),
       alt: z.string(),
     }),
-    sticky: z.number().default(0).nullable(),
+    toc: z.boolean().default(true).nullable(),
+    author: z.boolean().default(true).nullable(),
     mathjax: z.boolean().default(false).nullable(),
     mermaid: z.boolean().default(false).nullable(),
-    draft: z.boolean().default(false).nullable(),
-    toc: z.boolean().default(true).nullable(),
     donate: z.boolean().default(true).nullable(),
     comment: z.boolean().default(true).nullable(),
+    sticky: z.number().default(0).nullable(),
   }),
 })
 

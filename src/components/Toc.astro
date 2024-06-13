@@ -21,7 +21,7 @@ import '~/styles/toc.css'
   document.addEventListener('astro:page-load', () => {
     const tocContent = document.querySelector('.toc__content') as HTMLElement
     const post = document.querySelector('.post') as HTMLElement
-    const author = document.querySelector('.author') as HTMLElement
+    const author = document.querySelector('.footer') as HTMLElement
     if (tocContent && post && author) {
       window.addEventListener('scroll', function () {
         const postBottom = post.getBoundingClientRect().bottom
@@ -31,10 +31,10 @@ import '~/styles/toc.css'
 
         if (postBottom <= viewportHeight) {
           tocContent.style.position = 'absolute'
-          tocContent.style.top = window.scrollY + postBottom - tocContentHeight + 200 + 'px'
+          tocContent.style.top = window.scrollY + postBottom - tocContentHeight - 300 + 'px'
         } else if (authorTop <= viewportHeight) {
           tocContent.style.position = 'absolute'
-          tocContent.style.top = window.scrollY + authorTop - tocContentHeight + 200 + 'px'
+          tocContent.style.top = window.scrollY + authorTop - tocContentHeight - 300 + 'px'
         } else {
           tocContent.style.position = 'fixed'
           tocContent.style.top = '500px'
