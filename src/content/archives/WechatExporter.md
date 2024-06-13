@@ -11,7 +11,7 @@ tags:
 
 > [最新版本下载](https://github.com/BlueMatthew/WechatExporter/)
 
-:::danger BUG!!!
+:::danger[BUG!!!]
 
 1.8.0.7 以前的版本异步加载方式存在一个比较严重的小白 bug：当设置为滚动到页面底部
 异步加载时，越靠后面的页码，加载的消息数量越少；设置为页面打开全部消息异步加载
@@ -21,7 +21,8 @@ tags:
 了，可以下载补丁程
 序[Win64 版本](https://github.com/BlueMatthew/WechatExporter/releases/download/v1.8.0.8/patch_x64_win.zip)/[MacOS 64 版本](https://github.com/BlueMatthew/WechatExporter/releases/download/v1.8.0.8/patch_x64_macos.zip)并
 解压，把wxexpatch.exe/wxexppatch拷贝到导出目录，并执行，来修复已经导出的页面（补
-丁修复的文件清单可查看日志文件 patch.log）。:::
+丁修复的文件清单可查看日志文件 patch.log）。
+:::
 
 本程序参考 <https://github.com/stomakun/WechatExport-iOS> 修改成 C++来实现，便于
 在各个平台以更少依赖运行。同时增加了聊天群名称的解析支持和更多消息类型的导出支

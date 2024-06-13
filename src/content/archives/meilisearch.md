@@ -27,10 +27,13 @@ meilisearch 是一个开源的搜索引擎，采用 Rust 语言开发，借鉴�
   3. 向 meilisearch 服务器发出 HTTP 查询请求，搜索某一字符串在目标网站上的位置。
 
 :::danger 着重提示插件、服务器、抓取程序，三者的适配（版本）要一致，不然会报
-错，无数据。可以在[GIthub](https://github.com/meilisearch)查看三者版本 :::
+错，无数据。可以在[GIthub](https://github.com/meilisearch)查看三者版本 
+:::
 
-::: note此时文档所使用的版本：meilisearch: v0.26.1 docs-scraper: v0.12.1
-vuepress-plugin-meilisearch: v0.12.1 :::
+:::note
+此时文档所使用的版本：meilisearch: v0.26.1 docs-scraper: v0.12.1
+vuepress-plugin-meilisearch: v0.12.1 
+:::
 
 ## 使用步骤
 

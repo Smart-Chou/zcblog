@@ -11,10 +11,12 @@ tags:
 
 [原作者Wiki](https://onetwo.ren/wiki)
 
-:::tip 注意原作者正在开发一个零配置的 `TiddlyWiki 桌面版 APP`
+:::tip
+注意原作者正在开发一个零配置的 `TiddlyWiki 桌面版 APP`
 [tiddly-gittly/TiddlyGit-Desktop](https://github.com/tiddly-gittly/TiddlyGit-Desktop)，
 欢迎 star 和 watch（点 Watch Release Only 可以在原作者发布新版时在 Github 上收到
-推送提醒）:::
+推送提醒）
+:::
 
 目前已经不需要按着本教程的步骤来自己配置啦，用这个一键打开即可使用强大美观好用的
 `TiddlyWiki`。有疑问可以加入 `TiddlyWiki` 爱好者 `QQ 群 946052860` ，或用 `Bing`

@@ -38,7 +38,8 @@ tags:
 说明
 
 本文将以 CentOS 8.0 操作系统为例，不同操作系统的格式化操作可能不同，本文仅供参
-考。:::
+考。
+:::
 
 1. 登录轻量应用服务器，详情请参见
    [使用 WebShell 方式登录 Linux 实例](https://cloud.tencent.com/document/product/1207/44642)。

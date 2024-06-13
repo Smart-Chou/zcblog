@@ -9,7 +9,9 @@ tags:
   - Typora
 ---
 
-::: tip让你的typora支持自定义图床，直接贴图保存在云存储 :::
+:::tip
+让你的typora支持自定义图床，直接贴图保存在云存储 
+:::
 
 hello大家好我是ChouCong，上一期视频里面我分享到自己的markdown笔记使用typora编
 写，自动将里面的图片上传到oss，有些朋友问我直传oss的方式，一般大家都是使用PicGo

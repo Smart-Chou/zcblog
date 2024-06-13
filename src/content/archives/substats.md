@@ -8,9 +8,11 @@ image:
 description: Subscriber statistics：专注提供各个网站和社区里用户的订阅者、关注者、粉丝数量的 Serverless API
 ---
 
-:::important SUBSTATS Serverless Function to Count How Many People are
+:::tip[important]
+SUBSTATS Serverless Function to Count How Many People are
 Subscribed to You in Your Favorite Services. **你只管调用，我们来帮你找订阅
-者！** :::
+者！** 
+:::
 
 在 [上一篇文章](https://blog.spencerwoo.com/2020/03/ttrss-noteworthy/) 里面，我
 在开头用 Feedly 的 API 和 Shields.io 制作了显示我 RSS 订阅数量的 Badge。这个
@@ -31,7 +33,9 @@ Serverless 技术搭建一个「API 中转站」，**提供多个服务商的订
 
 - **Substats API 地址**：[API - Substats](https://api.spencerwoo.com/substats/)
 - **Substats GitHub 项目地
-  址**：[spencerwooo/Substats](https://github.com/spencerwooo/Substats) :::
+  址**：[spencerwooo/Substats](https://github.com/spencerwooo/Substats) 
+  
+:::
 
 ## 功能特性
 

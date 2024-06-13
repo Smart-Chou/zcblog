@@ -54,17 +54,17 @@ tags:
 
 如下所示:
 
-::: center
+:::
 ![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/openwrite.png)
 :::
 
-2. 返回博客列表中,点击使用
+1. 返回博客列表中,点击使用
 
-::: center
+:::
 ![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/useopenwrite.png)
 :::
 
-3. 阅读使用文档
+1. 阅读使用文档
 
 这里就不搬运了的,直接读文档就好,下面的介绍才是重点
 
@@ -251,7 +251,7 @@ module.exports = {
 
 果然成功了...
 
-:::tip 注意事项
+:::tip[注意事项]
 
 1. `btwplugin.js`中的`btw`需要是个全局变量,去掉`const`,那直
    接`new BTWPlugin().init({})`不是更好么,还真不行,依旧会
@@ -285,7 +285,7 @@ export default {
 
 以上就实现了单篇文章的隐藏,如下所示
 
-::: center
+:::
 ![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/hideArticle.png)
 :::
 

@@ -76,7 +76,7 @@ localStorage.setItem('modelId', '7'); localStorage.setItem('modelTexturesId',
 **2、自定义看板娘大小**，`CSS` 自定义即可，类名称 `#waifu #live2d` ，示例如下；
 注意高度和宽度需要一样，因为容器是个正方形，不一致会变形。
 
-```css
+```css {2} collapse={3-5}
 <style type="text/css">
     #waifu #live2d {
         height: 500px!important;

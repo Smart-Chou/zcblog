@@ -35,7 +35,6 @@ export default defineConfig({
       remarkAsides({}),
     ],
     // rehypePlugins: [customRehypeLazyLoadImage],
-    syntaxHighlight: 'prism',
   },
   integrations: [
     sitemap(),
