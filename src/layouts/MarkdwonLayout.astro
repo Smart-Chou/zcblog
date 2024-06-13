@@ -10,9 +10,9 @@ import Donate from '~/components/Donate.astro'
 import Author from '~/components/Author.astro'
 import WalineComment from '~/components/WalineComment.astro'
 import PostCopyright from '~/components/PostCopyright.astro'
-import { site } from '~/self.config'
+import { site, postView, comment, donate } from '~/self.config'
 
-const { frontmatter, lastModified, readingTime } = Astro.props
+const { frontmatter = {comment: false, donate: false, toc: false, mathjax: false, mermaid: false}, lastModified, readingTime } = Astro.props
 
 const today = new Date()
 const publishTime = new Date(frontmatter.pubDate)
@@ -28,6 +28,8 @@ const currentSlug = Astro.params.slug
     description={frontmatter.title + ` - ` + frontmatter.description}
     image={Astro.site + frontmatter.image.url}
     imageAlt={frontmatter.image.alt}
+    mathjax={frontmatter.mathjax}
+    mermaid={frontmatter.mermaid}
 > 
   <progress id="content_progress" value="0"></progress>
   <div class="post-title">
@@ -96,14 +98,14 @@ const currentSlug = Astro.params.slug
     </div>
   </div>
   {frontmatter.toc && <Toc />}
-  <BackToTop />
-  <Donate />
-  <Author />
-  {frontmatter.comment && <WalineComment />}
+  {postView.backtotop && <BackToTop />}
+  {frontmatter.donate && donate.enable && <Donate />}
+  {frontmatter.author && postView.author && <Author />}
+  {frontmatter.comment && comment.enable && <WalineComment />}
 </BaseLayout>
 
 <script>
-  document.addEventListener('astro:page-load', function () {
+  document.addEventListener('astro:page-load', () =>  {
     var winHeight = window.innerHeight,
       docHeight = document.documentElement.scrollHeight
 

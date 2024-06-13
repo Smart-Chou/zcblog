@@ -54,6 +54,78 @@ export const config = {
 }
 
 /**
+ * PageView
+ * backtotop {boolean} 返回顶部
+ * author {boolean} 显示作者
+ */
+export const pageView = {
+  backtotop: false,
+  author: true,
+}
+
+/**
+ * PostView
+ * backtotop {boolean} 返回顶部
+ * author {boolean} 显示作者
+ */
+export const postView = {
+  backtotop: true,
+  author: true,
+}
+
+/**
+ * 捐赠
+ * enable {boolean} 是否启用捐赠功能
+ * tip {string} 捐赠提示
+ * wechatQRCode: 微信二维码图片地址, 图片地址应该放在 public 目录下
+ * alipayQRCode: 支付宝二维码图片地址, 图片地址应该放在 public 目录下
+ * paypalUrl {string} PayPal 捐赠地址
+ */
+export const donate = {
+  enable: true,
+  tip: 'Thanks for the coffee !!!☕',
+  wechatQRCode: '/WeChatQR.jpg',
+  alipayQRCode: '/AliPayQR.jpg',
+  paypalUrl: 'https://paypal.me/xxxxxxxxxx',
+}
+
+/**
+ * Waline评论功能配置
+ * enable {boolean} 是否启用
+ * serverUrl {string} 评论服务器地址
+ * lang {string} 评论语言
+ * pageSize {number} 评论分页大小
+ * reaction {boolean} 是否开启表情
+ * search {boolean} 是否开启搜索
+ * whiteList {string[]} 白名单 总是开启
+ */
+export const comment = {
+  enable: true,
+  serverUrl: 'https://waline.marxchou.com',
+  lang: 'zh-CN',
+  pageSize: 16,
+  reaction: true,
+  search: false,
+  whiteList: ['/message/', '/friends/'],
+}
+
+/**
+ * MeiliSearch Host / Cloud
+ * enable {boolean} 是否启用
+ * host {string} MeiliSearch Host
+ * apiKey {string} MeiliSearch API Key
+ * indexUid {string} MeiliSearch Index UID
+ * hotKeys {string[]} 搜索热词
+ **/
+export const search = {
+  enable: true,
+  host: 'https://meilisearch.marxchou.com',
+  apiKey: '883ea017368299f1ed7f13dbe6ab79f148a1d7da877b29dc04020c8d96d27bf3',
+  indexUid: 'marxchou',
+  hotKeys: ['/', 's'],
+}
+
+/**
  * 导航栏
  * url {string} 链接
  * title {string} ID
@@ -134,22 +206,6 @@ export const socialLinks = [
 ]
 
 /**
- * 捐赠
- * enable {boolean} 是否启用捐赠功能
- * tip {string} 捐赠提示
- * wechatQRCode: 微信二维码图片地址, 图片地址应该放在 public 目录下
- * alipayQRCode: 支付宝二维码图片地址, 图片地址应该放在 public 目录下
- * paypalUrl {string} PayPal 捐赠地址
- */
-export const donate = {
-  enable: true,
-  tip: 'Thanks for the coffee !!!☕',
-  wechatQRCode: '/WeChatQR.jpg',
-  alipayQRCode: '/AliPayQR.jpg',
-  paypalUrl: 'https://paypal.me/xxxxxxxxxx',
-}
-
-/**
  * 友链页面
  * title {string} 标题
  * note {string} 描述
@@ -220,26 +276,6 @@ export const friendsPage = {
 }
 
 /**
- * Waline评论功能配置
- * enable {boolean} 是否启用
- * serverUrl {string} 评论服务器地址
- * lang {string} 评论语言
- * pageSize {number} 评论分页大小
- * reaction {boolean} 是否开启表情
- * search {boolean} 是否开启搜索
- * whiteList {string[]} 白名单 总是开启
- */
-export const comment = {
-  enable: true,
-  serverUrl: 'https://waline.marxchou.com',
-  lang: 'zh-CN',
-  pageSize: 16,
-  reaction: true,
-  search: false,
-  whiteList: ['/message/', '/friends/'],
-}
-
-/**
  * 页脚列表
  * title {string} 标题
  * text {string} 描述
@@ -266,22 +302,6 @@ export const footerList = [
     url: '//vercel.com',
   },
 ]
-
-/**
- * MeiliSearch Host / Cloud
- * enable {boolean} 是否启用
- * host {string} MeiliSearch Host
- * apiKey {string} MeiliSearch API Key
- * indexUid {string} MeiliSearch Index UID
- * hotKeys {string[]} 搜索热词
- **/
-export const search = {
-  enable: true,
-  host: 'https://meilisearch.marxchou.com',
-  apiKey: '883ea017368299f1ed7f13dbe6ab79f148a1d7da877b29dc04020c8d96d27bf3',
-  indexUid: 'marxchou',
-  hotKeys: ['/', 's'],
-}
 
 // 404 Page
 export const notFoundPage = {

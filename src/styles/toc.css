@@ -51,7 +51,7 @@ html[data-theme='dark']:root {
 .toc__content {
   position: fixed;
   left: calc((100vw - min(100vw, 664px)) / 2 + min(100vw, 664px) + 178px);
-  top: 50%;
+  top: 500px;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   z-index: 90;
@@ -129,15 +129,15 @@ ol {
   list-style-type: none;
 }
 
-.toc {
+.toc__content {
   overflow-y: auto;
 }
 
-.toc > .toc-list {
+.toc__content > .toc-list {
   overflow: hidden;
   position: relative;
 }
-.toc > .toc-list li {
+.toc__content > .toc-list li {
   list-style: none;
 }
 .toc-list {
@@ -163,4 +163,3 @@ a.toc-link {
 .is-active-link {
   font-weight: 800;
 }
-
