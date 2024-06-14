@@ -29,7 +29,9 @@ oneindex，但似乎OneDrive的api接口对访问量有限制，有时我浏览�
 
 ![效果图](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/Chevereto.png)
 
-tip：支持多张图片上传哦！
+:::tip
+支持多张图片上传哦！
+:::
 
 ## 获取API KEY
 

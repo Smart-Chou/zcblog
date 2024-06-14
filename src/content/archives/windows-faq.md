@@ -13,7 +13,7 @@ tags:
 
 删除以下注册表
 
-```
+```powershell
 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\CTF\TIP
 
 {81d4e9c9-1d3b-41bc-9e6c-4b40bf79e35e}
@@ -23,7 +23,7 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\CTF\TIP
 
 Windows 下以管理员身份打开命令行窗口
 
-```
+```powershell
 Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsUniversal /t REG_DWORD /d 1
 ```
 
@@ -31,7 +31,7 @@ Reg add HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation /v RealTimeIsU
 
 - 在桌面新建文本文档，复制以下代码
 
-```
+```powershell
 rem 关闭Windows外壳程序explorer
 
 
@@ -79,7 +79,6 @@ rem 重启Windows外壳程序explorer
 start explorer
 ```
 
-1. 将 txt 后缀修改为 bat
-2. 双击运行
+1.将 txt 后缀修改为 bat
 
-[原文](https://blog.csdn.net/win_turn/article/details/73612220)
+2.双击运行

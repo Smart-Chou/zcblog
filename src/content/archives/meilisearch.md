@@ -1,12 +1,12 @@
 ---
-title: vuepress-plugin-meilisearch
-description: vuepress-plugin-meilisearch
+title: meilisearch
+description: meilisearch
 pubDate: 2021-12-30
 image:
   url: '/postImage/wait-this-is-not-my-commit.png'
   alt: 'wait-this-is-not-my-commit'
 tags:
-  - Wechat
+  - meilisearch
 ---
 
 该插件用于让 Vuepress 的搜索栏支持全文搜索。
@@ -17,8 +17,6 @@ tags:
 meilisearch 是一个开源的搜索引擎，采用 Rust 语言开发，借鉴了 Algolia 引擎，适合
 用于实现个人网站的搜索栏。
 
-<!--more-->
-
 - [官网(opens new window)](https://docs.meilisearch.com/)
 - 使用 meilisearch 的主要流程如下：
   1. 运行 meilisearch 服务器。
@@ -26,13 +24,14 @@ meilisearch 是一个开源的搜索引擎，采用 Rust 语言开发，借鉴�
      服务器中存储。 每当目标网站的内容更新时，就应该抓取一次。
   3. 向 meilisearch 服务器发出 HTTP 查询请求，搜索某一字符串在目标网站上的位置。
 
-:::danger 着重提示插件、服务器、抓取程序，三者的适配（版本）要一致，不然会报
-错，无数据。可以在[GIthub](https://github.com/meilisearch)查看三者版本 
+:::danger
+着重提示插件、服务器、抓取程序，三者的适配（版本）要一致，不然会报
+错，无数据。可以在[GIthub](https://github.com/meilisearch)查看三者版本
 :::
 
 :::note
 此时文档所使用的版本：meilisearch: v0.26.1 docs-scraper: v0.12.1
-vuepress-plugin-meilisearch: v0.12.1 
+vuepress-plugin-meilisearch: v0.12.1
 :::
 
 ## 使用步骤

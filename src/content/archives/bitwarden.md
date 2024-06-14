@@ -6,7 +6,7 @@ image:
   url: '/postImage/wait-this-is-not-my-commit.png'
   alt: 'wait-this-is-not-my-commit'
 tags:
-  - 密码管理
+  - Bitwarden
 ---
 
 ## 自建 Bitwarden 密码管理服务
@@ -35,15 +35,11 @@ tags:
 
 ## 选择过程
 
-最开始在 Android 上使用的一个 `APP` 名
-为[账号本子](https://www.coolapk.com/apk/com.wei.account)，但没法满足自己的要
-求。
+最开始在 Android 上使用的一个 `APP` 名为[账号本子](https://www.coolapk.com/apk/com.wei.account)，但没法满足自己的要求。
 
 后来发现了 [Keepass](https://keepass.info/)，使用了很长一段时间。
 
-:::tip
-
-这里稍微介绍一下`Keepass`
+:::tip[这里稍微介绍一下 Keepass]
 
 `Keepass` 是一款开源、免费的密码管理软件，同时拥有众多插件。`Keepass` 将密码存储
 到一个数据库，同时设置一个主密码或是密钥文件，只需要记住主密码或者传入密钥文件即
@@ -90,9 +86,7 @@ tags:
 
 1. 首先安装好`宝塔面板`并配置好环境，这里采用的是 `LNMP`，`PHP` 版本 `7.4`
 
-:::tip
-
-建议
+:::tip[建议]
 
 如果不是特别担心密码安全，还是建议使用官方服务端，自建和官方并没有什么差别
 

@@ -11,7 +11,7 @@ description: Subscriber statistics：专注提供各个网站和社区里用户�
 :::tip[important]
 SUBSTATS Serverless Function to Count How Many People are
 Subscribed to You in Your Favorite Services. **你只管调用，我们来帮你找订阅
-者！** 
+者！**
 :::
 
 在 [上一篇文章](https://blog.spencerwoo.com/2020/03/ttrss-noteworthy/) 里面，我
@@ -33,7 +33,7 @@ Serverless 技术搭建一个「API 中转站」，**提供多个服务商的订
 
 - **Substats API 地址**：[API - Substats](https://api.spencerwoo.com/substats/)
 - **Substats GitHub 项目地
-  址**：[spencerwooo/Substats](https://github.com/spencerwooo/Substats) 
+  址**：[spencerwooo/Substats](https://github.com/spencerwooo/Substats)
   
 :::
 
@@ -53,7 +53,7 @@ Substats 是一个非常方便易用的**请求订阅者、粉丝、关注用户
 
 Substats 的请求非常简单，基础 API Endpoint 位于：
 
-```
+```html
 https://api.spencerwoo.com/substats/
 ```
 
@@ -137,7 +137,7 @@ GET /?source=feedly&queryKey=https://blog.spencerwoo.com/feed.xml
 
 <a href="https://feedly.com/i/subscription/feed%2Fhttps%3A%2F%2Fblog.spencerwoo.com%2Fposts%2Findex.xml"><img src="https://img.shields.io/badge/dynamic/json?color=2bb24c&label=Feedly%20RSS%20Subscribes&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dfeedly%26queryKey%3Dhttps%3A%2F%2Fblog.spencerwoo.com%2Fposts%2Findex.xml" alt="" style="display: inline; margin: 0 0.1rem 0 0; width: auto;"></a>
 
-```
+```html
 https://img.shields.io/badge/dynamic/json?color=2bb24c&label=Feedly%20RSS%20Subscribes&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dfeedly%26queryKey%3Dhttps%3A%2F%2Fblog.spencerwoo.com%2Fposts%2Findex.xml
 ```
 
@@ -146,7 +146,7 @@ https://img.shields.io/badge/dynamic/json?color=2bb24c&label=Feedly%20RSS%20Subs
 
 <a href="https://feedly.com/i/subscription/feed%2Fhttps%3A%2F%2Fblog.spencerwoo.com%2Fposts%2Findex.xml"><img src="https://img.shields.io/badge/dynamic/json?color=2bb24c&label=Feedly%20RSS%20Subscribes&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dfeedly%26queryKey%3Dhttps%3A%2F%2Fblog.spencerwoo.com%2Fposts%2Findex.xml&logo=feedly" alt="" style="display: inline; margin: 0 0.1rem 0 0; width: auto;"></a>
 
-```
+```html
 https://img.shields.io/badge/dynamic/json?color=2bb24c&label=Feedly%20RSS%20Subscribes&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dfeedly%26queryKey%3Dhttps%3A%2F%2Fblog.spencerwoo.com%2Fposts%2Findex.xml&logo=feedly
 ```
 
@@ -155,7 +155,7 @@ https://img.shields.io/badge/dynamic/json?color=2bb24c&label=Feedly%20RSS%20Subs
 
 <a href="https://feedly.com/i/subscription/feed%2Fhttps%3A%2F%2Fblog.spencerwoo.com%2Fposts%2Findex.xml"><img src="https://img.shields.io/badge/dynamic/json?color=2bb24c&label=Feedly%20RSS%20Subscribes&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dfeedly%26queryKey%3Dhttps%3A%2F%2Fblog.spencerwoo.com%2Fposts%2Findex.xml&logo=feedly&style=for-the-badge" alt="" style="display: inline; margin: 0 0.1rem 0 0; width: auto;"></a>
 
-```
+```html
 https://img.shields.io/badge/dynamic/json?color=2bb24c&label=Feedly%20RSS%20Subscribes&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dfeedly%26queryKey%3Dhttps%3A%2F%2Fblog.spencerwoo.com%2Fposts%2Findex.xml&logo=feedly&style=for-the-badge
 ```
 

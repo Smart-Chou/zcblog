@@ -47,7 +47,7 @@ export const site = {
  * umami {string|false} 如果您想与Umami进行集成，只需在此处输入您的Umami网站ID即可。
  */
 export const config = {
-  lang: 'en',
+  lang: 'zh-CN',
   codeFoldingStartLines: 16,
   ga: false,
   umami: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',

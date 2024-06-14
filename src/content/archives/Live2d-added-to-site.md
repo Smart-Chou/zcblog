@@ -13,8 +13,6 @@ tags:
 > 了各种教程，各种插件，添加看板娘，感觉都不太满意，自己动
 > 手。[演示页](https://api.itggg.cn/dome.html)
 
-<!--more-->
-
 ## 环境说明
 
 - 需要 [Font Awesome](http://www.fontawesome.com.cn/) 支持，确保相关样式表已在页
@@ -118,7 +116,7 @@ localStorage.setItem('modelId', '7'); localStorage.setItem('modelTexturesId',
 
 ## 插件版本
 
-[typecho 博客 Live2D 插件 插件相对于 Paul 的 Pio 插件，简化了很多，并且自动在手机端隐藏（Live2D 在手机端显示在百度站长移...](https://www.itggg.cn/fx/458.html)
+[typecho 博客 Live2D 插件 插件相对于 Paul 的 Pio 插件，简化了很多，并且自动在手机端隐藏](https://www.itggg.cn/fx/458.html)
 
 ## 模型接口
 

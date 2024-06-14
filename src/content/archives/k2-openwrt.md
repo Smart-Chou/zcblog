@@ -31,13 +31,13 @@ tags:
 了`Telnet`功能且不提示不合法固件，处女刷，用的必须要用此功能哦，呵呵，登录路由后
 台点手动升级，选择下载好的固件。
 
-1. 下载 `K2_V22.6.506.28.bin`,[固件链接](https://pan.baidu.com/s/1dGYpUHr),密码:
+1.下载 `K2_V22.6.506.28.bin`,[固件链接](https://pan.baidu.com/s/1dGYpUHr),密码:
    8z3m
 
-2. 下载`telnet` 打开工
+2.下载`telnet` 打开工
    具`RoutAckProV1B2`,[链接](https://pan.baidu.com/s/1jJK88qM),密码: qaix
 
-3. 下载路由器刷`breed Web`控制台助手`v4.8`版本（内含breed固
+3.下载路由器刷`breed Web`控制台助手`v4.8`版本（内含breed固
    件）,[链接](https://pan.baidu.com/s/1pLXFt2b) ,密码: cban
 
 把上面两个工具分别右键管理员身份打开，路由器长按恢复出厂设置按钮**10**秒，红灯状

@@ -35,10 +35,10 @@ done
 if [[ "$write_formatter" == "yes" || "$write_formatter" == "y" ]]; then
   cat <<EOL > "$fullpath"
 ---
-title: 
-description: 
-pubDate: 
-tags:
+title: $filename
+description: $filename
+pubDate: $(date +%F)
+tags: ['']
 image:
   url: 
   alt: 

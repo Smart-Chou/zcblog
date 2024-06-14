@@ -12,7 +12,6 @@ tags:
 > [最新版本下载](https://github.com/BlueMatthew/WechatExporter/)
 
 :::danger[BUG!!!]
-
 1.8.0.7 以前的版本异步加载方式存在一个比较严重的小白 bug：当设置为滚动到页面底部
 异步加载时，越靠后面的页码，加载的消息数量越少；设置为页面打开全部消息异步加载
 时，消息只能加载到一半。
@@ -60,7 +59,7 @@ tags:
 5. 导出后的页面示例：  
    ![导出后的页面示例截屏](https://cdn.zcily.life/image/WechatExporter-demo.png!WebP)
 
-[点击链接可打开网页：https://src.wakin.org/github/wxexp/demo/](https://src.wakin.org/github/wxexp/demo/)
+点击链接可打开网页：[https://src.wakin.org/github/wxexp/demo/](https://src.wakin.org/github/wxexp/demo/)
 
 ## 模版修改
 

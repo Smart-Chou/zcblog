@@ -17,7 +17,7 @@ const { frontmatter = {comment: false, donate: false, toc: false, mathjax: false
 const today = new Date()
 const publishTime = new Date(frontmatter.pubDate)
 const lastModifiedTime = new Date(lastModified)
-const publishedDays = Math.floor((today.getTime() - lastModifiedTime.getTime()) / (1000 * 60 * 60 * 24))
+const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (1000 * 60 * 60 * 24))
 
 const allPosts = await getCollection('archives')
 const currentSlug = Astro.params.slug

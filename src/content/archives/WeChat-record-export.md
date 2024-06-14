@@ -9,8 +9,6 @@ tags:
   - Wechat
 ---
 
-![你想要的微信聊天记录导出，这个免费软件做到了](https://cdn.zcily.life/image/v2-10a28349ad320b874d9c86842d388d2c_1440w.jpg!WebP)
-
 > 作者：[JohnHarrod](https://link.zhihu.com/?target=https%3A//sspai.com/u/gij6gkdt/updates)
 
 在开始写这篇文章之前，我一直都在思考一个问题，怎样才能写一个有趣而又不失严肃的开
@@ -18,7 +16,6 @@ tags:
 隔壁楼，以及我天天都在用的这款「像十年前那样简单小而美的产品」时，我仿佛突然有种
 油然而生的自豪感。
 
-<!--more-->
 
 然而沉浸在这种自豪感中还不到一秒，我的 CleanMyMac 就向我弹出了一条通知，「Mac 存
 储空间不足」，我才被拉回现实。我奇怪地想，到底是什么东西占据了我这么大的空间？打

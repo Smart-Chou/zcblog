@@ -10,7 +10,7 @@ tags:
 ---
 
 之前使用的语雀客户端最近同步很有问题,遂弃坑,搞起来之前用的为知笔记。官方提供了
-docker镜像可以私有部署，配合 ==宝塔docker== 安装非常方便。
+docker镜像可以私有部署，配合 **宝塔docker** 安装非常方便。
 
 ## 正文开始
 
@@ -42,8 +42,7 @@ sudo systemctl restart docker
 
 ### 下载完成后在容器列表内,创建容器
 
-`Docker`端口映射填写`80` ，后边的服务器端口根据你的需要填写。（安装完的访问格式:
-`IP:端口`）
+`Docker`端口映射填写`80` ，后边的服务器端口根据你的需要填写。（安装完的访问格式:`IP:端口`）
 
 目录映射如下,选着同步的文件即可。
 
@@ -77,7 +76,7 @@ sudo systemctl restart docker
 
 然后在这个域名下的反向代理里边修改配置
 
-```
+```nginx title="nginx.conf"
 # 将宝塔反代配置文件的proxy_set_header全部替换:
 proxy_set_header X-Real-IP $remote_addr;
 proxy_set_header x-wiz-real-ip $remote_addr;

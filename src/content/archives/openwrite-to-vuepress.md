@@ -12,7 +12,7 @@ tags:
 ## 前言
 
 如今,打开一些网站,发现阅读文章前,先要关注公众号,获取验证码,才能解锁文章,这波操作
-虽然有点“==流氓==”,但是白嫖的适当付出一点也没有什么,毕竟写文章输出是真的费时间,
+虽然有点“~流氓~”,但是白嫖的适当付出一点也没有什么,毕竟写文章输出是真的费时间,
 尊重作者的劳动成果.况且赏杯咖啡,我觉得也是一种激励.
 
 不信,自己去践行下就知道了的
@@ -23,7 +23,7 @@ tags:
 
 现如今一些自媒体大佬,很多在公众号里赚了不少,论当今自媒体平台,公众号的**商业价
 值**是最大的,很少有听到抖音,快手等独立的个体融资的,但公众号就有,依靠它活得洒脱,
-而凭借它实现融资的还真不少. 自己不行,不代表别人也不行,贫穷会限制想象.
+而凭借它实现融资的还真不少.自己不行,不代表别人也不行,贫穷会限制想象.
 
 今天跟大家分享一下在`vuepress`中怎么进行配置实现导流到公众号,实现自动增粉,让每一
 个阅读产生价值,与用户做朋友,从此在也不用互推了的,只需专心做好内容创作.
@@ -34,41 +34,41 @@ tags:
 
 如果您觉得读文章理解起来有些难度,希望以下视频能给你带来一些帮助
 
-1. [视频讲解-vuepress 解锁文章-引流到公众号-添加博客导流工具引言(前)](https://www.zhihu.com/zvideo/1312527959053000704)
+1.[视频讲解-vuepress 解锁文章-引流到公众号-添加博客导流工具引言(前)](https://www.zhihu.com/zvideo/1312527959053000704)
 
-2. [视频讲解-vuepress 添加博客导流工具-添加博客设置(上)](https://www.zhihu.com/zvideo/1312526313929437184)
+2.[视频讲解-vuepress 添加博客导流工具-添加博客设置(上)](https://www.zhihu.com/zvideo/1312526313929437184)
 
-3. [视频讲解-vuepress 添加博客导流工具-实现单篇文章隐藏与整站文章隐藏(中)](https://www.zhihu.com/zvideo/1312526506603184128)
+3.[视频讲解-vuepress 添加博客导流工具-实现单篇文章隐藏与整站文章隐藏(中)](https://www.zhihu.com/zvideo/1312526506603184128)
 
-4. [视频讲解-vuepress 添加博客导流工具-可能会遇到的一些问题-结束(下)](https://www.zhihu.com/zvideo/1312526793459286016)
+4.[视频讲解-vuepress 添加博客导流工具-可能会遇到的一些问题-结束(下)](https://www.zhihu.com/zvideo/1312526793459286016)
 
-5. [视频讲解-B 站 itclanCoder-Up 主-不定期更新获取新技能](https://space.bilibili.com/267957620)
+5.[视频讲解-B 站 itclanCoder-Up 主-不定期更新获取新技能](https://space.bilibili.com/267957620)
 
 ## 使用 openWrite 导流工具
 
 这里借用[openWrite 导流工具](https://my.openwrite.cn/)
 
-1. 进入 openWrite 网站,找到导航菜单栏下的**免费涨粉神器**,添加博客列表
+1.进入 openWrite 网站,找到导航菜单栏下的**免费涨粉神器**,添加博客列表
 
 输入博客信息以及微信公众号信息,保存即可
 
 如下所示:
 
-:::
+:::info
 ![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/openwrite.png)
 :::
 
-1. 返回博客列表中,点击使用
+2.返回博客列表中,点击使用
 
-:::
+:::info
 ![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/useopenwrite.png)
 :::
 
-1. 阅读使用文档
+3.阅读使用文档
 
 这里就不搬运了的,直接读文档就好,下面的介绍才是重点
 
-:::tip 
+:::tip
 注意文档中需要注意最后一句:
 
 其中`id`中设置的`container`需要用户根据文章页面中的文章容器来调整，或者直接将文
@@ -133,7 +133,7 @@ window.onload = function () {
 提示直接在`md`中用`div`将想要隐藏的部分包裹起来,并在`div`上添
 加`id="container"`难道不行么
 
-这种方式我有试过,但不靠谱,实现不了:joy:,即使能实现,每篇文章都要手动的添加 id,那
+这种方式我有试过,但不靠谱,实现不了😂,即使能实现,每篇文章都要手动的添加 id,那
 不是一个懒的程序员应该做的事情
 :::
 
@@ -253,17 +253,20 @@ module.exports = {
 
 :::tip[注意事项]
 
-1. `btwplugin.js`中的`btw`需要是个全局变量,去掉`const`,那直
+1.`btwplugin.js`中的`btw`需要是个全局变量,去掉`const`,那直
    接`new BTWPlugin().init({})`不是更好么,还真不行,依旧会
    报`btw is not defined`尽管这个`bug`挺奇葩的
-2. 在`btwplugin.js`这段代码中,需要使用`window.onload`包裹,等待所有页面加载完执行
+
+2.在`btwplugin.js`这段代码中,需要使用`window.onload`包裹,等待所有页面加载完执行
    这段脚本,不能不包裹,而且也无法使
    用`$(function() {})或者$(document).ready(function() {})`,行不行,试一试就知道
    了的
-3. 如果自定义的组件`HideArticle.vue`,外面多了一层文件夹例
+
+3.如果自定义的组件`HideArticle.vue`,外面多了一层文件夹例
    如:`./vuepress/components/global/HideArticle.vue`,在`md`引入组件时需
    要`<global-HideArticle />`这种方式引入组件,否则依旧不会生效
-4. 在`HideArticle.vue`组件内中的`monted`需要使用`import('相对路径')`相对路径的方
+
+4.在`HideArticle.vue`组件内中的`monted`需要使用`import('相对路径')`相对路径的方
    式导入脚本,或者使用`require('相对路径')`的方式引入,这里用绝对路径不行,如下所
    示
 
@@ -285,7 +288,7 @@ export default {
 
 以上就实现了单篇文章的隐藏,如下所示
 
-:::
+:::info
 ![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/hideArticle.png)
 :::
 
@@ -419,9 +422,9 @@ API,它就会报错
 当实现了文章的隐藏后,发现弹出框内的二维码不正常显示,这个时候,你需要查
 看`openWrite`博客设置的二维码是否正确的
 
-:::tip 
+:::tip
 注意图片的链接:需要是`http://xxxxgg.jpg`网络地址,`jpg/png/..`图片后缀形
-式的,直接将图片转换成链接插入是不行的 
+式的,直接将图片转换成链接插入是不行的
 :::
 
 你可以选择某一个图片存储服务器,只要能拿到图片地止就行,我使用的是又拍云的,当然它

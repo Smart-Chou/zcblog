@@ -6,15 +6,16 @@ image:
   url: '/postImage/vscode-math-to-image.png'
   alt: vscode-math-to-image
 description: 为了解决 GitHub 无法渲染 LaTeX 数学公式的问题，我们编写了一个 VS Code 插件。
+mathjax: true
 ---
 
 :::note[🛹 同步发布]
 
 - **在少数派上阅读本文** —
   [不支持 LaTeX 也能插入数学公式，这个小插件帮你实现「徒手渲染」](https://sspai.com/post/61877)。
-- **Read the English version on Medium** —
-  [VS Code Math to Image: Write LaTeX Math Equations in GitHub Markdown the Easy Way!](https://medium.com/spencerweekly/vs-code-math-to-image-write-latex-math-equations-in-github-markdown-the-easy-way-9fa8b81dc910?source=friends_link&sk=cff035b443fb81f5b20a47370f23aed3)
-  :::
+- **Read the English version on Medium** —[VS Code Math to Image: Write LaTeX Math Equations in GitHub Markdown the Easy Way!](https://medium.com/spencerweekly/vs-code-math-to-image-write-latex-math-equations-in-github-markdown-the-easy-way-9fa8b81dc910?source=friends_link&sk=cff035b443fb81f5b20a47370f23aed3)
+
+:::
 
 作为每天都在跟数学公式打交道的工程师、数学家，如果我们想要将自己的学术成果开源并
 发布在网络平台上，那么这个平台至少要支持在 Markdown 里面用 LaTeX 撰写公式。可
