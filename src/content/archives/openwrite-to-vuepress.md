@@ -68,9 +68,7 @@ tags:
 
 这里就不搬运了的,直接读文档就好,下面的介绍才是重点
 
-:::tip
-注意文档中需要注意最后一句:
-
+:::tip[注意文档中需要注意最后一句]
 其中`id`中设置的`container`需要用户根据文章页面中的文章容器来调整，或者直接将文
 章最外面的容器设置为该 id
 
@@ -288,9 +286,7 @@ export default {
 
 以上就实现了单篇文章的隐藏,如下所示
 
-:::info
 ![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/hideArticle.png)
-:::
 
 那博客里有很多文章,每篇`md`文件末尾都引入该组件,挺麻烦的
 

@@ -188,7 +188,7 @@ docker run -d --name vaultwarden -v /www/wwwroot/domain.com/:/data/ -p 6789:80 b
 
 ![停止并删除容器](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/a6397ebd7a7f1849a43a53f001e846cd.png)
 
-:::caution
+:::warning
 一定先停止再删除
 :::
 

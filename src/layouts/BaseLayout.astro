@@ -23,5 +23,51 @@ const { title, description, image, imageAlt, mathjax = false, mermaid = false } 
             </main>
             <Footer />
         </div>
+        <script is:inline>
+            document.addEventListener('astro:page-load', () => {
+                try {
+                    // 是否启用
+                    const enable = true; // 设为true以启用跳转功能
+                    if (!enable) return;
+                    // 中转页地址
+                    const redirectPage = "/redirect/?url=";
+                    // 包含的 className
+                    const includeClass = ['post__content']; // 添加需要包含的类名
+                    // 判断元素或其父元素是否包含指定类名
+                    const hasIncludeClass = (element) => {
+                        while (element) {
+                            if (includeClass.some(className => element.classList.contains(className))) {
+                                return true;
+                            }
+                            element = element.parentElement;
+                        }
+                        return false;
+                    };
+                    // 所有链接
+                    const allLinks = [...document.getElementsByTagName("a")];
+                    if (allLinks.length === 0) return;
+                    allLinks.forEach((link) => {
+                        // 检查链接是否包含 target="_blank" 属性或指定的类名
+                        if (link.getAttribute("target") === "_blank" || hasIncludeClass(link)) {
+                            const linkHref = link.getAttribute("href");
+                            // 存在链接且非中转页
+                            if (linkHref && !linkHref.includes(redirectPage)) {
+                                // Base64 编码 href
+                                const encodedHref = btoa(linkHref);
+                                const redirectLink = `${redirectPage}${encodedHref}`;
+                                // 保存原始链接
+                                link.setAttribute("original-href", linkHref);
+                                // 覆盖 href
+                                link.setAttribute("href", redirectLink);
+                                // 增加 target="_blank" 属性
+                                link.setAttribute("target", "_blank");
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error("处理链接时出错：", error);
+                }
+            });
+        </script>
     </body>
 </html>

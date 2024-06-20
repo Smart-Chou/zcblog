@@ -20,7 +20,7 @@ Awesome TTRSS 项目提供的 `docker-compose.yml` 部署的 Docker 版本 Tiny 
 - [找不到满意的 RSS 服务？你可以自己搭建一个](https://sspai.com/post/57498)：我
   的少数派文章
 
-:::caution[RSS 订阅] 
+:::warning[RSS 订阅] 
 另外，订阅我博客 RSS 的同学（来自 Feedly 的数据）已经达到了惊
 人的 10 个！谢谢各位的关注，没有用 RSS 订阅的同学可以点击下方徽章直接在 Feedly 中
 订阅。🙇‍♂️

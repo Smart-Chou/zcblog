@@ -56,18 +56,18 @@ html[data-theme='dark']:root {
   transform: translateY(-50%);
   z-index: 90;
   padding: 10px 0;
-  width: 220px;
+  width: auto;
   max-height: 600px;
   overflow: hidden;
 }
 
 @media screen and (max-width: 1440px) {
   .toc__content {
-    left: calc(100vw - 220px);
+    left: calc(100vw - 200px);
   }
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1280px) {
   .toc__content {
     display: none;
   }
@@ -94,7 +94,7 @@ html[data-theme='dark']:root {
   color: var(--B80-t);
   display: inline-block;
   opacity: 0;
-  width: 150px;
+  width: auto;
   vertical-align: middle;
   text-align: left;
   -webkit-transition: opacity 0.5s;

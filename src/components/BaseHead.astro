@@ -53,7 +53,7 @@ const { title, description, image, imageAlt, mathjax, mermaid } = Astro.props
   {
     config.umami && (
       <>
-        <script is:inline src="https://umami.marxchou.com/script.js" defer data-website-id={String(config.umami)} />
+        <script type="text/partytown" src="https://umami.marxchou.com/script.js" defer data-website-id={String(config.umami)} />
       </>
     )
   }
@@ -66,7 +66,7 @@ const { title, description, image, imageAlt, mathjax, mermaid } = Astro.props
   }
 
   <!-- Style / Scripts -->
-  {mathjax && <script is:inline type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" />}
-  {mermaid && <script is:inline type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/mermaid/10.9.0/mermaid.min.js" />}
+  {mathjax && <script is:inline type="text/partytown" src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js" />}
+  {mermaid && <script is:inline type="text/partytown" src="https://cdn.bootcdn.net/ajax/libs/mermaid/10.9.0/mermaid.min.js" />}
   <ViewTransitions />
 </head>

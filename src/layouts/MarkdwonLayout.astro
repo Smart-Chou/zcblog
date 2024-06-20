@@ -50,8 +50,8 @@ const currentSlug = Astro.params.slug
     </div>
     {
       publishedDays >= 180 ? (
-        <div class="admonition admonition-warning">
-          <p style="margin-bottom: 0;">
+        <div class="remark-aside remark-aside--danger">
+          <p style="margin-bottom: 1rem;">
             🌶 <strong>过期警告：</strong> 本页面距今已有
             {publishedDays}
             天未更新，年久失修，内容可能有所偏颇，还请仔细甄别！

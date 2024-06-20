@@ -27,6 +27,7 @@
     "selectors_exclude": [
         ".header",
         ".gutter",
+        "aside h4",
         ".post__footer",
         ".post__navigation",
         ".donate",

@@ -1,5 +1,7 @@
 export  const en = {
-  'aside.caution': 'Caution',
+  'aside.info': 'Info',
+  'aside.important': 'Important',
+  'aside.warning': 'Caution',
   'aside.danger':'Danger',
   'aside.note': 'Note',
   'aside.tip':'Tip',

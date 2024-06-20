@@ -1,0 +1,131 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { site, redirectPage } from '~/self.config'
+import '~/styles/redirect.css'
+---
+
+<BaseLayout 
+    title={redirectPage.title} 
+    description={redirectPage.title + ` - ` + redirectPage.description} 
+    image={Astro.site + site.coverImage} 
+    imageAlt={redirectPage.title}
+>
+  <div class="redirect">
+    <span class="tip" id="tip">您即将离开{site.title}，前往</span>
+    <span id="url"></span>
+    <div id="jump-content" class="warn">
+      <span id="site-info">⚠️ 该网址安全性未知，请注意您的帐号和财产安全</span>
+      <div id="jump-button">继续前往</div>
+    </div>
+  </div>
+  <script is:inline>
+    // 跳转网址
+    let jumpLink
+    let interval
+    // 获取元素
+    const tipDescription = document.getElementById('tip')
+    const urlDom = document.getElementById('url')
+    const urlTip = document.getElementById('site-info')
+    const jumpContent = document.getElementById('jump-content')
+    const jumpButton = document.getElementById('jump-button')
+    // 网址白名单
+    const whitelist = ['*.marxchou.com', '*.mch.icu', 'github.com', 't.me'] 
+    // 网址黑名单
+    const blacklist = ['*.taobao.com', '*.jd.com']
+    // 提示文本
+    const tipText = {
+      safe: '✅ 该网址为信任网址，即将跳转',
+      danger: '⛔ 该网址处于黑名单',
+    }
+    // 自动跳转
+    const autoJump = () => {
+      let count = 5
+      const updateContent = () => {
+        jumpButton.innerHTML = `${count} 秒后自动跳转`
+        count--
+        if (count < 0) {
+          clearInterval(interval)
+          jumpButton.innerHTML = '正在跳转'
+          window.location.replace(jumpLink)
+        }
+      }
+      // 每秒更新一次
+      updateContent()
+      interval = setInterval(updateContent, 1000)
+    }
+    // 获取跳转网址
+    const getJumpUrl = () => {
+      try {
+        // 解析 URL 参数
+        const urlParams = new URLSearchParams(window.location.search)
+        const encodedUrl = urlParams.get('url')
+        if (!encodedUrl) {
+          throw new Error('URL 参数为空')
+        }
+        // 解密 Base64
+        jumpLink = atob(encodedUrl)
+        // 如果 URL 以 "//" 开头，添加默认协议
+        if (jumpLink.startsWith('//')) {
+          jumpLink = 'https:' + jumpLink
+        }
+        urlDom.innerHTML = jumpLink
+        // 获取网址的主机名
+        const urlHostname = new URL(jumpLink).hostname
+        // 判断网址是否在黑名单中
+        for (let i = 0; i < blacklist.length; i++) {
+          const blackPattern = blacklist[i].replace(/\*/g, '.*')
+          if (urlHostname.match(blackPattern)) {
+            // 显示提示信息
+            urlTip.innerHTML = tipText.danger
+            jumpButton.innerHTML = '禁止跳转'
+            jumpButton.style.cursor = 'not-allowed'
+            jumpButton.style.pointerEvents = 'none'
+            jumpButton.style.opacity = '0.4'
+            jumpContent.className = 'danger'
+            return true
+          }
+        }
+        // 判断网址是否在白名单中
+        for (let i = 0; i < whitelist.length; i++) {
+          const whitePattern = whitelist[i].replace(/\*/g, '.*')
+          if (urlHostname.match(whitePattern)) {
+            // 显示提示信息
+            urlTip.innerHTML = tipText.safe
+            jumpContent.className = 'safe'
+            autoJump()
+            return true
+          }
+        }
+      } catch (error) {
+        console.error('Error during URL parsing:', error)
+        tipDescription.remove()
+        jumpContent.remove()
+        urlDom.innerHTML = '获取跳转链接失败'
+        const sorryMessage = document.createElement('span')
+        sorryMessage.className = 'tip'
+        sorryMessage.innerHTML = '😔 非常抱歉'
+        urlDom.parentElement.insertBefore(sorryMessage, urlDom)
+
+      }
+    }
+    document.addEventListener('contextmenu', function (event) {
+      event.preventDefault()
+    })
+    document.addEventListener('keydown', function (event) {
+    if (event.key === 'F12') {
+        event.preventDefault()
+    }
+    if (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'C' || event.key === 'G')) {
+        event.preventDefault()
+    }
+    })
+    jumpButton.addEventListener('click', () => {
+      clearInterval(interval)
+      jumpButton.innerHTML = '正在跳转'
+      if (jumpLink) window.location.replace(jumpLink)
+    })
+    window.addEventListener('DOMContentLoaded', () => {
+      getJumpUrl()
+    })
+  </script>
+</BaseLayout>

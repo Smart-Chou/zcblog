@@ -130,6 +130,7 @@ export const search = {
  * url {string} 链接
  * title {string} ID
  * style {string} 颜色样式
+ * target {string} 目标
  * svg {string} icon
  */
 export const categories = [
@@ -137,30 +138,35 @@ export const categories = [
     url: '//mch.icu',
     title: '🚀 Portfolio',
     style: undefined,
+    target: '_blank',
     svg: 'tabler:user-filled',
   },
   {
-    url: '/feed/',
+    url: '//memos.marxchou.com',
     title: '🥳 Feed',
     style: 'color: orange',
+    target: '_blank',
     svg: 'tabler:brand-wechat',
-  },
-  {
-    url: '/archives/',
-    title: '📂 Archives',
-    style: 'color: var(--title-color)',
-    svg: 'tabler:archive-filled',
   },
   {
     url: '/friends/',
     title: '🧑🏿‍🚒 Friends',
     style: 'color: #06a878',
+    target: '_self',
     svg: 'tabler:message-chatbot-filled',
+  },
+  {
+    url: '/archives/',
+    title: '📂 Archives',
+    style: 'color: var(--title-color)',
+    target: '_self',
+    svg: 'tabler:archive-filled',
   },
   {
     url: '/tags/',
     title: '🏷️ tags',
     style: undefined,
+    target: '_self',
     svg: 'tabler:tags',
   },
 ]
@@ -321,8 +327,8 @@ export const archivesPage = {
   description: 'All Archives',
 }
 
-// feed Page
-export const feedPage = {
-  title: 'Feed',
-  description: 'Feed',
+// Redirect Page
+export const redirectPage = {
+  title: 'Redirect',
+  description: 'Redirect Website',
 }

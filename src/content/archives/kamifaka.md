@@ -24,7 +24,7 @@ CDK等。
 如果您是新买的服务器，可以参考往期教程安装好宝塔环
 境。[新手购买VPS及安装宝塔基础演示](htttps://codenoob.top/)
 
-:::caution
+:::warning
  注意当前安装方法与宝塔其他程序都不会冲突，可正常安装卸载等操作，不会
 影响原有环境。
 :::
@@ -79,7 +79,7 @@ CDK等。
 程序安装同上，只需要在创建容器的时候，**环境变量**里可以添加如下参数(注意替换中
 文为真实参数)：
 
-```mysql
+```sql
 DB_TYPE=Mysql
 DB_HOST=数据库(容器)ip
 DB_PORT=数据库端口
@@ -90,7 +90,7 @@ DB_DATABASE=数据库名
 
 实际案例：
 
-```mysql
+```sql
 DB_TYPE=Mysql
 DB_HOST=172.17.0.1
 DB_PORT=3306

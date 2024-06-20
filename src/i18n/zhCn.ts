@@ -1,7 +1,9 @@
 export  const zhCn = {
+  'aside.info': '信息',
   'aside.note': '注意',
+  'aside.important': '重要',
   'aside.tip':'提示',
-  'aside.caution': '警告',
+  'aside.warning': '警告',
   'aside.danger':'危险',
   'home.sticky': '置顶',
   'home.goBack': '返回',
