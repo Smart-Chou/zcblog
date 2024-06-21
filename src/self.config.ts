@@ -83,8 +83,8 @@ export const postView = {
 export const donate = {
   enable: true,
   tip: 'Thanks for the coffee !!!☕',
-  wechatQRCode: '/assets/WeChatQR.jpg',
-  alipayQRCode: '/assets/AliPayQR.jpg',
+  wechatQRCode: '/assets/image/WeChatQR.jpg',
+  alipayQRCode: '/assets/image/AliPayQR.jpg',
   paypalUrl: 'https://paypal.me/xxxxxxxxxx',
 }
 
