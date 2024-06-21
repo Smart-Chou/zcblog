@@ -23,8 +23,7 @@
 export const site = {
   title: "Spencer's Blog",
   subtitle: 'Spencer Woo',
-  description:
-    'Astro builds fast content sites, powerful web applications, dynamic server APIs, and everything in-between.',
+  description: 'Astro builds fast content sites, powerful web applications, dynamic server APIs, and everything in-between.',
   keywords: 'Astro, Theme, Yi',
   favicon: 'favicon.svg',
   logo: 'logo.svg',
@@ -33,7 +32,7 @@ export const site = {
   avatar: 'author.jpg',
   coverImage: 'cover.png',
   coverImageAlt: "Spencer's Blog",
-  url: '//marxchou.com',
+  url: 'https://marxchou.com',
   startYear: '2017',
   PageSize: 9,
   beian: '豫ICP备20006179号',
@@ -84,8 +83,8 @@ export const postView = {
 export const donate = {
   enable: true,
   tip: 'Thanks for the coffee !!!☕',
-  wechatQRCode: '/WeChatQR.jpg',
-  alipayQRCode: '/AliPayQR.jpg',
+  wechatQRCode: '/assets/WeChatQR.jpg',
+  alipayQRCode: '/assets/AliPayQR.jpg',
   paypalUrl: 'https://paypal.me/xxxxxxxxxx',
 }
 

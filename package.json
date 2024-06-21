@@ -5,13 +5,14 @@
   "type": "module",
   "private": true,
   "engines": {
-    "node": "^18.17.1 || ^20.3.0 || >= 21.0.0"
+    "node": ">= 18.0.0"
   },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test:e2e": "playwright test",
     "deploy": "vercel --prod",
     "format": "prettier -w ."
   },
@@ -45,6 +46,9 @@
     "@iconify-json/simple-icons": "^1.1.105",
     "@iconify-json/tabler": "^1.1.113",
     "@iconify-json/twemoji": "^1.1.15",
+    "@playwright/test": "^1.44.1",
+    "@types/node": "^20.14.7",
+    "astro-meta-tags": "^0.3.0",
     "prettier": "^3.3.2",
     "prettier-plugin-astro": "^0.13.0"
   },

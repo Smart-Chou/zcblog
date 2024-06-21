@@ -10,6 +10,7 @@ import astroExpressiveCode from 'astro-expressive-code';
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 import { visit } from 'unist-util-visit';
 import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections';
+import astroMetaTags from "astro-meta-tags";
 
 function customRehypeLazyLoadImage() {
   return function (tree) {
@@ -43,7 +44,7 @@ export default defineConfig({
     themes: ['github-dark-dimmed'],
     themeCssSelector: theme => `html[data-theme=${theme.name}]`,
     useDarkModeMediaQuery: false
-  }), mdx(), partytown()],
+  }), mdx(), partytown(),astroMetaTags()],
   image: {
     // 示例：通过自定义配置启用基于 Sharp 的图像服务
     service: {

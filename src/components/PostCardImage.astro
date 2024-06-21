@@ -9,13 +9,13 @@ interface Props {
 }
 
 const { imagePath, altText, loading } = Astro.props
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{jpeg,jpg,png,gif}')
+const images = import.meta.glob<{ default: ImageMetadata }>('/public/assets/**/*.{jpeg,jpg,png,gif}')
 
-if (!images[`/src/assets${imagePath}`]) {
-  throw new Error(`"${imagePath}" does not exist in glob: "src/assets/**/*.{jpeg,jpg,png,gif}"`)
+if (!images[`/public/assets${imagePath}`]) {
+  throw new Error(`"${imagePath}" does not exist in glob: "public/assets/**/*.{jpeg,jpg,png,gif}"`)
 }
 
-const imageModule = await images[`/src/assets${imagePath}`]()
+const imageModule = await images[`/public/assets${imagePath}`]()
 ---
 
-<Picture src={imageModule.default} alt={altText} formats={['avif', 'webp', 'png']} class="post-card__image" loading={loading}/>
+<Picture src={imageModule.default} alt={altText} formats={['avif', 'webp']} class="post-card__image" loading={loading}/>

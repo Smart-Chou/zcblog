@@ -26,7 +26,7 @@ const currentSlug = Astro.params.slug
 <BaseLayout 
     title={frontmatter.title + ` - ` + site.title} 
     description={frontmatter.title + ` - ` + frontmatter.description}
-    image={Astro.site + frontmatter.image.url}
+    image={Astro.site + `assets` + frontmatter.image.url}
     imageAlt={frontmatter.image.alt}
     mathjax={frontmatter.mathjax}
     mermaid={frontmatter.mermaid}
