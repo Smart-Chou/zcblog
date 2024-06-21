@@ -1,5 +1,6 @@
 # build output
 dist/
+
 # generated types
 .astro/
 
@@ -23,7 +24,12 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# pageinsight
+.pageinsight
+
+# vercel
 .vercel
+
 /test-results/
 /playwright-report/
 /blob-report/

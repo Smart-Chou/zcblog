@@ -7,6 +7,7 @@ image:
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Vuepress
+sticky: 20
 ---
 
 ## 前言

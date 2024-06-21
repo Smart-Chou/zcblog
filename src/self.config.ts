@@ -3,21 +3,21 @@
 // icon/Icon 从 https://icon-sets.iconify.design/ 生成
 
 /**
- * title {string} 网站标题
- * subtitle {string} 网站副标题
- * description {string} 网站描述
- * keywords {string} 网站关键字
- * favicon {string} 网站图标URL
- * logo {string} 网站logo
- * author {string} 作者
- * motto {string} 个人资料中使用的口头禅
- * avatar {string} 个人资料中使用的头像
- * coverImage {string} 网站封面
- * coverImageAlt {string} 网站封面Alt
- * url {string} 网站链接
- * startYear {string} 网站开始年份
- * PageSize {number} 文章页面上的文章数
- * beian {string} 中国政策 / 萌 ICP
+ * title {string} 网站标题  
+ * subtitle {string} 网站副标题  
+ * description {string} 网站描述  
+ * keywords {string} 网站关键字  
+ * favicon {string} 网站图标URL  
+ * logo {string} 网站logo  
+ * author {string} 作者  
+ * motto {string} 个人资料中使用的口头禅  
+ * avatar {string} 个人资料中使用的头像  
+ * coverImage {string} 网站封面  
+ * coverImageAlt {string} 网站封面Alt  
+ * url {string} 网站链接  
+ * startYear {string} 网站开始年份  
+ * PageSize {number} 文章页面上的文章数  
+ * beian {string} 中国政策 / 萌 ICP  
  * beianURL {string} URL
  */
 export const site = {
@@ -40,21 +40,27 @@ export const site = {
 }
 
 /**
- * lang {string} 默认网站语言，en | zh-CN
- * codeFoldingStartLines {number} 代码折叠起始行数
- * ga {string|false} 如果您想与Google Analytics进行集成，只需在此处输入您的GA-ID即可。
- * umami {string|false} 如果您想与Umami进行集成，只需在此处输入您的Umami网站ID即可。
+ * lang {string} 默认网站语言 en | zh-CN  
+ * codeFoldingStartLines {number} 代码折叠起始行数  
+ * ga {string|false} 如果您想与Google Analytics进行集成，只需在此处输入您的GA-ID即可。  
+ * umami {string|false} 如果您想与Umami进行集成，只需在此处输入您的Umami网站ID即可。  
+ * redirect {boolean} 是否开启链接重定向  
+ * redirectIncludeClass {string[]} 链接重定向包含的类  
+ * redirectExcludeClass {string[]} 链接重定向排除的类
  */
 export const config = {
   lang: 'zh-CN',
   codeFoldingStartLines: 16,
   ga: false,
   umami: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
+  redirect: true,
+  redirectIncludeClass: ['post__content'],
+  redirectExcludeClass: ['footer'],
 }
 
 /**
- * PageView
- * backtotop {boolean} 返回顶部
+ * PageView  
+ * backtotop {boolean} 返回顶部  
  * author {boolean} 显示作者
  */
 export const pageView = {
@@ -63,8 +69,8 @@ export const pageView = {
 }
 
 /**
- * PostView
- * backtotop {boolean} 返回顶部
+ * PostView  
+ * backtotop {boolean} 返回顶部  
  * author {boolean} 显示作者
  */
 export const postView = {
@@ -73,11 +79,11 @@ export const postView = {
 }
 
 /**
- * 捐赠
- * enable {boolean} 是否启用捐赠功能
- * tip {string} 捐赠提示
- * wechatQRCode: 微信二维码图片地址, 图片地址应该放在 public 目录下
- * alipayQRCode: 支付宝二维码图片地址, 图片地址应该放在 public 目录下
+ * 捐赠  
+ * enable {boolean} 是否启用捐赠功能  
+ * tip {string} 捐赠提示  
+ * wechatQRCode: 微信二维码图片地址, 图片地址应该放在 public 目录下  
+ * alipayQRCode: 支付宝二维码图片地址, 图片地址应该放在 public 目录下  
  * paypalUrl {string} PayPal 捐赠地址
  */
 export const donate = {
@@ -89,13 +95,13 @@ export const donate = {
 }
 
 /**
- * Waline评论功能配置
- * enable {boolean} 是否启用
- * serverUrl {string} 评论服务器地址
- * lang {string} 评论语言
- * pageSize {number} 评论分页大小
- * reaction {boolean} 是否开启表情
- * search {boolean} 是否开启搜索
+ * Waline评论功能配置  
+ * enable {boolean} 是否启用  
+ * serverUrl {string} 评论服务器地址  
+ * lang {string} 评论语言  
+ * pageSize {number} 评论分页大小  
+ * reaction {boolean} 是否开启表情  
+ * search {boolean} 是否开启搜索  
  * whiteList {string[]} 白名单 总是开启
  */
 export const comment = {
@@ -109,11 +115,11 @@ export const comment = {
 }
 
 /**
- * MeiliSearch Host / Cloud
- * enable {boolean} 是否启用
- * host {string} MeiliSearch Host
- * apiKey {string} MeiliSearch API Key
- * indexUid {string} MeiliSearch Index UID
+ * MeiliSearch Host / Cloud  
+ * enable {boolean} 是否启用  
+ * host {string} MeiliSearch Host  
+ * apiKey {string} MeiliSearch API Key  
+ * indexUid {string} MeiliSearch Index UID  
  * hotKeys {string[]} 搜索热词
  **/
 export const search = {
@@ -125,12 +131,12 @@ export const search = {
 }
 
 /**
- * 导航栏
- * url {string} 链接
- * title {string} ID
- * style {string} 颜色样式
- * target {string} 目标
- * svg {string} icon
+ * 导航栏  
+ * url {string} 链接  
+ * title {string} ID  
+ * style {string} 颜色样式  
+ * target {string} 目标  
+ * svg {string} icon  
  */
 export const categories = [
   {
@@ -171,11 +177,11 @@ export const categories = [
 ]
 
 /**
- * 个人社交链接地址
- * url {string} 链接
- * title {string} ID
- * style {string} 颜色样式
- * svg {string} icon
+ * 个人社交链接地址  
+ * url {string} 链接  
+ * title {string} ID  
+ * style {string} 颜色样式  
+ * svg {string} icon  
  */
 export const socialLinks = [
   {
@@ -211,12 +217,12 @@ export const socialLinks = [
 ]
 
 /**
- * 友链页面
- * title {string} 标题
- * note {string} 描述
- * id {string} friends ID
- * link {string} 链接
- * avatar {string} 头像
+ * 友链页面  
+ * title {string} 标题  
+ * note {string} 描述  
+ * id {string} friends ID  
+ * link {string} 链接  
+ * avatar {string} 头像  
  * style {string} 背景颜色样式
  */
 export const friendsPage = {
@@ -281,11 +287,11 @@ export const friendsPage = {
 }
 
 /**
- * 页脚列表
- * title {string} 标题
- * text {string} 描述
- * icon {string} 图标
- * url {string} 链接
+ * 页脚列表  
+ * title {string} 标题  
+ * text {string} 描述  
+ * icon {string} 图标  
+ * url {string} 链接  
  */
 export const footerList = [
   {

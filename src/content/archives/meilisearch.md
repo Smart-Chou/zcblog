@@ -7,6 +7,7 @@ image:
   alt: 'wait-this-is-not-my-commit'
 tags:
   - meilisearch
+sticky: 10
 ---
 
 该插件用于让 Vuepress 的搜索栏支持全文搜索。

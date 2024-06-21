@@ -12,6 +12,7 @@ const { title, description, image, imageAlt, mathjax, mermaid } = Astro.props
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
+  <meta name="title" content={title} />
   <meta name="description" content={description} />
   <meta name="keywords" content={site.keywords} />
   <meta name="author" content={site.author} />

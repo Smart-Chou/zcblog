@@ -11,7 +11,7 @@ import '~/styles/redirect.css'
     imageAlt={redirectPage.title}
 >
   <div class="redirect">
-    <span class="tip" id="tip">您即将离开{site.title}，前往</span>
+    <span class="redirect-tip" id="redirect-tip">您即将离开{site.title}，前往</span>
     <span id="url"></span>
     <div id="jump-content" class="warn">
       <span id="site-info">⚠️ 该网址安全性未知，请注意您的帐号和财产安全</span>
@@ -23,7 +23,7 @@ import '~/styles/redirect.css'
     let jumpLink
     let interval
     // 获取元素
-    const tipDescription = document.getElementById('tip')
+    const tipDescription = document.getElementById('redirect-tip')
     const urlDom = document.getElementById('url')
     const urlTip = document.getElementById('site-info')
     const jumpContent = document.getElementById('jump-content')
@@ -102,10 +102,9 @@ import '~/styles/redirect.css'
         jumpContent.remove()
         urlDom.innerHTML = '获取跳转链接失败'
         const sorryMessage = document.createElement('span')
-        sorryMessage.className = 'tip'
+        sorryMessage.className = 'redirect-tip'
         sorryMessage.innerHTML = '😔 非常抱歉'
         urlDom.parentElement.insertBefore(sorryMessage, urlDom)
-
       }
     }
     document.addEventListener('contextmenu', function (event) {

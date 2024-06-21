@@ -11,8 +11,10 @@ export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection('archives')
   const pageSize = site.PageSize || 10
   const sortedPosts = allPosts.sort((a, b) => {
-    if (b.data.sticky && !a.data.sticky) return 1;
-    if (!b.data.sticky && a.data.sticky) return -1;
+    const stickyDIff = (b.data.sticky || 0) - (a.data.sticky || 0)
+    if (stickyDIff !== 0) {
+      return stickyDIff
+    }
     return new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime();
   });
   return paginate(sortedPosts, { pageSize })

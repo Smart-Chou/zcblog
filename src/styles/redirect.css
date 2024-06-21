@@ -22,7 +22,7 @@ main {
   background-color: var(--bg-content-color);
   border: 1px solid var(--border-color);
 }
-.redirect .tip {
+.redirect .redirect-tip {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;

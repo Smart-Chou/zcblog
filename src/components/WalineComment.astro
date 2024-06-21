@@ -2,7 +2,10 @@
 
 ---
 
-<div id="waline"></div>
+<div id="commentContainer" style="display: none;">
+  <div id="waline"></div>
+</div>
+<button id="toggleComment" class="closeComment">展开评论</button>
 
 <script>
   import { init } from '@waline/client'
@@ -51,6 +54,34 @@
   })
 </script>
 
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const toggleButton = document.getElementById('toggleComment')
+    const commentContainer = document.getElementById('commentContainer')
+    
+    if (!commentContainer || !toggleButton) {
+      console.error('Required elements are missing from the page.');
+      return;
+    }
+
+    toggleButton.addEventListener('click', () => {
+      if (commentContainer.style.display === 'none') {
+        commentContainer.style.display = 'block';
+        toggleButton.textContent = '收起评论';
+        toggleButton.style.position = 'relative';
+        toggleButton.style.top = 'auto';
+        toggleButton.className = 'active';
+        commentContainer.parentNode?.insertBefore(toggleButton, commentContainer.nextSibling);
+      } else {
+        commentContainer.style.display = 'none';
+        toggleButton.textContent = '展开评论';
+        toggleButton.style.position = 'static';
+        toggleButton.className = 'closeComment';
+      }
+    });
+  })
+</script>
+
 <style>
   #waline {
     min-height: 38rem;
@@ -69,5 +100,27 @@
 
   html[data-theme='dark'] {
     --waline-color: #ced8de !important;
+  }
+
+  #toggleComment {
+    display: block;
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-content-color);
+    color: var(--link-color);
+    border: 1px var(--link-color);
+    border-style: dashed;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  #toggleComment:focus {
+    outline: none;
+  }
+
+  #toggleComment.active {
+    font-weight: bold;
+    border: 1.5px solid var(--link-color);
   }
 </style>

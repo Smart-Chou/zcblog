@@ -11,7 +11,7 @@ const { altText, imagePath, title, description, pubDate, tags, postUrl, wordCoun
 <PostLayout>
   <div class="post-card__header">
     <PostCardImage imagePath={imagePath} altText={altText} loading={loading} />
-    { sticky &&
+    { sticky > 0 &&
       <Icon name="tabler:flame" style="color:red; position: absolute;top: 10px; right: 10px; width: 30px; height: 30px;" />
     }
   </div>
