@@ -10,20 +10,3 @@ const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
     <span class="archive-date">{formattedDate}</span>
     <a class="archive-title" href={url}>{title}</a>
 </p>
-
-<style>
-    .archive-meta {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .archive-date {
-        color: gray;
-    }
-    .archive-title {
-        text-decoration: none;
-    }
-    .archive-title:hover {
-        text-decoration: underline;
-    }
-</style>

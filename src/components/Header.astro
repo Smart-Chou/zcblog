@@ -6,7 +6,7 @@ import { search } from '~/self.config'
 const { searchEnable = search.enable || false } = Astro.props
 ---
 
-<header id="nprogress-container" class="header">
+<header id="nprogress-container">
   <div class="fullwidth">
     <div class="header__left">
       <Logo />
@@ -18,37 +18,17 @@ const { searchEnable = search.enable || false } = Astro.props
   </div>
 </header>
 
-<style>
-  .fullwidth {
-    max-width: var(--content-width);
-    margin: 0 auto;
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-    align-items: center;
-  }
-  #nprogress-container {
-    display: flex;
-    align-items: center;
-    min-height: var(--header-height);
-    padding: 0 calc(var(--space) / 2);
-    top: 0;
-    background-color: hsla(0, 0%, 100%, 0.6);
-    background-color: rgba(var(--bg-color-rgb), 0.6);
-    -webkit-backdrop-filter: blur(32px);
-    backdrop-filter: blur(32px);
-    z-index: 10;
-    position: sticky;
-  }
-  @media screen and (min-width: 1300px) {
-    #nprogress-container {
-      width: 100%;
-    }
-  }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-</style>
+<script>
+  import NProgress from 'nprogress'
+
+  document.addEventListener('astro:page-load', () => {
+    NProgress.configure({
+      easing: 'ease',
+      speed: 500,
+      showSpinner: false,
+      parent: '#nprogress-container',
+    })
+    NProgress.set(0.1);
+    NProgress.done();
+  })
+</script>

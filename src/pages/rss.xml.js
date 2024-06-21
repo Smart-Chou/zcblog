@@ -1,11 +1,15 @@
 import rss from '@astrojs/rss'
 import { getCollection } from 'astro:content'
+import { site } from '~/self.config'
+
+const siteTitle = site.title
+const siteDescription = site.description
 
 export async function GET(context) {
   const archives = await getCollection('archives')
   return rss({
-    title: 'Buzz’s Blog',
-    description: 'A humble Astronaut’s guide to the stars',
+    title: siteTitle,
+    description: siteDescription,
     site: context.site,
     items: archives.map(post => ({
       title: post.data.title,
@@ -18,5 +22,6 @@ export async function GET(context) {
       tags: post.data.tags,
       link: `/archives/${post.slug}/`,
     })),
+    stylesheet: '/assets/rss/styles.xsl',
   })
 }

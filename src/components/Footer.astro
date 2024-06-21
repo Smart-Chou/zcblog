@@ -6,30 +6,20 @@ const currentYear = new Date().getFullYear()
 ---
 
 <footer class="footer">
-  <div class="footer__copyright"><span>© {site.startYear} - {currentYear}.&nbsp;All rights reserved</span></div>
+  <div class="footer__copyright"><span>Copyright {site.startYear} - {currentYear}.&nbsp;&nbsp;All rights reserved</span></div>
   <div class="footer__links"><a href={site.beianURL} target="_blank"><span>{site.beian}</span></a></div>
+  <div class="footer__links">
   {
     footerList.map(footer => (
-      <div class="footer__links">
         <span>{footer.text}</span>
         <Icon name={footer.icon} />
-        <a href={footer.url}>{footer.title}</a>
-      </div>
+        <a href={footer.url}>{footer.title}.&nbsp;</a>
     ))
   }
+  </div>
   <div id="rss-stats">
     &nbsp;&nbsp;
-    <a href="/rss.xml"><span>RSS</span></a>
-    <Icon name="tabler:point-filled" />
-    <a href="/sitemap-index.xml"><span>Sitemap</span></a>
+    <a href="/rss.xml"><img src="https://img.shields.io/badge/RSS-sky?logo=rss" alt="rss"></a>
+    <a href="/sitemap-index.xml"><img alt="Static Badge" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.swo.moe%2Fstats%2Ffeedly%2Fhttps%253A%252F%252Fmarxchou.com%252Frss.xml&query=count&color=004fff&label=Feedly&labelColor=2bb24c&logo=feedly&logoColor=ffffff&suffix=+subs&cacheSeconds=3600"></a>
   </div>
 </footer>
-
-<style>
-  .footer a:hover {
-    text-decoration: underline;
-  }
-  span {
-    margin: 0.25rem;
-  }
-</style>

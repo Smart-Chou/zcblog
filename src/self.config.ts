@@ -35,8 +35,8 @@ export const site = {
   url: 'https://marxchou.com',
   startYear: '2017',
   PageSize: 9,
-  beian: '豫ICP备20006179号',
-  beianURL: 'https://beian.miit.gov.cn',
+  beian: '萌ICP备20249889号',
+  beianURL: 'https://icp.gov.moe/?keyword=20249889',
 }
 
 /**
@@ -294,12 +294,6 @@ export const friendsPage = {
  * url {string} 链接  
  */
 export const footerList = [
-  {
-    title: 'Umami',
-    text: 'Analytics by',
-    icon: 'simple-icons:umami',
-    url: '//umami.is',
-  },
   {
     title: 'Astro',
     text: 'Runs on',

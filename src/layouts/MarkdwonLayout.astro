@@ -131,32 +131,3 @@ const currentSlug = Astro.params.slug
     }
   })
 </script>
-
-<style>
-  #content_progress {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    height: 2px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: none;
-    background-color: transparent;
-    color: #2ea997;
-  }
-
-  #content_progress::-webkit-progress-bar {
-    background-color: transparent;
-  }
-
-  #content_progress::-webkit-progress-value {
-    background-color: var(--progress-color, #2ea997);
-  }
-
-  #content_progress::-moz-progress-bar {
-    background-color: var(--progress-color, #2ea997);
-  }
-</style>

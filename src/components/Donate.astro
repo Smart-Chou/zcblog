@@ -9,12 +9,12 @@ import { donate } from '~/self.config'
     </div>
     <div class="donate-text">
       <div id="alipay" class="alipay">
-        <a href="#" target="_blank">
+        <a href="#">
           <img src="/assets/image/alipay.svg" style="height: 1rem;" alt="alipay" />
         </a>
       </div>
       <div id="wechatpay" class="wechatpay">
-        <a href="#" target="_blank">
+        <a href="#">
           <img src="/assets/image/wechat.svg" style="height: 1rem;" alt="wechat" />
         </a>
       </div>
@@ -61,69 +61,3 @@ import { donate } from '~/self.config'
     }
   })
 </script>
-
-<style>
-  .donate {
-    margin-top: 1rem;
-  }
-
-  .esa-sponsor {
-    position: relative;
-    width: 100%;
-    margin: 40px 0;
-  }
-
-  .esa-sponsor .qrshow {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    cursor: pointer;
-    left: calc(50% - 100px);
-    top: -170px;
-    z-index: 999;
-    display: none;
-    box-shadow:
-      0 1px 15px rgba(27, 31, 35, 0.15),
-      0 0 1px rgba(106, 115, 125, 0.35);
-  }
-
-  .tip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .donate-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .alipay {
-    padding: 0.5rem;
-    border-width: 1px;
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
-  }
-
-  .wechatpay {
-    padding: 0.5rem;
-    border-top-width: 0.5rem;
-    border-bottom-width: 1px;
-  }
-
-  .paypal {
-    padding: 0.5rem;
-    border-width: 1px;
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-  }
-
-  @media screen and (max-width: 650px) {
-    .donate {
-      display: none;
-    }
-  }
-</style>
