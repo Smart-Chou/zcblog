@@ -8,7 +8,9 @@ import { site, notFoundPage } from '~/self.config'
     title={notFoundPage.title} 
     description={site.title + ` - ` + notFoundPage.description} 
     image={Astro.site + site.coverImage} 
-    imageAlt={notFoundPage.title}>
+    imageAlt={notFoundPage.title}
+    keywords={['404']}
+>
   <div>
     <h1 class="not-found-title text-center space-bottom">404</h1>
     <div class="not-found-container">

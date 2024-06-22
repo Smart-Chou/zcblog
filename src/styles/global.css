@@ -2493,7 +2493,6 @@ svg:not(:root).svg-inline--fa {
 }
 
 .footer svg {
-  margin-right: 0.2rem;
   max-width: 0.9rem;
 }
 
@@ -3045,15 +3044,23 @@ svg {
 
 .archive-meta {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
 }
+
 .archive-date {
+  display: flex;
+  margin-left: 1rem;
+  min-width: 3rem;
   color: gray;
+  justify-content: flex-end;
 }
+
 .archive-title {
+  margin-left: 0.5rem;
   text-decoration: none;
 }
+
 .archive-title:hover {
   text-decoration: underline;
 }

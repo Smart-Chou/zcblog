@@ -22,12 +22,14 @@ main {
   background-color: var(--bg-content-color);
   border: 1px solid var(--border-color);
 }
+
 .redirect .redirect-tip {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
   opacity: 0.4;
 }
+
 .redirect #url {
   display: block;
   padding: 12px 20px;
@@ -38,6 +40,7 @@ main {
   border: 1px solid var(--border-color);
   background-color: var(--bg-color);
 }
+
 .redirect #site-info {
   display: inline-flex;
   width: 100%;
@@ -47,15 +50,19 @@ main {
   margin-top: 20px;
   font-size: 18px;
 }
+
 .redirect #jump-content.warn {
   color: var(--cb-color-warning);
 }
+
 .redirect #jump-content.safe {
   color: var(--cb-color-note);
 }
+
 .redirect #jump-content.danger {
   color: var(--cb-color-danger);
 }
+
 .redirect #jump-button {
   display: flex;
   align-items: center;
@@ -69,6 +76,7 @@ main {
   transition: background-color 0.3s;
   cursor: pointer;
 }
+
 .redirect #jump-button:hover {
   background-color: var(--bg-color);
 }

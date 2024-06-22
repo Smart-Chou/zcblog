@@ -40,6 +40,8 @@ const postsWithMeta = page.data.map(post => {
       sticky,
     }
 })
+
+const keywords = String(site.keywords).replace(/\s+/g, '').split(',')
 ---
 
 <BaseLayout 
@@ -47,6 +49,7 @@ const postsWithMeta = page.data.map(post => {
     description={site.title + ` - ` + site.description}
     image={Astro.site + site.coverImage}
     imageAlt={site.coverImageAlt}
+    keywords={keywords}
 >
   {pageView.author && <Author />}
   <div class="post">

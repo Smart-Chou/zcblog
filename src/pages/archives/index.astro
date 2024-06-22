@@ -39,6 +39,7 @@ const startYear = Math.min(...postsWithMeta.map(post => new Date(post.data.pubDa
   description={archivesPage.description + ` - ` + site.description}
   image={Astro.site + site.coverImage}
   imageAlt={archivesPage.description}
+  keywords={['archives']}
 >
   <h1 class="text-center space-bottom">Archives</h1>
   <PostLayout>

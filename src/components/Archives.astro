@@ -1,7 +1,7 @@
 ---
 const { title, url, pubDate } = Astro.props;
 const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
-    month: 'short',
+    month: '2-digit',
     day: '2-digit'
 });
 ---

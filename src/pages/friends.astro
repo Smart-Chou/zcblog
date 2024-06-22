@@ -3,7 +3,6 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import Author from '~/components/Author.astro'
 import WalineComment from '~/components/WalineComment.astro'
 import { site, friendsPage } from '~/self.config'
-
 ---
 
 <BaseLayout 
@@ -11,6 +10,7 @@ import { site, friendsPage } from '~/self.config'
     description={friendsPage.title + ` - ` + friendsPage.note}
     image={Astro.site + site.coverImage}
     imageAlt={friendsPage.title}
+    keywords={['friends']}
 >
   <h1 class="friends-title text-center space-bottom">Friends &amp; Guestbook</h1>
   <div class="friends-container text-center space-bottom">

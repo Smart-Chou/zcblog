@@ -1,9 +1,9 @@
 ---
-import BaseHead from '~/components/BaseHead.astro';
+import BaseHead from '~/components/BaseHead/BaseHead.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 
-const { title, description, image, imageAlt, mathjax = false, mermaid = false } = Astro.props
+const { title, description, image, imageAlt, keywords = [], publishedTime = new Date(), modifiedTime = new Date(), mathjax = false, mermaid = false } = Astro.props
 ---
 
 <html lang="zh-CN">
@@ -12,6 +12,9 @@ const { title, description, image, imageAlt, mathjax = false, mermaid = false } 
         description={description} 
         image={image} 
         imageAlt={imageAlt}
+        keywords={keywords}
+        publishedTime={publishedTime}
+        modifiedTime={modifiedTime}
         mathjax={mathjax}
         mermaid={mermaid}
 />

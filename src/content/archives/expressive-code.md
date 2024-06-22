@@ -8,6 +8,8 @@ image:
   alt: 'wait-this-is-not-my-commit'
 sticky: 0
 comment: false
+mathjax: true
+mermaid: true
 ---
 
 ## 主要功能
