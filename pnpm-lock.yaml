@@ -23,9 +23,6 @@ importers:
       '@astrolib/analytics':
         specifier: ^0.5.0
         version: 0.5.0(astro@4.11.0(@types/node@20.14.7))
-      '@astrolib/seo':
-        specifier: 1.0.0-beta.5
-        version: 1.0.0-beta.5(astro@4.11.0(@types/node@20.14.7))
       '@expressive-code/plugin-collapsible-sections':
         specifier: ^0.35.3
         version: 0.35.3
@@ -181,11 +178,6 @@ packages:
 
   '@astrolib/analytics@0.5.0':
     resolution: {integrity: sha512-NlTFTUtsjVEAb2ZzYXZ5XBvak7JH3ixaQTq5r+q5PZtealHajUSPzaY1UrcJOJDJrOFHf5pvxBnYmCEzE9fIjw==}
-    peerDependencies:
-      astro: ^1.2.1 || ^2.0.0 || ^3.0.0-beta.0 || ^3.0.0 || ^4.0.0
-
-  '@astrolib/seo@1.0.0-beta.5':
-    resolution: {integrity: sha512-poBnSB9TzkmOyf+PoMR642zVLSoVVZbUIKnYDHXHrKi/upkaegNiaBdVRsyqaQC93SIxxyagQrIbLRtnSJT4Xg==}
     peerDependencies:
       astro: ^1.2.1 || ^2.0.0 || ^3.0.0-beta.0 || ^3.0.0 || ^4.0.0
 
@@ -3222,10 +3214,6 @@ snapshots:
       - supports-color
 
   '@astrolib/analytics@0.5.0(astro@4.11.0(@types/node@20.14.7))':
-    dependencies:
-      astro: 4.11.0(@types/node@20.14.7)
-
-  '@astrolib/seo@1.0.0-beta.5(astro@4.11.0(@types/node@20.14.7))':
     dependencies:
       astro: 4.11.0(@types/node@20.14.7)
 
