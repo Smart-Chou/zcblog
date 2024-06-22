@@ -1,108 +1,108 @@
 :root {
-    --cb-admonition-background-color: inherit;
-    --cb-admonition-border-width: 4px;
-    --cb-admonition-border-color: inherit;
-    --cb-admonition-border-radius: 0.2rem;
-    --cb-admonition-color: #fff;
-    --cb-admonition-padding-vertical: 1rem;
-    --cb-admonition-padding-horizontal: 1rem;
-    --cb-color-info: #5c5c5c;
-    --cb-color-info-lighten: #5c5c5c33;
-    --cb-color-note: #0070f3;
-    --cb-color-note-lighten: #0071f333;
-    --cb-color-tip: #19cc96;
-    --cb-color-tip-lighten: #19cc9633;
-    --cb-color-important: #d400ff;
-    --cb-color-important-lighten: #d400ff33;
-    --cb-color-warning: #f5a623;
-    --cb-color-warning-lighten: #f5a62333;
-    --cb-color-danger: #e00;
-    --cb-color-danger-lighten: #e0000033;
-    --cb-color-text-dark: #000;
+  --cb-admonition-background-color: inherit;
+  --cb-admonition-border-width: 4px;
+  --cb-admonition-border-color: inherit;
+  --cb-admonition-border-radius: 0.2rem;
+  --cb-admonition-color: #fff;
+  --cb-admonition-padding-vertical: 1rem;
+  --cb-admonition-padding-horizontal: 1rem;
+  --cb-color-info: #5c5c5c;
+  --cb-color-info-lighten: #5c5c5c33;
+  --cb-color-note: #0070f3;
+  --cb-color-note-lighten: #0071f333;
+  --cb-color-tip: #19cc96;
+  --cb-color-tip-lighten: #19cc9633;
+  --cb-color-important: #d400ff;
+  --cb-color-important-lighten: #d400ff33;
+  --cb-color-warning: #f5a623;
+  --cb-color-warning-lighten: #f5a62333;
+  --cb-color-danger: #e00;
+  --cb-color-danger-lighten: #e0000033;
+  --cb-color-text-dark: #000;
 }
 
 .remark-aside {
-    margin: var(--cb-admonition-padding-vertical) calc(0em - var(--space));
-    padding: var(--cb-admonition-padding-vertical) var(--space);
-    background-color: var(--cb-admonition-color-lighten);
-    color: var(--cb-admonition-color);
-    transition:
-        transform 0.3s,
-        background-color 0.3s,
-        box-shadow 0.6s;
+  margin: var(--cb-admonition-padding-vertical) calc(0em - var(--space));
+  padding: var(--cb-admonition-padding-vertical) var(--space);
+  background-color: var(--cb-admonition-color-lighten);
+  color: var(--cb-admonition-color);
+  transition:
+    transform 0.3s,
+    background-color 0.3s,
+    box-shadow 0.6s;
 }
 
 .remark-aside .remark-aside__title {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-top: 0;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    color: var(--cb-admonition-icon-color) !important;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  color: var(--cb-admonition-icon-color) !important;
 }
 
 .remark-aside p {
-    margin-top: 1em;
-    margin-bottom: 0;
-    font-size: 1rem; /* 16px */
+  margin-top: 1em;
+  margin-bottom: 0;
+  font-size: 1rem; /* 16px */
 }
 
 .remark-aside .remark-aside__icon {
-    display: inline-block;
-    vertical-align: middle;
-    width: 1em;
-    height: 1em;
-    stroke-width: 0;
-    fill: var(--cb-admonition-color);
-    stroke: var(--cb-admonition-color);
-    font-size: 1.333em;
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  fill: var(--cb-admonition-color);
+  stroke: var(--cb-admonition-color);
+  font-size: 1.333em;
 }
 
 .remark-aside__title + .remark-aside__content {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .remark-aside .remark-aside__content {
-    color: var(--body-color) !important;
+  color: var(--body-color) !important;
 }
 
-.remark-aside .remark-asid__content> :last-child {
-    margin-bottom: 0;
+.remark-aside .remark-asid__content > :last-child {
+  margin-bottom: 0;
 }
 
 .remark-aside {
-    --cb-admonition-background-color: var(--cb-color-note);
+  --cb-admonition-background-color: var(--cb-color-note);
 }
 
 .remark-aside--info {
-    --cb-admonition-color: var(--cb-color-info);
-    --cb-admonition-color-lighten: var(--cb-color-info-lighten);
+  --cb-admonition-color: var(--cb-color-info);
+  --cb-admonition-color-lighten: var(--cb-color-info-lighten);
 }
 
 .remark-aside--note {
-    --cb-admonition-color: var(--cb-color-note);
-    --cb-admonition-color-lighten: var(--cb-color-note-lighten);
+  --cb-admonition-color: var(--cb-color-note);
+  --cb-admonition-color-lighten: var(--cb-color-note-lighten);
 }
 
 .remark-aside--important {
-    --cb-admonition-color: var(--cb-color-important);
-    --cb-admonition-color-lighten: var(--cb-color-important-lighten);
+  --cb-admonition-color: var(--cb-color-important);
+  --cb-admonition-color-lighten: var(--cb-color-important-lighten);
 }
 
 .remark-aside--tip {
-    --cb-admonition-color: var(--cb-color-tip);
-    --cb-admonition-color-lighten: var(--cb-color-tip-lighten);
+  --cb-admonition-color: var(--cb-color-tip);
+  --cb-admonition-color-lighten: var(--cb-color-tip-lighten);
 }
 
 .remark-aside--warning {
-    --cb-admonition-color: var(--cb-color-warning);
-    --cb-admonition-color-lighten: var(--cb-color-warning-lighten);
+  --cb-admonition-color: var(--cb-color-warning);
+  --cb-admonition-color-lighten: var(--cb-color-warning-lighten);
 }
 
 .remark-aside--danger {
-    --cb-admonition-color: var(--cb-color-danger);
-    --cb-admonition-color-lighten: var(--cb-color-danger-lighten);
+  --cb-admonition-color: var(--cb-color-danger);
+  --cb-admonition-color-lighten: var(--cb-color-danger-lighten);
 }

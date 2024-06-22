@@ -77,7 +77,7 @@ html[data-theme='dark']:root {
   overflow: auto;
 }
 
-.toc__content:hover .toc-list-item .toc-link{
+.toc__content:hover .toc-list-item .toc-link {
   display: inline-block;
   opacity: 1;
   cursor: pointer;
@@ -88,7 +88,7 @@ html[data-theme='dark']:root {
   margin-bottom: 0px;
 }
 
-.toc__content .toc-list-item .toc-link{
+.toc__content .toc-list-item .toc-link {
   font-size: 12px;
   line-height: 17px;
   color: var(--B80-t);
@@ -113,11 +113,11 @@ html[data-theme='dark']:root {
   cursor: pointer;
 }
 
-.toc__content .toc-list-item .toc-link{
+.toc__content .toc-list-item .toc-link {
   margin-left: 8px;
 }
 
-html[data-theme='dark'] .toc__content .toc-list-item .toc-link{
+html[data-theme='dark'] .toc__content .toc-list-item .toc-link {
   color: var(--B80-t);
 }
 

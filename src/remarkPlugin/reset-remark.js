@@ -1,5 +1,5 @@
-import {visit} from "unist-util-visit";
-import {config} from "../self.config";
+import { visit } from 'unist-util-visit'
+import { config } from '../self.config'
 
 export function resetRemark() {
   return function (tree) {
