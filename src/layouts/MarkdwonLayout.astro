@@ -49,7 +49,7 @@ const currentSlug = Astro.params.slug
   </div>
   <div class="post content-box">
     <div class="post-card__header">
-      <PostCardImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt} loading="eager" />
+        {frontmatter.image.url === 'https://pic.mch.icu/images' ? <img src="https://pic.mch.icu/images" alt="random image" class="post-card__image" loading="eager"/> : <PostCardImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt} loading="eager" />}
     </div>
     {
       publishedDays >= 180 ? (

@@ -3,7 +3,7 @@ title: 使用宝塔docker安装为知笔记私有部署
 description: 使用宝塔docker安装为知笔记私有部署
 pubDate: 2021-09-18
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Wiz

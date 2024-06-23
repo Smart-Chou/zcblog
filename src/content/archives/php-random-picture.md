@@ -3,7 +3,7 @@ title: PHP实现随机图片展示
 description: PHP实现随机图片展示
 pubDate: 2020-09-28
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - PHP

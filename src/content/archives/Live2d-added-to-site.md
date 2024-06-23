@@ -3,7 +3,7 @@ title: 添加看板娘
 description: 添加看板娘
 pubDate: 2022-01-30
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Live2d

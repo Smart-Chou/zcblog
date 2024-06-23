@@ -10,7 +10,11 @@ const { altText, imagePath, title, description, pubDate, tags, postUrl, wordCoun
 
 <PostLayout>
   <div class="post-card__header">
-    <PostCardImage imagePath={imagePath} altText={altText} loading={loading} />
+    {imagePath === 'https://pic.mch.icu/images' ? 
+        <img src="https://pic.mch.icu/images" alt="random image" class="post-card__image" loading="eager"/> 
+        : 
+        <PostCardImage imagePath={imagePath} altText={altText} loading={loading} />
+    }
     { sticky > 0 &&
       <Icon name="tabler:flame" style="color:red; position: absolute;top: 10px; right: 10px; width: 30px; height: 30px;" />
     }

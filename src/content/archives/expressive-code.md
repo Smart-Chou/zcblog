@@ -4,7 +4,7 @@ description: expressive-code 官网摘抄的相关使用说明
 pubDate: 2024-06-14
 tags: ['expressive-code']
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 sticky: 0
 comment: false

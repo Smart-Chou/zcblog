@@ -3,7 +3,7 @@ title: OpenWrite给VuePress配置博客导流公众号插件
 description: 如何用OpenWrite给VuePress配置博客导流公众号插件-公众号获取验证码阅读全文
 pubDate: 2021-10-21
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Vuepress

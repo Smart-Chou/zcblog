@@ -3,7 +3,7 @@ title: Windows Office 安装指南
 description: Windows Office 安装指南
 pubDate: 2021-09-10
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Windows

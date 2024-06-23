@@ -3,7 +3,7 @@ title: 微信聊天记录永久保存
 description: 如何导出微信聊天记录并永久保存
 pubDate: 2021-08-14
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - 微信

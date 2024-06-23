@@ -2484,10 +2484,6 @@ svg:not(:root).svg-inline--fa {
   margin: 0.25em;
 }
 
-.footer a:hover {
-  text-decoration: underline;
-}
-
 .footer a {
   color: currentColor;
 }
@@ -3270,4 +3266,17 @@ html[data-theme='dark'] {
 
 #content_progress::-moz-progress-bar {
   background-color: var(--progress-color, #2ea997);
+}
+
+.analytics {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: .1rem;
+  margin-bottom: .1rem;
+}
+
+.analytics img {
+  padding: 0 .2rem;
 }

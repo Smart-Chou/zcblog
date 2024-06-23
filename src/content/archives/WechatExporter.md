@@ -3,7 +3,7 @@ title: WechatExporter
 description: WechatExporter
 pubDate: 2022-02-13
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - WechatExporter

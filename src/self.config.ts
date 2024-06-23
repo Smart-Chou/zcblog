@@ -55,7 +55,7 @@ export const config = {
   umami: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
   redirect: true,
   redirectIncludeClass: ['post__content'],
-  redirectExcludeClass: ['footer'],
+  redirectExcludeClass: [],
 }
 
 /**
@@ -127,7 +127,7 @@ export const search = {
   host: 'https://meilisearch.marxchou.com',
   apiKey: '883ea017368299f1ed7f13dbe6ab79f148a1d7da877b29dc04020c8d96d27bf3',
   indexUid: 'marxchou',
-  hotKeys: ['/', 's'],
+  hotKeys: ['/'],
 }
 
 /**
@@ -290,20 +290,38 @@ export const friendsPage = {
  * 页脚列表  
  * title {string} 标题  
  * text {string} 描述  
- * icon {string} 图标  
+ * color {string} 背景颜色样式  
+ * logo {string} simple-icons 图标  
+ * logoColor {string} 图标颜色样式
+ * labelColor {string} 标签背景颜色
  * url {string} 链接  
  */
 export const footerList = [
   {
+    title: 'Swo',
+    text: 'Theme',
+    color: 'cyan',
+    logo: 'cloudera',
+    logoColor: 'white',
+    labelColor: 'pink',
+    url: '//github.com/spencerwooo/swo',
+  },
+  {
     title: 'Astro',
-    text: 'Runs on',
-    icon: 'simple-icons:astro',
+    text: 'Generator',
+    color: 'Lime',
+    logo: 'astro',
+    logoColor: 'red',
+    labelColor: 'gray',
     url: '//astro.build',
   },
   {
     title: 'Vercel',
-    text: 'Deployed on',
-    icon: 'simple-icons:vercel',
+    text: 'Deploy',
+    color: 'Lime',
+    logo: 'vercel',
+    logoColor: 'white',
+    labelColor: 'gray',
     url: '//vercel.com',
   },
 ]

@@ -3,7 +3,7 @@ title: VPS 常用命令
 description: VPS 常用命令
 pubDate: 2020-07-16
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Vps

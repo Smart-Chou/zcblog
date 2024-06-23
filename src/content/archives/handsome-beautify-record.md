@@ -4,7 +4,7 @@ description: Handsome 美化记录
 pubDate: 2021-02-23
 category: 日常
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Handsome

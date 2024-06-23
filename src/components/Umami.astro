@@ -1,0 +1,62 @@
+---
+
+---
+
+<div class="analytics">
+    <img id="pageviews-img" src="https://img.shields.io/badge/%E6%B5%8F%E8%A7%88%E9%87%8F-0-%23ff43bf?logo=googleanalytics" alt="浏览量">
+    <img id="visits-img" src="https://img.shields.io/badge/%E8%AE%BF%E9%97%AE%E9%87%8F-0-%23ffdf41?logo=googlebigquery&logoColor=%2344ffcc" alt="访问量">
+    <img id="visitors-img" src="https://img.shields.io/badge/%E8%AE%BF%E5%AE%A2-0-%238444ff?logo=codementor&logoColor=%23f544ac" alt="访客">
+</div>
+
+<script>
+    document.addEventListener('astro:page-load', () => {
+    const umamiBaseUrl = 'https://umami.marxchou.com/api/websites/'
+    const umamiToken = 'FY6kkT+CIksBF4e7jWUq9Ahv+eAxuG0kNFF6gtUvaSFRjaXVzarIRbRMozGmFEFGM2TKDKpuAQHEXkoMbLo8pAnAmSHsBhg+7jYXk/Ozlmp8X2G4QtANSvLKenqAqXk/38Ho0WPzd0OwwGH+eWvs9kXuGyoni9e6UlUzMrTH7hA/C0HVXKml3M4L1/uNMr3oS/fCV6OYdqF5jJfaxS9wYEqTXkqGXLBFamS9pPapBc40pkvIyVC+v/JOtSOnIFUCdD/l6VKvB8qmgbsBFEzac7b88klL+pua1siTLW3Cx+ZylDDj6PFNc8CUoLUrRJQnrPSRKhVSad6R7QM9MouSp3QiB72rf4kFnw=='
+    const umamiWebsiteId = '73b29141-fccf-4d54-9c2f-f7d0d146f86b'
+    const startAT = 'startAt=' + new Date('2024-05-10T17:33:05.410Z').getTime().toString()
+    const endAT = '&endAt=' + new Date().getTime().toString()
+    const fullUrl = window.location
+    const postPath = fullUrl.pathname
+
+    const umamiUrl = umamiBaseUrl + umamiWebsiteId + '/stats?' + startAT + endAT + '&url=' + encodeURIComponent(postPath)
+    fetch(umamiUrl, {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'default',
+    headers: {
+        Authorization: 'Bearer ' + umamiToken,
+        'Content-Type': 'application/json',
+    },
+    })
+    .then(res => res.json())
+    .then(resdata => {
+        const pageviewsImg = document.querySelector('#pageviews-img') as HTMLImageElement
+        const visitsImg = document.querySelector('#visits-img') as HTMLImageElement
+        const visitorsImg = document.querySelector('#visitors-img') as HTMLImageElement
+
+        if (pageviewsImg && resdata.pageviews && resdata.pageviews.value !== undefined) {
+            const pageviewsValue = resdata.pageviews.value
+            pageviewsImg.src = `https://img.shields.io/badge/%E6%B5%8F%E8%A7%88%E9%87%8F-${pageviewsValue}-%23ff43bf?logo=googleanalytics`
+        } else {
+            console.error('pageviews data is missing or malformed or element is not found')
+        }
+
+        if (visitorsImg && resdata.visitors && resdata.visitors.value !== undefined) {
+            const visitorsValue = resdata.visitors.value
+            visitorsImg.src = `https://img.shields.io/badge/%E8%AE%BF%E5%AE%A2-${visitorsValue}-%238444ff?logo=codementor&logoColor=%23f544ac`
+        } else {
+            console.error('visitors data is missing or malformed or element is not found')
+        }
+
+        if (visitsImg && resdata.visits && resdata.visits.value !== undefined) {
+            const visitsValue = resdata.visits.value
+            visitsImg.src = `https://img.shields.io/badge/%E8%AE%BF%E9%97%AE%E9%87%8F-${visitsValue}-%23ffdf41a6?logo=googlebigquery&logoColor=%2344ffcc`
+        } else {
+            console.error('visits data is missing or malformed or element is not found')
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error)
+    })
+})
+</script>

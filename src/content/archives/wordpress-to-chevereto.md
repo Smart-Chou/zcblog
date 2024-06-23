@@ -3,7 +3,7 @@ title: WordPress编辑器中添加“上传到Chevereto图床”
 description: WordPress编辑器中添加“上传到Chevereto图床”
 pubDate: 2020-11-26
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - 图床

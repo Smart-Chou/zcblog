@@ -12,8 +12,6 @@ yarn.lock
 
 src/self.config.ts
 
-.astro
-
 .env
 
 .github

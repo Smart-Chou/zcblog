@@ -3,7 +3,7 @@ title: 初始化云硬盘
 description: 初始化云硬盘
 pubDate: 2021-11-30
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - 云硬盘

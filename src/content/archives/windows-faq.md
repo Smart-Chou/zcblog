@@ -3,7 +3,7 @@ title: Windows 常见问题
 description: Windows 常见问题
 pubDate: 2021-08-30
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Windows

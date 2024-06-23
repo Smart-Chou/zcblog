@@ -3,7 +3,7 @@ title: 做网站怎么赚钱？
 description: 做网站怎么赚钱？2021年个人网站赚钱的30种方式
 pubDate: 2021-10-17
 image:
-  url: '/postImage/wait-this-is-not-my-commit.png'
+  url: 'https://pic.mch.icu/images'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - 赚钱

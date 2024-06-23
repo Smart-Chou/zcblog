@@ -7,7 +7,12 @@ import { GoogleAnalytics } from '@astrolib/analytics'
 {
     config.umami && (
         <>
-        <script type="text/partytown" src="https://umami.marxchou.com/script.js" defer data-website-id={String(config.umami)} />
+        <script is:inline 
+            type="text/partytown" 
+            src="https://umami.marxchou.com/script.js" 
+            defer data-website-id={String(config.umami)} 
+            data-domains="marxchou.com"
+        />
         </>
     )
 }
