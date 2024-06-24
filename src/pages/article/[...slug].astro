@@ -3,8 +3,8 @@ import { getCollection } from 'astro:content';
 import MarkdwonLayout from '~/layouts/MarkdwonLayout.astro';
 
 export async function getStaticPaths() {
-  const archives = await getCollection('archives');
-  return archives.map(entry => ({
+  const article = await getCollection('article');
+  return article.map(entry => ({
     params: { slug: entry.slug },
     props: { entry },
   }));

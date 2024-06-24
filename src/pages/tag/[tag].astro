@@ -6,25 +6,25 @@ import PostMeta from '~/components/PostMeta.astro'
 import { site } from '~/self.config'
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('archives')
+  const allPosts = await getCollection('article')
   const uniqueTags = [...new Set(allPosts.map(post => post.data.tags || []).flat())]
   return uniqueTags.map(tag => {
     const filteredPosts = allPosts.filter(post => (post.data.tags || []).includes(tag))
     return {
       params: { tag },
-      props: { archives: filteredPosts },
+      props: { article: filteredPosts },
     }
   })
 }
 
 const { tag } = Astro.params
-const { archives } = Astro.props
+const { article } = Astro.props
 
-const { remarkPluginFrontmatter } = await archives[0].render()
+const { remarkPluginFrontmatter } = await article[0].render()
 const lastModified = remarkPluginFrontmatter.lastModified
 const readingTime = remarkPluginFrontmatter.readingTime
 
-const postsWithMeta = archives.map(post => {
+const postsWithMeta = article.map(post => {
   const upDate =  new Date(lastModified)
   const wordCount = readingTime.words
   const readTime = readingTime.text
@@ -60,7 +60,7 @@ const postsWithMeta = archives.map(post => {
                 readTime={post.readTime} 
                 currentSlug={post.slug} 
             />
-          <a href={`/archives/${post.slug}/`} class="post-card__link">
+          <a href={`/article/${post.slug}/`} class="post-card__link">
             Link
           </a>
         </PostLayout>

@@ -6,12 +6,12 @@ const siteTitle = site.title
 const siteDescription = site.description
 
 export async function GET(context) {
-  const archives = await getCollection('archives')
+  const article = await getCollection('article')
   return rss({
     title: siteTitle,
     description: siteDescription,
     site: context.site,
-    items: archives.map(post => ({
+    items: article.map(post => ({
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
@@ -20,7 +20,7 @@ export async function GET(context) {
         alt: post.data.image.alt,
       },
       tags: post.data.tags,
-      link: `/archives/${post.slug}/`,
+      link: `/article/${post.slug}/`,
     })),
     stylesheet: '/assets/rss/styles.xsl',
   })

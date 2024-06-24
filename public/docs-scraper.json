@@ -1,6 +1,6 @@
 {
   "index_uid": "marxchou",
-  "start_urls": ["https://marxchou.com/archives/"],
+  "start_urls": ["https://marxchou.com/article/"],
   "sitemap_urls": ["https://marxchou.com/sitemap-0.xml"],
   "stop_urls": [],
   "selectors": {

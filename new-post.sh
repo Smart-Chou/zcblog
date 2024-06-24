@@ -11,9 +11,9 @@ while [[ "$extension" != "md" && "$extension" != "mdx" ]]; do
 done
 
 # Step 3: 选择文件创建的位置
-read -p "请输入文件创建的位置（默认目录 './src/content/archives'): " filepath
+read -p "请输入文件创建的位置（默认目录 './src/content/article'): " filepath
 if [ -z "$filepath" ]; then
-  filepath="./src/content/archives"
+  filepath="./src/content/article"
 fi
 
 # 创建目录（如果不存在）

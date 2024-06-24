@@ -8,7 +8,7 @@ import BackToTop from '~/components/BackToTop.astro'
 import { site, pageView } from '~/self.config'
 
 export async function getStaticPaths({ paginate }) {
-  const allPosts = await getCollection('archives')
+  const allPosts = await getCollection('article')
   const pageSize = site.PageSize || 10
   const sortedPosts = allPosts.sort((a, b) => {
     const stickyDIff = (b.data.sticky || 0) - (a.data.sticky || 0)
@@ -59,7 +59,7 @@ const keywords = String(site.keywords).replace(/\s+/g, '').split(',')
         title={post.data.title} 
         pubDate={post.data.pubDate} 
         upDate={lastModifiedTime}
-        postUrl={`/archives/${post.slug}/`} 
+        postUrl={`/article/${post.slug}/`} 
         imagePath={post.data.image.url} 
         description={post.data.description} 
         tags={post.data.tags} 

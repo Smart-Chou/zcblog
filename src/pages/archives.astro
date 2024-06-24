@@ -2,10 +2,10 @@
 import { getCollection } from 'astro:content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import PostLayout from '~/layouts/PostLayout.astro'
-import Archives from '~/components/Archives.astro'
+import Archive from '~/components/Archives.astro'
 import { site, archivesPage } from '~/self.config'
 
-const allPosts = await getCollection('archives')
+const allPosts = await getCollection('article')
 
 // 获取每篇文章的 remarkPluginFrontmatter 信息
 const postsWithMeta = await Promise.all(
@@ -55,9 +55,9 @@ const startYear = Math.min(...postsWithMeta.map(post => new Date(post.data.pubDa
             {postsByYear[year]
               .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
               .map(post => (
-                <Archives 
+                <Archive
                   key={post.slug} 
-                  url={`/archives/${post.slug}/`} 
+                  url={`/article/${post.slug}/`} 
                   title={post.data.title} 
                   pubDate={post.data.pubDate} 
                 />

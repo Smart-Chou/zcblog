@@ -22,5 +22,5 @@ const postsCollection = defineCollection({
 })
 
 export const collections = {
-  archives: postsCollection,
+  article: postsCollection,
 }

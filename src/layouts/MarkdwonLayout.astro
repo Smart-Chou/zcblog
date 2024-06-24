@@ -19,7 +19,7 @@ const publishTime = new Date(frontmatter.pubDate)
 const ModifiedTime = new Date(lastModified)
 const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (1000 * 60 * 60 * 24))
 
-const allPosts = await getCollection('archives')
+const allPosts = await getCollection('article')
 const currentSlug = Astro.params.slug
 ---
 
@@ -84,12 +84,12 @@ const currentSlug = Astro.params.slug
               return (
                 <>
                   {prevPost && (
-                    <a href={`/archives/${prevPost.slug}/`} class="navlink" style="float: left;">
+                    <a href={`/article/${prevPost.slug}/`} class="navlink" style="float: left;">
                       ◀ {prevPost.data.title}
                     </a>
                   )}
                   {nextPost && (
-                    <a href={`/archives/${nextPost.slug}/`} class="navlink" style="float: right;">
+                    <a href={`/article/${nextPost.slug}/`} class="navlink" style="float: right;">
                       {nextPost.data.title} ▶
                     </a>
                   )}
