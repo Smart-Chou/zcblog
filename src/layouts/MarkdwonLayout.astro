@@ -48,13 +48,13 @@ const currentSlug = Astro.params.slug
     />
   </div>
   <div class="post content-box">
-    <div class="post-card__header">
+    <div class="post__header">
         {frontmatter.image.url === 'https://pic.mch.icu/images' ? <img src="https://pic.mch.icu/images" alt="random image" class="post-card__image" loading="eager"/> : <PostCardImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt} loading="eager" />}
     </div>
     {
       publishedDays >= 180 ? (
         <div class="remark-aside remark-aside--danger">
-          <p style="margin-bottom: 1rem;">
+          <p>
             🌶 <strong>过期警告：</strong> 本页面距今已有
             {publishedDays}
             天未更新，年久失修，内容可能有所偏颇，还请仔细甄别！

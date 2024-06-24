@@ -12,7 +12,7 @@ tags:
 ## 自建 Bitwarden 密码管理服务
 
 :::tip
-更新记录目前项目名称已更换为 `vaultwarden` 
+更新记录目前项目名称已更换为 `vaultwarden`
 :::
 
 ### 前言

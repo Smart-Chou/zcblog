@@ -2869,7 +2869,7 @@ svg:not(:root).svg-inline--fa {
 
 .post-card__image {
   min-width: 100%;
-  width: 100%;
+  width: car(--content-width);
   max-height: 320px;
   height: auto;
   object-fit: cover;
