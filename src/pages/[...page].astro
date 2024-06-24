@@ -6,6 +6,8 @@ import PostCard from '~/components/PostCard.astro'
 import Pagination from '~/components/Pagination.astro'
 import BackToTop from '~/components/BackToTop.astro'
 import { site, pageView } from '~/self.config'
+import getReadingTime from 'reading-time'
+import { formatPosts } from '~/utils/formatPosts'
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection('article')
@@ -22,12 +24,9 @@ export async function getStaticPaths({ paginate }) {
 
 const { page } = Astro.props as any
 
-const { remarkPluginFrontmatter } = await page.data[0].render()
-const lastModified = remarkPluginFrontmatter.lastModified
-const readingTime = remarkPluginFrontmatter.readingTime
-const lastModifiedTime = new Date(lastModified)
-
+const lastModifiedTime = new Date()
 const postsWithMeta = page.data.map(post => {
+  const readingTime = getReadingTime(post.body)
   const wordCount = readingTime.words
   const readTime = readingTime.text
   const sticky = post.data.sticky || false

@@ -1,27 +1,46 @@
 import rss from '@astrojs/rss'
+import sanitizeHtml from 'sanitize-html'
+import { marked } from 'marked'
 import { getCollection } from 'astro:content'
+import { formatPosts } from '~/utils/formatPosts'
+import getReadingTime from 'reading-time'
 import { site } from '~/self.config'
-
-const siteTitle = site.title
-const siteDescription = site.description
 
 export async function GET(context) {
   const article = await getCollection('article')
+  const formattedBlogs = formatPosts(article)
+  const siteTitle = site.title
+  const siteDescription = site.description
   return rss({
+    xmlns: { atom: 'http://www.w3.org/2005/Atom' },
     title: siteTitle,
     description: siteDescription,
     site: context.site,
-    items: article.map(post => ({
-      title: post.data.title,
-      pubDate: post.data.pubDate,
-      description: post.data.description,
-      image: {
-        url: post.data.image.url,
-        alt: post.data.image.alt,
-      },
-      tags: post.data.tags,
-      link: `/article/${post.slug}/`,
-    })),
+    author: site.author,
+    source: {
+      title: siteTitle,
+      url: 'https://marxchou.com',
+    },
+    items: formattedBlogs.map(post => {
+      const body = post.body || ''
+      const wordCount = getReadingTime(body).words || ''
+      const readTime = getReadingTime(body).text  || ''
+
+      console.log('title:', post.data.title) // 添加日志
+      console.log('wordCount:', wordCount) // 添加日志
+      console.log('readTime:', readTime) // 添加日志
+
+      return {
+        title: post.data.title,
+        pubDate: post.data.pubDate,
+        description: post.data.description,
+        link: `/article/${post.slug}/`,
+        content: `${[
+            sanitizeHtml(marked.parse('WordCount: ' + wordCount + ' words')) +
+            sanitizeHtml(marked.parse('ReadTime: ' + readTime)),
+        ]}`,
+      }
+    }),
     stylesheet: '/assets/rss/styles.xsl',
   })
 }

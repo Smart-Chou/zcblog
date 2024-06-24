@@ -67,7 +67,7 @@ const currentSlug = Astro.params.slug
     </div>
     <div class="post__footer">
       <div class="post-tags post-card__tags">
-        {frontmatter.tags.map(tag => <PostTag tag={tag} url={`/tags/${tag}/`} />)}
+        {frontmatter.tags.map(tag => <PostTag tag={tag} url={`/tag/${tag}/`} />)}
       </div>
       <div class="post-tags post-card__tags">
         <PostCopyright />

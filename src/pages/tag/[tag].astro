@@ -4,9 +4,12 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import PostLayout from '~/layouts/PostLayout.astro'
 import PostMeta from '~/components/PostMeta.astro'
 import { site } from '~/self.config'
+import getReadingTime from 'reading-time'
+import { formatPosts } from '~/utils/formatPosts'
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('article')
+  const articles = await getCollection('article')
+  const allPosts = formatPosts(articles)
   const uniqueTags = [...new Set(allPosts.map(post => post.data.tags || []).flat())]
   return uniqueTags.map(tag => {
     const filteredPosts = allPosts.filter(post => (post.data.tags || []).includes(tag))
@@ -20,12 +23,9 @@ export async function getStaticPaths() {
 const { tag } = Astro.params
 const { article } = Astro.props
 
-const { remarkPluginFrontmatter } = await article[0].render()
-const lastModified = remarkPluginFrontmatter.lastModified
-const readingTime = remarkPluginFrontmatter.readingTime
-
 const postsWithMeta = article.map(post => {
-  const upDate =  new Date(lastModified)
+  const upDate =  new Date()
+  const readingTime = getReadingTime(post.body)
   const wordCount = readingTime.words
   const readTime = readingTime.text
 
