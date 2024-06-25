@@ -3,13 +3,33 @@ import getReadingTime from 'reading-time';
 import { formatDate } from './formatDate.ts';
 import path from 'path';
 
-export function getPostsWithMeta(post) {
+interface Post {
+    slug: string;
+    data: {
+        title: string;
+        description: string;
+        pubDate: Date;
+        image: {
+            url: string;
+            alt: string;
+        };
+        tags: string[];
+        toc: boolean;
+        author: boolean;
+        mathjax: boolean;
+        mermaid: boolean;
+        donate: boolean;
+        comment: boolean;
+        sticky: number;
+    };
+}
+
+export function getPostsWithMeta(post: Post) {
   // 构建文件路径
   const filePath = path.join(process.cwd(), 'src', 'content', 'article', `${post.slug}.md`);
   try {
     // 检查文件是否存在
     const result = statSync(filePath);
-    console.log(`File found at: ${filePath}`);
 
     // 获取文件内容
     const fileContent = readFileSync(filePath, 'utf-8');
