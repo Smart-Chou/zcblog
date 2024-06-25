@@ -18,7 +18,7 @@ export function getPostsWithMeta(post) {
     return {
       wordCount: readingTimeResult.words,
       readTime: readingTimeResult.text,
-      lastModified: formatDate(result.mtime),
+      modifiedTime: formatDate(result.mtime),
     };
   } catch (error) {
     // 如果文件不存在，记录详细错误信息并返回默认值
@@ -26,7 +26,7 @@ export function getPostsWithMeta(post) {
     return {
       wordCount: 0,
       readTime: 'N/A',
-      lastModified: 'N/A',
+      modifiedTime: 'N/A',
     };
   }
 }

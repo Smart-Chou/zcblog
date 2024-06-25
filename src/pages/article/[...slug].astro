@@ -13,10 +13,10 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await entry.render();
 
-const lastModified = remarkPluginFrontmatter.lastModified;
-const readingTime = remarkPluginFrontmatter.readingTime;
+const modifiedTime = remarkPluginFrontmatter.modifiedTime;
+const readTime = remarkPluginFrontmatter.readTime;
 ---
 
-<MarkdwonLayout frontmatter={entry.data} lastModified={lastModified} readingTime={readingTime}>
+<MarkdwonLayout frontmatter={entry.data} modifiedTime={modifiedTime} readTime={readTime}>
   <Content />
 </MarkdwonLayout>

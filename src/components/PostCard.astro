@@ -5,13 +5,14 @@ import PostMeta from '~/components/PostMeta.astro'
 import PostCardImage from '~/components/PostCardImage.astro'
 import { Icon } from 'astro-icon/components'
 
-const { altText, imagePath, title, description, pubDate, tags, postUrl, wordCount, readTime, currentSlug, upDate, loading, sticky } = Astro.props
+const { altText, imagePath, title, description, publishedTime, tags, postUrl, wordCount, readTime, currentSlug, modifiedTime, loading, sticky } = Astro.props
+const isDefaultImage = /^https:\/\/pic\.mch\.icu\/images(\?.*)?$/.test(imagePath);
 ---
 
 <PostLayout>
   <div class="post-card__header">
-    {imagePath === 'https://pic.mch.icu/images' ? 
-        <img src="https://pic.mch.icu/images" alt="random image" class="post-card__image" loading="eager"/> 
+    {isDefaultImage ? 
+        <img src={imagePath} alt="random image" class="post-card__image" loading="eager"/> 
         : 
         <PostCardImage imagePath={imagePath} altText={altText} loading={loading} />
     }
@@ -21,7 +22,7 @@ const { altText, imagePath, title, description, pubDate, tags, postUrl, wordCoun
   </div>
   <h2 class="post-card__title">{title}</h2>
   <p class="post-card__description">{description}</p>
-  <PostMeta pubDate={pubDate} upDate={upDate} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} />
+  <PostMeta publishedTime={publishedTime} modifiedTime={modifiedTime} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} />
   <div class="post-tags post-card__tags">
     {tags.map(tag => <PostTag tag={tag} url={`/tag/${tag}/`} />)}
   </div>

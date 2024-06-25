@@ -1,6 +1,6 @@
 ---
 import { site, config } from '~/self.config'
-const { title, description, image, imageAlt, updatedTime } = Astro.props
+const { title, description, image, imageAlt, modifiedTime } = Astro.props
 ---
 
 <!-- Open Graph -->
@@ -15,4 +15,4 @@ const { title, description, image, imageAlt, updatedTime } = Astro.props
 <meta property="og:secure_url" content={Astro.url} />
 <meta property="og:site_name" content={site.author} />
 <meta property="og:locale" content={config.lang} />
-<meta property="og:updated_time" content={updatedTime.toISOString()} />
+<meta property="og:updated_time" content={modifiedTime} />

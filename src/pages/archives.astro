@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import PostLayout from '~/layouts/PostLayout.astro'
-import Archive from '~/components/Archives.astro'
+import Archive from '~/components/Archive.astro'
 import { site, archivesPage } from '~/self.config'
 
 const allPosts = await getCollection('article')
@@ -29,7 +29,7 @@ const postsByYear = postsWithMeta.reduce((acc, post) => {
 
 // 计算总词数
 const totalPosts = postsWithMeta.length
-const totalWords = postsWithMeta.reduce((sum, post) => sum + post.remarkPluginFrontmatter.readingTime.words, 0)
+const totalWords = postsWithMeta.reduce((sum, post) => sum + post.remarkPluginFrontmatter.readTime.words, 0)
 const totalWordsInThousands = (totalWords / 1000).toFixed(1) + 'k'
 const startYear = Math.min(...postsWithMeta.map(post => new Date(post.data.pubDate).getFullYear()))
 ---
@@ -44,7 +44,7 @@ const startYear = Math.min(...postsWithMeta.map(post => new Date(post.data.pubDa
   <h1 class="text-center space-bottom">Archives</h1>
   <PostLayout>
     <p style="opacity: 0.6">
-      <strong>(｡･∀･)ﾉﾞ 我共发布了 {totalPosts} 篇文章，自 {startYear} 以来共计 {totalWordsInThousands} 字。</strong>
+      <strong>(｡･∀･)ﾉﾞ 自 {startYear} 以来, 我共发布了 {totalPosts} 篇文章，共计 {totalWordsInThousands} 字。</strong>
     </p>
     {
       Object.keys(postsByYear)
@@ -59,7 +59,7 @@ const startYear = Math.min(...postsWithMeta.map(post => new Date(post.data.pubDa
                   key={post.slug} 
                   url={`/article/${post.slug}/`} 
                   title={post.data.title} 
-                  pubDate={post.data.pubDate} 
+                  publishedTime={post.data.pubDate} 
                 />
               ))}
           </section>

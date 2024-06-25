@@ -19,10 +19,10 @@ const { tag } = Astro.params
 const { articles } = Astro.props
 
 const postsWithMeta = articles.map(post => {
-  const { wordCount, readTime, lastModified } = getPostsWithMeta(post)
+  const { wordCount, readTime, modifiedTime } = getPostsWithMeta(post)
   return {
     ...post,
-    upDate: lastModified,
+    modifiedTime: modifiedTime,
     wordCount,
     readTime,
     slug: post.slug,
@@ -45,8 +45,8 @@ const postsWithMeta = articles.map(post => {
           <h2 class="post-card__title">{post.data.title}</h2>
           <p class="post-card__description">{post.data.description}</p>
           <PostMeta 
-            pubDate={post.data.pubDate} 
-            upDate={post.upDate} 
+            publishedTime={post.data.pubDate} 
+            modifiedTime={post.modifiedTime} 
             wordCount={post.wordCount} 
             readTime={post.readTime} 
             currentSlug={post.slug} 

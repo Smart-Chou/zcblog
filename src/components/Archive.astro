@@ -1,6 +1,6 @@
 ---
-const { title, url, pubDate } = Astro.props;
-const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
+const { title, url, publishedTime } = Astro.props;
+const formattedDate = new Date(publishedTime).toLocaleDateString('en-US', {
     month: '2-digit',
     day: '2-digit'
 });

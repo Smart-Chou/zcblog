@@ -12,25 +12,25 @@ import WalineComment from '~/components/WalineComment.astro'
 import PostCopyright from '~/components/PostCopyright.astro'
 import { site, postView, comment, donate } from '~/self.config'
 
-const { frontmatter = {comment: false, donate: false, toc: false, mathjax: false, mermaid: false}, lastModified, readingTime } = Astro.props
+const { frontmatter = {comment: false, donate: false, toc: false, mathjax: false, mermaid: false}, modifiedTime, readTime } = Astro.props
 
 const today = new Date()
-const publishTime = new Date(frontmatter.pubDate)
-const ModifiedTime = new Date(lastModified)
-const publishedDays = Math.floor((today.getTime() - publishTime.getTime()) / (1000 * 60 * 60 * 24))
+const publishedTime = frontmatter.pubDate
+const publishedDays = Math.floor((today.getTime() - publishedTime.getTime()) / (1000 * 60 * 60 * 24))
 
 const allPosts = await getCollection('article')
 const currentSlug = Astro.params.slug
+const isDefaultImage = /^https:\/\/pic\.mch\.icu\/images(\?.*)?$/.test(frontmatter.image.url);
 ---
 
 <BaseLayout 
-    title={frontmatter.title + ` - ` + site.title} 
+    title={`${frontmatter.title} - ${site.title}`} 
     description={frontmatter.title + ` - ` + frontmatter.description}
     image={Astro.site + `assets` + frontmatter.image.url}
     imageAlt={frontmatter.image.alt}
     keywords={frontmatter.tags}
-    publishedTime={publishTime}
-    modifiedTime={ModifiedTime}
+    publishedTime={publishedTime}
+    modifiedTime={modifiedTime}
     mathjax={frontmatter.mathjax}
     mermaid={frontmatter.mermaid}
 > 
@@ -40,16 +40,20 @@ const currentSlug = Astro.params.slug
       {frontmatter.title}
     </h1>
     <PostMeta 
-        pubDate={publishTime} 
-        upDate={ModifiedTime} 
-        wordCount={readingTime.words}
-        readTime={readingTime.text}
+        publishedTime={publishedTime} 
+        modifiedTime={modifiedTime} 
+        wordCount={readTime.words}
+        readTime={readTime.text}
         currentSlug={currentSlug} 
     />
   </div>
   <div class="post content-box">
     <div class="post__header">
-        {frontmatter.image.url === 'https://pic.mch.icu/images' ? <img src="https://pic.mch.icu/images" alt="random image" class="post-card__image" loading="eager"/> : <PostCardImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt} loading="eager" />}
+        {isDefaultImage ? 
+            <img src={frontmatter.image.url} alt="random image" class="post-card__image" loading="eager"/> 
+            : 
+            <PostCardImage imagePath={frontmatter.image.url} altText={frontmatter.image.alt} loading="eager" />
+        }
     </div>
     {
       publishedDays >= 180 ? (

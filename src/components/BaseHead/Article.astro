@@ -17,4 +17,4 @@ if (currentPath.startsWith('/article/') && currentPath.split('/').length > 3) {
 <meta property="article:section" content={site.subtitle} />
 {keywords.map((keyword) => <meta property="article:tag" content={keyword} />)}
 <meta property="article:published_time" content={publishedTime.toISOString()} />
-<meta property="article:modified_time" content={modifiedTime.toISOString()} />
+<meta property="article:modified_time" content={modifiedTime} />

@@ -9,12 +9,12 @@ dayjs.extend(advancedFormat)
 dayjs.extend(utc)
 
 export function formatDate(
-  pubDate: Date,
-  dateType = 'post.pubDateFormat'
+  date: Date,
+  dateType = 'post.dateFormat'
 ): string {
-  if (pubDate) {
-    const pubDateFormat = t(dateType) || 'YYYY-MM-DD'
-    return dayjs(pubDate).utc().format(pubDateFormat)
+  if (date) {
+    const dateFormat = t(dateType) || 'YYYY-MM-DD'
+    return dayjs(date).utc().format(dateFormat)
   } else {
     return ''
   }

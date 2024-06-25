@@ -24,7 +24,7 @@ export async function getStaticPaths({ paginate }) {
 const { page } = Astro.props as any
 
 const postsWithMeta = page.data.map(post => {
-  const { wordCount, readTime, lastModified } = getPostsWithMeta(post)
+  const { wordCount, readTime, modifiedTime } = getPostsWithMeta(post)
   const sticky = post.data.sticky || false
 
   return {
@@ -33,7 +33,7 @@ const postsWithMeta = page.data.map(post => {
       readTime,
       slug: post.slug,
       sticky,
-      lastModified,
+      modifiedTime,
     }
 })
 
@@ -53,8 +53,8 @@ const keywords = String(site.keywords).replace(/\s+/g, '').split(',')
       <PostCard 
         key={post.slug} 
         title={post.data.title} 
-        pubDate={post.data.pubDate} 
-        upDate={post.lastModified}
+        publishedTime={post.data.pubDate} 
+        modifiedTime={post.modifiedTime}
         postUrl={`/article/${post.slug}/`} 
         imagePath={post.data.image.url} 
         description={post.data.description} 
