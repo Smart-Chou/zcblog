@@ -94,7 +94,7 @@ html[data-theme='dark']:root {
   color: var(--B80-t);
   display: inline-block;
   opacity: 0;
-  width: auto;
+  width: 9rem;
   vertical-align: middle;
   text-align: left;
   -webkit-transition: opacity 0.5s;
