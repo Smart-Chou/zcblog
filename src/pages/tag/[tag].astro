@@ -7,10 +7,10 @@ import { site } from '~/self.config'
 import { getPostsWithMeta } from '~/utils/formatPosts'
 
 export async function getStaticPaths() {
-  const articles = await getCollection('article')
-  const uniqueTags = [...new Set(articles.map(post => post.data.tags || []).flat())]
+  const allArticles = await getCollection('article')
+  const uniqueTags = [...new Set(allArticles.map(post => post.data.tags || []).flat())]
   return uniqueTags.map(tag => {
-    const filteredPosts = articles.filter(post => (post.data.tags || []).includes(tag))
+    const filteredPosts = allArticles.filter(post => (post.data.tags || []).includes(tag))
     return {
       params: { tag },
       props: { article: filteredPosts },
