@@ -22,7 +22,7 @@ const postsWithMeta = articles.map(post => {
   const { wordCount, readTime, lastModified } = getPostsWithMeta(post)
   return {
     ...post,
-    upDate: new Date(lastModified),
+    upDate: lastModified,
     wordCount,
     readTime,
     slug: post.slug,

@@ -24,11 +24,8 @@ export async function getStaticPaths({ paginate }) {
 const { page } = Astro.props as any
 
 const postsWithMeta = page.data.map(post => {
-  const format = getPostsWithMeta(post)
-  const wordCount = format.wordCount
-  const readTime = format.readTime
+  const { wordCount, readTime, lastModified } = getPostsWithMeta(post)
   const sticky = post.data.sticky || false
-  const lastModified = new Date(format.lastModified)
 
   return {
       ...post,
