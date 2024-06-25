@@ -2,21 +2,10 @@ import { statSync, readFileSync } from 'fs';
 import getReadingTime from 'reading-time';
 import { formatDate } from './formatDate.ts';
 import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-
-// 获取当前文件的目录路径
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export function getPostsWithMeta(post) {
-    const files = fs.readdirSync('src/content');
-    const posts = files.map((file) => {
-        const filePath = path.join(process.cwd(), 'content', file);
-    });
-  // 使用相对路径从当前文件路径开始
-  const filePath = path.resolve(__dirname, '../', '../','src', 'content', 'article', `${post.slug}.md`);
-
+  // 构建文件路径
+  const filePath = path.join(process.cwd(), 'src', 'content', 'article', `${post.slug}.md`);
   try {
     // 检查文件是否存在
     const result = statSync(filePath);
@@ -33,8 +22,12 @@ export function getPostsWithMeta(post) {
       lastModified: formatDate(result.mtime),
     };
   } catch (error) {
-    // 如果文件不存在，记录错误并抛出异常
+    // 如果文件不存在，记录详细错误信息并返回默认值
     console.error(`Error accessing file at ${filePath}:`, error.message);
-    throw new Error(`File not found or inaccessible: ${filePath}`);
+    return {
+      wordCount: 0,
+      readTime: 'N/A',
+      lastModified: 'N/A',
+    };
   }
 }
