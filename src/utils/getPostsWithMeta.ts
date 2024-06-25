@@ -15,7 +15,7 @@ export function getPostsWithMeta(post) {
         const filePath = path.join(process.cwd(), 'content', file);
     });
   // 使用相对路径从当前文件路径开始
-  const filePath = path.resolve(__dirname, 'src', 'content', 'article', `${post.slug}.md`);
+  const filePath = path.resolve(__dirname, '../', '../','src', 'content', 'article', `${post.slug}.md`);
 
   try {
     // 检查文件是否存在
