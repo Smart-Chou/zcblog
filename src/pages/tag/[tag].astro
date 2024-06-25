@@ -4,32 +4,25 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import PostLayout from '~/layouts/PostLayout.astro'
 import PostMeta from '~/components/PostMeta.astro'
 import { site } from '~/self.config'
-import { getPostsWithMeta } from '~/utils/formatPosts'
+import { getPostsWithMeta } from '~/utils/getPostsWithMeta'
 
 export async function getStaticPaths() {
   const allArticles = await getCollection('article')
   const uniqueTags = [...new Set(allArticles.map(post => post.data.tags || []).flat())]
-  return uniqueTags.map(tag => {
-    const filteredPosts = allArticles.filter(post => (post.data.tags || []).includes(tag))
-    return {
-      params: { tag },
-      props: { article: filteredPosts },
-    }
-  })
+  return uniqueTags.map(tag => ({
+    params: { tag },
+    props: { articles: allArticles.filter(post => (post.data.tags || []).includes(tag)) },
+  }))
 }
 
 const { tag } = Astro.params
-const { article } = Astro.props
+const { articles } = Astro.props
 
-const postsWithMeta = article.map(post => {
-  const format = getPostsWithMeta(post)
-  const wordCount = format.wordCount
-  const readTime = format.readTime
-  const upDate = new Date(format.lastModified)
-
+const postsWithMeta = articles.map(post => {
+  const { wordCount, readTime, lastModified } = getPostsWithMeta(post)
   return {
     ...post,
-    upDate,
+    upDate: new Date(lastModified),
     wordCount,
     readTime,
     slug: post.slug,
@@ -38,26 +31,26 @@ const postsWithMeta = article.map(post => {
 ---
 
 <BaseLayout 
-    title={tag + ` - ` + site.title} 
-    description={tag + ` - ` + site.description}
-    image={Astro.site + site.coverImage}
-    imageAlt={tag}
-    keywords={[`${tag}`]}
+    title={`${tag} - ${site.title}`} 
+    description={`${tag} - ${site.description}`} 
+    image={`${Astro.site + site.coverImage}`} 
+    imageAlt={tag} 
+    keywords={[tag]}
 >
   <h1 class="tag-title text-center space-bottom"># {tag}</h1>
   <div class="posts">
     {
       postsWithMeta.map(post => (
-        <PostLayout>
+        <PostLayout key={post.slug}>
           <h2 class="post-card__title">{post.data.title}</h2>
           <p class="post-card__description">{post.data.description}</p>
           <PostMeta 
-                pubDate={post.data.pubDate} 
-                upDate={post.upDate} 
-                wordCount={post.wordCount} 
-                readTime={post.readTime} 
-                currentSlug={post.slug} 
-            />
+            pubDate={post.data.pubDate} 
+            upDate={post.upDate} 
+            wordCount={post.wordCount} 
+            readTime={post.readTime} 
+            currentSlug={post.slug} 
+          />
           <a href={`/article/${post.slug}/`} class="post-card__link">
             Link
           </a>

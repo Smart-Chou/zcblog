@@ -6,7 +6,7 @@ import PostCard from '~/components/PostCard.astro'
 import Pagination from '~/components/Pagination.astro'
 import BackToTop from '~/components/BackToTop.astro'
 import { site, pageView } from '~/self.config'
-import { getPostsWithMeta }  from '~/utils/formatPosts'
+import { getPostsWithMeta }  from '~/utils/getPostsWithMeta'
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection('article')
