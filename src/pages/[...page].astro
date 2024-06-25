@@ -6,8 +6,7 @@ import PostCard from '~/components/PostCard.astro'
 import Pagination from '~/components/Pagination.astro'
 import BackToTop from '~/components/BackToTop.astro'
 import { site, pageView } from '~/self.config'
-import getReadingTime from 'reading-time'
-import { formatPosts } from '~/utils/formatPosts'
+import { getPostsWithMeta }  from '~/utils/formatPosts'
 
 export async function getStaticPaths({ paginate }) {
   const allPosts = await getCollection('article')
@@ -24,12 +23,12 @@ export async function getStaticPaths({ paginate }) {
 
 const { page } = Astro.props as any
 
-const lastModifiedTime = new Date()
 const postsWithMeta = page.data.map(post => {
-  const readingTime = getReadingTime(post.body)
-  const wordCount = readingTime.words
-  const readTime = readingTime.text
+  const format = getPostsWithMeta(post)
+  const wordCount = format.wordCount
+  const readTime = format.readTime
   const sticky = post.data.sticky || false
+  const lastModified = new Date(format.lastModified)
 
   return {
       ...post,
@@ -37,6 +36,7 @@ const postsWithMeta = page.data.map(post => {
       readTime,
       slug: post.slug,
       sticky,
+      lastModified,
     }
 })
 
@@ -57,7 +57,7 @@ const keywords = String(site.keywords).replace(/\s+/g, '').split(',')
         key={post.slug} 
         title={post.data.title} 
         pubDate={post.data.pubDate} 
-        upDate={lastModifiedTime}
+        upDate={post.lastModified}
         postUrl={`/article/${post.slug}/`} 
         imagePath={post.data.image.url} 
         description={post.data.description} 

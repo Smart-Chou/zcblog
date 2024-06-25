@@ -4,15 +4,13 @@ import BaseLayout from '~/layouts/BaseLayout.astro'
 import PostLayout from '~/layouts/PostLayout.astro'
 import PostMeta from '~/components/PostMeta.astro'
 import { site } from '~/self.config'
-import getReadingTime from 'reading-time'
-import { formatPosts } from '~/utils/formatPosts'
+import { getPostsWithMeta } from '~/utils/formatPosts'
 
 export async function getStaticPaths() {
   const articles = await getCollection('article')
-  const allPosts = formatPosts(articles)
-  const uniqueTags = [...new Set(allPosts.map(post => post.data.tags || []).flat())]
+  const uniqueTags = [...new Set(articles.map(post => post.data.tags || []).flat())]
   return uniqueTags.map(tag => {
-    const filteredPosts = allPosts.filter(post => (post.data.tags || []).includes(tag))
+    const filteredPosts = articles.filter(post => (post.data.tags || []).includes(tag))
     return {
       params: { tag },
       props: { article: filteredPosts },
@@ -24,10 +22,10 @@ const { tag } = Astro.params
 const { article } = Astro.props
 
 const postsWithMeta = article.map(post => {
-  const upDate =  new Date()
-  const readingTime = getReadingTime(post.body)
-  const wordCount = readingTime.words
-  const readTime = readingTime.text
+  const format = getPostsWithMeta(post)
+  const wordCount = format.wordCount
+  const readTime = format.readTime
+  const upDate = new Date(format.lastModified)
 
   return {
     ...post,

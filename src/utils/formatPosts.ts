@@ -1,3 +1,22 @@
+import { statSync } from 'fs';
+import getReadingTime from 'reading-time';
+import { formatDate } from './formatDate.ts';
+import path from 'path';
+
+export function getPostsWithMeta(post) {
+  const filePath = path.join(process.cwd(), 'src', 'content', 'article', `${post.slug}.md`);
+  const result = statSync(filePath);
+
+  const textOnPage = post.body.toString().replace(/\n/g, '')
+  const readingTimeResult = getReadingTime(textOnPage);
+
+  return {
+    wordCount: readingTimeResult.words,
+    readTime: readingTimeResult.text,
+    lastModified: formatDate(result.mtime),
+  };
+}
+
 export function formatPosts(posts, {
     filterOutDrafts = true,
     filterOutFuturePosts = true,

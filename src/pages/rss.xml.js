@@ -22,13 +22,9 @@ export async function GET(context) {
       url: 'https://marxchou.com',
     },
     items: formattedBlogs.map(post => {
-      const body = post.body || ''
+      const body = post.body.toString().replace(/\n/g, '') || ''
       const wordCount = getReadingTime(body).words || ''
       const readTime = getReadingTime(body).text  || ''
-
-      console.log('title:', post.data.title) // 添加日志
-      console.log('wordCount:', wordCount) // 添加日志
-      console.log('readTime:', readTime) // 添加日志
 
       return {
         title: post.data.title,
