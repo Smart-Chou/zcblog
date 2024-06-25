@@ -2,9 +2,7 @@
 import { getCollection } from 'astro:content'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import PostLayout from '~/layouts/PostLayout.astro'
-import PostMeta from '~/components/PostMeta.astro'
 import { site } from '~/self.config'
-import { getPostsWithMeta } from '~/utils/getPostsWithMeta'
 
 export async function getStaticPaths() {
   const allArticles = await getCollection('article')
@@ -17,17 +15,6 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.params
 const { articles } = Astro.props
-
-const postsWithMeta = articles.map(post => {
-  const { wordCount, readTime, lastModified } = getPostsWithMeta(post)
-  return {
-    ...post,
-    upDate: new Date(lastModified),
-    wordCount,
-    readTime,
-    slug: post.slug,
-  }
-})
 ---
 
 <BaseLayout 
@@ -40,17 +27,10 @@ const postsWithMeta = articles.map(post => {
   <h1 class="tag-title text-center space-bottom"># {tag}</h1>
   <div class="posts">
     {
-      postsWithMeta.map(post => (
+      articles.map(post => (
         <PostLayout key={post.slug}>
           <h2 class="post-card__title">{post.data.title}</h2>
           <p class="post-card__description">{post.data.description}</p>
-          <PostMeta 
-            pubDate={post.data.pubDate} 
-            upDate={post.upDate} 
-            wordCount={post.wordCount} 
-            readTime={post.readTime} 
-            currentSlug={post.slug} 
-          />
           <a href={`/article/${post.slug}/`} class="post-card__link">
             Link
           </a>
@@ -59,24 +39,3 @@ const postsWithMeta = articles.map(post => {
     }
   </div>
 </BaseLayout>
-
-<script>
-  import { pageviewCount } from '@waline/client/pageview'
-  import { commentCount } from '@waline/client/comment'
-  import { comment } from '~/self.config'
-
-  document.addEventListener('astro:page-load', () => {
-    const serverURL = comment.serverUrl
-    const path = window.location.pathname
-
-    pageviewCount({
-      serverURL,
-      path,
-    })
-
-    commentCount({
-      serverURL,
-      path,
-    })
-  })
-</script>
