@@ -1,7 +1,6 @@
 import { h as _h, s as _s } from "hastscript";
 import { remove } from "unist-util-remove";
 import { visit } from "unist-util-visit";
-import { t } from "../i18n/utils.ts";
 const variants = new Set([
     "note",
     "info",
@@ -14,17 +13,17 @@ const variants = new Set([
 function defaultLabel(v) {
     switch (v) {
         case "info":
-            return t("aside.info") || "Info";
+            return "信息";
         case "note":
-            return t("aside.note") || "Note";
+            return "注意";
         case "important":
-            return t("aside.important") || "Important";
+            return "重要";
         case "tip":
-            return t("aside.tip") || "Tip";
+            return "提示";
         case "warning":
-            return t("aside.warning") || "Warning";
+            return "警告";
         case "danger":
-            return t("aside.danger") || "Danger";
+            return "危险";
         default:
             return "";
     }
