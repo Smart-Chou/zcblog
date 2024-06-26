@@ -3,7 +3,7 @@ title: 'Reverse Proxy | 反向代理是什么？'
 pubDate: 2019-11-22
 tags: ['Tech', 'Server']
 image:
-  url: '/postImage/reverse-proxy.png'
+  url: 'coverimage/reverse-proxy.png'
   alt: 'reverse-proxy'
 description: 'Nginx 反向代理的工作原理'
 ---

@@ -22,10 +22,12 @@ const allPosts = await getCollection('article')
 const currentSlug = Astro.params.slug
 const isDefaultImage = /^https:\/\/pic\.mch\.icu\/images(\?.*)?$/.test(frontmatter.image.url);
 
-let imageUrl = frontmatter.image.url
+let imageUrl = Astro.site + frontmatter.image.url
 if (isDefaultImage) {
     imageUrl = Astro.site + site.coverImage
 }
+
+console.log(imageUrl)
 ---
 
 <BaseLayout 

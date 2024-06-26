@@ -3,7 +3,7 @@ title: Tiny Tiny RSS：部署中的普遍问题与注意事项总结
 pubDate: 2020-03-13
 tags: ['Server', 'RSS', 'Tech']
 image:
-  url: '/postImage/ttrss-noteworthy.png'
+  url: 'coverimage/ttrss-noteworthy.png'
   alt: 'ttrss-noteworthy'
 description: Tiny Tiny RSS 部署踩坑
 ---

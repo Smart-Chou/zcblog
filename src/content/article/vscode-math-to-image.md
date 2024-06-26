@@ -3,7 +3,7 @@ title: VS Code Math to Image：在不支持 LaTeX 的地方插入数学公式
 pubDate: 2020-08-04
 tags: ['Automation', 'Tech', 'VS Code']
 image:
-  url: '/postImage/vscode-math-to-image.png'
+  url: 'coverimage/vscode-math-to-image.png'
   alt: vscode-math-to-image
 description: 为了解决 GitHub 无法渲染 LaTeX 数学公式的问题，我们编写了一个 VS Code 插件。
 mathjax: true
