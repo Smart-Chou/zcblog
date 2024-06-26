@@ -5,7 +5,7 @@ import path from 'path';
 
 export function getPostsWithMeta(post) {
   // 构建文件路径
-  const filePath = path.join(process.cwd(), 'src', 'content', 'article', `${post.slug}.md`);
+  const filePath = path.join(process.cwd(), 'src', 'content', 'article', post.id);
   try {
     // 检查文件是否存在
     const result = statSync(filePath);
