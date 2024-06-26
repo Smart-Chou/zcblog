@@ -3,7 +3,7 @@ title: meilisearch
 description: meilisearch
 pubDate: 2021-12-30
 image:
-  url: 'https://pic.mch.icu/images'
+  url: 'https://pic.mch.icu/images?7Hk3X2'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - meilisearch

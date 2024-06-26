@@ -3,14 +3,14 @@ title: Typora直传图片文件方案
 description: Typora直传图片文件方案
 pubDate: 2020-12-28
 image:
-  url: 'https://pic.mch.icu/images'
+  url: 'https://pic.mch.icu/images?wK3d9A'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Typora
 ---
 
 :::tip
-让你的typora支持自定义图床，直接贴图保存在云存储 
+让你的typora支持自定义图床，直接贴图保存在云存储
 :::
 
 hello大家好我是ChouCong，上一期视频里面我分享到自己的markdown笔记使用typora编

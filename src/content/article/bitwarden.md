@@ -3,7 +3,7 @@ title: 宝塔面板部署 Bitwarden 密码管理软件
 description: 宝塔面板部署 Bitwarden 密码管理软件
 pubDate: 2021-10-01
 image:
-  url: 'https://pic.mch.icu/images'
+  url: 'https://pic.mch.icu/images?J4mT7X'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Bitwarden

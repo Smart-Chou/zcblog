@@ -3,7 +3,7 @@ title: 盘点不怎么熟悉但十分有趣的html标签
 description: 盘点不怎么熟悉但十分有趣的html标签
 pubDate: 2020-08-03
 image:
-  url: 'https://pic.mch.icu/images'
+  url: 'https://pic.mch.icu/images?3xC4uJ'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - HTML

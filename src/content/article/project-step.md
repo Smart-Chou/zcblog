@@ -3,7 +3,7 @@ title: 项目是怎么一步一步变复杂的
 description: 项目是怎么一步一步变复杂的，为什么要学这么多，那是梦开始的地方
 pubDate: 2020-07-04
 image:
-  url: 'https://pic.mch.icu/images'
+  url: 'https://pic.mch.icu/images?R9j7C3'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Java

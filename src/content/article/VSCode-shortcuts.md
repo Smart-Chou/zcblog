@@ -3,7 +3,7 @@ title: VSCode快捷键
 description: VSCode快捷键
 pubDate: 2021-10-14
 image:
-  url: 'https://pic.mch.icu/images'
+  url: 'https://pic.mch.icu/images?Y6nT4z'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - VSCode
