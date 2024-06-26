@@ -6,10 +6,10 @@ import '~/styles/redirect.css'
 
 <BaseLayout 
     title={redirectPage.title} 
-    description={redirectPage.title + ` - ` + redirectPage.description} 
-    image={Astro.site + site.coverImage} 
+    description={`${redirectPage.title} - ${redirectPage.description}`} 
+    image={`${Astro.site + site.coverImage}`} 
     imageAlt={redirectPage.title}
-    keywords={['redirect']}
+    keywords={[`${redirectPage.title}`]}
 >
   <div class="redirect">
     <span class="redirect-tip" id="redirect-tip">您即将离开{site.title}，前往</span>

@@ -21,12 +21,17 @@ const publishedDays = Math.floor((today.getTime() - publishedTime.getTime()) / (
 const allPosts = await getCollection('article')
 const currentSlug = Astro.params.slug
 const isDefaultImage = /^https:\/\/pic\.mch\.icu\/images(\?.*)?$/.test(frontmatter.image.url);
+
+let imageUrl = frontmatter.image.url
+if (isDefaultImage) {
+    imageUrl = Astro.site + site.coverImage
+}
 ---
 
 <BaseLayout 
     title={`${frontmatter.title} - ${site.title}`} 
-    description={frontmatter.title + ` - ` + frontmatter.description}
-    image={Astro.site + `assets` + frontmatter.image.url}
+    description={`${frontmatter.title} - ${frontmatter.description}`}
+    image={imageUrl}
     imageAlt={frontmatter.image.alt}
     keywords={frontmatter.tags}
     publishedTime={publishedTime}

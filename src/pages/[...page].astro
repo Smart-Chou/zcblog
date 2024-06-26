@@ -36,16 +36,14 @@ const postsWithMeta = page.data.map(post => {
       modifiedTime,
     }
 })
-
-const keywords = String(site.keywords).replace(/\s+/g, '').split(',')
 ---
 
 <BaseLayout 
-    title={site.subtitle + ` - ` + site.title} 
-    description={site.title + ` - ` + site.description}
-    image={Astro.site + site.coverImage}
+    title={`${site.subtitle} -  ${site.title}`} 
+    description={`${site.title} - ${site.description}`}
+    image={`${Astro.site + site.coverImage}`}
     imageAlt={site.coverImageAlt}
-    keywords={keywords}
+    keywords={String(site.keywords).replace(/\s+/g, '').split(',')}
 >
   {pageView.author && <Author />}
   <div class="post">
