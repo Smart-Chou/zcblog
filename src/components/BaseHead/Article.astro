@@ -1,12 +1,12 @@
 ---
-import { site } from '~/self.config'
+import { site } from "~/self.config";
 
-const { keywords = [], publishedTime, modifiedTime } = Astro.props
+const { keywords = [], publishedTime, modifiedTime } = Astro.props;
 
-const currentPath = Astro.url.pathname
-let ogType = 'website';
-if (currentPath.startsWith('/article/') && currentPath.split('/').length > 3) {
-    ogType = 'article';
+const currentPath = Astro.url.pathname;
+let ogType = "website";
+if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {
+    ogType = "article";
 }
 ---
 

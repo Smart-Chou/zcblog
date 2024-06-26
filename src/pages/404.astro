@@ -1,24 +1,29 @@
 ---
-import BaseLayout from '~/layouts/BaseLayout.astro'
-import notFound from '/public/404.svg'
-import { site, notFoundPage } from '~/self.config'
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import notFound from "/public/404.svg";
+import { site, notFoundPage } from "~/self.config";
 ---
 
-<BaseLayout 
-    title={notFoundPage.title} 
-    description={site.title + ` - ` + notFoundPage.description} 
-    image={Astro.site + site.coverImage} 
+<BaseLayout
+    title={notFoundPage.title}
+    description={site.title + ` - ` + notFoundPage.description}
+    image={Astro.site + site.coverImage}
     imageAlt={notFoundPage.title}
-    keywords={['404']}
+    keywords={["404"]}
 >
-  <div>
-    <h1 class="not-found-title text-center space-bottom">404</h1>
-    <div class="not-found-container">
-      <p class="description">
-        🍌 Oh, no, not here.
-        <a href="/" class="active">Take me back home. ↩</a>
-      </p>
-      <img src={notFound.src} alt="404 Not Found" class="not-found-bg--loaded" width="600" />
+    <div>
+        <h1 class="not-found-title text-center space-bottom">404</h1>
+        <div class="not-found-container">
+            <p class="description">
+                🍌 Oh, no, not here.
+                <a href="/" class="active">Take me back home. ↩</a>
+            </p>
+            <img
+                src={notFound.src}
+                alt="404 Not Found"
+                class="not-found-bg--loaded"
+                width="600"
+            />
+        </div>
     </div>
-  </div>
 </BaseLayout>

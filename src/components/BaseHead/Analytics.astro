@@ -1,25 +1,26 @@
 ---
-import { config } from '~/self.config'
-import { GoogleAnalytics } from '@astrolib/analytics'
+import { config } from "~/self.config";
+import { GoogleAnalytics } from "@astrolib/analytics";
 ---
 
-<!-- Analytics -->
-{
+<!-- Analytics -->{
     config.umami && (
         <>
-        <script is:inline 
-            type="text/partytown" 
-            src="https://umami.marxchou.com/script.js" 
-            defer data-website-id={String(config.umami)} 
-            data-domains="marxchou.com"
-        />
+            <script
+                is:inline
+                type="text/partytown"
+                src="https://umami.marxchou.com/script.js"
+                defer
+                data-website-id={String(config.umami)}
+                data-domains="marxchou.com"
+            />
         </>
     )
 }
 {
     config.ga && (
         <>
-        <GoogleAnalytics id={String(config.ga)} />
+            <GoogleAnalytics id={String(config.ga)} />
         </>
     )
 }

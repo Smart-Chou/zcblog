@@ -1,29 +1,43 @@
 ---
-import BaseLayout from '~/layouts/BaseLayout.astro'
-import Author from '~/components/Author.astro'
-import WalineComment from '~/components/WalineComment.astro'
-import { site, friendsPage } from '~/self.config'
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Author from "~/components/Author.astro";
+import WalineComment from "~/components/WalineComment.astro";
+import { site, friendsPage } from "~/self.config";
 ---
 
-<BaseLayout 
-    title={friendsPage.title} 
+<BaseLayout
+    title={friendsPage.title}
     description={`${friendsPage.title} - ${friendsPage.note}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={friendsPage.title}
     keywords={[`${friendsPage.title}`]}
 >
-  <h1 class="friends-title text-center space-bottom">Friends &amp; Guestbook</h1>
-  <div class="friends-container text-center space-bottom">
-    {
-      friendsPage.list.map(friend => (
-        <a class="btn" href={friend.link} target="_blank" style={friend.style}>
-          <img src={friend.avatar} alt={friend.id} class="avatar" width="160" />
-          <span>{friend.id}</span>
-        </a>
-      ))
-    }
-  </div>
-  <p class="friends-note">* I don't accept friend link requests from someone I don't know.</p>
-  <Author />
-  <WalineComment />
+    <h1 class="friends-title text-center space-bottom">
+        Friends &amp; Guestbook
+    </h1>
+    <div class="friends-container text-center space-bottom">
+        {
+            friendsPage.list.map((friend) => (
+                <a
+                    class="btn"
+                    href={friend.link}
+                    target="_blank"
+                    style={friend.style}
+                >
+                    <img
+                        src={friend.avatar}
+                        alt={friend.id}
+                        class="avatar"
+                        width="160"
+                    />
+                    <span>{friend.id}</span>
+                </a>
+            ))
+        }
+    </div>
+    <p class="friends-note">
+        * I don't accept friend link requests from someone I don't know.
+    </p>
+    <Author />
+    <WalineComment />
 </BaseLayout>

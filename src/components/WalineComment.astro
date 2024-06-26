@@ -3,81 +3,89 @@
 ---
 
 <div id="commentContainer" style="display: none;">
-  <div id="waline"></div>
+    <div id="waline"></div>
 </div>
 <button id="toggleComment" class="closeComment">展开评论</button>
 
 <script>
-  import { init } from '@waline/client'
-  import { comment } from '~/self.config'
-  import '@waline/client/waline.css'
-  import '@waline/client/waline-meta.css'
+    import { init } from "@waline/client";
+    import { comment } from "~/self.config";
+    import "@waline/client/waline.css";
+    import "@waline/client/waline-meta.css";
 
-  document.addEventListener('astro:page-load', () => {
-    const locale = {
-      level0: '炼体',
-      level1: '炼气',
-      level2: '筑基',
-      level3: '金丹',
-      level4: '元婴',
-      level5: '化神',
-      reactionTitle: '你认为这篇文章怎么样？',
-      reaction0: '牛逼哄哄',
-      reaction1: '不太行哦',
-      reaction2: '还不错呦',
-      reaction3: '你觉得呢',
-      reaction4: '自己看看',
-      reaction5: '周公叫我',
-    }
+    document.addEventListener("astro:page-load", () => {
+        const locale = {
+            level0: "炼体",
+            level1: "炼气",
+            level2: "筑基",
+            level3: "金丹",
+            level4: "元婴",
+            level5: "化神",
+            reactionTitle: "你认为这篇文章怎么样？",
+            reaction0: "牛逼哄哄",
+            reaction1: "不太行哦",
+            reaction2: "还不错呦",
+            reaction3: "你觉得呢",
+            reaction4: "自己看看",
+            reaction5: "周公叫我",
+        };
 
-    const walineElement = document.getElementById('waline')
-    if (comment.enable && walineElement) {
-      const origin = comment.serverUrl
-      const walineProps = walineElement!.dataset
-      init({
-        el: '#waline',
-        serverURL: origin,
-        comment: true,
-        locale,
-        path: walineProps.walinePath!,
-        lang: comment.lang,
-        pageSize: comment.pageSize,
-        pageview: true,
-        requiredMeta: ['nick', 'mail'],
-        reaction: comment.whiteList.includes(location.pathname) ? false : comment.reaction,
-        login: 'disable',
-        search: comment.search,
-        dark: 'html[data-theme="dark"]',
-        emoji: ['https://unpkg.com/@waline/emojis@1.2.0/qq', 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili'],
-      })
-    }
-  })
+        const walineElement = document.getElementById("waline");
+        if (comment.enable && walineElement) {
+            const origin = comment.serverUrl;
+            const walineProps = walineElement!.dataset;
+            init({
+                el: "#waline",
+                serverURL: origin,
+                comment: true,
+                locale,
+                path: walineProps.walinePath!,
+                lang: comment.lang,
+                pageSize: comment.pageSize,
+                pageview: true,
+                requiredMeta: ["nick", "mail"],
+                reaction: comment.whiteList.includes(location.pathname)
+                    ? false
+                    : comment.reaction,
+                login: "disable",
+                search: comment.search,
+                dark: 'html[data-theme="dark"]',
+                emoji: [
+                    "https://unpkg.com/@waline/emojis@1.2.0/qq",
+                    "https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili",
+                ],
+            });
+        }
+    });
 </script>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    const toggleButton = document.getElementById('toggleComment')
-    const commentContainer = document.getElementById('commentContainer')
-    
-    if (!commentContainer || !toggleButton) {
-      console.error('Required elements are missing from the page.');
-      return;
-    }
+    document.addEventListener("astro:page-load", () => {
+        const toggleButton = document.getElementById("toggleComment");
+        const commentContainer = document.getElementById("commentContainer");
 
-    toggleButton.addEventListener('click', () => {
-      if (commentContainer.style.display === 'none') {
-        commentContainer.style.display = 'block';
-        toggleButton.textContent = '收起评论';
-        toggleButton.style.position = 'relative';
-        toggleButton.style.top = 'auto';
-        toggleButton.className = 'active';
-        commentContainer.parentNode?.insertBefore(toggleButton, commentContainer.nextSibling);
-      } else {
-        commentContainer.style.display = 'none';
-        toggleButton.textContent = '展开评论';
-        toggleButton.style.position = 'static';
-        toggleButton.className = 'closeComment';
-      }
+        if (!commentContainer || !toggleButton) {
+            console.error("Required elements are missing from the page.");
+            return;
+        }
+
+        toggleButton.addEventListener("click", () => {
+            if (commentContainer.style.display === "none") {
+                commentContainer.style.display = "block";
+                toggleButton.textContent = "收起评论";
+                toggleButton.style.position = "relative";
+                toggleButton.style.top = "auto";
+                toggleButton.className = "active";
+                commentContainer.parentNode?.insertBefore(
+                    toggleButton,
+                    commentContainer.nextSibling,
+                );
+            } else {
+                commentContainer.style.display = "none";
+                toggleButton.textContent = "展开评论";
+                toggleButton.style.position = "static";
+                toggleButton.className = "closeComment";
+            }
+        });
     });
-  })
 </script>

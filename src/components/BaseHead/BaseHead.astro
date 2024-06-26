@@ -1,28 +1,53 @@
 ---
-import GlobalMeta from '~/components/BaseHead/GlobalMeta.astro'
-import OpenGraph from '~/components/BaseHead/OpenGraph.astro'
-import Article from '~/components/BaseHead/Article.astro'
-import Twitter from '~/components/BaseHead/Twitter.astro'
-import Robots from '~/components/BaseHead/Robots.astro'
-import Favicon from '~/components/BaseHead/Favicon.astro'
-import JsonLd from '~/components/BaseHead/JsonLd.astro'
-import Analytics from '~/components/BaseHead/Analytics.astro'
-import Scripts from '~/components/BaseHead/Scripts.astro'
-import { ViewTransitions } from 'astro:transitions'
-import '~/styles/global.css'
+import GlobalMeta from "~/components/BaseHead/GlobalMeta.astro";
+import OpenGraph from "~/components/BaseHead/OpenGraph.astro";
+import Article from "~/components/BaseHead/Article.astro";
+import Twitter from "~/components/BaseHead/Twitter.astro";
+import Robots from "~/components/BaseHead/Robots.astro";
+import Favicon from "~/components/BaseHead/Favicon.astro";
+import JsonLd from "~/components/BaseHead/JsonLd.astro";
+import Analytics from "~/components/BaseHead/Analytics.astro";
+import Scripts from "~/components/BaseHead/Scripts.astro";
+import { ViewTransitions } from "astro:transitions";
+import "~/styles/global.css";
 
-const { title, description, image, imageAlt, mathjax, mermaid, keywords = [], publishedTime, modifiedTime } = Astro.props
+const {
+    title,
+    description,
+    image,
+    imageAlt,
+    mathjax,
+    mermaid,
+    keywords = [],
+    publishedTime,
+    modifiedTime,
+} = Astro.props;
 ---
 
 <head>
-  <GlobalMeta title={title} description={description }/>
-  <OpenGraph title={title} description={description} image={image} imageAlt={imageAlt} modifiedTime={modifiedTime}/>
-  <Article keywords={keywords} publishedTime={publishedTime} modifiedTime={modifiedTime} />
-  <Twitter title={title} description={description} image={image} imageAlt={imageAlt} />
-  <Robots  />
-  <Favicon />
-  <JsonLd />
-  <Analytics />
-  <Scripts mathjax={mathjax} mermaid={mermaid} />
-  <ViewTransitions />
+    <GlobalMeta title={title} description={description} />
+    <OpenGraph
+        title={title}
+        description={description}
+        image={image}
+        imageAlt={imageAlt}
+        modifiedTime={modifiedTime}
+    />
+    <Article
+        keywords={keywords}
+        publishedTime={publishedTime}
+        modifiedTime={modifiedTime}
+    />
+    <Twitter
+        title={title}
+        description={description}
+        image={image}
+        imageAlt={imageAlt}
+    />
+    <Robots />
+    <Favicon />
+    <JsonLd />
+    <Analytics />
+    <Scripts mathjax={mathjax} mermaid={mermaid} />
+    <ViewTransitions />
 </head>

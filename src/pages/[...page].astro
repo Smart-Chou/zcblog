@@ -1,92 +1,97 @@
 ---
-import { getCollection } from 'astro:content'
-import BaseLayout from '~/layouts/BaseLayout.astro'
-import Author from '~/components/Author.astro'
-import PostCard from '~/components/PostCard.astro'
-import Pagination from '~/components/Pagination.astro'
-import BackToTop from '~/components/BackToTop.astro'
-import { site, pageView } from '~/self.config'
-import { getPostsWithMeta }  from '~/utils/getPostsWithMeta'
+import { getCollection } from "astro:content";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Author from "~/components/Author.astro";
+import PostCard from "~/components/PostCard.astro";
+import Pagination from "~/components/Pagination.astro";
+import BackToTop from "~/components/BackToTop.astro";
+import { site, pageView } from "~/self.config";
+import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
 export async function getStaticPaths({ paginate }) {
-  const allPosts = await getCollection('article')
-  const pageSize = site.PageSize || 10
-  const sortedPosts = allPosts.sort((a, b) => {
-    const stickyDIff = (b.data.sticky || 0) - (a.data.sticky || 0)
-    if (stickyDIff !== 0) {
-      return stickyDIff
-    }
-    return new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime();
-  });
-  return paginate(sortedPosts, { pageSize })
+    const allPosts = await getCollection("article");
+    const pageSize = site.PageSize || 10;
+    const sortedPosts = allPosts.sort((a, b) => {
+        const stickyDIff = (b.data.sticky || 0) - (a.data.sticky || 0);
+        if (stickyDIff !== 0) {
+            return stickyDIff;
+        }
+        return (
+            new Date(b.data.pubDate).getTime() -
+            new Date(a.data.pubDate).getTime()
+        );
+    });
+    return paginate(sortedPosts, { pageSize });
 }
 
-const { page } = Astro.props as any
+const { page } = Astro.props as any;
 
-const postsWithMeta = page.data.map(post => {
-  const { wordCount, readTime, modifiedTime } = getPostsWithMeta(post)
-  const sticky = post.data.sticky || false
+const postsWithMeta = page.data.map((post) => {
+    const { wordCount, readTime, modifiedTime } = getPostsWithMeta(post);
+    const sticky = post.data.sticky || false;
 
-  return {
-      ...post,
-      wordCount,
-      readTime,
-      slug: post.slug,
-      sticky,
-      modifiedTime,
-    }
-})
+    return {
+        ...post,
+        wordCount,
+        readTime,
+        slug: post.slug,
+        sticky,
+        modifiedTime,
+    };
+});
 ---
 
-<BaseLayout 
-    title={`${site.subtitle} -  ${site.title}`} 
+<BaseLayout
+    title={`${site.subtitle} -  ${site.title}`}
     description={`${site.title} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={site.coverImageAlt}
-    keywords={String(site.keywords).replace(/\s+/g, '').split(',')}
+    keywords={String(site.keywords).replace(/\s+/g, "").split(",")}
 >
-  {pageView.author && <Author />}
-  <div class="post">
-    {postsWithMeta.map((post, index) => (
-      <PostCard 
-        key={post.slug} 
-        title={post.data.title} 
-        publishedTime={post.data.pubDate} 
-        modifiedTime={post.modifiedTime}
-        postUrl={`/article/${post.slug}/`} 
-        imagePath={post.data.image.url} 
-        description={post.data.description} 
-        tags={post.data.tags} 
-        wordCount={post.wordCount} 
-        readTime={post.readTime} 
-        currentSlug={post.slug}
-        altText={post.data.image.alt}
-        loading={index < 3 ? 'eager' : 'lazy'}
-        sticky={post.sticky}
-      />
-    ))}
-  </div>
-  <Pagination page={page} />
-  {pageView.backtotop && <BackToTop />}
+    {pageView.author && <Author />}
+    <div class="post">
+        {
+            postsWithMeta.map((post, index) => (
+                <PostCard
+                    key={post.slug}
+                    title={post.data.title}
+                    publishedTime={post.data.pubDate}
+                    modifiedTime={post.modifiedTime}
+                    postUrl={`/article/${post.slug}/`}
+                    imagePath={post.data.image.url}
+                    description={post.data.description}
+                    tags={post.data.tags}
+                    wordCount={post.wordCount}
+                    readTime={post.readTime}
+                    currentSlug={post.slug}
+                    altText={post.data.image.alt}
+                    loading={index < 3 ? "eager" : "lazy"}
+                    sticky={post.sticky}
+                />
+            ))
+        }
+    </div>
+    <Pagination page={page} />
+    {pageView.backtotop && <BackToTop />}
 </BaseLayout>
 
 <script>
-    import { pageviewCount } from '@waline/client/pageview';
-    import { commentCount } from '@waline/client/comment';
-    import { comment } from '~/self.config';
+    import { pageviewCount } from "@waline/client/pageview";
+    import { commentCount } from "@waline/client/comment";
+    import { comment } from "~/self.config";
 
-    document.addEventListener('astro:page-load', () => { 
-    const serverURL = comment.serverUrl
-    const path =  window.location.pathname
+    document.addEventListener("astro:page-load", () => {
+        const serverURL = comment.serverUrl;
+        const path = window.location.pathname;
 
-    pageviewCount({
-        serverURL,
-        path,
-    });
+        pageviewCount({
+            serverURL,
+            path,
+        });
 
-    commentCount({
-        serverURL,
-        path,
-    });
+        commentCount({
+            serverURL,
+            path,
+        });
     });
 </script>

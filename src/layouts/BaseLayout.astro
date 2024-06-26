@@ -1,23 +1,33 @@
 ---
-import BaseHead from '~/components/BaseHead/BaseHead.astro';
-import Header from '~/components/Header.astro';
-import Footer from '~/components/Footer.astro';
+import BaseHead from "~/components/BaseHead/BaseHead.astro";
+import Header from "~/components/Header.astro";
+import Footer from "~/components/Footer.astro";
 
-const { title, description, image, imageAlt, keywords = [], publishedTime = new Date(), modifiedTime = new Date(), mathjax = false, mermaid = false } = Astro.props
+const {
+    title,
+    description,
+    image,
+    imageAlt,
+    keywords = [],
+    publishedTime = new Date(),
+    modifiedTime = new Date(),
+    mathjax = false,
+    mermaid = false,
+} = Astro.props;
 ---
 
 <html lang="zh-CN">
-    <BaseHead 
-        title={title} 
-        description={description} 
-        image={image} 
+    <BaseHead
+        title={title}
+        description={description}
+        image={image}
         imageAlt={imageAlt}
         keywords={keywords}
         publishedTime={publishedTime}
         modifiedTime={modifiedTime}
         mathjax={mathjax}
         mermaid={mermaid}
-/>
+    />
     <body>
         <div id="app">
             <Header />
@@ -27,9 +37,9 @@ const { title, description, image, imageAlt, keywords = [], publishedTime = new 
             <Footer />
         </div>
         <script>
-            import { config } from '~/self.config'
+            import { config } from "~/self.config";
 
-            document.addEventListener('astro:page-load', () => {
+            document.addEventListener("astro:page-load", () => {
                 try {
                     // 是否启用跳转功能
                     const enable = config.redirect; // 设为 true 以启用跳转功能
@@ -43,7 +53,11 @@ const { title, description, image, imageAlt, keywords = [], publishedTime = new 
                     // 判断元素或其父元素是否包含指定类名
                     const hasIncludeClass = (element) => {
                         while (element) {
-                            if (includeClass.some(className => element.classList.contains(className))) {
+                            if (
+                                includeClass.some((className) =>
+                                    element.classList.contains(className),
+                                )
+                            ) {
                                 return true;
                             }
                             element = element.parentElement;
@@ -53,7 +67,11 @@ const { title, description, image, imageAlt, keywords = [], publishedTime = new 
                     // 判断元素或其父元素是否排除指定类名
                     const hasExcludeClass = (element) => {
                         while (element) {
-                            if (excludeClass.some(className => element.classList.contains(className))) {
+                            if (
+                                excludeClass.some((className) =>
+                                    element.classList.contains(className),
+                                )
+                            ) {
                                 return true;
                             }
                             element = element.parentElement;
@@ -67,7 +85,10 @@ const { title, description, image, imageAlt, keywords = [], publishedTime = new 
                         // 检查链接是否排除指定类名
                         if (hasExcludeClass(link)) return;
                         // 检查链接是否包含 target="_blank" 属性或指定的类名
-                        if (link.getAttribute("target") === "_blank" || hasIncludeClass(link)) {
+                        if (
+                            link.getAttribute("target") === "_blank" ||
+                            hasIncludeClass(link)
+                        ) {
                             const linkHref = link.getAttribute("href");
                             // 存在链接且非中转页
                             if (linkHref && !linkHref.includes(redirectPage)) {

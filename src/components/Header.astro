@@ -1,34 +1,34 @@
 ---
-import Logo from '~/components/Logo.astro'
-import SearchBox from '~/components/SearchBox.astro'
-import ToggleTheme from '~/components/ToggleTheme.astro'
-import { search } from '~/self.config'
-const { searchEnable = search.enable || false } = Astro.props
+import Logo from "~/components/Logo.astro";
+import SearchBox from "~/components/SearchBox.astro";
+import ToggleTheme from "~/components/ToggleTheme.astro";
+import { search } from "~/self.config";
+const { searchEnable = search.enable || false } = Astro.props;
 ---
 
 <header id="nprogress-container">
-  <div class="fullwidth">
-    <div class="header__left">
-      <Logo />
+    <div class="fullwidth">
+        <div class="header__left">
+            <Logo />
+        </div>
+        <div class="header__right">
+            {searchEnable && <SearchBox />}
+            <ToggleTheme />
+        </div>
     </div>
-    <div class="header__right">
-      {searchEnable && <SearchBox />}
-      <ToggleTheme />
-    </div>
-  </div>
 </header>
 
 <script>
-  import NProgress from 'nprogress'
+    import NProgress from "nprogress";
 
-  document.addEventListener('astro:page-load', () => {
-    NProgress.configure({
-      easing: 'ease',
-      speed: 500,
-      showSpinner: false,
-      parent: '#nprogress-container',
-    })
-    NProgress.set(0.1);
-    NProgress.done();
-  })
+    document.addEventListener("astro:page-load", () => {
+        NProgress.configure({
+            easing: "ease",
+            speed: 500,
+            showSpinner: false,
+            parent: "#nprogress-container",
+        });
+        NProgress.set(0.1);
+        NProgress.done();
+    });
 </script>

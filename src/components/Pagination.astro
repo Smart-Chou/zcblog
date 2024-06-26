@@ -1,50 +1,69 @@
 ---
-import { Icon } from 'astro-icon/components'
-const { page } = Astro.props
+import { Icon } from "astro-icon/components";
+const { page } = Astro.props;
 ---
 
 <nav id="pagination" aria-label="Pagination Navigation">
-  <a href={page.url.prev ?? '#'} aria-label="Previous" class={page.url.prev ? '' : 'disabled'}>
-    <Icon name="tabler:arrow-badge-left-filled" />
-  </a>
-  {
-    (() => {
-      const pages: number[] = []
-      const totalPages = page.lastPage
-      const currentPage = page.currentPage
-      let startPage = 1
-      let endPage = 1
+    <a
+        href={page.url.prev ?? "#"}
+        aria-label="Previous"
+        class={page.url.prev ? "" : "disabled"}
+    >
+        <Icon name="tabler:arrow-badge-left-filled" />
+    </a>
+    {
+        (() => {
+            const pages: number[] = [];
+            const totalPages = page.lastPage;
+            const currentPage = page.currentPage;
+            let startPage = 1;
+            let endPage = 1;
 
-      if (totalPages < 6) {
-        // 总页数小于等于5，显示所有页码
-        startPage = 1
-        endPage = totalPages
-      } else if (currentPage < 4) {
-        // 当前页码靠近开始位置
-        startPage = 1
-        endPage = 5
-      } else if (currentPage + 3 > totalPages) {
-        // 当前页码靠近结束位置
-        startPage = totalPages - 4
-        endPage = totalPages
-      } else {
-        // 当前页码在中间位置
-        startPage = currentPage - 2
-        endPage = currentPage + 2
-      }
+            if (totalPages < 6) {
+                // 总页数小于等于5，显示所有页码
+                startPage = 1;
+                endPage = totalPages;
+            } else if (currentPage < 4) {
+                // 当前页码靠近开始位置
+                startPage = 1;
+                endPage = 5;
+            } else if (currentPage + 3 > totalPages) {
+                // 当前页码靠近结束位置
+                startPage = totalPages - 4;
+                endPage = totalPages;
+            } else {
+                // 当前页码在中间位置
+                startPage = currentPage - 2;
+                endPage = currentPage + 2;
+            }
 
-      for (let pageNumber = startPage; pageNumber < endPage + 1; pageNumber++) {
-        const href = pageNumber === 1 ? '/' : `/${pageNumber}/`
-        pages.push(
-          <a data-key={pageNumber} href={href} aria-current={pageNumber === currentPage ? 'page' : null} class={pageNumber=== currentPage ? 'active' : ''}>
-            {pageNumber}
-          </a>
-        )
-      }
-      return pages
-    })()
-  }
-  <a href={page.url.next ?? '#'} aria-label="Next" class={page.url.next ? '' : 'disabled'}>
-    <Icon name="tabler:arrow-badge-right-filled" />
-  </a>
+            for (
+                let pageNumber = startPage;
+                pageNumber < endPage + 1;
+                pageNumber++
+            ) {
+                const href = pageNumber === 1 ? "/" : `/${pageNumber}/`;
+                pages.push(
+                    <a
+                        data-key={pageNumber}
+                        href={href}
+                        aria-current={
+                            pageNumber === currentPage ? "page" : null
+                        }
+                        class={pageNumber === currentPage ? "active" : ""}
+                    >
+                        {pageNumber}
+                    </a>,
+                );
+            }
+            return pages;
+        })()
+    }
+    <a
+        href={page.url.next ?? "#"}
+        aria-label="Next"
+        class={page.url.next ? "" : "disabled"}
+    >
+        <Icon name="tabler:arrow-badge-right-filled" />
+    </a>
 </nav>

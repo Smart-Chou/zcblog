@@ -1,56 +1,64 @@
 ---
-import { Icon } from 'astro-icon/components'
+import { Icon } from "astro-icon/components";
 ---
 
-<button id="theme-btn" role="button" aria-label="Toggle dark/light" class="toggle-theme">
-  <Icon name="tabler:sun" class="feather feather-sun" />
-  <Icon name="tabler:moon-stars" class="feather feather-moon" />
+<button
+    id="theme-btn"
+    role="button"
+    aria-label="Toggle dark/light"
+    class="toggle-theme"
+>
+    <Icon name="tabler:sun" class="feather feather-sun" />
+    <Icon name="tabler:moon-stars" class="feather feather-moon" />
 </button>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
-    function __setPreferredTheme(theme: string) {
-      document.documentElement.setAttribute('data-theme', theme)
-      localStorage.setItem('preferredTheme', theme)
-    }
+    document.addEventListener("astro:page-load", () => {
+        // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
+        function __setPreferredTheme(theme: string) {
+            document.documentElement.setAttribute("data-theme", theme);
+            localStorage.setItem("preferredTheme", theme);
+        }
 
-    // 从 localStorage 获取首选主题
-    const preferredTheme = localStorage.getItem('preferredTheme') || 'light'
-    __setPreferredTheme(preferredTheme)
+        // 从 localStorage 获取首选主题
+        const preferredTheme =
+            localStorage.getItem("preferredTheme") || "light";
+        __setPreferredTheme(preferredTheme);
 
-    // 主题切换功能
-    const themeBtn = document.getElementById('theme-btn')
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme')
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark'
-        __setPreferredTheme(newTheme)
-      })
-    }
-  })
+        // 主题切换功能
+        const themeBtn = document.getElementById("theme-btn");
+        if (themeBtn) {
+            themeBtn.addEventListener("click", () => {
+                const currentTheme =
+                    document.documentElement.getAttribute("data-theme");
+                const newTheme = currentTheme === "dark" ? "light" : "dark";
+                __setPreferredTheme(newTheme);
+            });
+        }
+    });
 </script>
 
 <script>
-  document.addEventListener('astro:after-swap', () => {
-    const preferredTheme = localStorage.getItem('preferredTheme') || 'light'
-    document.documentElement.setAttribute('data-theme', preferredTheme)
-    if (preferredTheme === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  })
+    document.addEventListener("astro:after-swap", () => {
+        const preferredTheme =
+            localStorage.getItem("preferredTheme") || "light";
+        document.documentElement.setAttribute("data-theme", preferredTheme);
+        if (preferredTheme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    });
 </script>
 
 <style>
-  [data-icon='tabler:sun'] {
-    width: 30px;
-    height: 30px;
-  }
+    [data-icon="tabler:sun"] {
+        width: 30px;
+        height: 30px;
+    }
 
-  [data-icon='tabler:moon-stars'] {
-    width: 30px;
-    height: 24px;
-  }
+    [data-icon="tabler:moon-stars"] {
+        width: 30px;
+        height: 24px;
+    }
 </style>

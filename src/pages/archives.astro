@@ -1,69 +1,81 @@
 ---
-import { getCollection } from 'astro:content'
-import BaseLayout from '~/layouts/BaseLayout.astro'
-import PostLayout from '~/layouts/PostLayout.astro'
-import Archive from '~/components/Archive.astro'
-import { site, archivesPage } from '~/self.config'
+import { getCollection } from "astro:content";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import PostLayout from "~/layouts/PostLayout.astro";
+import Archive from "~/components/Archive.astro";
+import { site, archivesPage } from "~/self.config";
 
-const allPosts = await getCollection('article')
+const allPosts = await getCollection("article");
 
 // 获取每篇文章的 remarkPluginFrontmatter 信息
 const postsWithMeta = await Promise.all(
-  allPosts.map(async post => {
-    const { remarkPluginFrontmatter } = await post.render()
-    return {
-      ...post,
-      remarkPluginFrontmatter
-    }
-  })
-)
+    allPosts.map(async (post) => {
+        const { remarkPluginFrontmatter } = await post.render();
+        return {
+            ...post,
+            remarkPluginFrontmatter,
+        };
+    }),
+);
 
 const postsByYear = postsWithMeta.reduce((acc, post) => {
-  const year = new Date(post.data.pubDate).getFullYear()
-  if (!acc[year]) {
-    acc[year] = []
-  }
-  acc[year].push(post)
-  return acc
-}, {})
+    const year = new Date(post.data.pubDate).getFullYear();
+    if (!acc[year]) {
+        acc[year] = [];
+    }
+    acc[year].push(post);
+    return acc;
+}, {});
 
 // 计算总词数
-const totalPosts = postsWithMeta.length
-const totalWords = postsWithMeta.reduce((sum, post) => sum + post.remarkPluginFrontmatter.readTime.words, 0)
-const totalWordsInThousands = (totalWords / 1000).toFixed(1) + 'k'
-const startYear = Math.min(...postsWithMeta.map(post => new Date(post.data.pubDate).getFullYear()))
+const totalPosts = postsWithMeta.length;
+const totalWords = postsWithMeta.reduce(
+    (sum, post) => sum + post.remarkPluginFrontmatter.readTime.words,
+    0,
+);
+const totalWordsInThousands = (totalWords / 1000).toFixed(1) + "k";
+const startYear = Math.min(
+    ...postsWithMeta.map((post) => new Date(post.data.pubDate).getFullYear()),
+);
 ---
 
-<BaseLayout 
-  title={`${archivesPage.title} - ${site.title}`} 
-  description={`${archivesPage.description} - ${site.description}`}
-  image={`${Astro.site + site.coverImage}`}
-  imageAlt={archivesPage.description}
-  keywords={[`${archivesPage.title}`]}
+<BaseLayout
+    title={`${archivesPage.title} - ${site.title}`}
+    description={`${archivesPage.description} - ${site.description}`}
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt={archivesPage.description}
+    keywords={[`${archivesPage.title}`]}
 >
-  <h1 class="text-center space-bottom">Archives</h1>
-  <PostLayout>
-    <p style="opacity: 0.6">
-      <strong>(｡･∀･)ﾉﾞ 自 {startYear} 以来, 我共发布了 {totalPosts} 篇文章，共计 {totalWordsInThousands} 字。</strong>
-    </p>
-    {
-      Object.keys(postsByYear)
-        .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
-        .map(year => (
-          <section data-key={year}>
-            <h2>{year}</h2>
-            {postsByYear[year]
-              .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
-              .map(post => (
-                <Archive
-                  key={post.slug} 
-                  url={`/article/${post.slug}/`} 
-                  title={post.data.title} 
-                  publishedTime={post.data.pubDate} 
-                />
-              ))}
-          </section>
-        ))
-    }
-  </PostLayout>
+    <h1 class="text-center space-bottom">Archives</h1>
+    <PostLayout>
+        <p style="opacity: 0.6">
+            <strong
+                >(｡･∀･)ﾉﾞ 自 {startYear} 以来, 我共发布了 {totalPosts} 篇文章，共计
+                {totalWordsInThousands} 字。</strong
+            >
+        </p>
+        {
+            Object.keys(postsByYear)
+                .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+                .map((year) => (
+                    <section data-key={year}>
+                        <h2>{year}</h2>
+                        {postsByYear[year]
+                            .sort(
+                                (a, b) =>
+                                    new Date(b.data.pubDate).getTime() -
+                                    new Date(a.data.pubDate).getTime(),
+                            )
+                            .map((post) => (
+                                <Archive
+                                    key={post.slug}
+                                    url={`/article/${post.slug}/`}
+                                    title={post.data.title}
+                                    publishedTime={post.data.pubDate}
+                                />
+                            ))}
+                    </section>
+                ))
+        }
+    </PostLayout>
 </BaseLayout>

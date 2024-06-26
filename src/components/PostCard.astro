@@ -1,30 +1,68 @@
 ---
-import PostLayout from '~/layouts/PostLayout.astro'
-import PostTag from '~/components/PostTag.astro'
-import PostMeta from '~/components/PostMeta.astro'
-import PostCardImage from '~/components/PostCardImage.astro'
-import { Icon } from 'astro-icon/components'
+import PostLayout from "~/layouts/PostLayout.astro";
+import PostTag from "~/components/PostTag.astro";
+import PostMeta from "~/components/PostMeta.astro";
+import PostCardImage from "~/components/PostCardImage.astro";
+import { Icon } from "astro-icon/components";
 
-const { altText, imagePath, title, description, publishedTime, tags, postUrl, wordCount, readTime, currentSlug, modifiedTime, loading, sticky } = Astro.props
-const isDefaultImage = /^https:\/\/pic\.mch\.icu\/images(\?.*)?$/.test(imagePath);
+const {
+    altText,
+    imagePath,
+    title,
+    description,
+    publishedTime,
+    tags,
+    postUrl,
+    wordCount,
+    readTime,
+    currentSlug,
+    modifiedTime,
+    loading,
+    sticky,
+} = Astro.props;
+const isDefaultImage = /^https:\/\/pic\.mch\.icu\/images(\?.*)?$/.test(
+    imagePath,
+);
 ---
 
 <PostLayout>
-  <div class="post-card__header">
-    {isDefaultImage ? 
-        <img src={imagePath} alt="random image" class="post-card__image" loading="eager"/> 
-        : 
-        <PostCardImage imagePath={imagePath} altText={altText} loading={loading} />
-    }
-    { sticky > 0 &&
-      <Icon name="tabler:flame" style="color:red; position: absolute;top: 10px; right: 10px; width: 30px; height: 30px;" />
-    }
-  </div>
-  <h2 class="post-card__title">{title}</h2>
-  <p class="post-card__description">{description}</p>
-  <PostMeta publishedTime={publishedTime} modifiedTime={modifiedTime} wordCount={wordCount} readTime={readTime} currentSlug={currentSlug} />
-  <div class="post-tags post-card__tags">
-    {tags.map(tag => <PostTag tag={tag} url={`/tag/${tag}/`} />)}
-  </div>
-  <a href={postUrl} class="post-card__link">Link</a>
+    <div class="post-card__header">
+        {
+            isDefaultImage ? (
+                <img
+                    src={imagePath}
+                    alt="random image"
+                    class="post-card__image"
+                    loading="eager"
+                />
+            ) : (
+                <PostCardImage
+                    imagePath={imagePath}
+                    altText={altText}
+                    loading={loading}
+                />
+            )
+        }
+        {
+            sticky > 0 && (
+                <Icon
+                    name="tabler:flame"
+                    style="color:red; position: absolute;top: 10px; right: 10px; width: 30px; height: 30px;"
+                />
+            )
+        }
+    </div>
+    <h2 class="post-card__title">{title}</h2>
+    <p class="post-card__description">{description}</p>
+    <PostMeta
+        publishedTime={publishedTime}
+        modifiedTime={modifiedTime}
+        wordCount={wordCount}
+        readTime={readTime}
+        currentSlug={currentSlug}
+    />
+    <div class="post-tags post-card__tags">
+        {tags.map((tag) => <PostTag tag={tag} url={`/tag/${tag}/`} />)}
+    </div>
+    <a href={postUrl} class="post-card__link">Link</a>
 </PostLayout>
