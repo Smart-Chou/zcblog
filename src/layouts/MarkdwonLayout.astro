@@ -36,16 +36,16 @@ const isDefaultImage = /^https:\/\/pic\.mch\.icu\/images(\?.*)?$/.test(
     frontmatter.image.url,
 );
 
-let imageUrl = Astro.site + frontmatter.image.url;
+let imageUrl = frontmatter.image.url;
 if (isDefaultImage) {
-    imageUrl = Astro.site + site.coverImage;
+    imageUrl = site.coverImage;
 }
 ---
 
 <BaseLayout
     title={`${frontmatter.title} - ${site.title}`}
     description={`${frontmatter.title} - ${frontmatter.description}`}
-    image={imageUrl}
+    image={`${site.url}/assets/${imageUrl}`}
     imageAlt={frontmatter.image.alt}
     keywords={frontmatter.tags}
     publishedTime={publishedTime}
