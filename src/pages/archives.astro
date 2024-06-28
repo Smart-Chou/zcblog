@@ -4,16 +4,16 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 import PostLayout from "~/layouts/PostLayout.astro";
 import Archive from "~/components/Archive.astro";
 import { site, archivesPage } from "~/self.config";
+import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
 const allPosts = await getCollection("article");
 
-// 获取每篇文章的 remarkPluginFrontmatter 信息
 const postsWithMeta = await Promise.all(
     allPosts.map(async (post) => {
-        const { remarkPluginFrontmatter } = await post.render();
+        const { wordCount } = getPostsWithMeta(post);
         return {
             ...post,
-            remarkPluginFrontmatter,
+            wordCount,
         };
     }),
 );
@@ -30,7 +30,7 @@ const postsByYear = postsWithMeta.reduce((acc, post) => {
 // 计算总词数
 const totalPosts = postsWithMeta.length;
 const totalWords = postsWithMeta.reduce(
-    (sum, post) => sum + post.remarkPluginFrontmatter.readTime.words,
+    (sum, post) => sum + post.wordCount,
     0,
 );
 const totalWordsInThousands = (totalWords / 1000).toFixed(1) + "k";
@@ -44,7 +44,7 @@ const startYear = Math.min(
     description={`${archivesPage.description} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={archivesPage.description}
-    keywords={[`${archivesPage.title}`]}
+    keywords="Archives"
 >
     <h1 class="text-center space-bottom">Archives</h1>
     <PostLayout>

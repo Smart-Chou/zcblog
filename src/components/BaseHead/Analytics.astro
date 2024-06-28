@@ -1,9 +1,11 @@
 ---
 import { config } from "~/self.config";
-import { GoogleAnalytics } from "@astrolib/analytics";
 ---
 
-<!-- Analytics -->{
+<!-- Analytics -->
+
+<!-- Umami -->
+{
     config.umami && (
         <>
             <script
@@ -17,10 +19,20 @@ import { GoogleAnalytics } from "@astrolib/analytics";
         </>
     )
 }
+
+<!-- Google Analytics -->
 {
     config.ga && (
         <>
-            <GoogleAnalytics id={String(config.ga)} />
+            <script is:inline type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${config.ga}`}></script>
+            <script is:inline define:vars={{ga: config.ga }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                window.dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", ga);
+            </script>
         </>
     )
 }

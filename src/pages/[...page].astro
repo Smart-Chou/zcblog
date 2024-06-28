@@ -46,7 +46,7 @@ const postsWithMeta = page.data.map((post) => {
     description={`${site.title} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={site.coverImageAlt}
-    keywords={String(site.keywords).replace(/\s+/g, "").split(",")}
+    keywords={site.keywords}
 >
     {pageView.author && <Author />}
     <div class="post">

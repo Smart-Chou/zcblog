@@ -3,7 +3,6 @@ import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import mdx from "@astrojs/mdx";
 import remarkDirective from "remark-directive";
-import { remarkModifiedTime } from "./src/remarkPlugin/remark-modified-time.mjs";
 import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
 import { remarkAsides } from "./src/remarkPlugin/remark-asides.js";
 import { remarkDeruntify } from "./src/remarkPlugin/remaek-deruntify.js";
@@ -19,7 +18,6 @@ export default defineConfig({
     site: "https://marxchou.com",
     markdown: {
         remarkPlugins: [
-            remarkModifiedTime,
             remarkDeruntify,
             resetRemark,
             remarkDirective,

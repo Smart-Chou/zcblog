@@ -1,21 +1,29 @@
 ---
-
+const currentPath = Astro.url.pathname;
+let ldJson = false;
+if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {
+    ldJson = true;
+}
 ---
 
 <!-- JSON-LD -->
-<script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "SEO",
-        "image": [""],
-        "url": "https://marxchou.com",
-        "dateModified": "2024-05-30T13:40:11.000Z",
-        "author": [
+{ldJson && (
+    <>
+        <script type="application/ld+json">
             {
-                "@type": "Person",
-                "name": "Mr.Hope"
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": "SEO",
+                "image": [""],
+                "url": "https://marxchou.com",
+                "dateModified": "2024-06-28T00:00:00+00:00",
+                "author": [
+                    {
+                        "@type": "Person",
+                        "name": "MarxChou"
+                    }
+                ]
             }
-        ]
-    }
-</script>
+        </script>
+    </>
+)}

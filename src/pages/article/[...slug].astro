@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import MarkdwonLayout from "~/layouts/MarkdwonLayout.astro";
+import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
 export async function getStaticPaths() {
     const article = await getCollection("article");
@@ -11,16 +12,18 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, remarkPluginFrontmatter } = await entry.render();
+const { Content } = await entry.render();
 
-const modifiedTime = remarkPluginFrontmatter.modifiedTime;
-const readTime = remarkPluginFrontmatter.readTime;
+const modifiedTime = getPostsWithMeta(entry).modifiedTime;
+const readTime = getPostsWithMeta(entry).readTime;
+const wordCount = getPostsWithMeta(entry).wordCount;
 ---
 
 <MarkdwonLayout
     frontmatter={entry.data}
     modifiedTime={modifiedTime}
     readTime={readTime}
+    wordCount={wordCount}
 >
     <Content />
 </MarkdwonLayout>

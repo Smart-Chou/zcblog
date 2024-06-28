@@ -13,7 +13,7 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
     description={`${tagsPage.description} -  ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={tagsPage.title}
-    keywords={[`${tagsPage.title}`]}
+    keywords="Tags"
 >
     <h1 class="tag-title text-center space-bottom">{tagsPage.title}</h1>
     <PostLayout>

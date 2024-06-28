@@ -9,7 +9,7 @@ import "~/styles/redirect.css";
     description={`${redirectPage.title} - ${redirectPage.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={redirectPage.title}
-    keywords={[`${redirectPage.title}`]}
+    keywords="redirect"
 >
     <div class="redirect">
         <span class="redirect-tip" id="redirect-tip"
@@ -35,7 +35,9 @@ import "~/styles/redirect.css";
         const jumpButton = document.getElementById("jump-button");
         // 网址白名单
         const whitelist = [
+            "marxchou.com",
             "*.marxchou.com",
+            "mch.icu",
             "*.mch.icu",
             "github.com",
             "astro.build",

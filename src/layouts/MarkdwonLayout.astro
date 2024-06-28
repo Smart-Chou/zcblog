@@ -22,6 +22,7 @@ const {
     },
     modifiedTime,
     readTime,
+    wordCount,
 } = Astro.props;
 
 const today = new Date();
@@ -45,7 +46,7 @@ if (isDefaultImage) {
 <BaseLayout
     title={`${frontmatter.title} - ${site.title}`}
     description={`${frontmatter.title} - ${frontmatter.description}`}
-    image={`${site.url}/assets/${imageUrl}`}
+    image={`${Astro.site}${imageUrl}`}
     imageAlt={frontmatter.image.alt}
     keywords={frontmatter.tags}
     publishedTime={publishedTime}
@@ -61,8 +62,8 @@ if (isDefaultImage) {
         <PostMeta
             publishedTime={publishedTime}
             modifiedTime={modifiedTime}
-            wordCount={readTime.words}
-            readTime={readTime.text}
+            wordCount={wordCount}
+            readTime={readTime}
             currentSlug={currentSlug}
         />
     </div>
