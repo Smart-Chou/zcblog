@@ -9,7 +9,7 @@ if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {
     ogType = "article";
 }
 
-const keywordsString = keywords.join(", ").split(",");
+const keywordsArray = Array.isArray(keywords) ? keywords : [keywords];
 ---
 
 <!-- Open Graph: Article -->
@@ -17,6 +17,6 @@ const keywordsString = keywords.join(", ").split(",");
 <meta property="article:author" content={site.author} />
 <meta property="article:publisher" content={site.author} />
 <meta property="article:section" content={site.subtitle} />
-{keywordsString.map((keyword) => <meta property="article:tag" content={keyword} />)}
+{keywordsArray.map((keyword) => <meta property="article:tag" content={keyword} />)}
 <meta property="article:published_time" content={publishedTime.toISOString()} />
 <meta property="article:modified_time" content={modifiedTime} />
