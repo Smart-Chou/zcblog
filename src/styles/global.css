@@ -3290,3 +3290,9 @@ html[data-theme="dark"] {
 .analytics img {
     padding: 0 0.2rem;
 }
+
+@media screen and (max-width: 650px) {
+    .post-card__image {
+        max-height: 10rem;
+    }
+}
