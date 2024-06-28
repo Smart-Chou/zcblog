@@ -2,21 +2,16 @@
 import { config } from "~/self.config";
 ---
 
-<!-- Analytics -->
-
-<!-- Umami -->
-{
+<!-- Analytics --><!-- Umami -->{
     config.umami && (
-        <>
-            <script
-                is:inline
-                type="text/partytown"
-                src="https://umami.marxchou.com/script.js"
-                defer
-                data-website-id={String(config.umami)}
-                data-domains="marxchou.com"
-            />
-        </>
+        <script
+            is:inline
+            type="text/partytown"
+            src="https://umami.marxchou.com/script.js"
+            defer
+            data-website-id={String(config.umami)}
+            data-domains="marxchou.com"
+        />
     )
 }
 
@@ -24,14 +19,20 @@ import { config } from "~/self.config";
 {
     config.ga && (
         <>
-            <script is:inline type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${config.ga}`}></script>
-            <script is:inline define:vars={{ga: config.ga }}>
+            <script
+                is:inline
+                type="text/partytown"
+                src={`https://www.googletagmanager.com/gtag/js?id=${config.ga}`}
+            />
+            <script is:inline>
+                {`
             window.dataLayer = window.dataLayer || [];
             function gtag() {
                 window.dataLayer.push(arguments);
             }
             gtag("js", new Date());
-            gtag("config", ga);
+            gtag("config", "${config.ga}");
+            `}
             </script>
         </>
     )

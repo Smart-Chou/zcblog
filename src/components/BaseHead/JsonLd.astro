@@ -1,29 +1,27 @@
 ---
+import { site } from "~/self.config";
 const currentPath = Astro.url.pathname;
-let ldJson = false;
+let ldJson = "website";
 if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {
-    ldJson = true;
+    ldJson = "article";
 }
+
+const { title, imageUrl, modifindTime, author, authorUrl } = Astro.props;
+
+const ldJsonSchema = {
+    "@context": "https://schema.org",
+    "@type": ldJson,
+    headline: title,
+    image: imageUrl,
+    url: Astro.site,
+    dateModified: modifindTime,
+    author: {
+        "@type": "Person",
+        name: site.author,
+        url: site.authorUrl,
+    },
+};
 ---
 
 <!-- JSON-LD -->
-{ldJson && (
-    <>
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "Article",
-                "headline": "SEO",
-                "image": [""],
-                "url": "https://marxchou.com",
-                "dateModified": "2024-06-28T00:00:00+00:00",
-                "author": [
-                    {
-                        "@type": "Person",
-                        "name": "MarxChou"
-                    }
-                ]
-            }
-        </script>
-    </>
-)}
+<script type="application/ld+json" set:html={JSON.stringify(ldJsonSchema)} />

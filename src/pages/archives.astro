@@ -29,10 +29,7 @@ const postsByYear = postsWithMeta.reduce((acc, post) => {
 
 // 计算总词数
 const totalPosts = postsWithMeta.length;
-const totalWords = postsWithMeta.reduce(
-    (sum, post) => sum + post.wordCount,
-    0,
-);
+const totalWords = postsWithMeta.reduce((sum, post) => sum + post.wordCount, 0);
 const totalWordsInThousands = (totalWords / 1000).toFixed(1) + "k";
 const startYear = Math.min(
     ...postsWithMeta.map((post) => new Date(post.data.pubDate).getFullYear()),

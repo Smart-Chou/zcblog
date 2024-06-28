@@ -87,7 +87,8 @@ const {
                         // 检查链接是否为相对路径
                         const linkHref = link.getAttribute("href");
                         // 检查链接是否为相对路径或根路径
-                        const isRelativeOrRootPath = linkHref && /^(\.|\/(?!\/))/.test(linkHref);
+                        const isRelativeOrRootPath =
+                            linkHref && /^(\.|\/(?!\/))/.test(linkHref);
                         if (isRelativeOrRootPath) return;
                         // 检查链接是否包含 target="_blank" 属性或指定的类名
                         if (
@@ -107,11 +108,20 @@ const {
                                 link.setAttribute("target", "_blank");
                                 // 创建并插入 SVG 图标
                                 if (hasIncludeClass(link)) {
-                                    const svgIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                                    const svgIcon = document.createElementNS(
+                                        "http://www.w3.org/2000/svg",
+                                        "svg",
+                                    );
                                     svgIcon.setAttribute("width", "16");
                                     svgIcon.setAttribute("height", "16");
-                                    svgIcon.setAttribute("viewBox", "0 0 100 100");
-                                    svgIcon.setAttribute("fill", "currentColor");
+                                    svgIcon.setAttribute(
+                                        "viewBox",
+                                        "0 0 100 100",
+                                    );
+                                    svgIcon.setAttribute(
+                                        "fill",
+                                        "currentColor",
+                                    );
                                     svgIcon.innerHTML = `
                                         <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
                                     `;

@@ -12,6 +12,7 @@
  * author {string} 作者  
  * motto {string} 个人资料中使用的口头禅  
  * avatar {string} 个人资料中使用的头像  
+ * authorUrl {string} 作者个性独立页面,如果有的话
  * coverImage {string} 网站封面  
  * coverImageAlt {string} 网站封面Alt  
  * url {string} 网站链接  
@@ -28,6 +29,7 @@ export const site = {
   favicon: 'favicon.svg',
   logo: 'logo.svg',
   author: 'Spencer Woo',
+  authorUrl: 'https://marxchou.com',
   motto: '阿巴阿巴 o((>ω< ))o',
   avatar: 'author.jpg',
   coverImage: 'cover.png',

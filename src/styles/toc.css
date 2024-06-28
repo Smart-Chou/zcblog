@@ -51,7 +51,7 @@ html[data-theme="dark"]:root {
 .toc__content {
     position: fixed;
     left: calc((100vw - min(100vw, 664px)) / 2 + min(100vw, 664px) + 178px);
-    top: 500px;
+    top: 50%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     z-index: 90;

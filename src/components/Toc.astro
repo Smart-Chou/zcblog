@@ -23,35 +23,22 @@ import "~/styles/toc.css";
             ".toc__content",
         ) as HTMLElement;
         const post = document.querySelector(".post") as HTMLElement;
-        const author = document.querySelector(".footer") as HTMLElement;
-        if (tocContent && post && author) {
+        const footer = document.querySelector(".post__footer") as HTMLElement;
+        if (tocContent && post && footer) {
             window.addEventListener("scroll", function () {
-                const postBottom = post.getBoundingClientRect().bottom;
-                const authorTop = author.getBoundingClientRect().top;
+                const postBottom =
+                    post.getBoundingClientRect().bottom + footer.offsetHeight;
                 const viewportHeight = window.innerHeight;
-                const tocContentHeight = tocContent
-                    ? tocContent.offsetHeight
-                    : 0; // Check if directory is not null
+                const postScrollHeight =
+                    viewportHeight / 2 + tocContent.offsetHeight;
 
-                if (postBottom <= viewportHeight) {
+                if (postBottom <= postScrollHeight) {
                     tocContent.style.position = "absolute";
-                    tocContent.style.top =
-                        window.scrollY +
-                        postBottom -
-                        tocContentHeight -
-                        300 +
-                        "px";
-                } else if (authorTop <= viewportHeight) {
-                    tocContent.style.position = "absolute";
-                    tocContent.style.top =
-                        window.scrollY +
-                        authorTop -
-                        tocContentHeight -
-                        300 +
-                        "px";
+                    tocContent.style.top = `${((window.scrollY + postBottom - tocContent.offsetHeight) / viewportHeight) * 100}dvh`;
                 } else {
                     tocContent.style.position = "fixed";
-                    tocContent.style.top = "500px";
+                    tocContent.style.top = "50%";
+                    tocContent.style.transform = "translateY(-50%)";
                 }
             });
         }
