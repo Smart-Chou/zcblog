@@ -1,6 +1,8 @@
 ---
 import { site } from "~/self.config";
-const { title, description } = Astro.props;
+const { title, description, keywords } = Astro.props;
+
+const keywordsArray = Array.isArray(keywords) ? keywords : [keywords];
 ---
 
 <!-- Global Meta -->
@@ -9,6 +11,6 @@ const { title, description } = Astro.props;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
-<meta name="keywords" content={site.keywords} />
+<meta name="keywords" content={keywordsArray.join(",")} />
 <meta name="author" content={site.author} />
 <meta name="generator" content={Astro.generator} />

@@ -6,7 +6,7 @@ if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {
     ldJson = "article";
 }
 
-const { title, imageUrl, modifindTime, author, authorUrl } = Astro.props;
+const { title, imageUrl, modifiedTime } = Astro.props;
 
 const ldJsonSchema = {
     "@context": "https://schema.org",
@@ -14,7 +14,7 @@ const ldJsonSchema = {
     headline: title,
     image: imageUrl,
     url: Astro.site,
-    dateModified: modifindTime,
+    dateModified: modifiedTime,
     author: {
         "@type": "Person",
         name: site.author,

@@ -1,6 +1,8 @@
 ---
 import { site, config } from "~/self.config";
 const { title, description, image, imageAlt, modifiedTime } = Astro.props;
+
+const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!-- Open Graph -->
@@ -9,10 +11,9 @@ const { title, description, image, imageAlt, modifiedTime } = Astro.props;
 <meta property="og:image" content={image} />
 <meta property="og:image:alt" content={imageAlt} />
 <meta property="og:image:width" content="1200" />
-<meta property="og:image:alt" content={imageAlt} />
-<meta property="og:image:type" content="image/jpeg" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:secure_url" content={Astro.url} />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:url" content={fullUrl} />
+<meta property="og:secure_url" content={fullUrl} />
 <meta property="og:site_name" content={site.author} />
 <meta property="og:locale" content={config.lang} />
 <meta property="og:updated_time" content={modifiedTime} />

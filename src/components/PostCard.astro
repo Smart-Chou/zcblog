@@ -20,7 +20,6 @@ const {
     loading,
     sticky,
 } = Astro.props;
-
 const isDefaultImage = /^https:\/\/pic\.mch\.icu\/images(\?.*)?$/.test(
     imagePath,
 );
@@ -34,7 +33,7 @@ const isDefaultImage = /^https:\/\/pic\.mch\.icu\/images(\?.*)?$/.test(
                     src={imagePath}
                     alt="random image"
                     class="post-card__image"
-                    loading="lazy"
+                    loading="eager"
                 />
             ) : (
                 <PostCardImage

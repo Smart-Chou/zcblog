@@ -25,7 +25,7 @@ const {
 ---
 
 <head>
-    <GlobalMeta title={title} description={description} />
+    <GlobalMeta title={title} description={description} keywords={keywords} />
     <OpenGraph
         title={title}
         description={description}
@@ -46,7 +46,11 @@ const {
     />
     <Robots />
     <Favicon />
-    <JsonLd />
+    <JsonLd
+        title={title}
+        description={description}
+        modifiedTime={modifiedTime}
+    />
     <Analytics />
     <Scripts mathjax={mathjax} mermaid={mermaid} />
     <ViewTransitions />

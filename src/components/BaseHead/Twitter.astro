@@ -1,6 +1,8 @@
 ---
 import { site } from "~/self.config";
 const { title, description, image, imageAlt } = Astro.props;
+
+const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!-- Twitter Card -->
@@ -9,6 +11,6 @@ const { title, description, image, imageAlt } = Astro.props;
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={image} />
 <meta name="twitter:image:alt" content={imageAlt} />
-<meta name="twitter:url" content={Astro.url} />
+<meta name="twitter:url" content={fullUrl} />
 <meta name="twitter:creator" content={`@${site.author}`} />
 <meta name="twitter:site" content={`@${site.title}`} />
