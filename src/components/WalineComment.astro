@@ -37,31 +37,29 @@
             return;
         }
 
-        
-            const origin = comment.serverUrl;
-            const walineProps = walineElement!.dataset;
-            init({
-                el: "#waline",
-                serverURL: origin,
-                comment: true,
-                locale,
-                path: walineProps.walinePath!,
-                lang: comment.lang,
-                pageSize: comment.pageSize,
-                pageview: true,
-                requiredMeta: ["nick", "mail"],
-                reaction: comment.whiteList.includes(location.pathname)
-                    ? false
-                    : comment.reaction,
-                login: "disable",
-                search: comment.search,
-                dark: 'html[data-theme="dark"]',
-                emoji: [
-                    "https://unpkg.com/@waline/emojis@1.2.0/qq",
-                    "https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili",
-                ],
-            });
-        
+        const origin = comment.serverUrl;
+        const walineProps = walineElement!.dataset;
+        init({
+            el: "#waline",
+            serverURL: origin,
+            comment: true,
+            locale,
+            path: walineProps.walinePath!,
+            lang: comment.lang,
+            pageSize: comment.pageSize,
+            pageview: true,
+            requiredMeta: ["nick", "mail"],
+            reaction: comment.whiteList.includes(location.pathname)
+                ? false
+                : comment.reaction,
+            login: "disable",
+            search: comment.search,
+            dark: 'html[data-theme="dark"]',
+            emoji: [
+                "https://unpkg.com/@waline/emojis@1.2.0/qq",
+                "https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili",
+            ],
+        });
     });
 </script>
 
@@ -69,7 +67,7 @@
     document.addEventListener("astro:page-load", () => {
         const toggleButton = document.getElementById("toggleComment");
         const commentContainer = document.getElementById("commentContainer");
-        
+
         if (!commentContainer || !toggleButton) {
             console.error("Required elements are missing from the page.");
             return;

@@ -41,10 +41,15 @@ export function getPostsWithMeta(post) {
         const secondDashIndex = findSecondDash(textOnPage);
         let contentForExcerpt = textOnPage;
         if (secondDashIndex !== -1) {
-            contentForExcerpt = textOnPage.substring(secondDashIndex + 3).trim();
+            contentForExcerpt = textOnPage
+                .substring(secondDashIndex + 3)
+                .trim();
         }
 
-        const stripped = contentForExcerpt.split(" ").filter((v) => v != "").join(" ");
+        const stripped = contentForExcerpt
+            .split(" ")
+            .filter((v) => v != "")
+            .join(" ");
         const separators = ["。", "，", ".", ",", "：", ":", ")", "）"];
         let output = "";
         let len = 0,

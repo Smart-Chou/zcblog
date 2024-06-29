@@ -10,8 +10,13 @@
     import { search } from "~/self.config";
 
     document.addEventListener("astro:page-load", () => {
-
-        if (search && search.host && search.apiKey && search.indexUid && search.hotKeys) {
+        if (
+            search &&
+            search.host &&
+            search.apiKey &&
+            search.indexUid &&
+            search.hotKeys
+        ) {
             docsearch({
                 container: "#docsearch",
                 host: search.host,

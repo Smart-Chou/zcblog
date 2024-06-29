@@ -8,7 +8,8 @@ const postsCollection = defineCollection({
         description: z.string(), // 描述字段，必须为字符串
         pubDate: z.date(), // 发布日期字段，必须为日期类型
         tags: z.array(z.string()).optional(), // 标签字段，可选，为字符串数组
-        image: z.object({ // 图片对象字段
+        image: z.object({
+            // 图片对象字段
             url: z.string(), // 图片 URL，必须为字符串
             alt: z.string(), // 图片 alt 文本，必须为字符串
         }),

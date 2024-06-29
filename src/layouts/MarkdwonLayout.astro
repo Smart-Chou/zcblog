@@ -173,13 +173,18 @@ if (isDefaultImage) {
             progressBar.value = window.scrollY;
 
             const setProgressBarColor = () => {
-                const scrollPercent = (window.scrollY / (docHeight - winHeight)) * 100;
+                const scrollPercent =
+                    (window.scrollY / (docHeight - winHeight)) * 100;
                 const hue = 150 + scrollPercent * 0.6;
-                progressBar.style.setProperty("--progress-color", `hsl(${hue}, 100%, 50%)`);
+                progressBar.style.setProperty(
+                    "--progress-color",
+                    `hsl(${hue}, 100%, 50%)`,
+                );
             };
 
             document.addEventListener("scroll", () => {
-                progressBar.max = document.documentElement.scrollHeight - winHeight;
+                progressBar.max =
+                    document.documentElement.scrollHeight - winHeight;
                 progressBar.value = window.scrollY;
                 setProgressBarColor();
             });

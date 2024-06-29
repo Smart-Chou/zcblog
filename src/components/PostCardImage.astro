@@ -12,14 +12,14 @@ const { imagePath, altText, loading }: Props = Astro.props;
 
 // 动态导入图像文件
 const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/public/assets/**/*.{jpeg,jpg,png,gif}"
+    "/public/assets/**/*.{jpeg,jpg,png,gif}",
 );
 
 // 检查图像路径是否存在
 const imageKey = `/public/assets/${imagePath}`;
 if (!images[imageKey]) {
     throw new Error(
-        `"${imagePath}" does not exist in the specified directory: "/public/assets/**/*.{jpeg,jpg,png,gif}"`
+        `"${imagePath}" does not exist in the specified directory: "/public/assets/**/*.{jpeg,jpg,png,gif}"`,
     );
 }
 
