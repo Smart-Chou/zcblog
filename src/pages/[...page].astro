@@ -27,7 +27,7 @@ export async function getStaticPaths({ paginate }) {
 const { page } = Astro.props as any;
 
 const postsWithMeta = page.data.map((post) => {
-    const { wordCount, readTime, modifiedTime } = getPostsWithMeta(post);
+    const { wordCount, readTime, modifiedTime, excerpt } = getPostsWithMeta(post);
     const sticky = post.data.sticky || false;
 
     return {
@@ -37,6 +37,7 @@ const postsWithMeta = page.data.map((post) => {
         slug: post.slug,
         sticky,
         modifiedTime,
+        excerpt,
     };
 });
 ---
@@ -59,7 +60,7 @@ const postsWithMeta = page.data.map((post) => {
                     modifiedTime={post.modifiedTime}
                     postUrl={`/article/${post.slug}/`}
                     imagePath={post.data.image.url}
-                    description={post.data.description}
+                    description={post.excerpt}
                     tags={post.data.tags}
                     wordCount={post.wordCount}
                     readTime={post.readTime}

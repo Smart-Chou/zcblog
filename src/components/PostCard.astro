@@ -4,7 +4,6 @@ import PostTag from "~/components/PostTag.astro";
 import PostMeta from "~/components/PostMeta.astro";
 import PostCardImage from "~/components/PostCardImage.astro";
 import { Icon } from "astro-icon/components";
-import PostExcerpt from "~/components/PostExcerpt.astro";
 
 const {
     altText,
@@ -55,7 +54,6 @@ const isDefaultImage = /^https:\/\/pic\.mch\.icu\/images(\?.*)?$/.test(
     </div>
     <h2 class="post-card__title">{title}</h2>
     <p class="post-card__description">{description}</p>
-    <!-- <PostExcerpt /> -->
     <PostMeta
         publishedTime={publishedTime}
         modifiedTime={modifiedTime}
