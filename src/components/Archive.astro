@@ -1,12 +1,16 @@
 ---
 const { title, url, publishedTime } = Astro.props;
-const formattedDate = new Date(publishedTime).toLocaleDateString("en-US", {
-    month: "2-digit",
-    day: "2-digit",
-});
+
+// 验证和格式化日期
+const formattedDate = publishedTime
+    ? new Date(publishedTime).toLocaleDateString("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+      })
+    : "Invalid date";
 ---
 
 <p class="archive-meta">
     <span class="archive-date">{formattedDate}</span>
-    <a class="archive-title" href={url}>{title}</a>
+    <a class="archive-title" href={url} rel="noopener noreferrer">{title}</a>
 </p>

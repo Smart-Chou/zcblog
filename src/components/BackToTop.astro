@@ -8,24 +8,27 @@ import { Icon } from "astro-icon/components";
 
 <script>
     document.addEventListener("astro:page-load", () => {
-        const backToTopElement = document.getElementById("back-to-top");
+        const backToTopButton = document.getElementById("back-to-top");
 
-        if (backToTopElement) {
-            window.addEventListener("scroll", function () {
+        if (backToTopButton) {
+            const handleScroll = () => {
                 const scrollHeight = window.scrollY;
                 if (scrollHeight > 1000) {
-                    backToTopElement.classList.add("active");
+                    backToTopButton.classList.add("active");
                 } else {
-                    backToTopElement.classList.remove("active");
+                    backToTopButton.classList.remove("active");
                 }
-            });
+            };
 
-            backToTopElement.addEventListener("click", function () {
+            const scrollToTop = () => {
                 window.scrollTo({
                     top: 0,
                     behavior: "smooth",
                 });
-            });
+            };
+
+            window.addEventListener("scroll", handleScroll);
+            backToTopButton.addEventListener("click", scrollToTop);
         }
     });
 </script>

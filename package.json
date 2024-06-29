@@ -24,6 +24,7 @@
         "@astrojs/sitemap": "^3.1.6",
         "@expressive-code/plugin-collapsible-sections": "^0.35.3",
         "@expressive-code/plugin-line-numbers": "^0.35.3",
+        "@playform/inline": "^0.0.7",
         "@waline/client": "^3.2.2",
         "astro": "^4.11.1",
         "astro-embed": "^0.7.2",

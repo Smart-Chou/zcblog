@@ -13,7 +13,9 @@ import partytown from "@astrojs/partytown";
 import astroMetaTags from "astro-meta-tags";
 import pageInsight from "astro-page-insight";
 import redirectAttributeByLink from "./src/integrations/redirect.ts";
+import playformInline from "@playform/inline";
 
+// https://astro.build/config
 export default defineConfig({
     site: "https://marxchou.com",
     markdown: {
@@ -38,6 +40,7 @@ export default defineConfig({
         partytown(),
         astroMetaTags(),
         pageInsight(),
+        playformInline(),
     ],
     image: {
         service: {

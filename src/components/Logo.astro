@@ -4,9 +4,8 @@ import { site } from "~/self.config";
 
 <span id="sitename"></span>
 <a class="logo" href="/">
-    <span class="logo__text"
-        ><img src={Astro.site + site.logo} alt="Blog Logo" width="24" />{
-            site.title
-        }</span
-    >
+    <span class="logo__text">
+        <img src={`${site.url}/${site.logo}`} alt="Blog Logo" width="24" />
+        {site.title}
+    </span>
 </a>

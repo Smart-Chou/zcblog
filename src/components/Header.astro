@@ -3,7 +3,7 @@ import Logo from "~/components/Logo.astro";
 import SearchBox from "~/components/SearchBox.astro";
 import ToggleTheme from "~/components/ToggleTheme.astro";
 import { search } from "~/self.config";
-const { searchEnable = search.enable || false } = Astro.props;
+const { searchEnable = search.enable } = Astro.props;
 ---
 
 <header id="nprogress-container">

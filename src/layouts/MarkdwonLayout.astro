@@ -87,7 +87,7 @@ if (isDefaultImage) {
             }
         </div>
         {
-            publishedDays >= 1800 ? (
+            publishedDays >= 180 && (
                 <div class="remark-aside remark-aside--danger">
                     <p>
                         🌶 <strong>过期警告：</strong> 本页面距今已有
@@ -95,7 +95,7 @@ if (isDefaultImage) {
                         天未更新，年久失修，内容可能有所偏颇，还请仔细甄别！
                     </p>
                 </div>
-            ) : null
+            )
         }
         <div class="post__content">
             <slot />
@@ -164,33 +164,26 @@ if (isDefaultImage) {
 
 <script>
     document.addEventListener("astro:page-load", () => {
-        var winHeight = window.innerHeight,
-            docHeight = document.documentElement.scrollHeight;
-
         const progressBar = document.querySelector("#content_progress");
         if (progressBar instanceof HTMLProgressElement) {
+            const winHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+
             progressBar.max = docHeight - winHeight;
             progressBar.value = window.scrollY;
 
             const setProgressBarColor = () => {
-                const scrollPercent =
-                    (window.scrollY / (docHeight - winHeight)) * 100;
+                const scrollPercent = (window.scrollY / (docHeight - winHeight)) * 100;
                 const hue = 150 + scrollPercent * 0.6;
-                progressBar.style.setProperty(
-                    "--progress-color",
-                    `hsl(${hue}, 100%, 50%)`,
-                );
+                progressBar.style.setProperty("--progress-color", `hsl(${hue}, 100%, 50%)`);
             };
 
-            document.addEventListener("scroll", function () {
-                if (progressBar instanceof HTMLProgressElement) {
-                    progressBar.max =
-                        document.documentElement.scrollHeight -
-                        window.innerHeight;
-                    progressBar.value = window.scrollY;
-                    setProgressBarColor();
-                }
+            document.addEventListener("scroll", () => {
+                progressBar.max = document.documentElement.scrollHeight - winHeight;
+                progressBar.value = window.scrollY;
+                setProgressBarColor();
             });
+
             setProgressBarColor();
         }
     });

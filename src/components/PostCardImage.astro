@@ -8,20 +8,26 @@ interface Props {
     loading?: "eager" | "lazy";
 }
 
-const { imagePath, altText, loading } = Astro.props;
+const { imagePath, altText, loading }: Props = Astro.props;
+
+// 动态导入图像文件
 const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/public/assets/**/*.{jpeg,jpg,png,gif}",
+    "/public/assets/**/*.{jpeg,jpg,png,gif}"
 );
 
-if (!images[`/public/assets/${imagePath}`]) {
+// 检查图像路径是否存在
+const imageKey = `/public/assets/${imagePath}`;
+if (!images[imageKey]) {
     throw new Error(
-        `"${imagePath}" does not exist in glob: "/public/assets/**/*.{jpeg,jpg,png,gif}"`,
+        `"${imagePath}" does not exist in the specified directory: "/public/assets/**/*.{jpeg,jpg,png,gif}"`
     );
 }
 
-const imageModule = await images[`/public/assets/${imagePath}`]();
+// 异步导入图像模块
+const imageModule = await images[imageKey]();
 ---
 
+<!-- 图片组件 -->
 <Picture
     src={imageModule.default}
     alt={altText}

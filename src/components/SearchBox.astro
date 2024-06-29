@@ -10,17 +10,17 @@
     import { search } from "~/self.config";
 
     document.addEventListener("astro:page-load", () => {
-        const host = search.host;
-        const apiKey = search.apiKey;
-        const indexUid = search.indexUid;
-        const hotKeys = search.hotKeys;
 
-        docsearch({
-            container: "#docsearch",
-            host,
-            apiKey,
-            indexUid,
-            hotKeys,
-        });
+        if (search && search.host && search.apiKey && search.indexUid && search.hotKeys) {
+            docsearch({
+                container: "#docsearch",
+                host: search.host,
+                apiKey: search.apiKey,
+                indexUid: search.indexUid,
+                hotKeys: search.hotKeys,
+            });
+        } else {
+            console.error("Search configuration is missing or incomplete.");
+        }
     });
 </script>

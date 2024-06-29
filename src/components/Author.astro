@@ -5,7 +5,7 @@ import { site, categories, socialLinks } from "~/self.config";
 
 <div class="author">
     <img
-        src={Astro.site + site.avatar}
+        src={`${site.url}/${site.avatar}`}
         alt="Author"
         class="author__image"
         width="180"
@@ -18,8 +18,8 @@ import { site, categories, socialLinks } from "~/self.config";
                 <a
                     href={categorie.url}
                     title={categorie.title}
-                    rel="noopener"
-                    class="has-tooltip active"
+                    rel="noopener noreferrer"
+                    class="has-tooltip"
                     style={categorie.style}
                 >
                     <Icon name={categorie.svg} />
@@ -30,11 +30,12 @@ import { site, categories, socialLinks } from "~/self.config";
         {
             socialLinks.map((social) => (
                 <a
+                    data-key={`social-${social.title}`}
                     href={social.url}
                     target="_blank"
                     title={social.title}
-                    rel="noopener"
-                    class="has-tooltip active"
+                    rel="noopener noreferrer"
+                    class="has-tooltip"
                     style={social.style}
                 >
                     <Icon name={social.svg} />

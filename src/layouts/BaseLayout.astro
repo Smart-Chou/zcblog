@@ -38,7 +38,6 @@ const {
         </div>
         <script>
             import { config } from "~/self.config";
-
             document.addEventListener("astro:page-load", () => {
                 try {
                     // 是否启用跳转功能
@@ -106,6 +105,8 @@ const {
                                 link.setAttribute("href", redirectLink);
                                 // 增加 target="_blank" 属性
                                 link.setAttribute("target", "_blank");
+                                // 增加 rel="noopener noreferrer" 属性
+                                link.setAttribute("rel", "noopener noreferrer");
                                 // 创建并插入 SVG 图标
                                 if (hasIncludeClass(link)) {
                                     const svgIcon = document.createElementNS(

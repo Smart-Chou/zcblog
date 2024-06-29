@@ -96,6 +96,11 @@ const redirectIntegration = (): AstroIntegration => ({
                                     link.setAttribute("href", redirectLink);
                                     // 增加 target="_blank" 属性
                                     link.setAttribute("target", "_blank");
+                                    // 增加 rel="noopener noreferrer" 属性
+                                    link.setAttribute(
+                                        "rel",
+                                        "noopener noreferrer",
+                                    );
                                     // 创建并插入 SVG 图标
                                     if (hasIncludeClass(link)) {
                                         const svgIcon =
@@ -114,10 +119,10 @@ const redirectIntegration = (): AstroIntegration => ({
                                             "currentColor",
                                         );
                                         svgIcon.innerHTML = `
-                                            <path fill="currentColor" d="M12.75 17.5a.75.75 0 0 0 0-1.5H6.5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6.25a.75.75 0 0 0 0-1.5H6.5A3.5 3.5 0 0 0 3 6v8a3.5 3.5 0 0 0 3.5 3.5zm.991-11.301a.75.75 0 0 1 1.06.042l3 3.25a.75.75 0 0 1 0 1.018l-3 3.25A.75.75 0 1 1 13.7 12.74l1.838-1.991H7.75a.75.75 0 0 1 0-1.5h7.787l-1.838-1.991a.75.75 0 0 1 .042-1.06"/>
+                                        <path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>
                                         `;
                                         svgIcon.innerHTML += `
-                                        <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
+                                            <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>
                                         `;
                                         link.appendChild(svgIcon);
                                     }

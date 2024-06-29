@@ -31,7 +31,13 @@
         };
 
         const walineElement = document.getElementById("waline");
-        if (comment.enable && walineElement) {
+
+        if (!comment.enable || !walineElement) {
+            console.error("Required elements or configuration are missing.");
+            return;
+        }
+
+        
             const origin = comment.serverUrl;
             const walineProps = walineElement!.dataset;
             init({
@@ -55,7 +61,7 @@
                     "https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili",
                 ],
             });
-        }
+        
     });
 </script>
 
@@ -63,7 +69,7 @@
     document.addEventListener("astro:page-load", () => {
         const toggleButton = document.getElementById("toggleComment");
         const commentContainer = document.getElementById("commentContainer");
-
+        
         if (!commentContainer || !toggleButton) {
             console.error("Required elements are missing from the page.");
             return;
