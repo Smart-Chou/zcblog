@@ -112,7 +112,7 @@ const redirectIntegration = (): AstroIntegration => ({
                                         svgIcon.setAttribute("height", "16");
                                         svgIcon.setAttribute(
                                             "viewBox",
-                                            "0 0 24 24",
+                                            "0 0 100 100",
                                         );
                                         svgIcon.setAttribute(
                                             "fill",

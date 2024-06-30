@@ -28,7 +28,8 @@ export function getPostsWithMeta(post) {
     try {
         // 检查文件是否存在
         const result = statSync(filePath);
-        const EXCERPT_REGEX = /([~]|[>]|:::[^\s]+|(?:\[[^\]]+\]\([^\)]+\))|:::|[\*\*])|(```[\s\S]*?```)|(\=\=)/g;
+        const EXCERPT_REGEX =
+            /([~]|[>]|:::[^\s]+|(?:\[[^\]]+\]\([^\)]+\))|:::|[\*\*])|(```[\s\S]*?```)|(\=\=)/g;
         const excerpt_length = 160;
 
         // 获取文件内容
