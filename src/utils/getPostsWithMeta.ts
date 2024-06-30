@@ -35,7 +35,7 @@ export function getPostsWithMeta(post) {
         const fileContent = readFileSync(filePath, "utf-8");
         const textOnPage = fileContent.replace(EXCERPT_REGEX, "");
         const readingTimeResult = getReadingTime(textOnPage);
-        
+
         // 查找第二个 '---'
         const secondDashIndex = findSecondDash(textOnPage);
         let contentForExcerpt = textOnPage;

@@ -56,6 +56,7 @@ export const twitter = {
 
 /**
  * lang {string} 默认网站语言 en | zh-CN  
+ * PageSize {number} 文章页面上的文章数  
  * codeFoldingStartLines {number} 代码折叠起始行数  
  * ga {string|false} 如果您想与Google Analytics进行集成，只需在此处输入您的GA-ID即可。  
  * umami {true|false} 如果您想与Umami进行集成，只需在此处输入您的Umami网站ID即可。  

@@ -1,17 +1,17 @@
 ---
 import { Icon } from "astro-icon/components";
-import { site, categories, socialLinks } from "~/self.config";
+import { site, author, categories, socialLinks } from "~/self.config";
 ---
 
 <div class="author">
     <img
-        src={`${site.url}/${site.avatar}`}
+        src={`${site.url}/${author.avatar}`}
         alt="Author"
         class="author__image"
         width="180"
     />
-    <h1 class="author__site-title">{site.title}</h1>
-    <p class="author__intro">{site.motto}</p>
+    <h1 class="author__site-title">{author.type}</h1>
+    <p class="author__intro">{author.motto}</p>
     <p class="author__links">
         {
             categories.map((categorie) => (
