@@ -4,7 +4,7 @@ import { marked } from "marked";
 import { getCollection } from "astro:content";
 import { formatPosts } from "~/utils/formatPosts";
 import getReadingTime from "reading-time";
-import { site } from "~/self.config";
+import { site, author } from "~/self.config";
 
 export async function GET(context) {
     const article = await getCollection("article");
@@ -16,7 +16,7 @@ export async function GET(context) {
         title: siteTitle,
         description: siteDescription,
         site: context.site,
-        author: site.author,
+        author: author.type,
         source: {
             title: siteTitle,
             url: "https://marxchou.com",

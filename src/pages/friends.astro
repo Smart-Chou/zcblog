@@ -11,6 +11,8 @@ import { site, friendsPage } from "~/self.config";
     image={`${Astro.site + site.coverImage}`}
     imageAlt={friendsPage.title}
     keywords="Friends"
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
 >
     <h1 class="friends-title text-center space-bottom">
         Friends &amp; Guestbook

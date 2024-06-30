@@ -5,12 +5,12 @@ import Author from "~/components/Author.astro";
 import PostCard from "~/components/PostCard.astro";
 import Pagination from "~/components/Pagination.astro";
 import BackToTop from "~/components/BackToTop.astro";
-import { site, pageView } from "~/self.config";
+import { site, config, pageView } from "~/self.config";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
 export async function getStaticPaths({ paginate }) {
     const allPosts = await getCollection("article");
-    const pageSize = site.PageSize || 10;
+    const pageSize = config.PageSize || 10;
     const sortedPosts = allPosts.sort((a, b) => {
         const stickyDIff = (b.data.sticky || 0) - (a.data.sticky || 0);
         if (stickyDIff !== 0) {
@@ -49,6 +49,8 @@ const postsWithMeta = page.data.map((post) => {
     image={`${Astro.site + site.coverImage}`}
     imageAlt={site.coverImageAlt}
     keywords={site.keywords}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
 >
     {pageView.author && <Author />}
     <div class="post">

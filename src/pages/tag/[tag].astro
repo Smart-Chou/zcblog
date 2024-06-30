@@ -44,6 +44,8 @@ const postsWithMeta = articles.map((post) => {
     image={`${Astro.site + site.coverImage}`}
     imageAlt={tag}
     keywords={tag}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
 >
     <h1 class="tag-title text-center space-bottom"># {tag}</h1>
     <div class="posts">

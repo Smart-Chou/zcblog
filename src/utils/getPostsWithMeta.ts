@@ -1,6 +1,5 @@
 import { statSync, readFileSync } from "fs";
 import getReadingTime from "reading-time";
-import { formatDate } from "./formatDate.ts";
 import path from "path";
 
 // 定义 findSecondDash 函数
@@ -29,14 +28,14 @@ export function getPostsWithMeta(post) {
     try {
         // 检查文件是否存在
         const result = statSync(filePath);
-        const EXCERPT_REGEX = /([\n\r]|<\/?("[^"]*"|'[^']*'|[^>])*(>|$))/g;
+        const EXCERPT_REGEX = /([~]|[>]|:::[^\s]+|(?:\[[^\]]+\]\([^\)]+\))|:::|[\*\*])|(```[\s\S]*?```)|(\=\=)/g;
         const excerpt_length = 160;
 
         // 获取文件内容
         const fileContent = readFileSync(filePath, "utf-8");
         const textOnPage = fileContent.replace(EXCERPT_REGEX, "");
         const readingTimeResult = getReadingTime(textOnPage);
-
+        
         // 查找第二个 '---'
         const secondDashIndex = findSecondDash(textOnPage);
         let contentForExcerpt = textOnPage;
@@ -71,7 +70,7 @@ export function getPostsWithMeta(post) {
         return {
             wordCount: readingTimeResult.words,
             readTime: readingTimeResult.text,
-            modifiedTime: formatDate(result.mtime),
+            modifiedTime: result.mtime,
             excerpt: output.substring(0, output_until) + "...",
         };
     } catch (error) {

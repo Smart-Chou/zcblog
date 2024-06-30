@@ -42,6 +42,8 @@ const startYear = Math.min(
     image={`${Astro.site + site.coverImage}`}
     imageAlt={archivesPage.description}
     keywords="Archives"
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
 >
     <h1 class="text-center space-bottom">Archives</h1>
     <PostLayout>

@@ -1,5 +1,5 @@
 ---
-import { site } from "~/self.config";
+import { author } from "~/self.config";
 const currentPath = Astro.url.pathname;
 let ldJson = "website";
 if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {
@@ -17,8 +17,8 @@ const ldJsonSchema = {
     dateModified: modifiedTime,
     author: {
         "@type": "Person",
-        name: site.author,
-        url: site.authorUrl,
+        name: author.type,
+        url: author.url,
     },
 };
 ---

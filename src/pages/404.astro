@@ -10,6 +10,8 @@ import { site, notFoundPage } from "~/self.config";
     image={Astro.site + site.coverImage}
     imageAlt={notFoundPage.title}
     keywords="404"
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
 >
     <div>
         <h1 class="not-found-title text-center space-bottom">404</h1>

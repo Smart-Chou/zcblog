@@ -8,7 +8,7 @@ import { config } from "~/self.config";
             <script
                 is:inline
                 type="text/partytown"
-                src="https://umami.marxchou.com/script.js"
+                src={config.umamiUrl}
                 defer
                 data-website-id={String(config.umami)}
                 data-domains="marxchou.com"

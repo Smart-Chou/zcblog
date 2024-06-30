@@ -9,10 +9,6 @@
  * keywords {string} 网站关键字  
  * favicon {string} 网站图标URL  
  * logo {string} 网站logo  
- * author {string} 作者  
- * motto {string} 个人资料中使用的口头禅  
- * avatar {string} 个人资料中使用的头像  
- * authorUrl {string} 作者个性独立页面,如果有的话
  * coverImage {string} 网站封面  
  * coverImageAlt {string} 网站封面Alt  
  * url {string} 网站链接  
@@ -28,33 +24,55 @@ export const site = {
   keywords: 'Astro, Theme, Yi',
   favicon: 'favicon.svg',
   logo: 'logo.svg',
-  author: 'Spencer Woo',
-  authorUrl: 'https://marxchou.com',
-  motto: '阿巴阿巴 o((>ω< ))o',
-  avatar: 'author.jpg',
   coverImage: 'cover.png',
   coverImageAlt: "Spencer's Blog",
   url: 'https://marxchou.com',
   startYear: '2017',
-  PageSize: 9,
   beian: '萌ICP备20249889号',
   beianURL: 'https://icp.gov.moe/?keyword=20249889',
+}
+
+/**
+ * type {string} 个人资料中使用的名字  
+ * url {string} 作者个性独立页面,如果有的话  
+ * motto {string} 个人资料中使用的口头禅  
+ * avatar {string} 个人资料中使用的头像
+ */
+export const author = {
+  type: 'Spencer Woo',
+  url: 'https://marxchou.com',
+  motto: '阿巴阿巴 o((>ω< ))o',
+  avatar: 'author.jpg',
+};
+
+/**
+ * type {string} twitter 账号  
+ * link {string} twitter 名称
+ */
+export const twitter = {
+    type: '@marxchou',
+    link: '@marxchou',
 }
 
 /**
  * lang {string} 默认网站语言 en | zh-CN  
  * codeFoldingStartLines {number} 代码折叠起始行数  
  * ga {string|false} 如果您想与Google Analytics进行集成，只需在此处输入您的GA-ID即可。  
- * umami {string|false} 如果您想与Umami进行集成，只需在此处输入您的Umami网站ID即可。  
+ * umami {true|false} 如果您想与Umami进行集成，只需在此处输入您的Umami网站ID即可。  
+ * umamiUrl {string} Umami网站地址
+ * umamiID {string} Umami网站ID
  * redirect {boolean} 是否开启链接重定向  
  * redirectIncludeClass {string[]} 链接重定向包含的类  
  * redirectExcludeClass {string[]} 链接重定向排除的类
  */
 export const config = {
   lang: 'zh-CN',
+  PageSize: 9,
   codeFoldingStartLines: 16,
   ga: false,
-  umami: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
+  umami: true,
+  umamiUrl: 'https://umami.marxchou.com/script.js',
+  umamiID: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
   redirect: true,
   redirectIncludeClass: ['post__content'],
   redirectExcludeClass: [],
