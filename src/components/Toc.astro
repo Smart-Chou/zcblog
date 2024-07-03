@@ -13,6 +13,8 @@
             tocSelector: ".toc__content",
             contentSelector: ".post",
             headingSelector: "h2, h3",
+            headingsOffset: 80,
+            scrollSmoothOffset: -80,
         });
     });
 </script>
@@ -31,7 +33,6 @@
                 const viewportHeight = window.innerHeight;
                 const postScrollHeight =
                     viewportHeight / 2 + tocContent.offsetHeight;
-
                 if (postBottom <= postScrollHeight) {
                     tocContent.style.position = "absolute";
                     tocContent.style.top = `${((window.scrollY + postBottom - tocContent.offsetHeight) / viewportHeight) * 100}dvh`;
