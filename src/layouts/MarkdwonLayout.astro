@@ -10,6 +10,7 @@ import Donate from "~/components/Donate.astro";
 import Author from "~/components/Author.astro";
 import WalineComment from "~/components/WalineComment.astro";
 import PostCopyright from "~/components/PostCopyright.astro";
+import ReadMore from "~/components/ReadMore.astro";
 import { site, postView, comment, donate } from "~/self.config";
 
 const {
@@ -97,7 +98,7 @@ if (isDefaultImage) {
                 </div>
             )
         }
-        <div class="post__content">
+        <div id="post-content" class="post__content">
             <slot />
         </div>
         <div class="post__footer">
@@ -160,6 +161,7 @@ if (isDefaultImage) {
     {frontmatter.donate && donate.enable && <Donate />}
     {frontmatter.author && postView.author && <Author />}
     {frontmatter.comment && comment.enable && <WalineComment />}
+    <ReadMore />
 </BaseLayout>
 
 <script>
