@@ -76,7 +76,7 @@ export const config = {
   umamiID: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
   redirect: true,
   redirectIncludeClass: ['post__content'],
-  redirectExcludeClass: [],
+  redirectExcludeClass: ['modal-mask'],
 }
 
 /**
@@ -109,7 +109,7 @@ export const postView = {
  */
 export const donate = {
   enable: true,
-  tip: 'Thanks for the coffee !!!☕',
+  tip: '赞赏金额将全部用于开源项目维护，以及服务器、域名及各类云服务的开销',
   wechatQRCode: '/assets/image/WeChatQR.jpg',
   alipayQRCode: '/assets/image/AliPayQR.jpg',
   paypalUrl: 'https://paypal.me/xxxxxxxxxx',

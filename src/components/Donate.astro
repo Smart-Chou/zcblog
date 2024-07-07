@@ -1,69 +1,81 @@
 ---
+import { Icon } from "astro-icon/components";
 import { donate } from "~/self.config";
 ---
 
 <div class="donate">
-    <div class="esa-sponsor">
-        <div class="tip">
-            {donate.tip}
+    <div class="reward">
+        <div class="reward-btn">
+            <Icon name="ph:hand-heart-fill" />
+            <span class="text">&nbsp;赞赏博主</span>
         </div>
-        <div class="donate-text">
-            <div id="alipay" class="alipay">
-                <a href="#">
-                    <img
-                        src="/assets/image/alipay.svg"
-                        style="height: 1rem;"
-                        alt="alipay"
-                    />
-                </a>
+    </div>
+    <div class="modal" style="display: none;">
+        <div class="modal-mask"></div>
+        <div class="modal-main s-card" style="max-width: 430px;">
+            <div class="header-title">
+                <div class="title-left">
+                    <Icon name="ph:hand-heart-fill" />
+                    <span class="title-text">&nbsp;赞赏博主</span>
+                </div>
             </div>
-            <div id="wechatpay" class="wechatpay">
-                <a href="#">
-                    <img
-                        src="/assets/image/wechat.svg"
-                        style="height: 1rem;"
-                        alt="wechat"
-                    />
-                </a>
+            <div class="close"></div>
+            <div class="modal-content" style="--height: 80vh;">
+                <div class="reward-card">
+                    <span class="thank">🙏 感谢您赐予我前进的力量</span>
+                    <div class="qr">
+                        <div class="qr-img">
+                            <img src={donate.wechatQRCode} alt="微信支付" />
+                            <span class="tip"
+                                ><Icon
+                                    name="mingcute:wechat-pay-line"
+                                />&nbsp;微信</span
+                            >
+                        </div>
+                        <div class="qr-img">
+                            <img src={donate.alipayQRCode} alt="支付宝支付" />
+                            <span class="tip"
+                                ><Icon
+                                    name="simple-icons:alipay"
+                                />&nbsp;支付宝</span
+                            >
+                        </div>
+                    </div>
+                    <a href="/donate-list/" class="all-list-btn">
+                        <div class="all-list s-card hover">
+                            <span class="title">全部赞赏者名单</span>
+                            <span class="tip">{donate.tip}</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div id="paypal" class="paypal">
-                <a href={donate.paypalUrl} target="_blank">
-                    <img
-                        src="/assets/image/paypal.svg"
-                        style="height: 1rem;"
-                        alt="paypal"
-                    />
-                </a>
-            </div>
-        </div>
-        <div id="alipay-qr" class="qrshow" style="display: none;">
-            <img src={donate.alipayQRCode} alt="Alipay QR Code" />
-        </div>
-        <div id="wechat-qr" class="qrshow" style="display: none;">
-            <img src={donate.wechatQRCode} alt="WeChat QR Code" />
         </div>
     </div>
 </div>
 
 <script>
-    document.addEventListener("astro:page-load", () => {
-        const aliDiv = document.getElementById("alipay");
-        const wechatDiv = document.getElementById("wechatpay");
-        const aliQRCodeDiv = document.getElementById("alipay-qr");
-        const wechatQRCodeDiv = document.getElementById("wechat-qr");
+    document.addEventListener("astro:page-load", function () {
+        const rewardBtn = document.querySelector(
+            ".reward .reward-btn",
+        ) as HTMLDivElement;
+        const modal = document.querySelector(".modal") as HTMLDivElement;
+        const closeModal = document.querySelector(
+            ".modal .close",
+        ) as HTMLDivElement;
+        const modalMask = document.querySelector(
+            ".modal .modal-mask",
+        ) as HTMLDivElement;
 
-        const toggleQRCode = (element, qrCodeDiv) => {
-            if (element && qrCodeDiv) {
-                element.addEventListener("mouseenter", () => {
-                    qrCodeDiv.style.display = "block";
-                });
-                element.addEventListener("mouseleave", () => {
-                    qrCodeDiv.style.display = "none";
-                });
-            }
-        };
+        rewardBtn.addEventListener("click", function () {
+            modal.style.display = "flex";
+        });
 
-        toggleQRCode(aliDiv, aliQRCodeDiv);
-        toggleQRCode(wechatDiv, wechatQRCodeDiv);
+        closeModal.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+
+        modalMask.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
     });
 </script>

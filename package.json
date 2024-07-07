@@ -49,6 +49,8 @@
     },
     "devDependencies": {
         "@iconify-json/logos": "^1.1.43",
+        "@iconify-json/mingcute": "^1.1.18",
+        "@iconify-json/ph": "^1.1.13",
         "@iconify-json/simple-icons": "^1.1.107",
         "@iconify-json/tabler": "^1.1.114",
         "@iconify-json/twemoji": "^1.1.15",
