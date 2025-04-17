@@ -3,7 +3,7 @@ title: 宝塔面板一键部署佰阅发卡
 description: 宝塔面板一键部署佰阅发卡
 pubDate: 2021-07-22
 image:
-  url: 'https://pic.mch.icu/images?fM2y9N'
+  url: 'https://pic.mcc.im/images?fM2y9N'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - 发卡系统

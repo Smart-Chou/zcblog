@@ -3,7 +3,7 @@ title: 你想要的微信聊天记录导出，这个免费软件做到了
 description: 你想要的微信聊天记录导出，这个免费软件做到了
 pubDate: 2021-12-30
 image:
-  url: 'https://pic.mch.icu/images?2bP7L3'
+  url: 'https://pic.mcc.im/images?2bP7L3'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Wechat

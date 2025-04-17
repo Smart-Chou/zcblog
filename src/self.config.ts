@@ -161,7 +161,7 @@ export const search = {
  */
 export const categories = [
   {
-    url: '//mch.icu',
+    url: '//mcc.im',
     title: '🚀 Portfolio',
     style: undefined,
     target: '_blank',
