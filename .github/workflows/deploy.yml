@@ -51,7 +51,7 @@ jobs:
 
     test_website:
         needs: deploy-gh-pages
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-22.04
         steps:
             - name: Test Connect
               continue-on-error: true
@@ -65,7 +65,7 @@ jobs:
 
     scrape-docs:
         needs: test_website
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-22.04
         steps:
             - uses: actions/checkout@v4
 
