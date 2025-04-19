@@ -146,7 +146,7 @@ export const comment = {
 export const search = {
   enable: true,
   host: 'https://meilisearch.marxchou.com',
-  apiKey: '883ea017368299f1ed7f13dbe6ab79f148a1d7da877b29dc04020c8d96d27bf3',
+  apiKey: 'c03b8635fea890e7d8bad71c0056031d7daea5e4c2cb32c29b753f517f3f0b5a',
   indexUid: 'marxchou',
   hotKeys: ['/'],
 }
