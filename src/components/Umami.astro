@@ -43,18 +43,24 @@ import { umami } from "~/self.config";
             endAT +
             "&url=" +
             encodeURIComponent(postPath);
-        fetch(umamiUrl, {
+
+        // 修改 fetch 配置以正确处理 CORS 和 Authorization
+        const fetchOptions = {
             method: "GET",
-            mode: "cors",
-            cache: "default",
+            credentials: "same-origin", // 限制凭证使用范围
             headers: {
                 "Authorization": `Bearer ${umamiToken}`,
                 "Content-Type": "application/json",
             },
-        })
+        };
+
+        // 添加预检请求验证
+        fetch(umamiUrl as RequestInfo, fetchOptions as RequestInit)
             .then((res) => {
                 if (!res.ok) {
-                    // 如果响应状态不是 2xx，则抛出错误
+                    if (res.status === 401) {
+                        throw new Error("认证失败");
+                    }
                     throw new Error(`HTTP error! status: ${res.status}`);
                 }
                 return res.json();
