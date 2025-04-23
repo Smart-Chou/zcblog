@@ -13,14 +13,14 @@ tags:
 
 ### 驰为 Hi8 上面有两个系统
 
-- `Android` 4.4
-- `Windows` 10 Home Edition
+- Android 4.4
+- Windows 10 Home Edition
 
-二者可以自由切换。想着既然能跑 win10，那 `linux` 系统问题也不大，而且以前搞机的
+二者可以自由切换。想着既然能跑 win10，那 Linux 系统问题也不大，而且以前搞机的
 时候刷贴看到有人成功安装 `Ubuntu`，bingo~
 
-考虑到`驰为 Hi8` 渣渣电池，桌面版的系统耗电估计和 `windows` 差不多，怕是没开几个
-小时就嗝屁了，所以还是装个类似云服务器上的 `linux` 版本。
+考虑到`驰为 Hi8` 渣渣电池，桌面版的系统耗电估计和 Windows 差不多，怕是没开几个
+小时就嗝屁了，所以还是装个类似云服务器上的 Linux 版本。
 
 ### Ubuntu 官方有很多版本，主要有
 
@@ -43,19 +43,19 @@ tags:
 - 硬件系统架构
 - 引导方式
 - 分区
-- `Android` 开发者选项
+- Android 开发者选项
 
 ### 官方固件/ROM
 
 一般来说，手机/电脑出厂后，官方就把一些固件/ROM植入到了设备里（介于硬件和软件之
-间），供高级用户使用，比如 `Andoriod` 的 `recovery/fastboot`、电脑的 `BIOS`，进
+间），供高级用户使用，比如 Android 的 `recovery/fastboot`、电脑的 `BIOS`，进
 入到这些模式就可以使用一些高级功能：重装、恢复等等。
 
 网上也有很多刷机教程，但是，在没有支持的情况下千万小心操作，否则很容易变砖（我
 猜）。本着对官方的尊重，就不刷了。。。
 
 实则是因为驰为官方论坛倒了，以前能上去下载官方 ROM，变砖后还能刷回来，现在没了；
-另一个安卓手机现在权限做的越来越完善，加了 BL 锁，未解锁刷不了，而华为早已关闭解
+另一个 Android 手机现在权限做的越来越完善，加了 BL 锁，未解锁刷不了，而华为早已关闭解
 锁码申请入口了。
 
 ### 硬件系统架构
@@ -87,15 +87,15 @@ Intel 和 AMD。这些都不重要 😂 重要的是电脑位数：32 位 or 64 
 以直接修复下引导就好了。回到系统的引导方式，主要分为：
 
 - Legacy - 传统方式，典型的白底蓝字界面
-- `UEFI` - 现在的主流引导方式，图形化界面，还能用鼠标
+- UEFI - 现在的主流引导方式，图形化界面，还能用鼠标
 
-二者引导流程基本一样，不同的是 `UEFI` 省去了自检的过程，因此快了一丢丢，大概
+二者引导流程基本一样，不同的是 UEFI 省去了自检的过程，因此快了一丢丢，大概
 1、2s，听起来没差，但这是技术的发展趋势，这就好比大哥大和苹果的选择题。。。
 
-`UEFI` 基本都跑在 64 位电脑上，于是有的操作系统，比如 Ubuntu，就没提供 `UEFI` 32
+UEFI 基本都跑在 64 位电脑上，于是有的操作系统，比如 Ubuntu，就没提供 UEFI 32
 位的安装镜像，即使有 32 位老版也是传统引导。
 
-操蛋的是，有些廉价平板还就只支持 32 位 `UEFI` 引导，比如`驰为 Hi8` 😭 血泪教训提
+操蛋的是，有些廉价平板还就只支持 32 位 UEFI 引导，比如`驰为 Hi8` 😭 血泪教训提
 醒，一开始的选择很重要。
 
 ### 分区
@@ -110,23 +110,23 @@ MBR 类型的最多 4 个主分区，而新的 GPT 类型最多可达 128 个！
 盘上物理空间起始位置等详细信息。
 
 平时大家说的改磁盘类型就是改这个分区表，很多磁盘分区软件其实也是改这个表，又比如
-在 `linux` 上分区时还是用命令行改这个表。
+在 Linux 上分区时还是用命令行改这个表。
 
 常见口熟能详的分区有：
 
-1.主分区，系统所在分区。`Windows` 所在的 C 盘，`Linux` 挂载的根目录 `/`
+1.主分区，系统所在分区。Windows 所在的 C 盘，Linux 挂载的根目录 `/`
 
-2.启动分区，引导文件所在分区。一般都是 ESP 分区，`Linux` 挂载的 `/boot/efi`
+2.启动分区，引导文件所在分区。一般都是 ESP 分区，Linux 挂载的 `/boot/efi`
 
-3.恢复分区。`Windows` 或 `Android` 恢复出厂设置时，都是从这个分区读取的原装系统文件。
+3.恢复分区。Windows 或 Android 恢复出厂设置时，都是从这个分区读取的原装系统文件。
 
-4.其它的诸如分区类型啊，推荐的 `Linux` 分区方案啊，用多了之后就明白了。
+4.其它的诸如分区类型啊，推荐的 Linux 分区方案啊，用多了之后就明白了。
 
 ### Android 开发者选项
 
-打开 `Android` 的开发者选项，并启用 USB 调试，这是最最基本的第一步。
+打开 Android 的开发者选项，并启用 USB 调试，这是最最基本的第一步。
 
-安装 `Android` SDK 里的
+安装 Android SDK 里的
 [platform-tools](https://developer.android.com/studio/releases/platform-tools)
 则可以使用 `adb/fastboot` 做更多神奇的事情，比如卸载厂商预置应用、刷机等等。
 
@@ -134,7 +134,7 @@ MBR 类型的最多 4 个主分区，而新的 GPT 类型最多可达 128 个！
 > `platform-tools` 使用 `adb`，没想到官网直接就能下了。。。
 
 如果 `adb devices` 或 `fastboot devices` 看不到连接的手机的话，典型的没装驱动，
-这个自行 `Google` 下载驱动安装。
+这个自行 Google 下载驱动安装。
 
 很多童鞋往往入门搞机的时候，都是下载刷机软件刷机，流氓软件不用多说，接着又跑去下
 载一些第三方的 ROM，又可能刷机过程中不小心地操作，刷完后就变砖了，一脸懵逼地不知
@@ -166,7 +166,7 @@ fastboot flash boot /path/boot.img # 刷机
 
 ## 安装步骤
 
-手把手教你在`驰为 Hi8` 上安装 `Debian Linux`~~ ❤
+手把手教你在`驰为 Hi8` 上安装 Debian Linux~~ ❤
 
 ### 制作启动盘
 
@@ -201,20 +201,20 @@ fastboot flash boot /path/boot.img # 刷机
 去后应该就能看到自己的 U 盘了。如果没有看到，大概率是因为没用 `i386` 版的镜像。
 
 > 之前用 `Ubuntu 64` 位做完启动盘后，死活没看到启动项，后来研究了好几天了才知
-> 道，对于只支持 `UEFI 32` 位启动的平板，启动盘里得有 `EFI\boot\bootia32.efi` 这
+> 道，对于只支持 UEFI 32 位启动的平板，启动盘里得有 `EFI\boot\bootia32.efi` 这
 > 个文件才能被检测到！
 
 **Debian installer** 安装程序相当自动化，具体的忘了，一步一步来就行了。如果中途
-提示了缺少固件，直接 `Google` 对应文件名下载到 U 盘即可。
+提示了缺少固件，直接 Google 对应文件名下载到 U 盘即可。
 
-其中有个最重要的步骤是分区，网上有很多 `Linux` 分区方案，比如：
+其中有个最重要的步骤是分区，网上有很多 Linux 分区方案，比如：
 
 |    名称     |  挂载点   |   容量   |    格式    |
 | :---------: | :-------: | :------: | :--------: |
 |     ESP     | /boot/efi |   512M   | EFI System |
 |    boot     |   /boot   |    1G    |    ext4    |
 | swap(可选)  |           |    8G    |    swap    |
-| DebianLinux |     /     | 剩余空间 |    ext4    |
+| Debian Linux |     /     | 剩余空间 |    ext4    |
 
 > 上面是普通笔记本的分区方案，`驰为 Hi8` 空间有限，可酌情调整大小。
 
@@ -241,11 +241,11 @@ fastboot flash boot /path/boot.img # 刷机
 dpkg-reconfigure console-setup
 ```
 
-字体选择 **Terminus**，大小选最大的一档 ==16x32==，这样看起来就舒服多了。
+字体选择 **Terminus**，大小选最大的一档 **16x32**，这样看起来就舒服多了。
 
 ### 修改屏幕方向及亮度
 
-竖向的屏幕空间不够长，亮度也太亮了不够省电，万能的 `Google`：
+竖向的屏幕空间不够长，亮度也太亮了不够省电，万能的 Google：
 
 ### 修改屏幕亮度为 50%
 
@@ -263,10 +263,10 @@ echo 50 > /sys/class/backlight/intel_backlight/brightness
 exit 0
 
 vim /etc/default/grub # 输入以下内容
-GRUB_CMDLINE_`LINUX`="fbcon=rotate:3"
+GRUB_CMDLINE_LINUX="fbcon=rotate:3"
 ```
 
-经过这么顿折腾，才终于明白了 `Linux` 中 ==万物皆文件== 👍
+经过这么顿折腾，才终于明白了 Linux 中 **万物皆文件** 👍
 
 ### 配置 wifi
 
@@ -314,5 +314,5 @@ ping baidu.com # 测试
 
 - Google.com
 - debian.org
-- [WiFi/HowToUse - Debia` Wiki](https://wiki.debian.org/WiFi/HowToUse#Command_Line)
+- [WiFi/HowToUse - Debian Wiki](https://wiki.debian.org/WiFi/HowToUse#Command_Line)
 - [Debian:命令行连接下wifi配置](http://blog.sina.com.cn/s/blog_a6559d920102xsui.html)

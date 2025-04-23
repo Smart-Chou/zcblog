@@ -1,16 +1,16 @@
 ---
-import { config } from "~/self.config";
+import { config, umami } from "~/self.config";
 ---
 
 <!-- Analytics --><!-- Umami -->{
-    config.umami && (
+    umami && (
         <>
             <script
                 is:inline
                 type="text/partytown"
-                src={config.umamiUrl}
+                src=`${umami.umamiBaseUrl}/script.js`
                 defer
-                data-website-id={String(config.umamiID)}
+                data-website-id={String(umami.umamiId)}
                 data-domains="marxchou.com"
             />
         </>

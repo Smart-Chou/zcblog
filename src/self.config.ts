@@ -71,9 +71,6 @@ export const config = {
   PageSize: 9,
   codeFoldingStartLines: 16,
   ga: false,
-  umami: true,
-  umamiUrl: 'https://umami.marxchou.com/script.js',
-  umamiID: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
   redirect: true,
   redirectIncludeClass: ['post__content'],
   redirectExcludeClass: ['modal-mask'],
@@ -149,6 +146,13 @@ export const search = {
   apiKey: 'c03b8635fea890e7d8bad71c0056031d7daea5e4c2cb32c29b753f517f3f0b5a',
   indexUid: 'marxchou',
   hotKeys: ['/'],
+}
+
+export const umami = {
+  enable: true,
+  umamiBaseUrl: 'https://umami.marxchou.com',
+  umamiId: '73b29141-fccf-4d54-9c2f-f7d0d146f86b',
+
 }
 
 /**
