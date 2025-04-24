@@ -30,6 +30,8 @@ pnpm-debug.log*
 # vercel
 .vercel
 
+Bugs.txt
+
 /test-results/
 /playwright-report/
 /blob-report/

@@ -2,7 +2,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import fg from "fast-glob";
+// @ts-ignore 忽略类型检查，因为 html-minifier 没有类型定义文件
 import { minify } from "html-minifier";
+// @ts-ignore 忽略类型检查，因为 jsdom 没有类型定义文件
 import { JSDOM } from "jsdom";
 import type { AstroIntegration } from "astro";
 import { config } from "../self.config.ts";
@@ -32,7 +34,7 @@ const redirectIntegration = (): AstroIntegration => ({
                         // 排除的 className
                         const excludeClass = config.redirectExcludeClass;
                         // 判断元素或其父元素是否包含指定类名
-                        const hasIncludeClass = (element) => {
+                        const hasIncludeClass = (element: Element) => {
                             while (element) {
                                 if (
                                     includeClass.some((className) =>
@@ -41,12 +43,12 @@ const redirectIntegration = (): AstroIntegration => ({
                                 ) {
                                     return true;
                                 }
-                                element = element.parentElement;
+                                element = element.parentElement as Element;
                             }
                             return false;
                         };
                         // 判断元素或其父元素是否排除指定类名
-                        const hasExcludeClass = (element) => {
+                        const hasExcludeClass = (element: Element) => {
                             while (element) {
                                 if (
                                     excludeClass.some((className) =>
@@ -55,7 +57,7 @@ const redirectIntegration = (): AstroIntegration => ({
                                 ) {
                                     return true;
                                 }
-                                element = element.parentElement;
+                                element = element.parentElement as Element;
                             }
                             return false;
                         };
@@ -130,7 +132,7 @@ const redirectIntegration = (): AstroIntegration => ({
                             }
                         });
                     } catch (error) {
-                        logger.error(`处理链接时出错： ${error.message}`);
+                        logger.error(`处理链接时出错： ${(error as Error).message}`);
                     }
                     html = dom.serialize();
                     // Minify the HTML

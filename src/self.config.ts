@@ -127,7 +127,7 @@ export const comment = {
   serverUrl: 'https://waline.marxchou.com',
   lang: 'zh-CN',
   pageSize: 16,
-  reaction: true,
+  reaction: [] as string[],
   search: false,
   whiteList: ['/message/', '/friends/'],
 }

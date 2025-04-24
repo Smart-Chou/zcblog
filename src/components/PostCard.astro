@@ -62,7 +62,7 @@ const isDefaultImage = /^https:\/\/pic\.mcc\.im\/images(\?.*)?$/.test(
         currentSlug={currentSlug}
     />
     <div class="post-tags post-card__tags">
-        {tags.map((tag) => <PostTag tag={tag} url={`/tag/${tag}/`} />)}
+        {tags.map((tag: string) => <PostTag tag={tag} url={`/tag/${tag}/`} />)}
     </div>
     <a href={postUrl} class="post-card__link">Link</a>
 </PostLayout>

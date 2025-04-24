@@ -16,7 +16,7 @@ import { Icon } from "astro-icon/components";
     document.addEventListener("astro:page-load", () => {
         const themeBtn = document.getElementById("theme-btn");
 
-        function setPreferredTheme(theme) {
+        function setPreferredTheme(theme: string) {
             document.documentElement.setAttribute("data-theme", theme);
             localStorage.setItem("preferredTheme", theme);
         }

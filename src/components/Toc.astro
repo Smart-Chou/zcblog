@@ -9,7 +9,7 @@
 <script>
     import * as tocbot from "tocbot";
     document.addEventListener("astro:page-load", () => {
-        tocbot.init({
+        tocbot.default.init({
             tocSelector: ".toc__content",
             contentSelector: ".post",
             headingSelector: "h2, h3",

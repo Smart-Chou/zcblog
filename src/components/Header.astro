@@ -19,6 +19,7 @@ const { searchEnable = search.enable } = Astro.props;
 </header>
 
 <script>
+    // @ts-ignore 忽略类型检查，因为 nprogress 没有类型定义文件
     import NProgress from "nprogress";
 
     document.addEventListener("astro:page-load", () => {

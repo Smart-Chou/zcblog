@@ -22,12 +22,16 @@ import { umami } from "~/self.config";
 
 <script>
     document.addEventListener("astro:page-load", () => {
-        const umamiBaseUrl = "https://umami.marxchou.com/api/websites/";
-        // FIXME: 请将下面的硬编码 token 替换为有效的 Umami API Token。
-        // 建议使用环境变量或其他安全方式存储 Token。
-        const umamiToken =
-            "oSHg0XDO8a8RpjfXxf9/+f36biuwDx3h8zN0JC+1gA9vbHCJJsYofKAlaWQdcz2MCEP5cMQ96T+CDUssKXKygQmbUtYK7urnDbD9IQ5pPVVpOo2fE8nQJtyLqRMfw/OG9OjM1fsRae3aHkBAWzSH8mDgrjyCZvtZC3nv3xCV/05vWg0zM54ylJT0g8rZd/RA0VnCOTpuR/ro5yqdWpGplPhEqpFhuIbKu+9KPiiFZwlODPipqkc/mmV2/QTyv3xABzrhEJeIPrv0/rp/pyODHoKD+cN12qhbn78eE2eXdanRuQhCFD7pmDSqGtCd791uHA7iWvw0RkjcteYkxBGuE0MKmrEHd/9wbkoX4cnqU+W1uOJQgmlIOTjR5Ak5";
-        const umamiWebsiteId = "73b29141-fccf-4d54-9c2f-f7d0d146f86b";
+        const umamiBaseUrl = import.meta.env.PUBLIC_UMAMI_BASE_URL;
+        const umamiToken = import.meta.env.PUBLIC_UMAMI_API_TOKEN;
+        const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+        
+        // 如果没有设置环境变量，则不执行后续代码
+        if (!umamiToken || !umamiWebsiteId || !umamiBaseUrl) {
+            console.error("Umami 配置未完成，请检查环境变量");
+            return;
+        }
+        
         const startAT =
             "startAt=" +
             new Date("2024-05-10T17:33:05.410Z").getTime().toString();

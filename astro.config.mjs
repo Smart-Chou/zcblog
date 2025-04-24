@@ -5,7 +5,7 @@ import mdx from "@astrojs/mdx";
 import remarkDirective from "remark-directive";
 import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
 import { remarkAsides } from "./src/remarkPlugin/remark-asides.js";
-import { remarkDeruntify } from "./src/remarkPlugin/remaek-deruntify.js";
+import { remarkDeruntify } from "./src/remarkPlugin/remark-deruntify.js";
 import astroExpressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
@@ -58,4 +58,11 @@ export default defineConfig({
     ],
     trailingSlash: "always",
     output: "static",
+    vite: {
+        define: {
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: false,
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+        },
+    },
 });

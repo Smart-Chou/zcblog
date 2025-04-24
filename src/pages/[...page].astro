@@ -8,7 +8,7 @@ import BackToTop from "~/components/BackToTop.astro";
 import { site, config, pageView } from "~/self.config";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
-export async function getStaticPaths({ paginate }) {
+export async function getStaticPaths({ paginate }: { paginate: (data: any[], options: { pageSize: number }) => any[] }) {
     const allPosts = await getCollection("article");
     const pageSize = config.PageSize || 10;
     const sortedPosts = allPosts.sort((a, b) => {
@@ -26,7 +26,7 @@ export async function getStaticPaths({ paginate }) {
 
 const { page } = Astro.props as any;
 
-const postsWithMeta = page.data.map((post) => {
+const postsWithMeta = page.data.map((post: any) => {
     const { wordCount, readTime, modifiedTime, excerpt } =
         getPostsWithMeta(post);
     const sticky = post.data.sticky || false;
@@ -55,7 +55,7 @@ const postsWithMeta = page.data.map((post) => {
     {pageView.author && <Author />}
     <div class="post">
         {
-            postsWithMeta.map((post, index) => (
+            postsWithMeta.map((post: any, index: number) => (
                 <PostCard
                     key={post.slug}
                     title={post.data.title}

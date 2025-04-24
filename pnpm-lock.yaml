@@ -123,6 +123,9 @@ importers:
       prettier-plugin-astro:
         specifier: ^0.13.0
         version: 0.13.0
+      vite:
+        specifier: ^6.3.3
+        version: 6.3.3(@types/node@22.14.1)
 
 packages:
 
@@ -3058,8 +3061,8 @@ packages:
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
-  vite@6.3.2:
-    resolution: {integrity: sha512-ZSvGOXKGceizRQIZSz7TGJ0pS3QLlVY/9hwxVh17W3re67je1RKYzFHivZ/t0tubU78Vkyb9WnHPENSBCzbckg==}
+  vite@6.3.3:
+    resolution: {integrity: sha512-5nXH+QsELbFKhsEfWLkHrvgRpTdGJzqOZ+utSdmPTvwHmvU6ITTm3xx+mRusihkcI8GeC7lCDyn3kDtiki9scw==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -4304,8 +4307,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.15.0
       vfile: 6.0.3
-      vite: 6.3.2(@types/node@22.14.1)
-      vitefu: 1.0.6(vite@6.3.2(@types/node@22.14.1))
+      vite: 6.3.3(@types/node@22.14.1)
+      vitefu: 1.0.6(vite@6.3.3(@types/node@22.14.1))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.2
@@ -7003,7 +7006,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite@6.3.2(@types/node@22.14.1):
+  vite@6.3.3(@types/node@22.14.1):
     dependencies:
       esbuild: 0.25.3
       fdir: 6.4.4(picomatch@4.0.2)
@@ -7015,9 +7018,9 @@ snapshots:
       '@types/node': 22.14.1
       fsevents: 2.3.3
 
-  vitefu@1.0.6(vite@6.3.2(@types/node@22.14.1)):
+  vitefu@1.0.6(vite@6.3.3(@types/node@22.14.1)):
     optionalDependencies:
-      vite: 6.3.2(@types/node@22.14.1)
+      vite: 6.3.3(@types/node@22.14.1)
 
   vue@3.5.13(typescript@5.8.3):
     dependencies:

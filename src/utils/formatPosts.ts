@@ -1,12 +1,14 @@
+import { formatDate } from "./formatDate";
+
 export function formatPosts(
-    posts,
+    posts: { data: { pubDate: string; isDraft: boolean } }[],
     {
         filterOutDrafts = true,
         filterOutFuturePosts = true,
         sortByDate = true,
     } = {},
 ) {
-    const filteredPosts = posts.reduce((acc, post) => {
+    const filteredPosts = posts.reduce((acc: typeof posts, post: { data: { pubDate: string; isDraft: boolean } }) => {
         const { pubDate, isDraft } = post.data;
 
         // filterOutDrafts if true
@@ -15,8 +17,12 @@ export function formatPosts(
         }
 
         // filterOutFuturePosts if true
-        if (filterOutFuturePosts && new Date(pubDate) > new Date()) {
-            return acc;
+        if (filterOutFuturePosts) {
+            const currentDate = new Date();
+            const postDate = new Date(pubDate);
+            if (postDate > currentDate) {
+                return acc;
+            }
         }
 
         // add post to acc
@@ -28,9 +34,11 @@ export function formatPosts(
     // sortByDate or randomize
     if (sortByDate) {
         filteredPosts.sort(
-            (a, b) =>
-                new Date(b.data.pubDate).getTime() -
-                new Date(a.data.pubDate).getTime(),
+            (a, b) => {
+                const dateA = new Date(a.data.pubDate);
+                const dateB = new Date(b.data.pubDate);
+                return dateB.getTime() - dateA.getTime();
+            }
         );
     } else {
         filteredPosts.sort(() => Math.random() - 0.5);

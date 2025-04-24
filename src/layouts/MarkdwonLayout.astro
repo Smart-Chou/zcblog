@@ -103,7 +103,7 @@ if (isDefaultImage) {
         <div class="post__footer">
             <div class="post-tags post-card__tags">
                 {
-                    frontmatter.tags.map((tag) => (
+                    frontmatter.tags.map((tag: string) => (
                         <PostTag tag={tag} url={`/tag/${tag}/`} />
                     ))
                 }

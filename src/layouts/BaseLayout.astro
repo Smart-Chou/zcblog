@@ -50,7 +50,7 @@ const {
                     // 排除的 className
                     const excludeClass = config.redirectExcludeClass;
                     // 判断元素或其父元素是否包含指定类名
-                    const hasIncludeClass = (element) => {
+                    const hasIncludeClass = (element: HTMLElement) => {
                         while (element) {
                             if (
                                 includeClass.some((className) =>
@@ -59,12 +59,12 @@ const {
                             ) {
                                 return true;
                             }
-                            element = element.parentElement;
+                            element = element.parentElement as HTMLElement;
                         }
                         return false;
                     };
                     // 判断元素或其父元素是否排除指定类名
-                    const hasExcludeClass = (element) => {
+                    const hasExcludeClass = (element: HTMLElement) => {
                         while (element) {
                             if (
                                 excludeClass.some((className) =>
@@ -73,7 +73,7 @@ const {
                             ) {
                                 return true;
                             }
-                            element = element.parentElement;
+                            element = element.parentElement as HTMLElement;
                         }
                         return false;
                     };
