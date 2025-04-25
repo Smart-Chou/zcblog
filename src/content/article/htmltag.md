@@ -51,7 +51,7 @@ tags:
 </datalist>
 ```
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/131653-906797.png)
+![#](/assets/image/131653-906797.png)
 
 ## 进度条
 
@@ -63,7 +63,7 @@ tags:
 <meter value="100" min="0" max="100" high="60" optimum="50" low="30"></meter>
 ```
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/131806-171318.png)
+![#](/assets/image/131806-171318.png)
 
 ## 字体增强
 
@@ -78,7 +78,7 @@ tags:
 </details>
 ```
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/132159-126123.png)
+![#](/assets/image/132159-126123.png)
 
 ## 图片
 
@@ -99,17 +99,17 @@ tags:
   <source
     media="(max-width: 300px)"
     srcset="
-      ![](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/180530-958464.jpeg)/w100
+      ![](/assets/image/180530-958464.jpeg)/w100
     "
   />
   <source
     media="(max-width: 600px)"
     srcset="
-      ![](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/180530-958464.jpeg)/w200
+      ![](/assets/image/180530-958464.jpeg)/w200
     "
   />
   <img
-    src="![](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/180530-958464.jpeg)/w300"
+    src="![](/assets/image/180530-958464.jpeg)/w300"
   />
 </picture>
 ```
@@ -139,13 +139,13 @@ tags:
 </form>
 ```
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/144903-43095.png)
+![#](/assets/image/144903-43095.png)
 
 ## 弹窗
 
 自带的弹窗还挺好看的
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/144911-417890.png)
+![#](/assets/image/144911-417890.png)
 
 ```html
 <dialog id="dialog">

@@ -32,20 +32,20 @@ CDK等。
 安装好宝塔环境后，打开宝塔面板，软件商店，找到Docker管理器并安装，此步骤需要等待
 两分钟。
 
-![如何使用宝塔面板Docker管理器一键部署佰阅发卡](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/yyycode_com20201112151929.png)
+![如何使用宝塔面板Docker管理器一键部署佰阅发卡](/assets/note/yyycode_com20201112151929.png)
 
 完成后，打开Docker管理器设置，获取镜像，输入`baiyuetribe/kamifaka`,获取发卡程序
 镜像。
 
-![如何使用宝塔面板Docker管理器一键部署佰阅发卡](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/yyycode_com20201112152651.png)
+![如何使用宝塔面板Docker管理器一键部署佰阅发卡](/assets/note/yyycode_com20201112152651.png)
 
 安装完成后结果如图：
 
-![如何使用宝塔面板Docker管理器一键部署佰阅发卡](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/yyycode_com20201112152756.png)
+![如何使用宝塔面板Docker管理器一键部署佰阅发卡](/assets/note/yyycode_com20201112152756.png)
 
 然后点击容器列表，创建容器：
 
-![如何使用宝塔面板Docker管理器一键部署佰阅发卡](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/yyycode_com20201112154914.png)
+![如何使用宝塔面板Docker管理器一键部署佰阅发卡](/assets/note/yyycode_com20201112154914.png)
 
 只需要确保红线参数正确即可，端口映射：左侧容器内是固定的8000端口，右侧端口可随
 意，推荐跟左侧一致。
@@ -62,13 +62,13 @@ CDK等。
 
 程序相关的重要文件，都可以在`/opt/kamifaka`这个目录下查看。
 
-![如何使用宝塔面板Docker管理器一键部署佰阅发卡](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/yyycode_com20201112215640.png)
+![如何使用宝塔面板Docker管理器一键部署佰阅发卡](/assets/note/yyycode_com20201112215640.png)
 
 ## 关于域名访问
 
 宝塔面板新建网站，然后打开网站设置，设置域名反代。
 
-![如何使用宝塔面板Docker管理器一键部署佰阅发卡](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/yyycode_com20201103222431.png)
+![如何使用宝塔面板Docker管理器一键部署佰阅发卡](/assets/note/yyycode_com20201103222431.png)
 
 之后就可以通过域名正常访问了。
 
@@ -99,7 +99,7 @@ DB_PASSWORD=GxJn7ZPHwYrE366j
 DB_DATABASE=faka
 ```
 
-![如何使用宝塔面板Docker管理器一键部署佰阅发卡](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/yyycode_com20201112170542.png)
+![如何使用宝塔面板Docker管理器一键部署佰阅发卡](/assets/note/yyycode_com20201112170542.png)
 
 ## 关于升级
 

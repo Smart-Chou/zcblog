@@ -46,9 +46,9 @@ tags:
 的`ip`，两次`ip`不一样，`k2控制台`管理`ip`为`192.168.2.1`）一路默认，要用网线，
 据说wifi无线网不可以，其他不相干的网卡先禁用掉。
 
-![breed 界面](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20180128085017151710061744052.png)
+![breed 界面](/assets/note/20180128085017151710061744052.png)
 
-![breed 界面](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20180128085033151710063319001.png)
+![breed 界面](/assets/note/20180128085033151710063319001.png)
 
 点击`是`按钮
 
@@ -57,20 +57,20 @@ tags:
 登录`192.168.1.1` 登录之前断一下电重启，下面是升级固件的页面（少一张选择固件的页
 面截图）
 
-![breed 界面](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20180128085042151710064235458.png)
+![breed 界面](/assets/note/20180128085042151710064235458.png)
 
-![breed 界面](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/4.png)
+![breed 界面](/assets/note/4.png)
 
-![breed 界面](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20180128085101151710066144139.png)
+![breed 界面](/assets/note/20180128085101151710066144139.png)
 
 刷完之后，再重启一下，访问`192.168.1.1`若不能访问，恢复出厂设置后再访问。（断电
 后按键`reset`键，接通电源，持续按键`10s`）
 
-![路由器](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20180128085141151710070155198.png)
+![路由器](/assets/note/20180128085141151710070155198.png)
 
 默认密码`admin`或者`root`，进去之后重新设置密码
 
-![路由器](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20180128085156151710071622467.png)
+![路由器](/assets/note/20180128085156151710071622467.png)
 
 最后上图是 PuTTY 工具登录 `Telnet`，
 

@@ -56,13 +56,13 @@ sticky: 20
 如下所示:
 
 :::info
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/openwrite.png)
+![#](/assets/note/openwrite.png)
 :::
 
 2.返回博客列表中,点击使用
 
 :::info
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/useopenwrite.png)
+![#](/assets/note/useopenwrite.png)
 :::
 
 3.阅读使用文档
@@ -287,7 +287,7 @@ export default {
 
 以上就实现了单篇文章的隐藏,如下所示
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/hideArticle.png)
+![#](/assets/note/hideArticle.png)
 
 那博客里有很多文章,每篇`md`文件末尾都引入该组件,挺麻烦的
 

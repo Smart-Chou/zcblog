@@ -20,7 +20,7 @@ tags:
 网站内容变现，可能需要网站有一定的流量才容易实现，毕竟现在pc端流量本身就比较少
 了。
 
-![网站联盟营销](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/lian-meng-ying-xiao.png)
+![网站联盟营销](/assets/note/lian-meng-ying-xiao.png)
 
 ### 联盟营销
 
@@ -49,7 +49,7 @@ tags:
 台的联盟。当然到了他们这个级别的站后，不简单是靠联盟赚钱，还可以收广告费等方式赚
 钱。
 
-![广告联盟赚钱](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/guang-gao-lian-meng.png)
+![广告联盟赚钱](/assets/note/guang-gao-lian-meng.png)
 
 ### 广告联盟
 
@@ -97,7 +97,7 @@ tags:
 
 奶爸就知道有批量建站刷权重后然后卖给别人的。
 
-![网站靠内容付费赚钱](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/nei-rong-fu-fei.png)
+![网站靠内容付费赚钱](/assets/note/nei-rong-fu-fei.png)
 
 ## 二、会员制网站
 
@@ -155,7 +155,7 @@ tags:
 就是一个专门收集某一天有什么活动的网站，然后有活动发布需求的就到你网站来发布活动
 信息。
 
-![销售商品网站赚钱](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/xiao-shou-shang-pin.png)
+![销售商品网站赚钱](/assets/note/xiao-shou-shang-pin.png)
 
 ## 四、出售数字商品
 
@@ -183,7 +183,7 @@ tags:
 的[【电子书】《轻松学会自己建网站 第一版》](https://blog.naibabiji.com/tutorial/jian-wang-zhan-epud.html)
 就感觉制作的很简陋，要人花钱买肯定是不现实的，所以就免费分享了。
 
-![在线培训赚钱](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/zai-xian-pei-xun.png)
+![在线培训赚钱](/assets/note/zai-xian-pei-xun.png)
 
 ### 在线卖课程
 
@@ -285,7 +285,7 @@ Marketplace这些插件就可以了。
 如果你微信还有钱的话，可以打赏一下奶爸。让奶爸感受一下赞赏
 的[网站赚钱方式](https://blog.naibabiji.com/tutorial/wang-zhan-zhuan-qian-fang-shi.html)。
 
-![打赏我](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/dashang.png)
+![打赏我](/assets/note/dashang.png)
 
 ## 哪种方式最容易赚钱？
 

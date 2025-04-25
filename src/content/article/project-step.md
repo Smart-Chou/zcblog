@@ -20,17 +20,17 @@ tags:
 老板说需要一个简单的留言板应用，此时只需要它是一个装饰品，不需要真的留言功能，通
 过一个简单的**文本标签**就能实现
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/181623-178597.png)
+![#](/assets/image/181623-178597.png)
 
 此时它过于简陋，为了使它更为美观，更良好的交互，我们会写一些简单的**css**样式
 和**JavaScript**代码来装饰它
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/181938-360419.png)
+![#](/assets/image/181938-360419.png)
 
 如果我们要制作更多的这样的页面，为了节省时间，我们会在项目中引入 **bootstrap**UI
 样式和**jquery**库这样的工具来加速开发
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/182333-965613.png)
+![#](/assets/image/182333-965613.png)
 
 老板说为了让我们的页面更为美观和友好，我们考虑请专业的设计人员通过 **墨
 刀、pxcook**等工具来进行设计和标注，再由前端人员进行代码实现
@@ -51,7 +51,7 @@ gitlab来搭建一个私有的代码仓库
 们还是原始的服务端渲染也就是前后端不分离状态，我们可以使使用**Java的
 jsp、thymeleaf，php的smarty**等技术来完成页面渲染
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/183516-233863.png)
+![#](/assets/image/183516-233863.png)
 
 老板听别人说单页面应用，前后端分离的体验更为友好，为了实现前后端分离，我们的前端
 选择了**vuejs框架**来实现留言板
@@ -123,7 +123,7 @@ session来验证用户真实性，项目足够规格的时候，我们可以使�
 后来老板说，我们这个留言板项目的账号，还可以用来登录我们公司旗下的聊天项目，就像
 微信一样可以授权很多平台的登录，此时我们可以考虑 **oauth2和sso单点登录**
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/124010-794256.png)
+![#](/assets/image/124010-794256.png)
 
 为了安全访问，我们将http切换为https
 
@@ -142,7 +142,7 @@ session来验证用户真实性，项目足够规格的时候，我们可以使�
 是可以通过你的问题中某些词来找到相类似的结果。 我们使用 elasticsearch、kibana来
 完成搜索项目的构建
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/121628-410094.png)
+![#](/assets/image/121628-410094.png)
 
 用户在留言的时候，我们需要将留言存入搜索文档存储中，如果同步操作，有可能导致阻
 塞，我们使用消息队列来实现异步操作，我们使用 kafka、mq来发布消息，使用logstash来

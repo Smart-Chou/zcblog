@@ -43,10 +43,10 @@ tags:
 了`第四个元素`：它 ==免费、好用，还蛮好看== ，唯一的缺点就是需要具备动手能力才能
 把积木式的它拼成自己想要的形状。对于有动手能力的人来说，它就是完美的。
 
-![截图 - Tiddlywiki 桌面应用：桌面版笔记工具](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/tiddlywiki-desktop-nodejs-webcatalog.png)
+![截图 - Tiddlywiki 桌面应用：桌面版笔记工具](/assets/note/tiddlywiki-desktop-nodejs-webcatalog.png)
 （↑ 图：`Tiddlywiki` 桌面应用：桌面版笔记工具）
 
-![截图 - Tiddlywiki 桌面应用：目录栏快速搜索小工具](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/menubar-tiddlywiki-quick-search-tool.png)
+![截图 - Tiddlywiki 桌面应用：目录栏快速搜索小工具](/assets/note/menubar-tiddlywiki-quick-search-tool.png)
 （↑ 图：`Tiddlywiki` 桌面应用：目录栏快速搜索小工具）
 
 首先原作者来简单谈谈原作者心中 `TiddlyWiki` 的美观、免费和强大之处。
@@ -114,7 +114,7 @@ tags:
 <<reuse-tiddler "允许用git-sync脚本自动同步代码">>
 ```
 
-![截图 - 通过 Transclusion 稍后再编辑具体内容](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/edit-later.png)
+![截图 - 通过 Transclusion 稍后再编辑具体内容](/assets/note/edit-later.png)
 
 等整篇文章的框架写好之后，再回过头来点击「`允许用 git-sync 脚本自动同步代码`」的
 按钮，创建这篇碎片笔记，把具体内容录入其中，然后 `TiddlyWiki` 会自动把碎片内容填
@@ -203,7 +203,7 @@ tags:
 [RoamResearch](https://nesslabs.com/roam-research-alternatives)）、笔记作为一个
 文件夹装了什么内容（更确切地说，笔记相当于文件夹的 Readme）。
 
-![截图 - TiddlyWiki 中的 图遍历](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/graph-traverse.png)
+![截图 - TiddlyWiki 中的 图遍历](/assets/note/graph-traverse.png)
 
 ## 积木式的知识管理系统-如何手动配置环境
 
@@ -218,7 +218,7 @@ tags:
 [Wiki 模板](https://github.com/linonetwo/Tiddlywiki-NodeJS-Github-Template)， 点
 击绿色的 `Use This Template` 按钮：
 
-![截图 - Tiddlywiki 桌面应用：目录栏快速搜索小工具](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/use-this-template.png)
+![截图 - Tiddlywiki 桌面应用：目录栏快速搜索小工具](/assets/note/use-this-template.png)
 
 在接下来的表单里填好 Wiki 名字等信息（例如 `wiki`）（可能会说你给 Wiki 取的名字
 不行，但是有时候别管它直接点下一步也行），这样一个配置好的 Wiki 仓库就会出现在你
@@ -228,14 +228,14 @@ tags:
 in Desktop==， 就可以用桌面应用 ==Github Desktop== 把你的这个 `Wiki` 同步到桌面
 了。你在 ==Github Desktop== 上就可以看到如下的界面：
 
-![Github Desktop](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/github-desktop.png)
+![Github Desktop](/assets/note/github-desktop.png)
 
 接着用[VSCode](https://code.visualstudio.com/)之类的代码编辑器打开刚同步下来的
 Wiki 代码仓库（如果 VSCode 让你安装 git，就装），按 <kbd>ctrl</kbd> +
 <kbd>~</kbd>（不同系统可能不一样，可以选择如下图所示用菜单打开）快捷键打开终端，
 输入 `npm i` 安装 wiki 所需的依赖。
 
-![截图 - 在 vscode 里创建新的终端](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/new-terminal-chinese.png)
+![截图 - 在 vscode 里创建新的终端](/assets/note/new-terminal-chinese.png)
 
 这一步出现 `WARN` 不是出错，可以继续进行下一步，只有 `ERROR` 才是出错。
 
@@ -244,7 +244,7 @@ Wiki 代码仓库（如果 VSCode 让你安装 git，就装），按 <kbd>ctrl</
 原作者一样可以直接展开 VSCode 上的 `NPM SCRIPTS`，然后点击你该点的按钮来启动
 wiki 服务器：
 
-![截图 - VSCode 里的 NPM  SCRIPTS](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/npm-script-chinese.png)
+![截图 - VSCode 里的 NPM  SCRIPTS](/assets/note/npm-script-chinese.png)
 
 现在你应该可以在浏览器打开 [127.0.0.1:5013](http://127.0.0.1:5013/) 看到你的
 wiki 了。如果打不开，可能是因为
@@ -258,7 +258,7 @@ wiki 了。如果打不开，可能是因为
 [http://127.0.0.1:5013/](http://127.0.0.1:5013/) 前面是 **http** 而不是
 **https**），并取一个名字、加一个图标：
 
-![截图 - Tiddlywiki 桌面应用：创建桌面应用](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/webcatalog-localhost-app.png)
+![截图 - Tiddlywiki 桌面应用：创建桌面应用](/assets/note/webcatalog-localhost-app.png)
 
 （纯色图标可以下载原作者做
 的[黑色](https://github.com/linonetwo/wiki/blob/7033fc1e1ca60f4e825d4fb8dc5fc79b5bcffd3b/MemeOfLinonetwo/tiddlers/TiddlyWikiIconBlack.png)和[白色](https://github.com/linonetwo/wiki/blob/7033fc1e1ca60f4e825d4fb8dc5fc79b5bcffd3b/MemeOfLinonetwo/tiddlers/TiddlyWikiIconWhite.png)的，
@@ -272,7 +272,7 @@ wiki 了。如果打不开，可能是因为
 `https://onetwo.ren/wiki/`），防止两个 wiki 都和本地服务器同步，有时候会有一些
 bug，因为 `TiddlyWiki` 一开始并不是为多用户的情况设计的。
 
-![截图 - Tiddlywiki 桌面应用：目录栏快速搜索小工具](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/menubar-tiddlywiki-quick-search-tool.png)
+![截图 - Tiddlywiki 桌面应用：目录栏快速搜索小工具](/assets/note/menubar-tiddlywiki-quick-search-tool.png)
 
 因为 `WebCatalog` 的 App 模板是放在 Github 上的，所以如果没有对它开翻墙的话，会
 比较慢，需要等比较久的时间才会下载安装好，翻了墙就很快了。
@@ -332,11 +332,11 @@ git config credential.helper "$helper $options"
 然后打开这个仓库的网站，把 ssh 形式的仓库地址配置到本地仓库里，这是为了避
 免[无法同步的问题](https://github.com/simonthum/git-sync/issues/17)：
 
-![copy-ssh](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/copy-ssh.png)
+![copy-ssh](/assets/note/copy-ssh.png)
 
-![repository-setting](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/repository-setting.png)
+![repository-setting](/assets/note/repository-setting.png)
 
-![use-ssh-repo](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/use-ssh-repo.png)
+![use-ssh-repo](/assets/note/use-ssh-repo.png)
 
 在终端里运行 `npm run install:wikiServer`（windows 上是
 `npm run install:windows:wikiServer`）来配置开机自动启动 wiki，并顺便启动 wiki、
@@ -346,14 +346,14 @@ git config credential.helper "$helper $options"
 这个操作在 MacOS 和 Linux 上需要在终端里输入密码，在 Windows 上会弹出多个 UAC 权
 限确认弹框，当然是全部点「`是`」了：
 
-![截图 - Windows UAC 权限确认弹框 net](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/allow-uac-net-command-chinese.png)
+![截图 - Windows UAC 权限确认弹框 net](/assets/note/allow-uac-net-command-chinese.png)
 
-![截图 - Windows UAC 权限确认弹框 tiddlywiki](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/allow-uac-tiddlywiki-chinese.png)
+![截图 - Windows UAC 权限确认弹框 tiddlywiki](/assets/note/allow-uac-tiddlywiki-chinese.png)
 
 在 Mac 上，在终端输入 `code /Library/Logs/TiddlyWiki` 可以看到错误报告，如果说
 `no permission blabla` 什么的，可以通过运行 node 访问所有文件来解决：
 
-![截图 - Windows UAC 权限确认弹框 tiddlywiki](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/allow-node-js-access-fs.png)
+![截图 - Windows UAC 权限确认弹框 tiddlywiki](/assets/note/allow-node-js-access-fs.png)
 
 如果你给一个 Tiddler 加上 `APrivateContent` 这个 `tag`，`TiddlyWiki` 就会把你加
 到 Wiki 里的内容保存到刚刚创建的私有仓库里的 tiddlers 文件夹里了，而且倒计时三十

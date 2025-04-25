@@ -27,7 +27,7 @@ oneindex，但似乎OneDrive的api接口对访问量有限制，有时我浏览�
 
 先上一张成果图：
 
-![效果图](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/Chevereto.png)
+![效果图](/assets/note/Chevereto.png)
 
 :::tip
 支持多张图片上传哦！
@@ -143,7 +143,7 @@ jQuery('#up_to_chevereto').change(function() {
 
 这里我的编辑器用的是`WP Editor.md`，界面不同但不影响上传按钮的使用
 
-![上传界面](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/29cc590dd171182f21d9772b635f8f64.gif)
+![上传界面](/assets/note/29cc590dd171182f21d9772b635f8f64.gif)
 
 ## 更新
 

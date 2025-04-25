@@ -29,11 +29,11 @@ hello大家好我是ChouCong，上一期视频里面我分享到自己的markdow
 
 一定要创建子用户
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/152835-547872.png)
+![#](/assets/image/152835-547872.png)
 
 然后添加权限
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/152944-288062.png)
+![#](/assets/image/152944-288062.png)
 
 ## 使用插件的方式
 
@@ -43,7 +43,7 @@ hello大家好我是ChouCong，上一期视频里面我分享到自己的markdow
 ## 安装
 
 - 首先解压，拿到插件包
-  ![markdown-ChouCong](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/212925-928139.png)
+  ![markdown-ChouCong](/assets/image/212925-928139.png)
 
 然后找到Typora的安装根目录下的`resources/app`,将plugins粘贴在这里
 
@@ -120,10 +120,10 @@ echo $str . "\n";
 php 你的脚本地址
 ```
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/213932-683672.png)
+![#](/assets/image/213932-683672.png)
 
 点击下方的验证上传
 
-![#](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/image/214031-408648.png)
+![#](/assets/image/214031-408648.png)
 
 成功！

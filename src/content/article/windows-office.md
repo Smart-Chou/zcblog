@@ -32,11 +32,11 @@ tags:
 
 推荐下载包含框架的版本，不需要安装额外依赖，下载解压后运行文件夹内 `RunMe.bat`
 
-![运行程序](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/ffa19825ae00efca7552a8729e66a9e1.png)
+![运行程序](/assets/note/ffa19825ae00efca7552a8729e66a9e1.png)
 
 1. 选择 `部署` 按钮，进去后看到如下界面
 
-![部署界面](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/f8bf6513ec310c10d22b7ed678ef50b8.png)
+![部署界面](/assets/note/f8bf6513ec310c10d22b7ed678ef50b8.png)
 
 选择需要安装的版本以及需要安装的应用，如 `Word` `Excel` `PowerPoint`，添加需要安
 装的语言，之后点击 `开始部署` 即可开始安装。
@@ -46,7 +46,7 @@ tags:
 
 首先点击主界面的 `代码` 按钮
 
-![主界面代码](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto/note/073774c8eb6da29f7d92d33e5888eeee.png)
+![主界面代码](/assets/note/073774c8eb6da29f7d92d33e5888eeee.png)
 
 然后在红框内输入如下代码按回车，等待激活结束
 

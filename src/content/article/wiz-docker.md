@@ -35,7 +35,7 @@ sudo systemctl restart docker
 
 然后在镜像管理- 获取镜像 输入名称: `wiznote/wizserver` 获取官方镜像
 
-![插图](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20200903-cdfc95cfd4c1c.png-img)
+![插图](/assets/note/20200903-cdfc95cfd4c1c.png-img)
 
 `WizNote`镜像大概`1.6G`,运行后会自动下载镜像,下载完之后才会出现在镜像管理里。
 （下载约`10分钟`左右，根据你的`服务器带宽速度`）
@@ -46,7 +46,7 @@ sudo systemctl restart docker
 
 目录映射如下,选着同步的文件即可。
 
-![插图](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20200903-7b24562c96d55.png-img)
+![插图](/assets/note/20200903-7b24562c96d55.png-img)
 
 内存分配建议`800MB`以上,太小了跑不起来。`CPU`根据实际情况分配
 
@@ -55,7 +55,7 @@ sudo systemctl restart docker
 
 启动成功访问就会进入到为知笔记页面.如图:
 
-![插图](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20200903-ede43bd641f49.png-img)
+![插图](/assets/note/20200903-ede43bd641f49.png-img)
 
 ### 使用宝塔面板反向代理,自定义域名访问
 
@@ -64,7 +64,7 @@ sudo systemctl restart docker
 
 在宝塔里新建一个站点,然后给创建反向代理,如下:
 
-![插图](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20200903-8d6c4b06ae208.png-img)v
+![插图](/assets/note/20200903-8d6c4b06ae208.png-img)v
 
 到这一步基本已经大功告成了。如果需要开启SSL。请看下边
 
@@ -72,7 +72,7 @@ sudo systemctl restart docker
 
 首先就是现在反向代理的那个域名下 开启SSL
 
-![插图](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20200903-5c30b7eb65c6d.png-img)
+![插图](/assets/note/20200903-5c30b7eb65c6d.png-img)
 
 然后在这个域名下的反向代理里边修改配置
 
@@ -92,13 +92,13 @@ proxy_set_header X-Forwarded-Proto $scheme;
 正常情况下，会返回一个 `json` 数据，检查第一个 `key wizas` 的值，应该是 `https`
 开头。如果是 `http` 开头，则说明配置没有生效。
 
-![插图](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20200903-0e253f7fc0ec4.png-img)
+![插图](/assets/note/20200903-0e253f7fc0ec4.png-img)
 
 ### 至此,部署完成
 
 默认管理员账号：`admin@wiz.cn`，密码：`123456`
 
-![插图](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/20200903-1800905715d10.png-img)
+![插图](/assets/note/20200903-1800905715d10.png-img)
 
 ## 相关文章
 

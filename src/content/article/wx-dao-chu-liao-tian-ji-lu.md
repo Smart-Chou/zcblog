@@ -28,26 +28,26 @@ tags:
 
 导出聊天记录预览：
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74ccae7606730.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74ccae7606730.png_e600.jpg)
 
 所有的语音记录：
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74cccf41a4954.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74cccf41a4954.png_e600.jpg)
 
 所有的图片记录：
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74ccd5ff75915.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74ccd5ff75915.png_e600.jpg)
 
 所有的视频记录：
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74ccd1f59485.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74ccd1f59485.png_e600.jpg)
 
 > 我拿聊天记录做了词云。想知道怎么做词云的，人多的话，我试着写写教程，这难度可能
 > 对非程序员有点难。
 
 你们说，为啥会有这么多的皱眉呢？
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74ccbc8dd73.jpg_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74ccbc8dd73.jpg_e600.jpg)
 
 ## 准备
 
@@ -67,19 +67,19 @@ tags:
 
 2. 电脑端选择备份与恢复
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74ccb87379323.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74ccb87379323.png_e600.jpg)
 
 3. 备份至电脑
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74cd488db606.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74cd488db606.png_e600.jpg)
 
 4. 接着手机会出现弹窗
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74cd77c267868.jpg_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74cd77c267868.jpg_e600.jpg)
 
 5. 选择某一个聊天人
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74cd967261772.jpg_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74cd967261772.jpg_e600.jpg)
 
 6. 接下来就是等待电脑和手机之间的传输啦~
 
@@ -99,13 +99,13 @@ tags:
 
 3. 在iTunes点击你的ios设备
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74cdc16864609.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74cdc16864609.png_e600.jpg)
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74cdbb8217496.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74cdbb8217496.png_e600.jpg)
 
 4. 选择备份位置为【本电脑】 接着点击【立即备份】
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74cdbb8217496.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74cdbb8217496.png_e600.jpg)
 
 5. 等待，这个备份过程还是稍稍有些缓慢的。
 
@@ -113,22 +113,22 @@ tags:
 
 7. 解压后的目录
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74cdf010c8274.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74cdf010c8274.png_e600.jpg)
 
 8. 可以导出啦~
 
 将近9万多条记录啊，抛去打电话，每天要聊147句话呢~
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74ce069633991.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74ce069633991.png_e600.jpg)
 
 9. 导出后的文件夹 这其实就是个前端项目
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74ce25bc04381.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74ce25bc04381.png_e600.jpg)
 
 10. 双击一下 index.html，你就可以看到聊天记录的预览了（聊天记录多的话，会需要等
     待一会儿，莫急）
 
-![如何导出微信聊天记录并永久保存](https://cdn.jsdelivr.net/gh/Smart-Chou/webphoto@latest/note/5e1c74ce409625345.png_e600.jpg)
+![如何导出微信聊天记录并永久保存](/assets/note/5e1c74ce409625345.png_e600.jpg)
 
 11. 上传百度云 导出后，永久保存达成
 
