@@ -43,7 +43,7 @@ image:
   url: 
   alt: 
 sticky: 0
-comment: false
+waline: false
 ---
 EOL
 else

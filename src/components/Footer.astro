@@ -1,5 +1,4 @@
 ---
-import Umami from "~/components/Umami.astro";
 import { site, footerList } from "~/self.config";
 
 const currentYear = new Date().getFullYear();
@@ -43,10 +42,9 @@ const currentYear = new Date().getFullYear();
         </a>
         <a href="/sitemap-index.xml">
             <img
-                alt="Feedly"
-                src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.swo.moe%2Fstats%2Ffeedly%2Fhttps%253A%252F%252Fmarxchou.com%252Frss.xml&query=count&color=004fff&label=Feedly&labelColor=2bb24c&logo=feedly&logoColor=ffffff&suffix=+subs&cacheSeconds=3600"
+                alt="sitemap"
+                src="https://img.shields.io/badge/sitemap-%232bb24c?style=flat-square&logo=maplibre&logoColor=%23ffffff&labelColor=%232bb24c&link=https%3A%2F%2Fmarxchou.com%2Fsitemap-index.xml"
             />
         </a>
     </div>
-    <Umami />
 </footer>

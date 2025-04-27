@@ -7,7 +7,7 @@ image:
   url: 'https://pic.mcc.im/images?rP6sA8'
   alt: 'wait-this-is-not-my-commit'
 sticky: 0
-comment: false
+waline: false
 mathjax: true
 mermaid: true
 ---

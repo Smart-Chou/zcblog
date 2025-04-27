@@ -8,7 +8,7 @@ import Favicon from "~/components/BaseHead/Favicon.astro";
 import JsonLd from "~/components/BaseHead/JsonLd.astro";
 import Analytics from "~/components/BaseHead/Analytics.astro";
 import Scripts from "~/components/BaseHead/Scripts.astro";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import "~/styles/global.css";
 
 const {
@@ -25,6 +25,17 @@ const {
 ---
 
 <head>
+    <!-- 预先设置主题，避免闪烁 -->
+    <script is:inline>
+        // 在页面渲染前预先设置主题
+        const savedTheme = localStorage.getItem("preferredTheme");
+        if (savedTheme) {
+            document.documentElement.setAttribute("data-theme", savedTheme);
+            if (savedTheme === "dark") {
+                document.documentElement.classList.add("dark");
+            }
+        }
+    </script>
     <GlobalMeta title={title} description={description} keywords={keywords} />
     <OpenGraph
         title={title}
@@ -53,5 +64,5 @@ const {
     />
     <Analytics />
     <Scripts mathjax={mathjax} mermaid={mermaid} />
-    <ViewTransitions />
+    <ClientRouter />
 </head>

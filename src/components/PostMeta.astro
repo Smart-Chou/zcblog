@@ -1,21 +1,15 @@
 ---
 import { formatDate } from "~/utils/formatDate";
-const { publishedTime, modifiedTime, wordCount, readTime, currentSlug } =
+const { publishedTime, wordCount, readTime, currentSlug } =
     Astro.props;
 ---
 
 <div class="post-meta post-card__meta">
-    Posted {formatDate(publishedTime)}.&nbsp; Updated {
-        formatDate(modifiedTime)
-    }.&nbsp;
+    Posted {formatDate(publishedTime)}.&nbsp;&nbsp;
     <span id="word-count">{wordCount} words.</span>&nbsp;
     <span id="read-time">{readTime}.</span>&nbsp;
     <span class="waline-pageview-count" data-path={`/article/${currentSlug}/`}
         >0</span
     >
     <span> views.&nbsp;</span>
-    <span class="waline-comment-count" data-path={`/article/${currentSlug}/`}
-        >0</span
-    >
-    <span> messages.</span>
 </div>

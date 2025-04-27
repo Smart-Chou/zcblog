@@ -9,7 +9,7 @@
 
 <script>
     import { init, type WalineInitOptions } from '@waline/client';
-    import { comment } from '~/self.config';
+    import { waline } from '~/self.config';
     import '@waline/client/waline.css';
     import '@waline/client/waline-meta.css';
 
@@ -32,12 +32,12 @@
 
         const walineElement = document.getElementById('waline');
 
-        if (!comment.enable || !walineElement) {
+        if (!waline.enable || !walineElement) {
             console.error('Required elements or configuration are missing.');
             return;
         }
 
-        const origin = comment.serverUrl;
+        const origin = waline.serverUrl;
         const walineProps = walineElement!.dataset;
         const walineConfig: Partial<WalineInitOptions> = {
             el: '#waline',
@@ -45,23 +45,24 @@
             comment: true,
             locale,
             path: walineProps.walinePath!,
-            lang: comment.lang,
-            pageSize: comment.pageSize,
+            lang: waline.lang,
+            pageSize: waline.pageSize,
             pageview: true,
+            meta: ['nick', 'mail'],
             requiredMeta: ['nick', 'mail'],
             login: 'disable',
-            search: comment.search,
+            search: waline.search,
             dark: 'html[data-theme="dark"]',
             emoji: ['https://unpkg.com/@waline/emojis@1.2.0/qq', 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili'],
         };
 
         // 仅当不在白名单时添加 reaction 属性
-        if (comment.whiteList.includes(location.pathname)) {
+        if (waline.whiteList.includes(location.pathname)) {
             // 将布尔值转换为字符串数组
             walineConfig.reaction =
-                typeof comment.reaction === 'boolean' && comment.reaction === true
+                typeof waline.reaction === 'boolean' && waline.reaction === true
                     ? [] // 为 true 时使用空数组启用默认反应
-                    : (comment.reaction as string[]); // 若已是数组则直接使用
+                    : (waline.reaction as string[]); // 若已是数组则直接使用
         }
 
         init(walineConfig as WalineInitOptions);

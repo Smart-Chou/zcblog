@@ -25,11 +25,10 @@ const { tag } = Astro.params;
 const { articles } = Astro.props;
 
 const postsWithMeta = articles.map((post) => {
-    const { wordCount, readTime, modifiedTime, excerpt } =
+    const { wordCount, readTime, excerpt } =
         getPostsWithMeta(post);
     return {
         ...post,
-        modifiedTime: modifiedTime,
         wordCount,
         readTime,
         excerpt,
@@ -56,7 +55,6 @@ const postsWithMeta = articles.map((post) => {
                     <p class="post-card__description">{post.excerpt}</p>
                     <PostMeta
                         publishedTime={post.data.pubDate}
-                        modifiedTime={post.modifiedTime}
                         wordCount={post.wordCount}
                         readTime={post.readTime}
                         currentSlug={post.slug}
@@ -72,21 +70,17 @@ const postsWithMeta = articles.map((post) => {
 
 <script>
     import { pageviewCount } from "@waline/client/pageview";
-    import { commentCount } from "@waline/client/comment";
-    import { comment } from "~/self.config";
+    import { waline } from "~/self.config";
 
     document.addEventListener("astro:page-load", () => {
-        const serverURL = comment.serverUrl;
+        const serverURL = waline.serverUrl;
         const path = window.location.pathname;
 
         pageviewCount({
             serverURL,
             path,
-        });
-
-        commentCount({
-            serverURL,
-            path,
-        });
+            selector: '.waline-pageview-count', // 添加选择器参数
+            update: true // 确保更新页面浏览量
+        })
     });
 </script>

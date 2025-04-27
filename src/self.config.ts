@@ -58,10 +58,7 @@ export const twitter = {
  * lang {string} 默认网站语言 en | zh-CN  
  * PageSize {number} 文章页面上的文章数  
  * codeFoldingStartLines {number} 代码折叠起始行数  
- * ga {string|false} 如果您想与Google Analytics进行集成，只需在此处输入您的GA-ID即可。  
- * umami {true|false} 如果您想与Umami进行集成，只需在此处输入您的Umami网站ID即可。  
- * umamiUrl {string} Umami网站地址
- * umamiID {string} Umami网站ID
+ * ga {string|false} 如果您想与Google Analytics进行集成，只需在此处输入您的GA-ID即可。
  * redirect {boolean} 是否开启链接重定向  
  * redirectIncludeClass {string[]} 链接重定向包含的类  
  * redirectExcludeClass {string[]} 链接重定向排除的类
@@ -122,7 +119,7 @@ export const donate = {
  * search {boolean} 是否开启搜索  
  * whiteList {string[]} 白名单 总是开启
  */
-export const comment = {
+export const waline = {
   enable: true,
   serverUrl: 'https://waline.marxchou.com',
   lang: 'zh-CN',
@@ -323,21 +320,12 @@ export const friendsPage = {
  */
 export const footerList = [
   {
-    title: 'Swo',
-    text: 'Theme',
-    color: 'cyan',
-    logo: 'cloudera',
-    logoColor: 'white',
-    labelColor: 'pink',
-    url: '//github.com/spencerwooo/swo',
-  },
-  {
     title: 'Astro',
     text: 'Generator',
     color: 'Lime',
     logo: 'astro',
     logoColor: 'red',
-    labelColor: 'gray',
+    labelColor: 'pink',
     url: '//astro.build',
   },
   {
@@ -346,7 +334,7 @@ export const footerList = [
     color: 'Lime',
     logo: 'vercel',
     logoColor: 'white',
-    labelColor: 'gray',
+    labelColor: 'cyan',
     url: '//vercel.com',
   },
 ]

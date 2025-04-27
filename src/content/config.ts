@@ -18,7 +18,7 @@ const postsCollection = defineCollection({
         mathjax: z.boolean().default(false).nullable(), // MathJax 开关，默认为 false，可为 null
         mermaid: z.boolean().default(false).nullable(), // Mermaid 图表开关，默认为 false，可为 null
         donate: z.boolean().default(true).nullable(), // 捐赠开关，默认为 true，可为 null
-        comment: z.boolean().default(true).nullable(), // 评论开关，默认为 true，可为 null
+        waline: z.boolean().default(true).nullable(), // 评论开关，默认为 true，可为 null
         sticky: z.number().default(0).nullable(), // 置顶级别，默认为 0，可为 null
     }),
 });
