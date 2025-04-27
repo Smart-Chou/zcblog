@@ -1,5 +1,3 @@
-import { formatDate } from "./formatDate";
-
 export function formatPosts(
     posts: { data: { pubDate: string; isDraft: boolean } }[],
     {

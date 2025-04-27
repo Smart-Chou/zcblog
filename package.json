@@ -18,10 +18,11 @@
         "format": "prettier -w ."
     },
     "dependencies": {
-        "@astrojs/mdx": "^5.0.0",
+        "@astrojs/check": "^0.9.4",
+        "@astrojs/mdx": "^4.2.5",
         "@astrojs/partytown": "^2.1.4",
-        "@astrojs/rss": "^5.0.0",
-        "@astrojs/sitemap": "^5.0.0",
+        "@astrojs/rss": "^4.0.11",
+        "@astrojs/sitemap": "^3.3.1",
         "@expressive-code/plugin-collapsible-sections": "^0.35.6",
         "@expressive-code/plugin-line-numbers": "^0.35.6",
         "@playform/inline": "^0.0.7",
@@ -44,6 +45,7 @@
         "sanitize-html": "^2.16.0",
         "sharp": "^0.33.5",
         "tocbot": "^4.36.2",
+        "typescript": "^5.8.3",
         "unist-util-remove": "^4.0.0",
         "unist-util-visit": "^5.0.0"
     },
