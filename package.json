@@ -1,7 +1,7 @@
 {
     "name": "@marxchou/spwblog",
     "version": "1.0.1",
-    "description": "AstroWind: A free template using Astro 5.7.5 and Tailwind CSS. Astro starter theme.",
+    "description": "个人博客网站，使用Astro框架构建，包含文章、标签、归档、捐赠等功能",
     "type": "module",
     "private": true,
     "engines": {
