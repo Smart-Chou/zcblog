@@ -1,5 +1,6 @@
 ---
 import { site, footerList } from "~/self.config";
+import { Image } from "astro:assets";
 
 const currentYear = new Date().getFullYear();
 ---
@@ -24,10 +25,15 @@ const currentYear = new Date().getFullYear();
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <img
-                        alt={meta.title}
+
+                    <Image
                         src={`https://img.shields.io/badge/${meta.title}-${meta.text}-${meta.color}?logo=${meta.logo}&logoColor=${meta.logoColor}&labelColor=${meta.labelColor}`}
+                        alt={meta.title}
+                        loading="lazy"
+                        width={120}
+                        height={20}
                     />
+
                 </a>
             ))
         }
@@ -35,16 +41,22 @@ const currentYear = new Date().getFullYear();
     <div id="rss-stats">
         &nbsp;&nbsp;
         <a href="/rss.xml">
-            <img
-                src="https://img.shields.io/badge/RSS-sky?logo=rss"
-                alt="RSS"
-            />
+            <Image
+                    src="https://img.shields.io/badge/RSS-sky?logo=rss"
+                    alt="RSS"
+                    loading="lazy"
+                    width={80}
+                    height={20}
+                />
         </a>
         <a href="/sitemap-index.xml">
-            <img
-                alt="sitemap"
-                src="https://img.shields.io/badge/sitemap-%232bb24c?style=flat-square&logo=maplibre&logoColor=%23ffffff&labelColor=%232bb24c&link=https%3A%2F%2Fmarxchou.com%2Fsitemap-index.xml"
-            />
+            <Image
+                    src="https://img.shields.io/badge/sitemap-%232bb24c?style=flat-square&logo=maplibre&logoColor=%23ffffff&labelColor=%232bb24c&link=https%3A%2F%2Fmarxchou.com%2Fsitemap-index.xml"
+                    alt="sitemap"
+                    loading="lazy"
+                    width={100}
+                    height={20}
+                />
         </a>
     </div>
 </footer>

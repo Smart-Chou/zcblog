@@ -4,6 +4,9 @@ import PostTag from "~/components/PostTag.astro";
 import PostMeta from "~/components/PostMeta.astro";
 import PostCardImage from "~/components/PostCardImage.astro";
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { site } from "~/self.config";
+import coverImage from "../assets/cover.png";
 
 const {
     altText,
@@ -22,6 +25,22 @@ const {
 const isDefaultImage = /^https:\/\/pic\.mcc\.im\/images(\?.*)?$/.test(
     imagePath,
 );
+const isRemoteImage = /^https?:\/\//.test(imagePath);
+
+// Generate random string for unique image URLs
+const generateRandomString = (length = 10) => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+};
+
+// Get random image URL with unique parameter
+const getRandomImageUrl = () => {
+    return `https://pic.mcc.im/images?${generateRandomString()}`;
+};
 ---
 
 <PostLayout>
@@ -29,10 +48,21 @@ const isDefaultImage = /^https:\/\/pic\.mcc\.im\/images(\?.*)?$/.test(
         {
             isDefaultImage ? (
                 <img
-                    src={imagePath}
-                    alt="random image"
+                    src={getRandomImageUrl()}
+                    alt={altText}
                     class="post-card__image"
-                    loading="eager"
+                    loading={loading || "lazy"}
+                    width={800}
+                    height={450}
+                />
+            ) : isRemoteImage ? (
+                <img
+                    src={imagePath}
+                    alt={altText}
+                    class="post-card__image"
+                    loading={loading || "lazy"}
+                    width={800}
+                    height={450}
                 />
             ) : (
                 <PostCardImage

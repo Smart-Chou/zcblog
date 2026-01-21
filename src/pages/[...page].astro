@@ -62,13 +62,13 @@ const postsWithMeta = page.data.map((post: any) => {
                     publishedTime={post.data.pubDate}
                     modifiedTime={post.modifiedTime}
                     postUrl={`/article/${post.slug}/`}
-                    imagePath={post.data.image.url}
+                    imagePath={post.data.image?.url || "https://pic.mcc.im/images"}
                     description={post.excerpt}
                     tags={post.data.tags}
                     wordCount={post.wordCount}
                     readTime={post.readTime}
                     currentSlug={post.slug}
-                    altText={post.data.image.alt}
+                    altText={post.data.image?.alt || "Blog Cover"}
                     loading={index < 3 ? "eager" : "lazy"}
                     sticky={post.sticky}
                 />

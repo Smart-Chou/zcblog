@@ -33,21 +33,34 @@ const publishedDays = Math.floor(
 
 const allPosts = await getCollection("article");
 const currentSlug = Astro.params.slug;
-const isDefaultImage = /^https:\/\/pic\.mcc\.im\/images(\?.*)?$/.test(
-    frontmatter.image.url,
-);
 
-let imageUrl = frontmatter.image.url;
-if (isDefaultImage) {
-    imageUrl = site.coverImage;
-}
+// Generate random string for unique image URLs
+const generateRandomString = (length = 10) => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+};
+
+// Get random image URL with unique parameter
+const getRandomImageUrl = () => {
+    return `https://pic.mcc.im/images?${generateRandomString()}`;
+};
+
+// Safe handling for frontmatter.image
+const imageUrl = frontmatter.image?.url || "https://pic.mcc.im/images";
+const imageAlt = frontmatter.image?.alt || "Blog Cover";
+const isDefaultImage = /^https:\/\/pic\.mcc\.im\/images(\?.*)?$/.test(imageUrl);
+const isRemoteImage = /^https?:\/\//.test(imageUrl);
 ---
 
 <BaseLayout
     title={`${frontmatter.title} - ${site.title}`}
     description={`${frontmatter.title} - ${frontmatter.description}`}
     image={`${Astro.site}${imageUrl}`}
-    imageAlt={frontmatter.image.alt}
+    imageAlt={imageAlt}
     keywords={frontmatter.tags}
     publishedTime={publishedTime}
     modifiedTime={modifiedTime}
@@ -71,15 +84,26 @@ if (isDefaultImage) {
             {
                 isDefaultImage ? (
                     <img
-                        src={frontmatter.image.url}
-                        alt="random image"
+                        src={getRandomImageUrl()}
+                        alt={imageAlt}
+                        class="post-card__image"
+                        loading="lazy"
+                        width={800}
+                        height={450}
+                    />
+                ) : isRemoteImage ? (
+                    <img
+                        src={imageUrl}
+                        alt={imageAlt}
                         class="post-card__image"
                         loading="eager"
+                        width={800}
+                        height={450}
                     />
                 ) : (
                     <PostCardImage
-                        imagePath={frontmatter.image.url}
-                        altText={frontmatter.image.alt}
+                        imagePath={imageUrl}
+                        altText={imageAlt}
                         loading="eager"
                     />
                 )

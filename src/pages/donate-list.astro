@@ -1,0 +1,329 @@
+---
+import { Icon } from "astro-icon/components";
+import { donate } from "~/self.config";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+---
+
+<BaseLayout 
+    title="赞赏者名单" 
+    description="感谢所有支持和鼓励我的朋友们"
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+>
+    <div class="donate-list-page">
+        <div class="container">
+            <div class="page-header">
+                <div class="header-content">
+                    <Icon name="ph:hand-heart-fill" class="header-icon" />
+                    <h1 class="header-title">赞赏者名单</h1>
+                    <p class="header-subtitle">感谢所有支持和鼓励我的朋友们</p>
+                </div>
+            </div>
+
+            <div class="donate-section s-card">
+                <div class="donate-header">
+                    <h2 class="section-title">支持方式</h2>
+                    <p class="section-desc">{donate.tip}</p>
+                </div>
+                <div class="donate-methods">
+                    <div class="donate-method">
+                        <div class="qr-code">
+                            <img src={donate.wechatQRCode} alt="微信支付" />
+                            <div class="qr-info">
+                                <Icon name="mingcute:wechat-pay-line" class="pay-icon" />
+                                <span class="pay-name">微信支付</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="donate-method">
+                        <div class="qr-code">
+                            <img src={donate.alipayQRCode} alt="支付宝支付" />
+                            <div class="qr-info">
+                                <Icon name="simple-icons:alipay" class="pay-icon" />
+                                <span class="pay-name">支付宝</span>
+                            </div>
+                        </div>
+                    </div>
+                    {donate.paypalUrl && (
+                        <div class="donate-method">
+                            <a href={donate.paypalUrl} target="_blank" rel="noopener noreferrer" class="paypal-btn s-card hover">
+                                <Icon name="simple-icons:paypal" class="pay-icon" />
+                                <span class="pay-name">PayPal</span>
+                            </a>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            <div class="donators-section s-card">
+                <div class="donators-header">
+                    <h2 class="section-title">赞赏者名单</h2>
+                    <p class="section-desc">排名不分先后，感谢每一位朋友的支持</p>
+                </div>
+                <div class="donators-list">
+                    {donate.donators.map((donator) => (
+                        <div class="donator-item">
+                            <div class="donator-avatar">
+                                {donator.avatar ? (
+                                    <img src={donator.avatar} alt={donator.name} />
+                                ) : (
+                                    <div class="avatar-placeholder">
+                                        <Icon name="ph:user-circle-fill" />
+                                    </div>
+                                )}
+                            </div>
+                            <div class="donator-info">
+                                <div class="donator-name">{donator.name}</div>
+                                <div class="donator-amount">¥{donator.amount.toFixed(2)}</div>
+                                <div class="donator-time">{donator.date}</div>
+                                {donator.message && (
+                                    <div class="donator-message">{donator.message}</div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div class="thank-section s-card">
+                <div class="thank-content">
+                    <Icon name="ph:heart-fill" class="thank-icon" />
+                    <h2 class="thank-title">再次感谢</h2>
+                    <p class="thank-text">
+                        每一份支持都是对我最大的鼓励，我会继续努力创作更多有价值的内容。
+                        您的支持将帮助我持续维护这个博客，提供更好的内容和服务。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</BaseLayout>
+
+<style>
+    .donate-list-page {
+        padding: 2rem 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .header-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header-icon {
+        font-size: 3rem;
+        color: #e74c3c;
+    }
+
+    .header-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .header-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-color-secondary);
+        margin: 0;
+    }
+
+    .donate-section,
+    .donators-section,
+    .thank-section {
+        margin-bottom: 2rem;
+        padding: 2rem;
+    }
+
+    .donate-header,
+    .donators-header {
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .section-desc {
+        color: var(--text-color-secondary);
+        margin: 0;
+    }
+
+    .donate-methods {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .donate-method {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .qr-code {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .qr-code img {
+        width: 160px;
+        height: 160px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .qr-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .pay-icon {
+        font-size: 1.2rem;
+    }
+
+    .pay-name {
+        font-weight: 500;
+    }
+
+    .paypal-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .donators-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .donator-item {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+        background-color: var(--card-background);
+        transition: all 0.3s ease;
+    }
+
+    .donator-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .donator-avatar {
+        flex-shrink: 0;
+    }
+
+    .avatar-placeholder {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .donator-info {
+        flex: 1;
+    }
+
+    .donator-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .donator-amount {
+        color: #e74c3c;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .donator-time {
+            color: var(--text-color-secondary);
+            font-size: 0.9rem;
+        }
+
+        .donator-message {
+            color: var(--text-color-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+    .thank-section {
+        text-align: center;
+    }
+
+    .thank-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .thank-icon {
+        font-size: 2.5rem;
+        color: #e74c3c;
+    }
+
+    .thank-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .thank-text {
+        color: var(--text-color-secondary);
+        line-height: 1.6;
+        margin: 0;
+        max-width: 600px;
+    }
+
+    @media (max-width: 768px) {
+        .header-title {
+            font-size: 2rem;
+        }
+
+        .donate-section,
+        .donators-section,
+        .thank-section {
+            padding: 1.5rem;
+        }
+
+        .donate-methods {
+            grid-template-columns: 1fr;
+        }
+
+        .donator-item {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+</style>

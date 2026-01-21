@@ -9,7 +9,7 @@ import { author, categories, socialLinks } from "~/self.config";
         alt="Author"
         class="author__image"
         width="180"
-        loading="lazy"
+        loading="eager"
         decoding="async"
     />
     <h1 class="author__site-title">{author.type}</h1>
@@ -23,6 +23,7 @@ import { author, categories, socialLinks } from "~/self.config";
                     rel="noopener noreferrer"
                     class="has-tooltip"
                     style={categorie.style}
+                    aria-label={categorie.title}
                 >
                     <Icon name={categorie.svg} />
                 </a>
@@ -39,6 +40,7 @@ import { author, categories, socialLinks } from "~/self.config";
                     rel="noopener noreferrer"
                     class="has-tooltip"
                     style={social.style}
+                    aria-label={social.title}
                 >
                     <Icon name={social.svg} />
                 </a>
