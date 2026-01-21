@@ -30,6 +30,9 @@ pnpm-debug.log*
 # vercel
 .vercel
 
+# Trae
+.trae
+
 Bugs.txt
 
 /test-results/

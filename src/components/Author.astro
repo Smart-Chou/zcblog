@@ -1,14 +1,16 @@
 ---
 import { Icon } from "astro-icon/components";
-import { site, author, categories, socialLinks } from "~/self.config";
+import { author, categories, socialLinks } from "~/self.config";
 ---
 
 <div class="author">
     <img
-        src={`${site.url}/${author.avatar}`}
+        src={`/${author.avatar}`}
         alt="Author"
         class="author__image"
         width="180"
+        loading="lazy"
+        decoding="async"
     />
     <h1 class="author__site-title">{author.type}</h1>
     <p class="author__intro">{author.motto}</p>

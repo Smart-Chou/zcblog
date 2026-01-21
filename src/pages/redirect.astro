@@ -79,7 +79,7 @@ import "~/styles/redirect.css";
                     throw new Error("URL 参数为空");
                 }
                 // 解密 Base64
-                jumpLink = atob(encodedUrl);
+                jumpLink = window.atob(encodedUrl);
                 // 如果 URL 以 "//" 开头，添加默认协议
                 if (jumpLink.startsWith("//")) {
                     jumpLink = "https:" + jumpLink;

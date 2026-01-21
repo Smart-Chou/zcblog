@@ -4,7 +4,7 @@ import icon from "astro-icon";
 import mdx from "@astrojs/mdx";
 import remarkDirective from "remark-directive";
 import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
-import { remarkAsides } from "./src/remarkPlugin/remark-asides.js";
+import { remarkAsides } from "./src/remarkPlugin/remark-asides.ts";
 import { remarkDeruntify } from "./src/remarkPlugin/remark-deruntify.js";
 import astroExpressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
