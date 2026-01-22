@@ -87,8 +87,8 @@ const processLink = (link: Element, document: Document): void => {
             linkHref &&
             !linkHref.includes(redirectPage)
         ) {
-            // Base64 编码 href
-            const encodedHref = Buffer.from(linkHref).toString('base64');
+            // URL 编码 href
+            const encodedHref = encodeURIComponent(linkHref);
             const redirectLink = `${redirectPage}${encodedHref}`;
             
             // 保存原始链接

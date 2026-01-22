@@ -96,8 +96,8 @@ const {
                         ) {
                             // 存在链接且非中转页
                             if (linkHref && !linkHref.includes(redirectPage)) {
-                                // Base64 编码 href
-                                const encodedHref = btoa(linkHref);
+                                // URL 编码 href
+                                const encodedHref = encodeURIComponent(linkHref);
                                 const redirectLink = `${redirectPage}${encodedHref}`;
                                 // 保存原始链接
                                 link.setAttribute("original-href", linkHref);

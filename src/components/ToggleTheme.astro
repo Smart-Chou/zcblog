@@ -26,12 +26,6 @@ import { Icon } from "astro-icon/components";
         }
     }
 
-    // 立即执行：在页面渲染前预先设置主题，防止闪烁
-    (function() {
-        const savedTheme = localStorage.getItem("preferredTheme") || "light";
-        setPreferredTheme(savedTheme);
-    })();
-
     // 页面加载时初始化主题按钮状态
     document.addEventListener("astro:page-load", () => {
         const themeBtn = document.getElementById("theme-btn");
@@ -51,7 +45,6 @@ import { Icon } from "astro-icon/components";
         const preferredTheme = localStorage.getItem("preferredTheme") || "light";
         setPreferredTheme(preferredTheme);
     });
-
 </script>
 
 <style>
