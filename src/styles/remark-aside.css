@@ -69,12 +69,14 @@
     color: var(--body-color) !important;
 }
 
-.remark-aside .remark-asid__content > :last-child {
+.remark-aside .remark-aside__content > :last-child {
     margin-bottom: 0;
 }
 
 .remark-aside {
     --cb-admonition-background-color: var(--cb-color-note);
+    --cb-admonition-color: var(--cb-color-note);
+    --cb-admonition-color-lighten: var(--cb-color-note-lighten);
 }
 
 .remark-aside--info {

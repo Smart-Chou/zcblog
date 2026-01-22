@@ -1,154 +1,89 @@
-import { h as _h, s as _s } from "hastscript";
-import { remove } from "unist-util-remove";
 import { visit } from "unist-util-visit";
+
 const variants = new Set([
-    "note",
-    "info",
-    "important",
-    "tip",
-    "warning",
-    "danger",
+  "note",
+  "info",
+  "important",
+  "tip",
+  "warning",
+  "danger",
 ]);
 
 function defaultLabel(v) {
-    switch (v) {
-        case "info":
-            return "信息";
-        case "note":
-            return "注意";
-        case "important":
-            return "重要";
-        case "tip":
-            return "提示";
-        case "warning":
-            return "警告";
-        case "danger":
-            return "危险";
-        default:
-            return "";
-    }
+  switch (v) {
+    case "info":
+      return "信息";
+    case "note":
+      return "注意";
+    case "important":
+      return "重要";
+    case "tip":
+      return "提示";
+    case "warning":
+      return "警告";
+    case "danger":
+      return "危险";
+    default:
+      return "";
+  }
 }
 
-/** Hacky function that generates an mdast HTML tree ready for conversion to HTML by rehype. */
-function h(el, attrs = {}, children = []) {
-    const { tagName, properties } = _h(el, attrs);
-    return {
-        type: "paragraph",
-        data: { hName: tagName, hProperties: properties },
-        children,
-    };
-}
-
-/** Hacky function that generates an mdast SVG tree ready for conversion to HTML by rehype. */
-function s(el, attrs = {}, children = []) {
-    const { tagName, properties } = _s(el, attrs);
-    return {
-        type: "paragraph",
-        data: { hName: tagName, hProperties: properties },
-        children,
-    };
-}
-
-/**
- * remark plugin that converts blocks delimited with `:::` into styled
- * asides (a.k.a. “callouts”, “admonitions”, etc.). Depends on the
- * `remark-directive` module for the core parsing logic.
- *
- * For example, this Markdown
- *
- * ```md
- * :::tip[Did you know?]
- * Astro helps you build faster websites with “Islands Architecture”.
- * :::
- * ```
- *
- * will produce this output
- *
- * ```astro
- * <aside class="remark-aside remark-aside--tip" aria-label="Did you know?">
- *   <p class="remark-aside__title" aria-hidden="true">Did you know?</p>
- *   <section class="remark-aside__content">
- *     <p>Astro helps you build faster websites with “Islands Architecture”.</p>
- *   </section>
- * </Aside>
- * ```
- */
 export function remarkAsides(options) {
-    options = {
-        label: defaultLabel,
-        ...options,
-    };
-    const isAsideVariant = (s) => variants.has(s);
+  options = {
+    label: defaultLabel,
+    ...options,
+  };
+  const isAsideVariant = (s) => variants.has(s);
 
+  const asideIcons = {
+    info: "ℹ️",
+    note: "📝",
+    important: "⚠️",
+    tip: "💡",
+    warning: "⚠️",
+    danger: "🚨",
+  };
 
-
-    const transformer = (tree) => {
-        visit(tree, (node, index, parent) => {
-            if (
-                !parent ||
-                index === undefined ||
-                node.type !== "containerDirective"
-            ) {
-                return;
-            }
-            const variant = node.name;
-            if (!isAsideVariant(variant)) return;
-
-            // remark-directive converts a container’s “label” to a paragraph in
-            // its children, but we want to pass it as the title prop to <Aside>, so
-            // we iterate over the children, find a directive label, store it for the
-            // title prop, and remove the paragraph from children.
-            let title = options.label?.(variant);
-
-            remove(node, (child) => {
-                if (
-                    child.data &&
-                    "directiveLabel" in child.data &&
-                    child.data.directiveLabel
-                ) {
-                    if (
-                        "children" in child &&
-                        Array.isArray(child.children) &&
-                        "value" in child.children[0]
-                    ) {
-                        title = child.children[0].value;
-                    }
-                    return true;
-                }
-            });
-
-            const aside = h(
-                "aside",
-                {
-                    "aria-label": variant,
-                    class: `remark-aside remark-aside--${variant}`,
-                },
-                [
-                    h(
-                        "h4",
-                        { class: "remark-aside__title", "aria-hidden": "true" },
-                        [
-                            s(
-                                "svg",
-                                {
-                                    viewBox: "0 0 24 24",
-                                    width: 16,
-                                    height: 16,
-                                    fill: "currentColor",
-                                    class: "remark-aside__icon",
-                                },
-                                asideIcons[variant],
-                            ),
-                            { type: "text", value: title },
-                        ],
-                    ),
-                    h("div", { class: "remark-aside__content" }, node.children),
-                ],
-            );
-
-            parent.children[index] = aside;
-        });
-    };
-
-    return () => transformer;
+  return function transformer(tree) {
+    visit(tree, (node, index, parent) => {
+      // Check if this is a container directive
+      if (node.type === "containerDirective" && isAsideVariant(node.name)) {
+        // Get title from directive label or use default
+        let title = node.attributes && node.attributes.label 
+          ? node.attributes.label 
+          : options.label?.(node.name);
+        
+        // Create an opening HTML node
+        const openingNode = {
+          type: "html",
+          value: `<aside class="remark-aside remark-aside--${node.name}">
+            <h4 class="remark-aside__title">${asideIcons[node.name]} ${title}</h4>
+            <div class="remark-aside__content">`
+        };
+        
+        // Create a closing HTML node
+        const closingNode = {
+          type: "html",
+          value: `</div>
+          </aside>`
+        };
+        
+        // Replace the directive with our new nodes and keep the original content
+        if (node.children && node.children.length > 0) {
+          // Insert opening tag, then original content, then closing tag
+          parent.children.splice(index, 1, openingNode, ...node.children, closingNode);
+        } else {
+          // If no content, just insert the aside with empty content
+          parent.children[index] = {
+            type: "html",
+            value: `<aside class="remark-aside remark-aside--${node.name}">
+              <h4 class="remark-aside__title">${asideIcons[node.name]} ${title}</h4>
+              <div class="remark-aside__content">
+              </div>
+            </aside>`
+          };
+        }
+      }
+    });
+  };
 }
