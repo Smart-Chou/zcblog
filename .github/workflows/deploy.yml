@@ -1,89 +1,89 @@
 name: Deploy blog
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 jobs:
-    deploy-gh-pages:
-        runs-on: ubuntu-22.04
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-              with:
-                  submodules: true
-                  fetch-depth: 0
-            
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
+  deploy-gh-pages:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
 
-            - name: Install pnpm
-              run: npm install -g pnpm
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-            - name: Setup pnpm
-              uses: actions/cache@v4
-              id: node-modules
-              with:
-                  path: node_modules/
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('pnpm-lock.yaml') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-modules-
+      - name: Install pnpm
+        run: npm install -g pnpm
 
-            - name: Install Dependencies
-              if: steps.node-modules.outputs.cache-hit != 'true'
-              run: pnpm install
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
-            - name: Build
-              run: pnpm run build
+      - name: Install dependencies
+        run: pnpm install
+        env:
+          PNPM_HOME: ~/.pnpm-store
 
-            - name: Deploy
-              uses: peaceiris/actions-gh-pages@v4
-              with: 
-                  personal_token: ${{ secrets.PAGE_GITHUB_TOKEN }}
-                  external_repository: Smart-Chou/smart-chou.github.io
-                  publish_branch: main
-                  publish_dir: dist
-                  cname: marxchou.com
-                  force_orphan: true
+      - name: Build
+        run: pnpm run build
 
-    test_website:
-        needs: deploy-gh-pages
-        runs-on: ubuntu-22.04
-        steps:
-            - name: Test Connect
-              continue-on-error: true
-              run: |
-                  echo "Pinging marxchou.com"
-                  ping -c 4 marxchou.com || exit 0 # Don't fail the workflow on ping failure
-                  echo "Testing connection to https://marxchou.com"
-                  curl -v https://marxchou.com --connect-timeout 10 || exit 0 # Don't fail the workflow on curl failure
-                  echo "Testing connection to https://meilisearch.marxchou.com/health"
-                  curl -v https://meilisearch.marxchou.com/health --connect-timeout 10 || exit 0 # Don't fail the workflow on curl failure
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PAGE_GITHUB_TOKEN }}
+          external_repository: Smart-Chou/smart-chou.github.io
+          publish_branch: main
+          publish_dir: dist
+          cname: marxchou.com
+          force_orphan: true
 
-    scrape-docs:
-        needs: test_website
-        runs-on: ubuntu-22.04
-        steps:
-            - uses: actions/checkout@v4
+  test_website:
+    needs: deploy-gh-pages
+    runs-on: ubuntu-22.04
+    continue-on-error: true
+    steps:
+      - name: Test website connectivity
+        run: |
+          echo "Pinging marxchou.com..."
+          ping -c 4 marxchou.com || echo "Ping failed, but continuing..."
+          echo "Testing https://marxchou.com"
+          curl -v https://marxchou.com --connect-timeout 10 || echo "Request failed, but continuing..."
+          echo "Testing Meilisearch health"
+          curl -v https://meilisearch.marxchou.com/health --connect-timeout 10 || echo "Request failed, but continuing..."
 
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-                  registry-url: https://registry.npmjs.org/
-                  
-            - name: Run docs-scraper
-              env:
-                  HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
-                  API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
-                  CONFIG_FILE_PATH: ${{ github.workspace }}/public/docs-scraper.json
+  scrape-docs:
+    needs: test_website
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
 
-              run: |
-                  docker run -t --rm \
-                    --network=host \
-                    -e MEILISEARCH_HOST_URL=$HOST_URL \
-                    -e MEILISEARCH_API_KEY=$API_KEY \
-                    -v $CONFIG_FILE_PATH:/docs-scraper/config.json \
-                    getmeili/docs-scraper:v0.12.12 pipenv run ./docs_scraper config.json
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: Run docs-scraper in Docker
+        env:
+          MEILISEARCH_HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
+          MEILISEARCH_API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
+          CONFIG_FILE_PATH: ${{ github.workspace }}/public/docs-scraper.json
+        run: |
+          docker run --rm -t \
+            --network=host \
+            -e MEILISEARCH_HOST_URL=$MEILISEARCH_HOST_URL \
+            -e MEILISEARCH_API_KEY=$MEILISEARCH_API_KEY \
+            -v $CONFIG_FILE_PATH:/docs-scraper/config.json \
+            getmeili/docs-scraper:v0.12.12 pipenv run ./docs_scraper config.json
