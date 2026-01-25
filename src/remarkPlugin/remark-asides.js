@@ -126,25 +126,15 @@ export function remarkAsides(options) {
 
     const transformer = (tree) => {
         visit(tree, (node, index, parent) => {
-            if (!parent || index === undefined) return;
-
-            // 正常路径（build / 完整 pipeline）
             if (
-                node.type === "containerDirective" &&
-                isAsideVariant(node.name)
+                !parent ||
+                index === undefined ||
+                node.type !== "containerDirective"
             ) {
-                // 原逻辑
                 return;
             }
-
-            // dev 兜底路径
-            if (
-                node.type === "paragraph" &&
-                node.children?.[0]?.value?.startsWith(":::tip")
-            ) {
-                console.warn("[remark-asides] fallback mode (dev)");
-                // 手动 parse
-            }
+            const variant = node.name;
+            if (!isAsideVariant(variant)) return;
 
             // remark-directive converts a container’s “label” to a paragraph in
             // its children, but we want to pass it as the title prop to <Aside>, so
@@ -202,5 +192,5 @@ export function remarkAsides(options) {
         });
     };
 
-    return transformer;
+    return () => transformer;
 }
