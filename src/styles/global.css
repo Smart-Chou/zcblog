@@ -2225,8 +2225,14 @@ header {
     opacity: 0;
 }
 
+.post {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space); /* 代替 .post-card margin-bottom */
+}
+
 .post-card {
-    margin-bottom: var(--space);
+    margin-bottom: 0;
     position: relative;
 }
 
@@ -2419,7 +2425,7 @@ html[data-theme="dark"] {
 }
 
 #pagination {
-    margin: 0 auto;
+    margin: var(--space) auto 0;
     text-align: center;
 }
 
