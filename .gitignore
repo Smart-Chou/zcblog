@@ -13,22 +13,11 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# jetbrains setting folder
-.idea/
-
-# pageinsight
-.pageinsight
-
-# vscode
-.vscode
-
-# vercel
-.vercel
-
 # Trae
 .trae
 
-Bugs.txt
+# pageinsight
+.pageinsight
 
 /test-results/
 /playwright-report/

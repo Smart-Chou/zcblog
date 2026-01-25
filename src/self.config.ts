@@ -334,6 +334,13 @@ export const categories: CategoryItem[] = [
     svg: 'tabler:brand-wechat',
   },
   {
+    url: '/albums/',
+    title: '📷 Albums',
+    style: 'color: #3498db',
+    target: '_self',
+    svg: 'tabler:photo',
+  },
+  {
     url: '/friends/',
     title: '🧑🏿‍🚒 Friends',
     style: 'color: #06a878',
