@@ -1,0 +1,247 @@
+body,
+p {
+    font-family: var(--base-font-family);
+}
+
+p {
+    margin-bottom: 1.25em;
+}
+
+figcaption {
+    margin: 1em 0;
+    text-align: center;
+    opacity: 0.7;
+}
+
+.navlink,
+.notification-content,
+figcaption,
+li,
+ol,
+table,
+ul {
+    font-family: var(--base-font-family);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    transition: color 0.6s;
+    color: var(--title-color);
+    margin: 2.75rem 0 1rem;
+    font-family: var(--title-font-family);
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 1.802em;
+}
+
+h2 {
+    font-size: 1.602em;
+}
+
+h3 {
+    font-size: 1.424em;
+}
+
+h4 {
+    font-size: 1.266em;
+}
+
+h5 {
+    font-size: 1.125em;
+}
+
+small {
+    font-size: 0.889em;
+}
+
+strong {
+    font-weight: 600;
+}
+
+blockquote {
+    border-left: 4px solid var(--border-color);
+    padding-left: calc(var(--space) / 2);
+    color: var(--title-color);
+}
+
+blockquote p {
+    opacity: 0.7;
+}
+
+em {
+    font-style: italic;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 1.25em;
+    margin-bottom: 1.25em;
+    line-height: 1.8;
+}
+
+ul li {
+    margin-bottom: 0.6em;
+}
+
+ol {
+    list-style-type: decimal;
+    margin-left: 1.25em;
+    margin-bottom: 1.25em;
+    line-height: 1.8;
+}
+
+ol li {
+    margin-bottom: 0.6em;
+}
+
+@media screen and (max-width: 650px) {
+    h1 {
+        font-size: 1.562em;
+    }
+
+    h2 {
+        font-size: 1.461em;
+    }
+
+    h3 {
+        font-size: 1.314em;
+    }
+
+    h4 {
+        font-size: 1.166em;
+    }
+
+    h5 {
+        font-size: 1.025em;
+    }
+}
+
+table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 1.25em;
+}
+
+table tr {
+    border-top: 1px solid #c6cbd1;
+}
+
+table td,
+table th {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+table th {
+    font-weight: 600;
+    background-color: var(--bg-code);
+}
+
+sup {
+    position: relative;
+    top: -0.3em;
+    vertical-align: top;
+    color: var(--link-color);
+    margin: 0 0.2em;
+}
+
+sup:before {
+    content: "[";
+}
+
+sup:after {
+    content: "]";
+}
+
+pre {
+    padding: calc(var(--space) / 3) var(--space);
+    font-size: 1em;
+    background-color: var(--bg-code);
+    margin: 1em calc(0em - var(--space));
+}
+
+pre code {
+    padding: 0;
+    background-color: transparent;
+}
+
+code {
+    background-color: var(--bg-code);
+    font-size: 0.9em;
+    padding: 0.2em 0.5em;
+}
+
+code,
+pre {
+    font-family: var(--monospace-font-family);
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+    -moz-tab-size: 2;
+    -o-tab-size: 2;
+    tab-size: 2;
+    -webkit-hyphens: none;
+    hyphens: none;
+}
+
+@media print {
+    code,
+    pre {
+        text-shadow: none;
+    }
+}
+
+pre {
+    overflow: auto;
+    color: var(--text-code-block);
+}
+
+:not(pre) > code {
+    color: var(--text-code);
+    white-space: normal;
+}
+
+:not(pre) > code:after,
+:not(pre) > code:before {
+    content: "`";
+}
+
+.post__content h2:first-child {
+    margin-top: 0;
+}
+
+.post__content p {
+    line-height: 1.8;
+}
+
+.post__content img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.expressive-code {
+    margin: 1rem 0 1.25rem 0;
+}
+
+/* fix mathjax style */
+.MathJax {
+    text-align: left !important;
+}
+
+@media screen and (max-width: 650px) {
+    .post .post-meta {
+        display: none;
+    }
+}

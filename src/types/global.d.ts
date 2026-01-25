@@ -2,3 +2,4 @@
 declare module 'jsdom';
 declare module 'html-minifier';
 declare module '@waline/client';
+declare module 'sanitize-html';

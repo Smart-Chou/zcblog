@@ -24,6 +24,25 @@
         font-weight: bold;
         border: 1.5px solid var(--link-color);
     }
+
+    #waline {
+        min-height: 38rem;
+        max-width: var(--content-width);
+        position: relative;
+        overflow: hidden;
+        margin: 0 auto;
+        padding: 0 var(--space);
+    }
+
+    @media screen and (max-width: 650px) {
+        #waline {
+            padding: unset;
+        }
+    }
+
+    html[data-theme='dark'] {
+        --waline-color: #ced8de !important;
+    }
 </style>
 
 <div id="commentContainer" style="display: none;">
@@ -111,12 +130,7 @@
             login: 'disable',
             search: waline.search,
             dark: 'html[data-theme="dark"]',
-            emoji: [
-                'https://unpkg.com/@waline/emojis@1.2.0/qq',
-                'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili',
-                'https://unpkg.com/@waline/emojis@1.2.0/tieba',
-                'https://unpkg.com/@waline/emojis@1.2.0/weibo'
-            ],
+            emoji: ['https://unpkg.com/@waline/emojis@1.2.0/qq', 'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili', 'https://unpkg.com/@waline/emojis@1.2.0/tieba', 'https://unpkg.com/@waline/emojis@1.2.0/weibo'],
             // 新增配置
             wordLimit: [0, 1000], // 评论字数限制
             reaction: true, // 启用表情反应
@@ -128,12 +142,12 @@
                     alert('图片上传功能暂未开放');
                     throw new Error('图片上传功能暂未开放');
                 });
-            }
+            },
         };
 
         // 仅当在白名单时添加 reaction 属性
         if (waline.whiteList.includes(location.pathname)) {
-            walineConfig.reaction = 
+            walineConfig.reaction =
                 typeof waline.reaction === 'boolean' && waline.reaction === true
                     ? [] // 为 true 时使用空数组启用默认反应
                     : (waline.reaction as string[]); // 若已是数组则直接使用

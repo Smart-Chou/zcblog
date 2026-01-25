@@ -1,0 +1,81 @@
+html {
+    font-size: var(--base-font-size);
+    scrollbar-gutter: stable;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+    font-weight: 400;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--body-color);
+    transition:
+        color 0.6s,
+        background-color 0.6s;
+    font-family:
+        -apple-system,
+        system-ui,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Roboto,
+        Helvetica Neue,
+        Arial,
+        sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+body ::-moz-selection {
+    background-color: var(--selection-color);
+}
+
+body ::selection {
+    background-color: var(--selection-color);
+}
+
+a:not(.button) {
+    color: var(--link-color);
+    transition: opacity 0.2s;
+}
+
+a:not(.button):hover {
+    opacity: 0.8;
+}
+
+img {
+    max-width: 100%;
+}
+
+hr {
+    text-align: center;
+    border: none;
+    margin: calc(var(--space) / 2) 0;
+}
+
+hr:before {
+    content: "...";
+    letter-spacing: 0.6em;
+    font-size: 1.2em;
+}
+
+#app {
+    scroll-behavior: smooth;
+}
+
+.main {
+    margin: 0 auto;
+    padding: 1.5vw 15px 0;
+}

@@ -1,0 +1,142 @@
+{
+  "$ref": "#/definitions/article",
+  "definitions": {
+    "article": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "pubDate": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "alt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "url",
+            "alt"
+          ],
+          "additionalProperties": false
+        },
+        "toc": {
+          "anyOf": [
+            {
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "author": {
+          "anyOf": [
+            {
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mathjax": {
+          "anyOf": [
+            {
+              "type": "boolean",
+              "default": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mermaid": {
+          "anyOf": [
+            {
+              "type": "boolean",
+              "default": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "donate": {
+          "anyOf": [
+            {
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "waline": {
+          "anyOf": [
+            {
+              "type": "boolean",
+              "default": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sticky": {
+          "anyOf": [
+            {
+              "type": "number",
+              "default": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "pubDate",
+        "image"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
