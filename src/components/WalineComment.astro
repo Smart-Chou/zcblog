@@ -2,6 +2,30 @@
 
 ---
 
+<style>
+    #toggleComment {
+        display: block;
+        margin: 1rem auto;
+        padding: 0.5rem 1rem;
+        background-color: var(--bg-content-color);
+        color: var(--link-color);
+        border: 1px var(--link-color);
+        border-style: dashed;
+        cursor: pointer;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    #toggleComment:focus {
+        outline: none;
+    }
+
+    #toggleComment.active {
+        font-weight: bold;
+        border: 1.5px solid var(--link-color);
+    }
+</style>
+
 <div id="commentContainer" style="display: none;">
     <div id="waline"></div>
 </div>

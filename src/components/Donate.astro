@@ -1,7 +1,151 @@
 ---
-import { Icon } from "astro-icon/components";
-import { donate } from "~/self.config";
+import { Icon } from 'astro-icon/components';
+import { donate } from '~/self.config';
 ---
+
+<style>
+    @keyframes fade-up {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .donate .reward {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: max-content;
+        margin: 1rem auto;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+    }
+    .donate .reward .reward-btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        width: 120px;
+        border-radius: 8px;
+        color: #fff;
+        background-color: #ff3842;
+        transition: box-shadow 0.5s;
+    }
+
+    .donate .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none; /* 默认隐藏 */
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        z-index: 2000;
+    }
+    .donate .modal .modal-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-color: var(--bg-content-color-lighten);
+    }
+    .donate .modal .modal-main {
+        position: absolute;
+        padding: 0;
+        animation: fade-up 0.5s forwards;
+        width: calc(100% - 40px);
+        overflow: hidden;
+    }
+    .donate .modal .modal-main .header-title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.125rem;
+        padding: 20px;
+        height: 64px;
+        background-color: var(--bg-color);
+        border-bottom: 1px solid var(--border-color);
+    }
+    .donate .modal .modal-main .modal-content {
+        max-height: calc(var(--height) - 46px);
+        padding: 20px;
+        overflow: auto;
+    }
+    .donate .modal .modal-main .header-title .title-left {
+        width: 100%;
+    }
+    .donate .modal .modal-main .header-title .close {
+        position: absolute;
+        right: 20px;
+        margin-right: 0;
+        font-size: 1rem;
+        border-radius: 8px;
+        padding: 8px;
+        transition: background-color 0.3s;
+        cursor: pointer;
+    }
+    .donate .reward-card .thank {
+        display: inline-flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+        width: 100%;
+        color: var(--link-color);
+        font-weight: 700;
+    }
+    .donate .reward-card .qr {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+    }
+    .donate .reward-card .qr .qr-img {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .donate a {
+        text-decoration: none;
+        color: var(--link-color);
+        transition: all 0.3s;
+    }
+    .donate .reward-card .all-list {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        background-color: var(--bg-code);
+    }
+    .donate .s-card {
+        padding: 0.8rem;
+        border-radius: 16px;
+        background-color: var(--bg-color);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 8px 16px -4px var(--shadow-small);
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+    .donate .reward-card .all-list .title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        transition: color 0.3s;
+    }
+    .donate .reward-card .all-list .tip {
+        text-align: center;
+        font-size: 12px;
+        opacity: 0.6;
+        color: var(--text-code-block);
+    }
+</style>
 
 <div class="donate">
     <div class="reward">
@@ -54,28 +198,27 @@ import { donate } from "~/self.config";
 </div>
 
 <script>
-    document.addEventListener("astro:page-load", function () {
-        const rewardBtn = document.querySelector(
-            ".reward .reward-btn",
-        ) as HTMLDivElement;
-        const modal = document.querySelector(".modal") as HTMLDivElement;
-        const closeModal = document.querySelector(
-            ".modal .close",
-        ) as HTMLDivElement;
-        const modalMask = document.querySelector(
-            ".modal .modal-mask",
-        ) as HTMLDivElement;
+    document.addEventListener('astro:page-load', function () {
+        const rewardBtn = document.querySelector('.reward .reward-btn') as HTMLDivElement;
+        const modal = document.querySelector('.modal') as HTMLDivElement;
+        const closeModal = document.querySelector('.modal .close') as HTMLDivElement;
+        const modalMask = document.querySelector('.modal .modal-mask') as HTMLDivElement;
 
-        rewardBtn.addEventListener("click", function () {
-            modal.style.display = "flex";
+        // 显示模态框并禁止背景滚动
+        rewardBtn.addEventListener('click', function () {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            document.body.style.height = '100vh';
         });
 
-        closeModal.addEventListener("click", function () {
-            modal.style.display = "none";
-        });
+        // 隐藏模态框并恢复背景滚动
+        function hideModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+            document.body.style.height = '';
+        }
 
-        modalMask.addEventListener("click", function () {
-            modal.style.display = "none";
-        });
+        closeModal.addEventListener('click', hideModal);
+        modalMask.addEventListener('click', hideModal);
     });
 </script>

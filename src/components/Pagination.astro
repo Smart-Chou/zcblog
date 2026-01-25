@@ -3,6 +3,56 @@ import { Icon } from "astro-icon/components";
 const { page } = Astro.props;
 ---
 
+<style>
+    #pagination {
+        margin: var(--space) auto 0;
+        text-align: center;
+    }
+
+    #pagination a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+        padding: 3px 10px;
+        border: 2px var(--link-color);
+        border-style: dashed;
+        width: 40px;
+        height: 40px;
+        line-height: 1;
+        box-sizing: border-box;
+        vertical-align: middle;
+    }
+
+    #pagination a.active {
+        font-weight: bold;
+        border: 2.5px solid var(--link-color);
+    }
+
+    #pagination a.disabled {
+        pointer-events: none;
+        color: gray;
+        border: 1px dashed gray;
+        display: none;
+    }
+
+    @media screen and (max-width: 650px) {
+        /* 隐藏所有页码链接 */
+        #pagination a:not([aria-label]) {
+            display: none;
+        }
+
+        #pagination a.active {
+            font-weight: bold;
+            border: 2.5px solid var(--link-color);
+        }
+
+        #pagination a.disabled {
+            display: inline-flex;
+        }
+    }
+</style>
+
 <nav id="pagination" aria-label="Pagination Navigation">
     <a
         href={page.url.prev ?? "#"}
