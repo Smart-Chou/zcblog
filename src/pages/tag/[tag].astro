@@ -25,8 +25,7 @@ const { tag } = Astro.params;
 const { articles } = Astro.props;
 
 const postsWithMeta = articles.map((post) => {
-    const { wordCount, readTime, excerpt } =
-        getPostsWithMeta(post);
+    const { wordCount, readTime, excerpt } = getPostsWithMeta(post);
     return {
         ...post,
         wordCount,
@@ -79,8 +78,8 @@ const postsWithMeta = articles.map((post) => {
         pageviewCount({
             serverURL,
             path,
-            selector: '.waline-pageview-count', // 添加选择器参数
-            update: true // 确保更新页面浏览量
-        })
+            selector: ".waline-pageview-count", // 添加选择器参数
+            update: true, // 确保更新页面浏览量
+        });
     });
 </script>

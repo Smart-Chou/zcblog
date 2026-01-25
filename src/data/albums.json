@@ -1,0 +1,88 @@
+{
+    "albums": [
+        {
+            "id": "travel",
+            "title": "旅行相册",
+            "description": "记录旅途中的美好瞬间",
+            "coverImage": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=beautiful%20landscape%20photography%20mountain%20lake%20scenery&image_size=landscape_4_3",
+            "photos": [
+                {
+                    "id": "1",
+                    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mountain%20landscape%20with%20lake%20and%20blue%20sky&image_size=landscape_4_3",
+                    "alt": "山湖风景",
+                    "description": "美丽的山湖景色"
+                },
+                {
+                    "id": "2",
+                    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=forest%20path%20with%20sunlight%20filtering%20through%20trees&image_size=landscape_4_3",
+                    "alt": "森林小径",
+                    "description": "阳光透过树叶的森林小径"
+                },
+                {
+                    "id": "3",
+                    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=coastal%20sunset%20with%20waves%20and%20orange%20sky&image_size=landscape_4_3",
+                    "alt": "海岸日落",
+                    "description": "橙色天空下的海岸日落"
+                }
+            ],
+            "createdAt": "2024-01-01T00:00:00.000Z",
+            "updatedAt": "2024-01-01T00:00:00.000Z"
+        },
+        {
+            "id": "nature",
+            "title": "自然风景",
+            "description": "大自然的壮丽景色",
+            "coverImage": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mountain%20peaks%20with%20snow%20and%20clouds&image_size=landscape_4_3",
+            "photos": [
+                {
+                    "id": "1",
+                    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=waterfall%20in%20forest%20with%20rainbow&image_size=landscape_4_3",
+                    "alt": "森林瀑布",
+                    "description": "带有彩虹的森林瀑布"
+                },
+                {
+                    "id": "2",
+                    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=desert%20landscape%20with%20sand%20dunes%20and%20sunset&image_size=landscape_4_3",
+                    "alt": "沙漠日落",
+                    "description": "沙丘上的沙漠日落"
+                },
+                {
+                    "id": "3",
+                    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=beach%20with%20clear%20blue%20water%20and%20palm%20trees&image_size=landscape_4_3",
+                    "alt": "海滩风光",
+                    "description": "清澈蓝水下的海滩"
+                }
+            ],
+            "createdAt": "2024-02-01T00:00:00.000Z",
+            "updatedAt": "2024-02-01T00:00:00.000Z"
+        },
+        {
+            "id": "city",
+            "title": "城市风光",
+            "description": "城市的现代与繁华",
+            "coverImage": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=city%20skyline%20at%20night%20with%20lights&image_size=landscape_4_3",
+            "photos": [
+                {
+                    "id": "1",
+                    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20city%20buildings%20with%20glass%20facades&image_size=landscape_4_3",
+                    "alt": "现代建筑",
+                    "description": "玻璃幕墙的现代城市建筑"
+                },
+                {
+                    "id": "2",
+                    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=street%20view%20with%20people%20and%20shops&image_size=landscape_4_3",
+                    "alt": "城市街道",
+                    "description": "繁忙的城市街道景象"
+                },
+                {
+                    "id": "3",
+                    "url": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=city%20park%20with%20fountains%20and%20greenery&image_size=landscape_4_3",
+                    "alt": "城市公园",
+                    "description": "带有喷泉的城市公园"
+                }
+            ],
+            "createdAt": "2024-03-01T00:00:00.000Z",
+            "updatedAt": "2024-03-01T00:00:00.000Z"
+        }
+    ]
+}

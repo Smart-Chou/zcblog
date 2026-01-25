@@ -28,8 +28,9 @@ const {
     <!-- 预先设置主题，避免闪烁 -->
     <script is:inline>
         // 在页面渲染前预先设置主题
-        (function() {
-            const savedTheme = localStorage.getItem("preferredTheme") || "light";
+        (function () {
+            const savedTheme =
+                localStorage.getItem("preferredTheme") || "light";
             document.documentElement.setAttribute("data-theme", savedTheme);
             if (savedTheme === "dark") {
                 document.documentElement.classList.add("dark");

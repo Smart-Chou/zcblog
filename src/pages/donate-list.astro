@@ -4,8 +4,8 @@ import { donate } from "~/self.config";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 ---
 
-<BaseLayout 
-    title="赞赏者名单" 
+<BaseLayout
+    title="赞赏者名单"
     description="感谢所有支持和鼓励我的朋友们"
     publishedTime={new Date()}
     modifiedTime={new Date()}
@@ -30,7 +30,10 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                         <div class="qr-code">
                             <img src={donate.wechatQRCode} alt="微信支付" />
                             <div class="qr-info">
-                                <Icon name="mingcute:wechat-pay-line" class="pay-icon" />
+                                <Icon
+                                    name="mingcute:wechat-pay-line"
+                                    class="pay-icon"
+                                />
                                 <span class="pay-name">微信支付</span>
                             </div>
                         </div>
@@ -39,49 +42,77 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                         <div class="qr-code">
                             <img src={donate.alipayQRCode} alt="支付宝支付" />
                             <div class="qr-info">
-                                <Icon name="simple-icons:alipay" class="pay-icon" />
+                                <Icon
+                                    name="simple-icons:alipay"
+                                    class="pay-icon"
+                                />
                                 <span class="pay-name">支付宝</span>
                             </div>
                         </div>
                     </div>
-                    {donate.paypalUrl && (
-                        <div class="donate-method">
-                            <a href={donate.paypalUrl} target="_blank" rel="noopener noreferrer" class="paypal-btn s-card hover">
-                                <Icon name="simple-icons:paypal" class="pay-icon" />
-                                <span class="pay-name">PayPal</span>
-                            </a>
-                        </div>
-                    )}
+                    {
+                        donate.paypalUrl && (
+                            <div class="donate-method">
+                                <a
+                                    href={donate.paypalUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="paypal-btn s-card hover"
+                                >
+                                    <Icon
+                                        name="simple-icons:paypal"
+                                        class="pay-icon"
+                                    />
+                                    <span class="pay-name">PayPal</span>
+                                </a>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
 
             <div class="donators-section s-card">
                 <div class="donators-header">
                     <h2 class="section-title">赞赏者名单</h2>
-                    <p class="section-desc">排名不分先后，感谢每一位朋友的支持</p>
+                    <p class="section-desc">
+                        排名不分先后，感谢每一位朋友的支持
+                    </p>
                 </div>
                 <div class="donators-list">
-                    {donate.donators.map((donator) => (
-                        <div class="donator-item">
-                            <div class="donator-avatar">
-                                {donator.avatar ? (
-                                    <img src={donator.avatar} alt={donator.name} />
-                                ) : (
-                                    <div class="avatar-placeholder">
-                                        <Icon name="ph:user-circle-fill" />
+                    {
+                        donate.donators.map((donator) => (
+                            <div class="donator-item">
+                                <div class="donator-avatar">
+                                    {donator.avatar ? (
+                                        <img
+                                            src={donator.avatar}
+                                            alt={donator.name}
+                                        />
+                                    ) : (
+                                        <div class="avatar-placeholder">
+                                            <Icon name="ph:user-circle-fill" />
+                                        </div>
+                                    )}
+                                </div>
+                                <div class="donator-info">
+                                    <div class="donator-name">
+                                        {donator.name}
                                     </div>
-                                )}
+                                    <div class="donator-amount">
+                                        ¥{donator.amount.toFixed(2)}
+                                    </div>
+                                    <div class="donator-time">
+                                        {donator.date}
+                                    </div>
+                                    {donator.message && (
+                                        <div class="donator-message">
+                                            {donator.message}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                            <div class="donator-info">
-                                <div class="donator-name">{donator.name}</div>
-                                <div class="donator-amount">¥{donator.amount.toFixed(2)}</div>
-                                <div class="donator-time">{donator.date}</div>
-                                {donator.message && (
-                                    <div class="donator-message">{donator.message}</div>
-                                )}
-                            </div>
-                        </div>
-                    ))}
+                        ))
+                    }
                 </div>
             </div>
 
@@ -266,16 +297,16 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
     }
 
     .donator-time {
-            color: var(--text-color-secondary);
-            font-size: 0.9rem;
-        }
+        color: var(--text-color-secondary);
+        font-size: 0.9rem;
+    }
 
-        .donator-message {
-            color: var(--text-color-secondary);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            font-style: italic;
-        }
+    .donator-message {
+        color: var(--text-color-secondary);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        font-style: italic;
+    }
 
     .thank-section {
         text-align: center;

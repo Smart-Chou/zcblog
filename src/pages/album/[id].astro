@@ -4,191 +4,23 @@ import { site } from "~/self.config";
 
 // 为动态路由生成静态路径
 export function getStaticPaths() {
-  const albums = [
-    {
-      id: "travel",
-      title: "旅行相册",
-      description: "记录旅途中的美好瞬间",
-      coverImage: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=beautiful%20landscape%20photography%20mountain%20lake%20scenery&image_size=landscape_4_3",
-      photos: [
-        {
-          id: "1",
-          url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mountain%20landscape%20with%20lake%20and%20blue%20sky&image_size=landscape_4_3",
-          alt: "山湖风景",
-          description: "美丽的山湖景色"
-        },
-        {
-          id: "2",
-          url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=forest%20path%20with%20sunlight%20filtering%20through%20trees&image_size=landscape_4_3",
-          alt: "森林小径",
-          description: "阳光透过树叶的森林小径"
-        },
-        {
-          id: "3",
-          url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=coastal%20sunset%20with%20waves%20and%20orange%20sky&image_size=landscape_4_3",
-          alt: "海岸日落",
-          description: "橙色天空下的海岸日落"
-        }
-      ],
-      createdAt: new Date("2024-01-01"),
-      updatedAt: new Date("2024-01-01")
-    },
-    {
-      id: "nature",
-      title: "自然风景",
-      description: "大自然的壮丽景色",
-      coverImage: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mountain%20peaks%20with%20snow%20and%20clouds&image_size=landscape_4_3",
-      photos: [
-        {
-          id: "1",
-          url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=waterfall%20in%20forest%20with%20rainbow&image_size=landscape_4_3",
-          alt: "森林瀑布",
-          description: "带有彩虹的森林瀑布"
-        },
-        {
-          id: "2",
-          url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=desert%20landscape%20with%20sand%20dunes%20and%20sunset&image_size=landscape_4_3",
-          alt: "沙漠日落",
-          description: "沙丘上的沙漠日落"
-        },
-        {
-          id: "3",
-          url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=beach%20with%20clear%20blue%20water%20and%20palm%20trees&image_size=landscape_4_3",
-          alt: "海滩风光",
-          description: "清澈蓝水下的海滩"
-        }
-      ],
-      createdAt: new Date("2024-02-01"),
-      updatedAt: new Date("2024-02-01")
-    },
-    {
-      id: "city",
-      title: "城市风光",
-      description: "城市的现代与繁华",
-      coverImage: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=city%20skyline%20at%20night%20with%20lights&image_size=landscape_4_3",
-      photos: [
-        {
-          id: "1",
-          url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20city%20buildings%20with%20glass%20facades&image_size=landscape_4_3",
-          alt: "现代建筑",
-          description: "玻璃幕墙的现代城市建筑"
-        },
-        {
-          id: "2",
-          url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=street%20view%20with%20people%20and%20shops&image_size=landscape_4_3",
-          alt: "城市街道",
-          description: "繁忙的城市街道景象"
-        },
-        {
-          id: "3",
-          url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=city%20park%20with%20fountains%20and%20greenery&image_size=landscape_4_3",
-          alt: "城市公园",
-          description: "带有喷泉的城市公园"
-        }
-      ],
-      createdAt: new Date("2024-03-01"),
-      updatedAt: new Date("2024-03-01")
-    }
-  ];
-  
-  return albums.map((album) => ({
-    params: { id: album.id },
-  }));
+    // 直接返回静态路径，确保函数能够正常执行
+    return [
+        { params: { id: "travel" } },
+        { params: { id: "nature" } },
+        { params: { id: "city" } },
+    ];
 }
 
-// 相册数据 - 后续可以从存储桶或图床动态获取
-const albums = [
-  {
-    id: "travel",
-    title: "旅行相册",
-    description: "记录旅途中的美好瞬间",
-    coverImage: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=beautiful%20landscape%20photography%20mountain%20lake%20scenery&image_size=landscape_4_3",
-    photos: [
-      {
-        id: "1",
-        url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mountain%20landscape%20with%20lake%20and%20blue%20sky&image_size=landscape_4_3",
-        alt: "山湖风景",
-        description: "美丽的山湖景色"
-      },
-      {
-        id: "2",
-        url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=forest%20path%20with%20sunlight%20filtering%20through%20trees&image_size=landscape_4_3",
-        alt: "森林小径",
-        description: "阳光透过树叶的森林小径"
-      },
-      {
-        id: "3",
-        url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=coastal%20sunset%20with%20waves%20and%20orange%20sky&image_size=landscape_4_3",
-        alt: "海岸日落",
-        description: "橙色天空下的海岸日落"
-      }
-    ],
-    createdAt: new Date("2024-01-01"),
-    updatedAt: new Date("2024-01-01")
-  },
-  {
-    id: "nature",
-    title: "自然风景",
-    description: "大自然的壮丽景色",
-    coverImage: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mountain%20peaks%20with%20snow%20and%20clouds&image_size=landscape_4_3",
-    photos: [
-      {
-        id: "1",
-        url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=waterfall%20in%20forest%20with%20rainbow&image_size=landscape_4_3",
-        alt: "森林瀑布",
-        description: "带有彩虹的森林瀑布"
-      },
-      {
-        id: "2",
-        url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=desert%20landscape%20with%20sand%20dunes%20and%20sunset&image_size=landscape_4_3",
-        alt: "沙漠日落",
-        description: "沙丘上的沙漠日落"
-      },
-      {
-        id: "3",
-        url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=beach%20with%20clear%20blue%20water%20and%20palm%20trees&image_size=landscape_4_3",
-        alt: "海滩风光",
-        description: "清澈蓝水下的海滩"
-      }
-    ],
-    createdAt: new Date("2024-02-01"),
-    updatedAt: new Date("2024-02-01")
-  },
-  {
-    id: "city",
-    title: "城市风光",
-    description: "城市的现代与繁华",
-    coverImage: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=city%20skyline%20at%20night%20with%20lights&image_size=landscape_4_3",
-    photos: [
-      {
-        id: "1",
-        url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20city%20buildings%20with%20glass%20facades&image_size=landscape_4_3",
-        alt: "现代建筑",
-        description: "玻璃幕墙的现代城市建筑"
-      },
-      {
-        id: "2",
-        url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=street%20view%20with%20people%20and%20shops&image_size=landscape_4_3",
-        alt: "城市街道",
-        description: "繁忙的城市街道景象"
-      },
-      {
-        id: "3",
-        url: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=city%20park%20with%20fountains%20and%20greenery&image_size=landscape_4_3",
-        alt: "城市公园",
-        description: "带有喷泉的城市公园"
-      }
-    ],
-    createdAt: new Date("2024-03-01"),
-    updatedAt: new Date("2024-03-01")
-  }
-];
+// 从JSON文件引入相册数据
+import albumData from "~/data/albums.json";
+const { albums } = albumData;
 
 const { id } = Astro.params;
 const album = albums.find((album) => album.id === id);
 
 if (!album) {
-  return Astro.redirect("/albums");
+    return Astro.redirect("/albums");
 }
 ---
 
@@ -198,8 +30,8 @@ if (!album) {
     image={album.coverImage}
     imageAlt={album.title}
     keywords={`${album.title},相册,照片`}
-    publishedTime={album.createdAt}
-    modifiedTime={album.updatedAt}
+    publishedTime={new Date(album.createdAt)}
+    modifiedTime={new Date(album.updatedAt)}
 >
     <div class="album-detail-container">
         <div class="album-header">
@@ -208,145 +40,155 @@ if (!album) {
             <p class="album-description">{album.description}</p>
             <div class="album-meta">
                 <span class="photo-count">{album.photos.length} 张照片</span>
-                <span class="updated-time">更新于 {new Date(album.updatedAt).toLocaleDateString()}</span>
+                <span class="updated-time"
+                    >更新于 {
+                        new Date(album.updatedAt).toLocaleDateString()
+                    }</span
+                >
             </div>
         </div>
-        
+
         <div class="photos-grid">
-            {album.photos.map((photo) => (
-                <div class="photo-item">
-                    <div class="photo-wrapper">
-                        <img
-                            src={photo.url}
-                            alt={photo.alt}
-                            class="photo-image"
-                            loading="lazy"
-                        />
-                        <div class="photo-overlay">
-                            <span class="photo-description">{photo.description}</span>
+            {
+                album.photos.map((photo) => (
+                    <div class="photo-item">
+                        <div class="photo-wrapper">
+                            <img
+                                src={photo.url}
+                                alt={photo.alt}
+                                class="photo-image"
+                                loading="lazy"
+                            />
+                            <div class="photo-overlay">
+                                <span class="photo-description">
+                                    {photo.description}
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))
+            }
         </div>
     </div>
 </BaseLayout>
 
 <style>
-.album-detail-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-}
-
-.album-header {
-    margin-bottom: 3rem;
-    text-align: center;
-}
-
-.back-link {
-    display: inline-block;
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-    color: var(--body-color);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.back-link:hover {
-    color: var(--link-color);
-}
-
-.album-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--title-color);
-}
-
-.album-description {
-    font-size: 1.1rem;
-    color: var(--body-color);
-    margin-bottom: 1rem;
-}
-
-.album-meta {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    font-size: 0.9rem;
-    color: var(--body-color);
-    opacity: 0.8;
-}
-
-.photos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
-
-.photo-item {
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-small);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.photo-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-}
-
-.photo-wrapper {
-    position: relative;
-    padding-top: 75%;
-    overflow: hidden;
-}
-
-.photo-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.photo-item:hover .photo-image {
-    transform: scale(1.05);
-}
-
-.photo-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-    color: white;
-    padding: 1.5rem 1rem 1rem;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-}
-
-.photo-item:hover .photo-overlay {
-    transform: translateY(0);
-}
-
-.photo-description {
-    font-size: 0.9rem;
-    line-height: 1.4;
-}
-
-@media (max-width: 768px) {
-    .photos-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1rem;
+    .album-detail-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
     }
-    
+
+    .album-header {
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        color: var(--body-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+        color: var(--link-color);
+    }
+
+    .album-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--title-color);
+    }
+
+    .album-description {
+        font-size: 1.1rem;
+        color: var(--body-color);
+        margin-bottom: 1rem;
+    }
+
     .album-meta {
-        flex-direction: column;
-        gap: 0.5rem;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        font-size: 0.9rem;
+        color: var(--body-color);
+        opacity: 0.8;
     }
-}
+
+    .photos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .photo-item {
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-small);
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .photo-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .photo-wrapper {
+        position: relative;
+        padding-top: 75%;
+        overflow: hidden;
+    }
+
+    .photo-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .photo-item:hover .photo-image {
+        transform: scale(1.05);
+    }
+
+    .photo-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+        color: white;
+        padding: 1.5rem 1rem 1rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+
+    .photo-item:hover .photo-overlay {
+        transform: translateY(0);
+    }
+
+    .photo-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+        .photos-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .album-meta {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
 </style>

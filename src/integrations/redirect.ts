@@ -12,8 +12,10 @@ const hasIncludeClass = (element: Element, includeClass: string[]): boolean => {
     let currentElement: Element | null = element;
     while (currentElement !== null) {
         if (
-            includeClass.some((className) =>
-                currentElement !== null && currentElement.classList.contains(className),
+            includeClass.some(
+                (className) =>
+                    currentElement !== null &&
+                    currentElement.classList.contains(className),
             )
         ) {
             return true;
@@ -28,8 +30,10 @@ const hasExcludeClass = (element: Element, excludeClass: string[]): boolean => {
     let currentElement: Element | null = element;
     while (currentElement !== null) {
         if (
-            excludeClass.some((className) =>
-                currentElement !== null && currentElement.classList.contains(className),
+            excludeClass.some(
+                (className) =>
+                    currentElement !== null &&
+                    currentElement.classList.contains(className),
             )
         ) {
             return true;
@@ -68,29 +72,26 @@ const processLink = (link: Element, document: Document): void => {
     const redirectPage = "/redirect/?url=";
     const includeClass = config.redirectIncludeClass;
     const excludeClass = config.redirectExcludeClass;
-    
+
     // 检查链接是否排除指定类名
     if (hasExcludeClass(link, excludeClass)) return;
-    
+
     const linkHref = link.getAttribute("href");
-    
+
     // 检查链接是否为相对路径或根路径
     if (isRelativeOrRootPath(linkHref)) return;
-    
+
     // 检查链接是否需要处理
     if (
         link.getAttribute("target") === "_blank" ||
         hasIncludeClass(link, includeClass)
     ) {
         // 存在链接且非中转页
-        if (
-            linkHref &&
-            !linkHref.includes(redirectPage)
-        ) {
+        if (linkHref && !linkHref.includes(redirectPage)) {
             // URL 编码 href
             const encodedHref = encodeURIComponent(linkHref);
             const redirectLink = `${redirectPage}${encodedHref}`;
-            
+
             // 保存原始链接
             link.setAttribute("original-href", linkHref);
             // 覆盖 href
@@ -113,16 +114,18 @@ const processHtmlFile = async (file: string, logger: any): Promise<void> => {
     let html = await fs.readFile(file, "utf-8");
     const dom = new JSDOM(html);
     const document = dom.window.document;
-    
+
     try {
         // 是否启用跳转功能
         const enable = config.redirect;
         if (!enable) return;
-        
+
         // 获取所有链接
-        const allLinks = Array.from(document.getElementsByTagName("a")) as Element[];
+        const allLinks = Array.from(
+            document.getElementsByTagName("a"),
+        ) as Element[];
         if (allLinks.length === 0) return;
-        
+
         // 处理每个链接
         allLinks.forEach((link) => {
             processLink(link, document);
@@ -130,16 +133,16 @@ const processHtmlFile = async (file: string, logger: any): Promise<void> => {
     } catch (error) {
         logger.error(`处理链接时出错： ${(error as Error).message}`);
     }
-    
+
     html = dom.serialize();
-    
+
     // Minify the HTML
     html = minify(html, {
         removeComments: true,
         preserveLineBreaks: true,
         collapseWhitespace: true,
     });
-    
+
     await fs.writeFile(file, html);
 };
 
@@ -151,7 +154,7 @@ const redirectIntegration = (): AstroIntegration => ({
             const destDir = fileURLToPath(dir);
             const outDirPath = path.relative(process.cwd(), destDir);
             const files = await fg(`${outDirPath}/**/*.html`);
-            
+
             // Process all files in parallel
             await Promise.all(
                 files.map(async (file) => {

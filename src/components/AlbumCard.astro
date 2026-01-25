@@ -8,7 +8,8 @@ interface Props {
     updatedAt: Date;
 }
 
-const { id, title, description, coverImage, photoCount, updatedAt } = Astro.props;
+const { id, title, description, coverImage, photoCount, updatedAt } =
+    Astro.props;
 ---
 
 <a href={`/album/${id}/`} class="album-card">
@@ -23,7 +24,9 @@ const { id, title, description, coverImage, photoCount, updatedAt } = Astro.prop
         <p class="album-description">{description}</p>
         <div class="album-meta">
             <span class="photo-count">{photoCount} 张照片</span>
-            <span class="updated-time">{new Date(updatedAt).toLocaleDateString()}</span>
+            <span class="updated-time"
+                >{new Date(updatedAt).toLocaleDateString()}</span
+            >
         </div>
     </div>
 </a>

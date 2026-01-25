@@ -8,7 +8,11 @@ import BackToTop from "~/components/BackToTop.astro";
 import { site, config, pageView } from "~/self.config";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
-export async function getStaticPaths({ paginate }: { paginate: (data: any[], options: { pageSize: number }) => any[] }) {
+export async function getStaticPaths({
+    paginate,
+}: {
+    paginate: (data: any[], options: { pageSize: number }) => any[];
+}) {
     const allPosts = await getCollection("article");
     const pageSize = config.PageSize || 10;
     const sortedPosts = allPosts.sort((a, b) => {
@@ -62,7 +66,9 @@ const postsWithMeta = page.data.map((post: any) => {
                     publishedTime={post.data.pubDate}
                     modifiedTime={post.modifiedTime}
                     postUrl={`/article/${post.slug}/`}
-                    imagePath={post.data.image?.url || "https://pic.mcc.im/images"}
+                    imagePath={
+                        post.data.image?.url || "https://pic.mcc.im/images"
+                    }
                     description={post.excerpt}
                     tags={post.data.tags}
                     wordCount={post.wordCount}
@@ -83,13 +89,13 @@ const postsWithMeta = page.data.map((post: any) => {
     import { pageviewCount } from "@waline/client/pageview";
     import { waline } from "~/self.config";
 
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
         document.addEventListener("astro:page-load", () => {
             const serverURL = waline.serverUrl;
             const path = window.location.pathname;
 
             if (!serverURL) {
-                console.warn('Waline server URL is not configured');
+                console.warn("Waline server URL is not configured");
                 return;
             }
 
@@ -97,11 +103,11 @@ const postsWithMeta = page.data.map((post: any) => {
                 pageviewCount({
                     serverURL,
                     path,
-                    selector: '.waline-pageview-count', // 添加选择器参数
-                    update: true // 确保更新页面浏览量
+                    selector: ".waline-pageview-count", // 添加选择器参数
+                    update: true, // 确保更新页面浏览量
                 });
             } catch (error) {
-                console.error('Failed to initialize Waline:', error);
+                console.error("Failed to initialize Waline:", error);
             }
         });
     }

@@ -3,48 +3,9 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 import { site } from "~/self.config";
 import AlbumCard from "~/components/AlbumCard.astro";
 
-// 相册数据 - 后续可以从存储桶或图床动态获取
-const albums = [
-  {
-    id: "travel",
-    title: "旅行相册",
-    description: "记录旅途中的美好瞬间",
-    coverImage: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=beautiful%20landscape%20photography%20mountain%20lake%20scenery&image_size=landscape_4_3",
-    photos: [
-      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mountain%20landscape%20with%20lake%20and%20blue%20sky&image_size=landscape_4_3",
-      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=forest%20path%20with%20sunlight%20filtering%20through%20trees&image_size=landscape_4_3",
-      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=coastal%20sunset%20with%20waves%20and%20orange%20sky&image_size=landscape_4_3"
-    ],
-    createdAt: new Date("2024-01-01"),
-    updatedAt: new Date("2024-01-01")
-  },
-  {
-    id: "nature",
-    title: "自然风景",
-    description: "大自然的壮丽景色",
-    coverImage: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mountain%20peaks%20with%20snow%20and%20clouds&image_size=landscape_4_3",
-    photos: [
-      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=waterfall%20in%20forest%20with%20rainbow&image_size=landscape_4_3",
-      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=desert%20landscape%20with%20sand%20dunes%20and%20sunset&image_size=landscape_4_3",
-      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=beach%20with%20clear%20blue%20water%20and%20palm%20trees&image_size=landscape_4_3"
-    ],
-    createdAt: new Date("2024-02-01"),
-    updatedAt: new Date("2024-02-01")
-  },
-  {
-    id: "city",
-    title: "城市风光",
-    description: "城市的现代与繁华",
-    coverImage: "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=city%20skyline%20at%20night%20with%20lights&image_size=landscape_4_3",
-    photos: [
-      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20city%20buildings%20with%20glass%20facades&image_size=landscape_4_3",
-      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=street%20view%20with%20people%20and%20shops&image_size=landscape_4_3",
-      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=city%20park%20with%20fountains%20and%20greenery&image_size=landscape_4_3"
-    ],
-    createdAt: new Date("2024-03-01"),
-    updatedAt: new Date("2024-03-01")
-  }
-];
+// 从JSON文件引入相册数据
+import albumData from "~/data/albums.json";
+const { albums } = albumData;
 ---
 
 <BaseLayout
@@ -59,53 +20,55 @@ const albums = [
     <div class="albums-container">
         <h1 class="page-title">相册</h1>
         <p class="page-description">记录生活中的美好瞬间</p>
-        
+
         <div class="albums-grid">
-            {albums.map((album) => (
-                <AlbumCard
-                    id={album.id}
-                    title={album.title}
-                    description={album.description}
-                    coverImage={album.coverImage}
-                    photoCount={album.photos.length}
-                    updatedAt={album.updatedAt}
-                />
-            ))}
+            {
+                albums.map((album) => (
+                    <AlbumCard
+                        id={album.id}
+                        title={album.title}
+                        description={album.description}
+                        coverImage={album.coverImage}
+                        photoCount={album.photos.length}
+                        updatedAt={new Date(album.updatedAt)}
+                    />
+                ))
+            }
         </div>
     </div>
 </BaseLayout>
 
 <style>
-.albums-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-}
-
-.page-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    color: var(--title-color);
-}
-
-.page-description {
-    font-size: 1.1rem;
-    text-align: center;
-    color: var(--body-color);
-    margin-bottom: 3rem;
-}
-
-.albums-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-@media (max-width: 768px) {
-    .albums-grid {
-        grid-template-columns: 1fr;
+    .albums-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
     }
-}
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        color: var(--title-color);
+    }
+
+    .page-description {
+        font-size: 1.1rem;
+        text-align: center;
+        color: var(--body-color);
+        margin-bottom: 3rem;
+    }
+
+    .albums-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .albums-grid {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>

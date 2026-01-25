@@ -1,6 +1,6 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { donate } from '~/self.config';
+import { Icon } from "astro-icon/components";
+import { donate } from "~/self.config";
 ---
 
 <style>
@@ -198,27 +198,33 @@ import { donate } from '~/self.config';
 </div>
 
 <script>
-    document.addEventListener('astro:page-load', function () {
-        const rewardBtn = document.querySelector('.reward .reward-btn') as HTMLDivElement;
-        const modal = document.querySelector('.modal') as HTMLDivElement;
-        const closeModal = document.querySelector('.modal .close') as HTMLDivElement;
-        const modalMask = document.querySelector('.modal .modal-mask') as HTMLDivElement;
+    document.addEventListener("astro:page-load", function () {
+        const rewardBtn = document.querySelector(
+            ".reward .reward-btn",
+        ) as HTMLDivElement;
+        const modal = document.querySelector(".modal") as HTMLDivElement;
+        const closeModal = document.querySelector(
+            ".modal .close",
+        ) as HTMLDivElement;
+        const modalMask = document.querySelector(
+            ".modal .modal-mask",
+        ) as HTMLDivElement;
 
         // 显示模态框并禁止背景滚动
-        rewardBtn.addEventListener('click', function () {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            document.body.style.height = '100vh';
+        rewardBtn.addEventListener("click", function () {
+            modal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+            document.body.style.height = "100vh";
         });
 
         // 隐藏模态框并恢复背景滚动
         function hideModal() {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
-            document.body.style.height = '';
+            modal.style.display = "none";
+            document.body.style.overflow = "";
+            document.body.style.height = "";
         }
 
-        closeModal.addEventListener('click', hideModal);
-        modalMask.addEventListener('click', hideModal);
+        closeModal.addEventListener("click", hideModal);
+        modalMask.addEventListener("click", hideModal);
     });
 </script>

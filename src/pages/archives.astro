@@ -1,14 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '~/layouts/BaseLayout.astro';
-import PostLayout from '~/layouts/PostLayout.astro';
-import Archive from '~/components/Archive.astro';
-import { site, archivesPage } from '~/self.config';
-import { getPostsWithMeta } from '~/utils/getPostsWithMeta';
-import type { CollectionEntry } from 'astro:content';
+import { getCollection } from "astro:content";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import PostLayout from "~/layouts/PostLayout.astro";
+import Archive from "~/components/Archive.astro";
+import { site, archivesPage } from "~/self.config";
+import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
+import type { CollectionEntry } from "astro:content";
 
 // Define interface for post with meta information
-interface PostWithMeta extends CollectionEntry<'article'> {
+interface PostWithMeta extends CollectionEntry<"article"> {
     wordCount: number;
 }
 
@@ -17,16 +17,16 @@ interface PostsByYear {
     [year: number]: PostWithMeta[];
 }
 
-const allPosts = await getCollection('article');
+const allPosts = await getCollection("article");
 
 const postsWithMeta = await Promise.all(
-    allPosts.map(async post => {
+    allPosts.map(async (post) => {
         const { wordCount } = getPostsWithMeta(post);
         return {
             ...post,
             wordCount,
         } as PostWithMeta;
-    })
+    }),
 );
 
 // Group posts by year with proper typing
@@ -42,13 +42,23 @@ const postsByYear = postsWithMeta.reduce<PostsByYear>((acc, post) => {
 // Calculate statistics
 const totalPosts = postsWithMeta.length;
 const totalWords = postsWithMeta.reduce((sum, post) => sum + post.wordCount, 0);
-const totalWordsInThousands = (totalWords / 1000).toFixed(1) + 'k';
+const totalWordsInThousands = (totalWords / 1000).toFixed(1) + "k";
 
 // Find the earliest year more efficiently with proper typing
-const startYear = Math.min(...postsWithMeta.map(post => new Date(post.data.pubDate).getFullYear()));
+const startYear = Math.min(
+    ...postsWithMeta.map((post) => new Date(post.data.pubDate).getFullYear()),
+);
 ---
 
-<BaseLayout title={`${archivesPage.title} - ${site.title}`} description={`${archivesPage.description} - ${site.description}`} image={`${Astro.site + site.coverImage}`} imageAlt={archivesPage.description} keywords="Archives" publishedTime={new Date()} modifiedTime={new Date()}>
+<BaseLayout
+    title={`${archivesPage.title} - ${site.title}`}
+    description={`${archivesPage.description} - ${site.description}`}
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt={archivesPage.description}
+    keywords="Archives"
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+>
     <h1 class="text-center space-bottom">Archives</h1>
     <PostLayout>
         <p style="opacity: 0.6">
@@ -59,15 +69,24 @@ const startYear = Math.min(...postsWithMeta.map(post => new Date(post.data.pubDa
         </p>
         {
             Object.keys(postsByYear)
-                .map(year => Number(year))
+                .map((year) => Number(year))
                 .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
-                .map(year => (
+                .map((year) => (
                     <section data-key={year}>
                         <h2>{year}</h2>
                         {postsByYear[year]
-                            .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
-                            .map(post => (
-                                <Archive key={post.slug} url={`/article/${post.slug}/`} title={post.data.title} publishedTime={post.data.pubDate} />
+                            .sort(
+                                (a, b) =>
+                                    new Date(b.data.pubDate).getTime() -
+                                    new Date(a.data.pubDate).getTime(),
+                            )
+                            .map((post) => (
+                                <Archive
+                                    key={post.slug}
+                                    url={`/article/${post.slug}/`}
+                                    title={post.data.title}
+                                    publishedTime={post.data.pubDate}
+                                />
                             ))}
                     </section>
                 ))
