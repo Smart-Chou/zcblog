@@ -78,19 +78,20 @@ const processLink = (link: Element, document: Document): void => {
 
     const linkHref = link.getAttribute("href");
 
-    // 检查链接是否为相对路径或根路径
-    if (isRelativeOrRootPath(linkHref)) return;
-
     // 检查链接是否需要处理
     if (
         link.getAttribute("target") === "_blank" ||
         hasIncludeClass(link, includeClass)
     ) {
+        // 检查链接是否为相对路径或根路径
+        if (isRelativeOrRootPath(linkHref)) return;
         // 存在链接且非中转页
         if (linkHref && !linkHref.includes(redirectPage)) {
-            // URL 编码 href
-            const encodedHref = encodeURIComponent(linkHref);
-            const redirectLink = `${redirectPage}${encodedHref}`;
+            // Base64 编码 href
+            const encodedHref = Buffer.from(linkHref).toString('base64');
+            // 处理 Base64 编码中的特殊字符，确保 URL 安全
+            const urlSafeEncodedHref = encodedHref.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+            const redirectLink = `${redirectPage}${urlSafeEncodedHref}`;
 
             // 保存原始链接
             link.setAttribute("original-href", linkHref);

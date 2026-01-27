@@ -223,7 +223,7 @@ export const config: FeaturesConfig = {
   ga: false,
   redirect: true,
   redirectIncludeClass: ['post__content'],
-  redirectExcludeClass: ['modal-mask'],
+  redirectExcludeClass: ['modal-mask', 'friends-container', 'author'],
 }
 
 /**

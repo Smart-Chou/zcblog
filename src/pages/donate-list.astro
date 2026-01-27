@@ -75,7 +75,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                 <div class="donators-header">
                     <h2 class="section-title">赞赏者名单</h2>
                     <p class="section-desc">
-                        排名不分先后，感谢每一位朋友的支持
+                        感谢这些朋友的支持，让我能持续写下去（排名不分先后） 🤍
                     </p>
                 </div>
                 <div class="donators-list">
@@ -95,20 +95,18 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                                     )}
                                 </div>
                                 <div class="donator-info">
-                                    <div class="donator-name">
-                                        {donator.name}
-                                    </div>
-                                    <div class="donator-amount">
-                                        ¥{donator.amount.toFixed(2)}
-                                    </div>
-                                    <div class="donator-time">
-                                        {donator.date}
+                                    <div class="donator-main">
+                                        <span class="donator-name">{donator.name}</span>
+                                        <span class="donator-amount">¥{donator.amount.toFixed(2)}</span>
                                     </div>
                                     {donator.message && (
                                         <div class="donator-message">
-                                            {donator.message}
+                                            “{donator.message}”
                                         </div>
                                     )}
+                                    <div class="donator-time">
+                                        {donator.date}
+                                    </div>
                                 </div>
                             </div>
                         ))
@@ -244,35 +242,39 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
     }
 
     .donators-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.25rem;
     }
 
     .donator-item {
         display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 1.5rem;
-        border-radius: 8px;
+        gap: 1rem;
+        padding: 1.25rem;
+        border-radius: 12px;
         background-color: var(--card-background);
-        transition: all 0.3s ease;
+        transition: transform .2s ease, box-shadow .2s ease;
     }
 
     .donator-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0,0,0,.08);
     }
 
     .donator-avatar {
         flex-shrink: 0;
     }
 
-    .avatar-placeholder {
-        width: 60px;
-        height: 60px;
+    .avatar-placeholder,
+    .donator-avatar img {
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
+    }
+
+    .avatar-placeholder {
         background-color: var(--primary-color);
+        opacity: 0.85;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -284,28 +286,49 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
         flex: 1;
     }
 
+    .donator-main {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+    }
+
     .donator-name {
         font-weight: 600;
-        font-size: 1.1rem;
-        margin-bottom: 0.25rem;
+        font-size: 1.05rem;
     }
 
     .donator-amount {
-        color: #e74c3c;
         font-weight: 600;
-        margin-bottom: 0.25rem;
+        color: var(--primary-color);
+        font-size: 0.9rem;
+    }
+
+    .donator-amount::before {
+        content: "支持 ";
+        font-weight: 400;
+        opacity: .6;
+        margin-right: 2px;
     }
 
     .donator-time {
-        color: var(--text-color-secondary);
-        font-size: 0.9rem;
+        font-size: .75rem;
+        opacity: .6;
+        margin-top: .25rem;
+        display: none;
+    }
+
+    .donator-item:hover .donator-time {
+        display: block;
     }
 
     .donator-message {
+        font-size: .85rem;
         color: var(--text-color-secondary);
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
         font-style: italic;
+        line-height: 1.4;
+        margin-top: .45rem;
+        padding-left: .5rem;
+        border-left: 2px solid rgba(0,0,0,.08);
     }
 
     .thank-section {
@@ -356,5 +379,54 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
             flex-direction: column;
             text-align: center;
         }
+
+        .donator-main {
+            justify-content: center;
+            gap: .5rem;
+        }
+    }
+
+    html[data-theme="dark"] .donator-item {
+        background-color: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    html[data-theme="dark"] .donator-item:hover {
+        box-shadow: 0 10px 30px rgba(0,0,0,.6);
+    }
+
+    html[data-theme="dark"] .donator-name {
+        color: rgba(255,255,255,.92);
+    }
+
+    html[data-theme="dark"] .donator-message,
+    html[data-theme="dark"] .section-desc,
+    html[data-theme="dark"] .thank-text {
+        color: rgba(255,255,255,.65);
+    }
+
+    html[data-theme="dark"] .donator-amount {
+        color: #f2a19a; /* 柔和红 / 肉粉色 */
+    }
+
+    html[data-theme="dark"] .donator-amount::before {
+        opacity: .45;
+    }
+
+    html[data-theme="dark"] .donator-message {
+        border-left-color: rgba(255,255,255,.12);
+    }
+
+    html[data-theme="dark"] .avatar-placeholder {
+        background-color: color-mix(in srgb, var(--primary-color) 60%, black);
+    }
+
+    html[data-theme="dark"] .header-icon,
+    html[data-theme="dark"] .thank-icon {
+        color: #f2a19a;
+    }
+
+    html[data-theme="dark"] .donator-item:hover {
+        background-color: rgba(255,255,255,0.05);
     }
 </style>
