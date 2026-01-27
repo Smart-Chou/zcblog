@@ -1,0 +1,61 @@
+# zcblog_momo 的 Pagefind 配置
+# 参考文档：https://pagefind.app/docs/config-options/
+
+# 必填参数
+# 构建后的静态站点位置
+site: dist
+
+# 可选参数
+
+# 创建搜索索引后提供站点目录服务
+# 对本地构建的搜索功能测试很有用
+serve: false
+
+# 搜索包输出目录，相对于处理后的站点
+# 默认值为 pagefind
+# 与 Search.astro 中配置的路径匹配：/pagefind/
+output_subdir: pagefind
+
+# 忽略检测到的任何语言，为整个站点创建单个索引
+# 设置为中文 (zh)，因为这是一个中文博客
+force_language: zh
+
+# 传递 Pagefind 在索引时应忽略的额外元素选择器
+# 排除不需要可搜索的常见元素
+exclude_selectors:
+    - "nav"
+    - "footer"
+    - ".post-copyright"
+    - ".donate"
+    - ".toc"
+    - "script"
+    - "style"
+
+# 防止 Pagefind 在索引内容时删除提供的字符
+# 包含常见的中文标点和符号
+include_characters: '，。！？；：""''（）【】[]'
+
+# 配置 Pagefind 用于发现 HTML 文件的 glob 模式
+# 只索引 article 文件夹下的 HTML 文件
+glob: "article/**/*.{html}"
+
+# 在搜索结果路径末尾保留 index.html
+# 默认值为 false，这样可以获得更简洁的 URL
+keep_index_url: false
+
+# 将 Pagefind playground 文件写入到包目录中的 /playground
+# 在生产环境中设置为 false，以避免暴露 playground
+write_playground: false
+
+# 日志选项
+# 在索引站点时仅记录错误和警告
+quiet: false
+
+# 在索引站点时仅记录错误
+# silent: false
+
+# 在索引站点时打印额外的日志
+# verbose: false
+
+# 将日志写入到指定的日志文件，同时也输出到控制台
+# logfile: pagefind.log

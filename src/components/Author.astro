@@ -29,8 +29,8 @@ import { author, categories, socialLinks } from "~/self.config";
                 </a>
             ))
         }
-        <span class="divider"></span>
-        <span class="divider"></span>
+    </p>
+    <p class="author__links">
         {
             socialLinks.map((social) => (
                 <a
@@ -49,12 +49,3 @@ import { author, categories, socialLinks } from "~/self.config";
         }
     </p>
 </div>
-
-<style>
-    .divider {
-        width: 1px;
-        height: 20px;
-        background-color: currentColor;
-        opacity: 0.4;
-    }
-</style>

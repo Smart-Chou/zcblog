@@ -82,7 +82,7 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
             currentSlug={currentSlug}
         />
     </div>
-    <div class="post content-box">
+    <div class="post-card content-box">
         <div class="post__header">
             {
                 isDefaultImage ? (
@@ -123,7 +123,10 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
                 </div>
             )
         }
-        <div id="post-content" class="post__content">
+        <div id="post-content" class="post__content" data-pagefind-body>
+            <h2 id="post-content-title" style="display: none;">
+                {frontmatter.title}
+            </h2>
             <slot />
         </div>
         <div class="post__footer">

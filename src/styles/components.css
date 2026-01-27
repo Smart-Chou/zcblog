@@ -487,12 +487,6 @@ a {
     }
 }
 
-@media screen and (max-width: 768px) {
-    .docsearch-btn > * {
-        margin-right: auto !important;
-    }
-}
-
 .archive-meta {
     display: flex;
     align-items: flex-start;

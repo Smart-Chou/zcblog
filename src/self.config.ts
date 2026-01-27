@@ -102,11 +102,7 @@ export interface WalineConfig {
  * 搜索功能配置
  */
 export interface SearchConfig {
-  enable: boolean; // 是否启用
-  host: string; // MeiliSearch Host
-  apiKey: string; // MeiliSearch API Key
-  indexUid: string; // MeiliSearch Index UID
-  hotKeys: string[]; // 搜索热词
+  enable: boolean; // pagefind 是否启用
 }
 
 /**
@@ -300,10 +296,6 @@ export const waline: WalineConfig = {
  */
 export const search: SearchConfig = {
   enable: true,
-  host: 'https://meilisearch.marxchou.com',
-  apiKey: import.meta.env.MEILISEARCH_API_KEY || 'c03b8635fea890e7d8bad71c0056031d7daea5e4c2cb32c29b753f517f3f0b5a',
-  indexUid: 'marxchou',
-  hotKeys: ['/'],
 }
 
 /**
@@ -320,18 +312,11 @@ export const umami: UmamiConfig = {
  */
 export const categories: CategoryItem[] = [
   {
-    url: '//mcc.im',
-    title: '🚀 Portfolio',
-    style: undefined,
-    target: '_blank',
-    svg: 'tabler:user-filled',
-  },
-  {
     url: '//memos.marxchou.com',
     title: '🥳 Feed',
     style: 'color: orange',
     target: '_blank',
-    svg: 'tabler:brand-wechat',
+    svg: 'tabler:brain',
   },
   {
     url: '/albums/',
@@ -368,10 +353,10 @@ export const categories: CategoryItem[] = [
  */
 export const socialLinks: SocialLinkItem[] = [
   {
-    url: '//qq.com/realSpencerWoo',
-    title: '🔗 @realSpencerWoo',
-    style: 'color: #12b7f5',
-    svg: 'simple-icons:tencentqq',
+    url: '//mcc.im',
+    title: '🚀 Portfolio',
+    style: 'color: var(--title-color)',
+    svg: 'simple-icons:ghostery',
   },
   {
     url: '//twitter.com/realSpencerWoo',
@@ -390,12 +375,6 @@ export const socialLinks: SocialLinkItem[] = [
     title: '🔗 @spencerwooo',
     style: 'color: var(--title-color)',
     svg: 'simple-icons:github',
-  },
-  {
-    url: '//youtube.com/realSpencerWoo',
-    title: '🔗 @realSpencerWoo',
-    style: 'color: #ff0000',
-    svg: 'logos:youtube-icon'
   }
 ]
 
