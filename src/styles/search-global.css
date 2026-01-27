@@ -185,7 +185,7 @@ button[data-close-modal] {
         width: 90%;
         max-width: 40rem;
         height: max-content;
-        min-height: 15rem;
+        min-height: auto;
         max-height: calc(100% - 8rem);
     }
 

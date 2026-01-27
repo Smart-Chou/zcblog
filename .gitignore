@@ -13,6 +13,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# Astro cache
+.astro
+
 # Trae
 .trae
 
