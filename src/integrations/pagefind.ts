@@ -1,3 +1,33 @@
+/**
+ * Pagefind 搜索索引集成
+ *
+ * 此集成用于在 Astro 构建完成后运行 Pagefind 来生成搜索索引文件。
+ * 主要功能包括：
+ * 1. 创建 Pagefind 索引
+ * 2. 添加构建输出目录到索引中
+ * 3. 将生成的搜索索引文件写入到指定目录
+ * 4. 记录索引过程的日志信息
+ *
+ * 使用方法：
+ * 在 astro.config.mjs 中导入并在构建完成钩子中调用此函数
+ *
+ * @example
+ * // astro.config.mjs
+ * import { starlightPagefind } from './src/integrations/pagefind.ts';
+ *
+ * export default defineConfig({
+ *   integrations: [
+ *     {
+ *       name: 'pagefind-integration',
+ *       hooks: {
+ *         'astro:build:done': async ({ dir, logger }) => {
+ *           await starlightPagefind({ dir, logger });
+ *         }
+ *       }
+ *     }
+ *   ]
+ * });
+ */
 import type { HookParameters } from "astro";
 import { fileURLToPath } from "node:url";
 import * as pagefind from "pagefind";

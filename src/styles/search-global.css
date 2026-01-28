@@ -76,7 +76,7 @@ button[data-open-modal] {
     display: flex;
     font-weight: 500;
     height: 36px;
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
     user-select: none;
     gap: 0.5rem;
     font-size: var(--sl-text-xl);

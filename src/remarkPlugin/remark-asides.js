@@ -1,3 +1,33 @@
+/**
+ * Remark Asides 插件
+ *
+ * 此插件用于将 Markdown 中的 `:::` 块转换为带样式的 aside 元素（也称为 "callouts" 或 "admonitions"）。
+ * 主要功能包括：
+ * 1. 支持多种 aside 变体：note、info、important、tip、warning、danger
+ * 2. 为每种变体添加对应的图标和默认标签
+ * 3. 支持自定义标签内容
+ * 4. 生成符合 HTML 标准的 aside 元素结构
+ *
+ * 使用方法：
+ * 在 astro.config.mjs 中配置此插件
+ *
+ * @example
+ * // astro.config.mjs
+ * import { remarkAsides } from './src/remarkPlugin/remark-asides.js';
+ *
+ * export default defineConfig({
+ *   markdown: {
+ *     remarkPlugins: [
+ *       remarkAsides({})
+ *     ]
+ *   }
+ * });
+ *
+ * // Markdown 中使用
+ * // :::tip[提示]
+ * // 这是一个提示信息
+ * // :::
+ */
 import { h as _h, s as _s } from "hastscript";
 import { remove } from "unist-util-remove";
 import { visit } from "unist-util-visit";

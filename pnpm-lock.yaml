@@ -120,9 +120,6 @@ importers:
       '@iconify-json/tabler':
         specifier: ^1.2.26
         version: 1.2.26
-      '@iconify-json/twemoji':
-        specifier: ^1.2.5
-        version: 1.2.5
       astro-meta-tags:
         specifier: ^0.4.0
         version: 0.4.0(astro@5.16.15(@types/node@25.0.10)(rollup@4.57.0)(typescript@5.9.3)(yaml@2.8.2))
@@ -724,9 +721,6 @@ packages:
   '@iconify-json/tabler@1.2.26':
     resolution: {integrity: sha512-92G+ZD70AZgeJf07JfQzH+isnai6DwPcMBuF/qL1F+xAxdXCJzGd3w2RmsRvOmB+w1ImmWEEDms50QivQIjd6g==}
 
-  '@iconify-json/twemoji@1.2.5':
-    resolution: {integrity: sha512-uKpuIEV0v6K5BW3Mjdyl+XKFVAbbcPxAgifKvEMtZoUZB5+YiY5zaMm2uNNCxyXzAWU9yNLlj41WU6/mvgALsw==}
-
   '@iconify/tools@5.0.2':
     resolution: {integrity: sha512-esoFiH0LYpiqqVAO+RTenh6qqGKf0V8T0T6IG7dFLCw26cjcYGG34UMHjkbuq+MMl23U39FtkzhWZsCDDtOhew==}
 
@@ -1153,8 +1147,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.8
 
-  '@puppeteer/browsers@2.11.1':
-    resolution: {integrity: sha512-YmhAxs7XPuxN0j7LJloHpfD1ylhDuFmmwMvfy/+6nBSrETT2ycL53LrhgPtR+f+GcPSybQVuQ5inWWu5MrWCpA==}
+  '@puppeteer/browsers@2.11.2':
+    resolution: {integrity: sha512-GBY0+2lI9fDrjgb5dFL9+enKXqyOPok9PXg/69NVkjW3bikbK9RQrNrI3qccQXmDNN7ln4j/yL89Qgvj/tfqrw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -2970,12 +2964,12 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  puppeteer-core@24.36.0:
-    resolution: {integrity: sha512-P3Ou0MAFDCQ0dK1d9F9+8jTrg6JvXjUacgG0YkJQP4kbEnUOGokSDEMmMId5ZhXD5HwsHM202E9VwEpEjWfwxg==}
+  puppeteer-core@24.36.1:
+    resolution: {integrity: sha512-L7ykMWc3lQf3HS7ME3PSjp7wMIjJeW6+bKfH/RSTz5l6VUDGubnrC2BKj3UvM28Y5PMDFW0xniJOZHBZPpW1dQ==}
     engines: {node: '>=18'}
 
-  puppeteer@24.36.0:
-    resolution: {integrity: sha512-BD/VCyV/Uezvd6o7Fd1DmEJSxTzofAKplzDy6T9d4WbLTQ5A+06zY7VwO91ZlNU22vYE8sidVEsTpTrKc+EEnQ==}
+  puppeteer@24.36.1:
+    resolution: {integrity: sha512-uPiDUyf7gd7Il1KnqfNUtHqntL0w1LapEw5Zsuh8oCK8GsqdxySX1PzdIHKB2Dw273gWY4MW0zC5gy3Re9XlqQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4400,10 +4394,6 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/twemoji@1.2.5':
-    dependencies:
-      '@iconify/types': 2.0.0
-
   '@iconify/tools@5.0.2':
     dependencies:
       '@cyberalien/svg-utils': 1.0.11
@@ -4902,7 +4892,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@puppeteer/browsers@2.11.1':
+  '@puppeteer/browsers@2.11.2':
     dependencies:
       debug: 4.4.3
       extract-zip: 2.0.1
@@ -5419,7 +5409,7 @@ snapshots:
       astro: 5.16.15(@types/node@25.0.10)(rollup@4.57.0)(typescript@5.9.3)(yaml@2.8.2)
       astro-integration-kit: 0.18.0(astro@5.16.15(@types/node@25.0.10)(rollup@4.57.0)(typescript@5.9.3)(yaml@2.8.2))
       lighthouse: 12.8.2
-      puppeteer: 24.36.0(typescript@5.9.3)
+      puppeteer: 24.36.1(typescript@5.9.3)
     transitivePeerDependencies:
       - bare-abort-controller
       - bare-buffer
@@ -6516,7 +6506,7 @@ snapshots:
       metaviewport-parser: 0.3.0
       open: 8.4.2
       parse-cache-control: 1.0.1
-      puppeteer-core: 24.36.0
+      puppeteer-core: 24.36.1
       robots-parser: 3.0.1
       speedline-core: 1.4.3
       third-party-web: 0.27.0
@@ -7324,9 +7314,9 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  puppeteer-core@24.36.0:
+  puppeteer-core@24.36.1:
     dependencies:
-      '@puppeteer/browsers': 2.11.1
+      '@puppeteer/browsers': 2.11.2
       chromium-bidi: 13.0.1(devtools-protocol@0.0.1551306)
       debug: 4.4.3
       devtools-protocol: 0.0.1551306
@@ -7341,13 +7331,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  puppeteer@24.36.0(typescript@5.9.3):
+  puppeteer@24.36.1(typescript@5.9.3):
     dependencies:
-      '@puppeteer/browsers': 2.11.1
+      '@puppeteer/browsers': 2.11.2
       chromium-bidi: 13.0.1(devtools-protocol@0.0.1551306)
       cosmiconfig: 9.0.0(typescript@5.9.3)
       devtools-protocol: 0.0.1551306
-      puppeteer-core: 24.36.0
+      puppeteer-core: 24.36.1
       typed-query-selector: 2.12.0
     transitivePeerDependencies:
       - bare-abort-controller

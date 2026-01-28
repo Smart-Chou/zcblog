@@ -1,3 +1,30 @@
+/**
+ * 链接重定向集成
+ *
+ * 此集成用于处理网站中的外部链接，为其添加重定向功能和外部链接图标。
+ * 主要功能包括：
+ * 1. 为外部链接添加重定向页面，保护用户隐私
+ * 2. 为新窗口打开的链接添加外部链接图标
+ * 3. 处理 HTML 文件中的所有链接
+ *
+ * 配置选项：
+ * - redirect: 是否启用重定向功能（在 self.config.ts 中配置）
+ * - redirectIncludeClass: 需要处理的链接容器类名（在 self.config.ts 中配置）
+ * - redirectExcludeClass: 排除处理的链接容器类名（在 self.config.ts 中配置）
+ *
+ * 使用方法：
+ * 在 astro.config.mjs 中导入并添加此集成
+ *
+ * @example
+ * // astro.config.mjs
+ * import redirectAttributeByLink from './src/integrations/redirect.ts';
+ *
+ * export default defineConfig({
+ *   integrations: [
+ *     redirectAttributeByLink()
+ *   ]
+ * });
+ */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -88,9 +115,12 @@ const processLink = (link: Element, document: Document): void => {
         // 存在链接且非中转页
         if (linkHref && !linkHref.includes(redirectPage)) {
             // Base64 编码 href
-            const encodedHref = Buffer.from(linkHref).toString('base64');
+            const encodedHref = Buffer.from(linkHref).toString("base64");
             // 处理 Base64 编码中的特殊字符，确保 URL 安全
-            const urlSafeEncodedHref = encodedHref.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+            const urlSafeEncodedHref = encodedHref
+                .replace(/\+/g, "-")
+                .replace(/\//g, "_")
+                .replace(/=/g, "");
             const redirectLink = `${redirectPage}${urlSafeEncodedHref}`;
 
             // 保存原始链接

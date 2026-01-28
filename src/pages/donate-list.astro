@@ -96,8 +96,12 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                                 </div>
                                 <div class="donator-info">
                                     <div class="donator-main">
-                                        <span class="donator-name">{donator.name}</span>
-                                        <span class="donator-amount">¥{donator.amount.toFixed(2)}</span>
+                                        <span class="donator-name">
+                                            {donator.name}
+                                        </span>
+                                        <span class="donator-amount">
+                                            ¥{donator.amount.toFixed(2)}
+                                        </span>
                                     </div>
                                     {donator.message && (
                                         <div class="donator-message">
@@ -253,12 +257,14 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
         padding: 1.25rem;
         border-radius: 12px;
         background-color: var(--card-background);
-        transition: transform .2s ease, box-shadow .2s ease;
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
     }
 
     .donator-item:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 24px rgba(0,0,0,.08);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     }
 
     .donator-avatar {
@@ -306,14 +312,14 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
     .donator-amount::before {
         content: "支持 ";
         font-weight: 400;
-        opacity: .6;
+        opacity: 0.6;
         margin-right: 2px;
     }
 
     .donator-time {
-        font-size: .75rem;
-        opacity: .6;
-        margin-top: .25rem;
+        font-size: 0.75rem;
+        opacity: 0.6;
+        margin-top: 0.25rem;
         display: none;
     }
 
@@ -322,13 +328,13 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
     }
 
     .donator-message {
-        font-size: .85rem;
+        font-size: 0.85rem;
         color: var(--text-color-secondary);
         font-style: italic;
         line-height: 1.4;
-        margin-top: .45rem;
-        padding-left: .5rem;
-        border-left: 2px solid rgba(0,0,0,.08);
+        margin-top: 0.45rem;
+        padding-left: 0.5rem;
+        border-left: 2px solid rgba(0, 0, 0, 0.08);
     }
 
     .thank-section {
@@ -382,27 +388,27 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 
         .donator-main {
             justify-content: center;
-            gap: .5rem;
+            gap: 0.5rem;
         }
     }
 
     html[data-theme="dark"] .donator-item {
-        background-color: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.06);
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     html[data-theme="dark"] .donator-item:hover {
-        box-shadow: 0 10px 30px rgba(0,0,0,.6);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     }
 
     html[data-theme="dark"] .donator-name {
-        color: rgba(255,255,255,.92);
+        color: rgba(255, 255, 255, 0.92);
     }
 
     html[data-theme="dark"] .donator-message,
     html[data-theme="dark"] .section-desc,
     html[data-theme="dark"] .thank-text {
-        color: rgba(255,255,255,.65);
+        color: rgba(255, 255, 255, 0.65);
     }
 
     html[data-theme="dark"] .donator-amount {
@@ -410,11 +416,11 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
     }
 
     html[data-theme="dark"] .donator-amount::before {
-        opacity: .45;
+        opacity: 0.45;
     }
 
     html[data-theme="dark"] .donator-message {
-        border-left-color: rgba(255,255,255,.12);
+        border-left-color: rgba(255, 255, 255, 0.12);
     }
 
     html[data-theme="dark"] .avatar-placeholder {
@@ -427,6 +433,6 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
     }
 
     html[data-theme="dark"] .donator-item:hover {
-        background-color: rgba(255,255,255,0.05);
+        background-color: rgba(255, 255, 255, 0.05);
     }
 </style>

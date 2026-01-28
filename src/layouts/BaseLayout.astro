@@ -99,7 +99,10 @@ const {
                                 // Base64 编码 href
                                 const encodedHref = btoa(linkHref);
                                 // 处理 Base64 编码中的特殊字符，确保 URL 安全
-                                const urlSafeEncodedHref = encodedHref.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+                                const urlSafeEncodedHref = encodedHref
+                                    .replace(/\+/g, "-")
+                                    .replace(/\//g, "_")
+                                    .replace(/=/g, "");
                                 const redirectLink = `${redirectPage}${urlSafeEncodedHref}`;
                                 // 保存原始链接
                                 link.setAttribute("original-href", linkHref);

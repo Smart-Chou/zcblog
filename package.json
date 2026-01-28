@@ -68,7 +68,6 @@
         "@iconify-json/ph": "^1.2.2",
         "@iconify-json/simple-icons": "^1.2.68",
         "@iconify-json/tabler": "^1.2.26",
-        "@iconify-json/twemoji": "^1.2.5",
         "astro-meta-tags": "^0.4.0",
         "astro-page-insight": "^0.10.2",
         "prettier": "^3.8.1",
