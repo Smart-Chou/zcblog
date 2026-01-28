@@ -11,7 +11,7 @@ import "~/styles/toc.css";
     document.addEventListener("astro:page-load", () => {
         tocbot.default.init({
             tocSelector: ".toc__content",
-            contentSelector: ".post",
+            contentSelector: "#post-content",
             headingSelector: "h2, h3",
             headingsOffset: 80,
             scrollSmoothOffset: -80,
@@ -24,7 +24,7 @@ import "~/styles/toc.css";
         const tocContent = document.querySelector(
             ".toc__content",
         ) as HTMLElement;
-        const post = document.querySelector(".post") as HTMLElement;
+        const post = document.querySelector("#post-content") as HTMLElement;
         const footer = document.querySelector(".post__footer") as HTMLElement;
         if (tocContent && post && footer) {
             window.addEventListener("scroll", function () {
