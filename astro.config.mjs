@@ -22,6 +22,9 @@ import playformInline from "@playform/inline";
 // 加载环境变量
 const env = loadEnv("", process.cwd(), "");
 
+
+
+
 // https://astro.build/config
 export default defineConfig({
     site: env.PUBLIC_SITE_URL || "https://marxchou.com",
@@ -44,8 +47,7 @@ export default defineConfig({
         icon(),
         astroExpressiveCode({
             plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
-            themes: ["github-light", "github-dark-dimmed"],
-            themeCssSelector: (theme) => `html[data-theme=${theme.name}]`,
+            themes: ["github-dark"],
             useDarkModeMediaQuery: false,
             // 启用复制按钮
             enableCopyButton: true,

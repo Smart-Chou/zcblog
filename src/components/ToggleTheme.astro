@@ -1,62 +1,133 @@
 ---
 import { Icon } from "astro-icon/components";
+
+// 服务端默认主题状态
+let isDark = false;
 ---
 
 <button
     id="theme-btn"
     role="button"
-    aria-label="Toggle dark/light"
+    aria-label={isDark ? "切换为浅色模式" : "切换为深色模式"}
+    aria-pressed={isDark}
     class="toggle-theme"
+    data-theme={isDark ? "dark" : "light"}
+    tabindex="0"
 >
     <Icon name="tabler:sun" class="feather feather-sun" />
     <Icon name="tabler:moon-stars" class="feather feather-moon" />
 </button>
 
-<script is:inline>
-    // 统一处理主题设置的函数
-    function setPreferredTheme(theme) {
-        document.documentElement.setAttribute("data-theme", theme);
-        localStorage.setItem("preferredTheme", theme);
+<script>
+    import { useTheme } from "~/hooks/useTheme";
 
-        // 更新类名以支持CSS选择器
-        if (theme === "dark") {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-    }
-
-    // 页面加载时初始化主题按钮状态
+    // 页面加载时初始化主题
     document.addEventListener("astro:page-load", () => {
-        const themeBtn = document.getElementById("theme-btn");
+        // 获取主题实例
+        const theme = useTheme();
+        
+        // 更新按钮状态函数
+        const updateButtonState = () => {
+            const themeBtn = document.getElementById("theme-btn");
+            if (themeBtn) {
+                const { isDark } = useTheme(); // 每次都获取最新状态
+                themeBtn.setAttribute("data-theme", isDark ? "dark" : "light");
+                themeBtn.setAttribute(
+                    "aria-label",
+                    isDark ? "切换为浅色模式" : "切换为深色模式",
+                );
+                themeBtn.setAttribute("aria-pressed", isDark.toString());
+            }
+        };
+
+        // 初始更新按钮状态
+        updateButtonState();
 
         // 切换主题按钮事件
+        const themeBtn = document.getElementById("theme-btn");
         if (themeBtn) {
             themeBtn.addEventListener("click", () => {
-                const currentTheme =
-                    document.documentElement.getAttribute("data-theme");
-                const newTheme = currentTheme === "dark" ? "light" : "dark";
-                setPreferredTheme(newTheme);
+                theme.toggleTheme();
+                updateButtonState();
+            });
+
+            // 键盘导航支持
+            themeBtn.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    theme.toggleTheme();
+                    updateButtonState();
+                }
             });
         }
-    });
-
-    // 视图过渡后恢复主题状态
-    document.addEventListener("astro:after-swap", () => {
-        const preferredTheme =
-            localStorage.getItem("preferredTheme") || "light";
-        setPreferredTheme(preferredTheme);
     });
 </script>
 
 <style>
+    .toggle-theme {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+
+    .toggle-theme:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .toggle-theme .feather {
+        transition: all 0.3s ease;
+    }
+
+    .toggle-theme .feather-sun {
+        display: block;
+    }
+
+    .toggle-theme .feather-moon {
+        display: none;
+    }
+
+    .toggle-theme[data-theme="dark"] .feather-sun {
+        display: none;
+    }
+
+    .toggle-theme[data-theme="dark"] .feather-moon {
+        display: block;
+    }
+
     [data-icon="tabler:sun"] {
         width: 30px;
         height: 30px;
+        color: #f59e0b;
     }
 
     [data-icon="tabler:moon-stars"] {
         width: 30px;
         height: 24px;
+        color: #3b82f6;
+    }
+
+    /* 主题切换过渡动画 */
+    :root {
+        --transition-theme:
+            color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    html {
+        transition: var(--transition-theme);
+    }
+
+    body {
+        transition: var(--transition-theme);
+    }
+
+    /* 确保所有元素都有过渡效果 */
+    * {
+        transition: var(--transition-theme);
     }
 </style>

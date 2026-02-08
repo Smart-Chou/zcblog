@@ -228,7 +228,10 @@ pre {
 .post__content img {
     display: block;
     max-width: 100%;
+    height: auto;
     margin: 0 auto;
+    border-radius: var(--radius);
+    object-fit: cover;
 }
 
 .expressive-code {
