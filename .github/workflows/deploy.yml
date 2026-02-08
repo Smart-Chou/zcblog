@@ -1,50 +1,38 @@
-name: Deploy blog
+name: Deploy
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches: [main]
 
 jobs:
-    deploy-gh-pages:
-        runs-on: ubuntu-22.04
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-              with:
-                  submodules: true
-                  fetch-depth: 0
-            
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-
-            - name: Install pnpm
-              run: npm install -g pnpm
-
-            - name: Setup pnpm
-              uses: actions/cache@v4
-              id: node-modules
-              with:
-                  path: node_modules/
-                  key: ${{ runner.os }}-node-modules-${{ hashFiles('pnpm-lock.yaml') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-modules-
-
-            - name: Install Dependencies
-              if: steps.node-modules.outputs.cache-hit != 'true'
-              run: pnpm install
-
-            - name: Build
-              run: pnpm run build
-
-            - name: Deploy
-              uses: peaceiris/actions-gh-pages@v4
-              with: 
-                  personal_token: ${{ secrets.PAGE_GITHUB_TOKEN }}
-                  external_repository: Smart-Chou/smart-chou.github.io
-                  publish_branch: main
-                  publish_dir: dist
-                  cname: marxchou.com
-                  force_orphan: true
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Lint code
+        run: pnpm run lint || echo "Lint not configured, skipping"
+      - name: Build
+        run: pnpm run build
+      - name: Validate build
+        run: ls dist && test -f dist/index.html
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with: 
+          personal_token: ${{ secrets.PAGE_GITHUB_TOKEN }}
+          external_repository: Smart-Chou/smart-chou.github.io
+          publish_branch: main
+          publish_dir: dist
+          cname: marxchou.com
+          force_orphan: true

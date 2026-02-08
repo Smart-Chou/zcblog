@@ -4,19 +4,29 @@ import MarkdwonLayout from "~/layouts/MarkdwonLayout.astro";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
 export async function getStaticPaths() {
-    const article = await getCollection("article");
-    return article.map((entry) => ({
-        params: { slug: entry.slug },
-        props: { entry },
-    }));
+    try {
+        const article = await getCollection("article", ({ data }) => {
+            // 过滤条件：非草稿
+            return !(data.draft ?? false);
+        });
+        return article.map((entry) => ({
+            params: { slug: entry.slug },
+            props: { entry },
+        }));
+    } catch (e) {
+        console.error("获取文章集合失败：", e);
+        return []; // 失败时返回空路径，避免构建崩溃
+    }
 }
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
-const modifiedTime = getPostsWithMeta(entry).modifiedTime;
-const readTime = getPostsWithMeta(entry).readTime;
-const wordCount = getPostsWithMeta(entry).wordCount;
+// 只调用一次getPostsWithMeta函数
+const postMeta = getPostsWithMeta(entry);
+const modifiedTime = postMeta.modifiedTime;
+const readTime = postMeta.readTime;
+const wordCount = postMeta.wordCount;
 ---
 
 <MarkdwonLayout

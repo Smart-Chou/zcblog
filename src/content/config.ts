@@ -20,6 +20,7 @@ const postsCollection = defineCollection({
         donate: z.boolean().default(true).nullable(), // 捐赠开关，默认为 true，可为 null
         waline: z.boolean().default(true).nullable(), // 评论开关，默认为 true，可为 null
         sticky: z.number().default(0).nullable(), // 置顶级别，默认为 0，可为 null
+        draft: z.boolean().default(false).optional(), // 草稿标记，默认为 false，可选
     }),
 });
 

@@ -13,11 +13,18 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# ENV
+.env
+.env.test
+
 # Astro cache
 .astro
 
 # Trae
 .trae
+
+# Vite cache
+.vite-cache
 
 # pageinsight
 .pageinsight

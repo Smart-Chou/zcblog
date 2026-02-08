@@ -1,8 +1,12 @@
 import { defineConfig } from "astro/config";
+import { loadEnv } from "vite";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import mdx from "@astrojs/mdx";
 import remarkDirective from "remark-directive";
+import remarkGfm from "remark-gfm"; // GitHub Flavored Markdown
+import rehypeSlug from "rehype-slug"; // 标题添加ID
+import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 标题添加锚点
 import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
 import { remarkAsides } from "./src/remarkPlugin/remark-asides.js";
 import { remarkDeruntify } from "./src/remarkPlugin/remark-deruntify.js";
@@ -15,15 +19,23 @@ import pageInsight from "astro-page-insight";
 import redirectAttributeByLink from "./src/integrations/redirect.ts";
 import playformInline from "@playform/inline";
 
+// 加载环境变量
+const env = loadEnv("", process.cwd(), "");
+
 // https://astro.build/config
 export default defineConfig({
-    site: "https://marxchou.com",
+    site: env.PUBLIC_SITE_URL || "https://marxchou.com",
     markdown: {
         remarkPlugins: [
             remarkDeruntify,
             resetRemark,
             remarkDirective,
             remarkAsides({}),
+            remarkGfm, // 扩展MDX语法支持GitHub Flavored Markdown
+        ],
+        rehypePlugins: [
+            rehypeSlug, // 标题添加ID
+            [rehypeAutolinkHeadings, { behavior: "append" }], // 标题添加锚点
         ],
     },
     integrations: [
@@ -32,11 +44,23 @@ export default defineConfig({
         icon(),
         astroExpressiveCode({
             plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
-            themes: ["github-dark-dimmed"],
+            themes: ["github-light", "github-dark-dimmed"],
             themeCssSelector: (theme) => `html[data-theme=${theme.name}]`,
             useDarkModeMediaQuery: false,
+            // 启用复制按钮
+            enableCopyButton: true,
+            // 显示语言标识
+            showLanguage: true,
+            // 优化渲染性能
+            renderInPlace: true,
         }),
-        mdx(),
+        mdx({
+            remarkPlugins: [remarkGfm], // 扩展MDX语法
+            rehypePlugins: [
+                rehypeSlug,
+                [rehypeAutolinkHeadings, { behavior: "append" }], // 标题锚点
+            ],
+        }),
         partytown(),
         astroMetaTags(),
         pageInsight(),
@@ -58,11 +82,50 @@ export default defineConfig({
     ],
     trailingSlash: "always",
     output: "static",
+    // 构建输出配置
+    build: {
+        concurrency: 4, // 并行构建提升速度
+    },
     vite: {
         define: {
             __VUE_OPTIONS_API__: true,
             __VUE_PROD_DEVTOOLS__: false,
             __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+            // 暴露环境变量到客户端
+            "process.env.PUBLIC_SITE_URL": JSON.stringify(
+                env.PUBLIC_SITE_URL || "https://marxchou.com",
+            ),
+        },
+        build: {
+            // 开启构建压缩
+            minify: "terser",
+            terserOptions: {
+                compress: {
+                    drop_console: true,
+                    drop_debugger: true,
+                },
+            },
+            // 静态资源哈希，用于缓存失效
+            assetsDir: "assets",
+            rollupOptions: {
+                output: {
+                    entryFileNames: "assets/[name].[hash].js",
+                    chunkFileNames: "assets/[name].[hash].js",
+                    assetFileNames: "assets/[name].[hash].[ext]",
+                    // 代码分割：按模块拆分JS
+                    manualChunks(id) {
+                        if (id.includes("node_modules")) {
+                            return "vendor"; // 第三方依赖单独打包
+                        }
+                    },
+                },
+            },
+        },
+        // 构建性能优化
+        cacheDir: ".vite-cache",
+        optimizeDeps: {
+            include: ["dayjs", "astro-icon"],
+            exclude: [],
         },
     },
 });
