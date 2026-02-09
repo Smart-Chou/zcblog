@@ -86,3 +86,9 @@ hr:before {
     padding: 1.5vw 15px 0;
     flex: 1;
 }
+
+.content {
+    max-width: var(--content-width);
+    margin-inline: auto;
+    width: 100%;
+}

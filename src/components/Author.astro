@@ -49,3 +49,39 @@ import { author, categories, socialLinks } from "~/self.config";
         }
     </p>
 </div>
+
+<style>
+    .author {
+        margin-top: 2rem;
+        text-align: center;
+        padding: calc(var(--space) / 2) 0;
+    }
+
+    .author__image {
+        border-radius: 100%;
+        width: 90px;
+        height: 90px;
+        margin-bottom: 1em;
+    }
+
+    .author__intro {
+        opacity: 0.8;
+    }
+
+    .author__site-title {
+        font-size: 1.5em;
+    }
+
+    .author__links {
+        margin-top: -0.5em;
+        font-size: 1em;
+        display: flex;
+        justify-content: center;
+    }
+
+    .author__links a {
+        color: var(--link-color);
+        margin: 0 0.5em;
+        text-decoration: none;
+    }
+</style>

@@ -14,3 +14,28 @@ const formattedDate = publishedTime
     <span class="archive-date">{formattedDate}</span>
     <a class="archive-title" href={url} rel="noopener noreferrer">{title}</a>
 </p>
+
+<style>
+    .archive-meta {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .archive-date {
+        display: flex;
+        margin-left: 1rem;
+        min-width: 3rem;
+        color: gray;
+        justify-content: flex-end;
+    }
+
+    .archive-title {
+        margin-left: 0.5rem;
+        text-decoration: none;
+    }
+
+    .archive-title:hover {
+        text-decoration: underline;
+    }
+</style>

@@ -74,12 +74,3 @@ html {
 body {
     transition: var(--transition-theme);
 }
-
-/* 主题切换按钮样式 */
-.toggle-theme {
-    transition: transform 0.2s ease;
-}
-
-.toggle-theme:hover {
-    transform: scale(1.1);
-}

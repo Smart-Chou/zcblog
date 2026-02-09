@@ -72,7 +72,9 @@ const hasExcludeClass = (element: Element, excludeClass: string[]): boolean => {
 
 // 辅助函数：检查链接是否为相对路径、根路径或纯锚点链接
 const isRelativeOrRootPath = (href: string | null): boolean => {
-    return href !== null && (/^(\.|\/(?!\/))/.test(href) || href.startsWith('#'));
+    return (
+        href !== null && (/^(\.|\/(?!\/))/.test(href) || href.startsWith("#"))
+    );
 };
 
 // 辅助函数：为链接添加外部链接图标

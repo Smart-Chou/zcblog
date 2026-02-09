@@ -43,3 +43,44 @@ import { site, friendsPage } from "~/self.config";
     <Author />
     <WalineComment />
 </BaseLayout>
+
+<style>
+    .friends-container {
+        max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .friends-container .btn {
+        margin: 0.3em 0.6em 0.3em 0;
+        text-decoration: none;
+        padding: 0.5em;
+        border-radius: var(--radius);
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .friends-container .btn .avatar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius);
+        background-color: #fff;
+        transform: rotate(20deg) translate(-15%);
+    }
+
+    .friends-container .btn span {
+        margin-left: 2.6em;
+    }
+
+    .friends-note {
+        margin: calc(var(--space) / 2) 0;
+        font-size: 0.9em;
+        opacity: 0.8;
+        text-align: center;
+    }
+</style>

@@ -4,16 +4,31 @@ import { Image } from "astro:assets";
 import logo from "../assets/logo.svg";
 ---
 
-<span id="sitename"></span>
 <a class="logo" href="/">
     <span class="logo__text">
         <Image
             src={logo}
             alt="Blog Logo"
-            width={24}
-            height={24}
+
             loading="eager"
+            class="logo__image"
         />
         {site.title}
     </span>
 </a>
+
+<style>
+    .logo {
+        margin-left: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo__image {
+        vertical-align: middle;
+        border-radius: 99px;
+        height: 2rem;
+        width: 2rem;
+        margin-right: 0.5em;
+    }
+</style>

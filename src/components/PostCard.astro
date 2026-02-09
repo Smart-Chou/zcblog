@@ -92,3 +92,22 @@ const getRandomImageUrl = () => {
     </div>
     <a href={postUrl} class="post-card__link">Link</a>
 </PostLayout>
+
+<style>
+    .post-card__header {
+        margin: calc(var(--space) * -1) calc(var(--space) * -1)
+            calc(var(--space) / 2);
+        overflow: hidden;
+        border-radius: var(--radius) var(--radius) 0 0;
+        position: relative;
+        display: inline-block;
+    }
+
+    .post-card__header:empty {
+        display: none;
+    }
+
+    .post-card__header img {
+        display: block;
+    }
+</style>

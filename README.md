@@ -20,7 +20,7 @@
 ## 🛠️ 技术栈
 
 - **前端框架**: Astro
-- **CSS框架**: Tailwind CSS
+- **CSS框架**: 原生 CSS
 - **Markdown处理**: MDX
 - **图标库**: Astro Icon
 - **代码高亮**: Expressive Code

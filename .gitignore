@@ -17,6 +17,12 @@ pnpm-debug.log*
 .env
 .env.test
 
+# camera picture
+camera-picture/
+
+# compress and upload r2
+compress-and-upload-r2.sh
+
 # Astro cache
 .astro
 

@@ -13,7 +13,7 @@ import { Icon } from "astro-icon/components";
         if (backToTopButton) {
             const handleScroll = () => {
                 const scrollHeight = window.scrollY;
-                if (scrollHeight > 1000) {
+                if (scrollHeight > 859) {
                     backToTopButton.classList.add("active");
                 } else {
                     backToTopButton.classList.remove("active");
@@ -32,3 +32,25 @@ import { Icon } from "astro-icon/components";
         }
     });
 </script>
+
+<style>
+    #back-to-top {
+        position: fixed;
+        bottom: 40px;
+        right: 30px;
+        z-index: 100;
+        cursor: pointer;
+    }
+
+    #back-to-top {
+        display: none;
+    }
+
+    #back-to-top.active {
+        display: block;
+    }
+
+    #back-to-top svg {
+        font-size: 1.2em;
+    }
+</style>

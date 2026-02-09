@@ -170,7 +170,7 @@ button[data-close-modal] {
     --sl-search-cancel-space: 5rem;
 }
 
-:root[data-theme="light"] #starlight__search {
+:root #starlight__search {
     --pagefind-ui-tag: var(--sl-color-gray-6);
 }
 

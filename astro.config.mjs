@@ -22,12 +22,12 @@ import playformInline from "@playform/inline";
 // 加载环境变量
 const env = loadEnv("", process.cwd(), "");
 
-
-
-
 // https://astro.build/config
 export default defineConfig({
     site: env.PUBLIC_SITE_URL || "https://marxchou.com",
+    experimental: {
+        preserveScriptOrder: true,
+    },
     markdown: {
         remarkPlugins: [
             remarkDeruntify,
