@@ -1,5 +1,7 @@
 ---
-import { Icon } from "astro-icon/components";
+import ChevronLeftIcon from "~/components/icons/ChevronLeft.astro";
+import ChevronRightIcon from "~/components/icons/ChevronRight.astro";
+
 const { page } = Astro.props;
 ---
 
@@ -59,7 +61,7 @@ const { page } = Astro.props;
         aria-label="Previous"
         class={page.url.prev ? "" : "disabled"}
     >
-        <Icon name="tabler:arrow-badge-left-filled" />
+        <ChevronLeftIcon />
     </a>
     {
         (() => {
@@ -114,6 +116,6 @@ const { page } = Astro.props;
         aria-label="Next"
         class={page.url.next ? "" : "disabled"}
     >
-        <Icon name="tabler:arrow-badge-right-filled" />
+        <ChevronRightIcon />
     </a>
 </nav>

@@ -1,8 +1,10 @@
 ---
-import { Icon } from "astro-icon/components";
+import SunIcon from "~/components/icons/Sun.astro";
+import MoonIcon from "~/components/icons/Moon.astro";
+import { useTheme } from "~/hooks/useTheme";
 
-// 服务端默认主题状态
-let isDark = false;
+const themeManager = useTheme();
+const isDark = themeManager.isDark;
 ---
 
 <button
@@ -14,8 +16,8 @@ let isDark = false;
     data-theme={isDark ? "dark" : "light"}
     tabindex="0"
 >
-    <Icon name="tabler:sun" class="feather feather-sun" />
-    <Icon name="tabler:moon-stars" class="feather feather-moon" />
+    <SunIcon class="feather feather-sun" />
+    <MoonIcon class="feather feather-moon" />
 </button>
 
 <script>

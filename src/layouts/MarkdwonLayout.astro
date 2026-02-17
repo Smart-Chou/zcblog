@@ -12,6 +12,8 @@ import Donate from "~/components/Donate.astro";
 import Author from "~/components/Author.astro";
 import WalineComment from "~/components/WalineComment.astro";
 import PostCopyright from "~/components/PostCopyright.astro";
+import ReadingMode from "~/components/ReadingMode.astro";
+import AISummarySimple from "~/components/AISummarySimple.astro";
 import { site, postView, waline, donate } from "~/self.config";
 
 const {
@@ -189,6 +191,8 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
     {frontmatter.donate && donate.enable && <Donate />}
     {frontmatter.author && postView.author && <Author />}
     {frontmatter.waline && waline.enable && <WalineComment />}
+    <ReadingMode />
+    <AISummarySimple />
 </BaseLayout>
 
 <script>

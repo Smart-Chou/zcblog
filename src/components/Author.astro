@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon/components";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { author, categories, socialLinks } from "~/self.config";
 ---
 
@@ -25,7 +25,7 @@ import { author, categories, socialLinks } from "~/self.config";
                     style={categorie.style}
                     aria-label={categorie.title}
                 >
-                    <Icon name={categorie.svg} />
+                    <DynamicIcon name={categorie.svg} />
                 </a>
             ))
         }
@@ -43,7 +43,7 @@ import { author, categories, socialLinks } from "~/self.config";
                     style={social.style}
                     aria-label={social.title}
                 >
-                    <Icon name={social.svg} />
+                    <DynamicIcon name={social.svg} />
                 </a>
             ))
         }

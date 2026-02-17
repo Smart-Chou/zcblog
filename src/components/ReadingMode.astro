@@ -1,0 +1,575 @@
+---
+---
+
+<button
+    id="reading-mode-toggle"
+    class="reading-mode-btn"
+    aria-label="切换阅读模式"
+    aria-pressed="false"
+    title="阅读模式 (R)"
+>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+    </svg>
+</button>
+
+<div id="reading-mode-panel" class="reading-mode-panel" hidden>
+    <div class="panel-header">
+        <h3>阅读设置</h3>
+        <button id="close-panel" class="close-btn" aria-label="关闭">×</button>
+    </div>
+    
+    <div class="panel-content">
+        <div class="control-group">
+            <label>字体大小</label>
+            <div class="slider-control">
+                <button class="btn-decrease" data-target="fontSize">A-</button>
+                <input 
+                    type="range" 
+                    id="fontSize" 
+                    min="14" 
+                    max="24" 
+                    value="16" 
+                    step="1"
+                />
+                <button class="btn-increase" data-target="fontSize">A+</button>
+                <span class="value-display" id="fontSize-value">16px</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>行高</label>
+            <div class="slider-control">
+                <button class="btn-decrease" data-target="lineHeight">-</button>
+                <input 
+                    type="range" 
+                    id="lineHeight" 
+                    min="1.4" 
+                    max="2.4" 
+                    value="1.8" 
+                    step="0.1"
+                />
+                <button class="btn-increase" data-target="lineHeight">+</button>
+                <span class="value-display" id="lineHeight-value">1.8</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>字间距</label>
+            <div class="slider-control">
+                <button class="btn-decrease" data-target="letterSpacing">-</button>
+                <input 
+                    type="range" 
+                    id="letterSpacing" 
+                    min="0" 
+                    max="3" 
+                    value="0" 
+                    step="0.5"
+                />
+                <button class="btn-increase" data-target="letterSpacing">+</button>
+                <span class="value-display" id="letterSpacing-value">0px</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>护眼模式</label>
+            <div class="eye-care-modes">
+                <button class="mode-btn" data-mode="default">默认</button>
+                <button class="mode-btn" data-mode="sepia">米黄</button>
+                <button class="mode-btn" data-mode="green">护眼绿</button>
+                <button class="mode-btn" data-mode="dark">深色</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="checkbox-label">
+                <input type="checkbox" id="hideNavigation" />
+                <span>隐藏导航栏</span>
+            </label>
+        </div>
+
+        <div class="control-group">
+            <button id="resetSettings" class="reset-btn">恢复默认设置</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .reading-mode-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 80px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+
+    .reading-mode-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .reading-mode-btn[aria-pressed="true"] {
+        background: var(--link-color);
+    }
+
+    .reading-mode-panel {
+        position: fixed;
+        right: 20px;
+        bottom: 140px;
+        width: 320px;
+        max-height: 600px;
+        background: var(--bg-content-color);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        overflow: hidden;
+    }
+
+    .reading-mode-panel[hidden] {
+        display: none;
+    }
+
+    .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--border-color);
+        background: var(--bg-color);
+    }
+
+    .panel-header h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--title-color);
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--body-color);
+        cursor: pointer;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: background 0.2s;
+    }
+
+    .close-btn:hover {
+        background: var(--border-color);
+    }
+
+    .panel-content {
+        padding: 20px;
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+    .control-group {
+        margin-bottom: 24px;
+    }
+
+    .control-group:last-child {
+        margin-bottom: 0;
+    }
+
+    .control-group > label {
+        display: block;
+        margin-bottom: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--title-color);
+    }
+
+    .slider-control {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .slider-control input[type="range"] {
+        flex: 1;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--border-color);
+        outline: none;
+        -webkit-appearance: none;
+    }
+
+    .slider-control input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        cursor: pointer;
+    }
+
+    .slider-control input[type="range"]::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        cursor: pointer;
+        border: none;
+    }
+
+    .btn-decrease,
+    .btn-increase {
+        width: 32px;
+        height: 32px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-color);
+        color: var(--body-color);
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s;
+    }
+
+    .btn-decrease:hover,
+    .btn-increase:hover {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+    }
+
+    .value-display {
+        min-width: 50px;
+        text-align: center;
+        font-size: 13px;
+        color: var(--body-color);
+    }
+
+    .eye-care-modes {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .mode-btn {
+        padding: 10px;
+        border: 2px solid var(--border-color);
+        background: var(--bg-color);
+        color: var(--body-color);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.2s;
+    }
+
+    .mode-btn:hover {
+        border-color: var(--accent-color);
+    }
+
+    .mode-btn.active {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--body-color);
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .reset-btn {
+        width: 100%;
+        padding: 10px;
+        background: var(--bg-color);
+        border: 1px solid var(--border-color);
+        color: var(--body-color);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+        .reading-mode-panel {
+            right: 10px;
+            bottom: 130px;
+            width: calc(100vw - 20px);
+            max-width: 320px;
+        }
+
+        .reading-mode-btn {
+            right: 10px;
+            bottom: 70px;
+        }
+    }
+
+    body.reading-mode-active header,
+    body.reading-mode-active footer {
+        display: none;
+    }
+
+    body.reading-mode-active .main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    body[data-eye-care="sepia"] {
+        background: #f4ecd8 !important;
+    }
+
+    body[data-eye-care="sepia"] .main,
+    body[data-eye-care="sepia"] article {
+        background: #f4ecd8 !important;
+    }
+
+    body[data-eye-care="green"] {
+        background: #e8f5e9 !important;
+    }
+
+    body[data-eye-care="green"] .main,
+    body[data-eye-care="green"] article {
+        background: #e8f5e9 !important;
+    }
+
+    body[data-eye-care="dark"] {
+        background: #1a1a1a !important;
+        color: #e0e0e0 !important;
+    }
+
+    body[data-eye-care="dark"] .main,
+    body[data-eye-care="dark"] article {
+        background: #1a1a1a !important;
+        color: #e0e0e0 !important;
+    }
+</style>
+
+<script>
+    class ReadingMode {
+        private settings = {
+            fontSize: 16,
+            lineHeight: 1.8,
+            letterSpacing: 0,
+            eyeCareMode: 'default',
+            hideNavigation: false,
+        };
+
+        private readonly STORAGE_KEY = 'reading-mode-settings';
+
+        constructor() {
+            this.loadSettings();
+            this.initializeControls();
+            this.applySettings();
+            this.setupKeyboardShortcut();
+        }
+
+        private loadSettings() {
+            const saved = localStorage.getItem(this.STORAGE_KEY);
+            if (saved) {
+                this.settings = { ...this.settings, ...JSON.parse(saved) };
+            }
+        }
+
+        private saveSettings() {
+            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.settings));
+        }
+
+        private initializeControls() {
+            const toggleBtn = document.getElementById('reading-mode-toggle');
+            const panel = document.getElementById('reading-mode-panel');
+            const closeBtn = document.getElementById('close-panel');
+
+            toggleBtn?.addEventListener('click', () => {
+                const isHidden = panel?.hasAttribute('hidden');
+                if (isHidden) {
+                    panel?.removeAttribute('hidden');
+                    toggleBtn.setAttribute('aria-pressed', 'true');
+                } else {
+                    panel?.setAttribute('hidden', '');
+                    toggleBtn.setAttribute('aria-pressed', 'false');
+                }
+            });
+
+            closeBtn?.addEventListener('click', () => {
+                panel?.setAttribute('hidden', '');
+                toggleBtn?.setAttribute('aria-pressed', 'false');
+            });
+
+            this.initializeSliders();
+            this.initializeEyeCareMode();
+            this.initializeHideNavigation();
+            this.initializeReset();
+        }
+
+        private initializeSliders() {
+            const sliders = ['fontSize', 'lineHeight', 'letterSpacing'];
+            
+            sliders.forEach(id => {
+                const slider = document.getElementById(id) as HTMLInputElement;
+                const valueDisplay = document.getElementById(`${id}-value`);
+                const decreaseBtn = document.querySelector(`[data-target="${id}"].btn-decrease`);
+                const increaseBtn = document.querySelector(`[data-target="${id}"].btn-increase`);
+
+                if (slider) {
+                    slider.value = String(this.settings[id as keyof typeof this.settings]);
+                    this.updateValueDisplay(id, slider.value);
+
+                    slider.addEventListener('input', (e) => {
+                        const value = (e.target as HTMLInputElement).value;
+                        this.updateSetting(id, parseFloat(value));
+                        this.updateValueDisplay(id, value);
+                    });
+
+                    decreaseBtn?.addEventListener('click', () => {
+                        const newValue = Math.max(parseFloat(slider.min), parseFloat(slider.value) - parseFloat(slider.step));
+                        slider.value = String(newValue);
+                        this.updateSetting(id, newValue);
+                        this.updateValueDisplay(id, String(newValue));
+                    });
+
+                    increaseBtn?.addEventListener('click', () => {
+                        const newValue = Math.min(parseFloat(slider.max), parseFloat(slider.value) + parseFloat(slider.step));
+                        slider.value = String(newValue);
+                        this.updateSetting(id, newValue);
+                        this.updateValueDisplay(id, String(newValue));
+                    });
+                }
+            });
+        }
+
+        private updateValueDisplay(id: string, value: string) {
+            const display = document.getElementById(`${id}-value`);
+            if (display) {
+                if (id === 'fontSize' || id === 'letterSpacing') {
+                    display.textContent = `${value}px`;
+                } else {
+                    display.textContent = value;
+                }
+            }
+        }
+
+        private initializeEyeCareMode() {
+            const modeButtons = document.querySelectorAll('.mode-btn');
+            
+            modeButtons.forEach(btn => {
+                const mode = btn.getAttribute('data-mode');
+                if (mode === this.settings.eyeCareMode) {
+                    btn.classList.add('active');
+                }
+
+                btn.addEventListener('click', () => {
+                    modeButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    this.settings.eyeCareMode = mode || 'default';
+                    this.applyEyeCareMode();
+                    this.saveSettings();
+                });
+            });
+        }
+
+        private initializeHideNavigation() {
+            const checkbox = document.getElementById('hideNavigation') as HTMLInputElement;
+            if (checkbox) {
+                checkbox.checked = this.settings.hideNavigation;
+                checkbox.addEventListener('change', (e) => {
+                    this.settings.hideNavigation = (e.target as HTMLInputElement).checked;
+                    this.applyHideNavigation();
+                    this.saveSettings();
+                });
+            }
+        }
+
+        private initializeReset() {
+            const resetBtn = document.getElementById('resetSettings');
+            resetBtn?.addEventListener('click', () => {
+                this.settings = {
+                    fontSize: 16,
+                    lineHeight: 1.8,
+                    letterSpacing: 0,
+                    eyeCareMode: 'default',
+                    hideNavigation: false,
+                };
+                this.saveSettings();
+                location.reload();
+            });
+        }
+
+        private updateSetting(key: string, value: number) {
+            this.settings[key as keyof typeof this.settings] = value as never;
+            this.applySettings();
+            this.saveSettings();
+        }
+
+        private applySettings() {
+            const article = document.querySelector('article');
+            if (article) {
+                article.style.fontSize = `${this.settings.fontSize}px`;
+                article.style.lineHeight = String(this.settings.lineHeight);
+                article.style.letterSpacing = `${this.settings.letterSpacing}px`;
+            }
+            this.applyEyeCareMode();
+            this.applyHideNavigation();
+        }
+
+        private applyEyeCareMode() {
+            document.body.setAttribute('data-eye-care', this.settings.eyeCareMode);
+        }
+
+        private applyHideNavigation() {
+            if (this.settings.hideNavigation) {
+                document.body.classList.add('reading-mode-active');
+            } else {
+                document.body.classList.remove('reading-mode-active');
+            }
+        }
+
+        private setupKeyboardShortcut() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'r' || e.key === 'R') {
+                    if (!e.ctrlKey && !e.metaKey && !e.altKey) {
+                        const target = e.target as HTMLElement;
+                        if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+                            e.preventDefault();
+                            document.getElementById('reading-mode-toggle')?.click();
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    document.addEventListener('astro:page-load', () => {
+        new ReadingMode();
+    });
+</script>

@@ -1,0 +1,54 @@
+---
+import SearchIcon from "./Search.astro";
+import SunIcon from "./Sun.astro";
+import MoonIcon from "./Moon.astro";
+import RocketIcon from "./Rocket.astro";
+import HeartIcon from "./Heart.astro";
+import UserIcon from "./User.astro";
+import ChevronLeftIcon from "./ChevronLeft.astro";
+import ChevronRightIcon from "./ChevronRight.astro";
+import CopyrightIcon from "./Copyright.astro";
+import BrainIcon from "./Brain.astro";
+import PhotoIcon from "./Photo.astro";
+import MessageBotIcon from "./MessageBot.astro";
+import ArchiveIcon from "./Archive.astro";
+import TagsIcon from "./Tags.astro";
+import GithubIcon from "./Github.astro";
+import TwitterIcon from "./Twitter.astro";
+import TelegramIcon from "./Telegram.astro";
+import GhosteryIcon from "./Ghostery.astro";
+import WechatPayIcon from "./WechatPay.astro";
+import AlipayIcon from "./Alipay.astro";
+import PaypalIcon from "./Paypal.astro";
+
+const { name, ...props } = Astro.props;
+
+const iconMap: Record<string, any> = {
+    "tabler:search": SearchIcon,
+    "tabler:sun": SunIcon,
+    "tabler:moon-stars": MoonIcon,
+    "simple-icons:spaceship": RocketIcon,
+    "ph:heart-fill": HeartIcon,
+    "ph:hand-heart-fill": HeartIcon,
+    "ph:user-circle-fill": UserIcon,
+    "tabler:arrow-badge-left-filled": ChevronLeftIcon,
+    "tabler:arrow-badge-right-filled": ChevronRightIcon,
+    "tabler:creative-commons": CopyrightIcon,
+    "tabler:brain": BrainIcon,
+    "tabler:photo": PhotoIcon,
+    "tabler:message-chatbot-filled": MessageBotIcon,
+    "tabler:archive-filled": ArchiveIcon,
+    "tabler:tags": TagsIcon,
+    "simple-icons:github": GithubIcon,
+    "logos:twitter": TwitterIcon,
+    "logos:telegram": TelegramIcon,
+    "simple-icons:ghostery": GhosteryIcon,
+    "mingcute:wechat-pay-line": WechatPayIcon,
+    "simple-icons:alipay": AlipayIcon,
+    "simple-icons:paypal": PaypalIcon,
+};
+
+const IconComponent = iconMap[name];
+---
+
+{IconComponent ? <IconComponent {...props} /> : <span>?</span>}
