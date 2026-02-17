@@ -31,15 +31,17 @@ export async function getStaticPaths({
 const { page } = Astro.props as any;
 
 const postsWithMeta = page.data.map((post: any) => {
-    const { wordCount, readTime, modifiedTime, excerpt } =
-        getPostsWithMeta(post);
+    const { wordCount, readTime, modifiedTime, excerpt } = getPostsWithMeta({
+        ...post,
+        slug: post.id,
+    });
     const sticky = post.data.sticky || false;
 
     return {
         ...post,
         wordCount,
         readTime,
-        slug: post.slug,
+        slug: post.id,
         sticky,
         modifiedTime,
         excerpt,

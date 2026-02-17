@@ -1,29 +1,27 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MarkdwonLayout from "~/layouts/MarkdwonLayout.astro";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
 export async function getStaticPaths() {
     try {
         const article = await getCollection("article", ({ data }) => {
-            // 过滤条件：非草稿
             return !(data.draft ?? false);
         });
         return article.map((entry) => ({
-            params: { slug: entry.slug },
+            params: { slug: entry.id },
             props: { entry },
         }));
     } catch (e) {
         console.error("获取文章集合失败：", e);
-        return []; // 失败时返回空路径，避免构建崩溃
+        return [];
     }
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
-// 只调用一次getPostsWithMeta函数
-const postMeta = getPostsWithMeta(entry);
+const postMeta = getPostsWithMeta({ ...entry, slug: entry.id });
 const modifiedTime = postMeta.modifiedTime;
 const readTime = postMeta.readTime;
 const wordCount = postMeta.wordCount;

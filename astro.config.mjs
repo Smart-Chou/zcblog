@@ -27,6 +27,7 @@ export default defineConfig({
     site: env.PUBLIC_SITE_URL || "https://marxchou.com",
     experimental: {
         preserveScriptOrder: true,
+        svgo: true,
     },
     markdown: {
         remarkPlugins: [
@@ -105,6 +106,10 @@ export default defineConfig({
                 compress: {
                     drop_console: true,
                     drop_debugger: true,
+                    pure_funcs: ["console.log", "console.info"],
+                },
+                mangle: {
+                    safari10: true,
                 },
             },
             // 静态资源哈希，用于缓存失效
@@ -117,7 +122,10 @@ export default defineConfig({
                     // 代码分割：按模块拆分JS
                     manualChunks(id) {
                         if (id.includes("node_modules")) {
-                            return "vendor"; // 第三方依赖单独打包
+                            if (id.includes("@waline")) return "waline";
+                            if (id.includes("astro-icon")) return "icons";
+                            if (id.includes("nprogress")) return "nprogress";
+                            return "vendor";
                         }
                     },
                 },

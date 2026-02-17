@@ -1,7 +1,5 @@
 ---
 import { site, config } from "~/self.config";
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!-- 浏览器和搜索引擎相关 -->
@@ -14,10 +12,3 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
     type="application/xml"
     href={`${site.url}/sitemap-index.xml`}
 />
-<link
-    rel="alternate"
-    type="application/rss+xml"
-    href={`${site.url}/rss.xml`}
-    title="RSS Feed"
-/>
-<link rel="canonical" href={canonicalURL} />

@@ -73,5 +73,18 @@ const {
     />
     <Analytics />
     <Scripts mathjax={mathjax} mermaid={mermaid} />
-    <ClientRouter />
+    <ClientRouter fallback="animate" />
+
+    <!-- SEO 增强 -->
+    <link rel="canonical" href={Astro.url.href} />
+    <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="RSS Feed"
+        href="/rss.xml"
+    />
+
+    <!-- 预连接到外部资源 -->
+    <link rel="preconnect" href="https://pic.mcc.im" crossorigin />
+    <link rel="dns-prefetch" href="https://pic.mcc.im" />
 </head>

@@ -25,13 +25,16 @@ const { tag } = Astro.params;
 const { articles } = Astro.props;
 
 const postsWithMeta = articles.map((post) => {
-    const { wordCount, readTime, excerpt } = getPostsWithMeta(post);
+    const { wordCount, readTime, excerpt } = getPostsWithMeta({
+        ...post,
+        slug: post.id,
+    });
     return {
         ...post,
         wordCount,
         readTime,
         excerpt,
-        slug: post.slug,
+        slug: post.id,
     };
 });
 ---

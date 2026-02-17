@@ -22,7 +22,7 @@ export async function GET(context) {
             url: "https://marxchou.com",
         },
         items: formattedBlogs.map((post) => {
-            const body = post.body.toString().replace(/\n/g, "") || "";
+            const body = post.body?.toString().replace(/\n/g, "") || "";
             const wordCount = getReadingTime(body).words || "";
             const readTime = getReadingTime(body).text || "";
 
@@ -30,7 +30,7 @@ export async function GET(context) {
                 title: post.data.title,
                 pubDate: post.data.pubDate,
                 description: post.data.description,
-                link: `/article/${post.slug}/`,
+                link: `/article/${post.id}/`,
                 content: `${[
                     sanitizeHtml(
                         marked.parse("WordCount: " + wordCount + " words"),

@@ -1,10 +1,10 @@
 // 定义文章类型接口，匹配Astro内容集合的结构
 interface Post {
     id: string;
-    slug: string;
+    slug?: string;
     collection: string;
     data: Record<string, any>;
-    body: string;
+    body?: string;
     [key: string]: any;
 }
 
@@ -33,13 +33,15 @@ const postMetaCache = new Map<string, PostMeta>();
  * @returns 文章元数据
  */
 export function getPostsWithMeta(post: Post): PostMeta {
+    const postId = post.slug || post.id;
+
     // 检查缓存
-    if (postMetaCache.has(post.id)) {
-        return postMetaCache.get(post.id)!;
+    if (postMetaCache.has(postId)) {
+        return postMetaCache.get(postId)!;
     }
 
     // 构建文件路径，确保文件路径有效
-    if (!post.id) {
+    if (!postId) {
         console.error("Invalid post ID");
         return {
             wordCount: 0,
@@ -50,7 +52,7 @@ export function getPostsWithMeta(post: Post): PostMeta {
     }
 
     // 读取文件元数据
-    const { content, mtime } = readMetadata(post.id);
+    const { content, mtime } = readMetadata(postId);
 
     if (!content || !mtime) {
         console.error(`Error accessing file for post: ${post.id}`);

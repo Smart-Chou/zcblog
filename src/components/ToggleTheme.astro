@@ -21,16 +21,13 @@ let isDark = false;
 <script>
     import { useTheme } from "~/hooks/useTheme";
 
-    // 页面加载时初始化主题
     document.addEventListener("astro:page-load", () => {
-        // 获取主题实例
         const theme = useTheme();
 
-        // 更新按钮状态函数
         const updateButtonState = () => {
             const themeBtn = document.getElementById("theme-btn");
             if (themeBtn) {
-                const { isDark } = useTheme(); // 每次都获取最新状态
+                const isDark = theme.isDark;
                 themeBtn.setAttribute("data-theme", isDark ? "dark" : "light");
                 themeBtn.setAttribute(
                     "aria-label",
@@ -40,23 +37,21 @@ let isDark = false;
             }
         };
 
-        // 初始更新按钮状态
         updateButtonState();
 
-        // 切换主题按钮事件
         const themeBtn = document.getElementById("theme-btn");
         if (themeBtn) {
-            themeBtn.addEventListener("click", () => {
+            const handleToggle = () => {
                 theme.toggleTheme();
                 updateButtonState();
-            });
+            };
 
-            // 键盘导航支持
+            themeBtn.addEventListener("click", handleToggle);
+
             themeBtn.addEventListener("keydown", (e) => {
                 if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    theme.toggleTheme();
-                    updateButtonState();
+                    handleToggle();
                 }
             });
         }
@@ -116,24 +111,5 @@ let isDark = false;
         width: 30px;
         height: 24px;
         color: #3b82f6;
-    }
-
-    /* 主题切换过渡动画 */
-    :root {
-        --transition-theme:
-            color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    html {
-        transition: var(--transition-theme);
-    }
-
-    body {
-        transition: var(--transition-theme);
-    }
-
-    /* 确保所有元素都有过渡效果 */
-    * {
-        transition: var(--transition-theme);
     }
 </style>

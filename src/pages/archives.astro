@@ -10,6 +10,7 @@ import type { CollectionEntry } from "astro:content";
 // Define interface for post with meta information
 interface PostWithMeta extends CollectionEntry<"article"> {
     wordCount: number;
+    slug: string;
 }
 
 // Define interface for posts grouped by year
@@ -21,10 +22,11 @@ const allPosts = await getCollection("article");
 
 const postsWithMeta = await Promise.all(
     allPosts.map(async (post) => {
-        const { wordCount } = getPostsWithMeta(post);
+        const { wordCount } = getPostsWithMeta({ ...post, slug: post.id });
         return {
             ...post,
             wordCount,
+            slug: post.id,
         } as PostWithMeta;
     }),
 );

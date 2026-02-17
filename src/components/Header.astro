@@ -6,7 +6,7 @@ import { search } from "~/self.config";
 const { searchEnable = search.enable } = Astro.props;
 ---
 
-<header id="nprogress-container">
+<header id="nprogress-container" transition:persist role="banner">
     <div class="fullwidth">
         <div class="header__left">
             <Logo />

@@ -150,7 +150,7 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
                             new Date(a.data.pubDate).getTime(),
                     )
                     .map((post, index) => {
-                        if (post.slug === Astro.params.slug) {
+                        if (post.id === Astro.params.slug) {
                             const prevPost =
                                 index > 0 ? allPosts[index - 1] : null;
                             const nextPost =
@@ -161,7 +161,7 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
                                 <>
                                     {prevPost && (
                                         <a
-                                            href={`/article/${prevPost.slug}/`}
+                                            href={`/article/${prevPost.id}/`}
                                             class="navlink"
                                             style="float: left;"
                                         >
@@ -170,7 +170,7 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
                                     )}
                                     {nextPost && (
                                         <a
-                                            href={`/article/${nextPost.slug}/`}
+                                            href={`/article/${nextPost.id}/`}
                                             class="navlink"
                                             style="float: right;"
                                         >

@@ -16,8 +16,9 @@ const dataAttributes: DOMStringMap = {
         disabled
         aria-label="搜索"
         aria-keyshortcuts="Control+K"
+        aria-haspopup="dialog"
     >
-        <Icon name="tabler:search" />
+        <Icon name="tabler:search" aria-hidden="true" />
         <span class="sl-hidden md:sl-block" aria-hidden="true">搜索</span>
         <kbd class="sl-hidden md:sl-flex" style="display: none;">
             <kbd>Ctrl</kbd><kbd>K</kbd>

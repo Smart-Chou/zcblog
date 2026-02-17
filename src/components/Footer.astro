@@ -5,14 +5,19 @@ import { Image } from "astro:assets";
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="footer">
+<footer class="footer" role="contentinfo">
     <div class="footer__copyright">
         <span>
             Copyright {site.startYear} - {currentYear}. All rights reserved.
         </span>
     </div>
     <div class="footer__links">
-        <a href={site.beianURL} target="_blank" rel="noopener noreferrer">
+        <a
+            href={site.beianURL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ICP 备案信息"
+        >
             <span>{site.beian}</span>
         </a>
     </div>
@@ -24,10 +29,11 @@ const currentYear = new Date().getFullYear();
                     href={meta.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`${meta.title}: ${meta.text}`}
                 >
                     <Image
                         src={`https://img.shields.io/badge/${meta.title}-${meta.text}-${meta.color}?logo=${meta.logo}&logoColor=${meta.logoColor}&labelColor=${meta.labelColor}`}
-                        alt={meta.title}
+                        alt={`${meta.title} badge`}
                         loading="lazy"
                         width={120}
                         height={20}

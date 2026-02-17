@@ -1,11 +1,17 @@
 {
-    "extends": "astro/tsconfigs/base",
+    "extends": "astro/tsconfigs/strict",
     "compilerOptions": {
         "strict": true,
         "strictNullChecks": true,
         "allowJs": true,
         "paths": {
             "~/*": ["./src/*"]
-        }
-    }
+        },
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "skipLibCheck": true
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist", ".astro"]
 }
