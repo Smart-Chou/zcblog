@@ -95,3 +95,29 @@ export function generateTagCloud(posts: Post[]): TagCloudItem[] {
 
     return result;
 }
+
+const DEFAULT_IMAGE_SERVICE_URL = "https://pic.mcc.im/images";
+
+/**
+ * 生成指定长度的随机字符串
+ * @param length 字符串长度，默认为10
+ * @returns 随机字符串
+ */
+export function generateRandomString(length: number = 10): string {
+    const chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
+
+/**
+ * 获取带有随机参数的图片URL
+ * 用于避免浏览器缓存，确保每次请求获取不同的图片
+ * @returns 带有随机参数的图片URL
+ */
+export function getRandomImageUrl(): string {
+    return `${DEFAULT_IMAGE_SERVICE_URL}?${generateRandomString()}`;
+}

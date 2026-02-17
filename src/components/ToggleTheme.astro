@@ -1,63 +1,102 @@
 ---
 import SunIcon from "~/components/icons/Sun.astro";
 import MoonIcon from "~/components/icons/Moon.astro";
-import { useTheme } from "~/hooks/useTheme";
-
-const themeManager = useTheme();
-const isDark = themeManager.isDark;
 ---
 
 <button
     id="theme-btn"
     role="button"
-    aria-label={isDark ? "切换为浅色模式" : "切换为深色模式"}
-    aria-pressed={isDark}
+    aria-label="切换主题"
+    aria-pressed="false"
     class="toggle-theme"
-    data-theme={isDark ? "dark" : "light"}
     tabindex="0"
 >
     <SunIcon class="feather feather-sun" />
     <MoonIcon class="feather feather-moon" />
 </button>
 
-<script>
-    import { useTheme } from "~/hooks/useTheme";
-
-    document.addEventListener("astro:page-load", () => {
-        const theme = useTheme();
-
-        const updateButtonState = () => {
-            const themeBtn = document.getElementById("theme-btn");
-            if (themeBtn) {
-                const isDark = theme.isDark;
-                themeBtn.setAttribute("data-theme", isDark ? "dark" : "light");
-                themeBtn.setAttribute(
-                    "aria-label",
-                    isDark ? "切换为浅色模式" : "切换为深色模式",
-                );
-                themeBtn.setAttribute("aria-pressed", isDark.toString());
-            }
+<script is:inline>
+    (function() {
+        const STORAGE_KEY = 'preferredTheme';
+        
+        const getStoredTheme = () => {
+            if (typeof localStorage === 'undefined') return null;
+            return localStorage.getItem(STORAGE_KEY);
         };
-
-        updateButtonState();
-
-        const themeBtn = document.getElementById("theme-btn");
-        if (themeBtn) {
-            const handleToggle = () => {
-                theme.toggleTheme();
-                updateButtonState();
-            };
-
-            themeBtn.addEventListener("click", handleToggle);
-
-            themeBtn.addEventListener("keydown", (e) => {
-                if (e.key === "Enter" || e.key === " ") {
+        
+        const getSystemTheme = () => {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+        
+        const getCurrentTheme = () => {
+            return getStoredTheme() || getSystemTheme();
+        };
+        
+        const setTheme = (theme) => {
+            const root = document.documentElement;
+            
+            if (theme === 'dark') {
+                root.classList.add('dark');
+                root.setAttribute('data-theme', 'dark');
+            } else {
+                root.classList.remove('dark');
+                root.setAttribute('data-theme', 'light');
+            }
+            
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem(STORAGE_KEY, theme);
+            }
+            
+            updateButton(theme);
+        };
+        
+        const updateButton = (theme) => {
+            const btn = document.getElementById('theme-btn');
+            if (!btn) return;
+            
+            const isDark = theme === 'dark';
+            btn.setAttribute('data-theme', theme);
+            btn.setAttribute('aria-label', isDark ? '切换为浅色模式' : '切换为深色模式');
+            btn.setAttribute('aria-pressed', isDark.toString());
+        };
+        
+        const toggleTheme = () => {
+            const currentTheme = getCurrentTheme();
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        };
+        
+        const initThemeToggle = () => {
+            const currentTheme = getCurrentTheme();
+            updateButton(currentTheme);
+            
+            const btn = document.getElementById('theme-btn');
+            if (!btn) return;
+            
+            btn.addEventListener('click', toggleTheme);
+            
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    handleToggle();
+                    toggleTheme();
                 }
             });
+        };
+        
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!getStoredTheme()) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initThemeToggle);
+        } else {
+            initThemeToggle();
         }
-    });
+        
+        document.addEventListener('astro:page-load', initThemeToggle);
+    })();
 </script>
 
 <style>
@@ -88,30 +127,24 @@ const isDark = themeManager.isDark;
     }
 
     .toggle-theme .feather-sun {
-        display: block;
-    }
-
-    .toggle-theme .feather-moon {
         display: none;
-    }
-
-    .toggle-theme[data-theme="dark"] .feather-sun {
-        display: none;
-    }
-
-    .toggle-theme[data-theme="dark"] .feather-moon {
-        display: block;
-    }
-
-    [data-icon="tabler:sun"] {
         width: 30px;
         height: 30px;
         color: #f59e0b;
     }
 
-    [data-icon="tabler:moon-stars"] {
+    .toggle-theme .feather-moon {
+        display: block;
         width: 30px;
         height: 24px;
         color: #3b82f6;
+    }
+
+    .toggle-theme[data-theme="dark"] .feather-sun {
+        display: block;
+    }
+
+    .toggle-theme[data-theme="dark"] .feather-moon {
+        display: none;
     }
 </style>

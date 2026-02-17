@@ -25,26 +25,6 @@ const {
 ---
 
 <head>
-    <!-- 预先设置主题，避免闪烁 -->
-    <script is:inline>
-        // 主题初始化脚本 - 在DOM渲染前执行
-        if (typeof window !== "undefined") {
-            const savedTheme = localStorage.getItem("preferredTheme");
-            const systemDark = window.matchMedia(
-                "(prefers-color-scheme: dark)",
-            ).matches;
-            const isDark =
-                savedTheme === "dark" || (savedTheme === null && systemDark);
-            const root = document.documentElement;
-            if (isDark) {
-                root.classList.add("dark");
-                root.setAttribute("data-theme", "dark");
-            } else {
-                root.classList.remove("dark");
-                root.setAttribute("data-theme", "light");
-            }
-        }
-    </script>
     <GlobalMeta title={title} description={description} keywords={keywords} />
     <OpenGraph
         title={title}

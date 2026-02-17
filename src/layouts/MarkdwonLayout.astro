@@ -15,6 +15,7 @@ import PostCopyright from "~/components/PostCopyright.astro";
 import ReadingMode from "~/components/ReadingMode.astro";
 import AISummarySimple from "~/components/AISummarySimple.astro";
 import { site, postView, waline, donate } from "~/self.config";
+import { getRandomImageUrl } from "~/utils";
 
 const {
     frontmatter = {
@@ -38,23 +39,6 @@ const publishedDays = Math.floor(
 const allPosts = await getCollection("article");
 const currentSlug = Astro.params.slug;
 
-// Generate random string for unique image URLs
-const generateRandomString = (length = 10) => {
-    const chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-    for (let i = 0; i < length; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-};
-
-// Get random image URL with unique parameter
-const getRandomImageUrl = () => {
-    return `https://pic.mcc.im/images?${generateRandomString()}`;
-};
-
-// Safe handling for frontmatter.image
 const imageUrl = frontmatter.image?.url || "https://pic.mcc.im/images";
 const imageAlt = frontmatter.image?.alt || "Blog Cover";
 const isDefaultImage = /^https:\/\/pic\.mcc\.im\/images(\?.*)?$/.test(imageUrl);
