@@ -46,7 +46,7 @@ tags:
 ![截图 - Tiddlywiki 桌面应用：桌面版笔记工具](/assets/note/tiddlywiki-desktop-nodejs-webcatalog.png)
 （↑ 图：`Tiddlywiki` 桌面应用：桌面版笔记工具）
 
-![截图 - Tiddlywiki 桌面应用：目录栏快速搜索小工具](/assets/note/menubar-tiddlywiki-quick-search-tool.png)
+![截图 - Tiddlywiki 桌面应用：目录栏快速搜索小工具](/assets/note/menubar-tiddlywiki-quick-search-tool.jpg)
 （↑ 图：`Tiddlywiki` 桌面应用：目录栏快速搜索小工具）
 
 首先原作者来简单谈谈原作者心中 `TiddlyWiki` 的美观、免费和强大之处。
@@ -272,7 +272,7 @@ wiki 了。如果打不开，可能是因为
 `https://onetwo.ren/wiki/`），防止两个 wiki 都和本地服务器同步，有时候会有一些
 bug，因为 `TiddlyWiki` 一开始并不是为多用户的情况设计的。
 
-![截图 - Tiddlywiki 桌面应用：目录栏快速搜索小工具](/assets/note/menubar-tiddlywiki-quick-search-tool.png)
+![截图 - Tiddlywiki 桌面应用：目录栏快速搜索小工具](/assets/note/menubar-tiddlywiki-quick-search-tool.jpg)
 
 因为 `WebCatalog` 的 App 模板是放在 Github 上的，所以如果没有对它开翻墙的话，会
 比较慢，需要等比较久的时间才会下载安装好，翻了墙就很快了。
