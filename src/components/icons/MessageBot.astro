@@ -2,20 +2,21 @@
 const { class: className, filled = false, ...props } = Astro.props;
 ---
 
-<svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="1em" 
-    height="1em" 
-    viewBox="0 0 24 24" 
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    viewBox="0 0 24 24"
     fill={filled ? "currentColor" : "none"}
-    stroke="currentColor" 
-    stroke-width="2" 
-    stroke-linecap="round" 
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
     stroke-linejoin="round"
     class={className}
     {...props}
 >
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+    ></path>
     <circle cx="9" cy="10" r="1"></circle>
     <circle cx="15" cy="10" r="1"></circle>
     <path d="M9 14h6"></path>

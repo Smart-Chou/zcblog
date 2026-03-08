@@ -16,94 +16,101 @@ import MoonIcon from "~/components/icons/Moon.astro";
 </button>
 
 <script is:inline>
-    (function() {
-        const STORAGE_KEY = 'preferredTheme';
-        
+    (function () {
+        const STORAGE_KEY = "preferredTheme";
+
         const getStoredTheme = () => {
-            if (typeof localStorage === 'undefined') return null;
+            if (typeof localStorage === "undefined") return null;
             return localStorage.getItem(STORAGE_KEY);
         };
-        
+
         const getSystemTheme = () => {
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            return window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
         };
-        
+
         const getCurrentTheme = () => {
             return getStoredTheme() || getSystemTheme();
         };
-        
+
         const setTheme = (theme) => {
             const root = document.documentElement;
-            
-            if (theme === 'dark') {
-                root.classList.add('dark');
-                root.setAttribute('data-theme', 'dark');
+
+            if (theme === "dark") {
+                root.classList.add("dark");
+                root.setAttribute("data-theme", "dark");
             } else {
-                root.classList.remove('dark');
-                root.setAttribute('data-theme', 'light');
+                root.classList.remove("dark");
+                root.setAttribute("data-theme", "light");
             }
-            
-            if (typeof localStorage !== 'undefined') {
+
+            if (typeof localStorage !== "undefined") {
                 localStorage.setItem(STORAGE_KEY, theme);
             }
-            
+
             updateButton(theme);
         };
-        
+
         const updateButton = (theme) => {
-            const btn = document.getElementById('theme-btn');
+            const btn = document.getElementById("theme-btn");
             if (!btn) return;
-            
-            const isDark = theme === 'dark';
-            btn.setAttribute('data-theme', theme);
-            btn.setAttribute('aria-label', isDark ? '切换为浅色模式' : '切换为深色模式');
-            btn.setAttribute('aria-pressed', isDark.toString());
+
+            const isDark = theme === "dark";
+            btn.setAttribute("data-theme", theme);
+            btn.setAttribute(
+                "aria-label",
+                isDark ? "切换为浅色模式" : "切换为深色模式",
+            );
+            btn.setAttribute("aria-pressed", isDark.toString());
         };
-        
+
         const toggleTheme = () => {
             const currentTheme = getCurrentTheme();
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
             setTheme(newTheme);
         };
-        
+
         const initThemeToggle = () => {
             const currentTheme = getCurrentTheme();
             setTheme(currentTheme);
-            
-            const btn = document.getElementById('theme-btn');
+
+            const btn = document.getElementById("theme-btn");
             if (!btn) return;
-            
+
             if (!btn.dataset.initialized) {
-                btn.addEventListener('click', toggleTheme);
-                
-                btn.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                btn.addEventListener("click", toggleTheme);
+
+                btn.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
                         toggleTheme();
                     }
                 });
-                
-                btn.dataset.initialized = 'true';
+
+                btn.dataset.initialized = "true";
             }
         };
-        
+
         // 使用 window 属性跨页面持久化，防止 View Transitions 导致重复注册监听器
         if (!window.__themeInitialized) {
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                if (!getStoredTheme()) {
-                    setTheme(e.matches ? 'dark' : 'light');
-                }
-            });
+            window
+                .matchMedia("(prefers-color-scheme: dark)")
+                .addEventListener("change", (e) => {
+                    if (!getStoredTheme()) {
+                        setTheme(e.matches ? "dark" : "light");
+                    }
+                });
             window.__themeInitialized = true;
         }
-        
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initThemeToggle);
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initThemeToggle);
         } else {
             initThemeToggle();
         }
-        
-        document.addEventListener('astro:page-load', initThemeToggle);
+
+        document.addEventListener("astro:page-load", initThemeToggle);
     })();
 </script>
 

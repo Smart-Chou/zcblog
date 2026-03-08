@@ -15,7 +15,8 @@ function initRedirectHandler() {
 
         const hasIncludeClass = (element: HTMLElement): boolean => {
             while (element) {
-                if (includeClass.some((cls) => element.classList.contains(cls))) return true;
+                if (includeClass.some((cls) => element.classList.contains(cls)))
+                    return true;
                 element = element.parentElement as HTMLElement;
             }
             return false;
@@ -23,7 +24,8 @@ function initRedirectHandler() {
 
         const hasExcludeClass = (element: HTMLElement): boolean => {
             while (element) {
-                if (excludeClass.some((cls) => element.classList.contains(cls))) return true;
+                if (excludeClass.some((cls) => element.classList.contains(cls)))
+                    return true;
                 element = element.parentElement as HTMLElement;
             }
             return false;
@@ -71,7 +73,9 @@ function initRedirectHandler() {
 
             // 使用 TextEncoder 将 Unicode URL（含中文）安全转为 Base64
             const bytes = new TextEncoder().encode(linkHref);
-            const encodedHref = btoa(Array.from(bytes, (b) => String.fromCharCode(b)).join(""));
+            const encodedHref = btoa(
+                Array.from(bytes, (b) => String.fromCharCode(b)).join(""),
+            );
             const urlSafeEncodedHref = encodedHref
                 .replace(/\+/g, "-")
                 .replace(/\//g, "_")
@@ -83,7 +87,10 @@ function initRedirectHandler() {
             link.setAttribute("rel", "noopener noreferrer");
 
             // 为包含指定类名的链接添加外部链接图标
-            const svgIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            const svgIcon = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "svg",
+            );
             svgIcon.setAttribute("width", "16");
             svgIcon.setAttribute("height", "16");
             svgIcon.setAttribute("viewBox", "0 0 100 100");

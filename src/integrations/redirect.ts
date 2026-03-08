@@ -70,7 +70,6 @@ const hasExcludeClass = (element: Element, excludeClass: string[]): boolean => {
     return false;
 };
 
-
 // 辅助函数：检查链接是否为外部链接（非同域）
 const isExternalLink = (href: string | null, siteUrl: string): boolean => {
     if (!href) return false;
@@ -118,7 +117,11 @@ const addExternalLinkIcon = (link: Element, document: Document): void => {
 };
 
 // 辅助函数：处理单个链接
-const processLink = (link: Element, document: Document, siteUrl: string): void => {
+const processLink = (
+    link: Element,
+    document: Document,
+    siteUrl: string,
+): void => {
     const redirectPage = "/redirect/?url=";
     const includeClass = config.redirectIncludeClass;
     const excludeClass = config.redirectExcludeClass;

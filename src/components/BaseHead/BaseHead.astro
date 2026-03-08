@@ -57,13 +57,19 @@ const {
         }
 
         html {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--body-color);
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease;
         }
 
         /* 禁用主题切换时的过渡，防止闪烁 */
@@ -76,48 +82,55 @@ const {
 
     <!-- 立即主题设置，防止客户端路由导航时闪烁 -->
     <script is:inline>
-        (function() {
+        (function () {
             try {
                 const applyThemeImmediately = () => {
                     // 立即从 localStorage 读取主题偏好
-                    const savedTheme = localStorage.getItem('preferredTheme');
-                    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    const isDark = savedTheme === 'dark' || (savedTheme === null && systemDark);
+                    const savedTheme = localStorage.getItem("preferredTheme");
+                    const systemDark = window.matchMedia(
+                        "(prefers-color-scheme: dark)",
+                    ).matches;
+                    const isDark =
+                        savedTheme === "dark" ||
+                        (savedTheme === null && systemDark);
 
                     const root = document.documentElement;
 
                     // 临时禁用过渡以防止闪烁
-                    root.classList.add('theme-no-transition');
+                    root.classList.add("theme-no-transition");
 
                     if (isDark) {
-                        root.classList.add('dark');
-                        root.setAttribute('data-theme', 'dark');
+                        root.classList.add("dark");
+                        root.setAttribute("data-theme", "dark");
                     } else {
-                        root.classList.remove('dark');
-                        root.setAttribute('data-theme', 'light');
+                        root.classList.remove("dark");
+                        root.setAttribute("data-theme", "light");
                     }
 
                     // 强制重绘
                     void root.offsetHeight;
 
                     // 恢复过渡
-                    root.classList.remove('theme-no-transition');
+                    root.classList.remove("theme-no-transition");
                 };
 
                 // 初始应用
                 applyThemeImmediately();
 
                 // 监听 View Transitions 事件，在页面交换前设置主题
-                if (typeof document !== 'undefined') {
-                    document.addEventListener('astro:before-swap', applyThemeImmediately);
+                if (typeof document !== "undefined") {
+                    document.addEventListener(
+                        "astro:before-swap",
+                        applyThemeImmediately,
+                    );
                 }
             } catch (e) {
                 // 静默失败，后续脚本会处理
-                console.debug('主题快速设置失败:', e);
+                console.debug("主题快速设置失败:", e);
             }
         })();
     </script>
-    
+
     <GlobalMeta title={title} description={description} keywords={keywords} />
     <OpenGraph
         title={title}
