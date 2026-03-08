@@ -3,7 +3,7 @@ import PostLayout from "~/layouts/PostLayout.astro";
 import PostTag from "~/components/PostTag.astro";
 import PostMeta from "~/components/PostMeta.astro";
 import PostCardImage from "~/components/PostCardImage.astro";
-import HeartIcon from "~/components/icons/Heart.astro";
+import FlameIcon from "~/components/icons/Flame.astro";
 import { getRandomImageUrl } from "~/utils";
 
 const {
@@ -59,8 +59,8 @@ const isRemoteImage = /^https?:\/\//.test(imagePath);
         }
         {
             sticky > 0 && (
-                <HeartIcon
-                    filled={true}
+                <FlameIcon
+                    filled={false}
                     style="color:red; position: absolute;top: 10px; right: 10px; width: 30px; height: 30px;"
                 />
             )

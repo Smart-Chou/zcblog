@@ -36,6 +36,7 @@ import { donate } from "~/self.config";
         user-select: none;
         cursor: pointer;
     }
+
     .donate .reward .reward-btn {
         display: flex;
         flex-direction: row;
@@ -60,6 +61,7 @@ import { donate } from "~/self.config";
         height: 100vh;
         z-index: 2000;
     }
+    
     .donate .modal .modal-mask {
         position: absolute;
         top: 0;
@@ -69,6 +71,7 @@ import { donate } from "~/self.config";
         z-index: -1;
         background-color: var(--bg-content-color-lighten);
     }
+
     .donate .modal .modal-main {
         position: absolute;
         padding: 0;
@@ -76,6 +79,7 @@ import { donate } from "~/self.config";
         width: calc(100% - 40px);
         overflow: hidden;
     }
+
     .donate .modal .modal-main .header-title {
         display: flex;
         flex-direction: row;
@@ -87,14 +91,17 @@ import { donate } from "~/self.config";
         background-color: var(--bg-color);
         border-bottom: 1px solid var(--border-color);
     }
+
     .donate .modal .modal-main .modal-content {
         max-height: calc(var(--height) - 46px);
         padding: 20px;
         overflow: auto;
     }
+
     .donate .modal .modal-main .header-title .title-left {
         width: 100%;
     }
+
     .donate .modal .modal-main .header-title .close {
         position: absolute;
         right: 20px;
@@ -105,6 +112,7 @@ import { donate } from "~/self.config";
         transition: background-color 0.3s;
         cursor: pointer;
     }
+
     .donate .reward-card .thank {
         display: inline-flex;
         justify-content: center;
@@ -113,21 +121,25 @@ import { donate } from "~/self.config";
         color: var(--link-color);
         font-weight: 700;
     }
+
     .donate .reward-card .qr {
         display: grid;
         gap: 1rem;
         grid-template-columns: 1fr 1fr;
     }
+
     .donate .reward-card .qr .qr-img {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+
     .donate a {
         text-decoration: none;
         color: var(--link-color);
         transition: all 0.3s;
     }
+
     .donate .reward-card .all-list {
         margin-top: 20px;
         display: flex;
@@ -135,6 +147,7 @@ import { donate } from "~/self.config";
         flex-direction: column;
         background-color: var(--bg-code);
     }
+
     .donate .s-card {
         padding: 0.8rem;
         border-radius: 16px;
@@ -144,12 +157,14 @@ import { donate } from "~/self.config";
         transition: all 0.3s;
         cursor: pointer;
     }
+
     .donate .reward-card .all-list .title {
         font-size: 18px;
         font-weight: 700;
         margin-bottom: 8px;
         transition: color 0.3s;
     }
+
     .donate .reward-card .all-list .tip {
         text-align: center;
         font-size: 12px;
