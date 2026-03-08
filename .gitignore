@@ -22,6 +22,7 @@ camera-picture/
 
 # compress and upload r2
 compress-and-upload-r2.sh
+scripts/parse_r2_files.py
 
 # Astro cache
 .astro
