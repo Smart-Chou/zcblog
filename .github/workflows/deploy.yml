@@ -18,14 +18,38 @@ jobs:
           node-version: 22
       - name: Install pnpm
         run: npm install -g pnpm
+      - name: Debug info
+        run: |
+          node --version
+          pnpm --version
+          npx astro --version
+          pnpm list sharp
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y libvips-dev
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Show directory structure
+        run: |
+          pwd
+          ls -la
+          ls -la src/
       - name: Lint code
         run: pnpm run lint || echo "Lint not configured, skipping"
       - name: Build
-        run: pnpm run build
+        env:
+          CI: true
+        run: pnpm run build --verbose
       - name: Validate build
-        run: ls dist && test -f dist/index.html
+        run: |
+          if [ -d dist ]; then
+            echo "dist directory contents:"
+            ls -la dist
+            echo "Checking for index.html..."
+            test -f dist/index.html && echo "index.html found" || { echo "index.html missing"; exit 1; }
+          else
+            echo "ERROR: dist directory not found. Build likely failed."
+            exit 1
+          fi
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with: 

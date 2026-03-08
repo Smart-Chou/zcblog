@@ -32,6 +32,9 @@ compress-and-upload-r2.sh
 # Vite cache
 .vite-cache
 
+# Claude
+.claude
+
 # pageinsight
 .pageinsight
 

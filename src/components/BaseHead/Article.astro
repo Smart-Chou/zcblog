@@ -10,6 +10,28 @@ if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {
 }
 
 const keywordsArray = Array.isArray(keywords) ? keywords : [keywords];
+
+// 安全地处理日期，确保它是有效的 Date 对象
+const getSafeDateISOString = (time: Date | string | null | undefined) => {
+    if (time instanceof Date && !isNaN(time.getTime())) {
+        return time.toISOString();
+    }
+    if (typeof time === 'string') {
+        const date = new Date(time);
+        if (!isNaN(date.getTime())) {
+            return date.toISOString();
+        }
+    }
+    // 处理 null 或 undefined 情况
+    if (time === null || time === undefined) {
+        return '';
+    }
+    // 如果没有有效的日期，返回空字符串
+    return '';
+};
+
+const safePublishedTime = getSafeDateISOString(publishedTime);
+const safeModifiedTime = getSafeDateISOString(modifiedTime);
 ---
 
 <!-- Open Graph: Article -->
@@ -22,5 +44,5 @@ const keywordsArray = Array.isArray(keywords) ? keywords : [keywords];
         <meta property="article:tag" content={keyword} />
     ))
 }
-<meta property="article:published_time" content={publishedTime.toISOString()} />
-<meta property="article:modified_time" content={modifiedTime.toISOString()} />
+<meta property="article:published_time" content={safePublishedTime} />
+<meta property="article:modified_time" content={safeModifiedTime} />

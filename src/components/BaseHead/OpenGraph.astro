@@ -3,6 +3,27 @@ import { config, author } from "~/self.config";
 const { title, description, image, imageAlt, modifiedTime } = Astro.props;
 
 const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+// 安全地处理 modifiedTime，确保它是有效的 Date 对象
+const getSafeModifiedTime = (time: Date | string | null | undefined) => {
+    if (time instanceof Date && !isNaN(time.getTime())) {
+        return time.toISOString();
+    }
+    if (typeof time === 'string') {
+        const date = new Date(time);
+        if (!isNaN(date.getTime())) {
+            return date.toISOString();
+        }
+    }
+    // 处理 null 或 undefined 情况
+    if (time === null || time === undefined) {
+        return new Date().toISOString();
+    }
+    // 如果没有有效的 modifiedTime，使用当前时间
+    return new Date().toISOString();
+};
+
+const safeModifiedTime = getSafeModifiedTime(modifiedTime);
 ---
 
 <!-- Open Graph -->
@@ -16,4 +37,4 @@ const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
 <meta property="og:secure_url" content={fullUrl} />
 <meta property="og:site_name" content={author.type} />
 <meta property="og:locale" content={config.lang} />
-<meta property="og:updated_time" content={modifiedTime.toISOString()} />
+<meta property="og:updated_time" content={safeModifiedTime} />
