@@ -54,18 +54,26 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                     {
                         donate.paypalUrl && (
                             <div class="donate-method">
-                                <a
-                                    href={donate.paypalUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="paypal-btn s-card hover"
-                                >
-                                    <DynamicIcon
-                                        name="simple-icons:paypal"
-                                        class="pay-icon"
+                                <div class="qr-code">
+                                    <img
+                                        src={donate.paypalQRCode}
+                                        alt="PayPal"
                                     />
-                                    <span class="pay-name">PayPal</span>
-                                </a>
+                                    <div class="qr-info">
+                                        <a
+                                            href={donate.paypalUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="paypal-btn s-card hover"
+                                        >
+                                            <DynamicIcon
+                                                name="simple-icons:paypal"
+                                                class="pay-icon"
+                                            />
+                                            <span class="pay-name">PayPal</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         )
                     }
@@ -241,7 +249,6 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        padding: 1rem 2rem;
         text-decoration: none;
         color: inherit;
     }

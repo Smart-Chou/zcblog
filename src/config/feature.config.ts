@@ -29,6 +29,7 @@ export interface DonateConfig {
     tip: string; // 捐赠提示
     wechatQRCode: string; // 微信二维码图片地址, 图片地址应该放在 public 目录下
     alipayQRCode: string; // 支付宝二维码图片地址, 图片地址应该放在 public 目录下
+    paypalQRCode: string; // PayPal二维码图片地址, 图片地址应该放在 public 目录下
     paypalUrl: string; // PayPal 捐赠地址
     donators: DonatorItem[]; // 捐赠者列表
 }
@@ -109,9 +110,10 @@ export const postView: ViewConfig = {
 export const donate: DonateConfig = {
     enable: true,
     tip: "赞赏金额将全部用于开源项目维护，以及服务器、域名及各类云服务的开销",
-    wechatQRCode: "/assets/image/WeChatQR.jpg",
+    wechatQRCode: "/assets/image/WePayQR.png",
     alipayQRCode: "/assets/image/AliPayQR.jpg",
-    paypalUrl: "https://paypal.me/xxxxxxxxxx",
+    paypalQRCode: "/assets/image/PayPalQR.png",
+    paypalUrl: "https://paypal.me/zcily",
     donators: [
         {
             id: "donator-1",
