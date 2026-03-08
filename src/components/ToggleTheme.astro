@@ -68,26 +68,34 @@ import MoonIcon from "~/components/icons/Moon.astro";
         
         const initThemeToggle = () => {
             const currentTheme = getCurrentTheme();
-            updateButton(currentTheme);
+            setTheme(currentTheme);
             
             const btn = document.getElementById('theme-btn');
             if (!btn) return;
             
-            btn.addEventListener('click', toggleTheme);
-            
-            btn.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleTheme();
-                }
-            });
+            if (!btn.dataset.initialized) {
+                btn.addEventListener('click', toggleTheme);
+                
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleTheme();
+                    }
+                });
+                
+                btn.dataset.initialized = 'true';
+            }
         };
         
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!getStoredTheme()) {
-                setTheme(e.matches ? 'dark' : 'light');
-            }
-        });
+        // 使用 window 属性跨页面持久化，防止 View Transitions 导致重复注册监听器
+        if (!window.__themeInitialized) {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                if (!getStoredTheme()) {
+                    setTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+            window.__themeInitialized = true;
+        }
         
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initThemeToggle);
@@ -112,7 +120,8 @@ import MoonIcon from "~/components/icons/Moon.astro";
         transition: all 0.3s ease;
     }
 
-    .toggle-theme:focus {
+    /* 仅对鼠标点击隐藏焦点框，键盘导航时保留可见焦点（WCAG 2.1 AA 标准） */
+    .toggle-theme:focus:not(:focus-visible) {
         outline: none;
     }
 

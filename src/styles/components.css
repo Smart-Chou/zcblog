@@ -96,6 +96,9 @@ header {
 .post-card {
     margin-bottom: 0;
     position: relative;
+    /* 跳过屏幕外卡片的渲染，减少首次渲染时间 */
+    content-visibility: auto;
+    contain-intrinsic-size: 0 320px;
 }
 
 .post-card__image {

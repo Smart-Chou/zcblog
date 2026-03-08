@@ -32,7 +32,7 @@ import fg from "fast-glob";
 import { minify } from "html-minifier";
 import { JSDOM } from "jsdom";
 import type { AstroIntegration } from "astro";
-import { config } from "../self.config.ts";
+import { config, site } from "../self.config.ts";
 
 // 辅助函数：检查元素或其父元素是否包含指定类名
 const hasIncludeClass = (element: Element, includeClass: string[]): boolean => {
@@ -70,11 +70,32 @@ const hasExcludeClass = (element: Element, excludeClass: string[]): boolean => {
     return false;
 };
 
-// 辅助函数：检查链接是否为相对路径、根路径或纯锚点链接
-const isRelativeOrRootPath = (href: string | null): boolean => {
-    return (
-        href !== null && (/^(\.|\/(?!\/))/.test(href) || href.startsWith("#"))
-    );
+
+// 辅助函数：检查链接是否为外部链接（非同域）
+const isExternalLink = (href: string | null, siteUrl: string): boolean => {
+    if (!href) return false;
+
+    // 排除相对路径和根路径
+    if (/^(\.|\/(?!\/))/.test(href)) {
+        return false;
+    }
+
+    // 排除锚点链接
+    if (href.startsWith("#")) {
+        return false;
+    }
+
+    try {
+        // 解析链接URL
+        const linkUrl = new URL(href, siteUrl);
+        const siteHost = new URL(siteUrl).host;
+
+        // 比较主机名（包含端口）
+        return linkUrl.host !== siteHost;
+    } catch (e) {
+        // 如果URL解析失败（如mailto:、tel:等），视为非外部链接
+        return false;
+    }
 };
 
 // 辅助函数：为链接添加外部链接图标
@@ -97,7 +118,7 @@ const addExternalLinkIcon = (link: Element, document: Document): void => {
 };
 
 // 辅助函数：处理单个链接
-const processLink = (link: Element, document: Document): void => {
+const processLink = (link: Element, document: Document, siteUrl: string): void => {
     const redirectPage = "/redirect/?url=";
     const includeClass = config.redirectIncludeClass;
     const excludeClass = config.redirectExcludeClass;
@@ -105,40 +126,37 @@ const processLink = (link: Element, document: Document): void => {
     // 检查链接是否排除指定类名
     if (hasExcludeClass(link, excludeClass)) return;
 
+    // 仅处理包含在redirectIncludeClass中的链接
+    if (!hasIncludeClass(link, includeClass)) return;
+
     const linkHref = link.getAttribute("href");
+    if (!linkHref) return;
 
-    // 检查链接是否需要处理
-    if (
-        link.getAttribute("target") === "_blank" ||
-        hasIncludeClass(link, includeClass)
-    ) {
-        // 检查链接是否为相对路径或根路径
-        if (isRelativeOrRootPath(linkHref)) return;
-        // 存在链接且非中转页
-        if (linkHref && !linkHref.includes(redirectPage)) {
-            // Base64 编码 href
-            const encodedHref = Buffer.from(linkHref).toString("base64");
-            // 处理 Base64 编码中的特殊字符，确保 URL 安全
-            const urlSafeEncodedHref = encodedHref
-                .replace(/\+/g, "-")
-                .replace(/\//g, "_")
-                .replace(/=/g, "");
-            const redirectLink = `${redirectPage}${urlSafeEncodedHref}`;
+    // 仅处理外部链接
+    if (!isExternalLink(linkHref, siteUrl)) return;
 
-            // 保存原始链接
-            link.setAttribute("original-href", linkHref);
-            // 覆盖 href
-            link.setAttribute("href", redirectLink);
-            // 增加 target="_blank" 属性
-            link.setAttribute("target", "_blank");
-            // 增加 rel="noopener noreferrer" 属性
-            link.setAttribute("rel", "noopener noreferrer");
-            // 创建并插入 SVG 图标
-            if (hasIncludeClass(link, includeClass)) {
-                addExternalLinkIcon(link, document);
-            }
-        }
-    }
+    // 避免重复处理（已包含重定向页面的链接）
+    if (linkHref.includes(redirectPage)) return;
+
+    // Base64 编码 href
+    const encodedHref = Buffer.from(linkHref).toString("base64");
+    // 处理 Base64 编码中的特殊字符，确保 URL 安全
+    const urlSafeEncodedHref = encodedHref
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=/g, "");
+    const redirectLink = `${redirectPage}${urlSafeEncodedHref}`;
+
+    // 保存原始链接
+    link.setAttribute("original-href", linkHref);
+    // 覆盖 href
+    link.setAttribute("href", redirectLink);
+    // 增加 target="_blank" 属性
+    link.setAttribute("target", "_blank");
+    // 增加 rel="noopener noreferrer" 属性
+    link.setAttribute("rel", "noopener noreferrer");
+    // 创建并插入 SVG 图标
+    addExternalLinkIcon(link, document);
 };
 
 // 辅助函数：处理单个 HTML 文件
@@ -161,7 +179,7 @@ const processHtmlFile = async (file: string, logger: any): Promise<void> => {
 
         // 处理每个链接
         allLinks.forEach((link) => {
-            processLink(link, document);
+            processLink(link, document, site.url);
         });
     } catch (error) {
         logger.error(`处理链接时出错： ${(error as Error).message}`);
