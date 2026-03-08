@@ -2,19 +2,21 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { site } from "~/self.config";
 
-// 为动态路由生成静态路径
-export function getStaticPaths() {
-    // 直接返回静态路径，确保函数能够正常执行
-    return [
-        { params: { id: "travel" } },
-        { params: { id: "nature" } },
-        { params: { id: "city" } },
-    ];
-}
-
 // 从JSON文件引入相册数据
 import albumData from "~/data/albums.json";
 const { albums } = albumData;
+
+// 为动态路由生成静态路径
+export async function getStaticPaths() {
+    // 在函数内部动态导入相册数据
+    const albumData = await import("~/data/albums.json");
+    const { albums } = albumData;
+
+    // 根据相册数据生成所有路径
+    return albums.map((album) => ({
+        params: { id: album.id },
+    }));
+}
 
 const { id } = Astro.params;
 const album = albums.find((album) => album.id === id);
