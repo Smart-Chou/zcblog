@@ -9,39 +9,48 @@ import "~/styles/toc.css";
 <script>
     import * as tocbot from "tocbot";
     document.addEventListener("astro:page-load", () => {
-        tocbot.default.init({
-            tocSelector: ".toc__content",
-            contentSelector: "#post-content",
-            headingSelector: "h2, h3",
-            headingsOffset: 80,
-            scrollSmoothOffset: -80,
+        // 等待主题完全应用后再初始化 TOC，避免样式闪烁
+        requestAnimationFrame(() => {
+            tocbot.default.init({
+                tocSelector: ".toc__content",
+                contentSelector: "#post-content",
+                headingSelector: "h2, h3",
+                headingsOffset: 80,
+                scrollSmoothOffset: -80,
+            });
         });
     });
 </script>
 
 <script>
     document.addEventListener("astro:page-load", () => {
-        const tocContent = document.querySelector(
-            ".toc__content",
-        ) as HTMLElement;
-        const post = document.querySelector("#post-content") as HTMLElement;
-        const footer = document.querySelector(".post__footer") as HTMLElement;
-        if (tocContent && post && footer) {
-            window.addEventListener("scroll", function () {
-                const postBottom =
-                    post.getBoundingClientRect().bottom + footer.offsetHeight;
-                const viewportHeight = window.innerHeight;
-                const postScrollHeight =
-                    viewportHeight / 2 + tocContent.offsetHeight;
-                if (postBottom <= postScrollHeight) {
-                    tocContent.style.position = "absolute";
-                    tocContent.style.top = `${((window.scrollY + postBottom - tocContent.offsetHeight) / viewportHeight) * 100}dvh`;
-                } else {
-                    tocContent.style.position = "fixed";
-                    tocContent.style.top = "50%";
-                    tocContent.style.transform = "translateY(-50%)";
-                }
-            });
-        }
+        // 等待主题完全应用后再初始化滚动监听
+        requestAnimationFrame(() => {
+            const tocContent = document.querySelector(
+                ".toc__content",
+            ) as HTMLElement;
+            const post = document.querySelector("#post-content") as HTMLElement;
+            const footer = document.querySelector(
+                ".post__footer",
+            ) as HTMLElement;
+            if (tocContent && post && footer) {
+                window.addEventListener("scroll", function () {
+                    const postBottom =
+                        post.getBoundingClientRect().bottom +
+                        footer.offsetHeight;
+                    const viewportHeight = window.innerHeight;
+                    const postScrollHeight =
+                        viewportHeight / 2 + tocContent.offsetHeight;
+                    if (postBottom <= postScrollHeight) {
+                        tocContent.style.position = "absolute";
+                        tocContent.style.top = `${((window.scrollY + postBottom - tocContent.offsetHeight) / viewportHeight) * 100}dvh`;
+                    } else {
+                        tocContent.style.position = "fixed";
+                        tocContent.style.top = "50%";
+                        tocContent.style.transform = "translateY(-50%)";
+                    }
+                });
+            }
+        });
     });
 </script>

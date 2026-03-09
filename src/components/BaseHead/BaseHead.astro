@@ -25,8 +25,9 @@ const {
 ---
 
 <head>
-    <!-- 关键主题 CSS，防止闪烁 -->
+    <!-- 关键主题 CSS，防止闪烁 - 放在脚本之前确保立即应用 -->
     <style>
+        /* 内联关键主题变量，防止外部CSS加载延迟导致的闪烁 */
         html {
             --bg-color: #fafafa;
             --bg-color-rgb: 250, 250, 250;
@@ -40,9 +41,12 @@ const {
             --link-color: #0070f3;
             --border-color: rgba(0, 0, 0, 0.1);
             --selection-color: #79ffe1;
+            --content-width: 860px;
+            --space: 3.5rem;
         }
 
-        html[data-theme="dark"] {
+        html[data-theme="dark"],
+        html.dark {
             --bg-color: #101213;
             --bg-color-rgb: 16, 18, 19;
             --bg-content-color: #2d3235;
@@ -54,33 +58,82 @@ const {
             --title-color: #fff;
             --link-color: #2a89f5;
             --text-code: #df41ff;
+            --content-width: 860px;
+            --space: 3.5rem;
         }
 
-        html {
-            transition:
-                background-color 0.3s ease,
-                color 0.3s ease,
-                border-color 0.3s ease;
+        /* 初始禁用所有过渡，防止页面加载时闪烁 */
+        html,
+        body {
+            transition: none !important;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--body-color);
+        }
+
+        /* 启用过渡的类（页面加载后或用户交互时添加） */
+        html.theme-transitions-enabled {
             transition:
                 background-color 0.3s ease,
                 color 0.3s ease,
                 border-color 0.3s ease;
         }
 
-        /* 禁用主题切换时的过渡，防止闪烁 */
+        html.theme-transitions-enabled body {
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        /* 临时禁用过渡（用于主题切换时） */
         html.theme-no-transition,
         html.theme-no-transition body,
         .theme-no-transition {
             transition: none !important;
         }
+
+        /* 防止 post-title 布局偏移 - 使用硬编码值避免变量解析延迟 */
+        #app .content,
+        .content {
+            max-width: 860px !important;
+            margin-inline: auto !important;
+            width: 100%;
+            /* 防止flex压缩 */
+            flex-shrink: 0;
+            /* 建立独立的布局上下文 */
+            display: flow-root;
+            /* 强制布局计算 */
+            contain: layout;
+        }
+
+        /* 高特异性选择器确保 post-title 立即居中 */
+        #app .post-title,
+        .post-title {
+            max-width: 860px !important;
+            margin-inline: auto !important;
+            text-align: center !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            display: block !important;
+            padding: 3.5rem 0 3.5rem !important;
+            /* 防止初始渲染偏移 */
+            position: relative;
+            /* 强制布局计算 */
+            contain: layout style;
+            /* 防止flex压缩和布局偏移 */
+            flex-shrink: 0;
+            /* 确保在flex容器中正确对齐 */
+            align-self: center;
+            /* 立即应用布局，防止闪烁 */
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
     </style>
 
-    <!-- 立即主题设置，防止客户端路由导航时闪烁 -->
+    <!-- 立即主题设置，防止刷新时闪烁 -->
     <script is:inline>
         (function () {
             try {
@@ -93,8 +146,18 @@ const {
                     const isDark =
                         savedTheme === "dark" ||
                         (savedTheme === null && systemDark);
+                    const targetTheme = isDark ? "dark" : "light";
 
                     const root = document.documentElement;
+                    const currentTheme = root.getAttribute("data-theme");
+
+                    // 如果主题已经正确设置，跳过更新以避免闪烁
+                    if (
+                        currentTheme === targetTheme &&
+                        root.classList.contains("dark") === isDark
+                    ) {
+                        return;
+                    }
 
                     // 临时禁用过渡以防止闪烁
                     root.classList.add("theme-no-transition");
@@ -110,20 +173,108 @@ const {
                     // 强制重绘
                     void root.offsetHeight;
 
-                    // 恢复过渡
-                    root.classList.remove("theme-no-transition");
+                    // 在下一帧恢复过渡，确保主题已应用
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            root.classList.remove("theme-no-transition");
+
+                            // 更新主题切换按钮状态（如果存在）
+                            try {
+                                const themeBtn =
+                                    document.getElementById("theme-btn");
+                                if (themeBtn) {
+                                    themeBtn.setAttribute(
+                                        "data-theme",
+                                        targetTheme,
+                                    );
+                                }
+                            } catch (e) {
+                                // 静默失败
+                                console.debug("主题按钮更新失败:", e);
+                            }
+
+                            // 标记主题已就绪，供其他组件使用
+                            root.classList.add("theme-ready");
+                        });
+                    });
                 };
 
-                // 初始应用
+                // 检查和修复 post-title 布局
+                const fixPostTitleLayout = () => {
+                    requestAnimationFrame(() => {
+                        const postTitles =
+                            document.querySelectorAll(".post-title");
+                        postTitles.forEach((title) => {
+                            // 强制重新计算布局
+                            void title.offsetHeight;
+
+                            // 检查是否居中
+                            const computedStyle =
+                                window.getComputedStyle(title);
+                            const marginLeft = computedStyle.marginLeft;
+                            const marginRight = computedStyle.marginRight;
+
+                            // 如果边距不是 auto，强制设置为 auto
+                            if (
+                                marginLeft !== "auto" ||
+                                marginRight !== "auto"
+                            ) {
+                                title.style.marginLeft = "auto";
+                                title.style.marginRight = "auto";
+                            }
+
+                            // 确保最大宽度正确
+                            if (computedStyle.maxWidth !== "860px") {
+                                title.style.maxWidth = "860px";
+                            }
+                        });
+                    });
+                };
+
+                // 初始应用 - 在 CSS 解析前设置主题
                 applyThemeImmediately();
 
-                // 监听 View Transitions 事件，在页面交换前设置主题
+                // 初始修复 post-title 布局
+                fixPostTitleLayout();
+
+                // 监听页面加载和交换事件，确保主题正确应用
                 if (typeof document !== "undefined") {
-                    document.addEventListener(
-                        "astro:before-swap",
-                        applyThemeImmediately,
-                    );
+                    // View Transitions 页面交换后
+                    document.addEventListener("astro:after-swap", () => {
+                        applyThemeImmediately();
+                        fixPostTitleLayout();
+                    });
+                    // 常规页面加载（包括 SPA 导航）
+                    document.addEventListener("astro:page-load", () => {
+                        applyThemeImmediately();
+                        fixPostTitleLayout();
+                    });
                 }
+
+                // 页面加载完成后启用过渡效果
+                const enableTransitions = () => {
+                    document.documentElement.classList.add(
+                        "theme-transitions-enabled",
+                    );
+                    // DOM 加载完成后再次检查布局
+                    fixPostTitleLayout();
+                };
+
+                if (document.readyState === "loading") {
+                    document.addEventListener(
+                        "DOMContentLoaded",
+                        enableTransitions,
+                    );
+                } else {
+                    enableTransitions();
+                }
+
+                // 在页面完全加载后最后检查一次
+                window.addEventListener("load", () => {
+                    requestAnimationFrame(() => {
+                        fixPostTitleLayout();
+                    });
+                });
             } catch (e) {
                 // 静默失败，后续脚本会处理
                 console.debug("主题快速设置失败:", e);

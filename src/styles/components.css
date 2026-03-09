@@ -68,6 +68,8 @@ header {
 .post-title {
     padding: var(--space) 0 var(--space);
     text-align: center;
+    max-width: var(--content-width);
+    margin-inline: auto;
 }
 
 .post-title__publish-icon {

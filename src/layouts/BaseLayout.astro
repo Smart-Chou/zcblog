@@ -17,23 +17,6 @@ const {
 ---
 
 <!doctype html>
-<script is:inline>
-    (function () {
-        const savedTheme = localStorage.getItem("preferredTheme");
-        const systemDark = window.matchMedia(
-            "(prefers-color-scheme: dark)",
-        ).matches;
-        const isDark =
-            savedTheme === "dark" || (savedTheme === null && systemDark);
-        if (isDark) {
-            document.documentElement.classList.add("dark");
-            document.documentElement.setAttribute("data-theme", "dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-            document.documentElement.setAttribute("data-theme", "light");
-        }
-    })();
-</script>
 <html lang="zh-CN">
     <BaseHead
         title={title}

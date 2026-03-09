@@ -65,18 +65,42 @@ import MoonIcon from "~/components/icons/Moon.astro";
             btn.setAttribute("aria-pressed", isDark.toString());
         };
 
+        // 从 DOM 读取当前主题（优先于 localStorage）
+        const getThemeFromDOM = () => {
+            const root = document.documentElement;
+            const domTheme = root.getAttribute("data-theme");
+            if (domTheme === "dark" || domTheme === "light") {
+                return domTheme;
+            }
+            // 回退到 class
+            if (root.classList.contains("dark")) {
+                return "dark";
+            }
+            return getCurrentTheme(); // 最终回退
+        };
+
         const toggleTheme = () => {
-            const currentTheme = getCurrentTheme();
+            const currentTheme = getThemeFromDOM();
             const newTheme = currentTheme === "dark" ? "light" : "dark";
             setTheme(newTheme);
         };
 
         const initThemeToggle = () => {
-            const currentTheme = getCurrentTheme();
-            setTheme(currentTheme);
-
             const btn = document.getElementById("theme-btn");
             if (!btn) return;
+
+            // 优先使用按钮已有的 data-theme 属性（由 BaseHead 设置）
+            let currentTheme = btn.getAttribute("data-theme");
+
+            if (
+                !currentTheme ||
+                (currentTheme !== "dark" && currentTheme !== "light")
+            ) {
+                // 回退到从 DOM 读取
+                currentTheme = getThemeFromDOM();
+            }
+
+            updateButton(currentTheme);
 
             if (!btn.dataset.initialized) {
                 btn.addEventListener("click", toggleTheme);
