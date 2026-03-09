@@ -393,7 +393,7 @@ button[data-close-modal] {
 }
 
 #starlight__search mark {
-    color: var(--sl-color-accent);
+    color: var(--sl-color-text-accent);
     background-color: transparent;
     font-weight: 600;
 }
