@@ -4,26 +4,22 @@
  * 配合 Astro 的 <ClientRouter>（View Transitions API）
  */
 
-/* 整体淡入 + 轻微上移动画 */
+/* 纯淡入淡出动画，避免 fixed 元素抖动 */
 @keyframes vt-fade-in {
     from {
         opacity: 0;
-        transform: translateY(6px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
 @keyframes vt-fade-out {
     from {
         opacity: 1;
-        transform: translateY(0);
     }
     to {
         opacity: 0;
-        transform: translateY(-6px);
     }
 }
 

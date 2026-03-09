@@ -32,14 +32,12 @@ html {
     --toast-width: 400px;
     --shadow-small:
         1px 1px 10px 0 rgba(0, 0, 0, 0.2), 1px 1px 30px 0 rgba(0, 0, 0, 0.3);
+    --accent-color: #0070f3;
 }
 
 @media screen and (max-width: 650px) {
     html {
         --base-font-size: 16px;
-    }
-
-    body {
         --space: 1.3rem;
         --header-height: 60px;
         --toast-width: 280px;
@@ -58,8 +56,4 @@ html[data-theme="dark"] {
     --title-color: #fff;
     --link-color: #2a89f5;
     --text-code: #df41ff;
-}
-
-:root {
-    --accent-color: #0070f3;
 }

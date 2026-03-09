@@ -83,7 +83,7 @@ hr:before {
 
 .main {
     /* margin: 0 auto; */
-    padding: 1.5vw 15px 0;
+    padding: calc(1.5vw + var(--header-height)) 15px 0;
     flex: 1;
 }
 

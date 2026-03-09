@@ -9,7 +9,7 @@ const getSafeModifiedTime = (time: Date | string | null | undefined) => {
     if (time instanceof Date && !isNaN(time.getTime())) {
         return time.toISOString();
     }
-    if (typeof time === 'string') {
+    if (typeof time === "string") {
         const date = new Date(time);
         if (!isNaN(date.getTime())) {
             return date.toISOString();
