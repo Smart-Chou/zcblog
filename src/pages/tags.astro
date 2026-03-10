@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import PostLayout from "~/layouts/PostLayout.astro";
+import Author from "~/components/Author.astro";
 import { site, tagsPage } from "~/self.config";
 
 const allPosts = await getCollection("article");
@@ -52,4 +53,5 @@ const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
             }
         </div>
     </PostLayout>
+    <Author />
 </BaseLayout>

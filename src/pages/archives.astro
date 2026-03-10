@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import PostLayout from "~/layouts/PostLayout.astro";
 import Archive from "~/components/Archive.astro";
+import Author from "~/components/Author.astro";
 import { site, archivesPage } from "~/self.config";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 import type { CollectionEntry } from "astro:content";
@@ -94,4 +95,5 @@ const startYear = Math.min(
                 ))
         }
     </PostLayout>
+    <Author />
 </BaseLayout>
