@@ -4,6 +4,7 @@ import { site } from "~/self.config";
 
 // 从JSON文件引入相册数据
 import albumData from "~/data/albums.json";
+
 const { albums } = albumData;
 
 // 为动态路由生成静态路径
@@ -50,10 +51,16 @@ if (!album) {
             </div>
         </div>
 
-        <div class="photos-grid">
+        <div class="photos-grid" id="lightgallery">
             {
                 album.photos.map((photo) => (
-                    <div class="photo-item">
+                    <a
+                        href={photo.url}
+                        class="photo-item"
+                        data-lg-size="1920-1280"
+                        data-subhtml={`<h4>${photo.alt}</h4><p>${photo.description}</p>`}
+                        aria-label={`查看大图: ${photo.alt}`}
+                    >
                         <div class="photo-wrapper">
                             <img
                                 src={photo.url}
@@ -67,7 +74,7 @@ if (!album) {
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 ))
             }
         </div>
@@ -128,17 +135,27 @@ if (!album) {
     }
 
     .photo-item {
+        display: block;
         border-radius: var(--radius);
         overflow: hidden;
         box-shadow: var(--shadow-small);
         transition:
             transform 0.3s ease,
             box-shadow 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        cursor: zoom-in;
     }
 
-    .photo-item:hover {
+    .photo-item:hover,
+    .photo-item:focus-visible {
         transform: translateY(-5px);
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        outline: none;
+    }
+
+    .photo-item:focus-visible {
+        box-shadow: 0 0 0 3px var(--link-color), 0 8px 15px rgba(0, 0, 0, 0.15);
     }
 
     .photo-wrapper {
@@ -157,7 +174,8 @@ if (!album) {
         transition: transform 0.5s ease;
     }
 
-    .photo-item:hover .photo-image {
+    .photo-item:hover .photo-image,
+    .photo-item:focus-visible .photo-image {
         transform: scale(1.05);
     }
 
@@ -173,7 +191,8 @@ if (!album) {
         transition: transform 0.3s ease;
     }
 
-    .photo-item:hover .photo-overlay {
+    .photo-item:hover .photo-overlay,
+    .photo-item:focus-visible .photo-overlay {
         transform: translateY(0);
     }
 
@@ -194,3 +213,30 @@ if (!album) {
         }
     }
 </style>
+
+<script>
+    // 导入 Lightgallery 样式
+    import 'lightgallery.js/dist/css/lightgallery.css';
+    // lg-thumbnail.css 和 lg-zoom.css 已合并到 lightgallery.css 中
+    // import 'lightgallery.js/lib/js/lightgallery.js'; // 动态导入已包含
+
+  // 动态导入 Lightgallery（插件已集成到主库中）
+  import('lightgallery.js').then(({ default: lightGallery }) => {
+    // 初始化 Lightgallery
+    const gallery = document.getElementById('lightgallery');
+    if (gallery) {
+      lightGallery(gallery, {
+        speed: 500,
+        download: false,
+        getCaptionFromTitleOrAlt: false,
+        subHtmlSelectorRelative: true,
+        thumbnail: true,
+        zoom: true,
+        mode: 'lg-fade',
+        cssEase: 'cubic-bezier(0.25, 0, 0.25, 1)'
+      });
+    }
+  }).catch((error) => {
+    console.error('Failed to load Lightgallery:', error);
+  });
+</script>
