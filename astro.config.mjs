@@ -14,8 +14,6 @@ import astroExpressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import partytown from "@astrojs/partytown";
-import astroMetaTags from "astro-meta-tags";
-import pageInsight from "astro-page-insight";
 import redirectAttributeByLink from "./src/integrations/redirect.ts";
 import playformInline from "@playform/inline";
 
@@ -25,10 +23,10 @@ const env = loadEnv("", process.cwd(), "");
 // https://astro.build/config
 export default defineConfig({
     site: env.PUBLIC_SITE_URL || "https://marxchou.com",
-    experimental: {
-        preserveScriptOrder: true,
-        svgo: true,
-    },
+    // experimental: {
+    //     preserveScriptOrder: true,
+    //     svgo: true,
+    // },
     markdown: {
         remarkPlugins: [
             remarkDeruntify,
@@ -65,8 +63,6 @@ export default defineConfig({
             ],
         }),
         partytown(),
-        astroMetaTags(),
-        pageInsight(),
         playformInline(),
     ],
     image: {

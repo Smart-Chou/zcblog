@@ -60,7 +60,7 @@ a:not(.button):hover {
 
 img {
     height: auto;
-    max-width: fit-content;
+    max-width: 100%;
 }
 
 hr {
