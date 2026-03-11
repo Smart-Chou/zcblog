@@ -36,7 +36,7 @@ export function readMetadata(postId: string) {
             fileContent = readFileSync(tryPath, "utf-8");
             filePath = tryPath; // 更新为找到的正确路径
             break;
-        } catch {
+        } catch (err) {
             // 文件不存在，继续尝试下一个扩展名
             continue;
         }
