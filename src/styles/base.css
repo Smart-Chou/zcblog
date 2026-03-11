@@ -6,6 +6,8 @@ html {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: subpixel-antialiased;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -91,4 +93,48 @@ hr:before {
 .content {
     max-width: var(--content-width);
     margin-inline: auto;
+}
+
+/* 移动端优化 */
+@media screen and (max-width: 768px) {
+    .main {
+        padding: calc(1.5vw + 50px) 12px 0;
+    }
+
+    .content-box {
+        padding: calc(var(--space) * 0.75);
+    }
+
+    /* 改善移动端阅读体验 */
+    .post__content p {
+        line-height: 1.7;
+        text-align: justify;
+        hyphens: auto;
+    }
+
+    /* 代码块在移动端避免水平滚动 */
+    pre {
+        padding: calc(var(--space) / 4) calc(var(--space) / 2);
+        margin: 1em -12px;
+        font-size: 0.9em;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .main {
+        padding: calc(1.5vw + 48px) 10px 0;
+    }
+
+    .post-title {
+        padding: calc(var(--space) * 0.75) 0 calc(var(--space) * 0.75) !important;
+    }
+
+    /* 文章页脚标签容器调整 */
+    .post__footer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
 }

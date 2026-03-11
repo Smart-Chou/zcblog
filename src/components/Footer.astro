@@ -115,4 +115,41 @@ const currentYear = new Date().getFullYear();
         gap: 0.35rem;
         margin-top: 0.5rem;
     }
+
+    /* 移动端优化 */
+    @media screen and (max-width: 768px) {
+        .footer {
+            padding: calc(var(--space) * 0.75) 12px calc(var(--space) * 0.75);
+            font-size: 0.85em;
+        }
+
+        .footer__links:has(img),
+        #rss-stats {
+            gap: 0.25rem;
+        }
+
+        .footer img {
+            height: 18px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .footer {
+            padding: calc(var(--space) * 0.6) 10px calc(var(--space) * 0.6);
+        }
+
+        .footer__copyright span {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer__links:has(img) {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer img {
+            height: 16px;
+        }
+    }
 </style>

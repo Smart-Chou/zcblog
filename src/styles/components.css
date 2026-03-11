@@ -177,3 +177,31 @@ a {
         min-height: auto !important;
     }
 }
+
+/* 移动端触摸目标优化 */
+@media screen and (max-width: 768px) {
+    /* 搜索按钮触摸目标 */
+    site-search button[data-open-modal] {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 10px;
+    }
+
+    /* 文章导航链接在移动端堆叠显示 */
+    .post__navigation .navlink {
+        float: none;
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .post__navigation .navlink:first-of-type {
+        margin-bottom: 1rem;
+    }
+
+    .post__navigation .navlink[style*="float: left"],
+    .post__navigation .navlink[style*="float: right"] {
+        float: none !important;
+    }
+}

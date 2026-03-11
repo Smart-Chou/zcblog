@@ -81,6 +81,7 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
                         format="webp"
                         quality={80}
                         decoding="async"
+                        sizes="(max-width: 650px) 100vw, 860px"
                     />
                 ) : isRemoteImage ? (
                     <Image
@@ -93,6 +94,7 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
                         format="webp"
                         quality={80}
                         decoding="async"
+                        sizes="(max-width: 650px) 100vw, 860px"
                     />
                 ) : (
                     <PostCardImage

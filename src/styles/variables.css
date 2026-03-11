@@ -44,6 +44,22 @@ html {
     }
 }
 
+/* 平板断点 */
+@media screen and (max-width: 900px) {
+    html {
+        --content-width: 90vw;
+    }
+}
+
+/* 大手机断点 */
+@media screen and (max-width: 480px) {
+    html {
+        --space: 1rem;
+        --header-height: 55px;
+        --radius: 4px;
+    }
+}
+
 html[data-theme="dark"] {
     --bg-color: #101213;
     --bg-color-rgb: 16, 18, 19;

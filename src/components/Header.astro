@@ -115,4 +115,34 @@ const { searchEnable = search.enable } = Astro.props;
         align-items: center;
         font-family: var(--base-font-family);
     }
+
+    @media screen and (max-width: 768px) {
+        #nprogress-container {
+            min-height: 50px;
+            padding: 0 10px;
+        }
+
+        .header__right {
+            gap: 8px;
+        }
+
+        /* 在移动端隐藏搜索按钮文本，只显示图标 */
+        site-search button[data-open-modal] span {
+            display: none;
+        }
+
+        site-search button[data-open-modal] kbd {
+            display: none !important;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        #nprogress-container {
+            min-height: 48px;
+        }
+
+        .logo {
+            font-size: 0.8em;
+        }
+    }
 </style>

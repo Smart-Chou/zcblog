@@ -247,4 +247,18 @@ pre {
     .post .post-meta {
         display: none;
     }
+
+    /* 移动端表格优化 */
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+    }
+
+    table td,
+    table th {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
 }
