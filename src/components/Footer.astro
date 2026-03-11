@@ -92,10 +92,27 @@ const currentYear = new Date().getFullYear();
     }
 
     .footer #rss-stats {
-        padding-top: 0.35rem;
+        /* padding-top removed, using margin-top from flex container */
     }
 
     .footer #rss-stats a {
-        margin-right: 0.35rem;
+        /* margin-right removed, using gap from flex container */
+    }
+
+    /* 图片等高，宽度自适应 */
+    .footer img {
+        height: 20px;
+        width: auto;
+    }
+
+    /* 图片链接容器使用 flex 布局 */
+    .footer__links:has(img),
+    #rss-stats {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 0.35rem;
+        margin-top: 0.5rem;
     }
 </style>
