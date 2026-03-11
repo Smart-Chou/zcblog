@@ -52,15 +52,26 @@ export function getPostsWithMeta(post: Post): PostMeta {
         };
     }
 
-    // 读取文件元数据
-    const { content, mtime } = readMetadata(postId);
+    // 优先使用 post.body（如果可用），避免文件系统读取
+    let content: string | null = null;
+    let mtime: Date | string | null = null;
 
-    if (!content || !mtime) {
-        console.error(`Error accessing file for post: ${post.id}`);
+    if (post.body) {
+        content = post.body;
+        mtime = new Date(); // 如果没有文件修改时间，使用当前时间
+    } else {
+        // 回退到文件系统读取
+        const fileData = readMetadata(postId);
+        content = fileData.content;
+        mtime = fileData.mtime;
+    }
+
+    if (!content) {
+        console.error(`Error accessing content for post: ${post.id}`);
         return {
             wordCount: 0,
             readTime: "N/A",
-            modifiedTime: "N/A",
+            modifiedTime: mtime || "N/A",
             excerpt: frontmatterDescription || "N/A",
         };
     }
@@ -87,7 +98,7 @@ export function getPostsWithMeta(post: Post): PostMeta {
     const result: PostMeta = {
         wordCount,
         readTime,
-        modifiedTime: mtime,
+        modifiedTime: mtime || "N/A",
         excerpt: finalExcerpt,
     };
 
