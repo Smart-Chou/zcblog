@@ -87,7 +87,7 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
                         src={imageUrl}
                         alt={imageAlt}
                         class="post-card__image"
-                        loading="eager"
+                        loading="lazy"
                         width={800}
                         height={450}
                         format="webp"
@@ -98,7 +98,7 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
                     <PostCardImage
                         imagePath={imageUrl}
                         altText={imageAlt}
-                        loading="eager"
+                        loading="lazy"
                     />
                 )
             }

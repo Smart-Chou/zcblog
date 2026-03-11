@@ -29,7 +29,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                 <div class="donate-methods">
                     <div class="donate-method">
                         <div class="qr-code">
-                            <img src={donate.wechatQRCode} alt="微信支付" />
+                            <img src={donate.wechatQRCode} alt="微信支付" loading="lazy" />
                             <div class="qr-info">
                                 <DynamicIcon
                                     name="mingcute:wechat-pay-line"
@@ -41,7 +41,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                     </div>
                     <div class="donate-method">
                         <div class="qr-code">
-                            <img src={donate.alipayQRCode} alt="支付宝支付" />
+                            <img src={donate.alipayQRCode} alt="支付宝支付" loading="lazy" />
                             <div class="qr-info">
                                 <DynamicIcon
                                     name="simple-icons:alipay"
@@ -58,6 +58,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                                     <img
                                         src={donate.paypalQRCode}
                                         alt="PayPal"
+                                        loading="lazy"
                                     />
                                     <div class="qr-info">
                                         <a
@@ -96,6 +97,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                                         <img
                                             src={donator.avatar}
                                             alt={donator.name}
+                                            loading="lazy"
                                         />
                                     ) : (
                                         <div class="avatar-placeholder">
