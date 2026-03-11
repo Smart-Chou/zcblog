@@ -14,6 +14,7 @@ import WalineComment from "~/components/WalineComment.astro";
 import PostCopyright from "~/components/PostCopyright.astro";
 import { site, postView, waline, donate } from "~/self.config";
 import { getRandomImageUrl } from "~/utils";
+import { Image } from "astro:assets";
 
 const {
     frontmatter = {
@@ -70,22 +71,28 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
         <div class="post__header">
             {
                 isDefaultImage ? (
-                    <img
+                    <Image
                         src={getRandomImageUrl()}
                         alt={imageAlt}
                         class="post-card__image"
                         loading="lazy"
                         width={800}
                         height={450}
+                        format="webp"
+                        quality={80}
+                        decoding="async"
                     />
                 ) : isRemoteImage ? (
-                    <img
+                    <Image
                         src={imageUrl}
                         alt={imageAlt}
                         class="post-card__image"
                         loading="eager"
                         width={800}
                         height={450}
+                        format="webp"
+                        quality={80}
+                        decoding="async"
                     />
                 ) : (
                     <PostCardImage

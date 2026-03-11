@@ -34,7 +34,7 @@ const postMetaCache = new Map<string, PostMeta>();
  */
 export function getPostsWithMeta(post: Post): PostMeta {
     const postId = post.slug || post.id;
-    const frontmatterDescription = post.data?.description || '';
+    const frontmatterDescription = post.data?.description || "";
 
     // 检查缓存
     if (postMetaCache.has(postId)) {
@@ -78,7 +78,10 @@ export function getPostsWithMeta(post: Post): PostMeta {
     // 生成摘要
     const excerpt = generateSummary(contentForExcerpt);
     // 如果摘要为空或为N/A，使用frontmatter中的description
-    const finalExcerpt = (excerpt && excerpt !== "N/A") ? excerpt : (frontmatterDescription || "N/A");
+    const finalExcerpt =
+        excerpt && excerpt !== "N/A"
+            ? excerpt
+            : frontmatterDescription || "N/A";
 
     // 构建结果对象
     const result: PostMeta = {

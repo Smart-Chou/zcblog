@@ -5,6 +5,7 @@ import PostMeta from "~/components/PostMeta.astro";
 import PostCardImage from "~/components/PostCardImage.astro";
 import FlameIcon from "~/components/icons/Flame.astro";
 import { getRandomImageUrl } from "~/utils";
+import { Image } from "astro:assets";
 
 const {
     altText,
@@ -30,23 +31,27 @@ const isRemoteImage = /^https?:\/\//.test(imagePath);
     <div class="post-card__header">
         {
             isDefaultImage ? (
-                <img
+                <Image
                     src={getRandomImageUrl()}
                     alt={altText}
                     class="post-card__image"
                     loading={loading || "lazy"}
                     width={800}
                     height={450}
+                    format="webp"
+                    quality={80}
                     decoding="async"
                 />
             ) : isRemoteImage ? (
-                <img
+                <Image
                     src={imagePath}
                     alt={altText}
                     class="post-card__image"
                     loading={loading || "lazy"}
                     width={800}
                     height={450}
+                    format="webp"
+                    quality={80}
                     decoding="async"
                 />
             ) : (
@@ -62,11 +67,12 @@ const isRemoteImage = /^https?:\/\//.test(imagePath);
                 <FlameIcon
                     filled={false}
                     style="color:red; position: absolute;top: 10px; right: 10px; width: 30px; height: 30px;"
+                    aria-label="Sticky post"
                 />
             )
         }
     </div>
-    <h2 class="post-card__title">{title}</h2>
+    <h2 class="post-card__title" aria-label={title}>{title}</h2>
     <p class="post-card__description">{description}</p>
     <PostMeta
         publishedTime={publishedTime}
@@ -77,7 +83,7 @@ const isRemoteImage = /^https?:\/\//.test(imagePath);
     <div class="post-tags post-card__tags">
         {tags.map((tag: string) => <PostTag tag={tag} url={`/tag/${tag}/`} />)}
     </div>
-    <a href={postUrl} class="post-card__link">Link</a>
+    <a href={postUrl} class="post-card__link" aria-label={`Read article: ${title}`}>Read More</a>
 </PostLayout>
 
 <style>

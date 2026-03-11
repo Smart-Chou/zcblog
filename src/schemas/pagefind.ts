@@ -70,7 +70,12 @@ const pagefindIndexOptionsSchema = z.object({
      * Configure how search result rankings are calculated by Pagefind.
      */
     // We apply a default value to merged indexes in order to share the same ranking for them and the current site when not set explicitly.
-    ranking: pagefindRankingWeightsSchema.default({ pageLength: 0.1, termFrequency: 0.1, termSaturation: 2, termSimilarity: 9 }),
+    ranking: pagefindRankingWeightsSchema.default({
+        pageLength: 0.1,
+        termFrequency: 0.1,
+        termSaturation: 2,
+        termSimilarity: 9,
+    }),
 });
 
 const pagefindSchema = z.object({
@@ -82,7 +87,12 @@ const pagefindSchema = z.object({
      */
     indexWeight: indexWeightSchema,
     /** Configure how search result rankings are calculated by Pagefind. */
-    ranking: pagefindRankingWeightsSchema.default({ pageLength: 0.1, termFrequency: 0.1, termSaturation: 2, termSimilarity: 9 }),
+    ranking: pagefindRankingWeightsSchema.default({
+        pageLength: 0.1,
+        termFrequency: 0.1,
+        termSaturation: 2,
+        termSimilarity: 9,
+    }),
     /**
      * Configure how search indexes from different sites are merged by Pagefind.
      *
