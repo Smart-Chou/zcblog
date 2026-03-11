@@ -15,8 +15,28 @@ export async function getStaticPaths({
 }) {
     const allPosts = await getCollection("article");
     const pageSize = config.PageSize || 10;
-    const sortedPosts = allPosts.sort((a, b) => {
-        const stickyDIff = (b.data.sticky || 0) - (a.data.sticky || 0);
+
+    // 预先计算每篇文章的元数据
+    const postsWithPrecomputedMeta = allPosts.map(post => {
+        const { wordCount, readTime, modifiedTime, excerpt } = getPostsWithMeta({
+            ...post,
+            slug: post.id,
+        });
+        const sticky = post.data.sticky || 0;
+
+        return {
+            ...post,
+            wordCount,
+            readTime,
+            slug: post.id,
+            sticky,
+            modifiedTime,
+            excerpt,
+        };
+    });
+
+    const sortedPosts = postsWithPrecomputedMeta.sort((a, b) => {
+        const stickyDIff = (Number(b.sticky) || 0) - (Number(a.sticky) || 0);
         if (stickyDIff !== 0) {
             return stickyDIff;
         }
@@ -30,23 +50,8 @@ export async function getStaticPaths({
 
 const { page } = Astro.props as any;
 
-const postsWithMeta = page.data.map((post: any) => {
-    const { wordCount, readTime, modifiedTime, excerpt } = getPostsWithMeta({
-        ...post,
-        slug: post.id,
-    });
-    const sticky = post.data.sticky || false;
-
-    return {
-        ...post,
-        wordCount,
-        readTime,
-        slug: post.id,
-        sticky,
-        modifiedTime,
-        excerpt,
-    };
-});
+// 元数据已在getStaticPaths中预先计算，直接使用page.data
+const postsWithMeta = page.data;
 ---
 
 <BaseLayout
