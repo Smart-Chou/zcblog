@@ -85,7 +85,11 @@ const isRemoteImage = /^https?:\/\//.test(imagePath);
     <div class="post-tags post-card__tags">
         {tags.map((tag: string) => <PostTag tag={tag} url={`/tag/${tag}/`} />)}
     </div>
-    <a href={postUrl} class="post-card__link" aria-label={`Read article: ${title}`}>Read More</a>
+    <a
+        href={postUrl}
+        class="post-card__link"
+        aria-label={`Read article: ${title}`}>Read More</a
+    >
 </PostLayout>
 
 <style>

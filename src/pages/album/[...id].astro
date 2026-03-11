@@ -155,7 +155,9 @@ if (!album) {
     }
 
     .photo-item:focus-visible {
-        box-shadow: 0 0 0 3px var(--link-color), 0 8px 15px rgba(0, 0, 0, 0.15);
+        box-shadow:
+            0 0 0 3px var(--link-color),
+            0 8px 15px rgba(0, 0, 0, 0.15);
     }
 
     .photo-wrapper {
@@ -216,27 +218,27 @@ if (!album) {
 
 <script>
     // 导入 Lightgallery 样式
-    import 'lightgallery.js/dist/css/lightgallery.css';
-    // lg-thumbnail.css 和 lg-zoom.css 已合并到 lightgallery.css 中
-    // import 'lightgallery.js/lib/js/lightgallery.js'; // 动态导入已包含
+    import "lightgallery.js/dist/css/lightgallery.css";
 
-  // 动态导入 Lightgallery（插件已集成到主库中）
-  import('lightgallery.js').then(({ default: lightGallery }) => {
-    // 初始化 Lightgallery
-    const gallery = document.getElementById('lightgallery');
-    if (gallery) {
-      lightGallery(gallery, {
-        speed: 500,
-        download: false,
-        getCaptionFromTitleOrAlt: false,
-        subHtmlSelectorRelative: true,
-        thumbnail: true,
-        zoom: true,
-        mode: 'lg-fade',
-        cssEase: 'cubic-bezier(0.25, 0, 0.25, 1)'
-      });
-    }
-  }).catch((error) => {
-    console.error('Failed to load Lightgallery:', error);
-  });
+    // 动态导入 Lightgallery（插件已集成到主库中）
+    import("lightgallery.js")
+        .then(({ default: lightGallery }) => {
+            // 初始化 Lightgallery
+            const gallery = document.getElementById("lightgallery");
+            if (gallery) {
+                lightGallery(gallery, {
+                    speed: 500,
+                    download: false,
+                    getCaptionFromTitleOrAlt: false,
+                    subHtmlSelectorRelative: true,
+                    thumbnail: true,
+                    zoom: true,
+                    mode: "lg-fade",
+                    cssEase: "cubic-bezier(0.25, 0, 0.25, 1)",
+                });
+            }
+        })
+        .catch((error) => {
+            console.error("Failed to load Lightgallery:", error);
+        });
 </script>

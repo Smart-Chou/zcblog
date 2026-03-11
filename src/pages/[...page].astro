@@ -17,11 +17,13 @@ export async function getStaticPaths({
     const pageSize = config.PageSize || 10;
 
     // 预先计算每篇文章的元数据
-    const postsWithPrecomputedMeta = allPosts.map(post => {
-        const { wordCount, readTime, modifiedTime, excerpt } = getPostsWithMeta({
-            ...post,
-            slug: post.id,
-        });
+    const postsWithPrecomputedMeta = allPosts.map((post) => {
+        const { wordCount, readTime, modifiedTime, excerpt } = getPostsWithMeta(
+            {
+                ...post,
+                slug: post.id,
+            },
+        );
         const sticky = post.data.sticky || 0;
 
         return {
