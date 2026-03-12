@@ -17,6 +17,20 @@
   /* 过渡动画 */
   --pswp-transition-duration: 333ms;
   --pswp-transition-easing: cubic-bezier(0.4, 0, 0.22, 1);
+
+  /* 确保容器可见 */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10000 !important;
+}
+
+/* 确保UI容器可见 */
+.pswp__ui {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10001 !important;
 }
 
 /* 暗色主题适配 */
@@ -47,9 +61,18 @@
   overflow: hidden;
   opacity: 0.85;
   transition: opacity 0.2s ease;
+  display: block !important; /* 确保按钮显示 */
+  visibility: visible !important; /* 确保按钮可见 */
 
   /* 使用项目圆角 */
   border-radius: var(--radius);
+}
+
+/* 确保按钮图标可见 */
+.pswp__button::before {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .pswp__button:hover {

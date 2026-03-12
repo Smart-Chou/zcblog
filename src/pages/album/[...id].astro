@@ -221,70 +221,125 @@ if (!album) {
     // 导入 PhotoSwipe 样式
     import "photoswipe/style.css";
 
+    // 预加载图片尺寸的函数
+    function preloadImageDimensions() {
+        const photoItems = document.querySelectorAll('#photoswipe-gallery a.photo-item');
+        const promises: Promise<void>[] = [];
+
+        photoItems.forEach((item, index) => {
+            const img = item.querySelector('img');
+            if (!img) return;
+
+            // 如果图片已经加载完成，直接获取尺寸
+            if (img.complete && img.naturalWidth > 0) {
+                item.setAttribute('data-pswp-width', img.naturalWidth.toString());
+                item.setAttribute('data-pswp-height', img.naturalHeight.toString());
+                console.log(`Image ${index} dimensions: ${img.naturalWidth}x${img.naturalHeight} (cached)`);
+                return;
+            }
+
+            // 否则创建一个Promise来加载图片
+            const promise = new Promise<void>((resolve) => {
+                const loader = new Image();
+                loader.src = img.src;
+                loader.onload = () => {
+                    item.setAttribute('data-pswp-width', loader.naturalWidth.toString());
+                    item.setAttribute('data-pswp-height', loader.naturalHeight.toString());
+                    console.log(`Image ${index} dimensions: ${loader.naturalWidth}x${loader.naturalHeight} (loaded)`);
+                    resolve();
+                };
+                loader.onerror = () => {
+                    // 加载失败时使用默认尺寸
+                    console.warn(`Failed to load image ${index}: ${img.src}`);
+                    item.setAttribute('data-pswp-width', '1920');
+                    item.setAttribute('data-pswp-height', '1280');
+                    resolve();
+                };
+            });
+            promises.push(promise);
+        });
+
+        return Promise.all(promises).then(() => {
+            console.log(`All image dimensions preloaded (${photoItems.length} images)`);
+            // 验证属性是否已设置
+            photoItems.forEach((item, index) => {
+                const width = item.getAttribute('data-pswp-width');
+                const height = item.getAttribute('data-pswp-height');
+                console.log(`Image ${index}: width=${width}, height=${height}`);
+            });
+        });
+    }
+
     // 动态导入 PhotoSwipe Lightbox
     document.addEventListener('astro:page-load', () => {
-        import('photoswipe/lightbox').then(({ default: PhotoSwipeLightbox }) => {
-            const lightbox = new PhotoSwipeLightbox({
-                gallery: '#photoswipe-gallery',
-                children: 'a.photo-item',
-                pswpModule: () => import('photoswipe'),
-                showHideAnimationType: 'fade',
-                zoomAnimationDuration: 500,
-                bgOpacity: 0.8,
-                spacing: 0.1,
-                wheelToZoom: true,
-                pinchToClose: false,
-                closeOnVerticalDrag: true,
-                padding: { top: 20, bottom: 40, left: 20, right: 20 },
-                arrowPrev: true,
-                arrowNext: true,
-                arrowKeys: true,
-                zoom: true,
-                maxZoomLevel: 4,
-                secondaryZoomLevel: 2,
-            });
+        // 首先预加载图片尺寸
+        preloadImageDimensions().then(() => {
+            // 然后初始化 PhotoSwipe
+            import('photoswipe/lightbox').then(({ default: PhotoSwipeLightbox }) => {
+                const lightbox = new PhotoSwipeLightbox({
+                    gallery: '#photoswipe-gallery',
+                    children: 'a.photo-item',
+                    pswpModule: () => import('photoswipe'),
+                    showHideAnimationType: 'fade',
+                    zoomAnimationDuration: 500,
+                    bgOpacity: 0.8,
+                    spacing: 0.1,
+                    wheelToZoom: true,
+                    pinchToClose: false,
+                    closeOnVerticalDrag: true,
+                    padding: { top: 20, bottom: 40, left: 20, right: 20 },
+                    arrowPrev: true,
+                    arrowNext: true,
+                    arrowKeys: true,
+                    zoom: true,
+                    maxZoomLevel: 4,
+                    secondaryZoomLevel: 2,
+                });
 
-            // 可选：添加自定义按钮（如下载按钮）
-            lightbox.on('uiRegister', () => {
-                // 检查 pswp 和 ui 是否存在
-                if (lightbox.pswp?.ui) {
-                    lightbox.pswp.ui.registerElement({
-                        name: 'download-button',
-                        order: 8,
-                        isButton: true,
-                        html: '<button class="pswp__button pswp__button--download" title="下载"></button>',
-                        onClick: (_event, _el, pswp) => {
-                            const item = pswp.currSlide?.data;
-                            if (item?.src) {
-                                window.open(item.src, '_blank');
+                // 可选：添加自定义按钮（如下载按钮）
+                lightbox.on('uiRegister', () => {
+                    // 检查 pswp 和 ui 是否存在
+                    if (lightbox.pswp?.ui) {
+                        lightbox.pswp.ui.registerElement({
+                            name: 'download-button',
+                            order: 8,
+                            isButton: true,
+                            html: '<button class="pswp__button pswp__button--download" title="下载"></button>',
+                            onClick: (_event, _el, pswp) => {
+                                const item = pswp.currSlide?.data;
+                                if (item?.src) {
+                                    window.open(item.src, '_blank');
+                                }
                             }
-                        }
-                    });
-                }
-            });
+                        });
+                    }
+                });
 
-            lightbox.init();
+                lightbox.init();
 
-            // 错误处理
-            lightbox.on('init', () => {
-                console.log('PhotoSwipe initialized successfully');
-            });
+                // 错误处理
+                lightbox.on('init', () => {
+                    console.log('PhotoSwipe initialized successfully');
+                });
 
-            lightbox.on('destroy', () => {
-                console.log('PhotoSwipe destroyed');
-            });
+                lightbox.on('destroy', () => {
+                    console.log('PhotoSwipe destroyed');
+                });
 
-            // 调试：检查图片尺寸数据
-            lightbox.on('itemData', (e) => {
-                console.log('Item data:', e.index, e.itemData);
-                if (e.itemData.width && e.itemData.height) {
-                    console.log(`Image dimensions: ${e.itemData.width}x${e.itemData.height}`);
-                } else {
-                    console.warn('No image dimensions found for index', e.index);
-                }
+                // 调试：检查图片尺寸数据
+                lightbox.on('itemData', (e) => {
+                    console.log('Item data:', e.index, e.itemData);
+                    if (e.itemData.width && e.itemData.height) {
+                        console.log(`Image dimensions: ${e.itemData.width}x${e.itemData.height}`);
+                    } else {
+                        console.warn('No image dimensions found for index', e.index);
+                    }
+                });
+            }).catch((error) => {
+                console.error('Failed to load PhotoSwipe:', error);
             });
         }).catch((error) => {
-            console.error('Failed to load PhotoSwipe:', error);
+            console.error('Failed to preload image dimensions:', error);
         });
     });
 </script>
