@@ -58,8 +58,6 @@ if (!album) {
                         href={photo.url}
                         class="photo-item"
                         data-pswp-src={photo.url}
-                        data-pswp-width="1920"
-                        data-pswp-height="1280"
                         data-caption={`<h4>${photo.alt}</h4><p>${photo.description}</p>`}
                         data-index={index}
                         aria-label={`查看大图: ${photo.alt}`}
@@ -238,6 +236,12 @@ if (!album) {
                 pinchToClose: false,
                 closeOnVerticalDrag: true,
                 padding: { top: 20, bottom: 40, left: 20, right: 20 },
+                arrowPrev: true,
+                arrowNext: true,
+                arrowKeys: true,
+                zoom: true,
+                maxZoomLevel: 4,
+                secondaryZoomLevel: 2,
             });
 
             // 可选：添加自定义按钮（如下载按钮）
@@ -268,6 +272,16 @@ if (!album) {
 
             lightbox.on('destroy', () => {
                 console.log('PhotoSwipe destroyed');
+            });
+
+            // 调试：检查图片尺寸数据
+            lightbox.on('itemData', (e) => {
+                console.log('Item data:', e.index, e.itemData);
+                if (e.itemData.width && e.itemData.height) {
+                    console.log(`Image dimensions: ${e.itemData.width}x${e.itemData.height}`);
+                } else {
+                    console.warn('No image dimensions found for index', e.index);
+                }
             });
         }).catch((error) => {
             console.error('Failed to load PhotoSwipe:', error);
