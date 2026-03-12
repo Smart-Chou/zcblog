@@ -33,6 +33,15 @@
   z-index: 10001 !important;
 }
 
+/* 顶部工具栏使用 flex 布局 */
+.pswp__top-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 10px 20px !important;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent) !important;
+}
+
 /* 暗色主题适配 */
 [data-theme="dark"] .pswp {
   --pswp-bg: rgba(0, 0, 0, 0.9);
@@ -89,12 +98,10 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* 关闭按钮 */
+/* 关闭按钮 - 使用 flex 布局，避免绝对定位导致重叠 */
 .pswp__button--close {
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  margin: 0 !important;
+  margin-left: auto !important;
+  order: 100 !important;
 }
 
 /* 箭头按钮 */
@@ -168,12 +175,19 @@
   font-size: 0.9rem;
   color: var(--body-color);
   opacity: 0.8;
-  padding: 10px 20px;
+  padding: 10px 0 !important;
+  order: 1 !important;
 }
 
 /* 缩放指示器 */
 .pswp__zoom-indicator {
   color: var(--body-color);
+}
+
+/* 下载按钮 */
+.pswp__button--download {
+  order: 2 !important;
+  margin-right: 10px !important;
 }
 
 /* 下载按钮自定义样式 */
@@ -219,10 +233,7 @@
   }
 
   .pswp__button--close {
-    position: absolute !important;
-    top: 10px !important;
-    right: 10px !important;
-    margin: 0 !important;
+    margin-left: auto !important;
   }
 
   .pswp__caption {
