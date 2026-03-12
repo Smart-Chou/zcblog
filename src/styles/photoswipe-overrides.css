@@ -37,9 +37,45 @@
 .pswp__top-bar {
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
   padding: 10px 20px !important;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent) !important;
+  gap: 10px !important;
+}
+
+/* 计数器放在最左侧 */
+.pswp__counter {
+  font-size: 0.9rem;
+  color: var(--body-color);
+  opacity: 0.8;
+  padding: 10px 0 !important;
+  margin-right: auto !important;
+  order: 1 !important;
+}
+
+/* 预加载器样式 */
+.pswp__preloader {
+  order: 2 !important;
+}
+
+/* 下载按钮容器 */
+.pswp__button--download-button {
+  order: 3 !important;
+}
+
+/* 下载按钮本身 */
+.pswp__button--download {
+  order: 3 !important;
+}
+
+/* 缩放按钮 */
+.pswp__button--zoom {
+  order: 4 !important;
+}
+
+/* 关闭按钮放在最右侧 */
+.pswp__button--close {
+  order: 100 !important;
+  margin-left: auto !important;
 }
 
 /* 暗色主题适配 */
