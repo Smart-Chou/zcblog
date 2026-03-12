@@ -16,3 +16,5 @@
 @import url(./search-global.css);
 /* View Transitions 页面切换动画 */
 @import url(./transitions.css);
+/* PhotoSwipe 主题样式覆盖 */
+@import url(./photoswipe-overrides.css);

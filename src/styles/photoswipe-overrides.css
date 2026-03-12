@@ -1,0 +1,229 @@
+/* PhotoSwipe 主题样式覆盖
+ * 确保 PhotoSwipe 与现有暗色/亮色主题兼容
+ */
+
+/* PhotoSwipe 根容器样式 */
+.pswp {
+  --pswp-bg: var(--bg-color);
+  --pswp-placeholder-bg: var(--bg-color);
+  --pswp-root-z-index: 10000;
+
+  /* 使用项目主题色 */
+  --pswp-icon-color: var(--body-color);
+  --pswp-icon-color-secondary: var(--body-color-secondary);
+  --pswp-icon-stroke-color: var(--border-color);
+  --pswp-icon-stroke-width: 1px;
+
+  /* 过渡动画 */
+  --pswp-transition-duration: 333ms;
+  --pswp-transition-easing: cubic-bezier(0.4, 0, 0.22, 1);
+}
+
+/* 暗色主题适配 */
+[data-theme="dark"] .pswp {
+  --pswp-bg: rgba(0, 0, 0, 0.9);
+  --pswp-placeholder-bg: rgba(0, 0, 0, 0.9);
+  --pswp-icon-color: rgba(255, 255, 255, 0.9);
+  --pswp-icon-color-secondary: rgba(255, 255, 255, 0.6);
+  --pswp-icon-stroke-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 亮色主题适配 */
+[data-theme="light"] .pswp {
+  --pswp-bg: rgba(255, 255, 255, 0.95);
+  --pswp-placeholder-bg: rgba(255, 255, 255, 0.95);
+  --pswp-icon-color: rgba(0, 0, 0, 0.9);
+  --pswp-icon-color-secondary: rgba(0, 0, 0, 0.6);
+  --pswp-icon-stroke-color: rgba(0, 0, 0, 0.2);
+}
+
+/* 按钮样式 */
+.pswp__button {
+  width: 44px;
+  height: 44px;
+  position: relative;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+
+  /* 使用项目圆角 */
+  border-radius: var(--radius);
+}
+
+.pswp__button:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.pswp__button:focus {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+[data-theme="dark"] .pswp__button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 关闭按钮 */
+.pswp__button--close {
+  top: 20px;
+  right: 20px;
+}
+
+/* 箭头按钮 */
+.pswp__button--arrow--prev,
+.pswp__button--arrow--next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.pswp__button--arrow--prev {
+  left: 20px;
+}
+
+.pswp__button--arrow--next {
+  right: 20px;
+}
+
+[data-theme="dark"] .pswp__button--arrow--prev,
+[data-theme="dark"] .pswp__button--arrow--next {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 缩略图 */
+.pswp__thumbnails {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .pswp__thumbnails {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 图片样式 */
+.pswp__img {
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 标题栏 */
+.pswp__caption {
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+  color: white;
+  padding: 20px;
+  min-height: 60px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.pswp__caption h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.pswp__caption p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* 计数器 */
+.pswp__counter {
+  font-size: 0.9rem;
+  color: var(--body-color);
+  opacity: 0.8;
+  padding: 10px 20px;
+}
+
+/* 缩放指示器 */
+.pswp__zoom-indicator {
+  color: var(--body-color);
+}
+
+/* 下载按钮自定义样式 */
+.pswp__button--download::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 12px;
+  background-color: var(--body-color);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.pswp__button--download:hover::before {
+  background-color: var(--link-color);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .pswp__button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .pswp__button--arrow--prev,
+  .pswp__button--arrow--next {
+    width: 40px;
+    height: 60px;
+  }
+
+  .pswp__button--arrow--prev {
+    left: 10px;
+  }
+
+  .pswp__button--arrow--next {
+    right: 10px;
+  }
+
+  .pswp__button--close {
+    top: 10px;
+    right: 10px;
+  }
+
+  .pswp__caption {
+    padding: 15px;
+    font-size: 0.9rem;
+  }
+
+  .pswp__caption h4 {
+    font-size: 1.1rem;
+  }
+}
+
+/* 无障碍支持 */
+.pswp__button:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* 键盘导航提示 */
+.pswp__button[title]:focus::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg-color);
+  color: var(--body-color);
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.pswp__button[title]:hover::after,
+.pswp__button[title]:focus::after {
+  opacity: 1;
+}

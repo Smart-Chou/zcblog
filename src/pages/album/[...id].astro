@@ -51,14 +51,17 @@ if (!album) {
             </div>
         </div>
 
-        <div class="photos-grid" id="lightgallery">
+        <div class="photos-grid" id="photoswipe-gallery">
             {
-                album.photos.map((photo) => (
+                album.photos.map((photo, index) => (
                     <a
                         href={photo.url}
                         class="photo-item"
-                        data-lg-size="1920-1280"
-                        data-subhtml={`<h4>${photo.alt}</h4><p>${photo.description}</p>`}
+                        data-pswp-src={photo.url}
+                        data-pswp-width="1920"
+                        data-pswp-height="1280"
+                        data-caption={`<h4>${photo.alt}</h4><p>${photo.description}</p>`}
+                        data-index={index}
                         aria-label={`查看大图: ${photo.alt}`}
                     >
                         <div class="photo-wrapper">
@@ -217,28 +220,57 @@ if (!album) {
 </style>
 
 <script>
-    // 导入 Lightgallery 样式
-    import "lightgallery.js/dist/css/lightgallery.css";
+    // 导入 PhotoSwipe 样式
+    import "photoswipe/style.css";
 
-    // 动态导入 Lightgallery（插件已集成到主库中）
-    import("lightgallery.js")
-        .then(({ default: lightGallery }) => {
-            // 初始化 Lightgallery
-            const gallery = document.getElementById("lightgallery");
-            if (gallery) {
-                lightGallery(gallery, {
-                    speed: 500,
-                    download: false,
-                    getCaptionFromTitleOrAlt: false,
-                    subHtmlSelectorRelative: true,
-                    thumbnail: true,
-                    zoom: true,
-                    mode: "lg-fade",
-                    cssEase: "cubic-bezier(0.25, 0, 0.25, 1)",
-                });
-            }
-        })
-        .catch((error) => {
-            console.error("Failed to load Lightgallery:", error);
+    // 动态导入 PhotoSwipe Lightbox
+    document.addEventListener('astro:page-load', () => {
+        import('photoswipe/lightbox').then(({ default: PhotoSwipeLightbox }) => {
+            const lightbox = new PhotoSwipeLightbox({
+                gallery: '#photoswipe-gallery',
+                children: 'a.photo-item',
+                pswpModule: () => import('photoswipe'),
+                showHideAnimationType: 'fade',
+                zoomAnimationDuration: 500,
+                bgOpacity: 0.8,
+                spacing: 0.1,
+                wheelToZoom: true,
+                pinchToClose: false,
+                closeOnVerticalDrag: true,
+                padding: { top: 20, bottom: 40, left: 20, right: 20 },
+            });
+
+            // 可选：添加自定义按钮（如下载按钮）
+            lightbox.on('uiRegister', () => {
+                // 检查 pswp 和 ui 是否存在
+                if (lightbox.pswp?.ui) {
+                    lightbox.pswp.ui.registerElement({
+                        name: 'download-button',
+                        order: 8,
+                        isButton: true,
+                        html: '<button class="pswp__button pswp__button--download" title="下载"></button>',
+                        onClick: (_event, _el, pswp) => {
+                            const item = pswp.currSlide?.data;
+                            if (item?.src) {
+                                window.open(item.src, '_blank');
+                            }
+                        }
+                    });
+                }
+            });
+
+            lightbox.init();
+
+            // 错误处理
+            lightbox.on('init', () => {
+                console.log('PhotoSwipe initialized successfully');
+            });
+
+            lightbox.on('destroy', () => {
+                console.log('PhotoSwipe destroyed');
+            });
+        }).catch((error) => {
+            console.error('Failed to load PhotoSwipe:', error);
         });
+    });
 </script>
