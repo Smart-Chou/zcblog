@@ -187,8 +187,8 @@
             } else {
                 commentContainer.style.display = "none";
                 toggleButton.textContent = "展开评论";
-                toggleButton.style.position = "sticky";
-                toggleButton.style.bottom = "1rem";
+                toggleButton.style.position = "relative";
+                toggleButton.style.bottom = "auto";
                 toggleButton.className = "closeComment";
                 // 将按钮移回原位
                 commentContainer.parentNode?.insertBefore(

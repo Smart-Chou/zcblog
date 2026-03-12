@@ -3,6 +3,7 @@
  * 遍历文章内容区域的所有图片，将它们包装为可点击的 PhotoSwipe 画廊。
  */
 function initPhotoSwipeForContentImages() {
+    console.log('初始化 PhotoSwipe 图片点击放大');
     try {
         // 查找文章内容区域
         const content = document.querySelector('.post__content');
@@ -33,9 +34,15 @@ function initPhotoSwipeForContentImages() {
 
         // 遍历图片，创建画廊项并存储数据
         images.forEach((img, index) => {
-            // 获取图片原始尺寸，默认为 1920x1080
-            const width = 1920;
-            const height = 1080;
+            // 获取图片原始尺寸
+            let width = img.naturalWidth || img.width || 1920;
+            let height = img.naturalHeight || img.height || 1080;
+
+            // 如果尺寸为 0，使用默认值
+            if (width === 0 || height === 0) {
+                width = 1920;
+                height = 1080;
+            }
 
             // 创建画廊链接
             const link = document.createElement('a');
@@ -86,20 +93,52 @@ function initPhotoSwipeForContentImages() {
 
         // PhotoSwipe 实例
         let lightbox: any = null;
+        let isPhotoSwipeReady = false;
 
         // 打开 PhotoSwipe
         const openPhotoSwipe = (index: number) => {
-            if (!lightbox) {
-                console.warn('PhotoSwipe 未初始化');
+            if (!lightbox || !isPhotoSwipeReady) {
+                console.warn('PhotoSwipe 未初始化，请稍后再试');
+                // 显示用户友好的提示
+                const img = imageData[index]?.element;
+                if (img) {
+                    const originalCursor = img.style.cursor;
+                    img.style.cursor = 'not-allowed';
+                    setTimeout(() => {
+                        img.style.cursor = originalCursor;
+                    }, 1000);
+                }
                 return;
             }
 
             // 加载并打开指定索引的图片
-            lightbox.loadAndOpen(index, galleryContainer);
+            lightbox.loadAndOpen(index);
         };
 
-        // 动态加载 PhotoSwipe
-        import('photoswipe/lightbox').then(({ default: PhotoSwipeLightbox }) => {
+        // 加载 PhotoSwipe CSS
+        const loadPhotoSwipeCSS = () => {
+            // 检查是否已加载 PhotoSwipe CSS
+            if (document.querySelector('link[href*="photoswipe"]')) {
+                return Promise.resolve();
+            }
+
+            return import('photoswipe/style.css').then(() => {
+                console.log('PhotoSwipe CSS 加载成功');
+            }).catch((error) => {
+                console.warn('动态加载 PhotoSwipe CSS 失败，尝试使用 CDN 回退', error);
+                // CDN 回退
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css';
+                document.head.appendChild(link);
+            });
+        };
+
+        // 动态加载 PhotoSwipe JS 和 CSS
+        Promise.all([
+            loadPhotoSwipeCSS(),
+            import('photoswipe/lightbox')
+        ]).then(([, { default: PhotoSwipeLightbox }]) => {
             // 创建 PhotoSwipe 实例
             lightbox = new PhotoSwipeLightbox({
                 gallery: '#content-photoswipe-gallery',
@@ -142,6 +181,15 @@ function initPhotoSwipeForContentImages() {
 
             // 初始化
             lightbox.init();
+            isPhotoSwipeReady = true;
+            console.log('PhotoSwipe lightbox 初始化完成，图片数量:', imageData.length);
+
+            // 初始化完成后，更新所有图片的光标样式为可点击
+            imageData.forEach(({ element }) => {
+                if (element) {
+                    element.style.cursor = 'zoom-in';
+                }
+            });
 
             // 图片加载成功回调
             lightbox.on('loadComplete', (e: any) => {
@@ -159,6 +207,15 @@ function initPhotoSwipeForContentImages() {
             });
         }).catch((error) => {
             console.error('加载 PhotoSwipe 失败:', error);
+            // 加载失败，禁用图片点击功能
+            imageData.forEach(({ element }) => {
+                if (element) {
+                    element.style.cursor = 'default';
+                    // 移除点击事件监听器
+                    const newElement = element.cloneNode(true) as HTMLImageElement;
+                    element.parentNode?.replaceChild(newElement, element);
+                }
+            });
         });
 
         // 页面卸载时清理
@@ -167,6 +224,7 @@ function initPhotoSwipeForContentImages() {
                 lightbox.destroy();
                 lightbox = null;
             }
+            isPhotoSwipeReady = false;
             if (galleryContainer && galleryContainer.parentNode) {
                 galleryContainer.parentNode.removeChild(galleryContainer);
             }
