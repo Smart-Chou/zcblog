@@ -82,7 +82,9 @@ export function generateSummary(markdownContent: string): string {
         }
 
         // 移除所有表格元素，防止表格内容污染摘要
-        const tableElements = document.querySelectorAll('table, thead, tbody, tfoot, tr, td, th');
+        const tableElements = document.querySelectorAll(
+            "table, thead, tbody, tfoot, tr, td, th",
+        );
         tableElements.forEach((el: Element) => el.remove());
 
         // 清理根元素

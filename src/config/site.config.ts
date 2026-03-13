@@ -29,6 +29,14 @@ export interface AuthorConfig {
 }
 
 /**
+ * Meta Twitter配置
+ */
+export interface TwitterConfig {
+    type: string; // twitter 账号
+    link: string; // twitter 名称
+}
+
+/**
  * 页面配置
  */
 export interface PageConfig {
@@ -44,7 +52,8 @@ export const site: SiteConfig = {
     subtitle: "Marx Chou - A Noob Developer",
     description:
         "Welcome to Marx's Blog, where I share my journey as a noob developer. Here, you'll find insights, tutorials, and musings on programming, technology, and the challenges of learning to code. Join me as I navigate the world of software development and share my experiences along the way.",
-    keywords: "Marx's Blog, Marx Chou, noob developer, programming, technology, coding journey",
+    keywords:
+        "Marx's Blog, Marx Chou, noob developer, programming, technology, coding journey",
     favicon: "favicon.svg",
     logo: "logo.svg",
     coverImage: "cover.png",
@@ -53,6 +62,14 @@ export const site: SiteConfig = {
     startYear: "2020",
     beian: "萌ICP备20249889号",
     beianURL: "https://icp.gov.moe/?keyword=20249889",
+};
+
+/**
+ * Meta Twitter配置
+ */
+export const twitter: TwitterConfig = {
+    type: "@marxchou",
+    link: "@marxchou",
 };
 
 /**

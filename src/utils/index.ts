@@ -123,4 +123,4 @@ export function getRandomImageUrl(): string {
 }
 
 // 导出 PhotoSwipe 工具函数
-export * from './photoswipe';
+export * from "./photoswipe";
