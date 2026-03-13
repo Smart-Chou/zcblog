@@ -16,7 +16,7 @@
     --pswp-icon-stroke-width: 1px;
 
     /* 过渡动画 */
-    --pswp-transition-duration: 400ms;
+    --pswp-transition-duration: 250ms;
     --pswp-transition-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
 
     /* 确保容器可见 */
@@ -422,7 +422,7 @@
 .pswp--open .pswp__ui {
     animation: uiFadeIn calc(var(--pswp-transition-duration) * 0.8)
         var(--pswp-transition-easing) forwards;
-    animation-delay: calc(var(--pswp-transition-duration) * 0.2);
+    animation-delay: calc(var(--pswp-transition-duration) * 0.1);
 }
 
 .pswp--closing .pswp__ui {
