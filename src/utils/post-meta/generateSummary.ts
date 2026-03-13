@@ -45,12 +45,26 @@ export function generateSummary(markdownContent: string): string {
             "ol",
             "li",
         ]);
+        // 表格标签，直接移除不保留文本
+        const tableTags = new Set([
+            "table",
+            "thead",
+            "tbody",
+            "tfoot",
+            "tr",
+            "td",
+            "th",
+        ]);
 
         // 递归清理元素
         function cleanElement(element: Element) {
             const children = Array.from(element.children);
             children.forEach((child) => {
-                if (!allowedTags.has(child.tagName.toLowerCase())) {
+                const tagName = child.tagName.toLowerCase();
+                if (tableTags.has(tagName)) {
+                    // 表格标签直接移除，不保留文本
+                    child.remove();
+                } else if (!allowedTags.has(tagName)) {
                     // 替换为文本内容
                     const textNode = document.createTextNode(
                         child.textContent || "",
@@ -66,6 +80,10 @@ export function generateSummary(markdownContent: string): string {
                 }
             });
         }
+
+        // 移除所有表格元素，防止表格内容污染摘要
+        const tableElements = document.querySelectorAll('table, thead, tbody, tfoot, tr, td, th');
+        tableElements.forEach((el: Element) => el.remove());
 
         // 清理根元素
         cleanElement(document.body.firstChild as Element);
@@ -136,6 +154,7 @@ export function generateSummary(markdownContent: string): string {
         // 降级处理：使用简单的文本处理
         const cleanedText = markdownContent
             .replace(/```[\s\S]*?```/g, "")
+            .replace(/^\|.*\|$/gm, "") // 移除表格行
             .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
             .replace(/[#*_`~>=]+/g, "")
             .replace(/\s+/g, " ")
