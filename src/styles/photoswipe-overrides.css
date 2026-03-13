@@ -6,6 +6,7 @@
 .pswp {
     --pswp-bg: var(--bg-color);
     --pswp-placeholder-bg: var(--bg-color);
+    --pswp-bg-opacity: 0.9;
     --pswp-root-z-index: 10000;
 
     /* 使用项目主题色 */
@@ -15,8 +16,8 @@
     --pswp-icon-stroke-width: 1px;
 
     /* 过渡动画 */
-    --pswp-transition-duration: 333ms;
-    --pswp-transition-easing: cubic-bezier(0.4, 0, 0.22, 1);
+    --pswp-transition-duration: 400ms;
+    --pswp-transition-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
 
     /* 确保容器可见 */
     display: block !important;
@@ -86,6 +87,7 @@
 [data-theme="dark"] .pswp {
     --pswp-bg: rgba(0, 0, 0, 0.9);
     --pswp-placeholder-bg: rgba(0, 0, 0, 0.9);
+    --pswp-bg-opacity: 0.9;
     --pswp-icon-color: rgba(255, 255, 255, 0.9);
     --pswp-icon-color-secondary: rgba(255, 255, 255, 0.6);
     --pswp-icon-stroke-color: rgba(255, 255, 255, 0.2);
@@ -95,6 +97,7 @@
 [data-theme="light"] .pswp {
     --pswp-bg: rgba(255, 255, 255, 0.95);
     --pswp-placeholder-bg: rgba(255, 255, 255, 0.95);
+    --pswp-bg-opacity: 0.95;
     --pswp-icon-color: rgba(0, 0, 0, 0.9);
     --pswp-icon-color-secondary: rgba(0, 0, 0, 0.6);
     --pswp-icon-stroke-color: rgba(0, 0, 0, 0.2);
@@ -312,4 +315,197 @@
 .pswp__button[title]:hover::after,
 .pswp__button[title]:focus::after {
     opacity: 1;
+}
+
+/* ============================================
+ * 增强动画效果
+ * ============================================ */
+
+/* 图片缩放动画 */
+.pswp__img {
+    transition:
+        transform var(--pswp-transition-duration) var(--pswp-transition-easing),
+        opacity var(--pswp-transition-duration) var(--pswp-transition-easing);
+    animation-duration: var(--pswp-transition-duration);
+    animation-timing-function: var(--pswp-transition-easing);
+}
+
+/* 图片缩放放大动画 */
+@keyframes photoZoomIn {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 图片缩放缩小动画 */
+@keyframes photoZoomOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    30% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+}
+
+/* 背景淡入动画 */
+@keyframes bgFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: var(--pswp-bg-opacity, 0.8);
+    }
+}
+
+/* 背景淡出动画 */
+@keyframes bgFadeOut {
+    from {
+        opacity: var(--pswp-bg-opacity, 0.8);
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* UI元素淡入动画 */
+@keyframes uiFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* UI元素淡出动画 */
+@keyframes uiFadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* 应用动画到 PhotoSwipe 元素 */
+.pswp--open .pswp__bg {
+    animation: bgFadeIn var(--pswp-transition-duration)
+        var(--pswp-transition-easing) forwards;
+}
+
+.pswp--closing .pswp__bg {
+    animation: bgFadeOut var(--pswp-transition-duration)
+        var(--pswp-transition-easing) forwards;
+}
+
+.pswp--open .pswp__ui {
+    animation: uiFadeIn calc(var(--pswp-transition-duration) * 0.8)
+        var(--pswp-transition-easing) forwards;
+    animation-delay: calc(var(--pswp-transition-duration) * 0.2);
+}
+
+.pswp--closing .pswp__ui {
+    animation: uiFadeOut calc(var(--pswp-transition-duration) * 0.6)
+        var(--pswp-transition-easing) forwards;
+}
+
+/* 图片加载完成时的缩放动画 */
+.pswp__img--loaded {
+    animation: photoZoomIn var(--pswp-transition-duration)
+        var(--pswp-transition-easing);
+}
+
+/* 关闭时的图片动画 */
+.pswp--closing .pswp__img {
+    animation: photoZoomOut calc(var(--pswp-transition-duration) * 0.8)
+        var(--pswp-transition-easing);
+}
+
+/* 按钮悬停动画增强 */
+.pswp__button {
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.pswp__button:hover {
+    transform: scale(1.1);
+}
+
+.pswp__button:active {
+    transform: scale(0.95);
+}
+
+/* 箭头按钮悬停动画 */
+.pswp__button--arrow--prev:hover,
+.pswp__button--arrow--next:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.pswp__button--arrow--prev:active,
+.pswp__button--arrow--next:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* 计数器动画 */
+.pswp__counter {
+    transition: opacity 0.3s ease;
+}
+
+/* 标题栏动画 */
+.pswp__caption {
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+/* 移动端动画优化 */
+@media (max-width: 768px) {
+    .pswp__img {
+        transition-duration: calc(var(--pswp-transition-duration) * 0.8);
+    }
+
+    .pswp__button:hover {
+        transform: scale(1.05);
+    }
+
+    .pswp__button--arrow--prev:hover,
+    .pswp__button--arrow--next:hover {
+        transform: translateY(-50%) scale(1.05);
+    }
+}
+
+/* 减少动画偏好设置 */
+@media (prefers-reduced-motion: reduce) {
+    .pswp,
+    .pswp__img,
+    .pswp__bg,
+    .pswp__ui,
+    .pswp__button,
+    .pswp__counter,
+    .pswp__caption {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
 }
