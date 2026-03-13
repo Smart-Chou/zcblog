@@ -14,7 +14,6 @@ export * from "./ui.config";
 export const {
     site,
     author,
-    twitter,
     notFoundPage,
     tagsPage,
     archivesPage,

@@ -31,19 +31,6 @@ export interface DonateConfig {
     alipayQRCode: string; // 支付宝二维码图片地址, 图片地址应该放在 public 目录下
     paypalQRCode: string; // PayPal二维码图片地址, 图片地址应该放在 public 目录下
     paypalUrl: string; // PayPal 捐赠地址
-    donators: DonatorItem[]; // 捐赠者列表
-}
-
-/**
- * 捐赠者配置项
- */
-export interface DonatorItem {
-    id: string; // 捐赠者ID
-    name: string; // 捐赠者名称
-    amount: number; // 捐赠金额
-    date: string; // 捐赠日期
-    avatar?: string; // 捐赠者头像（可选）
-    message?: string; // 捐赠留言（可选）
 }
 
 /**
@@ -114,33 +101,6 @@ export const donate: DonateConfig = {
     alipayQRCode: "/assets/image/AliPayQR.jpg",
     paypalQRCode: "/assets/image/PayPalQR.png",
     paypalUrl: "https://paypal.me/zcily",
-    donators: [
-        {
-            id: "donator-1",
-            name: "匿名用户",
-            amount: 5,
-            date: "2026-01-21",
-        },
-        {
-            id: "donator-2",
-            name: "支持者A",
-            amount: 10,
-            date: "2026-01-20",
-        },
-        {
-            id: "donator-3",
-            name: "支持者B",
-            amount: 20,
-            date: "2026-01-19",
-        },
-        {
-            id: "donator-4",
-            name: "支持者C",
-            amount: 50,
-            date: "2026-01-18",
-            message: "感谢你的分享！",
-        },
-    ],
 };
 
 /**

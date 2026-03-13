@@ -3,6 +3,9 @@ import HeartIcon from "~/components/icons/Heart.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { donate } from "~/self.config";
 import BaseLayout from "~/layouts/BaseLayout.astro";
+
+import donateData from "~/data/donators.json";
+const { donators } = donateData;
 ---
 
 <BaseLayout
@@ -24,7 +27,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
             <div class="donate-section s-card">
                 <div class="donate-header">
                     <h2 class="section-title">支持方式</h2>
-                    <p class="section-desc">{donate.tip}</p>
+                    <p class="section-desc">{donators.length}</p>
                 </div>
                 <div class="donate-methods">
                     <div class="donate-method">
@@ -98,7 +101,7 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                 </div>
                 <div class="donators-list">
                     {
-                        donate.donators.map((donator) => (
+                        donators.map((donator) => (
                             <div class="donator-item">
                                 <div class="donator-avatar">
                                     {donator.avatar ? (

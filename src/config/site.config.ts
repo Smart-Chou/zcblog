@@ -29,14 +29,6 @@ export interface AuthorConfig {
 }
 
 /**
- * Twitter配置
- */
-export interface TwitterConfig {
-    type: string; // twitter 账号
-    link: string; // twitter 名称
-}
-
-/**
  * 页面配置
  */
 export interface PageConfig {
@@ -48,17 +40,17 @@ export interface PageConfig {
  * 网站基本信息
  */
 export const site: SiteConfig = {
-    title: "Spencer's Blog",
-    subtitle: "Spencer Woo",
+    title: "Marx's Blog",
+    subtitle: "Marx Chou - A Noob Developer",
     description:
-        "Astro builds fast content sites, powerful web applications, dynamic server APIs, and everything in-between.",
-    keywords: "Astro, Theme, Yi",
+        "Welcome to Marx's Blog, where I share my journey as a noob developer. Here, you'll find insights, tutorials, and musings on programming, technology, and the challenges of learning to code. Join me as I navigate the world of software development and share my experiences along the way.",
+    keywords: "Marx's Blog, Marx Chou, noob developer, programming, technology, coding journey",
     favicon: "favicon.svg",
     logo: "logo.svg",
     coverImage: "cover.png",
-    coverImageAlt: "Spencer's Blog",
+    coverImageAlt: "Marx's Blog",
     url: "https://marxchou.com",
-    startYear: "2017",
+    startYear: "2020",
     beian: "萌ICP备20249889号",
     beianURL: "https://icp.gov.moe/?keyword=20249889",
 };
@@ -67,18 +59,10 @@ export const site: SiteConfig = {
  * 作者信息
  */
 export const author: AuthorConfig = {
-    type: "Spencer Woo",
+    type: "Marx Chou",
     url: "https://marxchou.com",
     motto: "阿巴阿巴 o((>ω< ))o",
     avatar: "author.jpg",
-};
-
-/**
- * Twitter配置
- */
-export const twitter: TwitterConfig = {
-    type: "@marxchou",
-    link: "@marxchou",
 };
 
 /**

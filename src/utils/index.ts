@@ -121,3 +121,6 @@ export function generateRandomString(length: number = 10): string {
 export function getRandomImageUrl(): string {
     return `${DEFAULT_IMAGE_SERVICE_URL}?${generateRandomString()}`;
 }
+
+// 导出 PhotoSwipe 工具函数
+export * from './photoswipe';
