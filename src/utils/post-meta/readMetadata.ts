@@ -54,7 +54,7 @@ export function readMetadata(postId: string) {
  * @returns 第二个分隔符的索引
  */
 export function findSecondDash(text: string): number {
-    const dashPattern = /---/g;
+    const dashPattern = /^---\s*$/gm;
     let match: RegExpExecArray | null;
     let count = 0;
     while ((match = dashPattern.exec(text)) !== null) {

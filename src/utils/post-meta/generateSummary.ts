@@ -156,7 +156,8 @@ export function generateSummary(markdownContent: string): string {
         // 降级处理：使用简单的文本处理
         const cleanedText = markdownContent
             .replace(/```[\s\S]*?```/g, "")
-            .replace(/^\s*\|.*\|$/gm, "") // 移除表格行（允许前导空格）
+            .replace(/^\s*\|.*\|?\s*$/gm, "") // 移除表格行（允许前导空格，结尾|可选）
+            .replace(/^\s*.*:[-]+.*$/gm, "") // 移除包含表格对齐语法的行（如 :---, ---:, :---:）
             .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
             .replace(/[#*_`~>=]+/g, "")
             .replace(/\s+/g, " ")
