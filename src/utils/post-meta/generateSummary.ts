@@ -7,7 +7,7 @@ import { JSDOM } from "jsdom";
  * @returns 生成的摘要
  */
 export function generateSummary(markdownContent: string): string {
-    const excerpt_length = 160;
+    const excerptLength = 160;
     const separators = [
         "。",
         "，",
@@ -22,6 +22,51 @@ export function generateSummary(markdownContent: string): string {
         "?",
         "？",
     ];
+
+    /**
+     * 截取文本到指定长度，并在句子边界结束
+     */
+    function truncateToExcerpt(
+        text: string,
+        maxLength: number,
+        separators: string[],
+    ): string {
+        let output = "";
+        let len = 0;
+        let i = 0;
+
+        // 跳过开头的空白字符
+        while (i < text.length && /\s/.test(text[i])) {
+            i++;
+        }
+
+        // 按照长度截取文本
+        while (len < maxLength && i < text.length) {
+            const char = text[i];
+            output += char;
+            const codePoint = text.codePointAt(i);
+            len += codePoint && codePoint > 255 ? 2 : 1;
+            i++;
+        }
+
+        // 确保摘要在句子边界结束
+        let outputUntil = output.length;
+        for (i = output.length - 1; i >= 0; i--) {
+            const char = output[i];
+            if (char && separators.includes(char)) {
+                outputUntil = i + 1;
+                break;
+            }
+        }
+
+        // 生成最终摘要
+        let finalExcerpt = output.substring(0, outputUntil).trim();
+        if (finalExcerpt.length < output.length) {
+            finalExcerpt += "...";
+        }
+
+        return finalExcerpt;
+    }
 
     try {
         // 1. 将Markdown转换为HTML
@@ -113,43 +158,8 @@ export function generateSummary(markdownContent: string): string {
         // 5. 清理文本，移除多余空格
         const cleanedText = textContent.replace(/\s+/g, " ").trim();
 
-        // 6. 生成摘要
-        let output = "";
-        let len = 0;
-        let i = 0;
-
-        // 跳过开头的空白字符
-        while (i < cleanedText.length && /\s/.test(cleanedText[i])) {
-            i++;
-        }
-
-        // 按照长度截取文本
-        while (len < excerpt_length && i < cleanedText.length) {
-            const char = cleanedText[i];
-            output += char;
-            // 安全地处理codePointAt可能返回undefined的情况
-            const codePoint = cleanedText.codePointAt(i);
-            len += codePoint && codePoint > 255 ? 2 : 1;
-            i++;
-        }
-
-        // 7. 确保摘要在句子边界结束
-        let output_until = output.length;
-        for (i = output.length - 1; i >= 0; i--) {
-            const char = output[i];
-            if (char && separators.includes(char)) {
-                output_until = i + 1;
-                break;
-            }
-        }
-
-        // 8. 生成最终摘要
-        let finalExcerpt = output.substring(0, output_until).trim();
-        if (finalExcerpt.length < output.length) {
-            finalExcerpt += "...";
-        }
-
-        return finalExcerpt;
+        // 6. 使用公共函数生成摘要
+        return truncateToExcerpt(cleanedText, excerptLength, separators);
     } catch (error) {
         console.error("Error generating excerpt from markdown:", error);
 
@@ -163,32 +173,6 @@ export function generateSummary(markdownContent: string): string {
             .replace(/\s+/g, " ")
             .trim();
 
-        let output = "";
-        let len = 0;
-        let i = 0;
-
-        while (len < excerpt_length && i < cleanedText.length) {
-            const char = cleanedText[i];
-            output += char;
-            const codePoint = cleanedText.codePointAt(i);
-            len += codePoint && codePoint > 255 ? 2 : 1;
-            i++;
-        }
-
-        let output_until = output.length;
-        for (i = output.length - 1; i >= 0; i--) {
-            const char = output[i];
-            if (char && separators.includes(char)) {
-                output_until = i + 1;
-                break;
-            }
-        }
-
-        let finalExcerpt = output.substring(0, output_until).trim();
-        if (finalExcerpt.length < output.length) {
-            finalExcerpt += "...";
-        }
-
-        return finalExcerpt;
+        return truncateToExcerpt(cleanedText, excerptLength, separators);
     }
 }

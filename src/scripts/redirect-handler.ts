@@ -73,9 +73,7 @@ function initRedirectHandler() {
 
             // 使用 TextEncoder 将 Unicode URL（含中文）安全转为 Base64
             const bytes = new TextEncoder().encode(linkHref);
-            const encodedHref = btoa(
-                Array.from(bytes, (b) => String.fromCharCode(b)).join(""),
-            );
+            const encodedHref = btoa(String.fromCharCode(...bytes));
             const urlSafeEncodedHref = encodedHref
                 .replace(/\+/g, "-")
                 .replace(/\//g, "_")
@@ -95,9 +93,27 @@ function initRedirectHandler() {
             svgIcon.setAttribute("height", "16");
             svgIcon.setAttribute("viewBox", "0 0 100 100");
             svgIcon.setAttribute("fill", "currentColor");
-            svgIcon.innerHTML =
-                `<path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path>` +
-                `<polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon>`;
+            const path = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "path",
+            );
+            path.setAttribute("fill", "currentColor");
+            path.setAttribute(
+                "d",
+                "M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z",
+            );
+            svgIcon.appendChild(path);
+
+            const polygon = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "polygon",
+            );
+            polygon.setAttribute("fill", "currentColor");
+            polygon.setAttribute(
+                "points",
+                "45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9",
+            );
+            svgIcon.appendChild(polygon);
             link.appendChild(svgIcon);
         });
     } catch (error) {

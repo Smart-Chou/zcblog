@@ -13,10 +13,6 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# ENV
-.env
-.env.test
-
 # camera picture
 camera-picture/
 

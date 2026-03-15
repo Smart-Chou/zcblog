@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import MarkdwonLayout from "~/layouts/MarkdwonLayout.astro";
+import MarkdownLayout from "~/layouts/MarkdownLayout.astro";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
 export async function getStaticPaths() {
@@ -27,11 +27,11 @@ const readTime = postMeta.readTime;
 const wordCount = postMeta.wordCount;
 ---
 
-<MarkdwonLayout
+<MarkdownLayout
     frontmatter={entry.data}
     modifiedTime={modifiedTime}
     readTime={readTime}
     wordCount={wordCount}
 >
     <Content />
-</MarkdwonLayout>
+</MarkdownLayout>

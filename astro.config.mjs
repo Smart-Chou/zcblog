@@ -73,10 +73,15 @@ export default defineConfig({
             },
         },
     },
-    domains: ["avatars.githubusercontent.com"],
+    domains: ["avatars.githubusercontent.com", "pic.mcc.im"],
     remotePatterns: [
         {
             protocol: "https",
+            hostname: "avatars.githubusercontent.com",
+        },
+        {
+            protocol: "https",
+            hostname: "pic.mcc.im",
         },
     ],
     trailingSlash: "always",

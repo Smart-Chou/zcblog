@@ -127,7 +127,7 @@ export const search: SearchConfig = {
  * 统计配置
  */
 export const umami: UmamiConfig = {
-    enable: true,
+    enable: !!import.meta.env.UMAMI_ID,
     umamiBaseUrl: "https://umami.marxchou.com",
-    umamiId: import.meta.env.UMAMI_ID || "73b29141-fccf-4d54-9c2f-f7d0d146f86b",
+    umamiId: import.meta.env.UMAMI_ID || "",
 };
