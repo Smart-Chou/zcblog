@@ -3,7 +3,7 @@ title: WechatExporter
 description: WechatExporter
 pubDate: 2022-02-13
 image:
-  url: 'https://pic.mcc.im/images?T5yQ8d'
+  url: 'https://pic.marxchou.com/api/random?T5yQ8d'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - WechatExporter

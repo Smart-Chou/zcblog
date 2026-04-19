@@ -4,7 +4,7 @@ description: Handsome 美化记录
 pubDate: 2021-02-23
 category: 日常
 image:
-  url: 'https://pic.mcc.im/images?B7d5nY'
+  url: 'https://pic.marxchou.com/api/random?B7d5nY'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Handsome

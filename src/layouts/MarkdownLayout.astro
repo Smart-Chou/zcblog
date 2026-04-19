@@ -38,9 +38,9 @@ const publishedDays = Math.floor(
 const allPosts = await getCollection("article");
 const currentSlug = Astro.params.slug;
 
-const imageUrl = frontmatter.image?.url || "https://pic.mcc.im/images";
+const imageUrl = frontmatter.image?.url || "https://pic.marxchou.com/api/random";
 const imageAlt = frontmatter.image?.alt || "Blog Cover";
-const isDefaultImage = /^https:\/\/pic\.mcc\.im\/images(\?.*)?$/.test(imageUrl);
+const isDefaultImage = /^https:\/\/pic\.marxchou\.com\/api\/random(\?.*)?$/.test(imageUrl);
 const isRemoteImage = /^https?:\/\//.test(imageUrl);
 ---
 

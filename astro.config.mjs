@@ -73,7 +73,7 @@ export default defineConfig({
             },
         },
     },
-    domains: ["avatars.githubusercontent.com", "pic.mcc.im"],
+    domains: ["avatars.githubusercontent.com", "pic.marxchou.com"],
     remotePatterns: [
         {
             protocol: "https",
@@ -81,7 +81,7 @@ export default defineConfig({
         },
         {
             protocol: "https",
-            hostname: "pic.mcc.im",
+            hostname: "pic.marxchou.com",
         },
     ],
     trailingSlash: "always",

@@ -3,7 +3,7 @@ title: 用TiddlyWiki作为个人知识管理系统
 description: 用TiddlyWiki替代Notion和EverNote作为个人知识管理系统
 pubDate: 2021-10-24
 image:
-  url: 'https://pic.mcc.im/images?5mY1pQ'
+  url: 'https://pic.marxchou.com/api/random?5mY1pQ'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Tiddywiki

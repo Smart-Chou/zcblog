@@ -3,7 +3,7 @@ title: Windows 常见问题
 description: Windows 常见问题
 pubDate: 2021-08-30
 image:
-  url: 'https://pic.mcc.im/images?9rK1vW'
+  url: 'https://pic.marxchou.com/api/random?9rK1vW'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Windows

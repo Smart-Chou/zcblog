@@ -4,7 +4,7 @@ description: expressive-code 官网摘抄的相关使用说明
 pubDate: 2024-06-14
 tags: ['expressive-code']
 image:
-  url: 'https://pic.mcc.im/images?rP6sA8'
+  url: 'https://pic.marxchou.com/api/random?rP6sA8'
   alt: 'wait-this-is-not-my-commit'
 sticky: 0
 waline: false

@@ -96,7 +96,7 @@ export function generateTagCloud(posts: Post[]): TagCloudItem[] {
     return result;
 }
 
-const DEFAULT_IMAGE_SERVICE_URL = "https://pic.mcc.im/images";
+const DEFAULT_IMAGE_SERVICE_URL = "https://pic.marxchou.com/api/random";
 
 /**
  * 生成指定长度的随机字符串
