@@ -3,7 +3,7 @@ title: 驰为Hi8安装Debian Linux
 description: 驰为Hi8安装Debian Linux
 pubDate: 2021-10-04
 image:
-  url: 'https://pic.marxchou.com/api/random?9wQ2fL'
+  url: 'https://pic-api.marxchou.com/api/random?9wQ2fL'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Linux

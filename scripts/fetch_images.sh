@@ -9,7 +9,7 @@ echo '{"images":[]}' > "$output_file"
 # 循环请求每一页并合并结果
 for ((page=1; page<=total_pages; page++)); do
   echo "Fetching page $page..."
-  curl -s -X GET "https://pic.marxchou.com/api/images?page=$page" \
+  curl -s -X GET "https://pic-api.marxchou.com/api/images?page=$page" \
     -H "Authorization: Bearer $api_key" \
     | jq '.images' > "page_$page.json"
 

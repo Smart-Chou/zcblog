@@ -3,7 +3,7 @@ title: 重置网络
 description: 重置网络
 pubDate: 2022-01-17
 image:
-  url: 'https://pic.marxchou.com/api/random?xV2L4k'
+  url: 'https://pic-api.marxchou.com/api/random?xV2L4k'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - 重置网络

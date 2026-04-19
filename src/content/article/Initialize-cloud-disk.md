@@ -3,7 +3,7 @@ title: 初始化云硬盘
 description: 初始化云硬盘
 pubDate: 2021-11-30
 image:
-  url: 'https://pic.marxchou.com/api/random?zK8pL2'
+  url: 'https://pic-api.marxchou.com/api/random?zK8pL2'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - 云硬盘

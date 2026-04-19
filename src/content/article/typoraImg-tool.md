@@ -3,7 +3,7 @@ title: Typora直传图片文件方案
 description: Typora直传图片文件方案
 pubDate: 2020-12-28
 image:
-  url: 'https://pic.marxchou.com/api/random?wK3d9A'
+  url: 'https://pic-api.marxchou.com/api/random?wK3d9A'
   alt: 'wait-this-is-not-my-commit'
 tags:
   - Typora
