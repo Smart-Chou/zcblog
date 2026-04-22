@@ -8,6 +8,7 @@ import Favicon from "~/components/BaseHead/Favicon.astro";
 import JsonLd from "~/components/BaseHead/JsonLd.astro";
 import Analytics from "~/components/BaseHead/Analytics.astro";
 import Scripts from "~/components/BaseHead/Scripts.astro";
+import KatexManager from "~/components/KatexManager.astro";
 import { ClientRouter } from "astro:transitions";
 import "~/styles/global.css";
 
@@ -309,6 +310,7 @@ const {
         modifiedTime={modifiedTime}
     />
     <Analytics />
+    <KatexManager />
     <Scripts mathjax={mathjax} mermaid={mermaid} />
     <ClientRouter fallback="animate" />
 

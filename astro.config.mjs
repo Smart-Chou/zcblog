@@ -16,6 +16,10 @@ import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-s
 import partytown from "@astrojs/partytown";
 import redirectAttributeByLink from "./src/integrations/redirect.ts";
 import playformInline from "@playform/inline";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import astroVtBot from "astro-vtbot";
+import katex from "katex";
 
 // 加载环境变量
 const env = loadEnv("", process.cwd(), "");
@@ -29,6 +33,7 @@ export default defineConfig({
     // },
     markdown: {
         remarkPlugins: [
+            remarkMath,
             remarkDeruntify,
             resetRemark,
             remarkDirective,
@@ -36,6 +41,7 @@ export default defineConfig({
             remarkGfm, // 扩展MDX语法支持GitHub Flavored Markdown
         ],
         rehypePlugins: [
+            [rehypeKatex, { katex }],
             rehypeSlug, // 标题添加ID
             [rehypeAutolinkHeadings, { behavior: "append" }], // 标题添加锚点
         ],
@@ -64,6 +70,9 @@ export default defineConfig({
         }),
         partytown(),
         playformInline(),
+        astroVtBot({
+            viewTransitionsFallback: "animate",
+        }),
     ],
     image: {
         service: {
@@ -122,7 +131,7 @@ export default defineConfig({
                         if (id.includes("node_modules")) {
                             if (id.includes("@waline")) return "waline";
                             if (id.includes("astro-icon")) return "icons";
-                            if (id.includes("nprogress")) return "nprogress";
+                            if (id.includes("lenis")) return "lenis";
                             return "vendor";
                         }
                     },

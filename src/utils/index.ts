@@ -122,5 +122,5 @@ export function getRandomImageUrl(): string {
     return `${DEFAULT_IMAGE_SERVICE_URL}?${generateRandomString()}`;
 }
 
-// 导出 PhotoSwipe 工具函数
-export * from "./photoswipe";
+// 导出 Fancybox 工具函数
+export * from "./fancybox";

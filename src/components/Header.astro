@@ -7,6 +7,7 @@ const { searchEnable = search.enable } = Astro.props;
 ---
 
 <header id="nprogress-container" role="banner">
+    <div class="scroll-progress"></div>
     <div class="fullwidth">
         <div class="header__left">
             <Logo />
@@ -20,57 +21,34 @@ const { searchEnable = search.enable } = Astro.props;
 </header>
 
 <script>
-    // @ts-ignore 忽略类型检查，因为 nprogress 没有类型定义文件
-    import NProgress from "nprogress";
+    import Lenis from "lenis";
+
+    const lenis = new Lenis({
+        autoRaf: true,
+        lerp: 0.1,
+        smoothWheel: true,
+    });
 
     document.addEventListener("astro:page-load", () => {
-        NProgress.configure({
-            easing: "ease",
-            speed: 500,
-            showSpinner: false,
-            parent: "#nprogress-container",
+        lenis.on("scroll", ({ progress }: { progress: number }) => {
+            const progressBar = document.querySelector<HTMLElement>(".scroll-progress");
+            if (progressBar) {
+                progressBar.style.width = `${progress * 100}%`;
+            }
         });
-        NProgress.set(0.1);
-        NProgress.done();
     });
 </script>
 
 <style>
-    #nprogress {
-        pointer-events: none;
-    }
-
-    #nprogress .bar {
+    .scroll-progress {
         background: var(--accent-color);
         position: fixed;
         z-index: 1031;
         top: 0;
         left: 0;
-        width: 100%;
         height: 2px;
-    }
-
-    #nprogress .peg {
-        display: none;
-        position: absolute;
-        right: 0;
-        width: 100px;
-        height: 100%;
-        box-shadow:
-            0 0 10px var(--accent-color),
-            0 0 5px var(--accent-color);
-        opacity: 1;
-        transform: rotate(3deg) translateY(-4px);
-    }
-
-    .nprogress-custom-parent {
-        overflow: hidden;
-        position: relative;
-    }
-
-    .nprogress-custom-parent #nprogress .bar,
-    .nprogress-custom-parent #nprogress .spinner {
-        position: absolute;
+        width: 0%;
+        transition: width 0.1s ease-out;
     }
 
     #nprogress-container {

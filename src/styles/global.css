@@ -1,9 +1,9 @@
 /* @import url(https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&Inter:wght@400;600&family=Rubik:wght@400;600&display=swap); */
 
 /* 声明级联层顺序（CSS Cascade Layers）：越靠后优先级越高 */
-@layer reset, variables, base, typography, components;
+@layer reset, variables, base, typography, components, custom;
 
-/* 正确顺序：reset → variables → base → typography → components */
+/* 正确顺序：reset → variables → base → typography → components → custom */
 @import url(./reset.css) layer(reset);
 @import url(./variables.css) layer(variables);
 @import url(./base.css) layer(base);
@@ -16,5 +16,5 @@
 @import url(./search-global.css);
 /* View Transitions 页面切换动画 */
 @import url(./transitions.css);
-/* PhotoSwipe 主题样式覆盖 */
-@import url(./photoswipe-overrides.css);
+/* Fancybox 主题样式覆盖 */
+@import url(./fancybox-overrides.css);

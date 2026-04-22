@@ -51,7 +51,7 @@ if (!album) {
             </div>
         </div>
 
-        <div class="photos-grid" id="photoswipe-gallery">
+        <div class="photos-grid" id="fancybox-gallery">
             {
                 album.photos.map((photo, index) => (
                     <a
@@ -218,6 +218,6 @@ if (!album) {
 </style>
 
 <script>
-    // 导入相册 PhotoSwipe 初始化脚本
-    import "~/scripts/photoswipe-album.ts";
+    // 导入相册 Fancybox 初始化脚本
+    import "~/scripts/fancybox-album.ts";
 </script>
