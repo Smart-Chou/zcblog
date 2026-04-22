@@ -198,6 +198,26 @@ const dataAttributes: DOMStringMap = {
                             );
                         },
                     });
+
+                    // Add id and name attributes to the search input for better accessibility
+                    const searchInput =
+                        (
+                            searchElement as Element
+                        ).querySelector<HTMLInputElement>(
+                            ".pagefind-ui__search-input",
+                        ) ||
+                        (
+                            searchElement as Element
+                        ).querySelector<HTMLInputElement>(
+                            'input[type="search"]',
+                        ) ||
+                        (
+                            searchElement as Element
+                        ).querySelector<HTMLInputElement>("input");
+                    if (searchInput) {
+                        searchInput.id = "starlight__search-input";
+                        (searchInput as HTMLInputElement).name = "q";
+                    }
                 } catch (error) {
                     console.error("Failed to initialize PagefindUI:", error);
                 }

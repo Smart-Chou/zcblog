@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { generateSummary } from "../generateSummary";
+import { generateSummary } from "~/utils/post-meta/generateSummary";
 
 describe("generateSummary", () => {
     test("should generate summary for simple text", () => {

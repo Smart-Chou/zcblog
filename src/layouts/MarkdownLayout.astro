@@ -24,6 +24,7 @@ const {
         mathjax: false,
         mermaid: false,
     },
+    slug,
     modifiedTime,
     readTime,
     wordCount,
@@ -38,16 +39,22 @@ const publishedDays = Math.floor(
 const allPosts = await getCollection("article");
 const currentSlug = Astro.params.slug;
 
-const imageUrl = frontmatter.image?.url || "https://pic-api.marxchou.com/api/random";
+const imageUrl = frontmatter.image?.url || getRandomImageUrl();
 const imageAlt = frontmatter.image?.alt || "Blog Cover";
-const isDefaultImage = /^https:\/\/pic\.marxchou\.com\/api\/random(\?.*)?$/.test(imageUrl);
+// OG 图片：开发模式用随机图fallback，生产环境用动态生成的png
+const ogImage =
+    import.meta.env.DEV || import.meta.env.PREVIEW
+        ? imageUrl
+        : `${Astro.site}og/${slug}.png`;
+const isDefaultImage =
+    /^https:\/\/pic\.marxchou\.com\/api\/random(\?.*)?$/.test(imageUrl);
 const isRemoteImage = /^https?:\/\//.test(imageUrl);
 ---
 
 <BaseLayout
     title={`${frontmatter.title} - ${site.title}`}
     description={`${frontmatter.title} - ${frontmatter.description}`}
-    image={`${Astro.site}${imageUrl}`}
+    image={ogImage}
     imageAlt={imageAlt}
     keywords={frontmatter.tags}
     publishedTime={publishedTime}

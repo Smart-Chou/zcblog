@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import utc from "dayjs/plugin/utc";
-import { config } from "../self.config";
+import { config } from "~/self.config";
 
 dayjs.locale(config.lang);
 dayjs.extend(advancedFormat);

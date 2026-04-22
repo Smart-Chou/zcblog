@@ -55,7 +55,6 @@ export async function initDynamicFancybox(
     options: Partial<FancyboxOptions> = {},
 ): Promise<void> {
     const debug = options.debug ?? !isProduction();
-    const config = { ...DEFAULT_OPTIONS, ...options, debug };
 
     try {
         if (debug) console.log("初始化动态扫描模式 Fancybox");
@@ -63,24 +62,39 @@ export async function initDynamicFancybox(
         const content = document.querySelector(contentSelector);
         if (!content) return;
 
+        // 为图片添加 data-fancybox 属性
         const images = content.querySelectorAll<HTMLImageElement>("img");
         if (images.length === 0) return;
 
         if (debug) console.log(`找到 ${images.length} 张图片`);
 
-        // 设置图片点击事件
-        images.forEach((img, index) => {
+        // 为每张图片包装一个链接，并添加 data-fancybox 属性
+        images.forEach((img) => {
+            // 如果已经有父级链接，跳过
+            if (img.closest("a")) return;
+
             img.style.cursor = "zoom-in";
 
-            img.addEventListener("click", async (e) => {
-                e.preventDefault();
-                const { Fancybox } = await import("@fancyapps/ui");
-                Fancybox.show({
-                    src: img.src,
-                    type: "image",
-                });
-            });
+            // 创建链接包装
+            const link = document.createElement("a");
+            link.href = img.src;
+            link.setAttribute("data-fancybox", "gallery");
+            link.setAttribute("data-caption", img.alt || "");
+            link.style.display = "contents";
+
+            // 将图片插入到链接中
+            img.parentNode?.insertBefore(link, img);
+            link.appendChild(img);
         });
+
+        // 使用 Fancybox.bind 绑定
+        const { Fancybox } = await import("@fancyapps/ui");
+        Fancybox.bind(contentSelector + " img[src]", {
+            groupAll: true,
+            Carousel: { transition: "slide" },
+        });
+
+        if (debug) console.log("Fancybox 绑定完成");
     } catch (error) {
         console.error("初始化动态 Fancybox 时出错:", error);
     }
