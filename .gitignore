@@ -21,16 +21,22 @@ compress-and-upload-r2.sh
 scripts/parse_r2_files.py
 
 # Astro cache
-.astro
+.astro/
 
 # Trae
-.trae
+.trae/
+
+# Vercel
+.vercel/
+
+# VSCode
+.vscode/
 
 # Vite cache
-.vite-cache
+.vite-cache/
 
 # Claude
-.claude
+.claude/
 
 # pageinsight
 .pageinsight
@@ -48,3 +54,5 @@ scripts/parse_r2_files.py
 /blob-report/
 /playwright/.cache/
 /tests-examples/
+
+codeFather/
