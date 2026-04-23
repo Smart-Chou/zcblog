@@ -133,7 +133,7 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
             <div class="post-tags post-card__tags">
                 {
                     frontmatter.tags.map((tag: string) => (
-                        <PostTag tag={tag} url={`/tag/${tag}/`} />
+                        <PostTag tag={tag} url={`/tags/${tag}/`} />
                     ))
                 }
             </div>

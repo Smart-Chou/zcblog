@@ -2,3 +2,4 @@
 export * from "./readMetadata";
 export * from "./generateSummary";
 export * from "./calculateStats";
+export { findSecondDash } from "./readMetadata";
