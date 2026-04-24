@@ -95,7 +95,7 @@ const { page } = Astro.props;
                 pageNumber < endPage + 1;
                 pageNumber++
             ) {
-                const href = pageNumber === 1 ? "/" : `/${pageNumber}/`;
+                const href = `/blog/${pageNumber}/`;
                 pages.push(
                     <a
                         data-key={`page-${pageNumber}`}

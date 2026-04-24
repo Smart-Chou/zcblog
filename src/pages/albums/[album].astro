@@ -3,49 +3,49 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 import { site } from "~/self.config";
 
 // 从JSON文件引入相册数据
-import albumData from "~/data/albums.json";
+import albumsJson from "~/data/albums.json";
 
-const { albums } = albumData;
+const { albums } = albumsJson;
 
 // 为动态路由生成静态路径
 export async function getStaticPaths() {
     // 在函数内部动态导入相册数据
-    const albumData = await import("~/data/albums.json");
-    const { albums } = albumData;
+    const data = await import("~/data/albums.json");
+    const { albums } = data;
 
     // 根据相册数据生成所有路径
     return albums.map((album) => ({
-        params: { id: album.id },
+        params: { album: album.id },
     }));
 }
 
-const { id } = Astro.params;
-const album = albums.find((album) => album.id === id);
+const { album } = Astro.params;
+const foundAlbum = albums.find((a) => a.id === album);
 
-if (!album) {
+if (!foundAlbum) {
     return Astro.redirect("/albums");
 }
 ---
 
 <BaseLayout
-    title={`${album.title} - 相册`}
-    description={site.title + ` - ` + album.description}
-    image={album.coverImage}
-    imageAlt={album.title}
-    keywords={`${album.title},相册,照片`}
-    publishedTime={new Date(album.createdAt)}
-    modifiedTime={new Date(album.updatedAt)}
+    title={`${foundAlbum.title} - 相册`}
+    description={site.title + ` - ` + foundAlbum.description}
+    image={foundAlbum.coverImage}
+    imageAlt={foundAlbum.title}
+    keywords={`${foundAlbum.title},相册,照片`}
+    publishedTime={new Date(foundAlbum.createdAt)}
+    modifiedTime={new Date(foundAlbum.updatedAt)}
 >
     <div class="album-detail-container">
         <div class="album-header">
             <a href="/albums/" class="back-link">← 返回相册列表</a>
-            <h1 class="album-title">{album.title}</h1>
-            <p class="album-description">{album.description}</p>
+            <h1 class="album-title">{foundAlbum.title}</h1>
+            <p class="album-description">{foundAlbum.description}</p>
             <div class="album-meta">
-                <span class="photo-count">{album.photos.length} 张照片</span>
+                <span class="photo-count">{foundAlbum.photos.length} 张照片</span>
                 <span class="updated-time"
                     >更新于 {
-                        new Date(album.updatedAt).toLocaleDateString()
+                        new Date(foundAlbum.updatedAt).toLocaleDateString()
                     }</span
                 >
             </div>
@@ -53,7 +53,7 @@ if (!album) {
 
         <div class="photos-grid" id="fancybox-gallery">
             {
-                album.photos.map((photo, index) => (
+                foundAlbum.photos.map((photo, index) => (
                     <a
                         href={photo.url}
                         class="photo-item"
