@@ -22,6 +22,8 @@ import astroVtBot from "astro-vtbot";
 import katex from "katex";
 
 // 加载环境变量
+import tailwindcss from "@tailwindcss/vite";
+
 const env = loadEnv("", process.cwd(), "");
 
 // https://astro.build/config
@@ -100,6 +102,9 @@ export default defineConfig({
         concurrency: 4, // 并行构建提升速度
     },
     vite: {
+        plugins: [
+            tailwindcss(),
+        ],
         define: {
             // 暴露环境变量到客户端
             "process.env.PUBLIC_SITE_URL": JSON.stringify(

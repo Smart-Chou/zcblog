@@ -20,6 +20,14 @@ import GhosteryIcon from "./Ghostery.astro";
 import WechatPayIcon from "./WechatPay.astro";
 import AlipayIcon from "./Alipay.astro";
 import PaypalIcon from "./Paypal.astro";
+import TypeScriptIcon from "./TypeScript.astro";
+import ReactIcon from "./React.astro";
+import TailwindIcon from "./Tailwind.astro";
+import NextJsIcon from "./NextJs.astro";
+import FramerIcon from "./Framer.astro";
+import VSCodeIcon from "./VSCode.astro";
+import FigmaIcon from "./Figma.astro";
+import ExternalLinkIcon from "./ExternalLink.astro";
 
 const { name, ...props } = Astro.props;
 
@@ -46,6 +54,14 @@ const iconMap: Record<string, any> = {
     "mingcute:wechat-pay-line": WechatPayIcon,
     "simple-icons:alipay": AlipayIcon,
     "simple-icons:paypal": PaypalIcon,
+    "tabler:brand-typescript": TypeScriptIcon,
+    "tabler:brand-react": ReactIcon,
+    "tabler:brand-tailwind": TailwindIcon,
+    "tabler:brand-nextjs": NextJsIcon,
+    "tabler:framer": FramerIcon,
+    "tabler:brand-vscode": VSCodeIcon,
+    "tabler:brand-figma": FigmaIcon,
+    "tabler:external-link": ExternalLinkIcon,
 };
 
 const IconComponent = iconMap[name];

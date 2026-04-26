@@ -1,0 +1,46 @@
+---
+const footerLinks = [
+    {
+        title: "Explore",
+        links: [
+            { label: "Projects", url: "/projects" },
+            { label: "Blog", url: "/blog" },
+            { label: "About", url: "/about" },
+        ],
+    },
+    {
+        title: "Connect",
+        links: [
+            { label: "Twitter", url: "https://twitter.com/marxchou", external: true },
+            { label: "GitHub", url: "https://github.com/zcily", external: true },
+            { label: "Email", url: "mailto:marxchou@email.com" },
+        ],
+    },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-about">
+            <h3>About</h3>
+            <p> Marx Chou. Creating digital experiences with focus on design and usability. </p>
+        </div>
+        <div class="footer-links">
+            {footerLinks.map(group => (
+                <div class="footer-link-group">
+                    <h4>{group.title}</h4>
+                    {group.links.map(link => (
+                        <a href={link.url} target={link.external ? "_blank" : undefined} rel={link.external ? "noopener" : undefined}>
+                            {link.label}
+                        </a>
+                    ))}
+                </div>
+            ))}
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © {currentYear} Marx Chou. Built with Astro.
+    </div>
+</footer>

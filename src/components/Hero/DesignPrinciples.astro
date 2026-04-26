@@ -1,0 +1,31 @@
+---
+const designSections = [
+    {
+        title: "Clean & Intuitive",
+        subtitle: "Designs that speak louder.",
+        description: "User interfaces should be self-explanatory. Less documentation, more intuition.",
+    },
+    {
+        title: "Detail Oriented",
+        subtitle: "Details matter.",
+        description: "It's the small things that make a big difference. Pixel precision matters.",
+    },
+    {
+        title: "Code & Coffee",
+        subtitle: "Crafting digital experiences.",
+        description: "Translating design into functional, optimized code is my passion.",
+    },
+];
+---
+
+<section class="design-section">
+    <div class="content-wrapper">
+        {designSections.map(section => (
+            <div class="design-card">
+                <h2 class="design-title">{section.title}</h2>
+                <p class="design-subtitle">{section.subtitle}</p>
+                <p class="design-description">{section.description}</p>
+            </div>
+        ))}
+    </div>
+</section>

@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/* 基础主题配置 */
+@theme {
+  /* 颜色 */
+  --color-primary: oklch(0.6 0.18 250);
+  --color-primary-hover: oklch(0.5 0.18 250);
+  --color-secondary: oklch(0.55 0.18 350);
+  --color-secondary-hover: oklch(0.45 0.18 350);
+
+  /* accent 颜色 - 用于 Hero 组件 */
+  --color-accent-50: oklch(0.97 0.02 250);
+  --color-accent-100: oklch(0.93 0.04 250);
+  --color-accent-200: oklch(0.87 0.08 250);
+  --color-accent-300: oklch(0.78 0.14 250);
+  --color-accent-400: oklch(0.68 0.2 250);
+  --color-accent-500: oklch(0.6 0.18 250);
+  --color-accent-600: oklch(0.52 0.18 250);
+  --color-accent-700: oklch(0.44 0.16 250);
+  --color-accent-800: oklch(0.38 0.14 250);
+  --color-accent-900: oklch(0.32 0.1 250);
+
+  /* 字体 */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Rubik", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+/* 插件样式 */
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms" {
+  --form-input-radius: 0.375rem;
+}

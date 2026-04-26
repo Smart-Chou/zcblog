@@ -1,0 +1,22 @@
+---
+const techStack = [
+    "Figma",
+    "Framer",
+    "React",
+    "Next.js",
+    "Tailwind CSS",
+    "TypeScript",
+];
+---
+
+<div class="tech-stack">
+    <p class="tech-label">i build with</p>
+    <div class="tech-list">
+        {techStack.map((tech, index) => (
+            <>
+                <span class="tech-item">{tech}</span>
+                {index < techStack.length - 1 && <span class="tech-separator">·</span>}
+            </>
+        ))}
+    </div>
+</div>

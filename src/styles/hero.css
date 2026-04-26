@@ -1,0 +1,333 @@
+/* ========================================
+   Hero 组件样式 - 完全匹配 enji.dev
+   ======================================== */
+
+/* 页面容器 */
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 背景 */
+.hero-background {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: #0a0a0a;
+}
+
+@media (prefers-color-scheme: light) {
+    .hero-background {
+        background: #fafafa;
+    }
+}
+
+/* 主内容区域 */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6rem 1.5rem 4rem;
+}
+
+@media (min-width: 768px) {
+    .main-content {
+        padding: 8rem 2rem 6rem;
+    }
+}
+
+/* ========================================
+   Hero 内容
+   ======================================== */
+
+.hero-header {
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 4rem;
+}
+
+.hero-greeting {
+    font-size: 1.25rem;
+    color: #737373;
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fafafa;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+    .hero-title {
+        font-size: 4.5rem;
+    }
+}
+
+.hero-title .accent {
+    color: #a78bfa;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: #a1a1aa;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .hero-subtitle {
+        font-size: 1.75rem;
+    }
+}
+
+.hero-motto {
+    font-size: 1rem;
+    color: #737373;
+    max-width: 400px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+}
+
+.hero-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* 按钮样式 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #fafafa;
+    color: #0a0a0a;
+}
+
+.btn-primary:hover {
+    background: #e5e5e5;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #a1a1aa;
+    border: 1px solid #404040;
+}
+
+.btn-secondary:hover {
+    border-color: #737373;
+    color: #fafafa;
+}
+
+/* ========================================
+   Tech Stack
+   ======================================== */
+
+.tech-stack {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.tech-label {
+    font-size: 0.875rem;
+    color: #525252;
+    margin-bottom: 0.75rem;
+}
+
+.tech-list {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    color: #737373;
+}
+
+.tech-separator {
+    color: #404040;
+}
+
+/* ========================================
+   Design Section
+   ======================================== */
+
+.design-section {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 4rem;
+}
+
+.design-section .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+@media (min-width: 768px) {
+    .design-section .content-wrapper {
+        flex-direction: row;
+        gap: 2rem;
+    }
+}
+
+.design-card {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+.design-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #fafafa;
+    margin-bottom: 0.5rem;
+}
+
+.design-subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #a78bfa;
+    margin-bottom: 0.75rem;
+}
+
+.design-description {
+    font-size: 0.875rem;
+    color: #737373;
+    line-height: 1.6;
+}
+
+/* 亮色主题适配 */
+@media (prefers-color-scheme: light) {
+    .hero-title {
+        color: #171717;
+    }
+
+    .hero-subtitle {
+        color: #404040;
+    }
+
+    .design-title {
+        color: #171717;
+    }
+
+    .design-subtitle {
+        color: #7c3aed;
+    }
+
+    .btn-primary {
+        background: #171717;
+        color: #fafafa;
+    }
+
+    .btn-primary:hover {
+        background: #404040;
+    }
+
+    .btn-secondary {
+        border-color: #d4d4d4;
+        color: #404040;
+    }
+
+    .btn-secondary:hover {
+        border-color: #404040;
+    }
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+
+.site-footer {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid #262626;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}
+
+.footer-about {
+    text-align: center;
+    flex: 1;
+}
+
+@media (min-width: 768px) {
+    .footer-about {
+        text-align: left;
+    }
+}
+
+.footer-about h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fafafa;
+    margin-bottom: 0.5rem;
+}
+
+.footer-about p {
+    font-size: 0.875rem;
+    color: #737373;
+    max-width: 250px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex: 1;
+}
+
+.footer-link-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-link-group h4 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #525252;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.footer-link-group a {
+    font-size: 0.875rem;
+    color: #a1a1aa;
+    text-decoration: none;
+}
+
+.footer-link-group a:hover {
+    color: #fafafa;
+}
+
+.footer-bottom {
+    font-size: 0.75rem;
+    color: #525252;
+    margin-top: 1rem;
+}

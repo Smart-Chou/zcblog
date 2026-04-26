@@ -90,9 +90,23 @@ hr:before {
     flex: 1;
 }
 
+.full-width .main {
+    padding: 0;
+}
+
 .content {
     max-width: var(--content-width);
     margin-inline: auto;
+}
+
+.content--full {
+    max-width: 100%;
+    margin-inline: 0;
+    padding: 0;
+}
+
+.full-width #app {
+    max-width: 100%;
 }
 
 /* 移动端优化 */

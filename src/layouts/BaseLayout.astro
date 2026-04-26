@@ -1,4 +1,5 @@
 ---
+import "~/styles/tailwind.css";
 import BaseHead from "~/components/BaseHead/BaseHead.astro";
 import Header from "~/components/Layout/Header.astro";
 import Footer from "~/components/Layout/Footer.astro";
@@ -13,6 +14,7 @@ const {
     modifiedTime,
     mathjax = false,
     mermaid = false,
+    hideHeader = false,
 } = Astro.props;
 ---
 
@@ -30,10 +32,10 @@ const {
         mermaid={mermaid}
     />
     <body>
-        <div id="app">
-            <Header />
+        <div id="app" class:list={[{ "full-width": hideHeader }]}>
+            {!hideHeader && <Header />}
             <main class="main">
-                <div class="content">
+                <div class:list={["content", { "content--full": hideHeader }]}>
                     <slot />
                 </div>
             </main>
