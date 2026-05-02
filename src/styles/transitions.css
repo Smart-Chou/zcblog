@@ -4,39 +4,16 @@
  * 配合 Astro 的 <ClientRouter>（View Transitions API）
  */
 
-/* 纯淡入淡出动画，避免 fixed 元素抖动 */
-@keyframes vt-fade-in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes vt-fade-out {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-
-/* 旧页面退出 */
-::view-transition-old(root) {
-    animation: vt-fade-out 0.2s ease-in forwards;
-}
-
-/* 新页面进入 */
+/* 禁用所有过渡动画，防止刷新时闪烁 */
+::view-transition-old(root),
 ::view-transition-new(root) {
-    animation: vt-fade-in 0.25s ease-out forwards;
+    animation: none !important;
 }
 
 /* 减少动效模式：尊重用户系统设置 */
 @media (prefers-reduced-motion: reduce) {
     ::view-transition-old(root),
     ::view-transition-new(root) {
-        animation: none;
+        animation: none !important;
     }
 }

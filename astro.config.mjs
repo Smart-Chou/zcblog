@@ -15,7 +15,6 @@ import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import partytown from "@astrojs/partytown";
 import redirectAttributeByLink from "./src/integrations/redirect.ts";
-import playformInline from "@playform/inline";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import astroVtBot from "astro-vtbot";
@@ -71,9 +70,8 @@ export default defineConfig({
             ],
         }),
         partytown(),
-        playformInline(),
         astroVtBot({
-            viewTransitionsFallback: "animate",
+            viewTransitionsFallback: "none",
         }),
     ],
     image: {

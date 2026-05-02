@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import Hero from "~/components/Hero/Hero.astro";
+import Author from "~/components/Feature/Author.astro";
 import PostCard from "~/components/Article/PostCard.astro";
 import Pagination from "~/components/Widget/Pagination.astro";
 import BackToTop from "~/components/Layout/BackToTop.astro";
@@ -65,7 +65,7 @@ const postsWithMeta = page.data;
     publishedTime={new Date()}
     modifiedTime={new Date()}
 >
-    <Hero />
+    <Author />
     <div class="post">
         {
             postsWithMeta.map((post: any, index: number) => (
