@@ -104,10 +104,20 @@ const dataAttributes: DOMStringMap = {
                 }
             };
 
+            let handleWheel: ((e: WheelEvent) => void) | null = null;
             const openModal = (event?: MouseEvent) => {
                 dialog.showModal();
                 document.body.toggleAttribute("data-search-modal-open", true);
                 event?.stopPropagation();
+
+                // 滚动穿透：当鼠标在 dialogFrame 内时阻止滚动传播，外部允许滚动
+                handleWheel = (e: WheelEvent) => {
+                    const target = e.target as HTMLElement;
+                    if (dialogFrame.contains(target)) {
+                        e.stopPropagation();
+                    }
+                };
+                dialog.addEventListener("wheel", handleWheel, { passive: true });
                 window.addEventListener("click", onClick);
 
                 // Ensure search input gets focus, even if PagefindUI initializes after modal opens
@@ -120,7 +130,15 @@ const dataAttributes: DOMStringMap = {
                 }, 100);
             };
 
-            const closeModal = () => dialog.close();
+            const closeModal = () => {
+                dialog.close();
+                document.body.toggleAttribute("data-search-modal-open", false);
+                window.removeEventListener("click", onClick);
+                if (handleWheel) {
+                    dialog.removeEventListener("wheel", handleWheel);
+                    handleWheel = null;
+                }
+            };
 
             openBtn.addEventListener("click", openModal);
             openBtn.disabled = false;
