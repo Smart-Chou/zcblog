@@ -244,18 +244,34 @@ import { donate } from "~/self.config";
             ".modal .modal-mask",
         ) as HTMLDivElement;
 
+        let scrollY = 0;
+
         // 显示模态框并禁止背景滚动
         rewardBtn.addEventListener("click", function () {
             modal.style.display = "flex";
-            document.body.style.overflow = "hidden";
-            document.body.style.height = "100vh";
+            // 只有在搜索对话框未打开时才禁止背景滚动
+            if (!document.documentElement.hasAttribute("data-search-modal-open")) {
+                scrollY = window.scrollY;
+                document.documentElement.style.overflow = "hidden";
+                document.body.style.position = "fixed";
+                document.body.style.width = "100%";
+                document.body.style.top = `-${scrollY}px`;
+                document.body.style.overflow = "hidden";
+            }
         });
 
         // 隐藏模态框并恢复背景滚动
         function hideModal() {
             modal.style.display = "none";
-            document.body.style.overflow = "";
-            document.body.style.height = "";
+            // 只有在搜索对话框未打开时才恢复背景滚动
+            if (!document.documentElement.hasAttribute("data-search-modal-open")) {
+                document.body.style.position = "";
+                document.body.style.width = "";
+                document.body.style.top = "";
+                document.documentElement.style.overflow = "";
+                document.body.style.overflow = "";
+                window.scrollTo(0, scrollY);
+            }
         }
 
         closeModal.addEventListener("click", hideModal);

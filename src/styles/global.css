@@ -1,15 +1,16 @@
 /* @import url(https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&Inter:wght@400;600&family=Rubik:wght@400;600&display=swap); */
 
 /* 声明级联层顺序（CSS Cascade Layers）：越靠后优先级越高 */
-@layer reset, variables, base, typography, components, custom;
+@layer reset, variables, base, typography, components, custom, tailwind;
 
-/* 正确顺序：reset → variables → base → typography → components → custom */
+/* 正确顺序：reset → variables → base → typography → components → custom → tailwind */
 @import url(./reset.css) layer(reset);
 @import url(./variables.css) layer(variables);
 @import url(./base.css) layer(base);
 @import url(./typography.css) layer(typography);
 @import url(./components.css) layer(components);
 @import url(./katex.css);
+/* @import url(./tailwind.css) layer(tailwind); */
 /* 搜索框样式（第三方，不分层，确保样式优先级正确） */
 @import url("@pagefind/default-ui/css/ui.css");
 @import url(./pagefind-props.css);
