@@ -73,3 +73,13 @@ html[data-theme="dark"] {
     --link-color: #2a89f5;
     --text-code: #df41ff;
 }
+
+/* Bangumi 状态颜色 */
+:root {
+    --status-wish: #ec4899;
+    --status-watched: #22c55e;
+    --status-watching: #f97316;
+    --status-on-hold: #eab308;
+    --status-dropped: #ef4444;
+    --status-unknown: #6b7280;
+}

@@ -37,6 +37,11 @@ const { tabs, activeTab } = Astro.props;
 				const el = section as HTMLElement;
 				el.style.display = el.getAttribute("data-section") === targetTab ? "block" : "none";
 			});
+
+			// 切换标签时重置分页到第一页
+			if (typeof (window as any).initPagination === "function") {
+				(window as any).initPagination();
+			}
 		}
 
 		tabButtons.forEach(button => {
@@ -47,11 +52,12 @@ const { tabs, activeTab } = Astro.props;
 		});
 	}
 
-	if (document.readyState === "loading") {
+		if (document.readyState === "loading") {
 		document.addEventListener("DOMContentLoaded", initTabNavigation);
 	} else {
 		initTabNavigation();
 	}
+	document.addEventListener("astro:page-load", initTabNavigation);
 </script>
 
 <style>

@@ -34,6 +34,8 @@ const filters = [
 	{ value: "on_hold", label: "搁置", count: statusCounts.on_hold || 0 },
 	{ value: "dropped", label: "抛弃", count: statusCounts.dropped || 0 },
 ].filter(f => f.value === "all" || f.count > 0);
+
+const totalPages = Math.ceil(items.length / itemsPerPage);
 ---
 
 <div class:list={["bangumi-section", { hidden: !isActive }]} data-section={sectionId}>
@@ -47,6 +49,13 @@ const filters = [
 					</div>
 				))}
 			</div>
+			{totalPages > 1 && (
+				<div class="pagination" data-section={sectionId}>
+					<button class="page-btn prev" disabled>上一页</button>
+					<span class="page-info"><span class="current-page">1</span> / <span class="total-pages">{totalPages}</span></span>
+					<button class="page-btn next">下一页</button>
+				</div>
+			)}
 		</>
 	) : (
 		<div class="empty-section">
@@ -82,4 +91,81 @@ const filters = [
 		color: var(--body-color);
 		opacity: 0.7;
 	}
+
+	.pagination {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
+		padding: 2rem 0;
+	}
+
+	.page-btn {
+		padding: 0.5rem 1rem;
+		border-radius: 8px;
+		background: var(--bg-content-color);
+		border: 1px solid var(--border-color);
+		color: var(--body-color);
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+	.page-btn:hover:not(:disabled) {
+		background: var(--link-color);
+		color: white;
+		border-color: var(--link-color);
+	}
+
+	.page-btn:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	.page-info {
+		font-size: 0.9rem;
+		color: var(--body-color);
+	}
 </style>
+
+<script>
+	function initPagination() {
+		document.querySelectorAll(".pagination").forEach((pagination) => {
+			const sectionId = pagination.getAttribute("data-section");
+			const grid = document.querySelector(`.bangumi-grid[data-section="${sectionId}"]`) || document.querySelector(`[data-section="${sectionId}"] .bangumi-grid`);
+			const items = grid?.querySelectorAll(".bangumi-item") || [];
+			const itemsPerPage = 12;
+			const totalPages = Math.ceil(items.length / itemsPerPage);
+			let currentPage = 1;
+
+			const prevBtn = pagination.querySelector(".prev") as HTMLButtonElement;
+			const nextBtn = pagination.querySelector(".next") as HTMLButtonElement;
+			const currentPageSpan = pagination.querySelector(".current-page");
+
+			function showPage(page: number) {
+				const start = (page - 1) * itemsPerPage;
+				const end = start + itemsPerPage;
+
+				items.forEach((item, index) => {
+					(item as HTMLElement).style.display = index >= start && index < end ? "" : "none";
+				});
+
+				currentPage = page;
+				if (currentPageSpan) currentPageSpan.textContent = String(page);
+				if (prevBtn) prevBtn.disabled = page <= 1;
+				if (nextBtn) nextBtn.disabled = page >= totalPages;
+			}
+
+			prevBtn?.addEventListener("click", () => {
+				if (currentPage > 1) showPage(currentPage - 1);
+			});
+
+			nextBtn?.addEventListener("click", () => {
+				if (currentPage < totalPages) showPage(currentPage + 1);
+			});
+		});
+	}
+
+	(window as any).initPagination = initPagination;
+	initPagination();
+	document.addEventListener("astro:page-load", initPagination);
+</script>
