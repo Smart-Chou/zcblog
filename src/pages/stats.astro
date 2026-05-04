@@ -196,7 +196,7 @@ function getTagColor(count: number): string {
 
 <script is:inline define:vars={{ postsData }}>
   function formatDate(date) {
-    return date.toISOString().split("T")[0];
+    return date.toISOString().split('T')[0];
   }
 
   function getClassForValue(count) {
@@ -222,122 +222,106 @@ function getTagColor(count: number): string {
 
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    // Month labels
-    const monthRow = document.createElement('div');
-    monthRow.className = 'heatmap-months';
+    // Data map
+    const dataMap = {};
+    postsData.forEach(p => {
+      dataMap[p.date] = p;
+    });
 
+    // Month labels - track which column each month starts
     const months = [];
     let currentDate = new Date(startDate);
     let lastMonth = -1;
+    let weekIndex = 0;
 
     while (currentDate <= today) {
       const month = currentDate.getMonth();
+
       if (month !== lastMonth) {
-        months.push({ month: monthNames[month], date: new Date(currentDate) });
+        months.push({ month: monthNames[month], col: weekIndex });
         lastMonth = month;
       }
+
       currentDate.setDate(currentDate.getDate() + 7);
+      weekIndex++;
     }
 
-    const numMonthsToShow = Math.min(months.length, 12);
-    const startMonthIndex = Math.max(0, months.length - numMonthsToShow);
-    for (let i = startMonthIndex; i < months.length; i++) {
+    // Month row with grid layout
+    const monthRow = document.createElement('div');
+    monthRow.className = 'heatmap-months';
+
+    months.forEach(({ month, col }) => {
       const span = document.createElement('span');
-      span.textContent = months[i].month;
+      span.textContent = month;
+      span.style.gridColumn = `${col + 1}`;
       monthRow.appendChild(span);
-    }
+    });
     container.appendChild(monthRow);
 
     // Wrapper with weekday labels and grid
     const wrapper = document.createElement('div');
     wrapper.className = 'heatmap-wrapper';
 
-    // Y-axis labels (weekdays)
+    // Y-axis labels (weekdays) with grid
     const yLabels = document.createElement('div');
     yLabels.className = 'heatmap-y-labels';
-    yLabels.innerHTML = '<span>Mon</span><span>&nbsp;</span><span>&nbsp;</span><span>Wed</span><span>&nbsp;</span><span>&nbsp;</span><span>Fri</span><span>&nbsp;</span><span>&nbsp;</span><span>Sun</span>';
+    yLabels.innerHTML = `
+  <span>Mon</span>
+  <span></span>
+  <span>Wed</span>
+  <span></span>
+  <span>Fri</span>
+  <span></span>
+  <span>Sun</span>
+`;
     wrapper.appendChild(yLabels);
 
     // Grid
     const grid = document.createElement('div');
     grid.className = 'heatmap-grid';
 
-    const rows = 7;
-    const cols = 53;
-    const cellMap = {};
-
-    const dataMap = {};
-    postsData.forEach(p => {
-      dataMap[p.date] = p;
-    });
-
+    // Only render dates from startDate to today
     currentDate = new Date(startDate);
-    let colIndex = 0;
-    let dayIndex = 0;
 
-    while (currentDate <= today && colIndex < cols) {
-      const dayOfWeek = currentDate.getDay();
+    while (currentDate <= today) {
+      const cell = document.createElement('div');
       const dateStr = formatDate(currentDate);
-
-      if (dayOfWeek === 0 && dayIndex > 0) {
-        colIndex++;
-      }
-
-      const key = `${dayOfWeek},${colIndex}`;
       const dayData = dataMap[dateStr];
 
       if (dayData) {
-        cellMap[key] = {
-          count: dayData.wordCount,
-          title: dayData.title,
-          wordCount: dayData.wordCount,
-          date: dateStr
-        };
+        cell.className = `heatmap-day ${getClassForValue(dayData.wordCount)}`;
+        cell.dataset.date = dayData.date;
+        cell.dataset.title = dayData.title;
+        cell.dataset.count = dayData.wordCount.toString();
+
+        cell.addEventListener('mouseenter', () => {
+          const tooltip = document.createElement('div');
+          tooltip.className = 'heatmap-tooltip';
+
+          let content = `<div class="heatmap-tooltip-date">${dayData.date}</div>`;
+          content += `<div class="heatmap-tooltip-content">`;
+          content += `<div>${dayData.wordCount} 字</div>`;
+          content += `<div>《${dayData.title}》</div>`;
+          content += `</div>`;
+
+          tooltip.innerHTML = content;
+          document.body.appendChild(tooltip);
+
+          const rect = cell.getBoundingClientRect();
+          tooltip.style.left = rect.left + 'px';
+          tooltip.style.top = (rect.top - tooltip.offsetHeight - 8) + 'px';
+        });
+
+        cell.addEventListener('mouseleave', () => {
+          document.querySelectorAll('.heatmap-tooltip').forEach(t => t.remove());
+        });
+      } else {
+        cell.className = 'heatmap-day color-empty';
       }
+
+      grid.appendChild(cell);
 
       currentDate.setDate(currentDate.getDate() + 1);
-      dayIndex++;
-    }
-
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const cell = document.createElement('div');
-        const key = `${r},${c}`;
-        const cellData = cellMap[key];
-
-        if (cellData) {
-          cell.className = `heatmap-day ${getClassForValue(cellData.count)}`;
-          cell.dataset.date = cellData.date;
-          cell.dataset.title = cellData.title;
-          cell.dataset.count = cellData.wordCount.toString();
-
-          cell.addEventListener('mouseenter', () => {
-            const tooltip = document.createElement('div');
-            tooltip.className = 'heatmap-tooltip';
-
-            let content = `<div class="heatmap-tooltip-date">${cellData.date}</div>`;
-            content += `<div class="heatmap-tooltip-content">`;
-            content += `<div>${cellData.wordCount} 字</div>`;
-            content += `<div>《${cellData.title}》</div>`;
-            content += `</div>`;
-
-            tooltip.innerHTML = content;
-            document.body.appendChild(tooltip);
-
-            const rect = cell.getBoundingClientRect();
-            tooltip.style.left = rect.left + 'px';
-            tooltip.style.top = (rect.top - tooltip.offsetHeight - 8) + 'px';
-          });
-
-          cell.addEventListener('mouseleave', () => {
-            document.querySelectorAll('.heatmap-tooltip').forEach(t => t.remove());
-          });
-        } else {
-          cell.className = 'heatmap-day color-empty';
-        }
-
-        grid.appendChild(cell);
-      }
     }
 
     wrapper.appendChild(grid);
