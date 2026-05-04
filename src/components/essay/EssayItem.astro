@@ -1,0 +1,144 @@
+---
+interface EssayItem {
+	username: string;
+	time: string;
+	content: string;
+	images: string[] | string | null;
+	comment: string | null;
+	avatar_url: string;
+}
+
+interface Props {
+	item: EssayItem;
+}
+
+const { item } = Astro.props;
+const time = new Date(item.time).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" });
+const images = item.images ? (Array.isArray(item.images) ? item.images : [item.images]) : [];
+---
+
+<article class="essay-card">
+	<div class="essay-header">
+		<img src={item.avatar_url} alt={item.username} class="avatar" loading="lazy" />
+		<div class="essay-meta">
+			<span class="username">{item.username}</span>
+			<span class="time">{time}</span>
+		</div>
+	</div>
+	<div class="essay-content">
+		<p class="content-text">{item.content}</p>
+		{images.length > 0 && (
+			<div class="essay-images" data-count={images.length}>
+				{images.map((img) => (
+					<img src={img} alt="essay image" class="essay-img" loading="lazy" />
+				))}
+			</div>
+		)}
+		{item.comment && (
+			<div class="essay-comment">
+				<p>{item.comment}</p>
+			</div>
+		)}
+	</div>
+</article>
+
+<style>
+	.essay-card {
+		background: var(--bg-content-color);
+		border-radius: var(--radius);
+		padding: 1rem;
+		box-shadow: var(--shadow-small);
+		break-inside: avoid;
+		margin-bottom: 1rem;
+	}
+
+	.essay-header {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.avatar {
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.essay-meta {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.username {
+		font-weight: 600;
+		font-size: 0.85rem;
+		color: var(--title-color);
+	}
+
+	.time {
+		font-size: 0.7rem;
+		color: var(--body-color);
+		opacity: 0.7;
+	}
+
+	.content-text {
+		color: var(--body-color);
+		line-height: 1.6;
+		font-size: 0.9rem;
+		white-space: pre-wrap;
+		word-break: break-word;
+	}
+
+	.essay-images {
+		display: grid;
+		gap: 0.25rem;
+		margin-top: 0.5rem;
+	}
+
+	.essay-images[data-count="1"] {
+		grid-template-columns: 1fr;
+	}
+
+	.essay-images[data-count="2"] {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.essay-images[data-count="3"] {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.essay-images[data-count="4"],
+	.essay-images[data-count="5"],
+	.essay-images[data-count="6"] {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.essay-images[data-count="5"] .essay-img:nth-child(5) {
+		grid-column: span 2;
+	}
+
+	.essay-img {
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: transform 0.2s ease;
+	}
+
+	.essay-img:hover {
+		transform: scale(1.03);
+	}
+
+	.essay-comment {
+		margin-top: 0.5rem;
+		padding: 0.5rem;
+		background: var(--bg-color);
+		border-radius: 4px;
+		font-size: 0.8rem;
+		color: var(--body-color);
+		opacity: 0.9;
+	}
+</style>

@@ -1,0 +1,85 @@
+---
+import Card from "./Card.astro";
+import FilterControls from "./FilterControls.astro";
+import type { UserSubjectCollection } from "~/types/bangumi";
+
+interface Props {
+	sectionId: string;
+	items: UserSubjectCollection[];
+	isActive: boolean;
+	itemsPerPage?: number;
+}
+
+const { sectionId, items, isActive, itemsPerPage = 12 } = Astro.props;
+
+const statusMap: Record<number, string> = {
+	1: "wish",
+	2: "collect",
+	3: "doing",
+	4: "on_hold",
+	5: "dropped",
+};
+
+const statusCounts = items.reduce((acc, item) => {
+	const status = statusMap[item.type] || "unknown";
+	acc[status] = (acc[status] || 0) + 1;
+	return acc;
+}, {} as Record<string, number>);
+
+const filters = [
+	{ value: "all", label: "全部", count: items.length },
+	{ value: "collect", label: "已收藏", count: statusCounts.collect || 0 },
+	{ value: "doing", label: "在用/在看", count: statusCounts.doing || 0 },
+	{ value: "wish", label: "想用/想看", count: statusCounts.wish || 0 },
+	{ value: "on_hold", label: "搁置", count: statusCounts.on_hold || 0 },
+	{ value: "dropped", label: "抛弃", count: statusCounts.dropped || 0 },
+].filter(f => f.value === "all" || f.count > 0);
+---
+
+<div class:list={["bangumi-section", { hidden: !isActive }]} data-section={sectionId}>
+	{items.length > 0 ? (
+		<>
+			<FilterControls filters={filters} activeFilter="all" sectionId={sectionId} />
+			<div class="bangumi-grid">
+				{items.map((item, index) => (
+					<div class="bangumi-item" data-item-section={sectionId} data-item-status={statusMap[item.type] || "unknown"} style={index < itemsPerPage ? "" : "display: none;"}>
+						<Card item={item} loadImage={isActive && index < itemsPerPage} />
+					</div>
+				))}
+			</div>
+		</>
+	) : (
+		<div class="empty-section">
+			<p>暂无数据</p>
+		</div>
+	)}
+</div>
+
+<style>
+	.bangumi-section.hidden {
+		display: none;
+	}
+
+	.bangumi-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	@media (min-width: 640px) {
+		.bangumi-grid {
+			grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+		}
+	}
+
+	.bangumi-item.hidden {
+		display: none;
+	}
+
+	.empty-section {
+		text-align: center;
+		padding: 3rem;
+		color: var(--body-color);
+		opacity: 0.7;
+	}
+</style>

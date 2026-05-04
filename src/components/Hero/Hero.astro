@@ -1,18 +1,31 @@
 ---
-import HeroContent from './HeroContent.astro';
-import TechStack from './TechStack.astro';
-import DesignPrinciples from './DesignPrinciples.astro';
-import HeroFooter from './HeroFooter.astro';
+import "~/styles/immm.css";
+import { getCollection } from "astro:content";
+import Talk from "~/components/Hero/Talk.astro";
+import Posts from "~/components/Hero/Posts.astro";
+import Friends from "~/components/Hero/Friends.astro";
+import Photos from "~/components/Hero/Photos.astro";
+import Goods from "~/components/Hero/Goods.astro";
+import Movies from "~/components/Hero/Movies.astro";
+import Books from "~/components/Hero/Books.astro";
 
-import '../../styles/hero.css';
+// 获取文章列表
+const allArticles = await getCollection("article", ({ data }) => !data.draft);
+const sortedArticles = allArticles.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const recentPosts = sortedArticles.slice(0, 5);
 ---
 
 <div class="page-container">
     <div class="hero-background"></div>
     <main class="main-content">
-        <HeroContent />
-        <TechStack />
-        <DesignPrinciples />
+        <Talk />
+        <Posts posts={recentPosts} />
+        <Friends />
+        <Photos />
+        <Goods />
+        <Movies />
+        <Books />
     </main>
-    <HeroFooter />
 </div>

@@ -85,7 +85,7 @@ hr:before {
 }
 
 .main {
-    /* margin: 0 auto; */
+    margin: 0 auto;
     padding: calc(1.5vw + var(--header-height)) 15px 0;
     flex: 1;
 }

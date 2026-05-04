@@ -1,0 +1,180 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import AlbumCard from "~/components/gallery/AlbumCard.astro";
+import { scanAlbumPhotos, getAlbumCover } from "~/utils/gallery-utils";
+import { site } from "~/self.config";
+
+interface Album {
+	id: string;
+	name: string;
+	description?: string;
+	location?: string;
+	date?: string;
+	tags?: string[];
+}
+
+// 配置相册数据
+const GALLERY_CONFIG: Album[] = [
+	// 在这里添加相册配置
+];
+
+const albums = GALLERY_CONFIG.map((album) => {
+	const photos = scanAlbumPhotos(album.id);
+	const cover = getAlbumCover(album, photos);
+	return { ...album, cover, photoCount: photos.length };
+});
+
+const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
+---
+
+<BaseLayout title="Gallery" description={`${site.title} 的相册集`}>
+	<div class="gallery-container">
+		<div class="page-header">
+			<div class="header-icon">
+				<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg>
+			</div>
+			<h1>Gallery</h1>
+			<p class="subtitle">记录生活中的美好瞬间</p>
+		</div>
+
+		{albums.length > 0 && allTags.length > 0 && (
+			<div class="gallery-filter">
+				<button class="filter-tag active" data-tag="all">全部</button>
+				{allTags.map((tag) => (
+					<button class="filter-tag" data-tag={tag}>{tag}</button>
+				))}
+			</div>
+		)}
+
+		{albums.length > 0 ? (
+			<div class="albums-grid">
+				{albums.map((album) => (
+					<AlbumCard
+						id={album.id}
+						name={album.name}
+						cover={album.cover}
+						description={album.description}
+						date={album.date}
+						location={album.location}
+						tags={album.tags}
+						photoCount={album.photoCount}
+					/>
+				))}
+			</div>
+		) : (
+			<div class="empty-state">
+				<div class="empty-icon">📷</div>
+				<p>暂无相册</p>
+			</div>
+		)}
+	</div>
+</BaseLayout>
+
+<script is:inline>
+	document.querySelectorAll(".filter-tag").forEach((btn) => {
+		btn.addEventListener("click", function () {
+			const tag = this.getAttribute("data-tag");
+			document.querySelectorAll(".filter-tag").forEach((b) => b.classList.remove("active"));
+			this.classList.add("active");
+			document.querySelectorAll(".album-card").forEach((card) => {
+				const tags = (card.getAttribute("data-tags") || "").split(",");
+				if (tag === "all" || (tag && tags.includes(tag))) {
+					card.style.display = "";
+				} else {
+					card.style.display = "none";
+				}
+			});
+		});
+	});
+</script>
+
+<style>
+	.gallery-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 2rem 1.5rem;
+	}
+
+	.page-header {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	.header-icon {
+		width: 64px;
+		height: 64px;
+		margin: 0 auto 1rem;
+		background: var(--link-color);
+		border-radius: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+	}
+
+	.header-icon svg {
+		width: 32px;
+		height: 32px;
+	}
+
+	.page-header h1 {
+		font-size: 2rem;
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+		color: var(--title-color);
+	}
+
+	.subtitle {
+		font-size: 1rem;
+		color: var(--body-color);
+	}
+
+	.gallery-filter {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		justify-content: center;
+		margin-bottom: 2rem;
+	}
+
+	.filter-tag {
+		padding: 6px 16px;
+		border: none;
+		border-radius: 20px;
+		background: var(--bg-content-color);
+		color: var(--body-color);
+		font-size: 0.85rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		box-shadow: var(--shadow-small);
+	}
+
+	.filter-tag:hover {
+		background: var(--link-color);
+		color: white;
+	}
+
+	.filter-tag.active {
+		background: var(--link-color);
+		color: white;
+	}
+
+	.albums-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.empty-state {
+		text-align: center;
+		padding: 4rem 1rem;
+		color: var(--body-color);
+		opacity: 0.6;
+	}
+
+	.empty-icon {
+		font-size: 4rem;
+		margin-bottom: 1rem;
+	}
+</style>

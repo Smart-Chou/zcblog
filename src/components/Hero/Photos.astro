@@ -1,0 +1,26 @@
+---
+// 相册数据（来自 immm）
+const photos = [
+    { url: "images/18.jpg", title: "今日夕阳", time: "1 年前" },
+    { url: "images/19.webp", title: "工业朋克前的小鼠标", time: "1 年前" },
+    { url: "images/20.jpg", title: "山顶咖啡", time: "1 年前" },
+    { url: "images/21.jpg", title: "溜车", time: "1 年前" },
+    { url: "images/22.webp", title: "茑屋书店", time: "1 年前" },
+    { url: "images/23.webp", title: "茑屋书店", time: "1 年前" },
+];
+---
+
+<div class="home">
+    <h3><a href="/albums/">近期光影</a></h3>
+    <div id="album">
+        <div class="memos-photo-wrapper">
+            {photos.map((photo) => (
+                <div class="memos-photo">
+                    <img class="photo-img" loading="lazy" decoding="async" src={photo.url} alt={photo.title} />
+                    <span class="photo-title">{photo.title}</span>
+                    <span class="photo-time" title={new Date().toISOString()}>{photo.time}</span>
+                </div>
+            ))}
+        </div>
+    </div>
+</div>
