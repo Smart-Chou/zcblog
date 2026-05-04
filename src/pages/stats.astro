@@ -1,4 +1,5 @@
 ---
+import "~/styles/stats.css";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { site } from "~/self.config";
 import { getCollection } from "astro:content";
@@ -11,7 +12,6 @@ interface PostData {
   date: string;
   title: string;
   wordCount: number;
-  category: string;
   tags: string[];
 }
 
@@ -22,7 +22,6 @@ const postsData: PostData[] = allPosts.map((post) => {
     date: post.data.pubDate ? new Date(post.data.pubDate).toISOString().split("T")[0] : "",
     title: post.data.title || "",
     wordCount,
-    category: post.data.category || "未分类",
     tags: post.data.tags || [],
   };
 });
@@ -36,15 +35,9 @@ const postsByYear = postsData.reduce((acc, post) => {
   return acc;
 }, {} as Record<string, number>);
 
-// 按分类统计
-const postsByCategory = postsData.reduce((acc, post) => {
-  acc[post.category] = (acc[post.category] || 0) + 1;
-  return acc;
-}, {} as Record<string, number>);
 
 // 汇总统计数据
 const totalPosts = postsData.length;
-const totalCategories = Object.keys(postsByCategory).length;
 const totalTags = new Set(postsData.flatMap((p) => p.tags)).size;
 const totalWordCount = postsData.reduce((sum, p) => sum + p.wordCount, 0);
 
@@ -79,6 +72,27 @@ function formatNumber(num: number): string {
   if (num >= 1000) return `${(num / 1000).toFixed(1)}k`;
   return num.toString();
 }
+
+// 标签云数据
+const tagCounts = allTags.reduce((acc, tag) => {
+  acc[tag] = (acc[tag] || 0) + 1;
+  return acc;
+}, {} as Record<string, number>);
+
+const sortedTags = Object.entries(tagCounts)
+  .map(([name, count]) => ({ name, count }))
+  .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+
+const maxTagCount = Math.max(...sortedTags.map(t => t.count), 1);
+
+function getTagColor(count: number): string {
+  const percentage = count / maxTagCount;
+  if (percentage >= 0.8) return "#1e40af";
+  if (percentage >= 0.6) return "#1d4ed8";
+  if (percentage >= 0.4) return "#3b82f6";
+  if (percentage >= 0.2) return "#60a5fa";
+  return "#93c5fd";
+}
 ---
 
 <BaseLayout title="网站统计数据" description="一些网站文章数据的统计">
@@ -91,6 +105,12 @@ function formatNumber(num: number): string {
       <p class="subtitle">一些网站文章数据的统计</p>
     </div>
 
+    <!-- 发文热力图 -->
+    <section class="stats-section">
+      <h2>发文热力图</h2>
+      <div class="heatmap-container" id="heatmap-container"></div>
+    </section>
+
     <!-- 发文统计 -->
     <section class="stats-section">
       <h2>发文统计</h2>
@@ -98,10 +118,6 @@ function formatNumber(num: number): string {
         <div class="stat-card">
           <h3>文章数</h3>
           <p class="stat-value">{formatNumber(totalPosts)}</p>
-        </div>
-        <div class="stat-card">
-          <h3>分类数</h3>
-          <p class="stat-value">{formatNumber(totalCategories)}</p>
         </div>
         <div class="stat-card">
           <h3>标签数</h3>
@@ -122,63 +138,12 @@ function formatNumber(num: number): string {
           <li><span class="status-label">年度进度</span><span class="status-value">{yearProgress}%</span></li>
           <li><span class="status-label">博客已运行</span><span class="status-value">{runningYears} 年 {runningMonths} 个月 {runningDays} 天</span></li>
           <li><span class="status-label">文章总数</span><span class="status-value">{totalPosts} 篇</span></li>
-          <li><span class="status-label">分类总数</span><span class="status-value">{totalCategories} 个</span></li>
           <li><span class="status-label">标签总数</span><span class="status-value">{totalTags} 个</span></li>
           <li><span class="status-label">总字数</span><span class="status-value">{totalWordCount} 字</span></li>
         </ul>
         <div class="status-badges">
           <img alt="License" src="https://img.shields.io/github/license/marxchou/marxchou.github.io?label=%F0%9F%93%9C%20License" />
           <img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fmarxchou.com%2F&up_message=%E8%BF%90%E8%A1%8C%E4%B8%AD&down_message=%E5%A4%B1%E8%B4%A5&label=%E2%9C%85%20%E7%BD%91%E7%AB%99%E6%83%85%E5%86%B5" />
-        </div>
-      </div>
-    </section>
-
-    <!-- 分类统计 -->
-    <section class="stats-section">
-      <h2>分类统计</h2>
-      <div class="category-chart">
-        <div class="pie-container">
-          <svg viewBox="0 0 100 100">
-            {(() => {
-              const sortedCategories = Object.entries(postsByCategory)
-                .map(([category, count]) => ({ category, count }))
-                .sort((a, b) => b.count - a.count);
-              const total = Object.values(postsByCategory).reduce((sum, c) => sum + c, 0);
-              const colors = ["#e34c26", "#f1e05a", "#2b7489", "#3572A5", "#c925c9", "#28b46c"];
-              let offset = 0;
-              return sortedCategories.map(({ category, count }, index) => {
-                const percentage = (count / total) * 100;
-                const r = 40;
-                const cx = 50;
-                const cy = 50;
-                const startAngle = (offset * 3.6 - 90) * (Math.PI / 180);
-                const endAngle = ((offset + percentage) * 3.6 - 90) * (Math.PI / 180);
-                const x1 = cx + r * Math.cos(startAngle);
-                const y1 = cy + r * Math.sin(startAngle);
-                const x2 = cx + r * Math.cos(endAngle);
-                const y2 = cy + r * Math.sin(endAngle);
-                const largeArcFlag = percentage > 50 ? 1 : 0;
-                const d = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArcFlag} 1 ${x2} ${y2} Z`;
-                offset += percentage;
-                return `<path d="${d}" fill="${colors[index % colors.length]}" />`;
-              }).join("");
-            })()}
-          </svg>
-        </div>
-        <div class="category-legend">
-          {Object.entries(postsByCategory)
-            .map(([category, count]) => ({ category, count }))
-            .sort((a, b) => b.count - a.count)
-            .map(({ category, count }, index) => {
-              const colors = ["#e34c26", "#f1e05a", "#2b7489", "#3572A5", "#c925c9", "#28b46c"];
-              const total = Object.values(postsByCategory).reduce((sum, c) => sum + c, 0);
-              return (
-                <div class="legend-item" style={`color: ${colors[index % colors.length]}`}>
-                  <span class="legend-dot">●</span>
-                  <span>{category}: {count} 篇 ({(count / total * 100).toFixed(1)}%)</span>
-                </div>
-              );
-            })}
         </div>
       </div>
     </section>
@@ -217,292 +182,181 @@ function formatNumber(num: number): string {
     <section class="stats-section">
       <h2>标签云</h2>
       <div class="tag-cloud">
-        {(() => {
-          const tagCounts = allTags.reduce((acc, tag) => {
-            acc[tag] = (acc[tag] || 0) + 1;
-            return acc;
-          }, {} as Record<string, number>);
-
-          const sortedTags = Object.entries(tagCounts)
-            .map(([name, count]) => ({ name, count }))
-            .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
-
-          const maxCount = Math.max(...sortedTags.map(t => t.count), 1);
-
-          const getTagColor = (count: number): string => {
-            const percentage = count / maxCount;
-            if (percentage >= 0.8) return "#1e40af";
-            if (percentage >= 0.6) return "#1d4ed8";
-            if (percentage >= 0.4) return "#3b82f6";
-            if (percentage >= 0.2) return "#60a5fa";
-            return "#93c5fd";
-          };
-
-          return sortedTags.map(({ name, count }) => (
+        {sortedTags.map(({ name, count }) => (
             <span class="tag-item" style={`background-color: ${getTagColor(count)}`}>
               {name}
               <span class="tag-count">{count}</span>
             </span>
-          ));
-        })()}
+        ))}
       </div>
     </section>
   </div>
 </BaseLayout>
 
-<style>
-  .stats-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
+
+<script is:inline define:vars={{ postsData }}>
+  function formatDate(date) {
+    return date.toISOString().split("T")[0];
   }
 
-  .page-header {
-    text-align: center;
-    margin-bottom: 2rem;
+  function getClassForValue(count) {
+    if (count === 0) return 'color-empty';
+    if (count < 300) return 'color-github-1';
+    if (count < 800) return 'color-github-2';
+    if (count < 1500) return 'color-github-3';
+    return 'color-github-4';
   }
 
-  .header-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 1rem;
-    background: var(--link-color);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-  }
+  function initHeatmap() {
+    const container = document.getElementById('heatmap-container');
+    if (!container) return;
 
-  .header-icon svg {
-    width: 32px;
-    height: 32px;
-  }
+    container.innerHTML = '';
 
-  .page-header h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--title-color);
-  }
+    const today = new Date();
+    const startDate = new Date(today);
+    startDate.setFullYear(today.getFullYear() - 1);
 
-  .subtitle {
-    font-size: 1rem;
-    color: var(--body-color);
-  }
+    // Adjust to start from Sunday
+    startDate.setDate(startDate.getDate() - startDate.getDay());
 
-  .stats-section {
-    margin-bottom: 2.5rem;
-  }
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  .stats-section h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--title-color);
-  }
+    // Month labels
+    const monthRow = document.createElement('div');
+    monthRow.className = 'heatmap-months';
 
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1rem;
-  }
+    const months = [];
+    let currentDate = new Date(startDate);
+    let lastMonth = -1;
 
-  .stat-card {
-    background: var(--bg-content-color);
-    border-radius: var(--radius);
-    padding: 1rem;
-    box-shadow: var(--shadow-small);
-    text-align: center;
-  }
-
-  .stat-card h3 {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--body-color);
-    margin-bottom: 0.25rem;
-  }
-
-  .stat-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--title-color);
-  }
-
-  .blog-status {
-    background: var(--bg-content-color);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-small);
-  }
-
-  .status-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1rem 0;
-  }
-
-  .status-list li {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--line-color);
-  }
-
-  .status-list li:last-child {
-    border-bottom: none;
-  }
-
-  .status-label {
-    color: var(--body-color);
-  }
-
-  .status-value {
-    font-weight: 600;
-    color: var(--title-color);
-  }
-
-  .status-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  .category-chart {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    background: var(--bg-content-color);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-small);
-  }
-
-  .pie-container {
-    width: 140px;
-    height: 140px;
-    flex-shrink: 0;
-  }
-
-  .pie-container svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  .category-legend {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-  }
-
-  .legend-dot {
-    font-size: 1rem;
-  }
-
-  .bar-chart-container {
-    background: var(--bg-content-color);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-small);
-    overflow-x: auto;
-  }
-
-  .bar-chart {
-    min-width: 600px;
-  }
-
-  .bar-chart-bars {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    height: 200px;
-    gap: 2px;
-  }
-
-  .bar-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 30px;
-  }
-
-  .bar-value {
-    font-size: 0.7rem;
-    color: var(--body-color);
-    height: 1rem;
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .bar {
-    width: 16px;
-    background: var(--link-color);
-    border-radius: 2px 2px 0 0;
-    min-height: 2px;
-    transition: height 0.3s ease;
-  }
-
-  .bar-item:hover .bar {
-    filter: brightness(1.1);
-  }
-
-  .bar-label {
-    font-size: 0.65rem;
-    color: var(--body-color);
-    margin-top: 0.25rem;
-    transform: rotate(-45deg);
-    white-space: nowrap;
-  }
-
-  .tag-cloud {
-    background: var(--bg-content-color);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-small);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .tag-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    color: white;
-    font-size: 0.85rem;
-    transition: transform 0.2s ease;
-  }
-
-  .tag-item:hover {
-    transform: scale(1.05);
-  }
-
-  .tag-count {
-    background: rgba(255, 255, 255, 0.3);
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    font-size: 0.75rem;
-  }
-
-  @media (max-width: 640px) {
-    .category-chart {
-      flex-direction: column;
+    while (currentDate <= today) {
+      const month = currentDate.getMonth();
+      if (month !== lastMonth) {
+        months.push({ month: monthNames[month], date: new Date(currentDate) });
+        lastMonth = month;
+      }
+      currentDate.setDate(currentDate.getDate() + 7);
     }
 
-    .bar-chart-bars {
-      height: 150px;
+    const numMonthsToShow = Math.min(months.length, 12);
+    const startMonthIndex = Math.max(0, months.length - numMonthsToShow);
+    for (let i = startMonthIndex; i < months.length; i++) {
+      const span = document.createElement('span');
+      span.textContent = months[i].month;
+      monthRow.appendChild(span);
     }
+    container.appendChild(monthRow);
+
+    // Wrapper with weekday labels and grid
+    const wrapper = document.createElement('div');
+    wrapper.className = 'heatmap-wrapper';
+
+    // Y-axis labels (weekdays)
+    const yLabels = document.createElement('div');
+    yLabels.className = 'heatmap-y-labels';
+    yLabels.innerHTML = '<span>Mon</span><span>&nbsp;</span><span>&nbsp;</span><span>Wed</span><span>&nbsp;</span><span>&nbsp;</span><span>Fri</span><span>&nbsp;</span><span>&nbsp;</span><span>Sun</span>';
+    wrapper.appendChild(yLabels);
+
+    // Grid
+    const grid = document.createElement('div');
+    grid.className = 'heatmap-grid';
+
+    const rows = 7;
+    const cols = 53;
+    const cellMap = {};
+
+    const dataMap = {};
+    postsData.forEach(p => {
+      dataMap[p.date] = p;
+    });
+
+    currentDate = new Date(startDate);
+    let colIndex = 0;
+    let dayIndex = 0;
+
+    while (currentDate <= today && colIndex < cols) {
+      const dayOfWeek = currentDate.getDay();
+      const dateStr = formatDate(currentDate);
+
+      if (dayOfWeek === 0 && dayIndex > 0) {
+        colIndex++;
+      }
+
+      const key = `${dayOfWeek},${colIndex}`;
+      const dayData = dataMap[dateStr];
+
+      if (dayData) {
+        cellMap[key] = {
+          count: dayData.wordCount,
+          title: dayData.title,
+          wordCount: dayData.wordCount,
+          date: dateStr
+        };
+      }
+
+      currentDate.setDate(currentDate.getDate() + 1);
+      dayIndex++;
+    }
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const cell = document.createElement('div');
+        const key = `${r},${c}`;
+        const cellData = cellMap[key];
+
+        if (cellData) {
+          cell.className = `heatmap-day ${getClassForValue(cellData.count)}`;
+          cell.dataset.date = cellData.date;
+          cell.dataset.title = cellData.title;
+          cell.dataset.count = cellData.wordCount.toString();
+
+          cell.addEventListener('mouseenter', () => {
+            const tooltip = document.createElement('div');
+            tooltip.className = 'heatmap-tooltip';
+
+            let content = `<div class="heatmap-tooltip-date">${cellData.date}</div>`;
+            content += `<div class="heatmap-tooltip-content">`;
+            content += `<div>${cellData.wordCount} 字</div>`;
+            content += `<div>《${cellData.title}》</div>`;
+            content += `</div>`;
+
+            tooltip.innerHTML = content;
+            document.body.appendChild(tooltip);
+
+            const rect = cell.getBoundingClientRect();
+            tooltip.style.left = rect.left + 'px';
+            tooltip.style.top = (rect.top - tooltip.offsetHeight - 8) + 'px';
+          });
+
+          cell.addEventListener('mouseleave', () => {
+            document.querySelectorAll('.heatmap-tooltip').forEach(t => t.remove());
+          });
+        } else {
+          cell.className = 'heatmap-day color-empty';
+        }
+
+        grid.appendChild(cell);
+      }
+    }
+
+    wrapper.appendChild(grid);
+    container.appendChild(wrapper);
+
+    // Legend
+    const legendDiv = document.createElement('div');
+    legendDiv.className = 'heatmap-legend';
+    legendDiv.innerHTML = `
+      <span>Less</span>
+      <span class="heatmap-legend-item" style="background-color: #d6d8db"></span>
+      <span class="heatmap-legend-item" style="background-color: #9ad99b"></span>
+      <span class="heatmap-legend-item" style="background-color: #68be67"></span>
+      <span class="heatmap-legend-item" style="background-color: #3f7f46"></span>
+      <span class="heatmap-legend-item" style="background-color: #2f6336"></span>
+      <span>More</span>
+    `;
+    container.appendChild(legendDiv);
   }
-</style>
+
+  initHeatmap();
+</script>

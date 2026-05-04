@@ -41,10 +41,10 @@ const { filters, activeFilter, sectionId } = Astro.props;
 					const itemStatus = item.getAttribute("data-item-status");
 					if (filter === "all" || itemStatus === filter) {
 						item.classList.remove("hidden");
-						(item as HTMLElement).style.display = "";
+						item.style.display = "";
 					} else {
 						item.classList.add("hidden");
-						(item as HTMLElement).style.display = "none";
+						item.style.display = "none";
 					}
 				});
 			});
