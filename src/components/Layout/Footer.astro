@@ -1,8 +1,30 @@
 ---
 import { site, footerList } from "~/self.config";
+import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
 const currentYear = new Date().getFullYear();
+
+// 获取文章统计数据
+const allPosts = await getCollection("article");
+const totalPosts = allPosts.length;
+const totalTags = new Set(allPosts.flatMap((p) => p.data.tags || [])).size;
+const totalWordCount = allPosts.reduce((sum, post) => {
+    const body = post.body || "";
+    return sum + body.replace(/\s+/g, "").length;
+}, 0);
+
+function formatNumber(num: number): string {
+    if (num >= 1000000) return `${(num / 1000000).toFixed(1)}m`;
+    if (num >= 1000) return `${(num / 1000).toFixed(1)}k`;
+    return num.toString();
+}
+
+const statsBadges = [
+    { label: "Articles", value: formatNumber(totalPosts) },
+    { label: "Words", value: formatNumber(totalWordCount) },
+    { label: "Tags", value: formatNumber(totalTags) },
+];
 ---
 
 <footer class="footer" role="contentinfo">
@@ -44,6 +66,33 @@ const currentYear = new Date().getFullYear();
     </div>
     <div id="rss-stats">
         &nbsp;&nbsp;
+        <a href="/article/" aria-label="Articles">
+            <Image
+                src={`https://img.shields.io/badge/Articles-${statsBadges[0].value}-informational?style=flat-square&logo=blogger&logoColor=%23ffffff&labelColor=%23303336`}
+                alt="Articles badge"
+                loading="lazy"
+                width={100}
+                height={20}
+            />
+        </a>
+        <a href="/article/" aria-label="Words">
+            <Image
+                src={`https://img.shields.io/badge/Words-${statsBadges[1].value}-informational?style=flat-square&logo=blogger&logoColor=%23ffffff&labelColor=%23303336`}
+                alt="Words badge"
+                loading="lazy"
+                width={100}
+                height={20}
+            />
+        </a>
+        <a href="/article/" aria-label="Tags">
+            <Image
+                src={`https://img.shields.io/badge/Tags-${statsBadges[2].value}-informational?style=flat-square&logo=blogger&logoColor=%23ffffff&labelColor=%23303336`}
+                alt="Tags badge"
+                loading="lazy"
+                width={80}
+                height={20}
+            />
+        </a>
         <a href="/rss.xml">
             <Image
                 src="https://img.shields.io/badge/RSS-sky?logo=rss"

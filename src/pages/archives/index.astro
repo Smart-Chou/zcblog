@@ -1,4 +1,5 @@
 ---
+import "~/styles/stats.css";
 import { getCollection } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import PostLayout from "~/layouts/PostLayout.astro";
@@ -51,6 +52,16 @@ const totalWordsInThousands = (totalWords / 1000).toFixed(1) + "k";
 const startYear = Math.min(
     ...postsWithMeta.map((post) => new Date(post.data.pubDate).getFullYear()),
 );
+
+// 热力图数据
+const postsData = postsWithMeta.map((post) => ({
+    date: post.data.pubDate
+        ? new Date(post.data.pubDate).toISOString().split("T")[0]
+        : "",
+    title: post.data.title || "",
+    wordCount: post.wordCount,
+    tags: post.data.tags || [],
+}));
 ---
 
 <BaseLayout
@@ -64,12 +75,18 @@ const startYear = Math.min(
 >
     <h1 class="text-center space-bottom">Archives</h1>
     <PostLayout>
-        <p style="opacity: 0.6">
+        <p style="opacity: 0.6;text-align: center;">
             <strong>
                 (｡･∀･)ﾉﾞ 自 {startYear} 以来, 我共发布了 {totalPosts} 篇文章，共计
                 {totalWordsInThousands} 字。
             </strong>
         </p>
+
+        <!-- 发文热力图 -->
+        <section class="stats-section">
+            <div class="heatmap-container" id="heatmap-container"></div>
+        </section>
+
         {
             Object.keys(postsByYear)
                 .map((year) => Number(year))
@@ -97,3 +114,161 @@ const startYear = Math.min(
     </PostLayout>
     <Author />
 </BaseLayout>
+
+<script is:inline define:vars={{ postsData }}>
+    function formatDate(date) {
+        return date.toISOString().split("T")[0];
+    }
+
+    function getClassForValue(count) {
+        if (count === 0) return "color-empty";
+        if (count < 300) return "color-github-1";
+        if (count < 800) return "color-github-2";
+        if (count < 1500) return "color-github-3";
+        return "color-github-4";
+    }
+
+    function initHeatmap() {
+        const container = document.getElementById("heatmap-container");
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        const today = new Date();
+        const startDate = new Date(today);
+        startDate.setFullYear(today.getFullYear() - 1);
+
+        startDate.setDate(startDate.getDate() - startDate.getDay());
+
+        const monthNames = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+        ];
+
+        const dataMap = {};
+        postsData.forEach((p) => {
+            dataMap[p.date] = p;
+        });
+
+        const months = [];
+        let currentDate = new Date(startDate);
+        let lastMonth = -1;
+        let weekIndex = 0;
+
+        while (currentDate <= today) {
+            const month = currentDate.getMonth();
+
+            if (month !== lastMonth) {
+                months.push({ month: monthNames[month], col: weekIndex });
+                lastMonth = month;
+            }
+
+            currentDate.setDate(currentDate.getDate() + 7);
+            weekIndex++;
+        }
+
+        const monthRow = document.createElement("div");
+        monthRow.className = "heatmap-months";
+
+        months.forEach(({ month, col }) => {
+            const span = document.createElement("span");
+            span.textContent = month;
+            span.style.gridColumn = `${col + 1}`;
+            monthRow.appendChild(span);
+        });
+        container.appendChild(monthRow);
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "heatmap-wrapper";
+
+        const yLabels = document.createElement("div");
+        yLabels.className = "heatmap-y-labels";
+        yLabels.innerHTML = `
+  <span>Sun</span>
+  <span></span>
+  <span>Tue</span>
+  <span></span>
+  <span>Thu</span>
+  <span></span>
+  <span>Sat</span>
+`;
+        wrapper.appendChild(yLabels);
+
+        const grid = document.createElement("div");
+        grid.className = "heatmap-grid";
+
+        currentDate = new Date(startDate);
+
+        while (currentDate <= today) {
+            const cell = document.createElement("div");
+            const dateStr = formatDate(currentDate);
+            const dayData = dataMap[dateStr];
+
+            if (dayData) {
+                cell.className = `heatmap-day ${getClassForValue(dayData.wordCount)}`;
+                cell.dataset.date = dayData.date;
+                cell.dataset.title = dayData.title;
+                cell.dataset.count = dayData.wordCount.toString();
+
+                cell.addEventListener("mouseenter", () => {
+                    const tooltip = document.createElement("div");
+                    tooltip.className = "heatmap-tooltip";
+
+                    let content = `<div class="heatmap-tooltip-date">${dayData.date}</div>`;
+                    content += `<div class="heatmap-tooltip-content">`;
+                    content += `<div>${dayData.wordCount} 字</div>`;
+                    content += `<div>《${dayData.title}》</div>`;
+                    content += `</div>`;
+
+                    tooltip.innerHTML = content;
+                    document.body.appendChild(tooltip);
+
+                    const rect = cell.getBoundingClientRect();
+                    tooltip.style.left = rect.left + "px";
+                    tooltip.style.top =
+                        rect.top - tooltip.offsetHeight - 8 + "px";
+                });
+
+                cell.addEventListener("mouseleave", () => {
+                    document
+                        .querySelectorAll(".heatmap-tooltip")
+                        .forEach((t) => t.remove());
+                });
+            } else {
+                cell.className = "heatmap-day color-empty";
+            }
+
+            grid.appendChild(cell);
+
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        wrapper.appendChild(grid);
+        container.appendChild(wrapper);
+
+        const legendDiv = document.createElement("div");
+        legendDiv.className = "heatmap-legend";
+        legendDiv.innerHTML = `
+      <span>Less</span>
+      <span class="heatmap-legend-item" style="background-color: #d6d8db"></span>
+      <span class="heatmap-legend-item" style="background-color: #9ad99b"></span>
+      <span class="heatmap-legend-item" style="background-color: #68be67"></span>
+      <span class="heatmap-legend-item" style="background-color: #3f7f46"></span>
+      <span class="heatmap-legend-item" style="background-color: #2f6336"></span>
+      <span>More</span>
+    `;
+        container.appendChild(legendDiv);
+    }
+
+    document.addEventListener("astro:page-load", initHeatmap);
+</script>
