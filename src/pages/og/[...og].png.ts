@@ -22,7 +22,7 @@ const fontData = fs.readFileSync(fontPath);
 export async function getStaticPaths() {
     const articles = await getCollection("article");
     return articles.map((entry) => ({
-        params: { slug: entry.id },
+        params: { og: entry.id },
         props: { entry },
     }));
 }
