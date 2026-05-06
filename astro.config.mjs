@@ -100,9 +100,7 @@ export default defineConfig({
         concurrency: 4, // 并行构建提升速度
     },
     vite: {
-        plugins: [
-            tailwindcss(),
-        ],
+        plugins: [tailwindcss()],
         define: {
             // 暴露环境变量到客户端
             "process.env.PUBLIC_SITE_URL": JSON.stringify(

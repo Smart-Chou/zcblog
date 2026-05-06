@@ -38,53 +38,70 @@ function getImageUrl(image: Post["data"]["image"]): string {
 ---
 
 <div class="posts posts-home home grid-cols-2">
-    {posts.length > 0 && (
-        <div class="post first col-span-2 home-1">
-            {posts[0].data.image && (
-                <img
-                    loading="lazy"
-                    decoding="async"
-                    src={getImageUrl(posts[0].data.image)}
-                    class="post-cover home"
-                    alt={posts[0].data.image.alt}
-                />
-            )}
-            <h1 class="post-title">
-                <a href={`/article/${posts[0].id}/`}>{posts[0].data.title}</a>
-            </h1>
-            <div class="post-meta">
-                <span class="post-date" title={posts[0].data.pubDate.toISOString()}>
-                    {formatDate(posts[0].data.pubDate)}
-                </span>
+    {
+        posts.length > 0 && (
+            <div class="post first col-span-2 home-1">
+                {posts[0].data.image && (
+                    <img
+                        loading="lazy"
+                        decoding="async"
+                        src={getImageUrl(posts[0].data.image)}
+                        class="post-cover home"
+                        alt={posts[0].data.image.alt}
+                    />
+                )}
+                <h1 class="post-title">
+                    <a href={`/article/${posts[0].id}/`}>
+                        {posts[0].data.title}
+                    </a>
+                </h1>
+                <div class="post-meta">
+                    <span
+                        class="post-date"
+                        title={posts[0].data.pubDate.toISOString()}
+                    >
+                        {formatDate(posts[0].data.pubDate)}
+                    </span>
+                </div>
+                <div class="post-content">
+                    <p>{posts[0].data.description}</p>
+                    <a
+                        class="read-more button"
+                        href={`/article/${posts[0].id}/`}
+                    >
+                        阅读全文 →
+                    </a>
+                </div>
             </div>
-            <div class="post-content">
-                <p>{posts[0].data.description}</p>
-                <a class="read-more button" href={`/article/${posts[0].id}/`}>阅读全文 →</a>
-            </div>
-        </div>
-    )}
+        )
+    }
 
-    {posts.slice(1).map((post) => (
-        <div class="post col-span-1 home-2">
-            {post.data.image && (
-                <img
-                    loading="lazy"
-                    decoding="async"
-                    src={getImageUrl(post.data.image)}
-                    class="post-cover"
-                    alt={post.data.image.alt}
-                />
-            )}
-            <h1 class="post-title">
-                <a href={`/article/${post.id}/`}>{post.data.title}</a>
-            </h1>
-            <div class="post-meta">
-                <span class="post-date" title={post.data.pubDate.toISOString()}>
-                    {formatDate(post.data.pubDate)}
-                </span>
+    {
+        posts.slice(1).map((post) => (
+            <div class="post col-span-1 home-2">
+                {post.data.image && (
+                    <img
+                        loading="lazy"
+                        decoding="async"
+                        src={getImageUrl(post.data.image)}
+                        class="post-cover"
+                        alt={post.data.image.alt}
+                    />
+                )}
+                <h1 class="post-title">
+                    <a href={`/article/${post.id}/`}>{post.data.title}</a>
+                </h1>
+                <div class="post-meta">
+                    <span
+                        class="post-date"
+                        title={post.data.pubDate.toISOString()}
+                    >
+                        {formatDate(post.data.pubDate)}
+                    </span>
+                </div>
             </div>
-        </div>
-    ))}
+        ))
+    }
 </div>
 
 <div class="homemore">

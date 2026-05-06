@@ -14,13 +14,26 @@ const photos = [
     <h3><a href="/albums/">近期光影</a></h3>
     <div id="album">
         <div class="memos-photo-wrapper">
-            {photos.map((photo) => (
-                <div class="memos-photo">
-                    <img class="photo-img" loading="lazy" decoding="async" src={photo.url} alt={photo.title} />
-                    <span class="photo-title">{photo.title}</span>
-                    <span class="photo-time" title={new Date().toISOString()}>{photo.time}</span>
-                </div>
-            ))}
+            {
+                photos.map((photo) => (
+                    <div class="memos-photo">
+                        <img
+                            class="photo-img"
+                            loading="lazy"
+                            decoding="async"
+                            src={photo.url}
+                            alt={photo.title}
+                        />
+                        <span class="photo-title">{photo.title}</span>
+                        <span
+                            class="photo-time"
+                            title={new Date().toISOString()}
+                        >
+                            {photo.time}
+                        </span>
+                    </div>
+                ))
+            }
         </div>
     </div>
 </div>

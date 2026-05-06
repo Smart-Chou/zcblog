@@ -5,11 +5,15 @@ import { heroConfig } from "~/config/hero.config";
 <div class="tech-stack">
     <p class="tech-label">i build with</p>
     <div class="tech-list">
-        {heroConfig.techStack.map((tech, index) => (
-            <>
-                <span class="tech-item">{tech.name}</span>
-                {index < heroConfig.techStack.length - 1 && <span class="tech-separator">·</span>}
-            </>
-        ))}
+        {
+            heroConfig.techStack.map((tech, index) => (
+                <>
+                    <span class="tech-item">{tech.name}</span>
+                    {index < heroConfig.techStack.length - 1 && (
+                        <span class="tech-separator">·</span>
+                    )}
+                </>
+            ))
+        }
     </div>
 </div>

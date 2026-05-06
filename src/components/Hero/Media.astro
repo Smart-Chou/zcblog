@@ -19,23 +19,45 @@ const { title, items, href = "#" } = Astro.props;
 <div class="douban sc-ksluID gFnzgG">
     <h3><a href={href}>{title}</a></h3>
     <div class="items sc-dIsUp fIuTG">
-        {items.map((item) => (
-            <div class="dfdORB">
-                <div class="sc-hKFxyN HPRth">
-                    <img class="avatar" src={item.url} referrer-policy="no-referrer" loading="lazy" alt={item.title} width="150" height="220" />
-                </div>
-                <div class="sc-fujyAs eysHZq">
-                    <div class="rating">
-                        <span class="allstardark">
-                            <span class="allstarlight" style={`width: ${item.rating}%`}></span>
-                        </span>
-                        <span class="rating_nums">{item.ratingNum || (item.rating / 10).toFixed(1)}</span>
+        {
+            items.map((item) => (
+                <div class="dfdORB">
+                    <div class="sc-hKFxyN HPRth">
+                        <img
+                            class="avatar"
+                            src={item.url}
+                            referrer-policy="no-referrer"
+                            loading="lazy"
+                            alt={item.title}
+                            width="150"
+                            height="220"
+                        />
+                    </div>
+                    <div class="sc-fujyAs eysHZq">
+                        <div class="rating">
+                            <span class="allstardark">
+                                <span
+                                    class="allstarlight"
+                                    style={`width: ${item.rating}%`}
+                                />
+                            </span>
+                            <span class="rating_nums">
+                                {item.ratingNum ||
+                                    (item.rating / 10).toFixed(1)}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="sc-iCoGMd kMthTr">
+                        <a
+                            rel="noreferrer"
+                            href={item.link || "#"}
+                            target="_blank"
+                        >
+                            {item.title}
+                        </a>
                     </div>
                 </div>
-                <div class="sc-iCoGMd kMthTr">
-                    <a rel="noreferrer" href={item.link || "#"} target="_blank">{item.title}</a>
-                </div>
-            </div>
-        ))}
+            ))
+        }
     </div>
 </div>

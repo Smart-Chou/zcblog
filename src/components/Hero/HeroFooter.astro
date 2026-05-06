@@ -4,27 +4,44 @@ import { heroConfig } from "~/config/hero.config";
 
 <footer class="site-footer">
     <div class="footer-grid">
-        {heroConfig.footerSections.map(section => (
-            <div class="footer-group">
-                <h3 class="footer-title">{section.title}</h3>
-                <ul class="footer-links">
-                    {section.links.map((link: any) => (
-                        <li>
-                            <a
-                                href={link.url}
-                                target={link.external ? "_blank" : undefined}
-                                rel={link.external ? "noopener noreferrer" : undefined}
-                            >
-                                {link.label}
-                                {link.badge && <span class={`badge badge-${link.badge}`}>{link.badge}</span>}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        ))}
+        {
+            heroConfig.footerSections.map((section) => (
+                <div class="footer-group">
+                    <h3 class="footer-title">{section.title}</h3>
+                    <ul class="footer-links">
+                        {section.links.map((link: any) => (
+                            <li>
+                                <a
+                                    href={link.url}
+                                    target={
+                                        link.external ? "_blank" : undefined
+                                    }
+                                    rel={
+                                        link.external
+                                            ? "noopener noreferrer"
+                                            : undefined
+                                    }
+                                >
+                                    {link.label}
+                                    {link.badge && (
+                                        <span
+                                            class={`badge badge-${link.badge}`}
+                                        >
+                                            {link.badge}
+                                        </span>
+                                    )}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))
+        }
     </div>
     <div class="footer-bottom">
-        <p>&copy; {heroConfig.copyright.currentYear} {heroConfig.author.name}</p>
+        <p>
+            &copy; {heroConfig.copyright.currentYear}
+            {heroConfig.author.name}
+        </p>
     </div>
 </footer>

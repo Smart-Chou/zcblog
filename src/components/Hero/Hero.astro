@@ -12,7 +12,7 @@ import Books from "~/components/Hero/Books.astro";
 // 获取文章列表
 const allArticles = await getCollection("article", ({ data }) => !data.draft);
 const sortedArticles = allArticles.sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 const recentPosts = sortedArticles.slice(0, 5);
 ---

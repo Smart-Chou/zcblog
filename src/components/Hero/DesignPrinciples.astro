@@ -4,12 +4,14 @@ import { heroConfig } from "~/config/hero.config";
 
 <section class="design-section">
     <div class="design-grid">
-        {heroConfig.designSections.map(section => (
-            <div class="design-card">
-                <h2 class="design-title">{section.title}</h2>
-                <p class="design-subtitle">{section.subtitle}</p>
-                <p class="design-description">{section.description}</p>
-            </div>
-        ))}
+        {
+            heroConfig.designSections.map((section) => (
+                <div class="design-card">
+                    <h2 class="design-title">{section.title}</h2>
+                    <p class="design-subtitle">{section.subtitle}</p>
+                    <p class="design-description">{section.description}</p>
+                </div>
+            ))
+        }
     </div>
 </section>

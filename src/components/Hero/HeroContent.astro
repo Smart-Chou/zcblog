@@ -11,16 +11,23 @@ import { heroConfig } from "~/config/hero.config";
         <p class="hero-subtitle">{heroConfig.author.title}</p>
         <p class="hero-motto">{heroConfig.author.motto}</p>
         <div class="hero-links">
-            {heroConfig.ctaButtons.map((btn) => (
-                <a
-                    href={btn.url}
-                    class:list={["btn", btn.variant === "solid" ? "btn-primary" : "btn-secondary"]}
-                    target={btn.external ? "_blank" : undefined}
-                    rel={btn.external ? "noopener" : undefined}
-                >
-                    {btn.label}
-                </a>
-            ))}
+            {
+                heroConfig.ctaButtons.map((btn) => (
+                    <a
+                        href={btn.url}
+                        class:list={[
+                            "btn",
+                            btn.variant === "solid"
+                                ? "btn-primary"
+                                : "btn-secondary",
+                        ]}
+                        target={btn.external ? "_blank" : undefined}
+                        rel={btn.external ? "noopener" : undefined}
+                    >
+                        {btn.label}
+                    </a>
+                ))
+            }
         </div>
     </div>
     <div class="hero-avatar">

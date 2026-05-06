@@ -1,90 +1,106 @@
 ---
 interface Filter {
-	value: string;
-	label: string;
-	count?: number;
+    value: string;
+    label: string;
+    count?: number;
 }
 
 interface Props {
-	filters: Filter[];
-	activeFilter: string;
-	sectionId: string;
+    filters: Filter[];
+    activeFilter: string;
+    sectionId: string;
 }
 
 const { filters, activeFilter, sectionId } = Astro.props;
 ---
 
 <div class="filter-controls">
-	{filters.map((filter) => (
-		<button class:list={["filter-btn", { active: filter.value === activeFilter }]} data-filter={filter.value} data-section={sectionId} type="button">
-			{filter.label}
-			{filter.count !== undefined && <span class="filter-count">({filter.count})</span>}
-		</button>
-	))}
+    {
+        filters.map((filter) => (
+            <button
+                class:list={[
+                    "filter-btn",
+                    { active: filter.value === activeFilter },
+                ]}
+                data-filter={filter.value}
+                data-section={sectionId}
+                type="button"
+            >
+                {filter.label}
+                {filter.count !== undefined && (
+                    <span class="filter-count">({filter.count})</span>
+                )}
+            </button>
+        ))
+    }
 </div>
 
 <script is:inline define:vars={{ sectionId }}>
-	document.addEventListener("astro:page-load", () => {
-		const filterButtons = document.querySelectorAll(`[data-section="${sectionId}"][data-filter]`);
+    document.addEventListener("astro:page-load", () => {
+        const filterButtons = document.querySelectorAll(
+            `[data-section="${sectionId}"][data-filter]`,
+        );
 
-		filterButtons.forEach(button => {
-			button.addEventListener("click", function() {
-				const filter = this.getAttribute("data-filter");
+        filterButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+                const filter = this.getAttribute("data-filter");
 
-				filterButtons.forEach(btn => {
-					btn.classList.remove("active");
-				});
-				this.classList.add("active");
+                filterButtons.forEach((btn) => {
+                    btn.classList.remove("active");
+                });
+                this.classList.add("active");
 
-				const items = document.querySelectorAll(`[data-item-section="${sectionId}"]`);
-				items.forEach(item => {
-					const itemStatus = item.getAttribute("data-item-status");
-					if (filter === "all" || itemStatus === filter) {
-						item.classList.remove("hidden");
-						item.style.display = "";
-					} else {
-						item.classList.add("hidden");
-						item.style.display = "none";
-					}
-				});
-			});
-		});
-	});
+                const items = document.querySelectorAll(
+                    `[data-item-section="${sectionId}"]`,
+                );
+                items.forEach((item) => {
+                    const itemStatus = item.getAttribute("data-item-status");
+                    if (filter === "all" || itemStatus === filter) {
+                        item.classList.remove("hidden");
+                        item.style.display = "";
+                    } else {
+                        item.classList.add("hidden");
+                        item.style.display = "none";
+                    }
+                });
+            });
+        });
+    });
 </script>
 
 <style>
-	.filter-controls {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		margin-bottom: 1rem;
-	}
+    .filter-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
 
-	.filter-btn {
-		padding: 6px 12px;
-		border: none;
-		border-radius: 20px;
-		background: var(--bg-content-color);
-		color: var(--body-color);
-		font-size: 0.8rem;
-		font-weight: 500;
-		cursor: pointer;
-		transition: all 0.2s ease;
-		box-shadow: var(--shadow-small);
-	}
+    .filter-btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 20px;
+        background: var(--bg-content-color);
+        color: var(--body-color);
+        font-size: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: var(--shadow-small);
+    }
 
-	.filter-btn:hover {
-		background: var(--link-color);
-		color: white;
-	}
+    .filter-btn:hover {
+        background: var(--link-color);
+        color: white;
+    }
 
-	.filter-btn.active {
-		background: var(--link-color);
-		color: white;
-	}
+    .filter-btn.active {
+        background: var(--link-color);
+        color: white;
+    }
 
-	.filter-count {
-		opacity: 0.7;
-		margin-left: 2px;
-	}
+    .filter-count {
+        opacity: 0.7;
+        margin-left: 2px;
+    }
 </style>

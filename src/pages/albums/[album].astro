@@ -42,7 +42,9 @@ if (!foundAlbum) {
             <h1 class="album-title">{foundAlbum.title}</h1>
             <p class="album-description">{foundAlbum.description}</p>
             <div class="album-meta">
-                <span class="photo-count">{foundAlbum.photos.length} 张照片</span>
+                <span class="photo-count"
+                    >{foundAlbum.photos.length} 张照片</span
+                >
                 <span class="updated-time"
                     >更新于 {
                         new Date(foundAlbum.updatedAt).toLocaleDateString()

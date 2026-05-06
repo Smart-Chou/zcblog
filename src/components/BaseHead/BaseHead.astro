@@ -98,8 +98,11 @@ const {
     <script is:inline>
         (function () {
             var savedTheme = localStorage.getItem("preferredTheme");
-            var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            var isDark = savedTheme === "dark" || (savedTheme === null && systemDark);
+            var systemDark = window.matchMedia(
+                "(prefers-color-scheme: dark)",
+            ).matches;
+            var isDark =
+                savedTheme === "dark" || (savedTheme === null && systemDark);
 
             if (isDark) {
                 document.documentElement.classList.add("dark");
@@ -112,17 +115,24 @@ const {
             }
 
             // 监听 View Transitions 页面交换事件
-            document.addEventListener("astro:after-swap", function() {
+            document.addEventListener("astro:after-swap", function () {
                 var savedTheme = localStorage.getItem("preferredTheme");
-                var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-                var isDark = savedTheme === "dark" || (savedTheme === null && systemDark);
+                var systemDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)",
+                ).matches;
+                var isDark =
+                    savedTheme === "dark" ||
+                    (savedTheme === null && systemDark);
 
                 if (isDark) {
                     document.documentElement.classList.add("dark");
                     document.documentElement.setAttribute("data-theme", "dark");
                 } else {
                     document.documentElement.classList.remove("dark");
-                    document.documentElement.setAttribute("data-theme", "light");
+                    document.documentElement.setAttribute(
+                        "data-theme",
+                        "light",
+                    );
                 }
             });
         })();

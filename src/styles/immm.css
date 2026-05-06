@@ -222,7 +222,13 @@ html[data-theme="dark"] #bber-talk {
 }
 
 .post-content {
-    font-family: "LXGW Neo ZhiSong", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-family:
+        "LXGW Neo ZhiSong",
+        -apple-system,
+        BlinkMacSystemFont,
+        "PingFang SC",
+        "Microsoft YaHei",
+        sans-serif;
     font-weight: 500;
     margin-top: 0px;
     word-break: break-all;
@@ -430,8 +436,12 @@ a.read-more {
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 /* ========================================
@@ -634,7 +644,7 @@ a.read-more {
         width: 100%;
     }
 
-    .fri-item:nth-child(n+7) {
+    .fri-item:nth-child(n + 7) {
         display: none;
     }
 
@@ -642,7 +652,7 @@ a.read-more {
         width: 46%;
     }
 
-    .dfdORB:nth-child(n+5) {
+    .dfdORB:nth-child(n + 5) {
         display: none;
     }
 }

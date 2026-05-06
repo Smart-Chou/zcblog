@@ -117,7 +117,9 @@ const dataAttributes: DOMStringMap = {
                         e.stopPropagation();
                     }
                 };
-                dialog.addEventListener("wheel", handleWheel, { passive: true });
+                dialog.addEventListener("wheel", handleWheel, {
+                    passive: true,
+                });
                 window.addEventListener("click", onClick);
 
                 // Ensure search input gets focus, even if PagefindUI initializes after modal opens

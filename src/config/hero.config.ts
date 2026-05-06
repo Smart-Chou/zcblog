@@ -6,7 +6,7 @@
 export interface SocialLink {
     title: string;
     url: string;
-    icon: 'twitter' | 'github' | 'figma';
+    icon: "twitter" | "github" | "figma";
 }
 
 /**
@@ -16,7 +16,7 @@ export interface TechItem {
     name: string;
     icon: string;
     color: string;
-    category: 'framework' | 'tool';
+    category: "framework" | "tool";
 }
 
 /**
@@ -77,33 +77,96 @@ export const heroConfig = {
         { label: "Projects", url: "/projects", show: true },
         { label: "Blog", url: "/blog", show: true },
         { label: "T.I.L", url: "/today-i-learned", show: true },
-        { label: "Skills & Tools", url: "/work/skills-and-tools", show: true, showInLarge: true },
-        { label: "Experience", url: "/work/experience", show: true, showInLarge: true },
+        {
+            label: "Skills & Tools",
+            url: "/work/skills-and-tools",
+            show: true,
+            showInLarge: true,
+        },
+        {
+            label: "Experience",
+            url: "/work/experience",
+            show: true,
+            showInLarge: true,
+        },
         { label: "Studio", url: "/work/studio", show: true, showInLarge: true },
-        { label: "Contact", url: "/work/contact", show: true, showInLarge: true },
+        {
+            label: "Contact",
+            url: "/work/contact",
+            show: true,
+            showInLarge: true,
+        },
     ],
 
     // 社交链接
     socialLinks: [
-        { title: "Twitter", url: "https://twitter.com/marxchou", icon: "twitter" as const },
-        { title: "GitHub", url: "https://github.com/zcily", icon: "github" as const },
+        {
+            title: "Twitter",
+            url: "https://twitter.com/marxchou",
+            icon: "twitter" as const,
+        },
+        {
+            title: "GitHub",
+            url: "https://github.com/zcily",
+            icon: "github" as const,
+        },
     ],
 
     // CTA 按钮
     ctaButtons: [
         { label: "Get in Touch", url: "/work/contact", variant: "solid" },
-        { label: "RESUME", url: "https://www.figma.com/community/file/1176377524040948926", variant: "ghost", external: true },
+        {
+            label: "RESUME",
+            url: "https://www.figma.com/community/file/1176377524040948926",
+            variant: "ghost",
+            external: true,
+        },
     ],
 
     // 技术栈
     techStack: [
-        { name: "TypeScript", icon: "typescript", color: "#3178C6", category: "framework" as const },
-        { name: "React", icon: "react", color: "#61DAFB", category: "framework" as const },
-        { name: "Tailwind CSS", icon: "tailwindcss", color: "#06B6D4", category: "framework" as const },
-        { name: "Framer Motion", icon: "framer", color: "#0055FF", category: "framework" as const },
-        { name: "Next.js", icon: "nextjs", color: "#000000", category: "framework" as const },
-        { name: "VS Code", icon: "vscode", color: "#007ACC", category: "tool" as const },
-        { name: "Figma", icon: "figma", color: "#F24E1E", category: "tool" as const },
+        {
+            name: "TypeScript",
+            icon: "typescript",
+            color: "#3178C6",
+            category: "framework" as const,
+        },
+        {
+            name: "React",
+            icon: "react",
+            color: "#61DAFB",
+            category: "framework" as const,
+        },
+        {
+            name: "Tailwind CSS",
+            icon: "tailwindcss",
+            color: "#06B6D4",
+            category: "framework" as const,
+        },
+        {
+            name: "Framer Motion",
+            icon: "framer",
+            color: "#0055FF",
+            category: "framework" as const,
+        },
+        {
+            name: "Next.js",
+            icon: "nextjs",
+            color: "#000000",
+            category: "framework" as const,
+        },
+        {
+            name: "VS Code",
+            icon: "vscode",
+            color: "#007ACC",
+            category: "tool" as const,
+        },
+        {
+            name: "Figma",
+            icon: "figma",
+            color: "#F24E1E",
+            category: "tool" as const,
+        },
     ],
 
     // 设计原则
@@ -126,7 +189,8 @@ export const heroConfig = {
         {
             number: "4",
             title: "Effects",
-            description: "Add effects like borders, shadows, rounded corners, etc.",
+            description:
+                "Add effects like borders, shadows, rounded corners, etc.",
         },
     ],
 
@@ -135,19 +199,22 @@ export const heroConfig = {
         {
             title: "Clean & Intuitive",
             subtitle: "Eye Catching, Modern & Minimalist Design.",
-            description: "Keep the User Interface clean with a modern touch without compromising the User Experience.",
+            description:
+                "Keep the User Interface clean with a modern touch without compromising the User Experience.",
             accentColor: "violet",
         },
         {
             title: "Detail Oriented",
             subtitle: "Keen Eye for Spotting Small Details.",
-            description: "Awareness to ease of access, User Interface consistency, and improved User Experience.",
+            description:
+                "Awareness to ease of access, User Interface consistency, and improved User Experience.",
             accentColor: "violet",
         },
         {
             title: "Pretty & Optimized",
             subtitle: "Comprehensible and Optimized Code.",
-            description: "Writing clean code is a top priority while keeping it as optimized as possible.",
+            description:
+                "Writing clean code is a top priority while keeping it as optimized as possible.",
             accentColor: "violet",
         },
     ],
@@ -175,8 +242,16 @@ export const heroConfig = {
         {
             title: "This Site",
             links: [
-                { label: "Design Concept", url: "https://www.figma.com/community/file/1176392613303840973", external: true },
-                { label: "Source Code", url: "https://github.com/zcily/marxchou.com", external: true },
+                {
+                    label: "Design Concept",
+                    url: "https://www.figma.com/community/file/1176392613303840973",
+                    external: true,
+                },
+                {
+                    label: "Source Code",
+                    url: "https://github.com/zcily/marxchou.com",
+                    external: true,
+                },
                 { label: "Credits", url: "/credits" },
             ],
         },
