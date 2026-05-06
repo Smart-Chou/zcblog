@@ -1,0 +1,229 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Card from "~/components/bangumi/Card.astro";
+import TabNav from "~/components/bangumi/TabNav.astro";
+import BangumiSection from "~/components/bangumi/BangumiSection.astro";
+import { site } from "~/self.config";
+import { formatDateI18nWithTime } from "~/utils/date-utils";
+import type { UserSubjectCollection } from "~/types/bangumi";
+
+const BANGUMI_CONFIG = {
+    username: "1143164",
+    apiUrl: "https://api.bgm.tv",
+    pagination: {
+        limit: 50,
+        delay: 50,
+        maxTotal: 1000,
+    },
+};
+
+const buildTime = formatDateI18nWithTime(new Date());
+
+const categoryMap: Record<
+    string,
+    { id: string; name: string; subjectType: number }
+> = {
+    anime: { id: "anime", name: "Anime", subjectType: 2 },
+    book: { id: "book", name: "Book", subjectType: 1 },
+    music: { id: "music", name: "Music", subjectType: 3 },
+    game: { id: "game", name: "Game", subjectType: 4 },
+};
+
+async function fetchBangumiData(
+    username: string,
+    subjectType: number,
+): Promise<UserSubjectCollection[]> {
+    try {
+        const { limit, delay, maxTotal } = BANGUMI_CONFIG.pagination;
+        let offset = 0;
+        let allData: UserSubjectCollection[] = [];
+        let hasMore = true;
+        const isDev = import.meta.env.DEV;
+
+        while (hasMore) {
+            if (isDev && allData.length >= limit) break;
+            if (maxTotal > 0 && allData.length >= maxTotal) break;
+
+            const url = `${BANGUMI_CONFIG.apiUrl}/v0/users/${username}/collections?subject_type=${subjectType}&limit=${limit}&offset=${offset}`;
+
+            const response = await fetch(url, {
+                headers: {
+                    "User-Agent": "YuuOuRou Blog",
+                    Accept: "application/json",
+                },
+            });
+
+            if (!response.ok) break;
+
+            const data = await response.json();
+            const currentBatch = data.data || [];
+
+            if (currentBatch.length > 0) {
+                allData = allData.concat(currentBatch);
+                offset += limit;
+                if (currentBatch.length < limit) hasMore = false;
+            } else {
+                hasMore = false;
+            }
+
+            if (hasMore)
+                await new Promise((resolve) => setTimeout(resolve, delay));
+        }
+        return allData;
+    } catch (error) {
+        console.error("[Bangumi] Error fetching data:", error);
+        return [];
+    }
+}
+
+const bangumiData: Record<string, UserSubjectCollection[]> = {};
+const tabs: Array<{ id: string; name: string; count: number }> = [];
+
+const isUserIdConfigured =
+    BANGUMI_CONFIG.username && BANGUMI_CONFIG.username.trim() !== "";
+
+if (isUserIdConfigured) {
+    for (const [categoryKey, categoryInfo] of Object.entries(categoryMap)) {
+        const data = await fetchBangumiData(
+            BANGUMI_CONFIG.username,
+            categoryInfo.subjectType,
+        );
+        bangumiData[categoryKey] = data;
+        tabs.push({
+            id: categoryKey,
+            name: categoryInfo.name,
+            count: data.length,
+        });
+    }
+}
+
+const activeTab = tabs[0]?.id || "anime";
+---
+
+<BaseLayout title="Bangumi" description={`${site.title}'s Bangumi collection`}>
+    <div class="bangumi-container">
+        <div class="page-header">
+            <div class="header-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor"
+                    ><path
+                        d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"
+                    ></path></svg
+                >
+            </div>
+            <h1>Bangumi</h1>
+            <p class="subtitle">My anime, book, music and game collection</p>
+            <p class="build-time">Last updated: {buildTime}</p>
+        </div>
+
+        {
+            tabs.length > 0 ? (
+                <>
+                    <TabNav tabs={tabs} activeTab={activeTab} />
+                    {tabs.map((tab) => (
+                        <BangumiSection
+                            sectionId={tab.id}
+                            items={bangumiData[tab.id] || []}
+                            isActive={tab.id === activeTab}
+                            itemsPerPage={12}
+                        />
+                    ))}
+                </>
+            ) : (
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                        </svg>
+                    </div>
+                    <h2>
+                        {isUserIdConfigured
+                            ? "No data available"
+                            : "Bangumi user ID not configured"}
+                    </h2>
+                    <p>
+                        {isUserIdConfigured
+                            ? "Your collection is empty"
+                            : "Please configure your Bangumi user ID in the code"}
+                    </p>
+                </div>
+            )
+        }
+    </div>
+</BaseLayout>
+
+<style>
+    .bangumi-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .header-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 1rem;
+        background: var(--link-color);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .header-icon svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--title-color);
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        color: var(--body-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .build-time {
+        font-size: 0.8rem;
+        color: var(--body-color);
+        opacity: 0.6;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 1rem;
+    }
+
+    .empty-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1.5rem;
+        opacity: 0.3;
+    }
+
+    .empty-icon svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .empty-state h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        color: var(--title-color);
+    }
+
+    .empty-state p {
+        color: var(--body-color);
+        opacity: 0.7;
+    }
+</style>

@@ -1,0 +1,101 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Author from "~/components/Feature/Author.astro";
+import WalineComment from "~/components/Widget/WalineComment.astro";
+import { site } from "~/self.config";
+
+const friendsPage = {
+    title: "Friends",
+    note: "Friends' sites",
+    list: [
+        {
+            id: "Muxyang",
+            link: "https://www.shephe.com/",
+            avatar: "https://img.sepacn.com/images/2024/0330/7b0e41f6fa9c89f4e57eb19a2e9ec6e2.webp",
+            style: "background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        },
+    ],
+};
+---
+
+<BaseLayout
+    title={friendsPage.title}
+    description={`${friendsPage.title} - ${friendsPage.note}`}
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt={friendsPage.title}
+    keywords="Friends"
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+    locale="en"
+>
+    <h1 class="friends-title text-center space-bottom">
+        Friends &amp; Guestbook
+    </h1>
+    <div class="friends-container text-center space-bottom">
+        {
+            friendsPage.list.map((friend) => (
+                <a
+                    class="btn"
+                    href={friend.link}
+                    target="_blank"
+                    style={friend.style}
+                >
+                    <img
+                        src={friend.avatar}
+                        alt={friend.id}
+                        class="avatar"
+                        width="160"
+                        loading="lazy"
+                    />
+                    <span>{friend.id}</span>
+                </a>
+            ))
+        }
+    </div>
+    <p class="friends-note">
+        * I don't accept friend link requests from someone I don't know.
+    </p>
+    <Author />
+    <WalineComment />
+</BaseLayout>
+
+<style>
+    .friends-container {
+        max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .friends-container .btn {
+        margin: 0.3em 0.6em 0.3em 0;
+        text-decoration: none;
+        padding: 0.5em;
+        border-radius: var(--radius);
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .friends-container .btn .avatar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius);
+        background-color: #fff;
+        transform: rotate(20deg) translate(-15%);
+    }
+
+    .friends-container .btn span {
+        margin-left: 2.6em;
+    }
+
+    .friends-note {
+        margin: calc(var(--space) / 2) 0;
+        font-size: 0.9em;
+        opacity: 0.8;
+        text-align: center;
+    }
+</style>

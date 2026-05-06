@@ -28,6 +28,14 @@ const env = loadEnv("", process.cwd(), "");
 // https://astro.build/config
 export default defineConfig({
     site: env.PUBLIC_SITE_URL || "https://marxchou.com",
+    // i18n 配置
+    i18n: {
+        defaultLocale: "zh",
+        locales: ["zh", "en"],
+        routing: {
+            prefixDefaultLocale: false, // 默认语言(中文)不带前缀
+        },
+    },
     // experimental: {
     //     preserveScriptOrder: true,
     //     svgo: true,

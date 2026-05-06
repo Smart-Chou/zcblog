@@ -1,0 +1,18 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Hero from "~/components/Hero/Hero.astro";
+import { site } from "~/self.config";
+---
+
+<BaseLayout
+    title={`${site.subtitle} -  ${site.title}`}
+    description={`${site.title} - ${site.description}`}
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt={site.coverImageAlt}
+    keywords={site.keywords}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+    locale="en"
+>
+    <Hero />
+</BaseLayout>

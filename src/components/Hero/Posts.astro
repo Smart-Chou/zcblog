@@ -1,4 +1,6 @@
 ---
+import { t, defaultLocale, type Locale } from "~/utils/i18n";
+
 interface Post {
     id: string;
     data: {
@@ -18,16 +20,36 @@ interface Props {
 
 const { posts } = Astro.props;
 
-function formatDate(date: Date): string {
+// 自动从 URL 检测语言
+const pathname = Astro.url.pathname;
+const locale: Locale = pathname.startsWith("/en") ? "en" : defaultLocale;
+
+function formatDate(date: Date, locale: Locale): string {
     const now = new Date();
     const diff = now.getTime() - date.getTime();
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    if (days === 0) return "今天";
-    if (days === 1) return "1 天前";
-    if (days < 30) return `${days} 天前`;
-    if (days < 365) return `${Math.floor(days / 30)} 个月前`;
-    return `${Math.floor(days / 365)} 年前`;
+    const labels = {
+        zh: {
+            today: "今天",
+            dayAgo: "天前",
+            monthAgo: "个月前",
+            yearAgo: "年前",
+        },
+        en: {
+            today: "Today",
+            dayAgo: "days ago",
+            monthAgo: "months ago",
+            yearAgo: "years ago",
+        },
+    };
+    const l = labels[locale] || labels.zh;
+
+    if (days === 0) return l.today;
+    if (days === 1) return `1 ${l.dayAgo}`;
+    if (days < 30) return `${days} ${l.dayAgo}`;
+    if (days < 365) return `${Math.floor(days / 30)} ${l.monthAgo}`;
+    return `${Math.floor(days / 365)} ${l.yearAgo}`;
 }
 
 function getImageUrl(image: Post["data"]["image"]): string {
@@ -35,6 +57,8 @@ function getImageUrl(image: Post["data"]["image"]): string {
     if (typeof image.url === "string") return image.url;
     return image.url.src;
 }
+
+const archiveUrl = locale === defaultLocale ? "/archives/" : "/en/archives/";
 ---
 
 <div class="posts posts-home home grid-cols-2">
@@ -60,7 +84,7 @@ function getImageUrl(image: Post["data"]["image"]): string {
                         class="post-date"
                         title={posts[0].data.pubDate.toISOString()}
                     >
-                        {formatDate(posts[0].data.pubDate)}
+                        {formatDate(posts[0].data.pubDate, locale)}
                     </span>
                 </div>
                 <div class="post-content">
@@ -69,7 +93,7 @@ function getImageUrl(image: Post["data"]["image"]): string {
                         class="read-more button"
                         href={`/article/${posts[0].id}/`}
                     >
-                        阅读全文 →
+                        {t(locale, "common.readMore")} →
                     </a>
                 </div>
             </div>
@@ -96,7 +120,7 @@ function getImageUrl(image: Post["data"]["image"]): string {
                         class="post-date"
                         title={post.data.pubDate.toISOString()}
                     >
-                        {formatDate(post.data.pubDate)}
+                        {formatDate(post.data.pubDate, locale)}
                     </span>
                 </div>
             </div>
@@ -105,5 +129,5 @@ function getImageUrl(image: Post["data"]["image"]): string {
 </div>
 
 <div class="homemore">
-    <a href="/archives/">查看更多</a>
+    <a href={archiveUrl}>{t(locale, "common.viewAll")}</a>
 </div>

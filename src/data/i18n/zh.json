@@ -1,0 +1,136 @@
+{
+    "site": {
+        "title": "Zc Blog",
+        "subtitle": "一个技术人的自留地",
+        "description": "分享技术、生活与思考的个人博客",
+        "coverImage": "avatar.png",
+        "coverImageAlt": "Zc Blog Cover"
+    },
+    "nav": {
+        "home": "首页",
+        "blog": "博客",
+        "archives": "归档",
+        "tags": "标签",
+        "albums": "相册",
+        "friends": "友人帐",
+        "about": "关于",
+        "bangumi": "Bangumi",
+        "stats": "统计",
+        "essay": "随笔",
+        "gallery": "画廊"
+    },
+    "common": {
+        "search": "搜索",
+        "searchPlaceholder": "搜索文章...",
+        "loading": "加载中...",
+        "copy": "复制",
+        "copied": "已复制",
+        "share": "分享",
+        "backToTop": "返回顶部",
+        "readMore": "阅读全文",
+        "viewAll": "查看全部",
+        "prev": "上一页",
+        "next": "下一页",
+        "page": "第 {page} 页",
+        "of": "共 {total} 页",
+        "404": {
+            "title": "页面未找到",
+            "message": "抱歉，您访问的页面不存在或已被移除。"
+        },
+        "500": {
+            "title": "服务器错误",
+            "message": "抱歉，服务器遇到了问题，请稍后再试。"
+        }
+    },
+    "footer": {
+        "copyright": "版权所有",
+        "allRightsReserved": "保留所有权利",
+        "icp": "ICP 备案",
+        "rss": "RSS 订阅",
+        "sitemap": "网站地图"
+    },
+    "article": {
+        "published": "发布于",
+        "updated": "更新于",
+        "readingTime": "阅读时长",
+        "views": "浏览",
+        "tags": "标签",
+        "categories": "分类",
+        "author": "作者",
+        "toc": "目录",
+        "shareTo": "分享到",
+        "qrcode": "扫码阅读"
+    },
+    "blog": {
+        "title": "博客",
+        "description": "所有文章",
+        "noMorePosts": "没有更多文章了",
+        "sortBy": "排序",
+        "newest": "最新",
+        "hottest": "最热"
+    },
+    "archives": {
+        "title": "归档",
+        "description": "文章归档",
+        "allPosts": "全部文章",
+        "postCount": "共 {count} 篇文章"
+    },
+    "tags": {
+        "title": "标签",
+        "description": "所有标签",
+        "postCount": "共 {count} 篇文章"
+    },
+    "friends": {
+        "title": "友人帐",
+        "description": "朋友们的小站",
+        "addFriend": "添加友链",
+        "contactMe": "联系我"
+    },
+    "about": {
+        "title": "关于",
+        "description": "关于我"
+    },
+    "stats": {
+        "title": "统计",
+        "description": "数据统计",
+        "totalPosts": "文章总数",
+        "totalViews": "浏览总数",
+        "totalTags": "标签总数",
+        "totalFriends": "友人总数",
+        "postsPerMonth": "每月文章数",
+        "topTags": "热门标签",
+        "recentPosts": "最近文章"
+    },
+    "donate": {
+        "title": "赞赏",
+        "description": "请我喝杯咖啡"
+    },
+    "cookie": {
+        "title": "Cookie 声明",
+        "description": "关于 Cookie 的使用"
+    },
+    "privacy": {
+        "title": "隐私政策",
+        "description": "隐私政策"
+    },
+    "copyright": {
+        "title": "版权声明",
+        "description": "版权声明"
+    },
+    "albums": {
+        "title": "相册",
+        "description": "照片集"
+    },
+    "gallery": {
+        "title": "画廊",
+        "description": "图片展示"
+    },
+    "essay": {
+        "title": "随笔",
+        "description": "生活随笔"
+    },
+    "bangumi": {
+        "title": "Bangumi",
+        "description": "番剧与音乐"
+    }
+}

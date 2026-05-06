@@ -1,0 +1,136 @@
+{
+    "site": {
+        "title": "Zc Blog",
+        "subtitle": "A personal space for tech enthusiasts",
+        "description": "Sharing technology, life and thoughts through a personal blog",
+        "coverImage": "avatar.png",
+        "coverImageAlt": "Zc Blog Cover"
+    },
+    "nav": {
+        "home": "Home",
+        "blog": "Blog",
+        "archives": "Archives",
+        "tags": "Tags",
+        "albums": "Albums",
+        "friends": "Friends",
+        "about": "About",
+        "bangumi": "Bangumi",
+        "stats": "Stats",
+        "essay": "Essays",
+        "gallery": "Gallery"
+    },
+    "common": {
+        "search": "Search",
+        "searchPlaceholder": "Search articles...",
+        "loading": "Loading...",
+        "copy": "Copy",
+        "copied": "Copied",
+        "share": "Share",
+        "backToTop": "Back to top",
+        "readMore": "Read more",
+        "viewAll": "View all",
+        "prev": "Previous",
+        "next": "Next",
+        "page": "Page {page}",
+        "of": "of {total}",
+        "404": {
+            "title": "Page not found",
+            "message": "Sorry, the page you are looking for does not exist or has been removed."
+        },
+        "500": {
+            "title": "Server Error",
+            "message": "Sorry, the server encountered a problem. Please try again later."
+        }
+    },
+    "footer": {
+        "copyright": "Copyright",
+        "allRightsReserved": "All rights reserved",
+        "icp": "ICP License",
+        "rss": "RSS Feed",
+        "sitemap": "Sitemap"
+    },
+    "article": {
+        "published": "Published",
+        "updated": "Updated",
+        "readingTime": "Reading time",
+        "views": "views",
+        "tags": "Tags",
+        "categories": "Categories",
+        "author": "Author",
+        "toc": "Table of Contents",
+        "shareTo": "Share to",
+        "qrcode": "Scan to read"
+    },
+    "blog": {
+        "title": "Blog",
+        "description": "All posts",
+        "noMorePosts": "No more posts",
+        "sortBy": "Sort by",
+        "newest": "Latest",
+        "hottest": "Hot"
+    },
+    "archives": {
+        "title": "Archives",
+        "description": "Post archives",
+        "allPosts": "All posts",
+        "postCount": "{count} posts in total"
+    },
+    "tags": {
+        "title": "Tags",
+        "description": "All tags",
+        "postCount": "{count} posts in total"
+    },
+    "friends": {
+        "title": "Friends",
+        "description": "Friends' sites",
+        "addFriend": "Add friend",
+        "contactMe": "Contact me"
+    },
+    "about": {
+        "title": "About",
+        "description": "About me"
+    },
+    "stats": {
+        "title": "Statistics",
+        "description": "Data statistics",
+        "totalPosts": "Total posts",
+        "totalViews": "Total views",
+        "totalTags": "Total tags",
+        "totalFriends": "Total friends",
+        "postsPerMonth": "Posts per month",
+        "topTags": "Popular tags",
+        "recentPosts": "Recent posts"
+    },
+    "donate": {
+        "title": "Donate",
+        "description": "Buy me a coffee"
+    },
+    "cookie": {
+        "title": "Cookie Policy",
+        "description": "About cookie usage"
+    },
+    "privacy": {
+        "title": "Privacy Policy",
+        "description": "Privacy policy"
+    },
+    "copyright": {
+        "title": "Copyright Notice",
+        "description": "Copyright notice"
+    },
+    "albums": {
+        "title": "Albums",
+        "description": "Photo collections"
+    },
+    "gallery": {
+        "title": "Gallery",
+        "description": "Image gallery"
+    },
+    "essay": {
+        "title": "Essays",
+        "description": "Life essays"
+    },
+    "bangumi": {
+        "title": "Bangumi",
+        "description": "Anime and music"
+    }
+}

@@ -4,10 +4,8 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 import { site } from "~/self.config";
 import { getCollection } from "astro:content";
 
-// 获取所有文章
 const allPosts = await getCollection("article");
 
-// 计算统计数据
 interface PostData {
     date: string;
     title: string;
@@ -28,7 +26,6 @@ const postsData: PostData[] = allPosts.map((post) => {
     };
 });
 
-// 按年份统计
 const postsByYear = postsData.reduce(
     (acc, post) => {
         const year = post.date.substring(0, 4);
@@ -40,15 +37,12 @@ const postsByYear = postsData.reduce(
     {} as Record<string, number>,
 );
 
-// 汇总统计数据
 const totalPosts = postsData.length;
 const totalTags = new Set(postsData.flatMap((p) => p.tags)).size;
 const totalWordCount = postsData.reduce((sum, p) => sum + p.wordCount, 0);
 
-// 所有标签
 const allTags = postsData.flatMap((p) => p.tags);
 
-// 年度进度
 const now = new Date();
 const yearStart = new Date(now.getFullYear(), 0, 1);
 const yearEnd = new Date(now.getFullYear() + 1, 0, 1);
@@ -58,7 +52,6 @@ const yearProgress = (
     100
 ).toFixed(2);
 
-// 博客运行时间
 const startDate = new Date("2020-09-27");
 let runningYears = now.getFullYear() - startDate.getFullYear();
 let runningMonths = now.getMonth() - startDate.getMonth();
@@ -81,7 +74,6 @@ function formatNumber(num: number): string {
     return num.toString();
 }
 
-// 标签云数据
 const tagCounts = allTags.reduce(
     (acc, tag) => {
         acc[tag] = (acc[tag] || 0) + 1;
@@ -106,7 +98,7 @@ function getTagColor(count: number): string {
 }
 ---
 
-<BaseLayout title="网站统计数据" description="一些网站文章数据的统计">
+<BaseLayout title="Site Statistics" description="Blog statistics and data">
     <div class="stats-container">
         <div class="page-header">
             <div class="header-icon">
@@ -116,66 +108,63 @@ function getTagColor(count: number): string {
                     ></path></svg
                 >
             </div>
-            <h1>网站统计数据</h1>
-            <p class="subtitle">一些网站文章数据的统计</p>
+            <h1>Site Statistics</h1>
+            <p class="subtitle">Blog statistics and data</p>
         </div>
 
-        <!-- 发文热力图 -->
         <section class="stats-section">
-            <h2>发文热力图</h2>
+            <h2>Contribution Heatmap</h2>
             <div class="heatmap-container" id="heatmap-container"></div>
         </section>
 
-        <!-- 发文统计 -->
         <section class="stats-section">
-            <h2>发文统计</h2>
+            <h2>Post Statistics</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h3>文章数</h3>
+                    <h3>Posts</h3>
                     <p class="stat-value">{formatNumber(totalPosts)}</p>
                 </div>
                 <div class="stat-card">
-                    <h3>标签数</h3>
+                    <h3>Tags</h3>
                     <p class="stat-value">{formatNumber(totalTags)}</p>
                 </div>
                 <div class="stat-card">
-                    <h3>总字数</h3>
+                    <h3>Total Words</h3>
                     <p class="stat-value">{formatNumber(totalWordCount)}</p>
                 </div>
             </div>
         </section>
 
-        <!-- 博客状态 -->
         <section class="stats-section">
-            <h2>博客状态</h2>
+            <h2>Blog Status</h2>
             <div class="blog-status">
                 <ul class="status-list">
                     <li>
-                        <span class="status-label">年度进度</span><span
+                        <span class="status-label">Year Progress</span><span
                             class="status-value">{yearProgress}%</span
                         >
                     </li>
                     <li>
-                        <span class="status-label">博客已运行</span><span
+                        <span class="status-label">Blog Running</span><span
                             class="status-value"
-                            >{runningYears} 年 {runningMonths} 个月 {
+                            >{runningYears} years {runningMonths} months {
                                 runningDays
-                            } 天</span
+                            } days</span
                         >
                     </li>
                     <li>
-                        <span class="status-label">文章总数</span><span
-                            class="status-value">{totalPosts} 篇</span
+                        <span class="status-label">Total Posts</span><span
+                            class="status-value">{totalPosts} posts</span
                         >
                     </li>
                     <li>
-                        <span class="status-label">标签总数</span><span
-                            class="status-value">{totalTags} 个</span
+                        <span class="status-label">Total Tags</span><span
+                            class="status-value">{totalTags} tags</span
                         >
                     </li>
                     <li>
-                        <span class="status-label">总字数</span><span
-                            class="status-value">{totalWordCount} 字</span
+                        <span class="status-label">Total Words</span><span
+                            class="status-value">{totalWordCount} words</span
                         >
                     </li>
                 </ul>
@@ -192,9 +181,8 @@ function getTagColor(count: number): string {
             </div>
         </section>
 
-        <!-- 年份统计 -->
         <section class="stats-section">
-            <h2>年份统计</h2>
+            <h2>Yearly Statistics</h2>
             <div class="bar-chart-container">
                 {
                     (() => {
@@ -237,9 +225,8 @@ function getTagColor(count: number): string {
             </div>
         </section>
 
-        <!-- 标签云 -->
         <section class="stats-section">
-            <h2>标签云</h2>
+            <h2>Tag Cloud</h2>
             <div class="tag-cloud">
                 {
                     sortedTags.map(({ name, count }) => (
@@ -280,7 +267,6 @@ function getTagColor(count: number): string {
         const startDate = new Date(today);
         startDate.setFullYear(today.getFullYear() - 1);
 
-        // Adjust to start from Sunday
         startDate.setDate(startDate.getDate() - startDate.getDay());
 
         const monthNames = [
@@ -298,13 +284,11 @@ function getTagColor(count: number): string {
             "Dec",
         ];
 
-        // Data map
         const dataMap = {};
         postsData.forEach((p) => {
             dataMap[p.date] = p;
         });
 
-        // Month labels - track which column each month starts
         const months = [];
         let currentDate = new Date(startDate);
         let lastMonth = -1;
@@ -322,7 +306,6 @@ function getTagColor(count: number): string {
             weekIndex++;
         }
 
-        // Month row with grid layout
         const monthRow = document.createElement("div");
         monthRow.className = "heatmap-months";
 
@@ -334,29 +317,20 @@ function getTagColor(count: number): string {
         });
         container.appendChild(monthRow);
 
-        // Wrapper with weekday labels and grid
         const wrapper = document.createElement("div");
         wrapper.className = "heatmap-wrapper";
 
-        // Y-axis labels (weekdays) with grid
         const yLabels = document.createElement("div");
         yLabels.className = "heatmap-y-labels";
         yLabels.innerHTML = `
-  <span>Sun</span>
-  <span></span>
-  <span>Mon</span>
-  <span></span>
-  <span>Wed</span>
-  <span></span>
-  <span>Fri</span>
-`;
+            <span>Sun</span><span></span><span>Mon</span><span></span>
+            <span>Wed</span><span></span><span>Fri</span>
+        `;
         wrapper.appendChild(yLabels);
 
-        // Grid
         const grid = document.createElement("div");
         grid.className = "heatmap-grid";
 
-        // Only render dates from startDate to today
         currentDate = new Date(startDate);
 
         while (currentDate <= today) {
@@ -376,7 +350,7 @@ function getTagColor(count: number): string {
 
                     let content = `<div class="heatmap-tooltip-date">${dayData.date}</div>`;
                     content += `<div class="heatmap-tooltip-content">`;
-                    content += `<div>${dayData.wordCount} 字</div>`;
+                    content += `<div>${dayData.wordCount} words</div>`;
                     content += `<div>《${dayData.title}》</div>`;
                     content += `</div>`;
 
@@ -406,18 +380,17 @@ function getTagColor(count: number): string {
         wrapper.appendChild(grid);
         container.appendChild(wrapper);
 
-        // Legend
         const legendDiv = document.createElement("div");
         legendDiv.className = "heatmap-legend";
         legendDiv.innerHTML = `
-      <span>Less</span>
-      <span class="heatmap-legend-item" style="background-color: #d6d8db"></span>
-      <span class="heatmap-legend-item" style="background-color: #9ad99b"></span>
-      <span class="heatmap-legend-item" style="background-color: #68be67"></span>
-      <span class="heatmap-legend-item" style="background-color: #3f7f46"></span>
-      <span class="heatmap-legend-item" style="background-color: #2f6336"></span>
-      <span>More</span>
-    `;
+            <span>Less</span>
+            <span class="heatmap-legend-item" style="background-color: #d6d8db"></span>
+            <span class="heatmap-legend-item" style="background-color: #9ad99b"></span>
+            <span class="heatmap-legend-item" style="background-color: #68be67"></span>
+            <span class="heatmap-legend-item" style="background-color: #3f7f46"></span>
+            <span class="heatmap-legend-item" style="background-color: #2f6336"></span>
+            <span>More</span>
+        `;
         container.appendChild(legendDiv);
     }
 

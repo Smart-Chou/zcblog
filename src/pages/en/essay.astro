@@ -1,0 +1,88 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import EssayItem from "~/components/essay/EssayItem.astro";
+import { site } from "~/self.config";
+import essaysData from "~/data/essays.json";
+---
+
+<BaseLayout title="Essays" description={`${site.title}'s essays collection`}>
+    <div class="essay-container">
+        <div class="page-header">
+            <div class="header-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor"
+                    ><path
+                        d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"
+                    ></path></svg
+                >
+            </div>
+            <h1>Essays</h1>
+            <p class="subtitle">
+                A collection of moments from my social media - mostly from my
+                wild youth days
+            </p>
+        </div>
+
+        <div class="essay-masonry">
+            {essaysData.map((item) => <EssayItem item={item} />)}
+        </div>
+    </div>
+</BaseLayout>
+
+<style>
+    .essay-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .header-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 1rem;
+        background: var(--link-color);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .header-icon svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--title-color);
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        color: var(--body-color);
+    }
+
+    .essay-masonry {
+        column-count: 3;
+        column-gap: 1rem;
+    }
+
+    @media (max-width: 1024px) {
+        .essay-masonry {
+            column-count: 2;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .essay-masonry {
+            column-count: 1;
+        }
+    }
+</style>

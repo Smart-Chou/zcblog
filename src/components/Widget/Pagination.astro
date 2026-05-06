@@ -2,7 +2,12 @@
 import ChevronLeftIcon from "~/components/icons/ChevronLeft.astro";
 import ChevronRightIcon from "~/components/icons/ChevronRight.astro";
 
-const { page } = Astro.props;
+interface Props {
+    page: any;
+    basePath?: string;
+}
+
+const { page, basePath = "/blog" } = Astro.props;
 ---
 
 <style>
@@ -39,7 +44,6 @@ const { page } = Astro.props;
     }
 
     @media screen and (max-width: 650px) {
-        /* 隐藏所有页码链接 */
         #pagination a:not([aria-label]) {
             display: none;
         }
@@ -73,19 +77,15 @@ const { page } = Astro.props;
             let endPage = 1;
 
             if (totalPages < 6) {
-                // 总页数小于等于5，显示所有页码
                 startPage = 1;
                 endPage = totalPages;
             } else if (currentPage < 4) {
-                // 当前页码靠近开始位置
                 startPage = 1;
                 endPage = 5;
             } else if (currentPage + 3 > totalPages) {
-                // 当前页码靠近结束位置
                 startPage = totalPages - 4;
                 endPage = totalPages;
             } else {
-                // 当前页码在中间位置
                 startPage = currentPage - 2;
                 endPage = currentPage + 2;
             }
@@ -95,7 +95,7 @@ const { page } = Astro.props;
                 pageNumber < endPage + 1;
                 pageNumber++
             ) {
-                const href = `/blog/${pageNumber}/`;
+                const href = `${basePath}/${pageNumber}/`;
                 pages.push(
                     <a
                         data-key={`page-${pageNumber}`}

@@ -1,0 +1,77 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { site } from "~/self.config";
+import AlbumCard from "~/components/Widget/AlbumCard.astro";
+
+import albumData from "~/data/albums.json";
+const { albums } = albumData;
+---
+
+<BaseLayout
+    title="Albums"
+    description={site.title + " - Photo Albums"}
+    image={Astro.site + site.coverImage}
+    imageAlt="Albums"
+    keywords="Albums, Photos, Gallery"
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+    locale="en"
+>
+    <div class="albums-container">
+        <h1 class="page-title">Albums</h1>
+        <p class="page-description">Capturing beautiful moments in life</p>
+
+        <div class="albums-grid">
+            {
+                albums.map((album) => (
+                    <AlbumCard
+                        id={album.id}
+                        title={album.title}
+                        description={album.description}
+                        coverImage={album.coverImage}
+                        photoCount={album.photos.length}
+                        updatedAt={new Date(album.updatedAt)}
+                    />
+                ))
+            }
+        </div>
+    </div>
+</BaseLayout>
+
+<style>
+    .albums-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        color: var(--title-color);
+    }
+
+    .page-description {
+        font-size: 1.1rem;
+        text-align: center;
+        color: var(--body-color);
+        margin-bottom: 3rem;
+    }
+
+    .albums-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+        .albums-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

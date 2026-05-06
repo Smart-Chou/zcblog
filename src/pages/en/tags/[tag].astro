@@ -1,0 +1,89 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import PostLayout from "~/layouts/PostLayout.astro";
+import PostMeta from "~/components/Article/PostMeta.astro";
+import { site } from "~/self.config";
+import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
+
+export async function getStaticPaths() {
+    const allArticles = await getCollection("article");
+    const uniqueTags = [
+        ...new Set(allArticles.map((post) => post.data.tags || []).flat()),
+    ];
+    return uniqueTags.map((tag) => ({
+        params: { tag },
+        props: {
+            articles: allArticles.filter((post) =>
+                (post.data.tags || []).includes(tag),
+            ),
+        },
+    }));
+}
+
+const { tag } = Astro.params;
+const { articles } = Astro.props;
+
+const postsWithMeta = articles.map((post) => {
+    const { wordCount, readTime, excerpt } = getPostsWithMeta({
+        ...post,
+        slug: post.id,
+    });
+    return {
+        ...post,
+        wordCount,
+        readTime,
+        excerpt,
+        slug: post.id,
+    };
+});
+---
+
+<BaseLayout
+    title={`${tag} - ${site.title}`}
+    description={`${tag}`}
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt={tag}
+    keywords={tag}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+    locale="en"
+>
+    <h1 class="tag-title text-center space-bottom"># {tag}</h1>
+    <div class="posts">
+        {
+            postsWithMeta.map((post) => (
+                <PostLayout key={post.slug}>
+                    <h2 class="post-card__title">{post.data.title}</h2>
+                    <p class="post-card__description">{post.excerpt}</p>
+                    <PostMeta
+                        publishedTime={post.data.pubDate}
+                        wordCount={post.wordCount}
+                        readTime={post.readTime}
+                        currentSlug={post.slug}
+                    />
+                    <a href={`/article/${post.slug}/`} class="post-card__link">
+                        Read more
+                    </a>
+                </PostLayout>
+            ))
+        }
+    </div>
+</BaseLayout>
+
+<script>
+    import { pageviewCount } from "@waline/client/pageview";
+    import { waline } from "~/self.config";
+
+    document.addEventListener("astro:page-load", () => {
+        const serverURL = waline.serverUrl;
+        const path = window.location.pathname;
+
+        pageviewCount({
+            serverURL,
+            path,
+            selector: ".waline-pageview-count",
+            update: true,
+        });
+    });
+</script>

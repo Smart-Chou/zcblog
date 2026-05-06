@@ -1,0 +1,123 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import Author from "~/components/Feature/Author.astro";
+import PostCard from "~/components/Article/PostCard.astro";
+import Pagination from "~/components/Widget/Pagination.astro";
+import BackToTop from "~/components/Layout/BackToTop.astro";
+import { site, config, pageView } from "~/self.config";
+import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
+
+export async function getStaticPaths({
+    paginate,
+}: {
+    paginate: (data: any[], options: { pageSize: number }) => any[];
+}) {
+    const allPosts = await getCollection("article");
+    const pageSize = config.PageSize || 10;
+
+    const postsWithPrecomputedMeta = allPosts.map((post) => {
+        const { wordCount, readTime, modifiedTime, excerpt } = getPostsWithMeta(
+            {
+                ...post,
+                slug: post.id,
+            },
+        );
+        const sticky = post.data.sticky || 0;
+
+        return {
+            ...post,
+            wordCount,
+            readTime,
+            slug: post.id,
+            sticky,
+            modifiedTime,
+            excerpt,
+        };
+    });
+
+    const sortedPosts = postsWithPrecomputedMeta.sort((a, b) => {
+        const stickyDIff = (Number(b.sticky) || 0) - (Number(a.sticky) || 0);
+        if (stickyDIff !== 0) {
+            return stickyDIff;
+        }
+        return (
+            new Date(b.data.pubDate).getTime() -
+            new Date(a.data.pubDate).getTime()
+        );
+    });
+    return paginate(sortedPosts, { pageSize });
+}
+
+const { page } = Astro.props as any;
+
+const postsWithMeta = page.data;
+---
+
+<BaseLayout
+    title={`${site.subtitle} - ${site.title}`}
+    description={`${site.title} - ${site.description}`}
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt={site.coverImageAlt}
+    keywords={site.keywords}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+    locale="en"
+>
+    <Author />
+    <div class="post">
+        {
+            postsWithMeta.map((post: any, index: number) => (
+                <PostCard
+                    key={post.slug}
+                    title={post.data.title}
+                    publishedTime={post.data.pubDate}
+                    modifiedTime={post.modifiedTime}
+                    postUrl={`/article/${post.slug}/`}
+                    imagePath={
+                        post.data.image?.url ||
+                        "https://pic-api.marxchou.com/api/random"
+                    }
+                    description={post.excerpt}
+                    tags={post.data.tags}
+                    wordCount={post.wordCount}
+                    readTime={post.readTime}
+                    currentSlug={post.slug}
+                    altText={post.data.image?.alt || "Blog Cover"}
+                    loading={index < 3 ? "eager" : "lazy"}
+                    sticky={post.sticky}
+                />
+            ))
+        }
+    </div>
+    <Pagination page={page} basePath="/en/blog" />
+    {pageView.backtotop && <BackToTop />}
+</BaseLayout>
+
+<script>
+    import { pageviewCount } from "@waline/client/pageview";
+    import { waline } from "~/self.config";
+
+    if (typeof window !== "undefined") {
+        document.addEventListener("astro:page-load", () => {
+            const serverURL = waline.serverUrl;
+            const path = window.location.pathname;
+
+            if (!serverURL) {
+                console.warn("Waline server URL is not configured");
+                return;
+            }
+
+            try {
+                pageviewCount({
+                    serverURL,
+                    path,
+                    selector: ".waline-pageview-count",
+                    update: true,
+                });
+            } catch (error) {
+                console.error("Failed to initialize Waline:", error);
+            }
+        });
+    }
+</script>
