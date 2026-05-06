@@ -1,0 +1,99 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+    const pages = await getCollection("pages");
+    return pages.map((page) => ({
+        params: { slug: page.id },
+        props: { page },
+    }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description || ""}>
+    <div class="legal-container">
+        <h1>{page.data.title}</h1>
+        <Content />
+    </div>
+</BaseLayout>
+
+<style>
+    .legal-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
+
+    .legal-container :global(h1) {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--title-color);
+    }
+
+    .legal-container :global(h2) {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        color: var(--title-color);
+    }
+
+    .legal-container :global(p) {
+        color: var(--body-color);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+
+    .legal-container :global(a) {
+        color: var(--link-color);
+        text-decoration: none;
+    }
+
+    .legal-container :global(a:hover) {
+        text-decoration: underline;
+    }
+
+    .legal-container :global(ul),
+    .legal-container :global(ol) {
+        color: var(--body-color);
+        line-height: 1.8;
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+    }
+
+    .legal-container :global(li) {
+        margin-bottom: 0.5rem;
+    }
+
+    .legal-container :global(table) {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+    }
+
+    .legal-container :global(th),
+    .legal-container :global(td) {
+        border: 1px solid var(--line-color);
+        padding: 0.75rem;
+        text-align: left;
+    }
+
+    .legal-container :global(th) {
+        background: var(--bg-content-color);
+        font-weight: 600;
+    }
+
+    .legal-container :global(td) {
+        background: var(--bg-color);
+    }
+
+    .legal-container :global(strong) {
+        color: var(--title-color);
+        font-weight: 600;
+    }
+</style>
