@@ -79,7 +79,7 @@ if (!foundAlbum) {
                         href={`https://pic-api.marxchou.com/api/pic${photo.url}`}
                         class="photo-item"
                         data-fancybox="gallery"
-                        data-caption={`<h4>${photo.alt || ''}</h4><p>${photo.description || ''}</p>`}
+                        data-caption=""
                         data-index={index}
                     >
                         <div class="photo-wrapper">
@@ -89,11 +89,6 @@ if (!foundAlbum) {
                                 class="photo-image"
                                 loading="lazy"
                             />
-                            <div class="photo-overlay">
-                                <span class="photo-description">
-                                    {photo.description}
-                                </span>
-                            </div>
                         </div>
                     </a>
                 ))

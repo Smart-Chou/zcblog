@@ -117,9 +117,9 @@ export async function initStaticFancybox(
 
         const { Fancybox } = await import("@fancyapps/ui");
 
-        Fancybox.bind(config.gallerySelector, {
+        Fancybox.bind("#fancybox-gallery a[href]", {
             groupAll: true,
-            Carousel: { transition: config.animationEffect },
+            Carousel: { transition: config.animationEffect as any },
         });
 
         if (debug) console.log("Fancybox 静态画廊初始化完成");
