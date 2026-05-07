@@ -1,4 +1,6 @@
 ---
+import Location from "~/components/icons/Location.astro";
+
 interface Props {
     id: string;
     name: string;
@@ -30,37 +32,30 @@ const { id, name, cover, description, date, location, tags, photoCount } =
             )
         }
         <div class="photo-count-badge">{photoCount || 0} 张</div>
-    </div>
-    <div class="album-info">
-        <h3 class="album-name">{name}</h3>
-        {description && <p class="album-desc">{description}</p>}
-        <div class="album-meta">
-            {date && <span>{date}</span>}
+        <div class="album-info">
+            <h3 class="album-name">{name}</h3>
+            {description && <p class="album-desc">{description}</p>}
+            <div class="album-meta">
+                {date && <span>{date}</span>}
+                {
+                    location && (
+                        <span class="location">
+                            <Location width="12" height="12" />
+                            {location}
+                        </span>
+                    )
+                }
+            </div>
             {
-                location && (
-                    <span class="location">
-                        <svg
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            width="12"
-                            height="12"
-                        >
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" />
-                        </svg>
-                        {location}
-                    </span>
+                tags && tags.length > 0 && (
+                    <div class="album-tags">
+                        {tags.slice(0, 4).map((tag) => (
+                            <span class="tag">{tag}</span>
+                        ))}
+                    </div>
                 )
             }
         </div>
-        {
-            tags && tags.length > 0 && (
-                <div class="album-tags">
-                    {tags.slice(0, 4).map((tag) => (
-                        <span class="tag">{tag}</span>
-                    ))}
-                </div>
-            )
-        }
     </div>
 </a>
 
@@ -123,13 +118,19 @@ const { id, name, cover, description, date, location, tags, photoCount } =
     }
 
     .album-info {
-        padding: 1rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.5rem 1rem 1rem;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+        color: white;
     }
 
     .album-name {
         font-size: 1rem;
         font-weight: 600;
-        color: var(--title-color);
+        color: #f0f0f0;
         margin-bottom: 0.25rem;
         display: -webkit-box;
         -webkit-line-clamp: 1;
@@ -139,8 +140,7 @@ const { id, name, cover, description, date, location, tags, photoCount } =
 
     .album-desc {
         font-size: 0.85rem;
-        color: var(--body-color);
-        opacity: 0.8;
+        opacity: 0.9;
         margin-bottom: 0.5rem;
         line-height: 1.4;
         display: -webkit-box;
@@ -154,8 +154,7 @@ const { id, name, cover, description, date, location, tags, photoCount } =
         flex-wrap: wrap;
         gap: 0.75rem;
         font-size: 0.75rem;
-        color: var(--body-color);
-        opacity: 0.7;
+        opacity: 0.8;
     }
 
     .location {
@@ -175,7 +174,7 @@ const { id, name, cover, description, date, location, tags, photoCount } =
         font-size: 0.65rem;
         padding: 2px 8px;
         border-radius: 4px;
-        background: rgba(0, 0, 0, 0.1);
-        color: var(--body-color);
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
     }
 </style>

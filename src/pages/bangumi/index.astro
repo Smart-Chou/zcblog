@@ -3,6 +3,8 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 import Card from "~/components/bangumi/Card.astro";
 import TabNav from "~/components/bangumi/TabNav.astro";
 import BangumiSection from "~/components/bangumi/BangumiSection.astro";
+import Film from "~/components/icons/Film.astro";
+import AlertCircle from "~/components/icons/AlertCircle.astro";
 import { site } from "~/self.config";
 import { formatDateI18nWithTime } from "~/utils/date-utils";
 import type { UserSubjectCollection } from "~/types/bangumi";
@@ -108,11 +110,7 @@ const activeTab = tabs[0]?.id || "anime";
     <div class="bangumi-container">
         <div class="page-header">
             <div class="header-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor"
-                    ><path
-                        d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"
-                    ></path></svg
-                >
+                <Film />
             </div>
             <h1>Bangumi</h1>
             <p class="subtitle">我的动漫、书籍、音乐和游戏收藏</p>
@@ -135,9 +133,7 @@ const activeTab = tabs[0]?.id || "anime";
             ) : (
                 <div class="empty-state">
                     <div class="empty-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                        </svg>
+                        <AlertCircle />
                     </div>
                     <h2>
                         {isUserIdConfigured
