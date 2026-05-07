@@ -130,7 +130,7 @@ localStorage.setItem('modelId', '7'); localStorage.setItem('modelTexturesId',
 
 - `2020-05-06`：修复后端接口初始化，看板娘模型下方有`1CM`间隔
 - `2020-05-30`：随着接口访问量日益巨大，截止`5`月底，已经请求了`600`万次了
-  [![img](https://cdn.zcily.life/image/dead.png!WebP)](https://itggg.cn/8.3/assets/img/emotion/aru/dead.png)
+  [![img](/assets/note/dead.png)](https://itggg.cn/8.3/assets/img/emotion/aru/dead.png)
   服务器负载天天`90%`,为了满足大家的需要，现在把接口数据都缓存在百度云`CDN`的，
   刷新时间`2h`，缓存生效后可以达到毫秒换装，请自己体验
 - `2020-05-30`：优化 CND 换装，重构前端模型，现在的模型看起来效果更精细

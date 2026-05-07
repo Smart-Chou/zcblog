@@ -48,7 +48,7 @@ tags:
    回显信息类似如下图，表示当前轻量应用服务器有两块磁盘，`/dev/vda`为 50GB 的系统
    盘，`/dev/vdb`是新增数据盘。
 
-   ![磁盘信息](https://cdn.zcily.life/image/aad842b12fec3ca583790bff609c9fb7.png!WebP)
+   ![磁盘信息](/assets/note/aad842b12fec3ca583790bff609c9fb7.png)
 
 3.执行以下命令，对`/dev/vdb`裸设备直接创建文件系统格式。
 

@@ -58,6 +58,16 @@ const { filters, activeFilter, sectionId } = Astro.props;
                     if (filter === "all" || itemStatus === filter) {
                         item.classList.remove("hidden");
                         item.style.display = "";
+                        item.querySelectorAll("img[data-src]").forEach(
+                            (img) => {
+                                const src =
+                                    img.getAttribute("data-src");
+                                if (src) {
+                                    img.src = src;
+                                    img.removeAttribute("data-src");
+                                }
+                            },
+                        );
                     } else {
                         item.classList.add("hidden");
                         item.style.display = "none";

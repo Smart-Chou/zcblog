@@ -44,7 +44,7 @@ tags:
    Computer\MobileSync\Backup\。Android 手机可以找一个 iPad/iPhone 设备，把聊天
    记录迁移到 iPad/iPhone 设备上，然后通过 iTunes 备份到电脑上。
 
-   ![iTunesBackup-960](https://cdn.zcily.life/image/125906418-090d4ac8-a2ba-4a26-9db2-c6dbed4b0a3c.png!WebP)
+   ![iTunesBackup-960](/assets/note/125906418-090d4ac8-a2ba-4a26-9db2-c6dbed4b0a3c.png)
 
 2. 下载执行文件（最新版本下载链接见上）。
 
@@ -54,10 +54,10 @@ tags:
    再尝试运行)
 
 4. 按界面提示进行操作。  
-   ![Windows界面截屏](https://cdn.zcily.life/image/win.png!WebP) ![MacOS界面截屏](https://cdn.zcily.life/image/mac.png!WebP)
+   ![Windows界面截屏](/assets/note/win.png) ![MacOS界面截屏](/assets/note/mac.png)
 
 5. 导出后的页面示例：  
-   ![导出后的页面示例截屏](https://cdn.zcily.life/image/WechatExporter-demo.png!WebP)
+   ![导出后的页面示例截屏](/assets/note/WechatExporter-demo.png)
 
 点击链接可打开网页：[https://src.wakin.org/github/wxexp/demo/](https://src.wakin.org/github/wxexp/demo/)
 

@@ -22,7 +22,7 @@ tags:
 开 CleanMyMac 一看才发现，噢，原来就是这款小而美软件的聊天记录，刚好在几个小时
 前，我刚刚备份了聊天记录。
 
-![img](https://cdn.zcily.life/image/v2-3d0c3380ff3f7555c0417ce80d289d30_r.jpg!WebP)
+![img](/assets/note/v2-3d0c3380ff3f7555c0417ce80d289d30_r.jpg)
 
 小龙哥用超前的产品经理思维告诉我，想要小而美，得加钱，下一次买 Mac，记得上 1TB
 以上的硬盘。当然不加钱也有办法，看到左边的选择框了吧？勾选上，点移除就好了。啥？
@@ -33,7 +33,7 @@ tags:
 样，[hangcom](https://www.zhihu.com/people/hangcom) 则是用 WX Backup 微信聊天记
 录导出这个小工具，来让我们实现微信聊天记录的导出和保存。
 
-![img](https://cdn.zcily.life/image/v2-295fa5d7ef2b83d1b21ec06627e84529_r.jpg!WebP)
+![img](/assets/note/v2-295fa5d7ef2b83d1b21ec06627e84529_r.jpg)
 
 ## 原理和用法
 
@@ -49,7 +49,7 @@ macOS，只需要通过访达或 iTunes 对你的 iPhone 做一次不加密备�
 但也不难猜到。第一二列自然不用说，第三列是群聊或朋友的微信 ID，第四列则是聊天记
 录的数目。说实话，当我看到有个群有 38 万多条聊天记录时，还是挺震惊的……
 
-![img](https://cdn.zcily.life/image/v2-df8bfad1c50bb1482fb0425f375f9548_r.jpg!WebP)
+![img](/assets/note/v2-df8bfad1c50bb1482fb0425f375f9548_r.jpg)
 
 顺带一提，我的微信聊天数据大约有 60GB，但加载的速度仍然非常快，几乎在一秒之内。
 
@@ -60,13 +60,13 @@ macOS，只需要通过访达或 iTunes 对你的 iPhone 做一次不加密备�
 设置好存放目录之后，点击对应的聊天选择导出，然后等待进度条跑完，聊天记录就导出完
 成了。导出的速度也非常快，27 万条聊天记录只需要不到 20 秒就导出完成了。
 
-![img](https://cdn.zcily.life/image/v2-c949746f53a4c05d06110f6d6fc4c3fd_r.jpg!WebP)
+![img](/assets/note/v2-c949746f53a4c05d06110f6d6fc4c3fd_r.jpg)
 
 如果你点击预览，便会进入到一个本地的网页，在这个网页下，你就可以浏览所有导出来的
 聊天记录了。在聊天记录的右侧，作者还提供了时间轴的选项，精确到月份。我们可以直接
 点击对应的时间，跳转到对应月份的聊天记录中。
 
-![img](https://cdn.zcily.life/image/v2-750d0c5873eb870c1c5c8524a706c4b9_r.jpg!WebP)
+![img](/assets/note/v2-750d0c5873eb870c1c5c8524a706c4b9_r.jpg)
 
 从这个备份中可以看出，少数派的作（ge）者（zi）们在不到两年的时间，就创造了 27 万
 条聊天记录，不愧是一群大（gu）佬（gu）。
@@ -75,7 +75,7 @@ macOS，只需要通过访达或 iTunes 对你的 iPhone 做一次不加密备�
 分类成语音（audio）、图片（image）、视频（video），以及一些网页文件
 （css、img、index.html 等）。文字的聊天记录则是存在 `js - message.js` 文件中。
 
-![img](https://cdn.zcily.life/image/v2-ed2779425364fabb573a6cbc3bff3401_r.jpg!WebP)
+![img](/assets/note/v2-ed2779425364fabb573a6cbc3bff3401_r.jpg)
 
 只要我们能保证这些文件不丢失，那么聊天记录就可以按需永久保存。如果你有足够大的云
 空间，你甚至可以上传云端，在任意有网络连接的地方进行访问。而手机上一些值得保存但
@@ -85,7 +85,7 @@ macOS，只需要通过访达或 iTunes 对你的 iPhone 做一次不加密备�
 择。但是在我实际导出的少数派作者群聊天记录中，这两个按钮并没有出现，但文件夹中的
 图片和视频确实是已经导出来了的，可能是一个小 bug 吧。
 
-![img](https://cdn.zcily.life/image/v2-f55bfcde8998c6e30f91b0ffdcc8f4d9_r.jpg!WebP)
+![img](/assets/note/v2-f55bfcde8998c6e30f91b0ffdcc8f4d9_r.jpg)
 
 ## 缺点和不足
 
@@ -105,7 +105,7 @@ macOS，只需要通过访达或 iTunes 对你的 iPhone 做一次不加密备�
 最后，这个小工具只支持 iOS 设备，必须使用 iOS 的系统备份。如果你用的是 Android，
 那目前暂时无解。
 
-![img](https://cdn.zcily.life/image/v2-a54a22e6d0312b6f7c7a72d7b430d5c6_r.jpg!WebP)
+![img](/assets/note/v2-a54a22e6d0312b6f7c7a72d7b430d5c6_r.jpg)
 
 不过总的来说，微信聊天记录导出还是给了我们一种更多的选择吧。
 

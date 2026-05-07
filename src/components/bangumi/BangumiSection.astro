@@ -181,8 +181,22 @@ const totalPages = Math.ceil(items.length / itemsPerPage);
                 const end = start + itemsPerPage;
 
                 items.forEach((item, index) => {
-                    (item as HTMLElement).style.display =
-                        index >= start && index < end ? "" : "none";
+                    const el = item as HTMLElement;
+                    const visible = index >= start && index < end;
+                    el.style.display = visible ? "" : "none";
+                    if (visible) {
+                        el.querySelectorAll("img[data-src]").forEach(
+                            (img) => {
+                                const imgEl = img as HTMLImageElement;
+                                const src =
+                                    imgEl.getAttribute("data-src");
+                                if (src) {
+                                    imgEl.src = src;
+                                    imgEl.removeAttribute("data-src");
+                                }
+                            },
+                        );
+                    }
                 });
 
                 currentPage = page;
