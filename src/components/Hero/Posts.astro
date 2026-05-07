@@ -74,27 +74,29 @@ const archiveUrl = locale === defaultLocale ? "/archives/" : "/en/archives/";
                         alt={posts[0].data.image.alt}
                     />
                 )}
-                <h1 class="post-title">
-                    <a href={`/article/${posts[0].id}/`}>
-                        {posts[0].data.title}
-                    </a>
-                </h1>
-                <div class="post-meta">
-                    <span
-                        class="post-date"
-                        title={posts[0].data.pubDate.toISOString()}
-                    >
-                        {formatDate(posts[0].data.pubDate, locale)}
-                    </span>
-                </div>
-                <div class="post-content">
-                    <p>{posts[0].data.description}</p>
-                    <a
-                        class="read-more button"
-                        href={`/article/${posts[0].id}/`}
-                    >
-                        {t(locale, "common.readMore")} →
-                    </a>
+                <div class="post-body">
+                    <h1 class="post-title">
+                        <a href={`/article/${posts[0].id}/`}>
+                            {posts[0].data.title}
+                        </a>
+                    </h1>
+                    <div class="post-meta">
+                        <span
+                            class="post-date"
+                            title={posts[0].data.pubDate.toISOString()}
+                        >
+                            {formatDate(posts[0].data.pubDate, locale)}
+                        </span>
+                    </div>
+                    <div class="post-content">
+                        <p>{posts[0].data.description}</p>
+                        <a
+                            class="read-more button"
+                            href={`/article/${posts[0].id}/`}
+                        >
+                            {t(locale, "common.readMore")} →
+                        </a>
+                    </div>
                 </div>
             </div>
         )
