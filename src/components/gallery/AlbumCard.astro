@@ -2,19 +2,19 @@
 interface Props {
     id: string;
     name: string;
-    cover: string;
+    cover?: string;
     description?: string;
     date?: string;
     location?: string;
     tags?: string[];
-    photoCount: number;
+    photoCount?: number;
 }
 
 const { id, name, cover, description, date, location, tags, photoCount } =
     Astro.props;
 ---
 
-<a href={`/album/${id}/`} data-tags={tags?.join(",") || ""} class="album-card">
+<a href={`/albums/${id}/`} data-tags={tags?.join(",") || ""} class="album-card">
     <div class="album-cover">
         {
             cover ? (
@@ -29,7 +29,7 @@ const { id, name, cover, description, date, location, tags, photoCount } =
                 <div class="cover-placeholder">📷</div>
             )
         }
-        <div class="photo-count-badge">{photoCount} 张</div>
+        <div class="photo-count-badge">{photoCount || 0} 张</div>
     </div>
     <div class="album-info">
         <h3 class="album-name">{name}</h3>

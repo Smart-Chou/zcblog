@@ -2,25 +2,48 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { site } from "~/self.config";
 
-// 从JSON文件引入相册数据
-import albumsJson from "~/data/albums.json";
+interface AlbumPhoto {
+    id: string;
+    url: string;
+    alt?: string;
+    description?: string;
+}
 
-const { albums } = albumsJson;
+interface Album {
+    id: string;
+    name: string;
+    description?: string;
+    location?: string;
+    date?: string;
+    tags?: string[];
+    cover?: string;
+    photos: AlbumPhoto[];
+    photoCount?: number;
+}
 
-// 为动态路由生成静态路径
+import albumsData from "~/data/albums.json";
+
+const allAlbums: Album[] = (albumsData as Album[]).map((album) => ({
+    ...album,
+    cover: album.cover ? `https://pic-api.marxchou.com/api/pic${album.cover}` : "",
+    photoCount: album.photos?.length || 0
+}));
+
 export async function getStaticPaths() {
-    // 在函数内部动态导入相册数据
     const data = await import("~/data/albums.json");
-    const { albums } = data;
+    const allAlbums = (data.default as Album[]).map((album) => ({
+        ...album,
+        cover: album.cover ? `https://pic-api.marxchou.com/api/pic${album.cover}` : "",
+        photoCount: album.photos?.length || 0
+    }));
 
-    // 根据相册数据生成所有路径
-    return albums.map((album) => ({
+    return allAlbums.map((album) => ({
         params: { album: album.id },
     }));
 }
 
 const { album } = Astro.params;
-const foundAlbum = albums.find((a) => a.id === album);
+const foundAlbum = allAlbums.find((a) => a.id === album);
 
 if (!foundAlbum) {
     return Astro.redirect("/albums");
@@ -28,28 +51,24 @@ if (!foundAlbum) {
 ---
 
 <BaseLayout
-    title={`${foundAlbum.title} - 相册`}
+    title={`${foundAlbum.name} - 相册`}
     description={site.title + ` - ` + foundAlbum.description}
-    image={foundAlbum.coverImage}
-    imageAlt={foundAlbum.title}
-    keywords={`${foundAlbum.title},相册,照片`}
-    publishedTime={new Date(foundAlbum.createdAt)}
-    modifiedTime={new Date(foundAlbum.updatedAt)}
+    image={foundAlbum.cover}
+    imageAlt={foundAlbum.name}
+    keywords={`${foundAlbum.name},相册,照片`}
 >
     <div class="album-detail-container">
         <div class="album-header">
             <a href="/albums/" class="back-link">← 返回相册列表</a>
-            <h1 class="album-title">{foundAlbum.title}</h1>
+            <h1 class="album-title">{foundAlbum.name}</h1>
             <p class="album-description">{foundAlbum.description}</p>
             <div class="album-meta">
                 <span class="photo-count"
                     >{foundAlbum.photos.length} 张照片</span
                 >
-                <span class="updated-time"
-                    >更新于 {
-                        new Date(foundAlbum.updatedAt).toLocaleDateString()
-                    }</span
-                >
+                {foundAlbum.location && (
+                    <span class="location">{foundAlbum.location}</span>
+                )}
             </div>
         </div>
 
@@ -57,17 +76,16 @@ if (!foundAlbum) {
             {
                 foundAlbum.photos.map((photo, index) => (
                     <a
-                        href={photo.url}
+                        href={`https://pic-api.marxchou.com/api/pic${photo.url}`}
                         class="photo-item"
-                        data-pswp-src={photo.url}
-                        data-caption={`<h4>${photo.alt}</h4><p>${photo.description}</p>`}
+                        data-fancybox="gallery"
+                        data-caption={`<h4>${photo.alt || ''}</h4><p>${photo.description || ''}</p>`}
                         data-index={index}
-                        aria-label={`查看大图: ${photo.alt}`}
                     >
                         <div class="photo-wrapper">
                             <img
-                                src={photo.url}
-                                alt={photo.alt}
+                                src={`https://pic-api.marxchou.com/api/pic${photo.url}`}
+                                alt={photo.alt || ""}
                                 class="photo-image"
                                 loading="lazy"
                             />
@@ -132,86 +150,59 @@ if (!foundAlbum) {
     }
 
     .photos-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 1.5rem;
+        column-count: 3;
+        column-gap: 1rem;
     }
 
     .photo-item {
         display: block;
         border-radius: var(--radius);
         overflow: hidden;
+        break-inside: avoid;
+        margin-bottom: 1rem;
         box-shadow: var(--shadow-small);
-        transition:
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
+        transition: box-shadow 0.3s ease;
         text-decoration: none;
         color: inherit;
         cursor: zoom-in;
     }
 
-    .photo-item:hover,
-    .photo-item:focus-visible {
-        transform: translateY(-5px);
+    .photo-item:hover {
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-        outline: none;
-    }
-
-    .photo-item:focus-visible {
-        box-shadow:
-            0 0 0 3px var(--link-color),
-            0 8px 15px rgba(0, 0, 0, 0.15);
     }
 
     .photo-wrapper {
-        position: relative;
-        padding-top: 75%;
         overflow: hidden;
     }
 
     .photo-image {
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        display: block;
         transition: transform 0.5s ease;
     }
 
-    .photo-item:hover .photo-image,
-    .photo-item:focus-visible .photo-image {
+    .photo-item:hover .photo-image {
         transform: scale(1.05);
     }
 
     .photo-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
         background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
         color: white;
-        padding: 1.5rem 1rem 1rem;
-        transform: translateY(100%);
-        transition: transform 0.3s ease;
+        padding: 1rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
-    .photo-item:hover .photo-overlay,
-    .photo-item:focus-visible .photo-overlay {
-        transform: translateY(0);
+    .photo-item:hover .photo-overlay {
+        opacity: 1;
     }
 
     .photo-description {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         line-height: 1.4;
     }
 
     @media (max-width: 768px) {
-        .photos-grid {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
         .album-meta {
             flex-direction: column;
             gap: 0.5rem;
@@ -220,6 +211,5 @@ if (!foundAlbum) {
 </style>
 
 <script>
-    // 导入相册 Fancybox 初始化脚本
     import "~/scripts/fancybox-album.ts";
 </script>
