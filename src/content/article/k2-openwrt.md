@@ -3,10 +3,10 @@ title: 斐讯K2路由器刷openwrt
 description: 白捡的斐讯K2路由器，还刷机了，刷的openwrt，厉害了
 pubDate: 2021-08-23
 image:
-  url: 'https://pic-api.marxchou.com/api/random?6VqT3b'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?6VqT3b"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - Openwrt
+    - Openwrt
 ---
 
 本想给家里现有的`fast`、`tp-link`路由器刷`openwrt`系统，可惜硬件不被系统所支持，

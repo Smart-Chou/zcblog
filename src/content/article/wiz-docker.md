@@ -3,10 +3,10 @@ title: 使用宝塔docker安装为知笔记私有部署
 description: 使用宝塔docker安装为知笔记私有部署
 pubDate: 2021-09-18
 image:
-  url: 'https://pic-api.marxchou.com/api/random?7W4s2b'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?7W4s2b"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - Wiz
+    - Wiz
 ---
 
 之前使用的语雀客户端最近同步很有问题,遂弃坑,搞起来之前用的为知笔记。官方提供了

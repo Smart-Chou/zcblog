@@ -3,10 +3,10 @@ title: 添加看板娘
 description: 添加看板娘
 pubDate: 2022-01-30
 image:
-  url: 'https://pic-api.marxchou.com/api/random?D5tR1g'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?D5tR1g"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - Live2d
+    - Live2d
 ---
 
 > 刚把博客弄好，就开始各种折腾了，一直想加一个可以换装，可以对话的看板娘，于是看
@@ -27,14 +27,14 @@ tags:
 ```html
 # jsdelivr
 <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"
 />
 
 # elemecdn
 <link
-  rel="stylesheet"
-  href="https://npm.elemecdn.com/font-awesome@4.7.0/css/font-awesome.min.css"
+    rel="stylesheet"
+    href="https://npm.elemecdn.com/font-awesome@4.7.0/css/font-awesome.min.css"
 />
 ```
 
@@ -99,18 +99,18 @@ localStorage.setItem('modelId', '7'); localStorage.setItem('modelTexturesId',
 
 ```html
 <style type="text/css">
-  #waifu #live2d {
-    height: 500px !important;
-    width: 500px !important;
-  }
-  #waifu-tips {
-    top: -60px;
-    /*display:none !important;隐藏对话框*/
-  }
+    #waifu #live2d {
+        height: 500px !important;
+        width: 500px !important;
+    }
+    #waifu-tips {
+        top: -60px;
+        /*display:none !important;隐藏对话框*/
+    }
 </style>
 <script>
-  localStorage.setItem('modelId', '7')
-  localStorage.setItem('modelTexturesId', '3')
+    localStorage.setItem("modelId", "7");
+    localStorage.setItem("modelTexturesId", "3");
 </script>
 ```
 

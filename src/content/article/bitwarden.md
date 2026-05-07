@@ -3,10 +3,10 @@ title: 宝塔面板部署 Bitwarden 密码管理软件
 description: 宝塔面板部署 Bitwarden 密码管理软件
 pubDate: 2026-04-01
 image:
-  url: '../../assets/coverimage/bitwarden.png'
-  alt: 'Bitwarden 密码管理软件'
+    url: "../../assets/coverimage/bitwarden.png"
+    alt: "Bitwarden 密码管理软件"
 tags:
-  - Bitwarden
+    - Bitwarden
 ---
 
 ## 自建 Bitwarden 密码管理服务

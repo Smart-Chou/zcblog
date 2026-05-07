@@ -2,4 +2,4 @@
 // 请直接修改 config/ 目录下的配置文件
 
 // 导入新的配置文件
-export * from './config/index';
+export * from "./config/index";

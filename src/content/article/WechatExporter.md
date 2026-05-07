@@ -3,10 +3,10 @@ title: WechatExporter
 description: WechatExporter
 pubDate: 2022-02-13
 image:
-  url: 'https://pic-api.marxchou.com/api/random?T5yQ8d'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?T5yQ8d"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - WechatExporter
+    - WechatExporter
 ---
 
 > [最新版本下载](https://github.com/BlueMatthew/WechatExporter/)
@@ -44,7 +44,7 @@ tags:
    Computer\MobileSync\Backup\。Android 手机可以找一个 iPad/iPhone 设备，把聊天
    记录迁移到 iPad/iPhone 设备上，然后通过 iTunes 备份到电脑上。
 
-   ![iTunesBackup-960](/assets/note/125906418-090d4ac8-a2ba-4a26-9db2-c6dbed4b0a3c.png)
+    ![iTunesBackup-960](/assets/note/125906418-090d4ac8-a2ba-4a26-9db2-c6dbed4b0a3c.png)
 
 2. 下载执行文件（最新版本下载链接见上）。
 

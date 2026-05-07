@@ -3,10 +3,10 @@ title: 项目是怎么一步一步变复杂的
 description: 项目是怎么一步一步变复杂的，为什么要学这么多，那是梦开始的地方
 pubDate: 2020-07-04
 image:
-  url: 'https://pic-api.marxchou.com/api/random?R9j7C3'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?R9j7C3"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - Java
+    - Java
 ---
 
 也可以说为什么我们学习的项目和真实的项目区别这么大，一个完整的项目你不用会所有的

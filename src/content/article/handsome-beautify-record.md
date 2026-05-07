@@ -4,10 +4,10 @@ description: Handsome 美化记录
 pubDate: 2021-02-23
 category: 日常
 image:
-  url: 'https://pic-api.marxchou.com/api/random?B7d5nY'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?B7d5nY"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - Handsome
+    - Handsome
 ---
 
 前言
@@ -23,15 +23,21 @@ tags:
 
 ```html
 <div class="github-badge">
-<a href="./" title="©2021 XXX">
-<span class="badge-subject">Copyright</span><span class="badge-value bg-blue">©2021 XXX</span>
-</a>
+    <a href="./" title="©2021 XXX">
+        <span class="badge-subject">Copyright</span
+        ><span class="badge-value bg-blue">©2021 XXX</span>
+    </a>
 </div>
- |
+|
 <div class="github-badge">
-<a href="http://www.beian.gov.cn/" target="_blank" title="XICP备 XXXXXXXXXX号"), pointer;">
-<span class="badge-subject">晋ICP备</span><span class="badge-value bg-green">XXXXXXXXXX号</span>
-</a>
+    <a
+        href="http://www.beian.gov.cn/"
+        target="_blank"
+        title="ICP备 XXXXXXXXXX号"
+    >
+        <span class="badge-subject">晋ICP备</span
+        ><span class="badge-value bg-green">XXXXXXXXXX号</span>
+    </a>
 </div>
 ```
 
@@ -69,31 +75,31 @@ Powered by <a target="blank" href="http://www.typecho.org">Typecho</a> | Theme b
 ```css
 /*首页头像自动旋转*/
 .thumb-lg {
-  width: 130px;
+    width: 130px;
 }
 
 .avatar {
-  -webkit-transition: 0.4s;
-  -webkit-transition: -webkit-transform 0.4s ease-out;
-  transition: transform 0.4s ease-out;
-  -moz-transition: -moz-transform 0.4s ease-out;
+    -webkit-transition: 0.4s;
+    -webkit-transition: -webkit-transform 0.4s ease-out;
+    transition: transform 0.4s ease-out;
+    -moz-transition: -moz-transform 0.4s ease-out;
 }
 
 .avatar:hover {
-  transform: rotateZ(360deg);
-  -webkit-transform: rotateZ(360deg);
-  -moz-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
+    -webkit-transform: rotateZ(360deg);
+    -moz-transform: rotateZ(360deg);
 }
 
 #aside-user span.avatar {
-  animation-timing-function: cubic-bezier(0, 0, 0.07, 1) !important;
-  border: 0 solid;
+    animation-timing-function: cubic-bezier(0, 0, 0.07, 1) !important;
+    border: 0 solid;
 }
 
 #aside-user span.avatar:hover {
-  transform: rotate(360deg) scale(1.2);
-  border-width: 5px;
-  animation: avatar 0.5s;
+    transform: rotate(360deg) scale(1.2);
+    border-width: 5px;
+    animation: avatar 0.5s;
 }
 ```
 
@@ -104,17 +110,17 @@ Powered by <a target="blank" href="http://www.typecho.org">Typecho</a> | Theme b
 ```css
 /*首页文章版式圆角化*/
 .panel {
-  border: none;
-  border-radius: 10px;
+    border: none;
+    border-radius: 10px;
 }
 
 .panel-small {
-  border: none;
-  border-radius: 10px;
+    border: none;
+    border-radius: 10px;
 }
 
 .item-thumb {
-  border-radius: 10px;
+    border-radius: 10px;
 }
 ```
 
@@ -125,12 +131,12 @@ Powered by <a target="blank" href="http://www.typecho.org">Typecho</a> | Theme b
 ```css
 /*首页文章列表悬停上浮*/
 .blog-post .panel:not(article) {
-  transition: all 0.3s;
+    transition: all 0.3s;
 }
 
 .blog-post .panel:not(article):hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 10px rgba(73, 90, 47, 0.47);
+    transform: translateY(-10px);
+    box-shadow: 0 8px 10px rgba(73, 90, 47, 0.47);
 }
 ```
 
@@ -141,37 +147,37 @@ Powered by <a target="blank" href="http://www.typecho.org">Typecho</a> | Theme b
 ```css
 /*首页文章图片获取焦点放大*/
 .item-thumb {
-  cursor: pointer;
-  transition: all 0.6s;
+    cursor: pointer;
+    transition: all 0.6s;
 }
 
 .item-thumb:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .item-thumb-small {
-  cursor: pointer;
-  transition: all 0.6s;
+    cursor: pointer;
+    transition: all 0.6s;
 }
 
 .item-thumb-small:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 #post-content pre code {
-  display: block;
-  overflow-x: auto;
-  position: relative;
-  margin: 0;
-  padding-left: 50px;
+    display: block;
+    overflow-x: auto;
+    position: relative;
+    margin: 0;
+    padding-left: 50px;
 }
 pre code {
-  position: relative;
-  display: block;
-  overflow-x: auto;
-  margin: 4.4px 0px 0.4px 1px;
-  padding: 0;
-  max-height: 500px;
-  padding-left: 3.5em;
+    position: relative;
+    display: block;
+    overflow-x: auto;
+    margin: 4.4px 0px 0.4px 1px;
+    padding: 0;
+    max-height: 500px;
+    padding-left: 3.5em;
 }
 ```
 
@@ -182,13 +188,13 @@ pre code {
 ```css
 /* 右侧列表导航栏图标颜色 */
 .sidebar-icon svg.feather.feather-thumbs-up {
-  color: #ff0000;
+    color: #ff0000;
 }
 .sidebar-icon svg.feather.feather-message-square {
-  color: #495dc3;
+    color: #495dc3;
 }
 .sidebar-icon svg.feather.feather-gift {
-  color: #52de97;
+    color: #52de97;
 }
 ```
 
@@ -200,25 +206,25 @@ pre code {
 /* 博客信息配套颜色 */
 
 #blog_info > ul > li:nth-child(1) > span.badge {
-  background-color: #009688;
+    background-color: #009688;
 }
 #blog_info > ul > li:nth-child(2) > span.badge {
-  background-color: #009688;
+    background-color: #009688;
 }
 #blog_info > ul > li:nth-child(3) > span.badge {
-  background-color: #009688;
+    background-color: #009688;
 }
 #blog_info > ul > li:nth-child(4) > span.badge {
-  background-color: #009688;
+    background-color: #009688;
 }
 #blog_info > ul > li:nth-child(5) > span.badge {
-  background-color: #009688;
+    background-color: #009688;
 }
 #blog_info > ul > li:nth-child(6) > span.badge {
-  background-color: #009688;
+    background-color: #009688;
 }
 #blog_info > ul > li:nth-child(7) > span.badge {
-  background-color: #009688;
+    background-color: #009688;
 }
 ```
 
@@ -229,54 +235,54 @@ pre code {
 ```css
 /*底部页脚*/
 .github-badge {
-  display: inline-block;
-  border-radius: 4px;
-  text-shadow: none;
-  font-size: 12px;
-  color: #fff;
-  line-height: 15px;
-  background-color: #abbac3;
-  margin-bottom: 5px;
+    display: inline-block;
+    border-radius: 4px;
+    text-shadow: none;
+    font-size: 12px;
+    color: #fff;
+    line-height: 15px;
+    background-color: #abbac3;
+    margin-bottom: 5px;
 }
 
 .github-badge .badge-subject {
-  display: inline-block;
-  background-color: #4d4d4d;
-  padding: 4px 4px 4px 6px;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+    display: inline-block;
+    background-color: #4d4d4d;
+    padding: 4px 4px 4px 6px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
 }
 
 .github-badge .badge-value {
-  display: inline-block;
-  padding: 4px 6px 4px 4px;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+    display: inline-block;
+    padding: 4px 6px 4px 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 .github-badge .bg-blue {
-  background-color: #007ec6;
+    background-color: #007ec6;
 }
 
 .github-badge .bg-orange {
-  background-color: #ffa500;
+    background-color: #ffa500;
 }
 
 .github-badge .bg-red {
-  background-color: #f00;
+    background-color: #f00;
 }
 
 .github-badge .bg-green {
-  background-color: #3bca6e;
+    background-color: #3bca6e;
 }
 
 .github-badge .bg-purple {
-  background-color: #ab34e9;
+    background-color: #ab34e9;
 }
 
 /*这是优化底部栏的css，应该不会影响没开启炫酷透明功能时候的主题，如果有问题就删除下面这行即可*/
 .wrapper {
-  padding: 11px;
+    padding: 11px;
 }
 ```
 

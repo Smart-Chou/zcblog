@@ -3,10 +3,10 @@ title: OpenWrite给VuePress配置博客导流公众号插件
 description: 如何用OpenWrite给VuePress配置博客导流公众号插件-公众号获取验证码阅读全文
 pubDate: 2021-10-21
 image:
-  url: 'https://pic-api.marxchou.com/api/random?nT6d5Q'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?nT6d5Q"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - Vuepress
+    - Vuepress
 sticky: 20
 ---
 
@@ -112,15 +112,15 @@ ReferenceError: BTWPlugin is not defined
 
 ```js
 window.onload = function () {
-  const btw = new BTWPlugin()
-  btw.init({
-    id: 'container',
-    blogId: 'xxxx你自己的博客ID',
-    name: 'itclanCoder',
-    qrcode: '你自己的公众号二维码xxx.jpg',
-    keyword: '验证码',
-  })
-}
+    const btw = new BTWPlugin();
+    btw.init({
+        id: "container",
+        blogId: "xxxx你自己的博客ID",
+        name: "itclanCoder",
+        qrcode: "你自己的公众号二维码xxx.jpg",
+        keyword: "验证码",
+    });
+};
 ```
 
 解决完报错后,文章依旧没有隐藏起来,根据 openWrite 文章中最后一句设置文章容器
@@ -150,20 +150,20 @@ window.onload = function () {
 
 ```js
 window.onload = function () {
-  themeDefaultContent = $(
-    '#app > .theme-container>.page > .theme-default-content' // 获取最外层的元素
-  )
+    themeDefaultContent = $(
+        "#app > .theme-container>.page > .theme-default-content", // 获取最外层的元素
+    );
 
-  themeDefaultContent.attr('id', 'container') // 设置id属性,就是这么牛逼,搞定
-  const btw = new BTWPlugin()
-  btw.init({
-    id: 'container', // 这个id后面的值与上面的设置id属性保持一致就行,不一定非地是container
-    blogId: 'xxxx你自己的博客ID',
-    name: 'itclanCoder',
-    qrcode: '你自己的公众号二维码xxx.jpg',
-    keyword: '验证码',
-  })
-}
+    themeDefaultContent.attr("id", "container"); // 设置id属性,就是这么牛逼,搞定
+    const btw = new BTWPlugin();
+    btw.init({
+        id: "container", // 这个id后面的值与上面的设置id属性保持一致就行,不一定非地是container
+        blogId: "xxxx你自己的博客ID",
+        name: "itclanCoder",
+        qrcode: "你自己的公众号二维码xxx.jpg",
+        keyword: "验证码",
+    });
+};
 ```
 
 但经自己测试,发现无论是使用 vue 的写法,将上面的代码放到 `monted` 中,或使
@@ -181,33 +181,33 @@ window.onload = function () {
 
 ```js
 window.onload = function () {
-  themeDefaultContent = $(
-    '#app > .theme-container>.page > .theme-default-content'
-  )
+    themeDefaultContent = $(
+        "#app > .theme-container>.page > .theme-default-content",
+    );
 
-  themeDefaultContent.attr('id', 'container')
-  btw = new BTWPlugin() // 注意btw需要是个全局变量,把const去掉
-  btw.init({
-    id: 'container',
-    blogId: 'xxxx你自己的博客ID',
-    name: 'itclanCoder',
-    qrcode: '你自己的公众号二维码xxx.jpg',
-    keyword: '验证码',
-  })
-}
+    themeDefaultContent.attr("id", "container");
+    btw = new BTWPlugin(); // 注意btw需要是个全局变量,把const去掉
+    btw.init({
+        id: "container",
+        blogId: "xxxx你自己的博客ID",
+        name: "itclanCoder",
+        qrcode: "你自己的公众号二维码xxx.jpg",
+        keyword: "验证码",
+    });
+};
 ```
 
 而把`readmore.js` 添加到头部`head`中,以`script`方式全局注入
 
 ```js
 module.exports = {
-  head: [
-    [
-      'script',
-      { charset: 'utf-8', src: 'https://my.openwrite.cn/js/readmore.js' },
+    head: [
+        [
+            "script",
+            { charset: "utf-8", src: "https://my.openwrite.cn/js/readmore.js" },
+        ],
     ],
-  ],
-}
+};
 ```
 
 然后在`.vuepress`自定义组件出`./vuepress/components/HideArticle.vue`
@@ -253,34 +253,34 @@ module.exports = {
 :::tip[注意事项]
 
 1.`btwplugin.js`中的`btw`需要是个全局变量,去掉`const`,那直
-   接`new BTWPlugin().init({})`不是更好么,还真不行,依旧会
-   报`btw is not defined`尽管这个`bug`挺奇葩的
+接`new BTWPlugin().init({})`不是更好么,还真不行,依旧会
+报`btw is not defined`尽管这个`bug`挺奇葩的
 
 2.在`btwplugin.js`这段代码中,需要使用`window.onload`包裹,等待所有页面加载完执行
-   这段脚本,不能不包裹,而且也无法使
-   用`$(function() {})或者$(document).ready(function() {})`,行不行,试一试就知道
-   了的
+这段脚本,不能不包裹,而且也无法使
+用`$(function() {})或者$(document).ready(function() {})`,行不行,试一试就知道
+了的
 
 3.如果自定义的组件`HideArticle.vue`,外面多了一层文件夹例
-   如:`./vuepress/components/global/HideArticle.vue`,在`md`引入组件时需
-   要`<global-HideArticle />`这种方式引入组件,否则依旧不会生效
+如:`./vuepress/components/global/HideArticle.vue`,在`md`引入组件时需
+要`<global-HideArticle />`这种方式引入组件,否则依旧不会生效
 
 4.在`HideArticle.vue`组件内中的`monted`需要使用`import('相对路径')`相对路径的方
-   式导入脚本,或者使用`require('相对路径')`的方式引入,这里用绝对路径不行,如下所
-   示
+式导入脚本,或者使用`require('相对路径')`的方式引入,这里用绝对路径不行,如下所
+示
 
 ```js
-const btwPlugin = require('../../public/js/btwplugin')
+const btwPlugin = require("../../public/js/btwplugin");
 export default {
-  name: 'HideArticle',
-  data() {
-    return {}
-  },
+    name: "HideArticle",
+    data() {
+        return {};
+    },
 
-  mounted() {
-    btwPlugin() // 直接调用
-  },
-}
+    mounted() {
+        btwPlugin(); // 直接调用
+    },
+};
 ```
 
 :::
@@ -302,15 +302,15 @@ export default {
 
 ```js
 module.exports = {
-  plugins: [
-    [
-      {
-        name: 'page-plugin',
-        globalUIComponents: ['global-HideArticle组件的名称'],
-      },
+    plugins: [
+        [
+            {
+                name: "page-plugin",
+                globalUIComponents: ["global-HideArticle组件的名称"],
+            },
+        ],
     ],
-  ],
-}
+};
 ```
 
 通过上面的方式,就可以实现在博客中所有文章都实现隐藏了
@@ -325,26 +325,26 @@ module.exports = {
 由钩子
 
 ```js
-import ElementUI from 'element-ui'
+import ElementUI from "element-ui";
 
 // 使用异步函数也是可以的
 export default ({
-  Vue, // VuePress 正在使用的 Vue 构造函数
-  options, // 附加到根实例的一些选项
-  router, // 当前应用的路由实例
-  siteData, // 站点元数据
-  isServer, // 当前应用配置是处于 服务端渲染 或 客户端
+    Vue, // VuePress 正在使用的 Vue 构造函数
+    options, // 附加到根实例的一些选项
+    router, // 当前应用的路由实例
+    siteData, // 站点元数据
+    isServer, // 当前应用配置是处于 服务端渲染 或 客户端
 }) => {
-  // ...做一些其他的应用级别的优化
-  // 全局注入组件
-  Vue.use(ElementUI)
-  Vue.mixin({
-    // 混合注入,加载全局文件
-    mounted() {
-      import('./public/js/btwplugin')
-    },
-  })
-}
+    // ...做一些其他的应用级别的优化
+    // 全局注入组件
+    Vue.use(ElementUI);
+    Vue.mixin({
+        // 混合注入,加载全局文件
+        mounted() {
+            import("./public/js/btwplugin");
+        },
+    });
+};
 ```
 
 你也可以通过跟上面一样,`require`的方式引入,在`monted`中调用,这里不再重复多余,这
@@ -384,11 +384,11 @@ export default ({
 
 ```js
 window.onload = function () {
-  const themeDefaultContent = $(
-    '#app > .theme-container>.page > .theme-default-content'
-  )
-  themeDefaultContent.removeAttr('id') // 移除掉id属性,就是这么简单,JQ牛逼~
-}
+    const themeDefaultContent = $(
+        "#app > .theme-container>.page > .theme-default-content",
+    );
+    themeDefaultContent.removeAttr("id"); // 移除掉id属性,就是这么简单,JQ牛逼~
+};
 ```
 
 上面的代码就是使用`jq`移除元素上的某个属性,就实现了文章的不隐藏

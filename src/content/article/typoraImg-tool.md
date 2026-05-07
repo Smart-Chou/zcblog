@@ -3,10 +3,10 @@ title: Typora直传图片文件方案
 description: Typora直传图片文件方案
 pubDate: 2020-12-28
 image:
-  url: 'https://pic-api.marxchou.com/api/random?wK3d9A'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?wK3d9A"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - Typora
+    - Typora
 ---
 
 :::tip
@@ -77,17 +77,17 @@ composer安装阿里云的sdk
 
 ```json
 {
-  "name": "typora/alioss",
-  "type": "project",
-  "authors": [
-    {
-      "name": "ChouCong",
-      "email": "3518439599@qq.com"
+    "name": "typora/alioss",
+    "type": "project",
+    "authors": [
+        {
+            "name": "ChouCong",
+            "email": "3518439599@qq.com"
+        }
+    ],
+    "require": {
+        "aliyuncs/oss-sdk-php": "^2.3"
     }
-  ],
-  "require": {
-    "aliyuncs/oss-sdk-php": "^2.3"
-  }
 }
 ```
 

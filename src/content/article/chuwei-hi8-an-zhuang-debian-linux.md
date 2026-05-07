@@ -3,10 +3,10 @@ title: 驰为Hi8安装Debian Linux
 description: 驰为Hi8安装Debian Linux
 pubDate: 2021-10-04
 image:
-  url: 'https://pic-api.marxchou.com/api/random?9wQ2fL'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?9wQ2fL"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - Linux
+    - Linux
 ---
 
 ## 系统选择
@@ -209,11 +209,11 @@ fastboot flash boot /path/boot.img # 刷机
 
 其中有个最重要的步骤是分区，网上有很多 Linux 分区方案，比如：
 
-|    名称     |  挂载点   |   容量   |    格式    |
-| :---------: | :-------: | :------: | :--------: |
-|     ESP     | /boot/efi |   512M   | EFI System |
-|    boot     |   /boot   |    1G    |    ext4    |
-| swap(可选)  |           |    8G    |    swap    |
+|     名称     |  挂载点   |   容量   |    格式    |
+| :----------: | :-------: | :------: | :--------: |
+|     ESP      | /boot/efi |   512M   | EFI System |
+|     boot     |   /boot   |    1G    |    ext4    |
+|  swap(可选)  |           |    8G    |    swap    |
 | Debian Linux |     /     | 剩余空间 |    ext4    |
 
 > 上面是普通笔记本的分区方案，`驰为 Hi8` 空间有限，可酌情调整大小。

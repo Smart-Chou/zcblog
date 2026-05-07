@@ -3,10 +3,10 @@ title: 宝塔面板一键部署佰阅发卡
 description: 宝塔面板一键部署佰阅发卡
 pubDate: 2021-07-22
 image:
-  url: 'https://pic-api.marxchou.com/api/random?fM2y9N'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?fM2y9N"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - 发卡系统
+    - 发卡系统
 ---
 
 佰阅发卡KAMIFAKA由佰阅博主开发，这是一款让普通人都能快速搭建和使用的卡密发卡系
@@ -25,7 +25,7 @@ CDK等。
 境。[新手购买VPS及安装宝塔基础演示](htttps://codenoob.top/)
 
 :::warning
- 注意当前安装方法与宝塔其他程序都不会冲突，可正常安装卸载等操作，不会
+注意当前安装方法与宝塔其他程序都不会冲突，可正常安装卸载等操作，不会
 影响原有环境。
 :::
 

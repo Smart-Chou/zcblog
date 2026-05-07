@@ -2,10 +2,10 @@
 title: expressive-code 使用
 description: expressive-code 官网摘抄的相关使用说明
 pubDate: 2024-06-14
-tags: ['expressive-code']
+tags: ["expressive-code"]
 image:
-  url: 'https://pic-api.marxchou.com/api/random?rP6sA8'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?rP6sA8"
+    alt: "wait-this-is-not-my-commit"
 sticky: 0
 waline: false
 mathjax: true
@@ -24,7 +24,7 @@ mermaid: true
 
 ````md title="editor-example.md" ins=/title=".*?"/ ins=/<!--.*?-->/
 ```js title="my-test-file.js"
-console.log('标题属性示例')
+console.log("标题属性示例");
 ```
 
 ```html
@@ -36,7 +36,7 @@ console.log('标题属性示例')
 渲染结果如下所示:
 
 ```js title="my-test-file.js"
-console.log('标题属性示例')
+console.log("标题属性示例");
 ```
 
 ```html
@@ -183,11 +183,11 @@ New-Alias tail Watch-Tail
 ````md
 ```js title="line-markers.js" del={2} ins={3-4} {6}
 function demo() {
-  console.log('该行被标记为已删除')
-  // 这线和下一行被标记为插入
-  console.log('这是第二个插入线')
+    console.log("该行被标记为已删除");
+    // 这线和下一行被标记为插入
+    console.log("这是第二个插入线");
 
-  return '该行使用中性默认标记类型'
+    return "该行使用中性默认标记类型";
 }
 ```
 ````
@@ -196,11 +196,11 @@ function demo() {
 
 ```js title="line-markers.js" del={2} ins={3-4} {6}
 function demo() {
-  console.log('该行被标记为已删除')
-  // 这线和下一行被标记为插入
-  console.log('这是第二个插入线')
+    console.log("该行被标记为已删除");
+    // 这线和下一行被标记为插入
+    console.log("这是第二个插入线");
 
-  return '该行使用中性默认标记类型'
+    return "该行使用中性默认标记类型";
 }
 ```
 
@@ -216,16 +216,16 @@ function demo() {
 ```jsx {"1":5} del={"2":7-8} ins={"3":10-12}
 // labeled-line-markers.jsx
 <button
-  role="button"
-  {...props}
-  value={value}
-  className={buttonClassName}
-  disabled={disabled}
-  active={active}
+    role="button"
+    {...props}
+    value={value}
+    className={buttonClassName}
+    disabled={disabled}
+    active={active}
 >
-  {children &&
-    !active &&
-    (typeof children === 'string' ? <span>{children}</span> : children)}
+    {children &&
+        !active &&
+        (typeof children === "string" ? <span>{children}</span> : children)}
 </button>
 ```
 ````
@@ -235,16 +235,16 @@ function demo() {
 ```jsx {"1":5} del={"2":7-8} ins={"3":10-12}
 // labeled-line-markers.jsx
 <button
-  role="button"
-  {...props}
-  value={value}
-  className={buttonClassName}
-  disabled={disabled}
-  active={active}
+    role="button"
+    {...props}
+    value={value}
+    className={buttonClassName}
+    disabled={disabled}
+    active={active}
 >
-  {children &&
-    !active &&
-    (typeof children === 'string' ? <span>{children}</span> : children)}
+    {children &&
+        !active &&
+        (typeof children === "string" ? <span>{children}</span> : children)}
 </button>
 ```
 
@@ -254,25 +254,22 @@ function demo() {
 
 ##### 在自己的行上添加长标签
 
- 如果您想使用太长适合侧面的标签,则可以将它们添加到标记的线路范围上方。 为此,请在您希望标签出现的代码块内添加一个空线,并将该空线作为行范围的开始。 例子:
+如果您想使用太长适合侧面的标签,则可以将它们添加到标记的线路范围上方。 为此,请在您希望标签出现的代码块内添加一个空线,并将该空线作为行范围的开始。 例子:
 
 ````md ins={6,9,13}
 ```jsx {"1.这里提供价值道具:":5-6} del={"2.删除残疾和活动状态:":8-10} ins={"3.将其添加到将孩子们放入按钮中:":12-15}
 // labeled-line-markers.jsx
 <button
-  role="button"
-  {...props}
-
-  value={value}
-  className={buttonClassName}
-
-  disabled={disabled}
-  active={active}
+    role="button"
+    {...props}
+    value={value}
+    className={buttonClassName}
+    disabled={disabled}
+    active={active}
 >
-
-  {children &&
-    !active &&
-    (typeof children === 'string' ? <span>{children}</span> : children)}
+    {children &&
+        !active &&
+        (typeof children === "string" ? <span>{children}</span> : children)}
 </button>
 ```
 ````
@@ -282,25 +279,22 @@ function demo() {
 ```jsx {"1.这里提供价值道具:":5-6} del={"2.删除残疾和活动状态:":8-10} ins={"3.将其添加到将孩子们放入按钮中:":12-15}
 // labeled-line-markers.jsx
 <button
-  role="button"
-  {...props}
-
-  value={value}
-  className={buttonClassName}
-
-  disabled={disabled}
-  active={active}
+    role="button"
+    {...props}
+    value={value}
+    className={buttonClassName}
+    disabled={disabled}
+    active={active}
 >
-
-  {children &&
-    !active &&
-    (typeof children === 'string' ? <span>{children}</span> : children)}
+    {children &&
+        !active &&
+        (typeof children === "string" ? <span>{children}</span> : children)}
 </button>
 ```
 
 #### 使用`diff`语法
 
-您还可以使用`diff`语言(例如,github)支持的`diff`语言,而不是在开放代码围栏上添加行号。 将开头代码围栏中的语言设置为`diff`,然后在任何行的第一列中添加` + `或` - ` 标记:
+您还可以使用`diff`语言(例如,github)支持的`diff`语言,而不是在开放代码围栏上添加行号。 将开头代码围栏中的语言设置为`diff`,然后在任何行的第一列中添加`+`或`-` 标记:
 
 ````md
 ```diff
@@ -310,7 +304,7 @@ function demo() {
 ```
 ````
 
-要使您的Markdown / MDX文档中的原始内容更可读,可以在` + `或` - `标记(不是之前)之后添加空格,并与更改的线路对齐。 将自动检测到此额外的空格,并从渲染的代码块中删除:
+要使您的Markdown / MDX文档中的原始内容更可读,可以在`+`或`-`标记(不是之前)之后添加空格,并与更改的线路对齐。 将自动检测到此额外的空格,并从渲染的代码块中删除:
 
 ````md
 ```diff
@@ -343,7 +337,7 @@ function demo() {
 
 #### 将语法突出显示与`diff`语法
 
- 通常,使用" diff”语言的缺点是您失去了对实际代码语言的语法突出显示。 为了解决此问题,此插件使您可以通过在开放代码围栏中添加`lang =" ...”来指定第二语言标识符。 然后,此属性的值将用于语法突出显示,而" diff”的语法可用于标记线:
+通常,使用" diff”语言的缺点是您失去了对实际代码语言的语法突出显示。 为了解决此问题,此插件使您可以通过在开放代码围栏中添加`lang =" ...”来指定第二语言标识符。 然后,此属性的值将用于语法突出显示,而" diff”的语法可用于标记线:
 
 ````md
 ```diff lang="js"
@@ -391,8 +385,8 @@ function demo() {
 ````md
 ```js "given text"
 function demo() {
-  // Mark any given text inside lines
-  return 'Multiple matches of the given text are supported';
+    // Mark any given text inside lines
+    return "Multiple matches of the given text are supported";
 }
 ```
 ````
@@ -401,8 +395,8 @@ function demo() {
 
 ```js "given text"
 function demo() {
-  // Mark any given text inside lines
-  return 'Multiple matches of the given text are supported';
+    // Mark any given text inside lines
+    return "Multiple matches of the given text are supported";
 }
 ```
 
@@ -412,14 +406,14 @@ function demo() {
 
 ````md
 ```ts /ye[sp]/
-console.log('The words yes and yep will be marked.')
+console.log("The words yes and yep will be marked.");
 ```
 ````
 
 这将呈现如下:
 
 ```ts /ye[sp]/
-console.log('The words yes and yep will be marked.')
+console.log("The words yes and yep will be marked.");
 ```
 
 ##### 避免前锋斜线
@@ -427,14 +421,14 @@ console.log('The words yes and yep will be marked.')
 如果要匹配正则表达式内部的向前斜线,您可以使用后斜切逃脱它:
 
 ````md
-```sh /\/ho.*\//
+```sh //ho.*//
 echo "Test" > /home/test.txt
 ```
 ````
 
 这将呈现如下:
 
-```sh /\/ho.*\//
+```sh //ho.*//
 echo "Test" > /home/test.txt
 ```
 
@@ -442,17 +436,17 @@ echo "Test" > /home/test.txt
 
 如果您只想标记与正则表达式匹配的某些部分,则可以使用捕获组。 例如,表达式`/ye(s | p)/`将匹配`yes`和`yep`,但仅标记字符`s` s`或`p`:p`:
 
-  ```txt /ye(s|p)/
-  The word "yes" will have the letter "s" marked.
-  This also works for the "p" in "yep".
-  ```
+```txt /ye(s|p)/
+The word "yes" will have the letter "s" marked.
+This also works for the "p" in "yep".
+```
 
 为了防止对捕获组的特殊待遇,您可以通过添加`?`后将其转换为非捕获组。 例如:
 
-````md /ye(?:s|p)/
+```md /ye(?:s|p)/
 This block uses `/ye(?:s|p)/`, which causes the full
 matching words "yes" and "yep" to be marked.
-````
+```
 
 #### 选择内联标记类型(`mark`,`ins`,`del`)
 
@@ -461,9 +455,9 @@ matching words "yes" and "yep" to be marked.
 ````md
 ```js "return true;" ins="inserted" del="deleted"
 function demo() {
-  console.log('These are inserted and deleted marker types');
-  // The return statement uses the default marker type
-  return true;
+    console.log("These are inserted and deleted marker types");
+    // The return statement uses the default marker type
+    return true;
 }
 ```
 ````
@@ -472,9 +466,9 @@ function demo() {
 
 ```js "return true;" ins="inserted" del="deleted"
 function demo() {
-  console.log('These are inserted and deleted marker types');
-  // The return statement uses the default marker type
-  return true;
+    console.log("These are inserted and deleted marker types");
+    // The return statement uses the default marker type
+    return true;
 }
 ```
 
@@ -482,35 +476,37 @@ function demo() {
 
 您可以使用代码块的**元信息**中的 `wrap boolean prop` 启用或禁用单个代码块上的单词包装。 这是通过将`wrap`或`wrap = true`附加到打开代码围栏上以启用单词包装或`wrap = false`将其禁用:
 
-````md ins=/(?\<=&#96;.*)wrap\S*/
+````md ins=/(?<=`._)wrap\S_/
+
 ```js wrap
 // Example with wrap
 function getLongString() {
-  return '这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。'
+    return "这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。";
 }
 ```
 
 ```js wrap=false
 // Example with wrap=false
 function getLongString() {
-  return '这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。'
+    return "这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。";
 }
 ```
-````
+
+`````
 
 上述代码将像这样渲染:
 
 ```js wrap
 // Example with wrap
 function getLongString() {
-  return '这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。'
+    return "这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。";
 }
 ```
 
 ```js wrap=false
 // Example with wrap=false
 function getLongString() {
-  return '这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。'
+    return "这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。";
 }
 ```
 
@@ -526,35 +522,35 @@ function getLongString() {
 
 要更改代码块的此行为,您可以在代码块的**meta信息**中使用`preserveIndent`Boolean Prop:
 
-````md ins=/(?\<=&#96;.*)preserveIndent\S*/
+````md ins=/(?<=`.*)preserveIndent\S*/
 ```js wrap preserveIndent
 // 带有 preserverIndent 的示例（默认启用）
 function getLongString() {
-  return '这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。'
+    return "这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。";
 }
 ```
 
 ```js wrap preserveIndent=false
 // preserveIndent = false 的示例
 function getLongString() {
-  return '这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。'
+    return "这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。";
 }
 ```
-````
+`````
 
 上述代码将像这样渲染:
 
 ```js wrap preserveIndent
 // 带有 preserverIndent 的示例（默认启用）
 function getLongString() {
-  return '这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。'
+    return "这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。";
 }
 ```
 
 ```js wrap preserveIndent=false
 // preserveIndent = false 的示例
 function getLongString() {
-  return '这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。'
+    return "这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。这是一个很长的字符串，除非容器非常宽，否则很可能不适合可用空间。";
 }
 ```
 
@@ -569,19 +565,19 @@ function getLongString() {
 ````md ins="collapse={1-5, 12-14}"
 ```js collapse={1-5, 12-14}
 // All this boilerplate setup code will be collapsed
-import { someBoilerplateEngine } from '@example/some-boilerplate'
-import { evenMoreBoilerplate } from '@example/even-more-boilerplate'
+import { someBoilerplateEngine } from "@example/some-boilerplate";
+import { evenMoreBoilerplate } from "@example/even-more-boilerplate";
 
-const engine = someBoilerplateEngine(evenMoreBoilerplate())
+const engine = someBoilerplateEngine(evenMoreBoilerplate());
 
 // This part of the code will be visible by default
-engine.doSomething(1, 2, 3, calcFn)
+engine.doSomething(1, 2, 3, calcFn);
 
 function calcFn() {
-  // You can have multiple collapsed sections
-  const a = 1
-  const b = 2
-  return a + b
+    // You can have multiple collapsed sections
+    const a = 1;
+    const b = 2;
+    return a + b;
 }
 ```
 ````
@@ -590,19 +586,19 @@ function calcFn() {
 
 ```js collapse={1-5, 12-14}
 // All this boilerplate setup code will be collapsed
-import { someBoilerplateEngine } from '@example/some-boilerplate'
-import { evenMoreBoilerplate } from '@example/even-more-boilerplate'
+import { someBoilerplateEngine } from "@example/some-boilerplate";
+import { evenMoreBoilerplate } from "@example/even-more-boilerplate";
 
-const engine = someBoilerplateEngine(evenMoreBoilerplate())
+const engine = someBoilerplateEngine(evenMoreBoilerplate());
 
 // This part of the code will be visible by default
-engine.doSomething(1, 2, 3, calcFn)
+engine.doSomething(1, 2, 3, calcFn);
 
 function calcFn() {
-  // You can have multiple collapsed sections
-  const a = 1
-  const b = 2
-  return a + b
+    // You can have multiple collapsed sections
+    const a = 1;
+    const b = 2;
+    return a + b;
 }
 ```
 
@@ -613,14 +609,14 @@ function calcFn() {
 ````md ins=/showLineNumbers\S*/
 ```js showLineNumbers
 // This code block will show line numbers
-console.log('Greetings from line 2!')
-console.log('I am on line 3')
+console.log("Greetings from line 2!");
+console.log("I am on line 3");
 ```
 
 ```js showLineNumbers=false
 // Line numbers are disabled for this block
-console.log('Hello?')
-console.log('Sorry, do you know what line I am on?')
+console.log("Hello?");
+console.log("Sorry, do you know what line I am on?");
 ```
 ````
 
@@ -628,14 +624,14 @@ console.log('Sorry, do you know what line I am on?')
 
 ```js showLineNumbers
 // This code block will show line numbers
-console.log('Greetings from line 2!')
-console.log('I am on line 3')
+console.log("Greetings from line 2!");
+console.log("I am on line 3");
 ```
 
 ```js showLineNumbers=false
 // Line numbers are disabled for this block
-console.log('Hello?')
-console.log('Sorry, do you know what line I am on?')
+console.log("Hello?");
+console.log("Sorry, do you know what line I am on?");
 ```
 
 :::note
@@ -644,22 +640,22 @@ console.log('Sorry, do you know what line I am on?')
 
 ### 更改起点号码
 
- 默认情况下,您的代码块的行号将从`1`开始。 有时,您可能需要从不同的数字开始,以表明代码块是较大文件的一部分。
+默认情况下,您的代码块的行号将从`1`开始。 有时,您可能需要从不同的数字开始,以表明代码块是较大文件的一部分。
 
- 要更改代码块的起始行号,您可以在代码块的**meta信息**中使用`ottlineNumber`prop。 这是通过附加`startlineNumber =`附加到打开代码围栏的所需号码来完成的:
+要更改代码块的起始行号,您可以在代码块的**meta信息**中使用`ottlineNumber`prop。 这是通过附加`startlineNumber =`附加到打开代码围栏的所需号码来完成的:
 
 ````md ins=/showLineNumbers\S*/ ins=/startLineNumber\S*/
 ```js showLineNumbers startLineNumber=5
-console.log('Greetings from line 5!')
-console.log('I am on line 6')
+console.log("Greetings from line 5!");
+console.log("I am on line 6");
 ```
 ````
 
 上述代码将像这样渲染:
 
 ```js showLineNumbers startLineNumber=5
-console.log('Greetings from line 5!')
-console.log('I am on line 6')
+console.log("Greetings from line 5!");
+console.log("I am on line 6");
 ```
 
 :::note

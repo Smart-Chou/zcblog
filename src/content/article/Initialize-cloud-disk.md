@@ -3,10 +3,10 @@ title: 初始化云硬盘
 description: 初始化云硬盘
 pubDate: 2021-11-30
 image:
-  url: 'https://pic-api.marxchou.com/api/random?zK8pL2'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?zK8pL2"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - 云硬盘
+    - 云硬盘
 ---
 
 ## 操作场景
@@ -41,27 +41,27 @@ tags:
 
 2.执行以下命令，查看磁盘名称。
 
-   ```shell
-   sudo fdisk -l
-   ```
+```shell
+sudo fdisk -l
+```
 
-   回显信息类似如下图，表示当前轻量应用服务器有两块磁盘，`/dev/vda`为 50GB 的系统
-   盘，`/dev/vdb`是新增数据盘。
+回显信息类似如下图，表示当前轻量应用服务器有两块磁盘，`/dev/vda`为 50GB 的系统
+盘，`/dev/vdb`是新增数据盘。
 
-   ![磁盘信息](/assets/note/aad842b12fec3ca583790bff609c9fb7.png)
+![磁盘信息](/assets/note/aad842b12fec3ca583790bff609c9fb7.png)
 
 3.执行以下命令，对`/dev/vdb`裸设备直接创建文件系统格式。
 
-   ```shell
-   sudo mkfs -t <文件系统格式> /dev/vdb
-   ```
+```shell
+sudo mkfs -t <文件系统格式> /dev/vdb
+```
 
 4.不同文件系统支持的分区大小不同，请根据实际需求合理选择文件系统。以设置文件系统
 为`EXT4`为例，则执行以下命令：
 
-   ```shell
-   sudo mkfs -t ext4 /dev/vdb
-   ```
+```shell
+sudo mkfs -t ext4 /dev/vdb
+```
 
 :::tip[注意]
 
@@ -71,22 +71,22 @@ tags:
 
 1.执行以下命令，新建挂载点。以新建挂载点`/data`为例，则执行以下命令：
 
-   ```shell
-   sudo mkdir /data
-   ```
+```shell
+sudo mkdir /data
+```
 
 2.执行以下命令，将设备挂载至新建的挂载点。以新建挂载点`/data`为例，则执行以下命
-   令：
+令：
 
-   ```shell
-   sudo mount /dev/vdb /data
-   ```
+```shell
+sudo mount /dev/vdb /data
+```
 
 3.执行以下命令，查看挂载结果。
 
-   ```shell
-   sudo df -TH
-   ```
+```shell
+sudo df -TH
+```
 
 返回类似如下图所示信息，表示`/dev/vdb`已挂载至`/data`。
 
@@ -102,64 +102,64 @@ Linux 实例开机自动挂载磁盘
 
 1.确认挂载方式并获取对应信息。
 
-   您可以根据业务需求选择使用文件系统的 UUID（universally unique identifier）或
-   设备名称自动挂载磁盘，相关说明和信息获取方式如下：
+您可以根据业务需求选择使用文件系统的 UUID（universally unique identifier）或
+设备名称自动挂载磁盘，相关说明和信息获取方式如下：
 
-   | 挂载方式            | 优缺点                                                                                                          | 信息获取方式                                              |
-   | :------------------ | :-------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- |
-   | 使用文件系统的 UUID | 可能会因文件系统的 UUID 变化而导致自动挂载设置失效。 例如，重新格式化文件系统后，文件系统的 UUID 将会发生变化。 | 执行以下命令，查看文件系统的 UUID。 `sudo blkid /dev/vdb` |
-   | 使用设备名称        | 可能会因设备名称变化而导致自动挂载设置失效。                                                                    | 执行以下命令，查看设备名称。 `sudo fdisk -l`              |
+| 挂载方式            | 优缺点                                                                                                          | 信息获取方式                                              |
+| :------------------ | :-------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------- |
+| 使用文件系统的 UUID | 可能会因文件系统的 UUID 变化而导致自动挂载设置失效。 例如，重新格式化文件系统后，文件系统的 UUID 将会发生变化。 | 执行以下命令，查看文件系统的 UUID。 `sudo blkid /dev/vdb` |
+| 使用设备名称        | 可能会因设备名称变化而导致自动挂载设置失效。                                                                    | 执行以下命令，查看设备名称。 `sudo fdisk -l`              |
 
 2.执行以下命令，备份`/etc/fstab`文件。以备份到`/home`目录下为例：
 
-   ```shell
-   sudo cp -r /etc/fstab /home
-   ```
+```shell
+sudo cp -r /etc/fstab /home
+```
 
 3.执行以下命令，使用 VI 编辑器打开`/etc/fstab`文件。
 
-   ```shell
-   sudo vi /etc/fstab
-   ```
+```shell
+sudo vi /etc/fstab
+```
 
 4.按 **i** 进入编辑模式。
 
 5.将光标移至文件末尾，按**Enter**，添加如下内容。
 
-   ```plaintext
-   <设备信息> <挂载点> <文件系统格式> <文件系统安装选项> <文件系统转储频率> <启动时的文件系统检查顺序>
-   ```
+```plaintext
+<设备信息> <挂载点> <文件系统格式> <文件系统安装选项> <文件系统转储频率> <启动时的文件系统检查顺序>
+```
 
-   - 以使用磁盘分区的 UUID 自动挂载为例，结合前文示例则添加：
+- 以使用磁盘分区的 UUID 自动挂载为例，结合前文示例则添加：
 
-   ```shell
-   UUID=d489ca1c-5057-4536-81cb-ceb2847f9954 /data ext4 defaults 0 0
-   ```
+```shell
+UUID=d489ca1c-5057-4536-81cb-ceb2847f9954 /data ext4 defaults 0 0
+```
 
-   若您需挂载分区，则结合前文示例则添加：
+若您需挂载分区，则结合前文示例则添加：
 
-   ```shell
-   UUID=d489ca1c-5057-4536-81cb-ceb2847f9954 /data/newpart ext4 defaults 0 2
-   ```
+```shell
+UUID=d489ca1c-5057-4536-81cb-ceb2847f9954 /data/newpart ext4 defaults 0 2
+```
 
-   - 以使用设备名称自动挂载为例，结合前文示例则添加：
+- 以使用设备名称自动挂载为例，结合前文示例则添加：
 
-   ```shell
-   /dev/vdb /data ext4 defaults 0 0
-   ```
+```shell
+/dev/vdb /data ext4 defaults 0 0
+```
 
 6.若您需挂载分区，则结合前文示例则添加：
 
-   ```shell
-   /dev/vdb1 /data/newpart /data/newpart ext4 defaults 0 2
-   ```
+```shell
+/dev/vdb1 /data/newpart /data/newpart ext4 defaults 0 2
+```
 
-   1.按 **Esc**，输入 **:wq** 并按 **Enter** 保存设置并退出编辑器。
+1.按 **Esc**，输入 **:wq** 并按 **Enter** 保存设置并退出编辑器。
 
-   2.执行以下命令，检查/etc/fstab文件是否写入成功。
+2.执行以下命令，检查/etc/fstab文件是否写入成功。
 
-   ```shell
-   sudo mount -a
-   ```
+```shell
+sudo mount -a
+```
 
 7.如果运行通过则说明文件写入成功，新建的文件系统会在操作系统启动时自动挂载。

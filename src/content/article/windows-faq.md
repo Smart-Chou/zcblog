@@ -3,10 +3,10 @@ title: Windows 常见问题
 description: Windows 常见问题
 pubDate: 2021-08-30
 image:
-  url: 'https://pic-api.marxchou.com/api/random?9rK1vW'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?9rK1vW"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - Windows
+    - Windows
 ---
 
 ## 删除自带输入法

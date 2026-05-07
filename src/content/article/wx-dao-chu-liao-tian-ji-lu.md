@@ -3,10 +3,10 @@ title: 微信聊天记录永久保存
 description: 如何导出微信聊天记录并永久保存
 pubDate: 2021-08-14
 image:
-  url: 'https://pic-api.marxchou.com/api/random?k2J8R1'
-  alt: 'wait-this-is-not-my-commit'
+    url: "https://pic-api.marxchou.com/api/random?k2J8R1"
+    alt: "wait-this-is-not-my-commit"
 tags:
-  - 微信
+    - 微信
 ---
 
 ## 总有些记忆你想永久保留
