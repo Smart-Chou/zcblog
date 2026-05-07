@@ -26,8 +26,10 @@ import albumsData from "~/data/albums.json";
 
 const albums: Album[] = (albumsData as Album[]).map((album) => ({
     ...album,
-    cover: album.cover ? `https://pic-api.marxchou.com/api/pic${album.cover}` : "",
-    photoCount: album.photos?.length || 0
+    cover: album.cover
+        ? `https://pic-api.marxchou.com/api/pic${album.cover}`
+        : "",
+    photoCount: album.photos?.length || 0,
 }));
 ---
 

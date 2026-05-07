@@ -28,11 +28,15 @@ import albumsData from "~/data/albums.json";
 // 配置相册数据
 const GALLERY_CONFIG: Album[] = (albumsData as Album[]).map((album) => ({
     ...album,
-    cover: album.cover ? `https://pic-api.marxchou.com/api/pic${album.cover}` : "",
-    photoCount: album.photos?.length || 0
+    cover: album.cover
+        ? `https://pic-api.marxchou.com/api/pic${album.cover}`
+        : "",
+    photoCount: album.photos?.length || 0,
 }));
 
-const allTags = [...new Set(GALLERY_CONFIG.map((a) => a.name).filter(Boolean))].sort();
+const allTags = [
+    ...new Set(GALLERY_CONFIG.map((a) => a.name).filter(Boolean)),
+].sort();
 ---
 
 <BaseLayout title="Gallery" description={`${site.title} 的相册集`}>

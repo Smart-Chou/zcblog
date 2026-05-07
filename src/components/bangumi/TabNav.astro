@@ -57,8 +57,7 @@ const { tabs, activeTab } = Astro.props;
             });
             sections.forEach((section) => {
                 const el = section as HTMLElement;
-                const isTarget =
-                    el.getAttribute("data-section") === targetTab;
+                const isTarget = el.getAttribute("data-section") === targetTab;
                 el.style.display = isTarget ? "block" : "none";
                 if (isTarget) {
                     loadLazyImages(el);

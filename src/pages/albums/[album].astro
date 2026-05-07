@@ -25,16 +25,20 @@ import albumsData from "~/data/albums.json";
 
 const allAlbums: Album[] = (albumsData as Album[]).map((album) => ({
     ...album,
-    cover: album.cover ? `https://pic-api.marxchou.com/api/pic${album.cover}` : "",
-    photoCount: album.photos?.length || 0
+    cover: album.cover
+        ? `https://pic-api.marxchou.com/api/pic${album.cover}`
+        : "",
+    photoCount: album.photos?.length || 0,
 }));
 
 export async function getStaticPaths() {
     const data = await import("~/data/albums.json");
     const allAlbums = (data.default as Album[]).map((album) => ({
         ...album,
-        cover: album.cover ? `https://pic-api.marxchou.com/api/pic${album.cover}` : "",
-        photoCount: album.photos?.length || 0
+        cover: album.cover
+            ? `https://pic-api.marxchou.com/api/pic${album.cover}`
+            : "",
+        photoCount: album.photos?.length || 0,
     }));
 
     return allAlbums.map((album) => ({
@@ -66,9 +70,11 @@ if (!foundAlbum) {
                 <span class="photo-count"
                     >{foundAlbum.photos.length} 张照片</span
                 >
-                {foundAlbum.location && (
-                    <span class="location">{foundAlbum.location}</span>
-                )}
+                {
+                    foundAlbum.location && (
+                        <span class="location">{foundAlbum.location}</span>
+                    )
+                }
             </div>
         </div>
 

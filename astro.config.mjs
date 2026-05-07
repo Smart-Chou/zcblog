@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-import { loadEnv } from "vite";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import mdx from "@astrojs/mdx";
@@ -7,27 +6,28 @@ import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm"; // GitHub Flavored Markdown
 import rehypeSlug from "rehype-slug"; // 标题添加ID
 import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 标题添加锚点
+import rehypeComponents from "rehype-components"; /* Render the custom directive content */
 import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
 import { remarkAsides } from "./src/remarkPlugin/remark-asides.js";
 import { remarkDeruntify } from "./src/remarkPlugin/remark-deruntify.js";
-import astroExpressiveCode from "astro-expressive-code";
+import expressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import partytown from "@astrojs/partytown";
 import redirectAttributeByLink from "./src/integrations/redirect.ts";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
+import rehypeCallouts from "rehype-callouts";
 import astroVtBot from "astro-vtbot";
 import katex from "katex";
-
-// 加载环境变量
+import "katex/dist/contrib/mhchem.mjs";
 import tailwindcss from "@tailwindcss/vite";
-
-const env = loadEnv("", process.cwd(), "");
+import compressor from "astro-compressor";
+import remarkSectionize from "remark-sectionize";
 
 // https://astro.build/config
 export default defineConfig({
-    site: env.PUBLIC_SITE_URL || "https://marxchou.com",
+    site: "https://marxchou.com",
     // i18n 配置
     i18n: {
         defaultLocale: "zh",
@@ -51,15 +51,17 @@ export default defineConfig({
         ],
         rehypePlugins: [
             [rehypeKatex, { katex }],
+            rehypeCallouts,
             rehypeSlug, // 标题添加ID
             [rehypeAutolinkHeadings, { behavior: "append" }], // 标题添加锚点
+            [rehypeComponents, { components: {} }],
         ],
     },
     integrations: [
         redirectAttributeByLink(),
         sitemap(),
         icon(),
-        astroExpressiveCode({
+        expressiveCode({
             plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
             themes: ["github-dark"],
             useDarkModeMediaQuery: false,
@@ -81,8 +83,10 @@ export default defineConfig({
         astroVtBot({
             viewTransitionsFallback: "none",
         }),
+        compressor(),
     ],
     image: {
+        layout: "constrained",
         service: {
             entrypoint: "astro/assets/services/sharp",
             config: {
@@ -109,12 +113,6 @@ export default defineConfig({
     },
     vite: {
         plugins: [tailwindcss()],
-        define: {
-            // 暴露环境变量到客户端
-            "process.env.PUBLIC_SITE_URL": JSON.stringify(
-                env.PUBLIC_SITE_URL || "https://marxchou.com",
-            ),
-        },
         build: {
             // 开启构建压缩
             minify: "terser",
@@ -147,6 +145,10 @@ export default defineConfig({
                 },
             },
         },
+        // CSS 优化
+        cssCodeSplit: true,
+        cssMinify: "esbuild",
+        assetsInlineLimit: 4096,
         // 构建性能优化
         cacheDir: ".vite-cache",
         optimizeDeps: {

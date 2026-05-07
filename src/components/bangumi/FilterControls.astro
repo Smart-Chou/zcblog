@@ -60,8 +60,7 @@ const { filters, activeFilter, sectionId } = Astro.props;
                         item.style.display = "";
                         item.querySelectorAll("img[data-src]").forEach(
                             (img) => {
-                                const src =
-                                    img.getAttribute("data-src");
+                                const src = img.getAttribute("data-src");
                                 if (src) {
                                     img.src = src;
                                     img.removeAttribute("data-src");

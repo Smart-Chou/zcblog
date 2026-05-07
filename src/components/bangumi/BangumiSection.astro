@@ -185,17 +185,14 @@ const totalPages = Math.ceil(items.length / itemsPerPage);
                     const visible = index >= start && index < end;
                     el.style.display = visible ? "" : "none";
                     if (visible) {
-                        el.querySelectorAll("img[data-src]").forEach(
-                            (img) => {
-                                const imgEl = img as HTMLImageElement;
-                                const src =
-                                    imgEl.getAttribute("data-src");
-                                if (src) {
-                                    imgEl.src = src;
-                                    imgEl.removeAttribute("data-src");
-                                }
-                            },
-                        );
+                        el.querySelectorAll("img[data-src]").forEach((img) => {
+                            const imgEl = img as HTMLImageElement;
+                            const src = imgEl.getAttribute("data-src");
+                            if (src) {
+                                imgEl.src = src;
+                                imgEl.removeAttribute("data-src");
+                            }
+                        });
                     }
                 });
 

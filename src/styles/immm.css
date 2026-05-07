@@ -274,10 +274,10 @@ a.read-more {
     position: relative;
     z-index: 999;
     text-decoration: none;
-    padding: .8rem 3rem;
+    padding: 0.8rem 3rem;
     border-radius: 3rem;
     background: #fff;
-    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--light-background-secondary);
 }
 
