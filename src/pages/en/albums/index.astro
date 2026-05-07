@@ -1,10 +1,34 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { site } from "~/self.config";
-import AlbumCard from "~/components/Widget/AlbumCard.astro";
+import AlbumCard from "~/components/gallery/AlbumCard.astro";
 
-import albumData from "~/data/albums.json";
-const { albums } = albumData;
+interface AlbumPhoto {
+    id: string;
+    url: string;
+    alt?: string;
+    description?: string;
+}
+
+interface Album {
+    id: string;
+    name: string;
+    description?: string;
+    location?: string;
+    date?: string;
+    tags?: string[];
+    cover?: string;
+    photos: AlbumPhoto[];
+    photoCount?: number;
+}
+
+import albumsData from "~/data/albums.json";
+
+const albums: Album[] = (albumsData as Album[]).map((album) => ({
+    ...album,
+    cover: album.cover ? `https://pic-api.marxchou.com/api/pic${album.cover}` : "",
+    photoCount: album.photos?.length || 0
+}));
 ---
 
 <BaseLayout
@@ -26,11 +50,12 @@ const { albums } = albumData;
                 albums.map((album) => (
                     <AlbumCard
                         id={album.id}
-                        title={album.title}
+                        name={album.name}
                         description={album.description}
-                        coverImage={album.coverImage}
-                        photoCount={album.photos.length}
-                        updatedAt={new Date(album.updatedAt)}
+                        cover={album.cover}
+                        location={album.location}
+                        tags={album.location ? [album.location] : []}
+                        photoCount={album.photoCount || 0}
                     />
                 ))
             }
