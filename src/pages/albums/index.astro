@@ -1,7 +1,7 @@
 ---
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import AlbumCard from "~/components/gallery/AlbumCard.astro";
-import Gallery from "~/components/icons/Gallery.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 
 interface AlbumPhoto {
     id: string;
@@ -44,7 +44,7 @@ const allTags = [
     emptyEmoji="📷"
     emptyTitle="暂无相册"
 >
-    <Gallery slot="icon" />
+    <DynamicIcon name="tabler:gallery" slot="icon" />
 
     {
         GALLERY_CONFIG.length > 0 && allTags.length > 0 && (

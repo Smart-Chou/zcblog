@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import EssayItem from "~/components/essay/EssayItem.astro";
-import Chat from "~/components/icons/Chat.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import PageHeader from "~/components/Widget/PageHeader.astro";
 import { site } from "~/self.config";
 import essaysData from "~/data/essays.json";
@@ -13,7 +13,7 @@ import essaysData from "~/data/essays.json";
             title="Essays"
             subtitle="A collection of moments from my social media - mostly from my wild youth days"
         >
-            <Chat slot="icon" />
+            <DynamicIcon name="tabler:message-circle" slot="icon" />
         </PageHeader>
 
         <div class="essay-masonry">

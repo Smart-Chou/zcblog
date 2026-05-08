@@ -28,6 +28,10 @@ import FramerIcon from "./Framer.astro";
 import VSCodeIcon from "./VSCode.astro";
 import FigmaIcon from "./Figma.astro";
 import ExternalLinkIcon from "./ExternalLink.astro";
+import GalleryIcon from "./Gallery.astro";
+import FilmIcon from "./Film.astro";
+import AlertCircleIcon from "./AlertCircle.astro";
+import ChatIcon from "./Chat.astro";
 
 const { name, ...props } = Astro.props;
 
@@ -62,6 +66,10 @@ const iconMap: Record<string, any> = {
     "tabler:brand-vscode": VSCodeIcon,
     "tabler:brand-figma": FigmaIcon,
     "tabler:external-link": ExternalLinkIcon,
+    "tabler:gallery": GalleryIcon,
+    "tabler:movie": FilmIcon,
+    "tabler:alert-circle-filled": AlertCircleIcon,
+    "tabler:message-circle": ChatIcon,
 };
 
 const IconComponent = iconMap[name];

@@ -1,4 +1,6 @@
 ---
+import MediaCardGrid from "~/components/ui/MediaCardGrid.astro";
+
 interface Media {
     url: string;
     rating: number;
@@ -18,46 +20,5 @@ const { title, items, href = "#" } = Astro.props;
 
 <div class="douban media-section">
     <h3><a href={href}>{title}</a></h3>
-    <div class="items media-items">
-        {
-            items.map((item) => (
-                <div class="media-item">
-                    <div class="media-item-cover">
-                        <img
-                            class="avatar"
-                            src={item.url}
-                            referrer-policy="no-referrer"
-                            loading="lazy"
-                            alt={item.title}
-                            width="150"
-                            height="220"
-                        />
-                    </div>
-                    <div class="media-item-rating">
-                        <div class="rating">
-                            <span class="allstardark">
-                                <span
-                                    class="allstarlight"
-                                    style={`width: ${item.rating}%`}
-                                />
-                            </span>
-                            <span class="rating_nums">
-                                {item.ratingNum ||
-                                    (item.rating / 10).toFixed(1)}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="media-item-title">
-                        <a
-                            rel="noreferrer"
-                            href={item.link || "#"}
-                            target="_blank"
-                        >
-                            {item.title}
-                        </a>
-                    </div>
-                </div>
-            ))
-        }
-    </div>
+    <MediaCardGrid items={items} />
 </div>

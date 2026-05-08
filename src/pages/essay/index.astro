@@ -1,7 +1,7 @@
 ---
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import EssayItem from "~/components/essay/EssayItem.astro";
-import Chat from "~/components/icons/Chat.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import essaysData from "~/data/essays.json";
 import { site } from "~/self.config";
 ---
@@ -14,7 +14,7 @@ import { site } from "~/self.config";
     emptyEmoji="📝"
     emptyTitle="暂无随笔"
 >
-    <Chat slot="icon" />
+    <DynamicIcon name="tabler:message-circle" slot="icon" />
     <div class="essay-masonry">
         {essaysData.map((item) => <EssayItem item={item} />)}
     </div>

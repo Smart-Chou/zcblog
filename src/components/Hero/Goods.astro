@@ -1,26 +1,9 @@
 ---
 import goods from "~/data/goods.json";
+import GoodsCardList from "~/components/ui/GoodsCardList.astro";
 ---
 
 <div class="home">
     <h3><a href="/goods/">近期好物</a></h3>
-    <div id="goods">
-        {
-            goods.map((item) => (
-                <div class="goods-bankuai img-hide">
-                    <div class="goods-duiqi">
-                        <img
-                            loading="lazy"
-                            decoding="async"
-                            src={item.url}
-                            alt={item.title}
-                        />
-                    </div>
-                    <div class="goods-jiage">{item.price}</div>
-                    <div class="goods-title">{item.title}</div>
-                    <div class="goods-note">{item.note}</div>
-                </div>
-            ))
-        }
-    </div>
+    <GoodsCardList items={goods} />
 </div>

@@ -1,5 +1,6 @@
 ---
 import SectionPage from "~/components/Layout/SectionPage.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import HeartIcon from "~/components/icons/Heart.astro";
 import QrCard from "~/components/ui/QrCard.astro";
 import DonatorsList from "~/components/ui/DonatorsList.astro";
@@ -15,7 +16,7 @@ const { donators } = donateData;
     publishedTime={new Date()}
     modifiedTime={new Date()}
 >
-    <HeartIcon filled={true} slot="icon" />
+    <DynamicIcon name="ph:heart-fill" slot="icon" />
 
     <div class="donate-sections">
         <div class="donate-section s-card">

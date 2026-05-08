@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import AlbumCard from "~/components/gallery/AlbumCard.astro";
-import Gallery from "~/components/icons/Gallery.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import PageHeader from "~/components/Widget/PageHeader.astro";
 import EmptyState from "~/components/Widget/EmptyState.astro";
 import { scanAlbumPhotos, getAlbumCover } from "~/utils/gallery-utils";
@@ -37,7 +37,7 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
             title="Gallery"
             subtitle="Capturing beautiful moments in life"
         >
-            <Gallery slot="icon" />
+            <DynamicIcon name="tabler:gallery" slot="icon" />
         </PageHeader>
 
         {

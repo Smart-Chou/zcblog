@@ -2,8 +2,7 @@
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import TabNav from "~/components/bangumi/TabNav.astro";
 import BangumiSection from "~/components/bangumi/BangumiSection.astro";
-import Film from "~/components/icons/Film.astro";
-import AlertCircle from "~/components/icons/AlertCircle.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { formatDateI18nWithTime } from "~/utils/date-utils";
 import type { UserSubjectCollection } from "~/types/bangumi";
 
@@ -115,7 +114,7 @@ const hasData = tabs.length > 0;
         ? "你的收藏列表是空的"
         : "请在页面代码中配置你的 Bangumi 用户ID"}
 >
-    <Film slot="icon" />
+    <DynamicIcon name="tabler:movie" slot="icon" />
     {
         hasData && (
             <>

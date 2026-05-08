@@ -2,10 +2,9 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import TabNav from "~/components/bangumi/TabNav.astro";
 import BangumiSection from "~/components/bangumi/BangumiSection.astro";
-import Film from "~/components/icons/Film.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import PageHeader from "~/components/Widget/PageHeader.astro";
 import EmptyState from "~/components/Widget/EmptyState.astro";
-import AlertCircle from "~/components/icons/AlertCircle.astro";
 import { site } from "~/self.config";
 import { formatDateI18nWithTime } from "~/utils/date-utils";
 import type { UserSubjectCollection } from "~/types/bangumi";
@@ -110,7 +109,7 @@ const activeTab = tabs[0]?.id || "anime";
             subtitle="My anime, book, music and game collection"
             buildTime={`Last updated: ${buildTime}`}
         >
-            <Film slot="icon" />
+            <DynamicIcon name="tabler:movie" slot="icon" />
         </PageHeader>
 
         {
@@ -139,7 +138,7 @@ const activeTab = tabs[0]?.id || "anime";
                             : "Please configure your Bangumi user ID in the code"
                     }
                 >
-                    <AlertCircle slot="icon" />
+                    <DynamicIcon name="tabler:alert-circle-filled" slot="icon" />
                 </EmptyState>
             )
         }
