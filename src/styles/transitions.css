@@ -4,12 +4,6 @@
  * 配合 Astro 的 <ClientRouter>（View Transitions API）
  */
 
-/* 禁用所有过渡动画，防止刷新时闪烁 */
-::view-transition-old(root),
-::view-transition-new(root) {
-    animation: none !important;
-}
-
 /* 减少动效模式：尊重用户系统设置 */
 @media (prefers-reduced-motion: reduce) {
     ::view-transition-old(root),

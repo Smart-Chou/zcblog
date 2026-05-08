@@ -58,7 +58,7 @@ const ogImage =
     mathjax={frontmatter.mathjax}
     mermaid={frontmatter.mermaid}
 >
-    <progress id="content_progress" value="0"></progress>
+    <div class="reading-progress"></div>
     <div class="post-title">
         <h1 class="post-title__text">
             {frontmatter.title}
@@ -153,64 +153,27 @@ const ogImage =
     {frontmatter.waline && waline.enable && <WalineComment />}
 </BaseLayout>
 
-<script>
-    document.addEventListener("astro:page-load", () => {
-        const progressBar = document.querySelector("#content_progress");
-        if (progressBar instanceof HTMLProgressElement) {
-            const winHeight = window.innerHeight;
-            const docHeight = document.documentElement.scrollHeight;
-
-            progressBar.max = docHeight - winHeight;
-            progressBar.value = window.scrollY;
-
-            const setProgressBarColor = () => {
-                const scrollPercent =
-                    (window.scrollY / (docHeight - winHeight)) * 100;
-                const hue = 150 + scrollPercent * 0.6;
-                progressBar.style.setProperty(
-                    "--progress-color",
-                    `hsl(${hue}, 100%, 50%)`,
-                );
-            };
-
-            document.addEventListener("scroll", () => {
-                progressBar.max =
-                    document.documentElement.scrollHeight - winHeight;
-                progressBar.value = window.scrollY;
-                setProgressBarColor();
-            });
-
-            setProgressBarColor();
-        }
-    });
-</script>
-
 <style>
-    #content_progress {
+    .reading-progress {
         position: fixed;
         left: 0;
         top: 0;
         z-index: 1000;
         width: 100%;
         height: 2px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        border: none;
-        background-color: transparent;
-        color: #2ea997;
+        background: linear-gradient(to right, #2ea997, #f59e0b);
+        transform-origin: left;
+        animation: reading-progress linear;
+        animation-timeline: scroll(root);
     }
 
-    #content_progress::-webkit-progress-bar {
-        background-color: transparent;
-    }
-
-    #content_progress::-webkit-progress-value {
-        background-color: var(--progress-color, #2ea997);
-    }
-
-    #content_progress::-moz-progress-bar {
-        background-color: var(--progress-color, #2ea997);
+    @keyframes reading-progress {
+        from {
+            transform: scaleX(0);
+        }
+        to {
+            transform: scaleX(1);
+        }
     }
 
     .post__header {

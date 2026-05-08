@@ -1,58 +1,102 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "~/layouts/BaseLayout.astro";
-import PostLayout from "~/layouts/PostLayout.astro";
+import SectionPage from "~/components/Layout/SectionPage.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import Author from "~/components/Feature/Author.astro";
 import { site } from "~/self.config";
 
 const allPosts = await getCollection("article");
-const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+
+const allTags = allPosts.flatMap((post) => post.data.tags || []);
+const tagCounts = allTags.reduce(
+    (acc, tag) => {
+        acc[tag] = (acc[tag] || 0) + 1;
+        return acc;
+    },
+    {} as Record<string, number>,
+);
+
+const sortedTags = Object.entries(tagCounts)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+
+const maxTagCount = Math.max(...sortedTags.map((t) => t.count), 1);
+
+function getTagColor(count: number): string {
+    const percentage = count / maxTagCount;
+    if (percentage >= 0.8) return "#1e40af";
+    if (percentage >= 0.6) return "#1d4ed8";
+    if (percentage >= 0.4) return "#3b82f6";
+    if (percentage >= 0.2) return "#60a5fa";
+    return "#93c5fd";
+}
 ---
 
+<SectionPage
+    title={`Tags - ${site.title}`}
+    subtitle=""
+    description={`All tags - ${site.description}`}
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt="Tags"
+    keywords={["Tags"]}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+>
+    <DynamicIcon name="tabler:tags" slot="icon" />
+
+    <div class="tag-cloud">
+        {
+            sortedTags.map(({ name, count }) => (
+                <span class="tag-item">
+                    <a href={`/tags/${name}/`}>{name}</a>
+                    <span
+                        class="tag-count"
+                        style={`background-color: ${getTagColor(count)}`}
+                    >
+                        {count}
+                    </span>
+                </span>
+            ))
+        }
+    </div>
+    <Author />
+</SectionPage>
+
 <style>
-    .tags {
+    .tag-cloud {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .tag {
+    .tag-item {
         margin: 0.25em;
         border-radius: 0.5em;
         padding: 0.5em 1em;
-        font-size: 1.15em;
+        font-size: 1em;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
         background-color: var(--bg-color);
     }
 
-    .tag a {
+    .tag-item a {
         text-decoration: none;
     }
 
-    .tag a:hover {
+    .tag-item a:hover {
         text-decoration: underline;
     }
-</style>
 
-<BaseLayout
-    title={`Tags - ${site.title}`}
-    description="All tags"
-    image={`${Astro.site + site.coverImage}`}
-    imageAlt="Tags"
-    keywords="Tags"
-    publishedTime={new Date()}
-    modifiedTime={new Date()}
-    locale="en"
->
-    <h1 class="tag-title text-center space-bottom">Tags</h1>
-    <PostLayout>
-        <div class="tags">
-            {
-                tags.map((tag) => (
-                    <p class="tag">
-                        <a href={`/tags/${tag}/`}>{tag}</a>
-                    </p>
-                ))
-            }
-        </div>
-    </PostLayout>
-    <Author />
-</BaseLayout>
+    .tag-count {
+        font-size: 0.75em;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1.8em;
+        height: 1.8em;
+        border-radius: 50%;
+        font-weight: 600;
+        color: white;
+    }
+</style>

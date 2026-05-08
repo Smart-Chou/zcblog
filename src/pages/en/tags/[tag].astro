@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "~/layouts/BaseLayout.astro";
-import PostLayout from "~/layouts/PostLayout.astro";
+import SectionPage from "~/components/Layout/SectionPage.astro";
 import PostMeta from "~/components/Article/PostMeta.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { site } from "~/self.config";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
@@ -39,22 +39,27 @@ const postsWithMeta = articles.map((post) => {
 });
 ---
 
-<BaseLayout
-    title={`${tag} - ${site.title}`}
-    description={`${tag}`}
+<SectionPage
+    title={`# ${tag}`}
+    subtitle={`${postsWithMeta.length} posts tagged "${tag}"`}
+    description={`${tag} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={tag}
-    keywords={tag}
+    keywords={[tag]}
     publishedTime={new Date()}
     modifiedTime={new Date()}
-    locale="en"
+    empty={postsWithMeta.length === 0}
+    emptyTitle="No posts found"
+    emptyMessage={`No posts tagged with "${tag}"`}
 >
-    <h1 class="tag-title text-center space-bottom"># {tag}</h1>
+    <DynamicIcon name="tabler:tag" slot="icon" />
     <div class="posts">
         {
             postsWithMeta.map((post) => (
-                <PostLayout key={post.slug}>
-                    <h2 class="post-card__title">{post.data.title}</h2>
+                <div class="post-item">
+                    <h2 class="post-card__title">
+                        <a href={`/article/${post.slug}/`}>{post.data.title}</a>
+                    </h2>
                     <p class="post-card__description">{post.excerpt}</p>
                     <PostMeta
                         publishedTime={post.data.pubDate}
@@ -62,14 +67,37 @@ const postsWithMeta = articles.map((post) => {
                         readTime={post.readTime}
                         currentSlug={post.slug}
                     />
-                    <a href={`/article/${post.slug}/`} class="post-card__link">
-                        Read more
-                    </a>
-                </PostLayout>
+                </div>
             ))
         }
     </div>
-</BaseLayout>
+</SectionPage>
+
+<style>
+    .posts {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .post-item {
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .post-card__title {
+        margin: 0 0 0.5rem;
+    }
+
+    .post-card__title a {
+        text-decoration: none;
+    }
+
+    .post-card__description {
+        opacity: 0.8;
+        margin-bottom: 0.75rem;
+    }
+</style>
 
 <script>
     import { pageviewCount } from "@waline/client/pageview";

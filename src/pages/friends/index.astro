@@ -31,8 +31,10 @@ import { site, friendsPage } from "~/self.config";
                         src={friend.avatar}
                         alt={friend.id}
                         class="avatar"
-                        width="160"
+                        width="48"
+                        height="48"
                         loading="lazy"
+                        decoding="async"
                     />
                     <span>{friend.id}</span>
                 </a>

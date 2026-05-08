@@ -11,7 +11,15 @@ const { name, avatar, title, url, updated } = Astro.props;
 ---
 
 <div class="fri-item">
-    <img class="fri-avatar avatar" src={avatar} alt={name} />
+    <img
+        class="fri-avatar avatar"
+        src={avatar}
+        alt={name}
+        width="48"
+        height="48"
+        loading="lazy"
+        decoding="async"
+    />
     <div class="fri-cont">
         <div class="fri-title">
             <a target="_blank" rel="noopener nofollow" href={url || "#"}>

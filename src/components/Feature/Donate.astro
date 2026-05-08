@@ -44,40 +44,36 @@ import { donate } from "~/self.config";
         justify-content: center;
         height: 40px;
         width: 120px;
+        border: none;
         border-radius: 8px;
         color: #fff;
         background-color: #ff3842;
         transition: box-shadow 0.5s;
+        cursor: pointer;
     }
 
     .donate .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        display: none; /* 默认隐藏 */
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
-        height: 100vh;
-        z-index: 2000;
+        padding: 0;
+        border: none;
+        border-radius: 16px;
+        background: transparent;
+        overflow: visible;
+        animation: fade-up 0.5s forwards;
+        width: calc(100% - 40px);
+        max-width: 430px;
     }
 
-    .donate .modal .modal-mask {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
+    .donate .modal::backdrop {
         background-color: var(--bg-content-color-lighten);
     }
 
     .donate .modal .modal-main {
-        position: absolute;
         padding: 0;
-        animation: fade-up 0.5s forwards;
-        width: calc(100% - 40px);
         overflow: hidden;
+        border-radius: 16px;
+        background-color: var(--bg-color);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 8px 16px -4px var(--shadow-small);
     }
 
     .donate .modal .modal-main .header-title {
@@ -93,7 +89,7 @@ import { donate } from "~/self.config";
     }
 
     .donate .modal .modal-main .modal-content {
-        max-height: calc(var(--height) - 46px);
+        max-height: calc(80vh - 46px);
         padding: 20px;
         overflow: auto;
     }
@@ -109,6 +105,8 @@ import { donate } from "~/self.config";
         font-size: 1rem;
         border-radius: 8px;
         padding: 8px;
+        background: none;
+        border: none;
         transition: background-color 0.3s;
         cursor: pointer;
     }
@@ -175,22 +173,26 @@ import { donate } from "~/self.config";
 
 <div class="donate">
     <div class="reward">
-        <div class="reward-btn">
+        <button
+            class="reward-btn"
+            commandfor="donateDialog"
+            command="show-modal"
+        >
             <HeartIcon filled={true} />
             <span class="text">&nbsp;赞赏博主</span>
-        </div>
+        </button>
     </div>
-    <div class="modal" style="display: none;">
-        <div class="modal-mask"></div>
-        <div class="modal-main s-card" style="max-width: 430px;">
+    <dialog id="donateDialog" class="modal">
+        <div class="modal-main">
             <div class="header-title">
                 <div class="title-left">
                     <HeartIcon filled={true} />
                     <span class="title-text">&nbsp;赞赏博主</span>
                 </div>
             </div>
-            <div class="close"></div>
-            <div class="modal-content" style="--height: 80vh;">
+            <button class="close" commandfor="donateDialog" command="close"
+            ></button>
+            <div class="modal-content">
                 <div class="reward-card">
                     <span class="thank">🙏 感谢您赐予我前进的力量</span>
                     <div class="qr">
@@ -228,43 +230,17 @@ import { donate } from "~/self.config";
                 </div>
             </div>
         </div>
-    </div>
+    </dialog>
 </div>
 
 <script>
-    import { lockScroll, unlockScroll } from "~/scripts/scroll-lock";
-
-    document.addEventListener("astro:page-load", function () {
-        const rewardBtn = document.querySelector(
-            ".reward .reward-btn",
-        ) as HTMLDivElement;
-        const modal = document.querySelector(".modal") as HTMLDivElement;
-        const closeModal = document.querySelector(
-            ".modal .close",
-        ) as HTMLDivElement;
-        const modalMask = document.querySelector(
-            ".modal .modal-mask",
-        ) as HTMLDivElement;
-
-        rewardBtn.addEventListener("click", function () {
-            modal.style.display = "flex";
-            if (
-                !document.documentElement.hasAttribute("data-search-modal-open")
-            ) {
-                lockScroll();
-            }
+    document.addEventListener("astro:page-load", () => {
+        const dialog = document.getElementById(
+            "donateDialog",
+        ) as HTMLDialogElement | null;
+        if (!dialog) return;
+        dialog.addEventListener("click", (e) => {
+            if (e.target === dialog) dialog.close();
         });
-
-        function hideModal() {
-            modal.style.display = "none";
-            if (
-                !document.documentElement.hasAttribute("data-search-modal-open")
-            ) {
-                unlockScroll();
-            }
-        }
-
-        closeModal.addEventListener("click", hideModal);
-        modalMask.addEventListener("click", hideModal);
     });
 </script>

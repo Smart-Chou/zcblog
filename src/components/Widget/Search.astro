@@ -4,15 +4,16 @@ import SearchIcon from "~/components/icons/Search.astro";
 const pagefindTranslations = {
     placeholder: "搜索",
 };
-
-const dataAttributes: DOMStringMap = {
-    "data-translations": JSON.stringify(pagefindTranslations),
-};
 ---
 
-<site-search class={Astro.props.class} {...dataAttributes}>
+<site-search
+    class={Astro.props.class}
+    data-translations={JSON.stringify(pagefindTranslations)}
+>
     <button
         data-open-modal
+        commandfor="searchDialog"
+        command="show-modal"
         disabled
         aria-label="搜索"
         aria-keyshortcuts="Control+K"
@@ -25,12 +26,14 @@ const dataAttributes: DOMStringMap = {
         </kbd>
     </button>
 
-    <dialog style="padding:0" aria-label="搜索">
+    <dialog id="searchDialog" style="padding:0" aria-label="搜索">
         <div class="dialog-frame sl-flex">
-            {
-                /* TODO: Make the layout of this button flexible to accommodate different word lengths. Currently hard-coded for English: “Cancel” */
-            }
-            <button data-close-modal class="sl-flex md:sl-hidden">取消</button>
+            <button
+                data-close-modal
+                commandfor="searchDialog"
+                command="close"
+                class="sl-flex md:sl-hidden">取消</button
+            >
             {
                 import.meta.env.DEV ? (
                     <div
@@ -49,208 +52,111 @@ const dataAttributes: DOMStringMap = {
     </dialog>
 </site-search>
 
-{
-    /**
-     * This is intentionally inlined to avoid briefly showing an invalid shortcut.
-     * Purposely using the deprecated `navigator.platform` property to detect Apple devices, as the
-     * user agent is spoofed by some browsers when opening the devtools.
-     */
-}
 <script>
-    class SiteSearch extends HTMLElement {
-        constructor() {
-            super();
-            const openBtn = this.querySelector<HTMLButtonElement>(
-                "button[data-open-modal]",
-            )!;
-            const closeBtn = this.querySelector<HTMLButtonElement>(
-                "button[data-close-modal]",
-            )!;
-            const dialog = this.querySelector("dialog")!;
-            const dialogFrame = this.querySelector(".dialog-frame")!;
-            const shortcut = openBtn?.querySelector("kbd");
-            const platformKey = shortcut?.querySelector("kbd");
+    document.addEventListener("astro:page-load", () => {
+        const dialog = document.getElementById(
+            "searchDialog",
+        ) as HTMLDialogElement | null;
+        const openBtn = document.querySelector(
+            "button[data-open-modal]",
+        ) as HTMLButtonElement | null;
+        if (!dialog || !openBtn) return;
 
-            // Modern way to detect Apple devices
-            const isAppleDevice = () => {
-                if ((navigator as any).userAgentData?.platform) {
-                    return (
-                        (navigator as any).userAgentData.platform === "macOS" ||
-                        (navigator as any).userAgentData.platform === "iOS"
-                    );
-                }
-                // Fallback for older browsers
-                return /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent);
-            };
-
-            // Update shortcut keys based on device type
-            if (platformKey && shortcut instanceof HTMLElement) {
-                if (isAppleDevice()) {
-                    platformKey.textContent = "⌘";
-                    openBtn.setAttribute("aria-keyshortcuts", "Meta+K");
-                }
-                shortcut.style.display = "";
+        const isAppleDevice = () => {
+            if ((navigator as any).userAgentData?.platform) {
+                return (
+                    (navigator as any).userAgentData.platform === "macOS" ||
+                    (navigator as any).userAgentData.platform === "iOS"
+                );
             }
+            return /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent);
+        };
 
-            /** Close the modal if a user clicks on a link or outside of the modal. */
-            const onClick = (event: MouseEvent) => {
-                const isLink = "href" in (event.target || {});
-                if (
-                    isLink ||
-                    (document.body.contains(event.target as Node) &&
-                        !dialogFrame.contains(event.target as Node))
-                ) {
-                    closeModal();
-                }
-            };
+        const shortcut = openBtn.querySelector("kbd");
+        const platformKey = shortcut?.querySelector("kbd");
+        if (platformKey && shortcut instanceof HTMLElement) {
+            if (isAppleDevice()) {
+                platformKey.textContent = "⌘";
+                openBtn.setAttribute("aria-keyshortcuts", "Meta+K");
+            }
+            shortcut.style.display = "";
+        }
 
-            let handleWheel: ((e: WheelEvent) => void) | null = null;
-            const openModal = (event?: MouseEvent) => {
-                dialog.showModal();
-                document.body.toggleAttribute("data-search-modal-open", true);
-                event?.stopPropagation();
+        openBtn.disabled = false;
 
-                // 滚动穿透：当鼠标在 dialogFrame 内时阻止滚动传播，外部允许滚动
-                handleWheel = (e: WheelEvent) => {
-                    const target = e.target as HTMLElement;
-                    if (dialogFrame.contains(target)) {
-                        e.stopPropagation();
-                    }
-                };
-                dialog.addEventListener("wheel", handleWheel, {
-                    passive: true,
-                });
-                window.addEventListener("click", onClick);
+        dialog.addEventListener("toggle", () => {
+            document.body.toggleAttribute(
+                "data-search-modal-open",
+                dialog.open,
+            );
+        });
 
-                // Ensure search input gets focus, even if PagefindUI initializes after modal opens
-                setTimeout(() => {
-                    const searchInput =
-                        this.querySelector(".pagefind-ui__search-input") ||
-                        this.querySelector('input[type="search"]') ||
-                        this.querySelector("input");
-                    (searchInput as HTMLInputElement)?.focus();
-                }, 100);
-            };
+        dialog.addEventListener("click", (e) => {
+            if (e.target === dialog) dialog.close();
+        });
 
-            const closeModal = () => {
-                dialog.close();
-                document.body.toggleAttribute("data-search-modal-open", false);
-                window.removeEventListener("click", onClick);
-                if (handleWheel) {
-                    dialog.removeEventListener("wheel", handleWheel);
-                    handleWheel = null;
-                }
-            };
+        window.addEventListener("keydown", (e) => {
+            if ((e.metaKey === true || e.ctrlKey === true) && e.key === "k") {
+                e.preventDefault();
+                dialog.open ? dialog.close() : dialog.showModal();
+            }
+        });
 
-            openBtn.addEventListener("click", openModal);
-            openBtn.disabled = false;
-            closeBtn.addEventListener("click", closeModal);
+        if (import.meta.env.DEV) return;
 
-            dialog.addEventListener("close", () => {
-                document.body.toggleAttribute("data-search-modal-open", false);
-                window.removeEventListener("click", onClick);
-            });
+        const translations = JSON.parse(
+            (document.querySelector("site-search") as HTMLElement)?.dataset
+                .translations || "{}",
+        );
 
-            // Listen for `ctrl + k` and `cmd + k` keyboard shortcuts.
-            window.addEventListener("keydown", (e) => {
-                if (
-                    (e.metaKey === true || e.ctrlKey === true) &&
-                    e.key === "k"
-                ) {
-                    dialog.open ? closeModal() : openModal();
-                    e.preventDefault();
-                }
-            });
+        const formatURL = (path: string) => path.replace(/(.)\/$/, "$1");
 
-            let translations = {};
-            try {
-                translations = JSON.parse(this.dataset.translations || "{}");
-            } catch {}
-
-            const shouldStrip = this.dataset.stripTrailingSlash !== undefined;
-            const stripTrailingSlash = (path: string) =>
-                path.replace(/(.)\/$/, "$1");
-            const formatURL = shouldStrip
-                ? stripTrailingSlash
-                : (path: string) => path;
-
-            // Check if we're in development mode
-            if (import.meta.env.DEV) {
+        (async () => {
+            // @ts-expect-error — Missing types for @pagefind/default-ui package.
+            const { PagefindUI } = await import("@pagefind/default-ui");
+            const searchElement = document.getElementById("starlight__search");
+            if (!searchElement) {
+                console.error("Search element #starlight__search not found");
                 return;
             }
 
-            // Initialize PagefindUI when the element is connected to the DOM
-            this.addEventListener("connectedCallback", async () => {
-                try {
-                    // Directly import and initialize PagefindUI without unnecessary delays
-                    // @ts-expect-error — Missing types for @pagefind/default-ui package.
-                    const { PagefindUI } = await import("@pagefind/default-ui");
-
-                    // Ensure the starlight__search element exists before initializing
-                    const searchElement =
-                        this.querySelector("#starlight__search");
-                    if (!searchElement) {
-                        console.error(
-                            "Search element #starlight__search not found",
-                        );
-                        return;
-                    }
-
-                    new PagefindUI({
-                        element: searchElement,
-                        baseUrl: import.meta.env.BASE_URL,
-                        bundlePath:
-                            import.meta.env.BASE_URL.replace(/\/$/, "") +
-                            "/pagefind/",
-                        showImages: false,
-                        translations,
-                        showSubResults: true,
-                        processResult: (result: {
-                            url: string;
-                            sub_results: Array<{ url: string }>;
-                        }) => {
-                            result.url = formatURL(result.url);
-                            result.sub_results = result.sub_results.map(
-                                (sub_result) => {
-                                    sub_result.url = formatURL(sub_result.url);
-                                    return sub_result;
-                                },
-                            );
+            new PagefindUI({
+                element: searchElement,
+                baseUrl: import.meta.env.BASE_URL,
+                bundlePath:
+                    import.meta.env.BASE_URL.replace(/\/$/, "") + "/pagefind/",
+                showImages: false,
+                translations,
+                showSubResults: true,
+                processResult: (result: {
+                    url: string;
+                    sub_results: Array<{ url: string }>;
+                }) => {
+                    result.url = formatURL(result.url);
+                    result.sub_results = result.sub_results.map(
+                        (sub_result) => {
+                            sub_result.url = formatURL(sub_result.url);
+                            return sub_result;
                         },
-                    });
-
-                    // Add id and name attributes to the search input for better accessibility
-                    const searchInput =
-                        (
-                            searchElement as Element
-                        ).querySelector<HTMLInputElement>(
-                            ".pagefind-ui__search-input",
-                        ) ||
-                        (
-                            searchElement as Element
-                        ).querySelector<HTMLInputElement>(
-                            'input[type="search"]',
-                        ) ||
-                        (
-                            searchElement as Element
-                        ).querySelector<HTMLInputElement>("input");
-                    if (searchInput) {
-                        searchInput.id = "starlight__search-input";
-                        (searchInput as HTMLInputElement).name = "q";
-                    }
-                } catch (error) {
-                    console.error("Failed to initialize PagefindUI:", error);
-                }
+                    );
+                },
             });
 
-            // Also try to initialize immediately if connected
-            if (this.isConnected) {
-                // Trigger the initialization manually if already connected
-                this.dispatchEvent(new Event("connectedCallback"));
+            const searchInput =
+                searchElement.querySelector<HTMLInputElement>(
+                    ".pagefind-ui__search-input",
+                ) ||
+                searchElement.querySelector<HTMLInputElement>(
+                    'input[type="search"]',
+                ) ||
+                searchElement.querySelector<HTMLInputElement>("input");
+            if (searchInput) {
+                searchInput.id = "starlight__search-input";
+                searchInput.name = "q";
+                setTimeout(() => searchInput.focus(), 100);
             }
-        }
-    }
-    customElements.define("site-search", SiteSearch);
+        })();
+    });
 </script>
 
 <style>
@@ -302,20 +208,11 @@ const dataAttributes: DOMStringMap = {
             display: none;
         }
 
-        /**
-	 * Flip an element around the y-axis when in an RTL context.
-	 * Primarily useful for things where we can’t rely on writing direction like icons.
-	 *
-	 * <Icon name="right-arrow" class="rtl:flip" />
-	 *
-	 * In a LTR context: →				In a RTL context: ←
-	 */
         [dir="rtl"] .rtl\:flip:not(:where([dir="rtl"] [dir="ltr"] *)) {
             transform: matrix(-1, 0, 0, 1, 0, 0);
         }
     }
 
-    /* Style for inner kbd elements only */
     kbd kbd {
         display: flex;
         align-items: center;

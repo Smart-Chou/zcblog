@@ -87,6 +87,7 @@ export default defineConfig({
     ],
     image: {
         layout: "constrained",
+        responsiveStyles: true,
         service: {
             entrypoint: "astro/assets/services/sharp",
             config: {

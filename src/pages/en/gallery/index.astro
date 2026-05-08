@@ -1,9 +1,7 @@
 ---
-import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionPage from "~/components/Layout/SectionPage.astro";
 import AlbumCard from "~/components/gallery/AlbumCard.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
-import PageHeader from "~/components/Widget/PageHeader.astro";
-import EmptyState from "~/components/Widget/EmptyState.astro";
 import { scanAlbumPhotos, getAlbumCover } from "~/utils/gallery-utils";
 import { site } from "~/self.config";
 
@@ -27,56 +25,55 @@ const albums = GALLERY_CONFIG.map((album) => {
 const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
 ---
 
-<BaseLayout
+<SectionPage
     title="Gallery"
+    subtitle="Capturing beautiful moments in life"
     description={`${site.title} - Photo Gallery`}
-    locale="en"
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt="Gallery"
+    keywords={["Gallery", "Photos"]}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+    empty={albums.length === 0}
+    emptyEmoji="📷"
+    emptyTitle="No albums yet"
 >
-    <div class="gallery-container">
-        <PageHeader
-            title="Gallery"
-            subtitle="Capturing beautiful moments in life"
-        >
-            <DynamicIcon name="tabler:gallery" slot="icon" />
-        </PageHeader>
+    <DynamicIcon name="tabler:gallery" slot="icon" />
 
-        {
-            albums.length > 0 && allTags.length > 0 && (
-                <div class="gallery-filter">
-                    <button class="filter-tag active" data-tag="all">
-                        All
+    {
+        albums.length > 0 && allTags.length > 0 && (
+            <div class="gallery-filter">
+                <button class="filter-tag active" data-tag="all">
+                    All
+                </button>
+                {allTags.map((tag) => (
+                    <button class="filter-tag" data-tag={tag}>
+                        {tag}
                     </button>
-                    {allTags.map((tag) => (
-                        <button class="filter-tag" data-tag={tag}>
-                            {tag}
-                        </button>
-                    ))}
-                </div>
-            )
-        }
+                ))}
+            </div>
+        )
+    }
 
-        {
-            albums.length > 0 ? (
-                <div class="albums-grid">
-                    {albums.map((album) => (
-                        <AlbumCard
-                            id={album.id}
-                            name={album.name}
-                            cover={album.cover}
-                            description={album.description}
-                            date={album.date}
-                            location={album.location}
-                            tags={album.tags}
-                            photoCount={album.photoCount}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <EmptyState emoji="📷" title="No albums yet" />
-            )
-        }
-    </div>
-</BaseLayout>
+    {
+        albums.length > 0 && (
+            <div class="albums-grid">
+                {albums.map((album) => (
+                    <AlbumCard
+                        id={album.id}
+                        name={album.name}
+                        cover={album.cover}
+                        description={album.description}
+                        date={album.date}
+                        location={album.location}
+                        tags={album.tags}
+                        photoCount={album.photoCount}
+                    />
+                ))}
+            </div>
+        )
+    }
+</SectionPage>
 
 <script is:inline>
     document.querySelectorAll(".filter-tag").forEach((btn) => {
@@ -99,12 +96,6 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
 </script>
 
 <style>
-    .gallery-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
-    }
-
     .gallery-filter {
         display: flex;
         flex-wrap: wrap;

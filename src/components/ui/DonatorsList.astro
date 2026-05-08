@@ -25,7 +25,10 @@ const { donators } = Astro.props;
                         <img
                             src={donator.avatar}
                             alt={donator.name}
+                            width="48"
+                            height="48"
                             loading="lazy"
+                            decoding="async"
                         />
                     ) : (
                         <div class="avatar-placeholder">
