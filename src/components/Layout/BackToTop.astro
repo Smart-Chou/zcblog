@@ -1,19 +1,24 @@
 ---
 import RocketIcon from "~/components/icons/Rocket.astro";
+
+interface Props {
+    threshold?: number;
+}
+
+const { threshold = 300 } = Astro.props;
 ---
 
 <div id="back-to-top">
     <RocketIcon />
 </div>
 
-<script>
+<script define:vars={{ threshold }}>
     document.addEventListener("astro:page-load", () => {
         const backToTopButton = document.getElementById("back-to-top");
 
         if (backToTopButton) {
             const handleScroll = () => {
-                const scrollHeight = window.scrollY;
-                if (scrollHeight > 859) {
+                if (window.scrollY > threshold) {
                     backToTopButton.classList.add("active");
                 } else {
                     backToTopButton.classList.remove("active");

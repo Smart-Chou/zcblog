@@ -11,13 +11,15 @@ const showSlot = Astro.slots.has("icon");
 ---
 
 <div class="empty-state">
-    {showSlot ? (
-        <div class="empty-icon">
-            <slot name="icon" />
-        </div>
-    ) : emoji ? (
-        <div class="empty-emoji">{emoji}</div>
-    ) : null}
+    {
+        showSlot ? (
+            <div class="empty-icon">
+                <slot name="icon" />
+            </div>
+        ) : emoji ? (
+            <div class="empty-emoji">{emoji}</div>
+        ) : null
+    }
     <h2>{title}</h2>
     {message && <p>{message}</p>}
 </div>

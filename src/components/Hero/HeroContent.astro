@@ -1,5 +1,6 @@
 ---
 import { heroConfig } from "~/config/hero.config";
+import Button from "~/components/Widget/Button.astro";
 ---
 
 <header class="hero-header">
@@ -13,19 +14,16 @@ import { heroConfig } from "~/config/hero.config";
         <div class="hero-links">
             {
                 heroConfig.ctaButtons.map((btn) => (
-                    <a
+                    <Button
                         href={btn.url}
-                        class:list={[
-                            "btn",
-                            btn.variant === "solid"
-                                ? "btn-primary"
-                                : "btn-secondary",
-                        ]}
+                        variant={
+                            btn.variant === "solid" ? "primary" : "secondary"
+                        }
                         target={btn.external ? "_blank" : undefined}
                         rel={btn.external ? "noopener" : undefined}
                     >
                         {btn.label}
-                    </a>
+                    </Button>
                 ))
             }
         </div>

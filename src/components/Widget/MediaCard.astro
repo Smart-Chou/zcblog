@@ -1,0 +1,103 @@
+---
+interface Props {
+    href: string;
+    image?: string;
+    dataSrc?: string;
+    alt: string;
+    aspectRatio?: string;
+    placeholderEmoji?: string;
+    target?: string;
+    rel?: string;
+    class?: string;
+}
+
+const {
+    href,
+    image,
+    dataSrc,
+    alt,
+    aspectRatio = "2/3",
+    placeholderEmoji = "📷",
+    target,
+    rel,
+    class: className,
+} = Astro.props;
+---
+
+<a href={href} class:list={["media-card", className]} target={target} rel={rel}>
+    <div class="media-cover" style={`aspect-ratio: ${aspectRatio}`}>
+        {
+            image || dataSrc ? (
+                <img
+                    src={image}
+                    data-src={dataSrc}
+                    alt={alt}
+                    class="cover-img"
+                    loading="lazy"
+                    decoding="async"
+                />
+            ) : (
+                <div class="cover-placeholder">{placeholderEmoji}</div>
+            )
+        }
+        <slot name="badges" />
+        <div class="media-overlay">
+            <slot name="overlay" />
+        </div>
+    </div>
+</a>
+
+<style>
+    .media-card {
+        display: block;
+        text-decoration: none;
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--bg-content-color);
+        box-shadow: var(--shadow-small);
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .media-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .media-cover {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cover-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .media-card:hover .cover-img {
+        transform: scale(1.05);
+    }
+
+    .cover-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0f0f0;
+        font-size: 3rem;
+    }
+
+    .media-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 12px;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        color: white;
+    }
+</style>

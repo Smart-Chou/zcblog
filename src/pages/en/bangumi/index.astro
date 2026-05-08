@@ -105,7 +105,11 @@ const activeTab = tabs[0]?.id || "anime";
 
 <BaseLayout title="Bangumi" description={`${site.title}'s Bangumi collection`}>
     <div class="bangumi-container">
-        <PageHeader title="Bangumi" subtitle="My anime, book, music and game collection" buildTime={`Last updated: ${buildTime}`}>
+        <PageHeader
+            title="Bangumi"
+            subtitle="My anime, book, music and game collection"
+            buildTime={`Last updated: ${buildTime}`}
+        >
             <Film slot="icon" />
         </PageHeader>
 
@@ -124,8 +128,17 @@ const activeTab = tabs[0]?.id || "anime";
                 </>
             ) : (
                 <EmptyState
-                    title={isUserIdConfigured ? "No data available" : "Bangumi user ID not configured"}
-                    message={isUserIdConfigured ? "Your collection is empty" : "Please configure your Bangumi user ID in the code"}>
+                    title={
+                        isUserIdConfigured
+                            ? "No data available"
+                            : "Bangumi user ID not configured"
+                    }
+                    message={
+                        isUserIdConfigured
+                            ? "Your collection is empty"
+                            : "Please configure your Bangumi user ID in the code"
+                    }
+                >
                     <AlertCircle slot="icon" />
                 </EmptyState>
             )
@@ -139,5 +152,4 @@ const activeTab = tabs[0]?.id || "anime";
         margin: 0 auto;
         padding: 2rem 1.5rem;
     }
-
 </style>

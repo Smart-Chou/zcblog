@@ -16,13 +16,13 @@ interface Props {
 const { title, items, href = "#" } = Astro.props;
 ---
 
-<div class="douban sc-ksluID gFnzgG">
+<div class="douban media-section">
     <h3><a href={href}>{title}</a></h3>
-    <div class="items sc-dIsUp fIuTG">
+    <div class="items media-items">
         {
             items.map((item) => (
-                <div class="dfdORB">
-                    <div class="sc-hKFxyN HPRth">
+                <div class="media-item">
+                    <div class="media-item-cover">
                         <img
                             class="avatar"
                             src={item.url}
@@ -33,7 +33,7 @@ const { title, items, href = "#" } = Astro.props;
                             height="220"
                         />
                     </div>
-                    <div class="sc-fujyAs eysHZq">
+                    <div class="media-item-rating">
                         <div class="rating">
                             <span class="allstardark">
                                 <span
@@ -47,7 +47,7 @@ const { title, items, href = "#" } = Astro.props;
                             </span>
                         </div>
                     </div>
-                    <div class="sc-iCoGMd kMthTr">
+                    <div class="media-item-title">
                         <a
                             rel="noreferrer"
                             href={item.link || "#"}

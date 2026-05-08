@@ -232,6 +232,8 @@ import { donate } from "~/self.config";
 </div>
 
 <script>
+    import { lockScroll, unlockScroll } from "~/scripts/scroll-lock";
+
     document.addEventListener("astro:page-load", function () {
         const rewardBtn = document.querySelector(
             ".reward .reward-btn",
@@ -244,37 +246,21 @@ import { donate } from "~/self.config";
             ".modal .modal-mask",
         ) as HTMLDivElement;
 
-        let scrollY = 0;
-
-        // 显示模态框并禁止背景滚动
         rewardBtn.addEventListener("click", function () {
             modal.style.display = "flex";
-            // 只有在搜索对话框未打开时才禁止背景滚动
             if (
                 !document.documentElement.hasAttribute("data-search-modal-open")
             ) {
-                scrollY = window.scrollY;
-                document.documentElement.style.overflow = "hidden";
-                document.body.style.position = "fixed";
-                document.body.style.width = "100%";
-                document.body.style.top = `-${scrollY}px`;
-                document.body.style.overflow = "hidden";
+                lockScroll();
             }
         });
 
-        // 隐藏模态框并恢复背景滚动
         function hideModal() {
             modal.style.display = "none";
-            // 只有在搜索对话框未打开时才恢复背景滚动
             if (
                 !document.documentElement.hasAttribute("data-search-modal-open")
             ) {
-                document.body.style.position = "";
-                document.body.style.width = "";
-                document.body.style.top = "";
-                document.documentElement.style.overflow = "";
-                document.body.style.overflow = "";
-                window.scrollTo(0, scrollY);
+                unlockScroll();
             }
         }
 

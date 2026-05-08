@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import Button from "~/components/Widget/Button.astro";
 ---
 
 <BaseLayout
@@ -18,8 +19,8 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
                 抱歉，页面加载时出现了问题。我们正在努力修复。
             </p>
             <div class="error-actions">
-                <a href="/" class="btn-primary">返回首页</a>
-                <a href="/archives/" class="btn-secondary">浏览归档</a>
+                <Button href="/" variant="primary">返回首页</Button>
+                <Button href="/archives/" variant="secondary">浏览归档</Button>
             </div>
         </div>
     </div>
@@ -74,34 +75,11 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
         flex-wrap: wrap;
     }
 
-    .btn-primary,
-    .btn-secondary {
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.5rem;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-
-    .btn-primary {
-        background: var(--accent-color);
-        color: white;
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .btn-secondary {
-        background: transparent;
-        color: var(--accent-color);
-        border: 2px solid var(--accent-color);
-    }
-
-    .btn-secondary:hover {
-        background: var(--accent-color);
-        color: white;
+    .error-actions .btn {
+        --btn-primary-bg: var(--accent-color);
+        --btn-secondary-color: var(--accent-color);
+        --btn-secondary-border: var(--accent-color);
+        --btn-secondary-hover-bg: var(--accent-color);
     }
 
     @media (max-width: 768px) {

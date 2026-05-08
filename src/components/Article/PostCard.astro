@@ -4,8 +4,6 @@ import PostTag from "~/components/Article/PostTag.astro";
 import PostMeta from "~/components/Article/PostMeta.astro";
 import PostCardImage from "~/components/Article/PostCardImage.astro";
 import FlameIcon from "~/components/icons/Flame.astro";
-import { getRandomImageUrl } from "~/utils";
-import { Image } from "astro:assets";
 
 const {
     altText,
@@ -21,42 +19,12 @@ const {
     loading,
     sticky,
 } = Astro.props;
-const isDefaultImage = /^https:\/\/pic\.mcc\.im\/images(\?.*)?$/.test(
-    imagePath,
-);
-const isRemoteImage = /^https?:\/\//.test(imagePath);
 ---
 
 <PostLayout>
     <div class="post-card__header">
         {
-            isDefaultImage ? (
-                <Image
-                    src={getRandomImageUrl()}
-                    alt={altText}
-                    class="post-card__image"
-                    loading={loading || "lazy"}
-                    width={800}
-                    height={450}
-                    format="webp"
-                    quality={80}
-                    decoding="async"
-                    sizes="(max-width: 650px) 100vw, 860px"
-                />
-            ) : isRemoteImage ? (
-                <Image
-                    src={imagePath}
-                    alt={altText}
-                    class="post-card__image"
-                    loading={loading || "lazy"}
-                    width={800}
-                    height={450}
-                    format="webp"
-                    quality={80}
-                    decoding="async"
-                    sizes="(max-width: 650px) 100vw, 860px"
-                />
-            ) : (
+            (
                 <PostCardImage
                     imagePath={imagePath}
                     altText={altText}

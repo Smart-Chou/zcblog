@@ -14,7 +14,6 @@ import WalineComment from "~/components/Widget/WalineComment.astro";
 import PostCopyright from "~/components/Article/PostCopyright.astro";
 import { site, postView, waline, donate } from "~/self.config";
 import { getRandomImageUrl } from "~/utils";
-import { Image } from "astro:assets";
 
 const {
     frontmatter = {
@@ -46,9 +45,6 @@ const ogImage =
     import.meta.env.DEV || import.meta.env.PREVIEW
         ? imageUrl
         : `${Astro.site}og/${slug}.png`;
-const isDefaultImage =
-    /^https:\/\/pic\.marxchou\.com\/api\/random(\?.*)?$/.test(imageUrl);
-const isRemoteImage = /^https?:\/\//.test(imageUrl);
 ---
 
 <BaseLayout
@@ -76,41 +72,7 @@ const isRemoteImage = /^https?:\/\//.test(imageUrl);
     </div>
     <div class="post-card content-box">
         <div class="post__header">
-            {
-                isDefaultImage ? (
-                    <Image
-                        src={getRandomImageUrl()}
-                        alt={imageAlt}
-                        class="post-card__image"
-                        loading="lazy"
-                        width={800}
-                        height={450}
-                        format="webp"
-                        quality={80}
-                        decoding="async"
-                        sizes="(max-width: 650px) 100vw, 860px"
-                    />
-                ) : isRemoteImage ? (
-                    <Image
-                        src={imageUrl}
-                        alt={imageAlt}
-                        class="post-card__image"
-                        loading="lazy"
-                        width={800}
-                        height={450}
-                        format="webp"
-                        quality={80}
-                        decoding="async"
-                        sizes="(max-width: 650px) 100vw, 860px"
-                    />
-                ) : (
-                    <PostCardImage
-                        imagePath={imageUrl}
-                        altText={imageAlt}
-                        loading="lazy"
-                    />
-                )
-            }
+            {(<PostCardImage imagePath={imageUrl} altText={imageAlt} />)}
         </div>
         {
             publishedDays >= 180 && (

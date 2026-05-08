@@ -1,4 +1,5 @@
 ---
+import MediaCard from "~/components/Widget/MediaCard.astro";
 import type { UserSubjectCollection } from "~/types/bangumi";
 
 interface Props {
@@ -13,15 +14,15 @@ const subject_base_url = "https://bgm.tv/subject/";
 const getStatusColor = (type: number) => {
     switch (type) {
         case 1:
-            return "var(--status-wish)"; // 想看
+            return "var(--status-wish)";
         case 2:
-            return "var(--status-watched)"; // 看过
+            return "var(--status-watched)";
         case 3:
-            return "var(--status-watching)"; // 在看
+            return "var(--status-watching)";
         case 4:
-            return "var(--status-on-hold)"; // 搁置
+            return "var(--status-on-hold)";
         case 5:
-            return "var(--status-dropped)"; // 抛弃
+            return "var(--status-dropped)";
         default:
             return "var(--status-unknown)";
     }
@@ -76,131 +77,73 @@ const hiddenCoverTagCount = Math.max(
 );
 ---
 
-<a
+<MediaCard
     href={`${subject_base_url}${item.subject.id}`}
+    image={loadImage ? item.subject?.images?.medium : undefined}
+    dataSrc={loadImage ? undefined : item.subject?.images?.medium}
+    alt={item.subject.name_cn || item.subject.name}
+    aspectRatio="2/3"
+    placeholderEmoji="📖"
     target="_blank"
     rel="noopener noreferrer nofollow"
-    class="bangumi-card"
 >
-    <div class="card-cover">
-        {
-            item.subject?.images?.medium ? (
-                <img
-                    src={loadImage ? item.subject.images.medium : undefined}
-                    data-src={
-                        loadImage ? undefined : item.subject.images.medium
-                    }
-                    alt={item.subject.name_cn || item.subject.name}
-                    class="cover-img"
-                    loading="lazy"
-                    decoding="async"
-                />
-            ) : (
-                <div class="cover-placeholder">📖</div>
-            )
-        }
-        <div
+    <div slot="badges" class="badges">
+        <span
             class="status-badge"
             style={`background: ${getStatusColor(item.type)}`}
         >
             {getStatusText(item.type)}
-        </div>
+        </span>
         {
             item.subject.score && (
-                <div class="score-badge">
-                    <span class="star">⭐</span>
-                    {item.subject.score}
+                <span class="score-badge">⭐ {item.subject.score}</span>
+            )
+        }
+    </div>
+    <div slot="overlay">
+        <h3 class="overlay-title">
+            {item.subject.name_cn || item.subject.name}
+        </h3>
+        {
+            item.subject.date && (
+                <p class="overlay-date">{item.subject.date.substring(0, 4)}</p>
+            )
+        }
+        {
+            visibleCoverTags.length > 0 && (
+                <div class="overlay-tags">
+                    {visibleCoverTags.map((tag: string) => (
+                        <span class="tag">{tag}</span>
+                    ))}
+                    {hiddenCoverTagCount > 0 && (
+                        <span class="tag tag-more">+{hiddenCoverTagCount}</span>
+                    )}
                 </div>
             )
         }
-        <div class="card-info-overlay">
-            <h3 class="card-title">
-                {item.subject.name_cn || item.subject.name}
-            </h3>
-            {
-                item.subject.date && (
-                    <p class="card-date">{item.subject.date.substring(0, 4)}</p>
-                )
-            }
-            {
-                displayTags && displayTags.length > 0 && (
-                    <div class="card-tags">
-                        {visibleCoverTags.map((tag: string) => (
-                            <span class="tag">{tag}</span>
-                        ))}
-                        {hiddenCoverTagCount > 0 && (
-                            <span class="tag tag-more">
-                                +{hiddenCoverTagCount}
-                            </span>
-                        )}
-                    </div>
-                )
-            }
-        </div>
     </div>
-</a>
+</MediaCard>
 
 <style>
-    .bangumi-card {
-        display: block;
-        text-decoration: none;
-        border-radius: 12px;
-        overflow: hidden;
-        background: var(--bg-content-color);
-        box-shadow: var(--shadow-small);
-        transition:
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
-    }
-
-    .bangumi-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .card-cover {
-        position: relative;
-        aspect-ratio: 2/3;
-        overflow: hidden;
-    }
-
-    .cover-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-
-    .bangumi-card:hover .cover-img {
-        transform: scale(1.05);
-    }
-
-    .cover-placeholder {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #f0f0f0;
-        font-size: 3rem;
-    }
-
-    .status-badge {
+    .badges {
         position: absolute;
         top: 8px;
         left: 8px;
+        right: 8px;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+    }
+
+    .status-badge {
         padding: 4px 8px;
         border-radius: 20px;
         font-size: 0.7rem;
         color: white;
         font-weight: 500;
-        background: var(--status-unknown);
     }
 
     .score-badge {
-        position: absolute;
-        top: 8px;
-        right: 8px;
         padding: 4px 8px;
         border-radius: 20px;
         font-size: 0.7rem;
@@ -208,26 +151,9 @@ const hiddenCoverTagCount = Math.max(
         font-weight: 500;
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(4px);
-        display: flex;
-        align-items: center;
-        gap: 2px;
     }
 
-    .star {
-        font-size: 0.75rem;
-    }
-
-    .card-info-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 12px;
-        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-        color: white;
-    }
-
-    .card-title {
+    .overlay-title {
         font-size: 0.85rem;
         font-weight: 600;
         color: white;
@@ -238,13 +164,13 @@ const hiddenCoverTagCount = Math.max(
         overflow: hidden;
     }
 
-    .card-date {
+    .overlay-date {
         font-size: 0.75rem;
         color: rgba(255, 255, 255, 0.8);
         margin-top: 4px;
     }
 
-    .card-tags {
+    .overlay-tags {
         display: flex;
         flex-wrap: wrap;
         gap: 4px;

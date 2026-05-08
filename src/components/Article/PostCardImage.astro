@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import { getRandomImageUrl } from "~/utils";
 
 interface Props {
     imagePath: string;
@@ -7,17 +8,24 @@ interface Props {
     loading?: "eager" | "lazy";
 }
 
-const { imagePath, altText, loading }: Props = Astro.props;
+const { imagePath, altText, loading = "lazy" } = Astro.props;
+
+const isDefaultImage =
+    /^https:\/\/pic\.marxchou\.com\/api\/random(\?.*)?$/.test(imagePath) ||
+    /^https:\/\/pic\.mcc\.im\/images(\?.*)?$/.test(imagePath);
+
+const src = isDefaultImage ? getRandomImageUrl() : imagePath;
 ---
 
 <Image
-    src={imagePath}
+    src={src}
     alt={altText}
     class="post-card__image"
-    loading={loading || "lazy"}
+    loading={loading}
     width={800}
     height={450}
     format="webp"
     quality={80}
     decoding="async"
+    sizes="(max-width: 650px) 100vw, 860px"
 />

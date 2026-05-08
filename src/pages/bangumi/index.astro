@@ -109,7 +109,11 @@ const activeTab = tabs[0]?.id || "anime";
 
 <BaseLayout title="Bangumi" description={`${site.title} 的Bangumi收藏`}>
     <div class="bangumi-container">
-        <PageHeader title="Bangumi" subtitle="我的动漫、书籍、音乐和游戏收藏" buildTime={`最后更新: ${buildTime}`}>
+        <PageHeader
+            title="Bangumi"
+            subtitle="我的动漫、书籍、音乐和游戏收藏"
+            buildTime={`最后更新: ${buildTime}`}
+        >
             <Film slot="icon" />
         </PageHeader>
 
@@ -128,8 +132,17 @@ const activeTab = tabs[0]?.id || "anime";
                 </>
             ) : (
                 <EmptyState
-                    title={isUserIdConfigured ? "暂无数据" : "未配置 Bangumi 用户ID"}
-                    message={isUserIdConfigured ? "你的收藏列表是空的" : "请在页面代码中配置你的 Bangumi 用户ID"}>
+                    title={
+                        isUserIdConfigured
+                            ? "暂无数据"
+                            : "未配置 Bangumi 用户ID"
+                    }
+                    message={
+                        isUserIdConfigured
+                            ? "你的收藏列表是空的"
+                            : "请在页面代码中配置你的 Bangumi 用户ID"
+                    }
+                >
                     <AlertCircle slot="icon" />
                 </EmptyState>
             )
@@ -143,5 +156,4 @@ const activeTab = tabs[0]?.id || "anime";
         margin: 0 auto;
         padding: 2rem 1.5rem;
     }
-
 </style>

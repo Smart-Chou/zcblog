@@ -33,7 +33,10 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
     locale="en"
 >
     <div class="gallery-container">
-        <PageHeader title="Gallery" subtitle="Capturing beautiful moments in life">
+        <PageHeader
+            title="Gallery"
+            subtitle="Capturing beautiful moments in life"
+        >
             <Gallery slot="icon" />
         </PageHeader>
 
@@ -138,5 +141,4 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 1.5rem;
     }
-
 </style>
