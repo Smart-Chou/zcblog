@@ -1,0 +1,101 @@
+---
+import MediaCard from "~/components/Widget/MediaCard.astro";
+
+interface GoodsItem {
+    url: string;
+    price: string;
+    title: string;
+    note: string;
+}
+
+interface Props {
+    items: GoodsItem[];
+    imageBaseUrl?: string;
+}
+
+const { items, imageBaseUrl = "" } = Astro.props;
+---
+
+<div class="goods-grid">
+    {
+        items.map((item) => (
+            <article class="goods-item">
+                <MediaCard
+                    href="#"
+                    image={
+                        imageBaseUrl ? `${imageBaseUrl}${item.url}` : item.url
+                    }
+                    alt={item.title}
+                    aspectRatio="1/1"
+                    placeholderEmoji="📦"
+                    class="goods-card"
+                >
+                    <div slot="overlay">
+                        <span class="goods-price">{item.price}</span>
+                    </div>
+                </MediaCard>
+                <div class="goods-body">
+                    <h3 class="goods-name">{item.title}</h3>
+                    <p class="goods-note">{item.note}</p>
+                </div>
+            </article>
+        ))
+    }
+</div>
+
+<style>
+    .goods-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .goods-item {
+        border-radius: 12px;
+        background: var(--bg-content-color);
+        box-shadow: var(--shadow-small);
+        overflow: hidden;
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .goods-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .goods-card {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .goods-card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .goods-price {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ffd700;
+    }
+
+    .goods-body {
+        padding: 0.75rem 1rem 1rem;
+    }
+
+    .goods-name {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.35rem;
+        color: var(--title-color);
+    }
+
+    .goods-note {
+        font-size: 0.85rem;
+        color: var(--body-color);
+        line-height: 1.5;
+        opacity: 0.8;
+    }
+</style>

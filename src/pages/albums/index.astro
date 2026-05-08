@@ -1,10 +1,7 @@
 ---
-import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionPage from "~/components/Layout/SectionPage.astro";
 import AlbumCard from "~/components/gallery/AlbumCard.astro";
 import Gallery from "~/components/icons/Gallery.astro";
-import PageHeader from "~/components/Widget/PageHeader.astro";
-import EmptyState from "~/components/Widget/EmptyState.astro";
-import { site } from "~/self.config";
 
 interface AlbumPhoto {
     id: string;
@@ -27,7 +24,6 @@ interface Album {
 
 import albumsData from "~/data/albums.json";
 
-// 配置相册数据
 const GALLERY_CONFIG: Album[] = (albumsData as Album[]).map((album) => ({
     ...album,
     cover: album.cover
@@ -41,49 +37,49 @@ const allTags = [
 ].sort();
 ---
 
-<BaseLayout title="Gallery" description={`${site.title} 的相册集`}>
-    <div class="gallery-container">
-        <PageHeader title="Gallery" subtitle="记录生活中的美好瞬间">
-            <Gallery slot="icon" />
-        </PageHeader>
+<SectionPage
+    title="Gallery"
+    subtitle="记录生活中的美好瞬间"
+    empty={GALLERY_CONFIG.length === 0}
+    emptyEmoji="📷"
+    emptyTitle="暂无相册"
+>
+    <Gallery slot="icon" />
 
-        {
-            GALLERY_CONFIG.length > 0 && allTags.length > 0 && (
-                <div class="gallery-filter">
-                    <button class="filter-tag active" data-tag="all">
-                        全部
+    {
+        GALLERY_CONFIG.length > 0 && allTags.length > 0 && (
+            <div class="gallery-filter">
+                <button class="filter-tag active" data-tag="all">
+                    全部
+                </button>
+                {allTags.map((tag) => (
+                    <button class="filter-tag" data-tag={tag}>
+                        {tag}
                     </button>
-                    {allTags.map((tag) => (
-                        <button class="filter-tag" data-tag={tag}>
-                            {tag}
-                        </button>
-                    ))}
-                </div>
-            )
-        }
+                ))}
+            </div>
+        )
+    }
 
-        {
-            GALLERY_CONFIG.length > 0 ? (
-                <div class="albums-grid">
-                    {GALLERY_CONFIG.map((album) => (
-                        <AlbumCard
-                            id={album.id}
-                            name={album.name}
-                            cover={album.cover}
-                            description={album.description}
-                            date={album.date}
-                            location={album.location}
-                            tags={album.name ? [album.name] : []}
-                            photoCount={album.photoCount}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <EmptyState emoji="📷" title="暂无相册" />
-            )
-        }
-    </div>
-</BaseLayout>
+    {
+        GALLERY_CONFIG.length > 0 && (
+            <div class="albums-grid">
+                {GALLERY_CONFIG.map((album) => (
+                    <AlbumCard
+                        id={album.id}
+                        name={album.name}
+                        cover={album.cover}
+                        description={album.description}
+                        date={album.date}
+                        location={album.location}
+                        tags={album.name ? [album.name] : []}
+                        photoCount={album.photoCount}
+                    />
+                ))}
+            </div>
+        )
+    }
+</SectionPage>
 
 <script is:inline>
     document.querySelectorAll(".filter-tag").forEach((btn) => {
@@ -106,12 +102,6 @@ const allTags = [
 </script>
 
 <style>
-    .gallery-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
-    }
-
     .gallery-filter {
         display: flex;
         flex-wrap: wrap;

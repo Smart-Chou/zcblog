@@ -1,0 +1,15 @@
+---
+import SectionPage from "~/components/Layout/SectionPage.astro";
+import TalkPageContent from "~/components/Talk/TalkPageContent.astro";
+import Chat from "~/components/icons/Chat.astro";
+import items from "~/data/talks.json";
+---
+
+<SectionPage
+    title="Talks"
+    subtitle="我的碎碎念"
+    description="Marx's Blog 的日常说说"
+>
+    <Chat slot="icon" />
+    <TalkPageContent items={items} />
+</SectionPage>

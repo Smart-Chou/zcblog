@@ -1,0 +1,83 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import PageHeader from "~/components/Widget/PageHeader.astro";
+import EmptyState from "~/components/Widget/EmptyState.astro";
+import { site } from "~/self.config";
+
+interface Props {
+    title: string;
+    description?: string;
+    subtitle: string;
+    buildTime?: string;
+    // Empty state
+    empty?: boolean;
+    emptyTitle?: string;
+    emptyMessage?: string;
+    emptyEmoji?: string;
+    // SEO
+    image?: string;
+    imageAlt?: string;
+    keywords?: string[];
+    publishedTime?: Date;
+    modifiedTime?: Date;
+}
+
+const {
+    title,
+    description,
+    subtitle,
+    buildTime,
+    empty,
+    emptyTitle,
+    emptyMessage,
+    emptyEmoji,
+    image,
+    imageAlt,
+    keywords,
+    publishedTime,
+    modifiedTime,
+} = Astro.props;
+
+const pageDescription = description || `${site.title} 的${title}页面`;
+const showEmpty = empty !== undefined ? empty : false;
+const hasIcon = Astro.slots.has("icon");
+const hasEmptyIcon = Astro.slots.has("empty-icon");
+---
+
+<BaseLayout
+    title={title}
+    description={pageDescription}
+    image={image}
+    imageAlt={imageAlt}
+    keywords={keywords}
+    publishedTime={publishedTime}
+    modifiedTime={modifiedTime}
+>
+    <div class="section-container">
+        <PageHeader title={title} subtitle={subtitle} buildTime={buildTime}>
+            {hasIcon && <slot name="icon" />}
+        </PageHeader>
+
+        {
+            showEmpty ? (
+                <EmptyState
+                    title={emptyTitle || "暂无数据"}
+                    message={emptyMessage}
+                    emoji={emptyEmoji || "📭"}
+                >
+                    {hasEmptyIcon && <slot name="empty-icon" slot="icon" />}
+                </EmptyState>
+            ) : (
+                <slot />
+            )
+        }
+    </div>
+</BaseLayout>
+
+<style>
+    .section-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
+</style>

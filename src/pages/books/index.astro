@@ -1,26 +1,15 @@
 ---
-import BaseLayout from "~/layouts/BaseLayout.astro";
-import PageHeader from "~/components/Widget/PageHeader.astro";
-import EmptyState from "~/components/Widget/EmptyState.astro";
+import SectionPage from "~/components/Layout/SectionPage.astro";
+import MediaPageContent from "~/components/Media/MediaPageContent.astro";
+import Archive from "~/components/icons/Archive.astro";
+import items from "~/data/books.json";
 ---
 
-<BaseLayout title="书籍">
-    <div class="page-container">
-        <PageHeader title="书籍" subtitle="读万卷书，行万里路">
-            <span slot="icon" style="font-size:32px">📚</span>
-        </PageHeader>
-        <EmptyState
-            emoji="📚"
-            title="即将上线"
-            message="此板块正在建设中，敬请期待"
-        />
-    </div>
-</BaseLayout>
-
-<style>
-    .page-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
-    }
-</style>
+<SectionPage
+    title="Books"
+    subtitle="我的阅读记录"
+    description="Marx's Blog 的读书清单"
+>
+    <Archive slot="icon" />
+    <MediaPageContent items={items} />
+</SectionPage>

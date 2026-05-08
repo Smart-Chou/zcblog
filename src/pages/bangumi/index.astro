@@ -1,18 +1,15 @@
 ---
-import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionPage from "~/components/Layout/SectionPage.astro";
 import TabNav from "~/components/bangumi/TabNav.astro";
 import BangumiSection from "~/components/bangumi/BangumiSection.astro";
 import Film from "~/components/icons/Film.astro";
-import PageHeader from "~/components/Widget/PageHeader.astro";
-import EmptyState from "~/components/Widget/EmptyState.astro";
 import AlertCircle from "~/components/icons/AlertCircle.astro";
-import { site } from "~/self.config";
 import { formatDateI18nWithTime } from "~/utils/date-utils";
 import type { UserSubjectCollection } from "~/types/bangumi";
 
 // 配置
 const BANGUMI_CONFIG = {
-    username: "1143164", // 在这里配置你的Bangumi用户名
+    username: "1143164",
     apiUrl: "https://api.bgm.tv",
     pagination: {
         limit: 50,
@@ -105,55 +102,33 @@ if (isUserIdConfigured) {
 }
 
 const activeTab = tabs[0]?.id || "anime";
+const hasData = tabs.length > 0;
 ---
 
-<BaseLayout title="Bangumi" description={`${site.title} 的Bangumi收藏`}>
-    <div class="bangumi-container">
-        <PageHeader
-            title="Bangumi"
-            subtitle="我的动漫、书籍、音乐和游戏收藏"
-            buildTime={`最后更新: ${buildTime}`}
-        >
-            <Film slot="icon" />
-        </PageHeader>
-
-        {
-            tabs.length > 0 ? (
-                <>
-                    <TabNav tabs={tabs} activeTab={activeTab} />
-                    {tabs.map((tab) => (
-                        <BangumiSection
-                            sectionId={tab.id}
-                            items={bangumiData[tab.id] || []}
-                            isActive={tab.id === activeTab}
-                            itemsPerPage={12}
-                        />
-                    ))}
-                </>
-            ) : (
-                <EmptyState
-                    title={
-                        isUserIdConfigured
-                            ? "暂无数据"
-                            : "未配置 Bangumi 用户ID"
-                    }
-                    message={
-                        isUserIdConfigured
-                            ? "你的收藏列表是空的"
-                            : "请在页面代码中配置你的 Bangumi 用户ID"
-                    }
-                >
-                    <AlertCircle slot="icon" />
-                </EmptyState>
-            )
-        }
-    </div>
-</BaseLayout>
-
-<style>
-    .bangumi-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
+<SectionPage
+    title="Bangumi"
+    subtitle="我的动漫、书籍、音乐和游戏收藏"
+    buildTime={`最后更新: ${buildTime}`}
+    empty={!hasData}
+    emptyTitle={isUserIdConfigured ? "暂无数据" : "未配置 Bangumi 用户ID"}
+    emptyMessage={isUserIdConfigured
+        ? "你的收藏列表是空的"
+        : "请在页面代码中配置你的 Bangumi 用户ID"}
+>
+    <Film slot="icon" />
+    {
+        hasData && (
+            <>
+                <TabNav tabs={tabs} activeTab={activeTab} />
+                {tabs.map((tab) => (
+                    <BangumiSection
+                        sectionId={tab.id}
+                        items={bangumiData[tab.id] || []}
+                        isActive={tab.id === activeTab}
+                        itemsPerPage={12}
+                    />
+                ))}
+            </>
+        )
     }
-</style>
+</SectionPage>

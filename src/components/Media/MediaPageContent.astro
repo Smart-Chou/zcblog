@@ -1,0 +1,72 @@
+---
+import MediaCard from "~/components/Widget/MediaCard.astro";
+
+interface MediaItem {
+    url: string;
+    rating: number;
+    ratingNum?: number;
+    title: string;
+    link?: string;
+}
+
+interface Props {
+    items: MediaItem[];
+    imageBaseUrl?: string;
+}
+
+const { items, imageBaseUrl = "" } = Astro.props;
+---
+
+<div class="media-grid">
+    {
+        items.map((item) => (
+            <div class="media-grid-item">
+                <MediaCard
+                    href={item.link || "#"}
+                    image={
+                        imageBaseUrl ? `${imageBaseUrl}${item.url}` : item.url
+                    }
+                    alt={item.title}
+                    aspectRatio="2/3"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <span slot="badges" class="rating-badge">
+                        {item.ratingNum || (item.rating / 10).toFixed(1)}
+                    </span>
+                    <div slot="overlay">
+                        <span class="media-item-title">{item.title}</span>
+                    </div>
+                </MediaCard>
+            </div>
+        ))
+    }
+</div>
+
+<style>
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .rating-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.6);
+        color: #ffd700;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .media-item-title {
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.3;
+    }
+</style>

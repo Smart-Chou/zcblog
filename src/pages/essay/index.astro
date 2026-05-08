@@ -1,48 +1,42 @@
 ---
-import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionPage from "~/components/Layout/SectionPage.astro";
 import EssayItem from "~/components/essay/EssayItem.astro";
 import Chat from "~/components/icons/Chat.astro";
-import PageHeader from "~/components/Widget/PageHeader.astro";
-import { site } from "~/self.config";
 import essaysData from "~/data/essays.json";
+import { site } from "~/self.config";
 ---
 
-<BaseLayout title="回忆录" description={`${site.title} 的朋友圈回忆录`}>
-    <div class="essay-container">
-        <PageHeader
-            title="回忆录"
-            subtitle="朋友圈的回忆录，大多数都是非主流，当时年少轻狂时候发的"
-        >
-            <Chat slot="icon" />
-        </PageHeader>
-
-        <div class="essay-masonry">
-            {essaysData.map((item) => <EssayItem item={item} />)}
-        </div>
+<SectionPage
+    title="Essay"
+    subtitle="日常随笔与碎碎念"
+    description={`${site.title} 的随笔`}
+    empty={essaysData.length === 0}
+    emptyEmoji="📝"
+    emptyTitle="暂无随笔"
+>
+    <Chat slot="icon" />
+    <div class="essay-masonry">
+        {essaysData.map((item) => <EssayItem item={item} />)}
     </div>
-</BaseLayout>
+</SectionPage>
 
 <style>
-    .essay-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
-    }
-
     .essay-masonry {
-        column-count: 3;
-        column-gap: 1rem;
+        columns: 1;
+        column-gap: 0;
     }
 
-    @media (max-width: 1024px) {
+    @media (min-width: 640px) {
         .essay-masonry {
-            column-count: 2;
+            columns: 2;
+            column-gap: 1rem;
         }
     }
 
-    @media (max-width: 640px) {
+    @media (min-width: 960px) {
         .essay-masonry {
-            column-count: 1;
+            columns: 3;
+            column-gap: 1rem;
         }
     }
 </style>
