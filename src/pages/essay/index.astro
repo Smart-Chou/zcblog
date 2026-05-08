@@ -2,21 +2,16 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import EssayItem from "~/components/essay/EssayItem.astro";
 import Chat from "~/components/icons/Chat.astro";
+import PageHeader from "~/components/Widget/PageHeader.astro";
 import { site } from "~/self.config";
 import essaysData from "~/data/essays.json";
 ---
 
 <BaseLayout title="回忆录" description={`${site.title} 的朋友圈回忆录`}>
     <div class="essay-container">
-        <div class="page-header">
-            <div class="header-icon">
-                <Chat />
-            </div>
-            <h1>回忆录</h1>
-            <p class="subtitle">
-                朋友圈的回忆录，大多数都是非主流，当时年少轻狂时候发的
-            </p>
-        </div>
+        <PageHeader title="回忆录" subtitle="朋友圈的回忆录，大多数都是非主流，当时年少轻狂时候发的">
+            <Chat slot="icon" />
+        </PageHeader>
 
         <div class="essay-masonry">
             {essaysData.map((item) => <EssayItem item={item} />)}
@@ -29,40 +24,6 @@ import essaysData from "~/data/essays.json";
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem 1.5rem;
-    }
-
-    .page-header {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-
-    .header-icon {
-        width: 64px;
-        height: 64px;
-        margin: 0 auto 1rem;
-        background: var(--link-color);
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-    }
-
-    .header-icon svg {
-        width: 32px;
-        height: 32px;
-    }
-
-    .page-header h1 {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        color: var(--title-color);
-    }
-
-    .subtitle {
-        font-size: 1rem;
-        color: var(--body-color);
     }
 
     .essay-masonry {

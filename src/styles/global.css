@@ -10,7 +10,6 @@
 @import url(./typography.css) layer(typography);
 @import url(./components.css) layer(components);
 @import url(./katex.css);
-/* @import url(./tailwind.css) layer(tailwind); */
 /* 搜索框样式（第三方，不分层，确保样式优先级正确） */
 @import url("@pagefind/default-ui/css/ui.css");
 @import url(./pagefind-props.css);

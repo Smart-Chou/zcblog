@@ -1,0 +1,61 @@
+---
+interface Props {
+    title: string;
+    subtitle: string;
+    buildTime?: string;
+}
+
+const { title, subtitle, buildTime } = Astro.props;
+---
+
+<div class="page-header">
+    <div class="header-icon">
+        <slot name="icon" />
+    </div>
+    <h1>{title}</h1>
+    <p class="subtitle">{subtitle}</p>
+    {buildTime && <p class="build-time">{buildTime}</p>}
+</div>
+
+<style>
+    .page-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .header-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 1rem;
+        background: var(--link-color);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .header-icon :global(svg) {
+        width: 32px;
+        height: 32px;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--title-color);
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        color: var(--body-color);
+    }
+
+    .build-time {
+        font-size: 0.8rem;
+        color: var(--body-color);
+        opacity: 0.6;
+        margin-top: 0.25rem;
+    }
+</style>

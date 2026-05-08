@@ -2,6 +2,8 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import AlbumCard from "~/components/gallery/AlbumCard.astro";
 import Gallery from "~/components/icons/Gallery.astro";
+import PageHeader from "~/components/Widget/PageHeader.astro";
+import EmptyState from "~/components/Widget/EmptyState.astro";
 import { scanAlbumPhotos, getAlbumCover } from "~/utils/gallery-utils";
 import { site } from "~/self.config";
 
@@ -31,13 +33,9 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
     locale="en"
 >
     <div class="gallery-container">
-        <div class="page-header">
-            <div class="header-icon">
-                <Gallery />
-            </div>
-            <h1>Gallery</h1>
-            <p class="subtitle">Capturing beautiful moments in life</p>
-        </div>
+        <PageHeader title="Gallery" subtitle="Capturing beautiful moments in life">
+            <Gallery slot="icon" />
+        </PageHeader>
 
         {
             albums.length > 0 && allTags.length > 0 && (
@@ -71,10 +69,7 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
                     ))}
                 </div>
             ) : (
-                <div class="empty-state">
-                    <div class="empty-icon">📷</div>
-                    <p>No albums yet</p>
-                </div>
+                <EmptyState emoji="📷" title="No albums yet" />
             )
         }
     </div>
@@ -105,40 +100,6 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem 1.5rem;
-    }
-
-    .page-header {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-
-    .header-icon {
-        width: 64px;
-        height: 64px;
-        margin: 0 auto 1rem;
-        background: var(--link-color);
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-    }
-
-    .header-icon svg {
-        width: 32px;
-        height: 32px;
-    }
-
-    .page-header h1 {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        color: var(--title-color);
-    }
-
-    .subtitle {
-        font-size: 1rem;
-        color: var(--body-color);
     }
 
     .gallery-filter {
@@ -178,15 +139,4 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
         gap: 1.5rem;
     }
 
-    .empty-state {
-        text-align: center;
-        padding: 4rem 1rem;
-        color: var(--body-color);
-        opacity: 0.6;
-    }
-
-    .empty-icon {
-        font-size: 4rem;
-        margin-bottom: 1rem;
-    }
 </style>

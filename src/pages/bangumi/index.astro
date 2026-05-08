@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import Card from "~/components/bangumi/Card.astro";
 import TabNav from "~/components/bangumi/TabNav.astro";
 import BangumiSection from "~/components/bangumi/BangumiSection.astro";
 import Film from "~/components/icons/Film.astro";
+import PageHeader from "~/components/Widget/PageHeader.astro";
+import EmptyState from "~/components/Widget/EmptyState.astro";
 import AlertCircle from "~/components/icons/AlertCircle.astro";
 import { site } from "~/self.config";
 import { formatDateI18nWithTime } from "~/utils/date-utils";
@@ -108,14 +109,9 @@ const activeTab = tabs[0]?.id || "anime";
 
 <BaseLayout title="Bangumi" description={`${site.title} 的Bangumi收藏`}>
     <div class="bangumi-container">
-        <div class="page-header">
-            <div class="header-icon">
-                <Film />
-            </div>
-            <h1>Bangumi</h1>
-            <p class="subtitle">我的动漫、书籍、音乐和游戏收藏</p>
-            <p class="build-time">最后更新: {buildTime}</p>
-        </div>
+        <PageHeader title="Bangumi" subtitle="我的动漫、书籍、音乐和游戏收藏" buildTime={`最后更新: ${buildTime}`}>
+            <Film slot="icon" />
+        </PageHeader>
 
         {
             tabs.length > 0 ? (
@@ -131,21 +127,11 @@ const activeTab = tabs[0]?.id || "anime";
                     ))}
                 </>
             ) : (
-                <div class="empty-state">
-                    <div class="empty-icon">
-                        <AlertCircle />
-                    </div>
-                    <h2>
-                        {isUserIdConfigured
-                            ? "暂无数据"
-                            : "未配置 Bangumi 用户ID"}
-                    </h2>
-                    <p>
-                        {isUserIdConfigured
-                            ? "你的收藏列表是空的"
-                            : "请在页面代码中配置你的 Bangumi 用户ID"}
-                    </p>
-                </div>
+                <EmptyState
+                    title={isUserIdConfigured ? "暂无数据" : "未配置 Bangumi 用户ID"}
+                    message={isUserIdConfigured ? "你的收藏列表是空的" : "请在页面代码中配置你的 Bangumi 用户ID"}>
+                    <AlertCircle slot="icon" />
+                </EmptyState>
             )
         }
     </div>
@@ -158,72 +144,4 @@ const activeTab = tabs[0]?.id || "anime";
         padding: 2rem 1.5rem;
     }
 
-    .page-header {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-
-    .header-icon {
-        width: 64px;
-        height: 64px;
-        margin: 0 auto 1rem;
-        background: var(--link-color);
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-    }
-
-    .header-icon svg {
-        width: 32px;
-        height: 32px;
-    }
-
-    .page-header h1 {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        color: var(--title-color);
-    }
-
-    .subtitle {
-        font-size: 1rem;
-        color: var(--body-color);
-        margin-bottom: 0.5rem;
-    }
-
-    .build-time {
-        font-size: 0.8rem;
-        color: var(--body-color);
-        opacity: 0.6;
-    }
-
-    .empty-state {
-        text-align: center;
-        padding: 4rem 1rem;
-    }
-
-    .empty-icon {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 1.5rem;
-        opacity: 0.3;
-    }
-
-    .empty-icon svg {
-        width: 100%;
-        height: 100%;
-    }
-
-    .empty-state h2 {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-        color: var(--title-color);
-    }
-
-    .empty-state p {
-        color: var(--body-color);
-        opacity: 0.7;
-    }
 </style>

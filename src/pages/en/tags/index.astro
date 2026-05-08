@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import PostLayout from "~/layouts/PostLayout.astro";
 import Author from "~/components/Feature/Author.astro";
-import { site, tagsPage } from "~/self.config";
+import { site } from "~/self.config";
 
 const allPosts = await getCollection("article");
 const tags = [...new Set(allPosts.map((post) => post.data.tags).flat())];

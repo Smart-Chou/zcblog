@@ -55,7 +55,7 @@ export function getLocalePath(locale: Locale, path: string = ""): string {
 }
 
 export function getAlternateLink(
-    currentLocale: Locale,
+    _currentLocale: Locale,
     currentPath: string,
 ): { locale: Locale; href: string }[] {
     return locales.map((locale) => ({
