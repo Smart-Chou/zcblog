@@ -1,4 +1,6 @@
 ---
+import FriendCard from "~/components/ui/FriendCard.astro";
+
 // 友人帐数据（来自 immm）
 const friends = [
     {
@@ -149,30 +151,13 @@ const friends = [
     <div id="friArticle">
         {
             friends.map((friend) => (
-                <div class="fri-item">
-                    <img
-                        class="fri-avatar avatar"
-                        src={friend.avatar}
-                        alt={friend.name}
-                    />
-                    <div class="fri-cont">
-                        <div class="fri-title">
-                            <a
-                                target="_blank"
-                                rel="noopener nofollow"
-                                href={friend.url || "#"}
-                            >
-                                {friend.title}
-                            </a>
-                        </div>
-                        <div
-                            class="fri-updated"
-                            title={new Date().toISOString()}
-                        >
-                            {friend.updated}
-                        </div>
-                    </div>
-                </div>
+                <FriendCard
+                    name={friend.name}
+                    avatar={friend.avatar}
+                    title={friend.title}
+                    url={friend.url}
+                    updated={friend.updated}
+                />
             ))
         }
     </div>

@@ -1,7 +1,7 @@
 ---
 import SectionPage from "~/components/Layout/SectionPage.astro";
-import GoodsPageContent from "~/components/Goods/GoodsPageContent.astro";
-import Heart from "~/components/icons/Heart.astro";
+import GoodsCardList from "~/components/ui/GoodsCardList.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import items from "~/data/goods.json";
 ---
 
@@ -10,6 +10,6 @@ import items from "~/data/goods.json";
     subtitle="我的好物推荐"
     description="Marx's Blog 的好物清单"
 >
-    <Heart slot="icon" />
-    <GoodsPageContent items={items} />
+    <DynamicIcon name="ph:heart-fill" slot="icon" />
+    <GoodsCardList items={items} />
 </SectionPage>

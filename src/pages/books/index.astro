@@ -1,7 +1,7 @@
 ---
 import SectionPage from "~/components/Layout/SectionPage.astro";
-import MediaPageContent from "~/components/Media/MediaPageContent.astro";
-import Archive from "~/components/icons/Archive.astro";
+import MediaCardGrid from "~/components/ui/MediaCardGrid.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import items from "~/data/books.json";
 ---
 
@@ -10,6 +10,6 @@ import items from "~/data/books.json";
     subtitle="我的阅读记录"
     description="Marx's Blog 的读书清单"
 >
-    <Archive slot="icon" />
-    <MediaPageContent items={items} />
+    <DynamicIcon name="tabler:archive-filled" slot="icon" />
+    <MediaCardGrid items={items} />
 </SectionPage>

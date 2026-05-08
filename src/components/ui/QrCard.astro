@@ -1,0 +1,84 @@
+---
+interface Props {
+    qrImage: string;
+    alt: string;
+    platformName: string;
+    iconName: string;
+    paypalUrl?: string;
+}
+
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+
+const { qrImage, alt, platformName, iconName, paypalUrl } = Astro.props;
+---
+
+<div class="donate-method">
+    <div class="qr-code">
+        <img src={qrImage} alt={alt} loading="lazy" />
+        <div class="qr-info">
+            {
+                paypalUrl ? (
+                    <a
+                        href={paypalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="paypal-btn"
+                    >
+                        <DynamicIcon name={iconName} class="pay-icon" />
+                        <span class="pay-name">{platformName}</span>
+                    </a>
+                ) : (
+                    <>
+                        <DynamicIcon name={iconName} class="pay-icon" />
+                        <span class="pay-name">{platformName}</span>
+                    </>
+                )
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .donate-method {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .qr-code {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .qr-code img {
+        width: 160px;
+        height: 160px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .qr-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .pay-icon {
+        font-size: 1.2rem;
+    }
+
+    .pay-name {
+        font-weight: 500;
+    }
+
+    .paypal-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: inherit;
+    }
+</style>

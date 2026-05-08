@@ -1,7 +1,7 @@
 ---
 import SectionPage from "~/components/Layout/SectionPage.astro";
-import TalkPageContent from "~/components/Talk/TalkPageContent.astro";
-import Chat from "~/components/icons/Chat.astro";
+import TalkTimeline from "~/components/ui/TalkTimeline.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import items from "~/data/talks.json";
 ---
 
@@ -10,6 +10,6 @@ import items from "~/data/talks.json";
     subtitle="我的碎碎念"
     description="Marx's Blog 的日常说说"
 >
-    <Chat slot="icon" />
-    <TalkPageContent items={items} />
+    <DynamicIcon name="tabler:message-chatbot-filled" slot="icon" />
+    <TalkTimeline items={items} />
 </SectionPage>

@@ -1,22 +1,23 @@
 ---
-import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionPage from "~/components/Layout/SectionPage.astro";
 import Author from "~/components/Feature/Author.astro";
 import WalineComment from "~/components/Widget/WalineComment.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { site, friendsPage } from "~/self.config";
 ---
 
-<BaseLayout
+<SectionPage
     title={friendsPage.title}
+    subtitle=""
     description={`${friendsPage.title} - ${friendsPage.note}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={friendsPage.title}
-    keywords="Friends"
+    keywords={["Friends"]}
     publishedTime={new Date()}
     modifiedTime={new Date()}
 >
-    <h1 class="friends-title text-center space-bottom">
-        Friends &amp; Guestbook
-    </h1>
+    <DynamicIcon name="ph:user-circle-fill" slot="icon" />
+
     <div class="friends-container text-center space-bottom">
         {
             friendsPage.list.map((friend) => (
@@ -43,7 +44,7 @@ import { site, friendsPage } from "~/self.config";
     </p>
     <Author />
     <WalineComment />
-</BaseLayout>
+</SectionPage>
 
 <style>
     .friends-container {

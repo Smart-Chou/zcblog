@@ -6,8 +6,9 @@ import Posts from "~/components/Hero/Posts.astro";
 import Friends from "~/components/Hero/Friends.astro";
 import Photos from "~/components/Hero/Photos.astro";
 import Goods from "~/components/Hero/Goods.astro";
-import Movies from "~/components/Hero/Movies.astro";
-import Books from "~/components/Hero/Books.astro";
+import Media from "~/components/Hero/Media.astro";
+import booksItems from "~/data/books.json";
+import moviesItems from "~/data/movies.json";
 
 // 获取文章列表
 const allArticles = await getCollection("article", ({ data }) => !data.draft);
@@ -25,7 +26,7 @@ const recentPosts = sortedArticles.slice(0, 5);
         <Friends />
         <Photos />
         <Goods />
-        <Movies />
-        <Books />
+        <Media title="近期观影" items={moviesItems} href="/movies/" />
+        <Media title="近期阅读" items={booksItems} href="/books/" />
     </main>
 </div>

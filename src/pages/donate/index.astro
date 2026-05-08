@@ -1,197 +1,81 @@
 ---
+import SectionPage from "~/components/Layout/SectionPage.astro";
 import HeartIcon from "~/components/icons/Heart.astro";
-import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import QrCard from "~/components/ui/QrCard.astro";
+import DonatorsList from "~/components/ui/DonatorsList.astro";
 import { donate } from "~/self.config";
-import BaseLayout from "~/layouts/BaseLayout.astro";
-
 import donateData from "~/data/donators.json";
+
 const { donators } = donateData;
 ---
 
-<BaseLayout
+<SectionPage
     title="赞赏者名单"
-    description="感谢所有支持和鼓励我的朋友们"
+    subtitle="感谢所有支持和鼓励我的朋友们"
     publishedTime={new Date()}
     modifiedTime={new Date()}
 >
-    <div class="donate-list-page">
-        <div class="container">
-            <div class="page-header">
-                <div class="header-content">
-                    <HeartIcon filled={true} class="header-icon" />
-                    <h1 class="header-title">赞赏者名单</h1>
-                    <p class="header-subtitle">感谢所有支持和鼓励我的朋友们</p>
-                </div>
-            </div>
+    <HeartIcon filled={true} slot="icon" />
 
-            <div class="donate-section s-card">
-                <div class="donate-header">
-                    <h2 class="section-title">支持方式</h2>
-                    <p class="section-desc">{donators.length}</p>
-                </div>
-                <div class="donate-methods">
-                    <div class="donate-method">
-                        <div class="qr-code">
-                            <img
-                                src={donate.wechatQRCode}
-                                alt="微信支付"
-                                loading="lazy"
-                            />
-                            <div class="qr-info">
-                                <DynamicIcon
-                                    name="mingcute:wechat-pay-line"
-                                    class="pay-icon"
-                                />
-                                <span class="pay-name">微信支付</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="donate-method">
-                        <div class="qr-code">
-                            <img
-                                src={donate.alipayQRCode}
-                                alt="支付宝支付"
-                                loading="lazy"
-                            />
-                            <div class="qr-info">
-                                <DynamicIcon
-                                    name="simple-icons:alipay"
-                                    class="pay-icon"
-                                />
-                                <span class="pay-name">支付宝</span>
-                            </div>
-                        </div>
-                    </div>
-                    {
-                        donate.paypalUrl && (
-                            <div class="donate-method">
-                                <div class="qr-code">
-                                    <img
-                                        src={donate.paypalQRCode}
-                                        alt="PayPal"
-                                        loading="lazy"
-                                    />
-                                    <div class="qr-info">
-                                        <a
-                                            href={donate.paypalUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="paypal-btn s-card hover"
-                                        >
-                                            <DynamicIcon
-                                                name="simple-icons:paypal"
-                                                class="pay-icon"
-                                            />
-                                            <span class="pay-name">PayPal</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    }
-                </div>
+    <div class="donate-sections">
+        <div class="donate-section s-card">
+            <div class="donate-header">
+                <h2 class="section-title">支持方式</h2>
             </div>
-
-            <div class="donators-section s-card">
-                <div class="donators-header">
-                    <h2 class="section-title">赞赏者名单</h2>
-                    <p class="section-desc">
-                        感谢这些朋友的支持，让我能持续写下去（排名不分先后） 🤍
-                    </p>
-                </div>
-                <div class="donators-list">
-                    {
-                        donators.map((donator) => (
-                            <div class="donator-item">
-                                <div class="donator-avatar">
-                                    {donator.avatar ? (
-                                        <img
-                                            src={donator.avatar}
-                                            alt={donator.name}
-                                            loading="lazy"
-                                        />
-                                    ) : (
-                                        <div class="avatar-placeholder">
-                                            <DynamicIcon name="ph:user-circle-fill" />
-                                        </div>
-                                    )}
-                                </div>
-                                <div class="donator-info">
-                                    <div class="donator-main">
-                                        <span class="donator-name">
-                                            {donator.name}
-                                        </span>
-                                        <span class="donator-amount">
-                                            ¥{donator.amount.toFixed(2)}
-                                        </span>
-                                    </div>
-                                    {donator.message && (
-                                        <div class="donator-message">
-                                            “{donator.message}”
-                                        </div>
-                                    )}
-                                    <div class="donator-time">
-                                        {donator.date}
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
+            <div class="donate-methods">
+                <QrCard
+                    qrImage={donate.wechatQRCode}
+                    alt="微信支付"
+                    platformName="微信支付"
+                    iconName="mingcute:wechat-pay-line"
+                />
+                <QrCard
+                    qrImage={donate.alipayQRCode}
+                    alt="支付宝支付"
+                    platformName="支付宝"
+                    iconName="simple-icons:alipay"
+                />
+                {
+                    donate.paypalUrl && (
+                        <QrCard
+                            qrImage={donate.paypalQRCode}
+                            alt="PayPal"
+                            platformName="PayPal"
+                            iconName="simple-icons:paypal"
+                            paypalUrl={donate.paypalUrl}
+                        />
+                    )
+                }
             </div>
+        </div>
 
-            <div class="thank-section s-card">
-                <div class="thank-content">
-                    <HeartIcon filled={true} class="thank-icon" />
-                    <h2 class="thank-title">再次感谢</h2>
-                    <p class="thank-text">
-                        每一份支持都是对我最大的鼓励，我会继续努力创作更多有价值的内容。
-                        您的支持将帮助我持续维护这个博客，提供更好的内容和服务。
-                    </p>
-                </div>
+        <div class="donators-section s-card">
+            <div class="donators-header">
+                <h2 class="section-title">赞赏者名单</h2>
+                <p class="section-desc">
+                    感谢这些朋友的支持，让我能持续写下去（排名不分先后） 🤍
+                </p>
+            </div>
+            <DonatorsList donators={donators} />
+        </div>
+
+        <div class="thank-section s-card">
+            <div class="thank-content">
+                <HeartIcon filled={true} class="thank-icon" />
+                <h2 class="thank-title">再次感谢</h2>
+                <p class="thank-text">
+                    每一份支持都是对我最大的鼓励，我会继续努力创作更多有价值的内容。
+                    您的支持将帮助我持续维护这个博客，提供更好的内容和服务。
+                </p>
             </div>
         </div>
     </div>
-</BaseLayout>
+</SectionPage>
 
 <style>
-    .donate-list-page {
-        padding: 2rem 0;
-    }
-
-    .container {
+    .donate-sections {
         max-width: 800px;
         margin: 0 auto;
-        padding: 0 1.5rem;
-    }
-
-    .page-header {
-        text-align: center;
-        margin-bottom: 3rem;
-    }
-
-    .header-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .header-icon {
-        font-size: 3rem;
-        color: #e74c3c;
-    }
-
-    .header-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin: 0;
-    }
-
-    .header-subtitle {
-        font-size: 1.2rem;
-        color: var(--text-color-secondary);
-        margin: 0;
     }
 
     .donate-section,
@@ -221,141 +105,6 @@ const { donators } = donateData;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 1.5rem;
-    }
-
-    .donate-method {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .qr-code {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .qr-code img {
-        width: 160px;
-        height: 160px;
-        object-fit: contain;
-        border-radius: 8px;
-    }
-
-    .qr-info {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .pay-icon {
-        font-size: 1.2rem;
-    }
-
-    .pay-name {
-        font-weight: 500;
-    }
-
-    .paypal-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .donators-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1.25rem;
-    }
-
-    .donator-item {
-        display: flex;
-        gap: 1rem;
-        padding: 1.25rem;
-        border-radius: 12px;
-        background-color: var(--card-background);
-        transition:
-            transform 0.2s ease,
-            box-shadow 0.2s ease;
-    }
-
-    .donator-item:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    }
-
-    .donator-avatar {
-        flex-shrink: 0;
-    }
-
-    .avatar-placeholder,
-    .donator-avatar img {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-    }
-
-    .avatar-placeholder {
-        background-color: var(--primary-color);
-        opacity: 0.85;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.5rem;
-    }
-
-    .donator-info {
-        flex: 1;
-    }
-
-    .donator-main {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-    }
-
-    .donator-name {
-        font-weight: 600;
-        font-size: 1.05rem;
-    }
-
-    .donator-amount {
-        font-weight: 600;
-        color: var(--primary-color);
-        font-size: 0.9rem;
-    }
-
-    .donator-amount::before {
-        content: "支持 ";
-        font-weight: 400;
-        opacity: 0.6;
-        margin-right: 2px;
-    }
-
-    .donator-time {
-        font-size: 0.75rem;
-        opacity: 0.6;
-        margin-top: 0.25rem;
-        display: none;
-    }
-
-    .donator-item:hover .donator-time {
-        display: block;
-    }
-
-    .donator-message {
-        font-size: 0.85rem;
-        color: var(--text-color-secondary);
-        font-style: italic;
-        line-height: 1.4;
-        margin-top: 0.45rem;
-        padding-left: 0.5rem;
-        border-left: 2px solid rgba(0, 0, 0, 0.08);
     }
 
     .thank-section {
@@ -388,10 +137,6 @@ const { donators } = donateData;
     }
 
     @media (max-width: 768px) {
-        .header-title {
-            font-size: 2rem;
-        }
-
         .donate-section,
         .donators-section,
         .thank-section {
@@ -401,59 +146,14 @@ const { donators } = donateData;
         .donate-methods {
             grid-template-columns: 1fr;
         }
-
-        .donator-item {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .donator-main {
-            justify-content: center;
-            gap: 0.5rem;
-        }
     }
 
-    html[data-theme="dark"] .donator-item {
-        background-color: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    html[data-theme="dark"] .donator-item:hover {
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    }
-
-    html[data-theme="dark"] .donator-name {
-        color: rgba(255, 255, 255, 0.92);
-    }
-
-    html[data-theme="dark"] .donator-message,
     html[data-theme="dark"] .section-desc,
     html[data-theme="dark"] .thank-text {
         color: rgba(255, 255, 255, 0.65);
     }
 
-    html[data-theme="dark"] .donator-amount {
-        color: #f2a19a; /* 柔和红 / 肉粉色 */
-    }
-
-    html[data-theme="dark"] .donator-amount::before {
-        opacity: 0.45;
-    }
-
-    html[data-theme="dark"] .donator-message {
-        border-left-color: rgba(255, 255, 255, 0.12);
-    }
-
-    html[data-theme="dark"] .avatar-placeholder {
-        background-color: color-mix(in srgb, var(--primary-color) 60%, black);
-    }
-
-    html[data-theme="dark"] .header-icon,
     html[data-theme="dark"] .thank-icon {
         color: #f2a19a;
-    }
-
-    html[data-theme="dark"] .donator-item:hover {
-        background-color: rgba(255, 255, 255, 0.05);
     }
 </style>

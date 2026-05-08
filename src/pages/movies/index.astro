@@ -1,7 +1,7 @@
 ---
 import SectionPage from "~/components/Layout/SectionPage.astro";
-import MediaPageContent from "~/components/Media/MediaPageContent.astro";
-import Film from "~/components/icons/Film.astro";
+import MediaCardGrid from "~/components/ui/MediaCardGrid.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import items from "~/data/movies.json";
 ---
 
@@ -10,6 +10,6 @@ import items from "~/data/movies.json";
     subtitle="我的观影记录"
     description="Marx's Blog 的观影清单"
 >
-    <Film slot="icon" />
-    <MediaPageContent items={items} />
+    <DynamicIcon name="tabler:photo" slot="icon" />
+    <MediaCardGrid items={items} />
 </SectionPage>

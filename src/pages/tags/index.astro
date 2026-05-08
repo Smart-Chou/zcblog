@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "~/layouts/BaseLayout.astro";
-import PostLayout from "~/layouts/PostLayout.astro";
+import SectionPage from "~/components/Layout/SectionPage.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import Author from "~/components/Feature/Author.astro";
 import { site, tagsPage } from "~/self.config";
 
@@ -32,6 +32,36 @@ function getTagColor(count: number): string {
     return "#93c5fd";
 }
 ---
+
+<SectionPage
+    title={`${tagsPage.title} - ${site.title}`}
+    subtitle=""
+    description={`${tagsPage.description} - ${site.description}`}
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt={tagsPage.title}
+    keywords={["Tags"]}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+>
+    <DynamicIcon name="tabler:tags" slot="icon" />
+
+    <div class="tag-cloud">
+        {
+            sortedTags.map(({ name, count }) => (
+                <span class="tag-item">
+                    <a href={`/tags/${name}/`}>{name}</a>
+                    <span
+                        class="tag-count"
+                        style={`background-color: ${getTagColor(count)}`}
+                    >
+                        {count}
+                    </span>
+                </span>
+            ))
+        }
+    </div>
+    <Author />
+</SectionPage>
 
 <style>
     .tag-cloud {
@@ -67,39 +97,7 @@ function getTagColor(count: number): string {
         min-width: 1.8em;
         height: 1.8em;
         border-radius: 50%;
-        font-size: 0.75em;
         font-weight: 600;
         color: white;
-        background-color: var(--accent-color);
     }
 </style>
-
-<BaseLayout
-    title={`${tagsPage.title} - ${site.title}`}
-    description={`${tagsPage.description} -  ${site.description}`}
-    image={`${Astro.site + site.coverImage}`}
-    imageAlt={tagsPage.title}
-    keywords="Tags"
-    publishedTime={new Date()}
-    modifiedTime={new Date()}
->
-    <h1 class="tag-title text-center space-bottom">{tagsPage.title}</h1>
-    <PostLayout>
-        <div class="tag-cloud">
-            {
-                sortedTags.map(({ name, count }) => (
-                    <span class="tag-item">
-                        <a href={`/tags/${name}/`}>{name}</a>
-                        <span
-                            class="tag-count"
-                            style={`background-color: ${getTagColor(count)}`}
-                        >
-                            {count}
-                        </span>
-                    </span>
-                ))
-            }
-        </div>
-    </PostLayout>
-    <Author />
-</BaseLayout>

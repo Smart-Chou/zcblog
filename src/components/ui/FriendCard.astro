@@ -1,0 +1,25 @@
+---
+interface Props {
+    name: string;
+    avatar: string;
+    title: string;
+    url: string;
+    updated: string;
+}
+
+const { name, avatar, title, url, updated } = Astro.props;
+---
+
+<div class="fri-item">
+    <img class="fri-avatar avatar" src={avatar} alt={name} />
+    <div class="fri-cont">
+        <div class="fri-title">
+            <a target="_blank" rel="noopener nofollow" href={url || "#"}>
+                {title}
+            </a>
+        </div>
+        <div class="fri-updated" title={new Date().toISOString()}>
+            {updated}
+        </div>
+    </div>
+</div>
