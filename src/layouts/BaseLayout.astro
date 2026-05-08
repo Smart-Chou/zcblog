@@ -15,7 +15,6 @@ const {
     modifiedTime,
     mathjax = false,
     mermaid = false,
-    hideHeader = false,
 } = Astro.props;
 ---
 
@@ -33,10 +32,10 @@ const {
         mermaid={mermaid}
     />
     <body>
-        <div id="app" class:list={[{ "full-width": hideHeader }]}>
-            {!hideHeader && <Header />}
+        <div id="app" class="full-width">
+            <Header />
             <main class="main">
-                <div class:list={["content", { "content--full": hideHeader }]}>
+                <div class="content">
                     <slot />
                 </div>
             </main>
