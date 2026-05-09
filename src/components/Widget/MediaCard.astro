@@ -9,6 +9,7 @@ interface Props {
     target?: string;
     rel?: string;
     class?: string;
+    "data-tags"?: string;
 }
 
 const {
@@ -21,10 +22,11 @@ const {
     target,
     rel,
     class: className,
+    ...rest
 } = Astro.props;
 ---
 
-<a href={href} class:list={["media-card", className]} target={target} rel={rel}>
+<a href={href} class:list={["media-card", className]} target={target} rel={rel} {...rest}>
     <div class="media-cover" style={`aspect-ratio: ${aspectRatio}`}>
         {
             image || dataSrc ? (

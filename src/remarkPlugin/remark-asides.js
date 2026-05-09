@@ -96,8 +96,8 @@ function s(el, attrs = {}, children = []) {
  *
  * ```astro
  * <aside class="remark-aside remark-aside--tip" aria-label="Did you know?">
- *   <p class="remark-aside__title" aria-hidden="true">Did you know?</p>
- *   <section class="remark-aside__content">
+ *   <p class="remark-aside-title" aria-hidden="true">Did you know?</p>
+ *   <section class="remark-aside-content">
  *     <p>Astro helps you build faster websites with “Islands Architecture”.</p>
  *   </section>
  * </Aside>
@@ -198,7 +198,7 @@ export function remarkAsides(options) {
                 [
                     h(
                         "h4",
-                        { class: "remark-aside__title", "aria-hidden": "true" },
+                        { class: "remark-aside-title", "aria-hidden": "true" },
                         [
                             s(
                                 "svg",
@@ -207,14 +207,14 @@ export function remarkAsides(options) {
                                     width: 16,
                                     height: 16,
                                     fill: "currentColor",
-                                    class: "remark-aside__icon",
+                                    class: "remark-aside-icon",
                                 },
                                 iconPaths[variant],
                             ),
                             { type: "text", value: title },
                         ],
                     ),
-                    h("div", { class: "remark-aside__content" }, node.children),
+                    h("div", { class: "remark-aside-content" }, node.children),
                 ],
             );
 

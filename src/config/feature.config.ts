@@ -71,7 +71,7 @@ export const config: FeaturesConfig = {
     codeFoldingStartLines: 16,
     ga: false,
     redirect: true,
-    redirectIncludeClass: ["post__content"],
+    redirectIncludeClass: ["post-content"],
     redirectExcludeClass: ["modal-mask", "friends-container", "author"],
 };
 
