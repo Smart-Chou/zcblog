@@ -26,7 +26,13 @@ const {
 } = Astro.props;
 ---
 
-<a href={href} class:list={["media-card", className]} target={target} rel={rel} {...rest}>
+<a
+    href={href}
+    class:list={["media-card", className]}
+    target={target}
+    rel={rel}
+    {...rest}
+>
     <div class="media-cover" style={`aspect-ratio: ${aspectRatio}`}>
         {
             image || dataSrc ? (

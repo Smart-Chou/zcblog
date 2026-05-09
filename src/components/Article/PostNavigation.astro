@@ -6,31 +6,27 @@ const { slug } = Astro.props;
 const allPosts = await getCollection("article");
 const sorted = allPosts.sort(
     (a, b) =>
-        new Date(b.data.pubDate).getTime() -
-        new Date(a.data.pubDate).getTime(),
+        new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
 );
 const currentIndex = sorted.findIndex((post) => post.id === slug);
 const prevPost = currentIndex > 0 ? sorted[currentIndex - 1] : null;
-const nextPost = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
+const nextPost =
+    currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
 ---
 
 {
     (prevPost || nextPost) && (
         <nav class="post-nav">
-            {
-                prevPost && (
-                    <a href={`/article/${prevPost.id}/`} class="post-nav-link prev">
-                        ◀ {prevPost.data.title}
-                    </a>
-                )
-            }
-            {
-                nextPost && (
-                    <a href={`/article/${nextPost.id}/`} class="post-nav-link next">
-                        {nextPost.data.title} ▶
-                    </a>
-                )
-            }
+            {prevPost && (
+                <a href={`/article/${prevPost.id}/`} class="post-nav-link prev">
+                    ◀ {prevPost.data.title}
+                </a>
+            )}
+            {nextPost && (
+                <a href={`/article/${nextPost.id}/`} class="post-nav-link next">
+                    {nextPost.data.title} ▶
+                </a>
+            )}
         </nav>
     )
 }

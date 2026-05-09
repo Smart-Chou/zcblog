@@ -352,9 +352,7 @@ button[data-close-modal] {
     text-decoration: none;
 }
 
-#starlight__search
-    .pagefind-ui-result-nested
-    .pagefind-ui-result-link::before {
+#starlight__search .pagefind-ui-result-nested .pagefind-ui-result-link::before {
     content: unset;
 }
 
