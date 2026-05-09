@@ -1,0 +1,212 @@
+---
+const navLinks = [
+    { label: "博客", href: "/blog/1/" },
+    { label: "归档", href: "/archives/" },
+    { label: "标签", href: "/tags/" },
+    { label: "相册", href: "/albums/" },
+    { label: "随笔", href: "/essay/" },
+    { label: "友人", href: "/friends/" },
+];
+---
+
+<nav id="site-nav" aria-label="主导航">
+    <!-- Desktop nav -->
+    <ul class="nav__list" role="list">
+        {navLinks.map((link) => (
+            <li>
+                <a href={link.href} class="nav__link">{link.label}</a>
+            </li>
+        ))}
+    </ul>
+
+    <!-- Mobile hamburger -->
+    <button
+        id="nav-toggle"
+        class="nav__toggle"
+        aria-label="打开菜单"
+        aria-expanded="false"
+        type="button"
+    >
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+    </button>
+</nav>
+
+<!-- Mobile overlay menu -->
+<div id="nav-overlay" class="nav__overlay" aria-hidden="true">
+    <ul class="nav__mobile-list" role="list">
+        {navLinks.map((link) => (
+            <li>
+                <a href={link.href} class="nav__mobile-link">{link.label}</a>
+            </li>
+        ))}
+    </ul>
+</div>
+
+<script>
+    const toggle = document.getElementById("nav-toggle") as HTMLButtonElement;
+    const overlay = document.getElementById("nav-overlay") as HTMLDivElement;
+    let open = false;
+
+    toggle.addEventListener("click", () => {
+        open = !open;
+        toggle.setAttribute("aria-expanded", String(open));
+        overlay.setAttribute("aria-hidden", String(!open));
+        toggle.classList.toggle("nav__toggle--open", open);
+        overlay.classList.toggle("nav__overlay--open", open);
+        document.body.classList.toggle("nav--no-scroll", open);
+    });
+
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+            open = false;
+            toggle.setAttribute("aria-expanded", "false");
+            overlay.setAttribute("aria-hidden", "true");
+            toggle.classList.remove("nav__toggle--open");
+            overlay.classList.remove("nav__overlay--open");
+            document.body.classList.remove("nav--no-scroll");
+        }
+    });
+
+    document.addEventListener("astro:after-swap", () => {
+        open = false;
+        toggle.setAttribute("aria-expanded", "false");
+        overlay.setAttribute("aria-hidden", "true");
+        toggle.classList.remove("nav__toggle--open");
+        overlay.classList.remove("nav__overlay--open");
+        document.body.classList.remove("nav--no-scroll");
+    });
+</script>
+
+<style>
+    #site-nav {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav__list {
+        display: none;
+        gap: var(--space-xs);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav__link {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.4em 0.75em;
+        border-radius: 8px;
+        font-size: 0.9em;
+        font-weight: 500;
+        color: var(--color-text);
+        text-decoration: none;
+        transition: background-color 0.2s, color 0.2s;
+        white-space: nowrap;
+    }
+
+    .nav__link:hover {
+        background: var(--color-bg-secondary);
+        color: var(--color-accent);
+    }
+
+    /* Hamburger toggle */
+    .nav__toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .nav__toggle:hover {
+        background: var(--color-bg-secondary);
+    }
+
+    .nav__toggle-bar {
+        display: block;
+        width: 20px;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--color-text);
+        transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .nav__toggle--open .nav__toggle-bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav__toggle--open .nav__toggle-bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav__toggle--open .nav__toggle-bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile overlay */
+    .nav__overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background: rgba(var(--color-bg-rgb), 0.95);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+
+    .nav__overlay--open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .nav__mobile-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5em;
+    }
+
+    .nav__mobile-link {
+        font-size: 1.5em;
+        font-weight: 600;
+        color: var(--color-text);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .nav__mobile-link:hover {
+        color: var(--color-accent);
+    }
+
+    :global(.nav--no-scroll) {
+        overflow: hidden;
+    }
+
+    @media screen and (min-width: 769px) {
+        .nav__list {
+            display: flex;
+        }
+
+        .nav__toggle {
+            display: none;
+        }
+    }
+</style>

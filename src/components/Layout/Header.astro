@@ -1,5 +1,6 @@
 ---
 import Logo from "~/components/Layout/Logo.astro";
+import Nav from "~/components/Layout/Nav.astro";
 import Search from "~/components/Widget/Search.astro";
 import ToggleTheme from "~/components/Layout/ToggleTheme.astro";
 import LanguageSwitcher from "~/components/Layout/LanguageSwitcher.astro";
@@ -13,6 +14,7 @@ const { searchEnable = search.enable } = Astro.props;
         <div class="header__left">
             <Logo />
         </div>
+        <Nav />
         <div class="header__right">
             {searchEnable && <Search />}
             <span style="margin: 0 0.2rem;"></span>
