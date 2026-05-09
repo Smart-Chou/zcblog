@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 /* ---- Cascade Layers ---- */
-@layer reset, variables, base, typography, components, custom, tailwind;
+@layer tailwind, reset, variables, base, typography, components, custom;
 
 /* Foundation layers (lowest → highest priority) */
 @import url(./reset.css) layer(reset);

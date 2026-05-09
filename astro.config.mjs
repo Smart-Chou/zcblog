@@ -110,23 +110,13 @@ export default defineConfig({
     output: "static",
     // 构建输出配置
     build: {
-        concurrency: 4, // 并行构建提升速度
+        concurrency: 2, // 降低并行度避免 Vercel OOM
     },
     vite: {
         plugins: [tailwindcss()],
         build: {
-            // 开启构建压缩
-            minify: "terser",
-            terserOptions: {
-                compress: {
-                    drop_console: true,
-                    drop_debugger: true,
-                    pure_funcs: ["console.log", "console.info"],
-                },
-                mangle: {
-                    safari10: true,
-                },
-            },
+            // esbuild 比 terser 内存占用更低，避免 Vercel OOM
+            minify: "esbuild",
             // 静态资源哈希，用于缓存失效
             assetsDir: "assets",
             rollupOptions: {
