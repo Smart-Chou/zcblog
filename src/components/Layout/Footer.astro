@@ -28,12 +28,12 @@ const statsBadges = [
 ---
 
 <footer class="footer" role="contentinfo">
-    <div class="footer__copyright">
+    <div class="footer-copyright">
         <span>
             Copyright {site.startYear} - {currentYear}. All rights reserved.
         </span>
     </div>
-    <div class="footer__links">
+    <div class="footer-links">
         <a
             href={site.beianURL}
             target="_blank"
@@ -43,7 +43,7 @@ const statsBadges = [
             <span>{site.beian}</span>
         </a>
     </div>
-    <div class="footer__links">
+    <div class="footer-links">
         {
             footerList.map((meta) => (
                 <a
@@ -155,7 +155,7 @@ const statsBadges = [
     }
 
     /* 图片链接容器使用 flex 布局 */
-    .footer__links:has(img),
+    .footer-links:has(img),
     #rss-stats {
         display: flex;
         flex-wrap: wrap;
@@ -172,7 +172,7 @@ const statsBadges = [
             font-size: 0.85em;
         }
 
-        .footer__links:has(img),
+        .footer-links:has(img),
         #rss-stats {
             gap: 0.25rem;
         }
@@ -187,12 +187,12 @@ const statsBadges = [
             padding: calc(var(--space) * 0.6) 10px calc(var(--space) * 0.6);
         }
 
-        .footer__copyright span {
+        .footer-copyright span {
             display: block;
             margin-bottom: 0.5rem;
         }
 
-        .footer__links:has(img) {
+        .footer-links:has(img) {
             flex-direction: column;
             gap: 0.5rem;
         }

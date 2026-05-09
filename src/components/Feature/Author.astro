@@ -7,14 +7,14 @@ import { author, categories, socialLinks } from "~/self.config";
     <img
         src={`/${author.avatar}`}
         alt="Author"
-        class="author__image"
+        class="author-image"
         width="180"
         loading="lazy"
         decoding="async"
     />
-    <h1 class="author__site-title">{author.type}</h1>
-    <p class="author__intro">{author.motto}</p>
-    <p class="author__links">
+    <h1 class="author-site-title">{author.type}</h1>
+    <p class="author-intro">{author.motto}</p>
+    <p class="author-links">
         {
             categories.map((categorie) => (
                 <a
@@ -30,7 +30,7 @@ import { author, categories, socialLinks } from "~/self.config";
             ))
         }
     </p>
-    <p class="author__links">
+    <p class="author-links">
         {
             socialLinks.map((social) => (
                 <a
@@ -57,7 +57,7 @@ import { author, categories, socialLinks } from "~/self.config";
         padding: calc(var(--space) / 2) 0;
     }
 
-    .author__image {
+    .author-image {
         border-radius: 100%;
         width: 90px;
         height: 90px;
@@ -65,22 +65,22 @@ import { author, categories, socialLinks } from "~/self.config";
         display: inline;
     }
 
-    .author__intro {
+    .author-intro {
         opacity: 0.8;
     }
 
-    .author__site-title {
+    .author-site-title {
         font-size: 1.5em;
     }
 
-    .author__links {
+    .author-links {
         margin-top: -0.5em;
         font-size: 1em;
         display: flex;
         justify-content: center;
     }
 
-    .author__links a {
+    .author-links a {
         color: var(--color-link);
         margin: 0 0.5em;
         text-decoration: none;

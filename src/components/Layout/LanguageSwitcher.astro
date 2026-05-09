@@ -21,7 +21,7 @@ const localeLabels: Record<string, string> = {
 
 <div class="language-switcher">
     <button
-        class="language-switcher__button"
+        class="language-switcher-button"
         aria-label="Switch language"
         aria-expanded="false"
     >
@@ -30,14 +30,14 @@ const localeLabels: Record<string, string> = {
         </span>
         <span class="language-label">{localeLabels[currentLocale]}</span>
     </button>
-    <ul class="language-switcher__dropdown">
+    <ul class="language-switcher-dropdown">
         {
             locales.map((locale) => (
                 <li>
                     <a
                         href={getLocalePath(locale, currentPath)}
                         class:list={[
-                            "language-switcher__link",
+                            "language-switcher-link",
                             { active: locale === currentLocale },
                         ]}
                         hreflang={locale}
@@ -58,7 +58,7 @@ const localeLabels: Record<string, string> = {
         align-items: center;
     }
 
-    .language-switcher__button {
+    .language-switcher-button {
         display: flex;
         align-items: center;
         gap: 0.35rem;
@@ -75,7 +75,7 @@ const localeLabels: Record<string, string> = {
             border-color 0.2s;
     }
 
-    .language-switcher__button:hover {
+    .language-switcher-button:hover {
         background-color: var(--color-hover);
         border-color: var(--color-accent);
     }
@@ -85,7 +85,7 @@ const localeLabels: Record<string, string> = {
         align-items: center;
     }
 
-    .language-switcher__dropdown {
+    .language-switcher-dropdown {
         position: absolute;
         top: 100%;
         right: 0;
@@ -107,14 +107,14 @@ const localeLabels: Record<string, string> = {
         z-index: 100;
     }
 
-    .language-switcher:hover .language-switcher__dropdown,
-    .language-switcher:focus-within .language-switcher__dropdown {
+    .language-switcher:hover .language-switcher-dropdown,
+    .language-switcher:focus-within .language-switcher-dropdown {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
     }
 
-    .language-switcher__link {
+    .language-switcher-link {
         display: block;
         padding: 0.5rem 1rem;
         color: var(--color-body);
@@ -123,11 +123,11 @@ const localeLabels: Record<string, string> = {
         transition: background-color 0.2s;
     }
 
-    .language-switcher__link:hover {
+    .language-switcher-link:hover {
         background-color: var(--color-hover);
     }
 
-    .language-switcher__link.active {
+    .language-switcher-link.active {
         color: var(--color-accent);
         font-weight: 500;
     }
@@ -137,7 +137,7 @@ const localeLabels: Record<string, string> = {
             display: none;
         }
 
-        .language-switcher__button {
+        .language-switcher-button {
             padding: 0.35rem;
         }
     }

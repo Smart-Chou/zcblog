@@ -22,7 +22,7 @@ const {
 ---
 
 <PostLayout>
-    <div class="post-card__header">
+    <div class="post-card-header">
         {
             (
                 <PostCardImage
@@ -42,26 +42,26 @@ const {
             )
         }
     </div>
-    <h2 class="post-card__title" aria-label={title}>{title}</h2>
-    <p class="post-card__description">{description}</p>
+    <h2 class="post-card-title" aria-label={title}>{title}</h2>
+    <p class="post-card-description">{description}</p>
     <PostMeta
         publishedTime={publishedTime}
         wordCount={wordCount}
         readTime={readTime}
         currentSlug={currentSlug}
     />
-    <div class="post-tags post-card__tags">
+    <div class="post-tags post-card-tags">
         {tags.map((tag: string) => <PostTag tag={tag} url={`/tags/${tag}/`} />)}
     </div>
     <a
         href={postUrl}
-        class="post-card__link"
+        class="post-card-link"
         aria-label={`Read article: ${title}`}>Read More</a
     >
 </PostLayout>
 
 <style>
-    .post-card__header {
+    .post-card-header {
         margin: calc(var(--space) * -1) calc(var(--space) * -1)
             calc(var(--space) / 2);
         overflow: hidden;
@@ -70,11 +70,11 @@ const {
         display: inline-block;
     }
 
-    .post-card__header:empty {
+    .post-card-header:empty {
         display: none;
     }
 
-    .post-card__header img {
+    .post-card-header img {
         display: block;
     }
 </style>

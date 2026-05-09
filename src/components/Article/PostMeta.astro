@@ -3,7 +3,7 @@ import { formatDate } from "~/utils/formatDate";
 const { publishedTime, wordCount, readTime, currentSlug } = Astro.props;
 ---
 
-<div class="post-meta post-card__meta">
+<div class="post-meta post-card-meta">
     Posted {formatDate(publishedTime)}.&nbsp;&nbsp;
     <span id="word-count">{wordCount} words.</span>&nbsp;
     <span id="read-time">{readTime}.</span>&nbsp;

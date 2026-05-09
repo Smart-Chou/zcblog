@@ -44,7 +44,7 @@ const pagefindTranslations = {
                     </div>
                 ) : (
                     <div class="search-container">
-                        <div id="starlight__search" />
+                        <div id="starlight-search" />
                     </div>
                 )
             }
@@ -114,9 +114,9 @@ const pagefindTranslations = {
         (async () => {
             // @ts-expect-error — Missing types for @pagefind/default-ui package.
             const { PagefindUI } = await import("@pagefind/default-ui");
-            const searchElement = document.getElementById("starlight__search");
+            const searchElement = document.getElementById("starlight-search");
             if (!searchElement) {
-                console.error("Search element #starlight__search not found");
+                console.error("Search element #starlight-search not found");
                 return;
             }
 
@@ -144,14 +144,14 @@ const pagefindTranslations = {
 
             const searchInput =
                 searchElement.querySelector<HTMLInputElement>(
-                    ".pagefind-ui__search-input",
+                    ".pagefind-ui-search-input",
                 ) ||
                 searchElement.querySelector<HTMLInputElement>(
                     'input[type="search"]',
                 ) ||
                 searchElement.querySelector<HTMLInputElement>("input");
             if (searchInput) {
-                searchInput.id = "starlight__search-input";
+                searchInput.id = "starlight-search-input";
                 searchInput.name = "q";
                 setTimeout(() => searchInput.focus(), 100);
             }

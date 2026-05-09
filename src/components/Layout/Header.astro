@@ -11,10 +11,10 @@ const { searchEnable = search.enable } = Astro.props;
 <div class="scroll-progress"></div>
 <header id="progress-container" role="banner">
     <div class="nav-shell">
-        <div class="header__left">
+        <div class="header-left">
             <Logo />
         </div>
-        <div class="header__right">
+        <div class="header-right">
             {searchEnable && <Search />}
             <LanguageSwitcher />
             <Nav />
@@ -100,15 +100,15 @@ const { searchEnable = search.enable } = Astro.props;
             box-shadow var(--duration-slow);
     }
 
-    .header__left,
-    .header__right {
+    .header-left,
+    .header-right {
         display: flex;
         align-items: center;
         gap: 0;
     }
 
     /* Pill-adapted overrides for sub-components */
-    .header__right :global(.language-switcher__button) {
+    .header-right :global(.language-switcher-button) {
         border: none;
         background: transparent;
         padding: 6px 8px;
@@ -118,11 +118,11 @@ const { searchEnable = search.enable } = Astro.props;
         flex-shrink: 0;
     }
 
-    .header__right :global(.language-switcher__button:hover) {
+    .header-right :global(.language-switcher-button:hover) {
         background-color: var(--color-hover);
     }
 
-    .header__right :global(.toggle-theme) {
+    .header-right :global(.toggle-theme) {
         min-width: 36px;
         min-height: 36px;
         padding: 6px;
@@ -141,17 +141,17 @@ const { searchEnable = search.enable } = Astro.props;
             padding: 0 16px;
         }
 
-        .header__left,
-        .header__right {
+        .header-left,
+        .header-right {
             gap: 8px;
         }
 
         /* Hide search text on mobile */
-        .header__right :global(site-search button[data-open-modal]) span {
+        .header-right :global(site-search button[data-open-modal]) span {
             display: none;
         }
 
-        .header__right :global(site-search button[data-open-modal]) kbd {
+        .header-right :global(site-search button[data-open-modal]) kbd {
             display: none !important;
         }
     }
@@ -163,7 +163,7 @@ const { searchEnable = search.enable } = Astro.props;
             padding: 0 12px;
         }
 
-        .header__left :global(.logo) {
+        .header-left :global(.logo) {
             font-size: 0.8em;
         }
     }

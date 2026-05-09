@@ -57,10 +57,10 @@ const postsWithMeta = articles.map((post) => {
         {
             postsWithMeta.map((post) => (
                 <div class="post-item">
-                    <h2 class="post-card__title">
+                    <h2 class="post-card-title">
                         <a href={`/article/${post.slug}/`}>{post.data.title}</a>
                     </h2>
-                    <p class="post-card__description">{post.excerpt}</p>
+                    <p class="post-card-description">{post.excerpt}</p>
                     <PostMeta
                         publishedTime={post.data.pubDate}
                         wordCount={post.wordCount}
@@ -85,15 +85,15 @@ const postsWithMeta = articles.map((post) => {
         border-bottom: 1px solid var(--color-border);
     }
 
-    .post-card__title {
+    .post-card-title {
         margin: 0 0 0.5rem;
     }
 
-    .post-card__title a {
+    .post-card-title a {
         text-decoration: none;
     }
 
-    .post-card__description {
+    .post-card-description {
         opacity: 0.8;
         margin-bottom: 0.75rem;
     }

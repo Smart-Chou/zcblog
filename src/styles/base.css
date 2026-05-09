@@ -93,7 +93,7 @@ hr:before {
         padding: calc(var(--space) * 0.75);
     }
 
-    .post__content p {
+    .post-content p {
         line-height: 1.7;
         text-align: justify;
         hyphens: auto;
@@ -117,7 +117,7 @@ hr:before {
         padding: calc(var(--space) * 0.75) 0 calc(var(--space) * 0.75) !important;
     }
 
-    .post__footer {
+    .post-footer {
         flex-direction: column;
         gap: 1rem;
         align-items: flex-start;

@@ -117,7 +117,7 @@ import MoonIcon from "~/components/icons/Moon.astro";
         };
 
         // 使用 window 属性跨页面持久化，防止 View Transitions 导致重复注册监听器
-        if (!window.__themeInitialized) {
+        if (!window.-themeInitialized) {
             window
                 .matchMedia("(prefers-color-scheme: dark)")
                 .addEventListener("change", (e) => {
@@ -125,7 +125,7 @@ import MoonIcon from "~/components/icons/Moon.astro";
                         setTheme(e.matches ? "dark" : "light");
                     }
                 });
-            window.__themeInitialized = true;
+            window.-themeInitialized = true;
         }
 
         if (document.readyState === "loading") {

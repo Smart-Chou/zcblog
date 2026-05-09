@@ -18,10 +18,10 @@ const navLinks = [
     aria-expanded="false"
     type="button"
 >
-    <span class="nav-menu-btn__icon">
-        <span class="nav-menu-btn__bar"></span>
-        <span class="nav-menu-btn__bar"></span>
-        <span class="nav-menu-btn__bar"></span>
+    <span class="nav-menu-btn-icon">
+        <span class="nav-menu-btn-bar"></span>
+        <span class="nav-menu-btn-bar"></span>
+        <span class="nav-menu-btn-bar"></span>
     </span>
 </button>
 
@@ -31,14 +31,14 @@ const navLinks = [
     aria-label="主导航"
     aria-hidden="true"
 >
-    <ul class="nav-dropdown__list" role="list">
+    <ul class="nav-dropdown-list" role="list">
         {
             navLinks.map((link) => (
                 <li>
                     <a
                         href={link.href}
                         class:list={[
-                            "nav-dropdown__link",
+                            "nav-dropdown-link",
                             { active: currentPath.startsWith(link.href) },
                         ]}
                     >
@@ -133,14 +133,14 @@ const navLinks = [
         background: var(--color-hover);
     }
 
-    .nav-menu-btn__icon {
+    .nav-menu-btn-icon {
         display: flex;
         flex-direction: column;
         gap: 4px;
         width: 18px;
     }
 
-    .nav-menu-btn__bar {
+    .nav-menu-btn-bar {
         display: block;
         width: 18px;
         height: 2px;
@@ -151,20 +151,20 @@ const navLinks = [
             opacity 0.3s;
     }
 
-    .nav-menu-btn--open .nav-menu-btn__bar:nth-child(1) {
+    .nav-menu-btn--open .nav-menu-btn-bar:nth-child(1) {
         transform: translateY(6px) rotate(45deg);
     }
 
-    .nav-menu-btn--open .nav-menu-btn__bar:nth-child(2) {
+    .nav-menu-btn--open .nav-menu-btn-bar:nth-child(2) {
         opacity: 0;
     }
 
-    .nav-menu-btn--open .nav-menu-btn__bar:nth-child(3) {
+    .nav-menu-btn--open .nav-menu-btn-bar:nth-child(3) {
         transform: translateY(-6px) rotate(-45deg);
     }
 
     @media screen and (max-width: 768px) {
-        .nav-menu-btn__label {
+        .nav-menu-btn-label {
             display: none;
         }
 
@@ -205,7 +205,7 @@ const navLinks = [
         pointer-events: auto;
     }
 
-    .nav-dropdown__list {
+    .nav-dropdown-list {
         display: flex;
         justify-content: center;
         gap: 8px;
@@ -215,7 +215,7 @@ const navLinks = [
         flex-wrap: wrap;
     }
 
-    .nav-dropdown__link {
+    .nav-dropdown-link {
         display: inline-flex;
         align-items: center;
         padding: 0.5em 1.2em;
@@ -231,12 +231,12 @@ const navLinks = [
             background-color var(--duration-fast);
     }
 
-    .nav-dropdown__link:hover {
+    .nav-dropdown-link:hover {
         color: var(--color-accent);
         background: var(--color-hover);
     }
 
-    .nav-dropdown__link.active {
+    .nav-dropdown-link.active {
         color: var(--color-accent);
     }
 
@@ -248,7 +248,7 @@ const navLinks = [
             border-radius: 20px;
         }
 
-        .nav-dropdown__link {
+        .nav-dropdown-link {
             font-size: 0.95em;
             padding: 0.4em 0.9em;
         }

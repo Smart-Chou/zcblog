@@ -215,21 +215,21 @@ sup:after {
 }
 
 /* ---- Post content ---- */
-.post__content h2:first-child {
+.post-content h2:first-child {
     margin-top: 0;
 }
 
-.post__content p {
+.post-content p {
     line-height: 1.8;
 }
 
-.post__content a,
-.post__footer a {
+.post-content a,
+.post-footer a {
     display: inline-flex;
     align-items: anchor-center;
 }
 
-.post__content img {
+.post-content img {
     display: block;
     max-width: 100%;
     height: auto;

@@ -3,7 +3,7 @@ import "~/styles/toc.css";
 ---
 
 <div class="toc">
-    <div class="toc__content"></div>
+    <div class="toc-content"></div>
 </div>
 
 <script>
@@ -12,7 +12,7 @@ import "~/styles/toc.css";
         // 等待主题完全应用后再初始化 TOC，避免样式闪烁
         requestAnimationFrame(() => {
             tocbot.default.init({
-                tocSelector: ".toc__content",
+                tocSelector: ".toc-content",
                 contentSelector: "#post-content",
                 headingSelector: "h2, h3",
                 headingsOffset: 100,
@@ -27,11 +27,11 @@ import "~/styles/toc.css";
         // 等待主题完全应用后再初始化滚动监听
         requestAnimationFrame(() => {
             const tocContent = document.querySelector(
-                ".toc__content",
+                ".toc-content",
             ) as HTMLElement;
             const post = document.querySelector("#post-content") as HTMLElement;
             const footer = document.querySelector(
-                ".post__footer",
+                ".post-footer",
             ) as HTMLElement;
             if (tocContent && post && footer) {
                 window.addEventListener("scroll", function () {

@@ -49,7 +49,7 @@ html[data-theme="dark"]:root {
     --a-func-short: cubic-bezier(0, 0, 0, 1);
 }
 
-.toc__content {
+.toc-content {
     position: fixed;
     left: calc((100vw - min(100vw, 664px)) / 2 + min(100vw, 664px) + 178px);
     top: 50%;
@@ -63,33 +63,33 @@ html[data-theme="dark"]:root {
 }
 
 @media screen and (max-width: 1440px) {
-    .toc__content {
+    .toc-content {
         left: calc(100vw - 200px);
     }
 }
 
 @media screen and (max-width: 1280px) {
-    .toc__content {
+    .toc-content {
         display: none;
     }
 }
 
-.toc__content:hover {
+.toc-content:hover {
     overflow: auto;
 }
 
-.toc__content:hover .toc-list-item .toc-link {
+.toc-content:hover .toc-list-item .toc-link {
     display: inline-block;
     opacity: 1;
     cursor: pointer;
 }
 
-.toc__content .toc-list-item {
+.toc-content .toc-list-item {
     text-align: left;
     margin-bottom: 0px;
 }
 
-.toc__content .toc-list-item .toc-link {
+.toc-content .toc-list-item .toc-link {
     font-size: 12px;
     line-height: 17px;
     color: var(--B80-t);
@@ -107,22 +107,22 @@ html[data-theme="dark"]:root {
     padding-left: 10px;
 }
 
-.toc__content .toc-list-item .toc-link:hover {
+.toc-content .toc-list-item .toc-link:hover {
     color: var(--B60-t);
     display: inline-block;
     opacity: 1;
     cursor: pointer;
 }
 
-.toc__content .toc-list-item .toc-link {
+.toc-content .toc-list-item .toc-link {
     margin-left: 8px;
 }
 
-html[data-theme="dark"] .toc__content .toc-list-item .toc-link {
+html[data-theme="dark"] .toc-content .toc-list-item .toc-link {
     color: var(--B80-t);
 }
 
-html[data-theme="dark"] .toc__content .toc-list-item .toc-link:hover {
+html[data-theme="dark"] .toc-content .toc-list-item .toc-link:hover {
     color: var(--B60-t);
 }
 
@@ -130,16 +130,16 @@ ol {
     list-style-type: none;
 }
 
-.toc__content {
+.toc-content {
     overflow-y: auto;
 }
 
-.toc__content > .toc-list {
+.toc-content > .toc-list {
     overflow: hidden;
     position: relative;
 }
 
-.toc__content > .toc-list li {
+.toc-content > .toc-list li {
     list-style: none;
 }
 

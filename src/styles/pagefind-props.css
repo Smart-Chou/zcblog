@@ -38,7 +38,7 @@
             ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
             Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
             "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        --__sl-font:
+        ---sl-font:
             var(--sl-font, var(--sl-font-system)), var(--sl-font-system);
     }
 
@@ -81,7 +81,7 @@
             ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
             Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
             "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        --__sl-font:
+        ---sl-font:
             var(--sl-font, var(--sl-font-system)), var(--sl-font-system);
     }
 }

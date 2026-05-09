@@ -19,14 +19,14 @@ const nextPost = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : n
         <nav class="post-nav">
             {
                 prevPost && (
-                    <a href={`/article/${prevPost.id}/`} class="post-nav__link prev">
+                    <a href={`/article/${prevPost.id}/`} class="post-nav-link prev">
                         ◀ {prevPost.data.title}
                     </a>
                 )
             }
             {
                 nextPost && (
-                    <a href={`/article/${nextPost.id}/`} class="post-nav__link next">
+                    <a href={`/article/${nextPost.id}/`} class="post-nav-link next">
                         {nextPost.data.title} ▶
                     </a>
                 )
@@ -43,26 +43,26 @@ const nextPost = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : n
         overflow: auto;
     }
 
-    .post-nav__link {
+    .post-nav-link {
         border: none;
         text-decoration: none;
         color: var(--color-body);
         transition: color var(--duration-fast);
     }
 
-    .post-nav__link:hover {
+    .post-nav-link:hover {
         color: var(--color-accent);
     }
 
-    .post-nav__link.prev {
+    .post-nav-link.prev {
         float: left;
     }
 
-    .post-nav__link.next {
+    .post-nav-link.next {
         float: right;
     }
 
-    .post-nav__link:first-of-type {
+    .post-nav-link:first-of-type {
         margin-bottom: calc(var(--space) / 4);
     }
 </style>
