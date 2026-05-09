@@ -46,8 +46,8 @@ import Button from "~/components/Widget/Button.astro";
         margin: 0;
         background: linear-gradient(
             135deg,
-            var(--accent-color),
-            var(--link-color)
+            var(--color-accent),
+            var(--color-link)
         );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -57,12 +57,12 @@ import Button from "~/components/Widget/Button.astro";
     .error-title {
         font-size: 2rem;
         margin: 1rem 0;
-        color: var(--title-color);
+        color: var(--color-title);
     }
 
     .error-description {
         font-size: 1.1rem;
-        color: var(--body-color);
+        color: var(--color-body);
         opacity: 0.8;
         margin: 1.5rem 0 2rem;
         line-height: 1.6;
@@ -76,10 +76,10 @@ import Button from "~/components/Widget/Button.astro";
     }
 
     .error-actions .btn {
-        --btn-primary-bg: var(--accent-color);
-        --btn-secondary-color: var(--accent-color);
-        --btn-secondary-border: var(--accent-color);
-        --btn-secondary-hover-bg: var(--accent-color);
+        --btn-primary-bg: var(--color-accent);
+        --btn-secondary-color: var(--color-accent);
+        --btn-secondary-border: var(--color-accent);
+        --btn-secondary-hover-bg: var(--color-accent);
     }
 
     @media (max-width: 768px) {

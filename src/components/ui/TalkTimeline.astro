@@ -82,7 +82,7 @@ const sorted = [...items].sort(
         top: 0;
         bottom: 0;
         width: 2px;
-        background: var(--border-color);
+        background: var(--color-border);
     }
 
     .talk-item {
@@ -98,16 +98,16 @@ const sorted = [...items].sort(
         width: 12px;
         height: 12px;
         border-radius: 50%;
-        background: var(--link-color);
-        border: 2px solid var(--bg-color);
+        background: var(--color-link);
+        border: 2px solid var(--color-bg);
         z-index: 1;
     }
 
     .talk-card {
-        background: var(--bg-content-color);
+        background: var(--color-surface);
         border-radius: var(--radius);
         padding: 1rem 1.25rem;
-        box-shadow: var(--shadow-small);
+        box-shadow: var(--shadow-sm);
     }
 
     .talk-head {
@@ -128,21 +128,21 @@ const sorted = [...items].sort(
         font-size: 0.75rem;
         padding: 2px 8px;
         border-radius: 4px;
-        background: var(--link-color);
+        background: var(--color-link);
         color: #fff;
         opacity: 0.85;
     }
 
     .talk-time {
         font-size: 0.75rem;
-        color: var(--body-color);
+        color: var(--color-body);
         opacity: 0.6;
     }
 
     .talk-content {
         font-size: 0.9rem;
         line-height: 1.6;
-        color: var(--body-color);
+        color: var(--color-body);
     }
 
     .talk-content a {
@@ -151,7 +151,7 @@ const sorted = [...items].sort(
     }
 
     .talk-content a:hover {
-        color: var(--link-color);
+        color: var(--color-link);
     }
 
     .talk-source {
@@ -161,7 +161,7 @@ const sorted = [...items].sort(
     }
 
     .talk-source a {
-        color: var(--link-color);
+        color: var(--color-link);
         text-decoration: none;
     }
 

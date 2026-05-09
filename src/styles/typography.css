@@ -4,7 +4,7 @@
 
 body,
 p {
-    font-family: var(--base-font-family);
+    font-family: var(--font-body);
 }
 
 p {
@@ -15,7 +15,7 @@ figcaption {
     margin: 1em 0;
     text-align: center;
     font-size: var(--text-sm);
-    color: var(--text-color-secondary);
+    color: var(--color-muted);
 }
 
 .navlink,
@@ -25,7 +25,7 @@ li,
 ol,
 table,
 ul {
-    font-family: var(--base-font-family);
+    font-family: var(--font-body);
 }
 
 /* ---- Headings — Serif editorial ---- */
@@ -35,40 +35,45 @@ h3,
 h4,
 h5 {
     transition: color var(--duration-slower);
-    color: var(--title-color);
+    color: var(--color-title);
     margin: 2.75rem 0 1rem;
-    font-family: var(--title-font-family);
+    font-family: var(--font-heading);
     font-weight: 600;
-    line-height: var(--leading-heading);
+    line-height: var(--leading-snug);
     letter-spacing: -0.02em;
 }
 
 h1 {
     margin-top: 0;
-    font-size: 2.2em;
+    font-size: var(--text-4xl);
     font-weight: 700;
 }
 
 h2 {
-    font-size: 1.7em;
+    font-size: var(--text-3xl);
     font-weight: 600;
 }
 
 h3 {
-    font-size: 1.4em;
+    font-size: var(--text-2xl);
     font-weight: 600;
 }
 
 h4 {
-    font-size: 1.15em;
+    font-size: var(--text-xl);
     font-weight: 600;
 }
 
 h5 {
-    font-size: 1em;
+    font-size: var(--text-lg);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+}
+
+h6 {
+    font-size: var(--text-base);
+    font-weight: 600;
 }
 
 small {
@@ -81,11 +86,11 @@ strong {
 
 /* ---- Blockquote — Editorial pull quote ---- */
 blockquote {
-    border-left: 3px solid var(--accent-color);
+    border-left: 3px solid var(--color-accent);
     margin: 2em 0;
     padding: 0.5em 0 0.5em 1.5em;
-    color: var(--title-color);
-    font-family: var(--title-font-family);
+    color: var(--color-title);
+    font-family: var(--font-heading);
     font-size: 1.1em;
     line-height: 1.6;
 }
@@ -124,7 +129,7 @@ ol li {
 /* ---- Code ---- */
 code,
 pre {
-    font-family: var(--monospace-font-family);
+    font-family: var(--font-mono);
     text-align: left;
     white-space: pre-wrap;
     word-spacing: normal;
@@ -138,11 +143,11 @@ pre {
 pre {
     padding: calc(var(--space) / 3) var(--space);
     font-size: 0.9em;
-    background-color: var(--bg-code);
+    background-color: var(--color-code-bg);
     margin: 1.5em calc(0em - var(--space));
     border-radius: var(--radius);
     overflow: auto;
-    color: var(--text-code-block);
+    color: var(--color-code-fg);
 }
 
 pre code {
@@ -151,14 +156,14 @@ pre code {
 }
 
 code {
-    background-color: var(--bg-code);
+    background-color: var(--color-code-bg);
     font-size: 0.9em;
     padding: 0.15em 0.4em;
     border-radius: var(--radius-sm);
 }
 
 :not(pre) > code {
-    color: var(--text-code);
+    color: var(--color-code-accent);
     white-space: normal;
 }
 
@@ -178,18 +183,18 @@ table {
 }
 
 table tr {
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--color-border);
 }
 
 table td,
 table th {
-    padding: 8px 16px;
-    border: 1px solid var(--border-color);
+    padding: var(--space-xs) var(--space-md);
+    border: 1px solid var(--color-border);
 }
 
 table th {
     font-weight: 600;
-    background-color: var(--bg-code);
+    background-color: var(--color-code-bg);
 }
 
 /* ---- Superscript ---- */
@@ -197,7 +202,7 @@ sup {
     position: relative;
     top: -0.3em;
     vertical-align: top;
-    color: var(--link-color);
+    color: var(--color-link);
     margin: 0 0.15em;
 }
 
@@ -239,19 +244,19 @@ sup:after {
 /* ---- Responsive ---- */
 @media screen and (max-width: 650px) {
     h1 {
-        font-size: 1.7em;
+        font-size: var(--text-3xl);
     }
 
     h2 {
-        font-size: 1.45em;
+        font-size: var(--text-2xl);
     }
 
     h3 {
-        font-size: 1.25em;
+        font-size: var(--text-xl);
     }
 
     h4 {
-        font-size: 1.1em;
+        font-size: var(--text-lg);
     }
 
     pre {

@@ -44,3 +44,5 @@ scripts/parse_r2_files.py
 tasks/
 
 codeFather/
+
+design-system/

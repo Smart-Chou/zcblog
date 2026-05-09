@@ -1,6 +1,6 @@
 a {
     text-decoration: none;
-    color: var(--main-font-color);
+    color: var(--color-body);
 }
 
 main {
@@ -19,8 +19,8 @@ main {
     border-radius: 1rem;
     padding: 2rem;
     max-width: calc(var(--content-width) / 3 * 2);
-    background-color: var(--bg-content-color);
-    border: 1px solid var(--border-color);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
     margin: 0 auto;
 }
 
@@ -37,9 +37,9 @@ main {
     border-radius: 8px;
     width: 100%;
     text-align: center;
-    color: var(--link-color);
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-color);
+    color: var(--color-link);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
 }
 
 .redirect #site-info {
@@ -72,12 +72,12 @@ main {
     width: 160px;
     margin: 30px auto 0;
     border-radius: 8px;
-    color: var(--main-font-color);
-    background-color: var(--border-color);
+    color: var(--color-body);
+    background-color: var(--color-border);
     transition: background-color 0.3s;
     cursor: pointer;
 }
 
 .redirect #jump-button:hover {
-    background-color: var(--bg-color);
+    background-color: var(--color-bg);
 }

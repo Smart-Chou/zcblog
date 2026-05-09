@@ -51,18 +51,18 @@ const {
     .media-card {
         display: block;
         text-decoration: none;
-        border-radius: 12px;
+        border-radius: var(--radius-xl);
         overflow: hidden;
-        background: var(--bg-content-color);
-        box-shadow: var(--shadow-small);
+        background: var(--color-surface);
+        box-shadow: var(--shadow-sm);
         transition:
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
+            transform var(--duration-slow) var(--ease-out),
+            box-shadow var(--duration-slow) var(--ease-out);
     }
 
     .media-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--shadow-xl);
     }
 
     .media-cover {
@@ -74,7 +74,7 @@ const {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.3s ease;
+        transition: transform var(--duration-slow) var(--ease-out);
     }
 
     .media-card:hover .cover-img {

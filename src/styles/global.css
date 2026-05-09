@@ -19,6 +19,12 @@
 @import url(./transitions.css);
 @import url(./fancybox-overrides.css);
 
+/* =========================================
+   Unlayered Critical Styles
+   These must come after ALL @import statements
+   and override layered/Tailwind preflight styles.
+   ========================================= */
+
 /* ---- Paper Texture Overlay ---- */
 body::before {
     content: "";
@@ -41,4 +47,28 @@ html[data-theme="dark"] body::before {
     body::before {
         display: none;
     }
+}
+
+/* ---- Link Styles (unlayered — overrides Tailwind preflight) ---- */
+a {
+    color: #c2413b;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: opacity var(--duration-fast);
+}
+
+html[data-theme="dark"] a {
+    color: #e8736a;
+}
+
+a:hover {
+    opacity: 0.75;
+}
+
+/* Do not style button-like links as text links */
+a.button,
+a.btn,
+button {
+    color: inherit;
+    opacity: 1;
 }

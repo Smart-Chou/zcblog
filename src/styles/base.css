@@ -17,34 +17,23 @@ html {
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--body-color);
+    background-color: var(--color-bg);
+    color: var(--color-body);
     transition:
         color var(--duration-slower),
         background-color var(--duration-slower);
-    font-family: var(--base-font-family);
+    font-family: var(--font-body);
     font-weight: 400;
     margin: 0;
     padding: 0;
-    line-height: var(--leading-body);
+    line-height: var(--leading-relaxed);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 body ::selection {
-    background-color: var(--selection-color);
-}
-
-a:not(.button) {
-    color: var(--link-color);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
-    transition: opacity var(--duration-fast);
-}
-
-a:not(.button):hover {
-    opacity: 0.75;
+    background-color: var(--color-selection);
 }
 
 img {
@@ -56,7 +45,7 @@ hr {
     text-align: center;
     border: none;
     margin: calc(var(--space) / 2) 0;
-    color: var(--text-color-secondary);
+    color: var(--color-muted);
 }
 
 hr:before {

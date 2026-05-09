@@ -442,7 +442,7 @@ a.read-more {
     object-fit: cover;
     height: auto;
     animation: fadeIn 1s;
-    transition: all 0.4s ease-in-out;
+    transition: all var(--duration-slower) var(--ease-in-out);
 }
 
 .memos-photo span.photo-title,
@@ -519,7 +519,7 @@ a.read-more {
 .goods-duiqi img {
     width: 80%;
     margin: 0;
-    transition: transform 0.2s ease-in-out;
+    transition: transform var(--duration-normal) var(--ease-in-out);
     cursor: pointer;
 }
 
@@ -654,16 +654,16 @@ a.read-more {
     border-radius: 3rem;
     font-weight: 600;
     font-size: 0.95rem;
-    --btn-primary-bg: var(--link-color);
-    --btn-secondary-color: var(--link-color);
-    --btn-secondary-border: var(--link-color);
-    --btn-secondary-hover-bg: var(--link-color);
+    --btn-primary-bg: var(--color-link);
+    --btn-secondary-color: var(--color-link);
+    --btn-secondary-border: var(--color-link);
+    --btn-secondary-hover-bg: var(--color-link);
 }
 
 /* ========================================
    响应式适配
    ======================================== */
-@media (max-width: 899px) {
+@media (max-width: 900px) {
     .home-1 {
         flex-direction: column;
     }

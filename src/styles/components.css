@@ -3,13 +3,13 @@
    ========================================= */
 
 .content-box {
-    background-color: var(--bg-content-color);
+    background-color: var(--color-surface);
     max-width: var(--content-width);
     margin: 0 auto;
     padding: var(--space);
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-border);
     transition:
         transform var(--duration-slow),
         background-color var(--duration-slow),
@@ -34,7 +34,7 @@ header {
 
 .logo {
     text-decoration: none;
-    color: var(--body-color);
+    color: var(--color-body);
     font-size: 0.9em;
 }
 
@@ -48,7 +48,7 @@ header {
 
 .posts p span {
     font-size: 0.85rem;
-    font-family: var(--monospace-font-family);
+    font-family: var(--font-mono);
 }
 
 .posts p span:after {
@@ -57,8 +57,8 @@ header {
 
 .post-meta {
     font-size: 0.8em;
-    color: var(--text-color-secondary);
-    font-family: var(--base-font-family);
+    color: var(--color-muted);
+    font-family: var(--font-body);
 }
 
 .post-tags {
@@ -66,14 +66,14 @@ header {
 }
 
 .post-tags__link {
-    margin: 0.3em 0.6em 0.3em 0;
+    margin: var(--space-2xs) var(--space-xs) var(--space-2xs) 0;
     font-size: 0.8em;
-    color: var(--text-color-secondary);
+    color: var(--color-muted);
     text-decoration: none;
-    background-color: var(--bg-color);
-    padding: 0.4em 0.75em;
+    background-color: var(--color-bg);
+    padding: var(--space-2xs) var(--space-sm);
     border-radius: var(--radius);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-border);
     display: inline-block;
     transition:
         color var(--duration-fast),
@@ -81,8 +81,8 @@ header {
 }
 
 .post-tags__link:hover {
-    color: var(--accent-color);
-    border-color: var(--accent-color);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
     opacity: 1;
 }
 
@@ -95,7 +95,7 @@ header {
 
 .post-title__publish-icon {
     vertical-align: top;
-    background-color: var(--accent-color);
+    background-color: var(--color-accent);
     display: inline-block;
     font-size: 13px;
     height: 18px;
@@ -118,8 +118,8 @@ header {
     position: relative;
     content-visibility: auto;
     contain-intrinsic-size: 0 320px;
-    background: var(--bg-content-color);
-    border: 1px solid var(--border-color);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius);
     padding: var(--space-md);
     transition:
@@ -131,7 +131,7 @@ header {
 .post-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--accent-color);
+    border-color: var(--color-accent);
 }
 
 .post-card__image {
@@ -146,7 +146,7 @@ header {
 
 .post-card__title {
     margin-top: 0;
-    font-family: var(--title-font-family);
+    font-family: var(--font-heading);
 }
 
 .post-card__tags {

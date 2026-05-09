@@ -37,16 +37,16 @@ const { id, title, description, coverImage, photoCount, updatedAt } =
         text-decoration: none;
         border-radius: var(--radius);
         overflow: hidden;
-        box-shadow: var(--shadow-small);
-        background-color: var(--bg-content-color);
+        box-shadow: var(--shadow-sm);
+        background-color: var(--color-surface);
         transition:
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
+            transform var(--duration-slow) var(--ease-out),
+            box-shadow var(--duration-slow) var(--ease-out);
     }
 
     .album-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-xl);
     }
 
     .album-cover {
@@ -60,7 +60,7 @@ const { id, title, description, coverImage, photoCount, updatedAt } =
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s ease;
+        transition: transform var(--duration-slower) var(--ease-out);
     }
 
     .album-card:hover .cover-image {
@@ -78,7 +78,7 @@ const { id, title, description, coverImage, photoCount, updatedAt } =
         align-items: center;
         justify-content: center;
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity var(--duration-slow) var(--ease-out);
     }
 
     .album-card:hover .cover-overlay {
@@ -86,17 +86,17 @@ const { id, title, description, coverImage, photoCount, updatedAt } =
     }
 
     .view-button {
-        background-color: var(--link-color);
+        background-color: var(--color-link);
         color: white;
         padding: 0.5rem 1rem;
         border-radius: var(--radius);
         font-size: 0.9rem;
         font-weight: 500;
-        transition: background-color 0.3s ease;
+        transition: background-color var(--duration-slow) var(--ease-out);
     }
 
     .view-button:hover {
-        background-color: var(--accent-color);
+        background-color: var(--color-accent);
     }
 
     .album-info {
@@ -107,17 +107,17 @@ const { id, title, description, coverImage, photoCount, updatedAt } =
         font-size: 1.2rem;
         font-weight: 600;
         margin-bottom: 0.5rem;
-        color: var(--title-color);
-        transition: color 0.3s ease;
+        color: var(--color-title);
+        transition: color var(--duration-slow) var(--ease-out);
     }
 
     .album-card:hover .album-title {
-        color: var(--link-color);
+        color: var(--color-link);
     }
 
     .album-description {
         font-size: 0.9rem;
-        color: var(--body-color);
+        color: var(--color-body);
         margin-bottom: 1rem;
         line-height: 1.4;
     }
@@ -127,7 +127,7 @@ const { id, title, description, coverImage, photoCount, updatedAt } =
         justify-content: space-between;
         align-items: center;
         font-size: 0.8rem;
-        color: var(--body-color);
+        color: var(--color-body);
         opacity: 0.8;
     }
 

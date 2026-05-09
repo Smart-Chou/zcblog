@@ -114,22 +114,22 @@ const allTags = [
         padding: 6px 16px;
         border: none;
         border-radius: 20px;
-        background: var(--bg-content-color);
-        color: var(--body-color);
+        background: var(--color-surface);
+        color: var(--color-body);
         font-size: 0.85rem;
         font-weight: 500;
         cursor: pointer;
-        transition: all 0.2s ease;
-        box-shadow: var(--shadow-small);
+        transition: all var(--duration-normal) var(--ease-out);
+        box-shadow: var(--shadow-sm);
     }
 
     .filter-tag:hover {
-        background: var(--link-color);
+        background: var(--color-link);
         color: white;
     }
 
     .filter-tag.active {
-        background: var(--link-color);
+        background: var(--color-link);
         color: white;
     }
 

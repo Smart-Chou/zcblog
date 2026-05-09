@@ -119,25 +119,25 @@ if (!foundAlbum) {
         display: inline-block;
         margin-bottom: 1.5rem;
         font-size: 1rem;
-        color: var(--body-color);
+        color: var(--color-body);
         text-decoration: none;
-        transition: color 0.3s ease;
+        transition: color var(--duration-slow) var(--ease-out);
     }
 
     .back-link:hover {
-        color: var(--link-color);
+        color: var(--color-link);
     }
 
     .album-title {
         font-size: 2.2rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
-        color: var(--title-color);
+        color: var(--color-title);
     }
 
     .album-description {
         font-size: 1.1rem;
-        color: var(--body-color);
+        color: var(--color-body);
         margin-bottom: 1rem;
     }
 
@@ -146,7 +146,7 @@ if (!foundAlbum) {
         justify-content: center;
         gap: 2rem;
         font-size: 0.9rem;
-        color: var(--body-color);
+        color: var(--color-body);
         opacity: 0.8;
     }
 
@@ -161,8 +161,8 @@ if (!foundAlbum) {
         overflow: hidden;
         break-inside: avoid;
         margin-bottom: 1rem;
-        box-shadow: var(--shadow-small);
-        transition: box-shadow 0.3s ease;
+        box-shadow: var(--shadow-sm);
+        transition: box-shadow var(--duration-slow) var(--ease-out);
         text-decoration: none;
         color: inherit;
         cursor: zoom-in;
@@ -179,7 +179,7 @@ if (!foundAlbum) {
     .photo-image {
         width: 100%;
         display: block;
-        transition: transform 0.5s ease;
+        transition: transform var(--duration-slower) var(--ease-out);
     }
 
     .photo-item:hover .photo-image {
@@ -191,7 +191,7 @@ if (!foundAlbum) {
         color: white;
         padding: 1rem;
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity var(--duration-slow) var(--ease-out);
     }
 
     .photo-item:hover .photo-overlay {

@@ -100,7 +100,7 @@ const totalPages = Math.ceil(items.length / itemsPerPage);
         gap: 1rem;
     }
 
-    @media (min-width: 640px) {
+    @media (min-width: 650px) {
         .bangumi-grid {
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         }
@@ -113,7 +113,7 @@ const totalPages = Math.ceil(items.length / itemsPerPage);
     .empty-section {
         text-align: center;
         padding: 3rem;
-        color: var(--body-color);
+        color: var(--color-body);
         opacity: 0.7;
     }
 
@@ -128,17 +128,17 @@ const totalPages = Math.ceil(items.length / itemsPerPage);
     .page-btn {
         padding: 0.5rem 1rem;
         border-radius: 8px;
-        background: var(--bg-content-color);
-        border: 1px solid var(--border-color);
-        color: var(--body-color);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        color: var(--color-body);
         cursor: pointer;
         transition: all 0.2s;
     }
 
     .page-btn:hover:not(:disabled) {
-        background: var(--link-color);
+        background: var(--color-link);
         color: white;
-        border-color: var(--link-color);
+        border-color: var(--color-link);
     }
 
     .page-btn:disabled {
@@ -148,7 +148,7 @@ const totalPages = Math.ceil(items.length / itemsPerPage);
 
     .page-info {
         font-size: 0.9rem;
-        color: var(--body-color);
+        color: var(--color-body);
     }
 </style>
 

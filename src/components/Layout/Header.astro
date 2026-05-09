@@ -44,7 +44,7 @@ const { searchEnable = search.enable } = Astro.props;
 
 <style>
     .scroll-progress {
-        background: var(--accent-color);
+        background: var(--color-accent);
         position: fixed;
         z-index: 1031;
         top: 0;
@@ -63,7 +63,7 @@ const { searchEnable = search.enable } = Astro.props;
         left: 0;
         right: 0;
         background-color: hsla(0, 0%, 100%, 0.6);
-        background-color: rgba(var(--bg-color-rgb), 0.6);
+        background-color: rgba(var(--color-bg-rgb), 0.6);
         -webkit-backdrop-filter: blur(32px);
         backdrop-filter: blur(32px);
         z-index: 10;
@@ -94,7 +94,7 @@ const { searchEnable = search.enable } = Astro.props;
     .header__right {
         display: flex;
         align-items: center;
-        font-family: var(--base-font-family);
+        font-family: var(--font-body);
     }
 
     @media screen and (max-width: 768px) {
@@ -104,7 +104,7 @@ const { searchEnable = search.enable } = Astro.props;
         }
 
         .header__right {
-            gap: 8px;
+            gap: var(--space-xs);
         }
 
         /* 在移动端隐藏搜索按钮文本，只显示图标 */

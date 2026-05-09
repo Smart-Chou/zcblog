@@ -64,16 +64,16 @@ import { donate } from "~/self.config";
     }
 
     .donate .modal::backdrop {
-        background-color: var(--bg-content-color-lighten);
+        background-color: var(--color-surface-translucent);
     }
 
     .donate .modal .modal-main {
         padding: 0;
         overflow: hidden;
         border-radius: 16px;
-        background-color: var(--bg-color);
-        border: 1px solid var(--border-color);
-        box-shadow: 0 8px 16px -4px var(--shadow-small);
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-border);
+        box-shadow: 0 8px 16px -4px var(--shadow-sm);
     }
 
     .donate .modal .modal-main .header-title {
@@ -84,8 +84,8 @@ import { donate } from "~/self.config";
         font-size: 1.125rem;
         padding: 20px;
         height: 64px;
-        background-color: var(--bg-color);
-        border-bottom: 1px solid var(--border-color);
+        background-color: var(--color-bg);
+        border-bottom: 1px solid var(--color-border);
     }
 
     .donate .modal .modal-main .modal-content {
@@ -116,7 +116,7 @@ import { donate } from "~/self.config";
         justify-content: center;
         margin-bottom: 1rem;
         width: 100%;
-        color: var(--link-color);
+        color: var(--color-link);
         font-weight: 700;
     }
 
@@ -134,7 +134,7 @@ import { donate } from "~/self.config";
 
     .donate a {
         text-decoration: none;
-        color: var(--link-color);
+        color: var(--color-link);
         transition: all 0.3s;
     }
 
@@ -143,15 +143,15 @@ import { donate } from "~/self.config";
         display: flex;
         align-items: center;
         flex-direction: column;
-        background-color: var(--bg-code);
+        background-color: var(--color-code-bg);
     }
 
     .donate .s-card {
         padding: 0.8rem;
         border-radius: 16px;
-        background-color: var(--bg-color);
-        border: 1px solid var(--border-color);
-        box-shadow: 0 8px 16px -4px var(--shadow-small);
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-border);
+        box-shadow: 0 8px 16px -4px var(--shadow-sm);
         transition: all 0.3s;
         cursor: pointer;
     }
@@ -167,7 +167,7 @@ import { donate } from "~/self.config";
         text-align: center;
         font-size: 12px;
         opacity: 0.6;
-        color: var(--text-code-block);
+        color: var(--color-code-fg);
     }
 </style>
 

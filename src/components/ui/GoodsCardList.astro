@@ -52,8 +52,8 @@ const { items, imageBaseUrl = "" } = Astro.props;
 
     .goods-item {
         border-radius: 12px;
-        background: var(--bg-content-color);
-        box-shadow: var(--shadow-small);
+        background: var(--color-surface);
+        box-shadow: var(--shadow-sm);
         overflow: hidden;
         transition:
             transform 0.3s ease,
@@ -89,12 +89,12 @@ const { items, imageBaseUrl = "" } = Astro.props;
         font-size: 1rem;
         font-weight: 600;
         margin-bottom: 0.35rem;
-        color: var(--title-color);
+        color: var(--color-title);
     }
 
     .goods-note {
         font-size: 0.85rem;
-        color: var(--body-color);
+        color: var(--color-body);
         line-height: 1.5;
         opacity: 0.8;
     }

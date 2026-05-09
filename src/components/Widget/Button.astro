@@ -34,12 +34,12 @@ const {
         border-radius: 0.5rem;
         text-decoration: none;
         font-weight: 500;
-        transition: all 0.3s ease;
+        transition: all var(--duration-slow) var(--ease-out);
         border: 2px solid transparent;
     }
 
     .btn-primary {
-        background: var(--btn-primary-bg, var(--link-color));
+        background: var(--btn-primary-bg, var(--color-link));
         color: var(--btn-primary-color, #fff);
     }
 
@@ -50,12 +50,12 @@ const {
 
     .btn-secondary {
         background: transparent;
-        color: var(--btn-secondary-color, var(--link-color));
-        border-color: var(--btn-secondary-border, var(--link-color));
+        color: var(--btn-secondary-color, var(--color-link));
+        border-color: var(--btn-secondary-border, var(--color-link));
     }
 
     .btn-secondary:hover {
-        background: var(--btn-secondary-hover-bg, var(--link-color));
+        background: var(--btn-secondary-hover-bg, var(--color-link));
         color: var(--btn-secondary-hover-color, #fff);
         transform: translateY(-2px);
     }

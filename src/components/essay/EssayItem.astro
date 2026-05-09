@@ -66,10 +66,10 @@ const images = item.images
 
 <style>
     .essay-card {
-        background: var(--bg-content-color);
+        background: var(--color-surface);
         border-radius: var(--radius);
         padding: 1rem;
-        box-shadow: var(--shadow-small);
+        box-shadow: var(--shadow-sm);
         break-inside: avoid;
         margin-bottom: 1rem;
     }
@@ -96,17 +96,17 @@ const images = item.images
     .username {
         font-weight: 600;
         font-size: 0.85rem;
-        color: var(--title-color);
+        color: var(--color-title);
     }
 
     .time {
         font-size: 0.7rem;
-        color: var(--body-color);
+        color: var(--color-body);
         opacity: 0.7;
     }
 
     .content-text {
-        color: var(--body-color);
+        color: var(--color-body);
         line-height: 1.6;
         font-size: 0.9rem;
         white-space: pre-wrap;
@@ -147,7 +147,7 @@ const images = item.images
         object-fit: cover;
         border-radius: 4px;
         cursor: pointer;
-        transition: transform 0.2s ease;
+        transition: transform var(--duration-normal) var(--ease-out);
     }
 
     .essay-img:hover {
@@ -157,10 +157,10 @@ const images = item.images
     .essay-comment {
         margin-top: 0.5rem;
         padding: 0.5rem;
-        background: var(--bg-color);
+        background: var(--color-bg);
         border-radius: 4px;
         font-size: 0.8rem;
-        color: var(--body-color);
+        color: var(--color-body);
         opacity: 0.9;
     }
 </style>
