@@ -128,8 +128,9 @@ html[data-theme="dark"] {
    ========================================= */
 html {
     --space: 3.5rem;
-    --content-width: 860px;
+    --header-width: 1440px;
     --header-height: 64px;
+    --content-width: 860px;
     --toast-width: 400px;
 }
 

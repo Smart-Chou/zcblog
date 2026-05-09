@@ -8,17 +8,16 @@ import { search } from "~/self.config";
 const { searchEnable = search.enable } = Astro.props;
 ---
 
-<header id="nprogress-container" role="banner">
-    <div class="scroll-progress"></div>
-    <div class="fullwidth">
+<div class="scroll-progress"></div>
+<header id="progress-container" role="banner">
+    <div class="nav-shell">
         <div class="header__left">
             <Logo />
         </div>
-        <Nav />
         <div class="header__right">
             {searchEnable && <Search />}
-            <span style="margin: 0 0.2rem;"></span>
             <LanguageSwitcher />
+            <Nav />
             <ToggleTheme />
         </div>
     </div>
@@ -34,11 +33,18 @@ const { searchEnable = search.enable } = Astro.props;
     });
 
     document.addEventListener("astro:page-load", () => {
+        const navShell = document.querySelector<HTMLElement>(".nav-shell");
+
         lenis.on("scroll", ({ progress }: { progress: number }) => {
             const progressBar =
                 document.querySelector<HTMLElement>(".scroll-progress");
             if (progressBar) {
                 progressBar.style.width = `${progress * 100}%`;
+            }
+
+            if (navShell) {
+                const expand = Math.min(progress / 0.25, 1);
+                navShell.style.setProperty("--nav-expand", String(expand));
             }
         });
     });
@@ -56,75 +62,108 @@ const { searchEnable = search.enable } = Astro.props;
         transition: width 0.1s ease-out;
     }
 
-    #nprogress-container {
-        display: flex;
-        align-items: center;
-        min-height: var(--header-height);
-        padding: 0 calc(var(--space) / 2);
-        top: 0;
+    #progress-container {
+        position: fixed;
+        top: 16px;
         left: 0;
         right: 0;
-        background-color: hsla(0, 0%, 100%, 0.6);
-        background-color: rgba(var(--color-bg-rgb), 0.6);
-        -webkit-backdrop-filter: blur(32px);
-        backdrop-filter: blur(32px);
         z-index: 10;
-        position: fixed;
-        /* 排除 View Transitions 动画 */
+        display: flex;
+        justify-content: center;
+        padding: 0 24px;
         view-transition-name: none;
-        /* 提升为独立合成层，避免抖动 */
         transform: translateZ(0);
         will-change: transform;
     }
 
-    @media screen and (min-width: 1300px) {
-        #nprogress-container {
-            width: 100%;
-        }
-    }
-
-    .fullwidth {
-        max-width: var(--content-width);
-        margin: 0 auto;
+    .nav-shell {
+        --nav-expand: 0;
+        width: 100%;
+        max-width: calc(
+            var(--content-width) * (1 - var(--nav-expand)) +
+                var(--header-width) * var(--nav-expand)
+        );
+        height: 72px;
+        background: color-mix(in srgb, var(--color-surface) 65%, transparent);
+        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(24px);
+        border: 1px solid var(--color-border);
+        border-radius: 46px;
         display: flex;
-        flex: 1;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
+        padding: 0 36px;
+        box-shadow: var(--shadow-md);
+        transition:
+            background-color var(--duration-slow),
+            border-color var(--duration-slow),
+            box-shadow var(--duration-slow);
     }
 
     .header__left,
     .header__right {
         display: flex;
         align-items: center;
-        font-family: var(--font-body);
+        gap: 0;
+    }
+
+    /* Pill-adapted overrides for sub-components */
+    .header__right :global(.language-switcher__button) {
+        border: none;
+        background: transparent;
+        padding: 6px 8px;
+        font-weight: 500;
+        border-radius: 8px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .header__right :global(.language-switcher__button:hover) {
+        background-color: var(--color-hover);
+    }
+
+    .header__right :global(.toggle-theme) {
+        min-width: 36px;
+        min-height: 36px;
+        padding: 6px;
+        border-radius: 8px;
     }
 
     @media screen and (max-width: 768px) {
         #nprogress-container {
-            min-height: 50px;
-            padding: 0 10px;
+            top: 0;
+            padding: 8px 12px;
         }
 
+        .nav-shell {
+            height: 52px;
+            border-radius: 26px;
+            padding: 0 16px;
+        }
+
+        .header__left,
         .header__right {
-            gap: var(--space-xs);
+            gap: 8px;
         }
 
-        /* 在移动端隐藏搜索按钮文本，只显示图标 */
-        site-search button[data-open-modal] span {
+        /* Hide search text on mobile */
+        .header__right :global(site-search button[data-open-modal]) span {
             display: none;
         }
 
-        site-search button[data-open-modal] kbd {
+        .header__right :global(site-search button[data-open-modal]) kbd {
             display: none !important;
         }
     }
 
     @media screen and (max-width: 480px) {
-        #nprogress-container {
-            min-height: 48px;
+        .nav-shell {
+            height: 48px;
+            border-radius: 24px;
+            padding: 0 12px;
         }
 
-        .logo {
+        .header__left :global(.logo) {
             font-size: 0.8em;
         }
     }

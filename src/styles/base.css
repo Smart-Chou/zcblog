@@ -63,7 +63,7 @@ hr:before {
 
 .main {
     margin: 0 auto;
-    padding: calc(1.5vw + var(--header-height)) 20px 0;
+    padding: calc(3.5vw + var(--header-height)) 20px 0;
     flex: 1;
 }
 
@@ -85,7 +85,7 @@ hr:before {
 /* ---- Mobile ---- */
 @media screen and (max-width: 768px) {
     .main {
-        padding: calc(1.5vw + 50px) 12px 0;
+        padding: calc(3.5vw + 50px) 12px 0;
     }
 
     .content-box {
@@ -109,7 +109,7 @@ hr:before {
 
 @media screen and (max-width: 480px) {
     .main {
-        padding: calc(1.5vw + 48px) 10px 0;
+        padding: calc(3.5vw + 48px) 10px 0;
     }
 
     .post-title {

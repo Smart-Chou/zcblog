@@ -1,4 +1,6 @@
 ---
+const currentPath = Astro.url.pathname;
+
 const navLinks = [
     { label: "博客", href: "/blog/1/" },
     { label: "归档", href: "/archives/" },
@@ -9,204 +11,253 @@ const navLinks = [
 ];
 ---
 
-<nav id="site-nav" aria-label="主导航">
-    <!-- Desktop nav -->
-    <ul class="nav__list" role="list">
-        {navLinks.map((link) => (
-            <li>
-                <a href={link.href} class="nav__link">{link.label}</a>
-            </li>
-        ))}
-    </ul>
+<button
+    id="nav-menu-btn"
+    class="nav-menu-btn"
+    aria-label="打开菜单"
+    aria-expanded="false"
+    type="button"
+>
+    <span class="nav-menu-btn__icon">
+        <span class="nav-menu-btn__bar"></span>
+        <span class="nav-menu-btn__bar"></span>
+        <span class="nav-menu-btn__bar"></span>
+    </span>
+</button>
 
-    <!-- Mobile hamburger -->
-    <button
-        id="nav-toggle"
-        class="nav__toggle"
-        aria-label="打开菜单"
-        aria-expanded="false"
-        type="button"
-    >
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-        <span class="nav__toggle-bar"></span>
-    </button>
+<nav
+    id="nav-dropdown"
+    class="nav-dropdown"
+    aria-label="主导航"
+    aria-hidden="true"
+>
+    <ul class="nav-dropdown__list" role="list">
+        {
+            navLinks.map((link) => (
+                <li>
+                    <a
+                        href={link.href}
+                        class:list={[
+                            "nav-dropdown__link",
+                            { active: currentPath.startsWith(link.href) },
+                        ]}
+                    >
+                        {link.label}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
 </nav>
 
-<!-- Mobile overlay menu -->
-<div id="nav-overlay" class="nav__overlay" aria-hidden="true">
-    <ul class="nav__mobile-list" role="list">
-        {navLinks.map((link) => (
-            <li>
-                <a href={link.href} class="nav__mobile-link">{link.label}</a>
-            </li>
-        ))}
-    </ul>
-</div>
-
 <script>
-    const toggle = document.getElementById("nav-toggle") as HTMLButtonElement;
-    const overlay = document.getElementById("nav-overlay") as HTMLDivElement;
     let open = false;
 
-    toggle.addEventListener("click", () => {
-        open = !open;
-        toggle.setAttribute("aria-expanded", String(open));
-        overlay.setAttribute("aria-hidden", String(!open));
-        toggle.classList.toggle("nav__toggle--open", open);
-        overlay.classList.toggle("nav__overlay--open", open);
-        document.body.classList.toggle("nav--no-scroll", open);
-    });
+    const getBtn = () =>
+        document.getElementById("nav-menu-btn") as HTMLButtonElement | null;
+    const getDropdown = () =>
+        document.getElementById("nav-dropdown") as HTMLElement | null;
 
-    overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) {
-            open = false;
-            toggle.setAttribute("aria-expanded", "false");
-            overlay.setAttribute("aria-hidden", "true");
-            toggle.classList.remove("nav__toggle--open");
-            overlay.classList.remove("nav__overlay--open");
-            document.body.classList.remove("nav--no-scroll");
+    const setOpen = (v: boolean) => {
+        open = v;
+        const btn = getBtn();
+        const dropdown = getDropdown();
+        if (btn) {
+            btn.setAttribute("aria-expanded", String(v));
+            btn.classList.toggle("nav-menu-btn--open", v);
+        }
+        if (dropdown) {
+            dropdown.setAttribute("aria-hidden", String(!v));
+            dropdown.classList.toggle("nav-dropdown--open", v);
+        }
+    };
+
+    document.addEventListener("click", (e) => {
+        const btn = getBtn();
+        const dropdown = getDropdown();
+        const target = e.target as Node;
+
+        if (btn && btn.contains(target)) {
+            e.stopPropagation();
+            setOpen(!open);
+            return;
+        }
+
+        if (open && dropdown && !dropdown.contains(target)) {
+            setOpen(false);
         }
     });
 
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && open) {
+            setOpen(false);
+            getBtn()?.focus();
+        }
+    });
+
+    window.addEventListener(
+        "scroll",
+        () => {
+            if (open) setOpen(false);
+        },
+        { passive: true },
+    );
+
     document.addEventListener("astro:after-swap", () => {
         open = false;
-        toggle.setAttribute("aria-expanded", "false");
-        overlay.setAttribute("aria-hidden", "true");
-        toggle.classList.remove("nav__toggle--open");
-        overlay.classList.remove("nav__overlay--open");
-        document.body.classList.remove("nav--no-scroll");
     });
 </script>
 
 <style>
-    #site-nav {
-        display: flex;
-        align-items: center;
-    }
-
-    .nav__list {
-        display: none;
-        gap: var(--space-xs);
-        list-style: none;
+    ul li {
         margin: 0;
-        padding: 0;
     }
 
-    .nav__link {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.4em 0.75em;
-        border-radius: 8px;
-        font-size: 0.9em;
-        font-weight: 500;
-        color: var(--color-text);
-        text-decoration: none;
-        transition: background-color 0.2s, color 0.2s;
-        white-space: nowrap;
-    }
-
-    .nav__link:hover {
-        background: var(--color-bg-secondary);
-        color: var(--color-accent);
-    }
-
-    /* Hamburger toggle */
-    .nav__toggle {
+    .nav-menu-btn {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
-        gap: 5px;
-        width: 40px;
-        height: 40px;
-        padding: 8px;
+        gap: 8px;
+        padding: 6px 12px;
         border: none;
         border-radius: 8px;
         background: transparent;
+        color: var(--color-body);
+        font-size: 0.95em;
+        font-weight: 600;
+        font-family: var(--font-body);
         cursor: pointer;
-        z-index: 1001;
+        transition: background-color var(--duration-fast);
     }
 
-    .nav__toggle:hover {
-        background: var(--color-bg-secondary);
+    .nav-menu-btn:hover {
+        background: var(--color-hover);
     }
 
-    .nav__toggle-bar {
+    .nav-menu-btn__icon {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 18px;
+    }
+
+    .nav-menu-btn__bar {
         display: block;
-        width: 20px;
+        width: 18px;
         height: 2px;
         border-radius: 2px;
-        background: var(--color-text);
-        transition: transform 0.3s, opacity 0.3s;
+        background: var(--color-body);
+        transition:
+            transform 0.3s,
+            opacity 0.3s;
     }
 
-    .nav__toggle--open .nav__toggle-bar:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
+    .nav-menu-btn--open .nav-menu-btn__bar:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
     }
 
-    .nav__toggle--open .nav__toggle-bar:nth-child(2) {
+    .nav-menu-btn--open .nav-menu-btn__bar:nth-child(2) {
         opacity: 0;
     }
 
-    .nav__toggle--open .nav__toggle-bar:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
+    .nav-menu-btn--open .nav-menu-btn__bar:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
     }
 
-    /* Mobile overlay */
-    .nav__overlay {
+    @media screen and (max-width: 768px) {
+        .nav-menu-btn__label {
+            display: none;
+        }
+
+        .nav-menu-btn {
+            padding: 8px;
+            min-width: 40px;
+            min-height: 40px;
+            justify-content: center;
+        }
+    }
+
+    /* ── Dropdown panel ── */
+    .nav-dropdown {
         position: fixed;
-        inset: 0;
-        z-index: 999;
-        background: rgba(var(--color-bg-rgb), 0.95);
-        -webkit-backdrop-filter: blur(16px);
-        backdrop-filter: blur(16px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        top: 96px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
+        z-index: 9;
+        width: calc(100% - 48px);
+        max-width: var(--content-width);
+        padding: 0 32px;
+        background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(24px);
+        border: 1px solid var(--color-border);
+        border-radius: 28px;
+        box-shadow: var(--shadow-lg);
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.3s;
+        transition:
+            opacity 0.25s ease,
+            transform 0.25s ease;
     }
 
-    .nav__overlay--open {
+    .nav-dropdown--open {
         opacity: 1;
+        transform: translateX(-50%) translateY(0);
         pointer-events: auto;
     }
 
-    .nav__mobile-list {
+    .nav-dropdown__list {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
         list-style: none;
         margin: 0;
         padding: 0;
-        display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .nav-dropdown__link {
+        display: inline-flex;
         align-items: center;
-        gap: 1.5em;
-    }
-
-    .nav__mobile-link {
-        font-size: 1.5em;
+        padding: 0.5em 1.2em;
+        margin: 4px 0;
+        border-radius: 10px;
+        font-size: 1.05em;
         font-weight: 600;
-        color: var(--color-text);
+        color: var(--color-body);
         text-decoration: none;
-        transition: color 0.2s;
+        white-space: nowrap;
+        transition:
+            color var(--duration-fast),
+            background-color var(--duration-fast);
     }
 
-    .nav__mobile-link:hover {
+    .nav-dropdown__link:hover {
+        color: var(--color-accent);
+        background: var(--color-hover);
+    }
+
+    .nav-dropdown__link.active {
         color: var(--color-accent);
     }
 
-    :global(.nav--no-scroll) {
-        overflow: hidden;
-    }
-
-    @media screen and (min-width: 769px) {
-        .nav__list {
-            display: flex;
+    @media screen and (max-width: 768px) {
+        .nav-dropdown {
+            top: 60px;
+            width: calc(100% - 24px);
+            padding: 12px 16px;
+            border-radius: 20px;
         }
 
-        .nav__toggle {
-            display: none;
+        .nav-dropdown__link {
+            font-size: 0.95em;
+            padding: 0.4em 0.9em;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .nav-dropdown {
+            top: 56px;
+            border-radius: 16px;
         }
     }
 </style>
