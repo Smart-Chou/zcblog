@@ -1,3 +1,7 @@
+/* =========================================
+   Typography — Editorial treatment
+   ========================================= */
+
 body,
 p {
     font-family: var(--base-font-family);
@@ -10,7 +14,8 @@ p {
 figcaption {
     margin: 1em 0;
     text-align: center;
-    opacity: 0.7;
+    font-size: var(--text-sm);
+    color: var(--text-color-secondary);
 }
 
 .navlink,
@@ -23,62 +28,77 @@ ul {
     font-family: var(--base-font-family);
 }
 
+/* ---- Headings — Serif editorial ---- */
 h1,
 h2,
 h3,
 h4,
 h5 {
-    transition: color 0.6s;
+    transition: color var(--duration-slower);
     color: var(--title-color);
     margin: 2.75rem 0 1rem;
     font-family: var(--title-font-family);
     font-weight: 600;
-    line-height: 1.5;
+    line-height: var(--leading-heading);
+    letter-spacing: -0.02em;
 }
 
 h1 {
     margin-top: 0;
-    font-size: 1.802em;
+    font-size: 2.2em;
+    font-weight: 700;
 }
 
 h2 {
-    font-size: 1.602em;
+    font-size: 1.7em;
+    font-weight: 600;
 }
 
 h3 {
-    font-size: 1.424em;
+    font-size: 1.4em;
+    font-weight: 600;
 }
 
 h4 {
-    font-size: 1.266em;
+    font-size: 1.15em;
+    font-weight: 600;
 }
 
 h5 {
-    font-size: 1.125em;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 small {
-    font-size: 0.889em;
+    font-size: 0.875em;
 }
 
 strong {
     font-weight: 600;
 }
 
+/* ---- Blockquote — Editorial pull quote ---- */
 blockquote {
-    border-left: 4px solid var(--border-color);
-    padding-left: calc(var(--space) / 2);
+    border-left: 3px solid var(--accent-color);
+    margin: 2em 0;
+    padding: 0.5em 0 0.5em 1.5em;
     color: var(--title-color);
+    font-family: var(--title-font-family);
+    font-size: 1.1em;
+    line-height: 1.6;
 }
 
 blockquote p {
-    opacity: 0.7;
+    opacity: 0.85;
 }
 
 em {
     font-style: italic;
 }
 
+/* ---- Lists ---- */
 ul {
     list-style-type: disc;
     margin-left: 1.25em;
@@ -87,7 +107,7 @@ ul {
 }
 
 ul li {
-    margin-bottom: 0.6em;
+    margin-bottom: 0.5em;
 }
 
 ol {
@@ -98,74 +118,31 @@ ol {
 }
 
 ol li {
-    margin-bottom: 0.6em;
+    margin-bottom: 0.5em;
 }
 
-@media screen and (max-width: 650px) {
-    h1 {
-        font-size: 1.562em;
-    }
-
-    h2 {
-        font-size: 1.461em;
-    }
-
-    h3 {
-        font-size: 1.314em;
-    }
-
-    h4 {
-        font-size: 1.166em;
-    }
-
-    h5 {
-        font-size: 1.025em;
-    }
-}
-
-table {
-    display: block;
-    width: 100%;
-    overflow: auto;
-    margin-bottom: 1.25em;
-}
-
-table tr {
-    border-top: 1px solid #c6cbd1;
-}
-
-table td,
-table th {
-    padding: 6px 13px;
-    border: 1px solid #dfe2e5;
-}
-
-table th {
-    font-weight: 600;
-    background-color: var(--bg-code);
-}
-
-sup {
-    position: relative;
-    top: -0.3em;
-    vertical-align: top;
-    color: var(--link-color);
-    margin: 0 0.2em;
-}
-
-sup:before {
-    content: "[";
-}
-
-sup:after {
-    content: "]";
+/* ---- Code ---- */
+code,
+pre {
+    font-family: var(--monospace-font-family);
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: var(--leading-code);
+    tab-size: 2;
+    hyphens: none;
 }
 
 pre {
     padding: calc(var(--space) / 3) var(--space);
-    font-size: 1em;
+    font-size: 0.9em;
     background-color: var(--bg-code);
-    margin: 1em calc(0em - var(--space));
+    margin: 1.5em calc(0em - var(--space));
+    border-radius: var(--radius);
+    overflow: auto;
+    color: var(--text-code-block);
 }
 
 pre code {
@@ -176,35 +153,8 @@ pre code {
 code {
     background-color: var(--bg-code);
     font-size: 0.9em;
-    padding: 0.2em 0.5em;
-}
-
-code,
-pre {
-    font-family: var(--monospace-font-family);
-    text-align: left;
-    white-space: pre-wrap;
-    word-spacing: normal;
-    word-break: normal;
-    word-wrap: normal;
-    line-height: 1.5;
-    -moz-tab-size: 2;
-    -o-tab-size: 2;
-    tab-size: 2;
-    -webkit-hyphens: none;
-    hyphens: none;
-}
-
-@media print {
-    code,
-    pre {
-        text-shadow: none;
-    }
-}
-
-pre {
-    overflow: auto;
-    color: var(--text-code-block);
+    padding: 0.15em 0.4em;
+    border-radius: var(--radius-sm);
 }
 
 :not(pre) > code {
@@ -212,11 +162,54 @@ pre {
     white-space: normal;
 }
 
-:not(pre) > code:after,
-:not(pre) > code:before {
+:not(pre) > code:before,
+:not(pre) > code:after {
     content: "`";
+    opacity: 0.4;
 }
 
+/* ---- Tables ---- */
+table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 1.25em;
+    border-collapse: collapse;
+}
+
+table tr {
+    border-top: 1px solid var(--border-color);
+}
+
+table td,
+table th {
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+}
+
+table th {
+    font-weight: 600;
+    background-color: var(--bg-code);
+}
+
+/* ---- Superscript ---- */
+sup {
+    position: relative;
+    top: -0.3em;
+    vertical-align: top;
+    color: var(--link-color);
+    margin: 0 0.15em;
+}
+
+sup:before {
+    content: "[";
+}
+
+sup:after {
+    content: "]";
+}
+
+/* ---- Post content ---- */
 .post__content h2:first-child {
     margin-top: 0;
 }
@@ -235,20 +228,38 @@ pre {
 }
 
 .expressive-code {
-    margin: 1rem 0 1.25rem 0;
+    margin: 1.5rem 0;
 }
 
-/* fix mathjax style */
+/* Fix mathjax */
 .MathJax {
     text-align: left !important;
 }
 
+/* ---- Responsive ---- */
 @media screen and (max-width: 650px) {
-    .post .post-meta {
-        display: none;
+    h1 {
+        font-size: 1.7em;
     }
 
-    /* 移动端表格优化 */
+    h2 {
+        font-size: 1.45em;
+    }
+
+    h3 {
+        font-size: 1.25em;
+    }
+
+    h4 {
+        font-size: 1.1em;
+    }
+
+    pre {
+        padding: calc(var(--space) * 0.5);
+        margin: 1em -8px;
+        font-size: 0.85em;
+    }
+
     table {
         display: block;
         overflow-x: auto;
@@ -260,5 +271,12 @@ pre {
     table th {
         padding: 8px 10px;
         font-size: 0.9em;
+    }
+}
+
+@media print {
+    code,
+    pre {
+        text-shadow: none;
     }
 }

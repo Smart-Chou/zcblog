@@ -29,16 +29,14 @@ const {
     <style>
         /* 内联关键主题变量，防止外部CSS加载延迟导致的闪烁 */
         html {
-            /* 直接设置背景色，防止 FOUC */
-            background-color: #fafafa;
-            color: #000;
+            background-color: #fbf8f4;
+            color: #2d2822;
         }
 
         html[data-theme="dark"],
         html.dark {
-            /* 直接设置背景色，防止 FOUC */
-            background-color: #101213;
-            color: #ced8de;
+            background-color: #1c1917;
+            color: #e8e3de;
         }
 
         /* 初始禁用所有过渡，防止页面加载时闪烁 */
@@ -176,6 +174,14 @@ const {
         type="application/rss+xml"
         title="RSS Feed"
         href="/rss.xml"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Serif+Display&display=swap"
+        rel="stylesheet"
     />
 
     <!-- 预连接到外部资源 -->

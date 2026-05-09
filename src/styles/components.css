@@ -1,17 +1,19 @@
+/* =========================================
+   Components — Editorial cards & layout
+   ========================================= */
+
 .content-box {
     background-color: var(--bg-content-color);
     max-width: var(--content-width);
     margin: 0 auto;
-    transition: background-color 0.6s;
     padding: var(--space);
     border-radius: var(--radius);
-    box-shadow:
-        1px 1px 5px 0 rgba(0, 0, 0, 0.02),
-        1px 1px 15px 0 rgba(0, 0, 0, 0.03);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
     transition:
-        transform 0.3s,
-        background-color 0.3s,
-        box-shadow 0.6s;
+        transform var(--duration-slow),
+        background-color var(--duration-slow),
+        box-shadow var(--duration-slower);
     overflow-x: hidden;
 }
 
@@ -36,6 +38,7 @@ header {
     font-size: 0.9em;
 }
 
+/* ---- Posts list ---- */
 .posts {
     display: flex;
     flex-direction: column;
@@ -54,7 +57,8 @@ header {
 
 .post-meta {
     font-size: 0.8em;
-    opacity: 0.8;
+    color: var(--text-color-secondary);
+    font-family: var(--base-font-family);
 }
 
 .post-tags {
@@ -64,16 +68,26 @@ header {
 .post-tags__link {
     margin: 0.3em 0.6em 0.3em 0;
     font-size: 0.8em;
-    color: currentColor;
+    color: var(--text-color-secondary);
     text-decoration: none;
     background-color: var(--bg-color);
-    padding: 0.5em;
+    padding: 0.4em 0.75em;
     border-radius: var(--radius);
+    border: 1px solid var(--border-color);
     display: inline-block;
+    transition:
+        color var(--duration-fast),
+        border-color var(--duration-fast);
+}
+
+.post-tags__link:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    opacity: 1;
 }
 
 .post-title {
-    padding: var(--space) 0 var(--space);
+    padding: var(--space) 0;
     text-align: center;
     max-width: var(--content-width);
     margin-inline: auto;
@@ -81,20 +95,17 @@ header {
 
 .post-title__publish-icon {
     vertical-align: top;
-    background-color: #f7b955;
+    background-color: var(--accent-color);
     display: inline-block;
-    font-size: 14px;
+    font-size: 13px;
     height: 18px;
     line-height: 18px;
-    border-radius: 3px;
+    border-radius: var(--radius-sm);
     padding: 0 6px;
     color: #fff;
 }
 
-.post-meta {
-    font-family: var(--base-font-family);
-}
-
+/* ---- Post cards ---- */
 .post {
     display: flex;
     flex-direction: column;
@@ -105,9 +116,22 @@ header {
 .post-card {
     margin-bottom: 0;
     position: relative;
-    /* 跳过屏幕外卡片的渲染，减少首次渲染时间 */
     content-visibility: auto;
     contain-intrinsic-size: 0 320px;
+    background: var(--bg-content-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    transition:
+        transform var(--duration-normal) var(--ease-out),
+        box-shadow var(--duration-normal) var(--ease-out),
+        border-color var(--duration-normal) var(--ease-out);
+}
+
+.post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-color);
 }
 
 .post-card__image {
@@ -117,15 +141,12 @@ header {
     height: auto;
     object-fit: cover;
     vertical-align: bottom;
+    border-radius: var(--radius-sm);
 }
 
 .post-card__title {
     margin-top: 0;
-}
-
-.post-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 1px 10px 30px 0 rgba(0, 0, 0, 0.1);
+    font-family: var(--title-font-family);
 }
 
 .post-card__tags {
@@ -145,12 +166,12 @@ header {
     z-index: 0;
 }
 
+/* ---- Theme toggle ---- */
 .feather.feather-moon,
 .feather.feather-sun {
     display: none;
 }
 
-/* 自定义 */
 html[data-theme="light"] .feather-moon {
     display: block;
 }
@@ -163,6 +184,7 @@ a {
     text-decoration: none;
 }
 
+/* ---- Analytics ---- */
 .analytics {
     display: flex;
     flex-direction: row;
@@ -176,6 +198,7 @@ a {
     padding: 0 0.2rem;
 }
 
+/* ---- Responsive ---- */
 @media screen and (max-width: 650px) {
     .post-card__image {
         max-height: 10rem;
@@ -186,16 +209,13 @@ a {
     }
 }
 
-/* 移动端触摸目标优化 */
 @media screen and (max-width: 768px) {
-    /* 搜索按钮触摸目标 */
     site-search button[data-open-modal] {
         min-width: 44px;
         min-height: 44px;
         padding: 10px;
     }
 
-    /* 文章导航链接在移动端堆叠显示 */
     .post__navigation .navlink {
         float: none;
         display: block;

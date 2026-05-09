@@ -1,13 +1,54 @@
 /**
- * View Transitions 自定义页面切换动画
- * 使用 CSS @view-transition 和 ::view-transition-* 伪元素
- * 配合 Astro 的 <ClientRouter>（View Transitions API）
+ * View Transitions API — editorial page animations
+ * Ref: https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API
  */
 
-/* 减少动效模式：尊重用户系统设置 */
+@view-transition {
+    navigation: auto;
+}
+
+/* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
     ::view-transition-old(root),
-    ::view-transition-new(root) {
+    ::view-transition-new(root),
+    ::view-transition-group(*) {
         animation: none !important;
+        animation-duration: 0s !important;
+    }
+}
+
+/* ---- Forward navigation ---- */
+::view-transition-old(root) {
+    animation: vt-fade-out var(--duration-normal) var(--ease-in) both;
+}
+
+::view-transition-new(root) {
+    animation:
+        vt-fade-in var(--duration-slow) var(--ease-out) both,
+        vt-slide-up var(--duration-slow) var(--ease-out) both;
+}
+
+/* ---- Keyframes ---- */
+@keyframes vt-fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes vt-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes vt-slide-up {
+    from {
+        transform: translateY(12px);
+    }
+    to {
+        transform: translateY(0);
     }
 }
