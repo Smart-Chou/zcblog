@@ -25,19 +25,6 @@
     margin-bottom: var(--space);
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.logo {
-    text-decoration: none;
-    color: var(--color-body);
-    font-size: 0.9em;
-}
-
 /* ---- Posts list ---- */
 .posts {
     display: flex;
@@ -131,7 +118,6 @@ header {
 .post-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--color-accent);
 }
 
 .post-card__image {
@@ -164,24 +150,6 @@ header {
     overflow: hidden;
     text-indent: -9999px;
     z-index: 0;
-}
-
-/* ---- Theme toggle ---- */
-.feather.feather-moon,
-.feather.feather-sun {
-    display: none;
-}
-
-html[data-theme="light"] .feather-moon {
-    display: block;
-}
-
-html[data-theme="dark"] .feather-sun {
-    display: block;
-}
-
-a {
-    text-decoration: none;
 }
 
 /* ---- Analytics ---- */
