@@ -1,0 +1,24 @@
+---
+import PostTag from "~/components/Article/PostTag.astro";
+import PostCopyright from "~/components/Article/PostCopyright.astro";
+
+const { tags } = Astro.props;
+---
+
+<div class="post-footer">
+    <div class="post-tags post-card__tags">
+        {tags.map((tag: string) => <PostTag tag={tag} url={`/tags/${tag}/`} />)}
+    </div>
+    <div class="post-tags post-card__tags">
+        <PostCopyright />
+    </div>
+</div>
+
+<style>
+    .post-footer {
+        margin-top: calc(var(--space) / 2);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+</style>

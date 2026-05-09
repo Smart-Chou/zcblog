@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+
+const { slug } = Astro.props;
+
+const allPosts = await getCollection("article");
+const sorted = allPosts.sort(
+    (a, b) =>
+        new Date(b.data.pubDate).getTime() -
+        new Date(a.data.pubDate).getTime(),
+);
+const currentIndex = sorted.findIndex((post) => post.id === slug);
+const prevPost = currentIndex > 0 ? sorted[currentIndex - 1] : null;
+const nextPost = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
+---
+
+{
+    (prevPost || nextPost) && (
+        <nav class="post-nav">
+            {
+                prevPost && (
+                    <a href={`/article/${prevPost.id}/`} class="post-nav__link prev">
+                        ◀ {prevPost.data.title}
+                    </a>
+                )
+            }
+            {
+                nextPost && (
+                    <a href={`/article/${nextPost.id}/`} class="post-nav__link next">
+                        {nextPost.data.title} ▶
+                    </a>
+                )
+            }
+        </nav>
+    )
+}
+
+<style>
+    .post-nav {
+        border-top: 1px solid var(--color-border);
+        margin-top: calc(var(--space) / 2);
+        padding: calc(var(--space) / 2) 0 0 0;
+        overflow: auto;
+    }
+
+    .post-nav__link {
+        border: none;
+        text-decoration: none;
+        color: var(--color-body);
+        transition: color var(--duration-fast);
+    }
+
+    .post-nav__link:hover {
+        color: var(--color-accent);
+    }
+
+    .post-nav__link.prev {
+        float: left;
+    }
+
+    .post-nav__link.next {
+        float: right;
+    }
+
+    .post-nav__link:first-of-type {
+        margin-bottom: calc(var(--space) / 4);
+    }
+</style>

@@ -1,17 +1,16 @@
 ---
 import "~/styles/remark-aside.css";
 
-import { getCollection } from "astro:content";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import PostMeta from "~/components/Article/PostMeta.astro";
 import PostCardImage from "~/components/Article/PostCardImage.astro";
-import PostTag from "~/components/Article/PostTag.astro";
+import PostFooter from "~/components/Article/PostFooter.astro";
+import PostNavigation from "~/components/Article/PostNavigation.astro";
 import Toc from "~/components/Article/Toc.astro";
 import BackToTop from "~/components/Layout/BackToTop.astro";
 import Donate from "~/components/Feature/Donate.astro";
 import Author from "~/components/Feature/Author.astro";
 import WalineComment from "~/components/Widget/WalineComment.astro";
-import PostCopyright from "~/components/Article/PostCopyright.astro";
 import { site, postView, waline, donate } from "~/self.config";
 import { getRandomImageUrl } from "~/utils";
 
@@ -35,12 +34,8 @@ const publishedDays = Math.floor(
     (today.getTime() - publishedTime.getTime()) / (1000 * 60 * 60 * 24),
 );
 
-const allPosts = await getCollection("article");
-const currentSlug = Astro.params.slug;
-
 const imageUrl = frontmatter.image?.url || getRandomImageUrl();
 const imageAlt = frontmatter.image?.alt || "Blog Cover";
-// OG 图片：开发模式用随机图fallback，生产环境用动态生成的png
 const ogImage =
     import.meta.env.DEV || import.meta.env.PREVIEW
         ? imageUrl
@@ -67,12 +62,12 @@ const ogImage =
             publishedTime={publishedTime}
             wordCount={wordCount}
             readTime={readTime}
-            currentSlug={currentSlug}
+            currentSlug={slug}
         />
     </div>
     <div class="post-card content-box">
         <div class="post__header">
-            {(<PostCardImage imagePath={imageUrl} altText={imageAlt} />)}
+            <PostCardImage imagePath={imageUrl} altText={imageAlt} />
         </div>
         {
             publishedDays >= 180 && (
@@ -91,60 +86,8 @@ const ogImage =
             </h2>
             <slot />
         </div>
-        <div class="post__footer">
-            <div class="post-tags post-card__tags">
-                {
-                    frontmatter.tags.map((tag: string) => (
-                        <PostTag tag={tag} url={`/tags/${tag}/`} />
-                    ))
-                }
-            </div>
-            <div class="post-tags post-card__tags">
-                <PostCopyright />
-            </div>
-        </div>
-        <div class="post__navigation">
-            {
-                allPosts
-                    .sort(
-                        (a, b) =>
-                            new Date(b.data.pubDate).getTime() -
-                            new Date(a.data.pubDate).getTime(),
-                    )
-                    .map((post, index) => {
-                        if (post.id === Astro.params.slug) {
-                            const prevPost =
-                                index > 0 ? allPosts[index - 1] : null;
-                            const nextPost =
-                                index < allPosts.length - 1
-                                    ? allPosts[index + 1]
-                                    : null;
-                            return (
-                                <>
-                                    {prevPost && (
-                                        <a
-                                            href={`/article/${prevPost.id}/`}
-                                            class="navlink"
-                                            style="float: left;"
-                                        >
-                                            ◀ {prevPost.data.title}
-                                        </a>
-                                    )}
-                                    {nextPost && (
-                                        <a
-                                            href={`/article/${nextPost.id}/`}
-                                            class="navlink"
-                                            style="float: right;"
-                                        >
-                                            {nextPost.data.title} ▶
-                                        </a>
-                                    )}
-                                </>
-                            );
-                        }
-                    })
-            }
-        </div>
+        <PostFooter tags={frontmatter.tags} />
+        <PostNavigation slug={slug} />
     </div>
     {frontmatter.toc && <Toc />}
     {postView.backtotop && <BackToTop />}
@@ -192,32 +135,8 @@ const ogImage =
     .post__header:empty {
         display: none;
     }
-
-    .post__navigation {
-        border-top: 1px solid var(--color-border);
-        margin-top: calc(var(--space) / 2);
-        padding: calc(var(--space) / 2) 0 0 0;
-        overflow: auto;
-    }
-
-    .post__navigation .navlink {
-        border: none;
-        text-decoration: none;
-    }
-
-    .post__navigation .navlink:first-of-type {
-        margin-bottom: calc(var(--space) / 4);
-    }
-
-    .post__footer {
-        margin-top: calc(var(--space) / 2);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
 </style>
 
 <script>
-    // 导入 Fancybox 图片点击放大支持
     import "~/scripts/fancybox-handler.ts";
 </script>

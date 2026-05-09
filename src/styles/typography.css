@@ -223,6 +223,12 @@ sup:after {
     line-height: 1.8;
 }
 
+.post__content a,
+.post__footer a {
+    display: inline-flex;
+    align-items: anchor-center;
+}
+
 .post__content img {
     display: block;
     max-width: 100%;
