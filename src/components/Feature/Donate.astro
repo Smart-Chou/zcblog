@@ -77,6 +77,7 @@ import { donate } from "~/self.config";
     }
 
     .donate .modal .modal-main .header-title {
+        position: relative;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -194,6 +195,14 @@ import { donate } from "~/self.config";
                     <HeartIcon filled={true} />
                     <span class="title-text">&nbsp;赞赏博主</span>
                 </div>
+                <button
+                    class="close"
+                    commandfor="donateDialog"
+                    command="close"
+                    aria-label="Close"
+                >
+                    &times;
+                </button>
             </div>
             <div class="modal-content">
                 <div class="reward-card">
@@ -235,15 +244,3 @@ import { donate } from "~/self.config";
         </div>
     </dialog>
 </div>
-
-<script>
-    document.addEventListener("astro:page-load", () => {
-        const dialog = document.getElementById(
-            "donateDialog",
-        ) as HTMLDialogElement | null;
-        if (!dialog) return;
-        dialog.addEventListener("click", (e) => {
-            if (e.target === dialog) dialog.close();
-        });
-    });
-</script>

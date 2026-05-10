@@ -67,6 +67,7 @@
     let walineInitialized = false;
 
     document.addEventListener("astro:page-load", () => {
+        walineInitialized = false;
         const details = document.getElementById(
             "commentDetails",
         ) as HTMLDetailsElement | null;

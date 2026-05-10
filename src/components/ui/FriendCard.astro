@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 interface Props {
     name: string;
     avatar: string;
@@ -11,12 +13,11 @@ const { name, avatar, title, url, updated } = Astro.props;
 ---
 
 <div class="fri-item">
-    <img
-        class="fri-avatar avatar"
+    <Image
         src={avatar}
         alt={name}
-        width="48"
-        height="48"
+        width={48}
+        height={48}
         loading="lazy"
         decoding="async"
     />

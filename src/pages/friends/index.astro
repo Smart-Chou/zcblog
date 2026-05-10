@@ -2,6 +2,7 @@
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import Author from "~/components/Feature/Author.astro";
 import WalineComment from "~/components/Widget/WalineComment.astro";
+import FriendPill from "~/components/ui/FriendPill.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { site, friendsPage } from "~/self.config";
 ---
@@ -21,23 +22,12 @@ import { site, friendsPage } from "~/self.config";
     <div class="friends-container text-center space-bottom">
         {
             friendsPage.list.map((friend) => (
-                <a
-                    class="btn"
-                    href={friend.link}
-                    target="_blank"
+                <FriendPill
+                    name={friend.id}
+                    url={friend.link}
+                    avatar={friend.avatar}
                     style={friend.style}
-                >
-                    <img
-                        src={friend.avatar}
-                        alt={friend.id}
-                        class="avatar"
-                        width="48"
-                        height="48"
-                        loading="lazy"
-                        decoding="async"
-                    />
-                    <span>{friend.id}</span>
-                </a>
+                />
             ))
         }
     </div>
@@ -53,32 +43,6 @@ import { site, friendsPage } from "~/self.config";
         max-width: var(--content-width);
         margin-left: auto;
         margin-right: auto;
-    }
-
-    .friends-container .btn {
-        margin: 0.3em 0.6em 0.3em 0;
-        text-decoration: none;
-        padding: 0.5em;
-        border-radius: var(--radius);
-        display: inline-block;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .friends-container .btn .avatar {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 48px;
-        height: 48px;
-        border-radius: var(--radius);
-        background-color: #fff;
-        transform: rotate(20deg) translate(-15%);
-    }
-
-    .friends-container .btn span {
-        margin-left: 2.6em;
     }
 
     .friends-note {

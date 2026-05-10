@@ -1,0 +1,51 @@
+---
+interface Props {
+    name: string;
+    avatar: string;
+    url: string;
+    style?: string;
+}
+
+const { name, avatar, url, style } = Astro.props;
+---
+
+<a class="fri-pill" href={url} target="_blank" rel="noopener" style={style}>
+    <img
+        class="fri-pill-avatar"
+        src={avatar}
+        alt={name}
+        width="48"
+        height="48"
+        loading="lazy"
+        decoding="async"
+    />
+    <span class="fri-pill-label">{name}</span>
+</a>
+
+<style>
+    .fri-pill {
+        margin: 0.3em 0.6em 0.3em 0;
+        text-decoration: none;
+        padding: 0.5em;
+        border-radius: var(--radius);
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .fri-pill-avatar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius);
+        background-color: #fff;
+        transform: rotate(20deg) translate(-15%);
+    }
+
+    .fri-pill-label {
+        margin-left: 2.6em;
+    }
+</style>

@@ -1,5 +1,6 @@
 ---
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import { Image } from "astro:assets";
 
 interface Donator {
     name: string;
@@ -22,11 +23,11 @@ const { donators } = Astro.props;
             <div class="donator-item">
                 <div class="donator-avatar">
                     {donator.avatar ? (
-                        <img
+                        <Image
                             src={donator.avatar}
                             alt={donator.name}
-                            width="48"
-                            height="48"
+                            width={48}
+                            height={48}
                             loading="lazy"
                             decoding="async"
                         />
