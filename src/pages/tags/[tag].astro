@@ -1,8 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import SectionPage from "~/components/Layout/SectionPage.astro";
-import PostMeta from "~/components/Article/PostMeta.astro";
-import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import TagsPostCard from "~/components/Article/TagsPostCard.astro";
 import { site } from "~/self.config";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 
@@ -52,22 +51,19 @@ const postsWithMeta = articles.map((post) => {
     emptyTitle="暂无文章"
     emptyMessage={`没有标签为 "${tag}" 的文章`}
 >
-    <DynamicIcon name="tabler:tag" slot="icon" />
     <div class="posts">
         {
             postsWithMeta.map((post) => (
-                <div class="post-item">
-                    <h2 class="post-card-title">
-                        <a href={`/article/${post.slug}/`}>{post.data.title}</a>
-                    </h2>
-                    <p class="post-card-description">{post.excerpt}</p>
-                    <PostMeta
+                    <TagsPostCard
+                        title={post.data.title}
+                        description={post.excerpt}
+                        tags={post.data.tags || []}
+                        postUrl={`/article/${post.slug}/`}
                         publishedTime={post.data.pubDate}
                         wordCount={post.wordCount}
                         readTime={post.readTime}
                         currentSlug={post.slug}
                     />
-                </div>
             ))
         }
     </div>
@@ -75,27 +71,7 @@ const postsWithMeta = articles.map((post) => {
 
 <style>
     .posts {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    .post-item {
-        padding-bottom: 1.5rem;
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .post-card-title {
-        margin: 0 0 0.5rem;
-    }
-
-    .post-card-title a {
-        text-decoration: none;
-    }
-
-    .post-card-description {
-        opacity: 0.8;
-        margin-bottom: 0.75rem;
+        gap: 1.5rem;
     }
 </style>
 

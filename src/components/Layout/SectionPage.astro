@@ -54,8 +54,8 @@ const hasEmptyIcon = Astro.slots.has("empty-icon");
     modifiedTime={modifiedTime}
 >
     <div class="section-container">
-        <PageHeader title={title} subtitle={subtitle} buildTime={buildTime}>
-            <slot name="icon" slot="icon" />
+        <PageHeader title={title} subtitle={subtitle} buildTime={buildTime} showIcon={hasIcon}>
+            {hasIcon && <slot name="icon" slot="icon" />}
         </PageHeader>
 
         {

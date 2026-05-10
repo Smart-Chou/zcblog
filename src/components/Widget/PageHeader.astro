@@ -3,15 +3,18 @@ interface Props {
     title: string;
     subtitle: string;
     buildTime?: string;
+    showIcon?: boolean;
 }
 
-const { title, subtitle, buildTime } = Astro.props;
+const { title, subtitle, buildTime, showIcon = false } = Astro.props;
 ---
 
 <div class="page-header">
-    <div class="header-icon">
-        <slot name="icon" />
-    </div>
+    {showIcon && (
+        <div class="header-icon">
+            <slot name="icon" />
+        </div>
+    )}
     <h1>{title}</h1>
     <p class="subtitle">{subtitle}</p>
     {buildTime && <p class="build-time">{buildTime}</p>}

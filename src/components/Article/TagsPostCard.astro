@@ -1,0 +1,32 @@
+---
+import PostLayout from "~/layouts/PostLayout.astro";
+import PostMeta from "~/components/Article/PostMeta.astro";
+
+const {
+    title,
+    description,
+    publishedTime,
+    tags = [],
+    postUrl,
+    wordCount,
+    readTime,
+    currentSlug,
+
+} = Astro.props;
+---
+
+<PostLayout>
+    <h2 class="post-card-title" aria-label={title}>{title}</h2>
+    <p class="post-card-description">{description}</p>
+    <PostMeta
+        publishedTime={publishedTime}
+        wordCount={wordCount}
+        readTime={readTime}
+        currentSlug={currentSlug}
+    />
+    <a
+        href={postUrl}
+        class="post-card-link"
+        aria-label={`Read article: ${title}`}>Read More</a
+    >
+</PostLayout>
