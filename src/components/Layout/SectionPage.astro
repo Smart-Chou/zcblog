@@ -20,6 +20,8 @@ interface Props {
     keywords?: string[];
     publishedTime?: Date;
     modifiedTime?: Date;
+    // Layout
+    fullWidth?: boolean;
 }
 
 const {
@@ -36,6 +38,7 @@ const {
     keywords,
     publishedTime,
     modifiedTime,
+    fullWidth = false,
 } = Astro.props;
 
 const pageDescription = description || `${site.title} 的${title}页面`;
@@ -52,8 +55,9 @@ const hasEmptyIcon = Astro.slots.has("empty-icon");
     keywords={keywords}
     publishedTime={publishedTime}
     modifiedTime={modifiedTime}
+    fullWidth={fullWidth}
 >
-    <div class="section-container">
+    <div class:list={["section-container", { "section-container--full": fullWidth }]}>
         <PageHeader title={title} subtitle={subtitle} buildTime={buildTime} showIcon={hasIcon}>
             {hasIcon && <slot name="icon" slot="icon" />}
         </PageHeader>
@@ -76,8 +80,12 @@ const hasEmptyIcon = Astro.slots.has("empty-icon");
 
 <style>
     .section-container {
-        max-width: 1200px;
+        max-width: var(--content-width-max);
         margin: 0 auto;
         padding: 2rem 1.5rem;
+    }
+
+    .section-container--full {
+        max-width: none;
     }
 </style>
