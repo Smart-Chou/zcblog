@@ -272,7 +272,7 @@ a.read-more {
 .homemore a {
     bottom: -2.5rem;
     position: relative;
-    z-index: 999;
+    z-index: 1;
     text-decoration: none;
     padding: 0.8rem 3rem;
     border-radius: 3rem;
