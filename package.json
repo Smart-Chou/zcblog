@@ -5,8 +5,8 @@
     "type": "module",
     "private": false,
     "scripts": {
-        "dev": "astro dev",
-        "start": "astro dev",
+        "dev": "rm -rf node_modules/.astro node_modules/.vite .astro && astro dev",
+        "start": "rm -rf node_modules/.astro node_modules/.vite .astro && astro dev",
         "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" astro build && npx pagefind",
         "preview": "astro preview",
         "astro": "astro",

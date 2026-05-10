@@ -62,6 +62,12 @@ function defaultLabel(v) {
 /** Hacky function that generates an mdast HTML tree ready for conversion to HTML by rehype. */
 function h(el, attrs = {}, children = []) {
     const { tagName, properties } = _h(el, attrs);
+    // hastscript converts class string → className array, but remark-rehype's
+    // hProperties needs a raw class string for multi-class to work correctly.
+    if (properties.className && Array.isArray(properties.className)) {
+        properties.class = properties.className.join(" ");
+        delete properties.className;
+    }
     return {
         type: "paragraph",
         data: { hName: tagName, hProperties: properties },
@@ -197,8 +203,8 @@ export function remarkAsides(options) {
                 },
                 [
                     h(
-                        "h4",
-                        { class: "remark-aside-title", "aria-hidden": "true" },
+                        "h5",
+                        { class: "remark-aside-title toc-ignore", "aria-hidden": "true" },
                         [
                             s(
                                 "svg",
