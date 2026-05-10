@@ -1,12 +1,13 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "~/layouts/BaseLayout.astro";
-import PostLayout from "~/layouts/PostLayout.astro";
+import SectionPage from "~/components/Layout/SectionPage.astro";
 import Archive from "~/components/Widget/Archive.astro";
 import Author from "~/components/Feature/Author.astro";
-import { site } from "~/self.config";
+import Heatmap from "~/components/Widget/Heatmap.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import { site, archivesPage } from "~/self.config";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
-import { sortByPubDate } from "~/utils/date-utils";
+import { sortByPubDate, formatDateToYYYYMMDD } from "~/utils/date-utils";
 import type { CollectionEntry } from "astro:content";
 
 interface PostWithMeta extends CollectionEntry<"article"> {
@@ -47,44 +48,49 @@ const totalWordsInThousands = (totalWords / 1000).toFixed(1) + "k";
 const startYear = Math.min(
     ...postsWithMeta.map((post) => new Date(post.data.pubDate).getFullYear()),
 );
+
+const postsData = postsWithMeta.map((post) => ({
+    date: post.data.pubDate
+        ? formatDateToYYYYMMDD(new Date(post.data.pubDate))
+        : "",
+    title: post.data.title || "",
+    wordCount: post.wordCount,
+}));
 ---
 
-<BaseLayout
-    title={`Archives - ${site.title}`}
-    description="All posts archives"
+<SectionPage
+    title={archivesPage.title}
+    subtitle={`(｡･∀･)ﾉﾞ Since ${startYear}, I've published ${totalPosts} posts with a total of ${totalWordsInThousands} words.`}
+    description={`${archivesPage.description} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
-    imageAlt="Archives"
-    keywords="Archives"
+    imageAlt={archivesPage.description}
+    keywords={["Archives"]}
     publishedTime={new Date()}
     modifiedTime={new Date()}
-    locale="en"
 >
-    <h1 class="text-center space-bottom">Archives</h1>
-    <PostLayout>
-        <p style="opacity: 0.6">
-            <strong>
-                (｡･∀･)ﾉﾞ Since {startYear}, I've published {totalPosts} posts with
-                a total of {totalWordsInThousands} words.
-            </strong>
-        </p>
-        {
-            Object.keys(postsByYear)
-                .map((year) => Number(year))
-                .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
-                .map((year) => (
-                    <section data-key={year}>
-                        <h2>{year}</h2>
-                        {sortByPubDate(postsByYear[year]).map((post) => (
-                            <Archive
-                                key={post.slug}
-                                url={`/article/${post.slug}/`}
-                                title={post.data.title}
-                                publishedTime={post.data.pubDate}
-                            />
-                        ))}
-                    </section>
-                ))
-        }
-    </PostLayout>
+    <DynamicIcon name="archive" slot="icon" />
+    <section class="stats-section">
+        <Heatmap postsData={postsData} />
+    </section>
+
+    {
+        Object.keys(postsByYear)
+            .map((year) => Number(year))
+            .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+            .map((year) => (
+                <section data-key={year}>
+                    <h2>{year}</h2>
+                    {sortByPubDate(postsByYear[year]).map((post) => (
+                        <Archive
+                            key={post.slug}
+                            url={`/article/${post.slug}/`}
+                            title={post.data.title}
+                            publishedTime={post.data.pubDate}
+                        />
+                    ))}
+                </section>
+            ))
+    }
+
     <Author />
-</BaseLayout>
+</SectionPage>

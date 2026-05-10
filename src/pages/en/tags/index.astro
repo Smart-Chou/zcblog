@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import Author from "~/components/Feature/Author.astro";
-import { site } from "~/self.config";
+import { site, tagsPage } from "~/self.config";
 
 const allPosts = await getCollection("article");
 
@@ -33,11 +33,11 @@ function getTagColor(count: number): string {
 ---
 
 <SectionPage
-    title={`Tags - ${site.title}`}
+    title={`${tagsPage.title} - ${site.title}`}
     subtitle=""
-    description={`All tags - ${site.description}`}
+    description={`${tagsPage.description} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
-    imageAlt="Tags"
+    imageAlt={tagsPage.title}
     keywords={["Tags"]}
     publishedTime={new Date()}
     modifiedTime={new Date()}
@@ -71,13 +71,14 @@ function getTagColor(count: number): string {
 
     .tag-item {
         margin: 0.25em;
-        border-radius: 0.5em;
+        border-radius: 2em;
         padding: 0.5em 1em;
         font-size: 1em;
         display: inline-flex;
         align-items: center;
         gap: 0.5em;
         background-color: var(--color-bg);
+        border: 1px solid var(--color-border);
     }
 
     .tag-item a {

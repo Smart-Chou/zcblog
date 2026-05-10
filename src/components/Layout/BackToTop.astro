@@ -12,7 +12,7 @@ const { threshold = 300 } = Astro.props;
     <RocketIcon />
 </div>
 
-<script define:vars={{ threshold }}>
+<script is:inline define:vars={{ threshold }}>
     document.addEventListener("astro:page-load", () => {
         const backToTopButton = document.getElementById("back-to-top");
 

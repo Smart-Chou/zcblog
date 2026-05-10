@@ -1,5 +1,19 @@
 ---
+import SectionPage from "~/components/Layout/SectionPage.astro";
 import BangumiLoader from "~/components/bangumi/BangumiLoader.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import Author from "~/components/Feature/Author.astro";
+import { formatDateI18nWithTime } from "~/utils/date-utils";
+
+const buildTime = formatDateI18nWithTime(new Date());
 ---
 
-<BangumiLoader locale="en" />
+<SectionPage
+    title="Bangumi"
+    subtitle="My anime, book, music and game collection"
+    buildTime={`Last updated: ${buildTime}`}
+>
+    <DynamicIcon name="tabler:movie" slot="icon" />
+    <BangumiLoader locale="en" />
+    <Author />
+</SectionPage>

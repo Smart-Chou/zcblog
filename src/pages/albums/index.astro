@@ -2,6 +2,7 @@
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import AlbumCard from "~/components/gallery/AlbumCard.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import { site } from "~/self.config";
 
 interface AlbumPhoto {
     id: string;
@@ -40,6 +41,12 @@ const allTags = [
 <SectionPage
     title="Albums"
     subtitle="记录生活中的美好瞬间"
+    description={site.title + " - Photo Albums"}
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt="Albums"
+    keywords={["Albums", "Photos", "Gallery"]}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
     empty={GALLERY_CONFIG.length === 0}
     emptyEmoji="📷"
     emptyTitle="暂无相册"
