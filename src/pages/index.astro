@@ -35,9 +35,9 @@ const recentPosts = sortedArticles.slice(0, 5);
             <Posts posts={recentPosts} />
             <Friends />
             <Photos />
-            <Goods />
-            <Media title="近期观影" items={moviesItems} href="/movies/" />
-            <Media title="近期阅读" items={booksItems} href="/books/" />
+            <Goods limit={4} />
+            <Media title="近期观影" items={moviesItems} href="/movies/" limit={4} />
+            <Media title="近期阅读" items={booksItems} href="/books/" limit={4} />
         </main>
     </div>
 </BaseLayout>

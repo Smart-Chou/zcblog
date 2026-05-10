@@ -13,12 +13,14 @@ interface Props {
     title: string;
     items: Media[];
     href?: string;
+    limit?: number;
 }
 
-const { title, items, href = "#" } = Astro.props;
+const { title, items, href = "#", limit } = Astro.props;
+const displayItems = limit ? items.slice(0, limit) : items;
 ---
 
-<div class="douban media-section">
+<div class="douban home">
     <h3><a href={href}>{title}</a></h3>
-    <MediaCardGrid items={items} />
+    <MediaCardGrid items={displayItems} />
 </div>

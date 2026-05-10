@@ -1,4 +1,5 @@
 ---
+import HeroPostCard from "../Article/HeroPostCard.astro";
 import { t, defaultLocale, type Locale } from "~/utils/i18n";
 
 interface Post {
@@ -104,28 +105,13 @@ const archiveUrl = locale === defaultLocale ? "/archives/" : "/en/archives/";
 
     {
         posts.slice(1).map((post) => (
-            <div class="post col-span-1 home-2">
-                {post.data.image && (
-                    <img
-                        loading="lazy"
-                        decoding="async"
-                        src={getImageUrl(post.data.image)}
-                        class="post-cover"
-                        alt={post.data.image.alt}
-                    />
-                )}
-                <h1 class="post-title">
-                    <a href={`/article/${post.id}/`}>{post.data.title}</a>
-                </h1>
-                <div class="post-meta">
-                    <span
-                        class="post-date"
-                        title={post.data.pubDate.toISOString()}
-                    >
-                        {formatDate(post.data.pubDate, locale)}
-                    </span>
-                </div>
-            </div>
+            <HeroPostCard
+                title={post.data.title}
+                description={post.data.description}
+                publishedTime={post.data.pubDate.toISOString()}
+                postUrl={`/article/${post.id}/`}
+                currentSlug={post.id}
+            />
         ))
     }
 </div>
