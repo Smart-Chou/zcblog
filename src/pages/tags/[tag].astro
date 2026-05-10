@@ -54,16 +54,16 @@ const postsWithMeta = articles.map((post) => {
     <div class="posts">
         {
             postsWithMeta.map((post) => (
-                    <TagsPostCard
-                        title={post.data.title}
-                        description={post.excerpt}
-                        tags={post.data.tags || []}
-                        postUrl={`/article/${post.slug}/`}
-                        publishedTime={post.data.pubDate}
-                        wordCount={post.wordCount}
-                        readTime={post.readTime}
-                        currentSlug={post.slug}
-                    />
+                <TagsPostCard
+                    title={post.data.title}
+                    description={post.excerpt}
+                    tags={post.data.tags || []}
+                    postUrl={`/article/${post.slug}/`}
+                    publishedTime={post.data.pubDate}
+                    wordCount={post.wordCount}
+                    readTime={post.readTime}
+                    currentSlug={post.slug}
+                />
             ))
         }
     </div>

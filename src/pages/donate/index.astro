@@ -4,6 +4,7 @@ import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import HeartIcon from "~/components/icons/Heart.astro";
 import QrCard from "~/components/ui/QrCard.astro";
 import DonatorsList from "~/components/ui/DonatorsList.astro";
+import WalineComment from "~/components/Widget/WalineComment.astro";
 import { donate } from "~/self.config";
 import donateData from "~/data/donators.json";
 
@@ -71,6 +72,8 @@ const { donators } = donateData;
             </div>
         </div>
     </div>
+
+    <WalineComment />
 </SectionPage>
 
 <style>
@@ -104,7 +107,7 @@ const { donators } = donateData;
 
     .donate-methods {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
         gap: 1.5rem;
     }
 

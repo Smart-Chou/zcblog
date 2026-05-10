@@ -56,7 +56,9 @@ const startYear = Math.min(
 
 // 热力图数据
 const postsData = postsWithMeta.map((post) => ({
-    date: post.data.pubDate ? formatDateToYYYYMMDD(new Date(post.data.pubDate)) : "",
+    date: post.data.pubDate
+        ? formatDateToYYYYMMDD(new Date(post.data.pubDate))
+        : "",
     title: post.data.title || "",
     wordCount: post.wordCount,
 }));
@@ -86,13 +88,13 @@ const postsData = postsWithMeta.map((post) => ({
                 <section data-key={year}>
                     <h2>{year}</h2>
                     {sortByPubDate(postsByYear[year]).map((post) => (
-                            <Archive
-                                key={post.slug}
-                                url={`/article/${post.slug}/`}
-                                title={post.data.title}
-                                publishedTime={post.data.pubDate}
-                            />
-                        ))}
+                        <Archive
+                            key={post.slug}
+                            url={`/article/${post.slug}/`}
+                            title={post.data.title}
+                            publishedTime={post.data.pubDate}
+                        />
+                    ))}
                 </section>
             ))
     }

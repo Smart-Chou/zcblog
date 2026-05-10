@@ -1,5 +1,6 @@
 ---
-
+import "@waline/client/waline.css";
+import "@waline/client/waline-meta.css";
 ---
 
 <style>
@@ -61,17 +62,23 @@
 <script>
     import { init } from "@waline/client";
     import { waline } from "~/self.config";
-    import "@waline/client/waline.css";
-    import "@waline/client/waline-meta.css";
 
+    let walineInstance: ReturnType<typeof init> | null = null;
     let walineInitialized = false;
+    let toggleHandlerBound = false;
 
     document.addEventListener("astro:page-load", () => {
-        walineInitialized = false;
         const details = document.getElementById(
             "commentDetails",
         ) as HTMLDetailsElement | null;
         if (!details) return;
+
+        // 销毁旧实例
+        if (walineInstance) {
+            walineInstance.destroy?.();
+            walineInstance = null;
+        }
+        walineInitialized = false;
 
         const initWaline = () => {
             if (walineInitialized) return;
@@ -171,18 +178,21 @@
                         : (waline.reaction as string[]);
             }
 
-            init(walineConfig);
+            walineInstance = init(walineConfig);
         };
 
-        details.addEventListener("toggle", () => {
-            if (details.open) {
-                initWaline();
-                const summary = details.querySelector("summary");
-                if (summary) summary.textContent = "收起评论";
-            } else {
-                const summary = details.querySelector("summary");
-                if (summary) summary.textContent = "展开评论";
-            }
-        });
+        if (!toggleHandlerBound) {
+            toggleHandlerBound = true;
+            details.addEventListener("toggle", () => {
+                if (details.open) {
+                    initWaline();
+                    const summary = details.querySelector("summary");
+                    if (summary) summary.textContent = "收起评论";
+                } else {
+                    const summary = details.querySelector("summary");
+                    if (summary) summary.textContent = "展开评论";
+                }
+            });
+        }
     });
 </script>

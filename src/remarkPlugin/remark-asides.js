@@ -204,7 +204,10 @@ export function remarkAsides(options) {
                 [
                     h(
                         "h5",
-                        { class: "remark-aside-title toc-ignore", "aria-hidden": "true" },
+                        {
+                            class: "remark-aside-title toc-ignore",
+                            "aria-hidden": "true",
+                        },
                         [
                             s(
                                 "svg",

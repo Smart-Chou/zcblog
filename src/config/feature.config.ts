@@ -113,7 +113,7 @@ export const waline: WalineConfig = {
     pageSize: 16,
     reaction: [],
     search: false,
-    whiteList: ["/message/", "/friends/"],
+    whiteList: ["/donate/", "/friends/"],
 };
 
 /**

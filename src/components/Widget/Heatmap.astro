@@ -30,8 +30,18 @@ const { postsData } = Astro.props;
     }
 
     const monthNames = [
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
     ];
 
     function initHeatmap() {
@@ -45,7 +55,7 @@ const { postsData } = Astro.props;
         startDate.setDate(startDate.getDate() - startDate.getDay());
 
         const dataMap = {};
-        postsData.forEach(function(p) {
+        postsData.forEach(function (p) {
             dataMap[p.date] = p;
         });
 
@@ -66,7 +76,7 @@ const { postsData } = Astro.props;
 
         var monthRow = document.createElement("div");
         monthRow.className = "heatmap-months";
-        months.forEach(function(m) {
+        months.forEach(function (m) {
             var span = document.createElement("span");
             span.textContent = m.month;
             span.style.gridColumn = (m.col + 1).toString();
@@ -93,28 +103,40 @@ const { postsData } = Astro.props;
             var dayData = dataMap[dateStr];
 
             if (dayData) {
-                cell.className = "heatmap-day " + getClassForValue(dayData.wordCount);
+                cell.className =
+                    "heatmap-day " + getClassForValue(dayData.wordCount);
                 cell.dataset.date = dayData.date;
                 cell.dataset.title = dayData.title;
                 cell.dataset.count = dayData.wordCount.toString();
 
-                cell.addEventListener("mouseenter", function() {
+                cell.addEventListener("mouseenter", function () {
                     var tooltip = document.createElement("div");
                     tooltip.className = "heatmap-tooltip";
                     tooltip.innerHTML =
-                        '<div class="heatmap-tooltip-date">' + dayData.date + "</div>" +
+                        '<div class="heatmap-tooltip-date">' +
+                        dayData.date +
+                        "</div>" +
                         '<div class="heatmap-tooltip-content">' +
-                        "<div>" + dayData.wordCount + " 字</div>" +
-                        "<div>《" + dayData.title + "》</div>" +
+                        "<div>" +
+                        dayData.wordCount +
+                        " 字</div>" +
+                        "<div>《" +
+                        dayData.title +
+                        "》</div>" +
                         "</div>";
                     document.body.appendChild(tooltip);
                     var rect = cell.getBoundingClientRect();
                     tooltip.style.left = rect.left + "px";
-                    tooltip.style.top = (rect.top - tooltip.offsetHeight - 8) + "px";
+                    tooltip.style.top =
+                        rect.top - tooltip.offsetHeight - 8 + "px";
                 });
 
-                cell.addEventListener("mouseleave", function() {
-                    document.querySelectorAll(".heatmap-tooltip").forEach(function(t) { t.remove(); });
+                cell.addEventListener("mouseleave", function () {
+                    document
+                        .querySelectorAll(".heatmap-tooltip")
+                        .forEach(function (t) {
+                            t.remove();
+                        });
                 });
             } else {
                 cell.className = "heatmap-day color-empty";
@@ -132,7 +154,15 @@ const { postsData } = Astro.props;
         var colors = ["#d6d8db", "#9ad99b", "#68be67", "#3f7f46", "#2f6336"];
         legendDiv.innerHTML =
             "<span>Less</span>" +
-            colors.map(function(c) { return '<span class="heatmap-legend-item" style="background-color:' + c + '"></span>'; }).join("") +
+            colors
+                .map(function (c) {
+                    return (
+                        '<span class="heatmap-legend-item" style="background-color:' +
+                        c +
+                        '"></span>'
+                    );
+                })
+                .join("") +
             "<span>More</span>";
         container.appendChild(legendDiv);
     }
