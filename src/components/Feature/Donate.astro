@@ -244,3 +244,22 @@ import { donate } from "~/self.config";
         </div>
     </dialog>
 </div>
+
+<script>
+    import { lockScroll, unlockScroll } from "~/scripts/scroll-lock";
+
+    document.addEventListener("astro:page-load", () => {
+        const dialog = document.getElementById(
+            "donateDialog",
+        ) as HTMLDialogElement | null;
+        if (!dialog) return;
+
+        dialog.addEventListener("toggle", () => {
+            if (dialog.open) {
+                lockScroll();
+            } else {
+                unlockScroll();
+            }
+        });
+    });
+</script>
