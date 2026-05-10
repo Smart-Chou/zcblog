@@ -90,7 +90,6 @@ const archiveUrl = locale === defaultLocale ? "/archives/" : "/en/archives/";
                         </span>
                     </div>
                     <div class="post-content">
-                        <p>{posts[0].data.description}</p>
                         <a
                             class="read-more button"
                             href={`/article/${posts[0].id}/`}
@@ -104,15 +103,17 @@ const archiveUrl = locale === defaultLocale ? "/archives/" : "/en/archives/";
     }
 
     {
-        posts.slice(1).map((post) => (
-            <HeroPostCard
-                title={post.data.title}
-                description={post.data.description}
-                publishedTime={post.data.pubDate.toISOString()}
-                postUrl={`/article/${post.id}/`}
-                currentSlug={post.id}
-            />
-        ))
+        posts
+            .slice(1)
+            .map((post) => (
+                <HeroPostCard
+                    title={post.data.title}
+                    description={post.data.description}
+                    publishedTime={post.data.pubDate.toISOString()}
+                    postUrl={`/article/${post.id}/`}
+                    currentSlug={post.id}
+                />
+            ))
     }
 </div>
 

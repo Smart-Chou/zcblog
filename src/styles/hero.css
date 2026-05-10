@@ -139,7 +139,6 @@ html[data-theme="dark"] .talk-list {
     display: block;
     width: 100%;
     text-align: left;
-    padding: 20px;
     margin: 0 auto;
 }
 
@@ -186,7 +185,6 @@ html[data-theme="dark"] .talk-list {
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
 }
 
-.home-2 .post-title,
 .home-2 .post-meta {
     margin-right: 110px;
 }
@@ -253,9 +251,10 @@ a.read-more {
     background: none;
     box-shadow: none;
     padding: 0;
-    margin: 20px 0 0;
+    margin: 0;
     font-weight: 700;
     text-decoration: none;
+    color: #c2413b !important;
 }
 
 /* ========================================
@@ -296,6 +295,7 @@ html[data-theme="dark"] .homemore a {
 
 .douban.friends {
     width: 100vw;
+    max-width: none;
     margin: 0 calc(-50vw + 50%);
     box-sizing: border-box;
     background: var(--friends-light-bg, #f3f4f6);
@@ -358,7 +358,7 @@ html[data-theme="dark"] .douban {
 }
 
 .fri-item img {
-    border-radius: 3rem; 
+    border-radius: 3rem;
 }
 
 html[data-theme="dark"] .fri-item {
