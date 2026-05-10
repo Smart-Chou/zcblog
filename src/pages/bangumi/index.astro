@@ -3,6 +3,7 @@ import SectionPage from "~/components/Layout/SectionPage.astro";
 import TabNav from "~/components/bangumi/TabNav.astro";
 import BangumiSection from "~/components/bangumi/BangumiSection.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import Author from "~/components/Feature/Author.astro";
 import { formatDateI18nWithTime } from "~/utils/date-utils";
 import type { UserSubjectCollection } from "~/types/bangumi";
 
@@ -157,10 +158,11 @@ const hasData = tabs.length > 0;
                         sectionId={tab.id}
                         items={bangumiData[tab.id] || []}
                         isActive={tab.id === activeTab}
-                        itemsPerPage={12}
+                        itemsPerPage={8}
                     />
                 ))}
             </>
         )
     }
+    <Author />
 </SectionPage>

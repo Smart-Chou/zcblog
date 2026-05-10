@@ -2,6 +2,7 @@
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import MediaCardGrid from "~/components/ui/MediaCardGrid.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import Author from "~/components/Feature/Author.astro";
 import items from "~/data/movies.json";
 ---
 
@@ -12,4 +13,5 @@ import items from "~/data/movies.json";
 >
     <DynamicIcon name="tabler:photo" slot="icon" />
     <MediaCardGrid items={items} />
+    <Author />
 </SectionPage>

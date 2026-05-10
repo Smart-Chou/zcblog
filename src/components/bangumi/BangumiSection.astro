@@ -10,7 +10,7 @@ interface Props {
     itemsPerPage?: number;
 }
 
-const { sectionId, items, isActive, itemsPerPage = 12 } = Astro.props;
+const { sectionId, items, isActive, itemsPerPage = 8 } = Astro.props;
 
 const statusMap: Record<number, string> = {
     1: "wish",
@@ -69,7 +69,11 @@ const totalPages = Math.ceil(items.length / itemsPerPage);
                     ))}
                 </div>
                 {totalPages > 1 && (
-                    <div class="pagination" data-section={sectionId}>
+                    <div
+                        class="pagination"
+                        data-section={sectionId}
+                        data-per-page={itemsPerPage}
+                    >
                         <button class="page-btn prev" disabled>
                             上一页
                         </button>
@@ -103,6 +107,8 @@ const totalPages = Math.ceil(items.length / itemsPerPage);
     @media (min-width: 650px) {
         .bangumi-grid {
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            max-width: 900px;
+            margin: 0 auto;
         }
     }
 
@@ -164,7 +170,8 @@ const totalPages = Math.ceil(items.length / itemsPerPage);
                     `[data-section="${sectionId}"] .bangumi-grid`,
                 );
             const items = grid?.querySelectorAll(".bangumi-item") || [];
-            const itemsPerPage = 12;
+            const itemsPerPage =
+                Number(pagination.getAttribute("data-per-page")) || 8;
             const totalPages = Math.ceil(items.length / itemsPerPage);
             let currentPage = 1;
 

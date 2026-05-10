@@ -2,6 +2,7 @@
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import GoodsCardList from "~/components/ui/GoodsCardList.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import Author from "~/components/Feature/Author.astro";
 import items from "~/data/goods.json";
 ---
 
@@ -12,4 +13,5 @@ import items from "~/data/goods.json";
 >
     <DynamicIcon name="ph:heart-fill" slot="icon" />
     <GoodsCardList items={items} />
+    <Author />
 </SectionPage>
