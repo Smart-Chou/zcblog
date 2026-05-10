@@ -1,14 +1,7 @@
 ---
-const currentPath = Astro.url.pathname;
+import { navLinks } from "~/self.config";
 
-const navLinks = [
-    { label: "博客", href: "/blog/1/" },
-    { label: "归档", href: "/archives/" },
-    { label: "标签", href: "/tags/" },
-    { label: "相册", href: "/albums/" },
-    { label: "随笔", href: "/essay/" },
-    { label: "友人", href: "/friends/" },
-];
+const currentPath = Astro.url.pathname;
 ---
 
 <button

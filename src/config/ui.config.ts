@@ -1,6 +1,14 @@
 // UI相关配置
 
 /**
+ * 主导航链接
+ */
+export interface NavLink {
+    label: string;
+    href: string;
+}
+
+/**
  * 导航栏配置项
  */
 export interface CategoryItem {
@@ -52,6 +60,24 @@ export interface FooterItem {
     labelColor: string; // 标签背景颜色
     url: string; // 链接
 }
+
+/**
+ * 主导航链接
+ */
+export const navLinks: NavLink[] = [
+    { label: "博客", href: "/blog/1/" },
+    { label: "归档", href: "/archives/" },
+    { label: "标签", href: "/tags/" },
+    { label: "相册", href: "/albums/" },
+    { label: "随笔", href: "/essay/" },
+    { label: "说说", href: "/talks/" },
+    { label: "读书", href: "/books/" },
+    { label: "影视", href: "/movies/" },
+    { label: "番剧", href: "/bangumi/" },
+    { label: "好物", href: "/goods/" },
+    { label: "赞赏", href: "/donate/" },
+    { label: "友人", href: "/friends/" },
+];
 
 /**
  * 导航栏配置
