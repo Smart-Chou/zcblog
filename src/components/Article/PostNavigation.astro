@@ -1,13 +1,11 @@
 ---
 import { getCollection } from "astro:content";
+import { sortByPubDate } from "~/utils/date-utils";
 
 const { slug } = Astro.props;
 
 const allPosts = await getCollection("article");
-const sorted = allPosts.sort(
-    (a, b) =>
-        new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
-);
+const sorted = sortByPubDate(allPosts);
 const currentIndex = sorted.findIndex((post) => post.id === slug);
 const prevPost = currentIndex > 0 ? sorted[currentIndex - 1] : null;
 const nextPost =

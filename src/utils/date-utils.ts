@@ -1,3 +1,18 @@
+/** 按 pubDate 降序排列（最新在前） */
+export function sortByPubDate<T extends { data: { pubDate: Date } }>(
+    posts: T[],
+): T[] {
+    return [...posts].sort(compareByPubDate);
+}
+
+/** pubDate 降序比较器，用于自定义排序中作为回退 */
+export function compareByPubDate<T extends { data: { pubDate: Date } }>(
+    a: T,
+    b: T,
+): number {
+    return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+}
+
 export function formatDateToYYYYMMDD(date: Date): string {
     return date.toISOString().substring(0, 10);
 }

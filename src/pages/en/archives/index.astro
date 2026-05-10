@@ -6,6 +6,7 @@ import Archive from "~/components/Widget/Archive.astro";
 import Author from "~/components/Feature/Author.astro";
 import { site } from "~/self.config";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
+import { sortByPubDate } from "~/utils/date-utils";
 import type { CollectionEntry } from "astro:content";
 
 interface PostWithMeta extends CollectionEntry<"article"> {
@@ -73,13 +74,7 @@ const startYear = Math.min(
                 .map((year) => (
                     <section data-key={year}>
                         <h2>{year}</h2>
-                        {postsByYear[year]
-                            .sort(
-                                (a, b) =>
-                                    new Date(b.data.pubDate).getTime() -
-                                    new Date(a.data.pubDate).getTime(),
-                            )
-                            .map((post) => (
+                        {sortByPubDate(postsByYear[year]).map((post) => (
                                 <Archive
                                     key={post.slug}
                                     url={`/article/${post.slug}/`}

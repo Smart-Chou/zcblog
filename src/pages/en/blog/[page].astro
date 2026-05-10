@@ -7,6 +7,7 @@ import Pagination from "~/components/Widget/Pagination.astro";
 import BackToTop from "~/components/Layout/BackToTop.astro";
 import { site, config, pageView } from "~/self.config";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
+import { compareByPubDate } from "~/utils/date-utils";
 
 export async function getStaticPaths({
     paginate,
@@ -37,14 +38,8 @@ export async function getStaticPaths({
     });
 
     const sortedPosts = postsWithPrecomputedMeta.sort((a, b) => {
-        const stickyDIff = (Number(b.sticky) || 0) - (Number(a.sticky) || 0);
-        if (stickyDIff !== 0) {
-            return stickyDIff;
-        }
-        return (
-            new Date(b.data.pubDate).getTime() -
-            new Date(a.data.pubDate).getTime()
-        );
+        const stickyDiff = (Number(b.sticky) || 0) - (Number(a.sticky) || 0);
+        return stickyDiff || compareByPubDate(a, b);
     });
     return paginate(sortedPosts, { pageSize });
 }

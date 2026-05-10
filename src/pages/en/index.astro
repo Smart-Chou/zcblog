@@ -11,11 +11,10 @@ import Media from "~/components/Index/Media.astro";
 import booksItems from "~/data/books.json";
 import moviesItems from "~/data/movies.json";
 import { site } from "~/self.config";
+import { sortByPubDate } from "~/utils/date-utils";
 
 const allArticles = await getCollection("article", ({ data }) => !data.draft);
-const sortedArticles = allArticles.sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const sortedArticles = sortByPubDate(allArticles);
 const recentPosts = sortedArticles.slice(0, 5);
 ---
 
