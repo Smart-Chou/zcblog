@@ -63,9 +63,7 @@ import "@waline/client/waline-meta.css";
     import { init } from "@waline/client";
     import { waline } from "~/self.config";
 
-    let walineInstance: ReturnType<typeof init> | null = null;
     let walineInitialized = false;
-    let toggleHandlerBound = false;
 
     document.addEventListener("astro:page-load", () => {
         const details = document.getElementById(
@@ -73,11 +71,6 @@ import "@waline/client/waline-meta.css";
         ) as HTMLDetailsElement | null;
         if (!details) return;
 
-        // 销毁旧实例
-        if (walineInstance) {
-            walineInstance.destroy?.();
-            walineInstance = null;
-        }
         walineInitialized = false;
 
         const initWaline = () => {
@@ -178,21 +171,18 @@ import "@waline/client/waline-meta.css";
                         : (waline.reaction as string[]);
             }
 
-            walineInstance = init(walineConfig);
+            init(walineConfig);
         };
 
-        if (!toggleHandlerBound) {
-            toggleHandlerBound = true;
-            details.addEventListener("toggle", () => {
-                if (details.open) {
-                    initWaline();
-                    const summary = details.querySelector("summary");
-                    if (summary) summary.textContent = "收起评论";
-                } else {
-                    const summary = details.querySelector("summary");
-                    if (summary) summary.textContent = "展开评论";
-                }
-            });
-        }
+        details.addEventListener("toggle", () => {
+            if (details.open) {
+                initWaline();
+                const summary = details.querySelector("summary");
+                if (summary) summary.textContent = "收起评论";
+            } else {
+                const summary = details.querySelector("summary");
+                if (summary) summary.textContent = "展开评论";
+            }
+        });
     });
 </script>
