@@ -156,14 +156,10 @@
                 ],
                 wordLimit: [0, 1000],
                 reaction: true,
-                imageUploader: false,
-                highlighter: true,
                 codeSyntaxHighlight: true,
-                uploadImage: () => {
-                    return new Promise(() => {
-                        alert("图片上传功能暂未开放");
-                        throw new Error("图片上传功能暂未开放");
-                    });
+                imageUploader: () => {
+                    alert("图片上传功能暂未开放");
+                    return Promise.reject(new Error("图片上传功能暂未开放"));
                 },
             };
 

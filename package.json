@@ -84,6 +84,9 @@
         "vite": "^7.3.3",
         "vitest": "^4.1.5"
     },
+    "pnpm": {
+        "onlyBuiltDependencies": ["sharp", "esbuild"]
+    },
     "engines": {
         "node": ">= 22.0.0"
     }
