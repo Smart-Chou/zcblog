@@ -62,7 +62,6 @@
     border: 1px solid var(--light-background-secondary);
 }
 
-.dark #bber-talk,
 html[data-theme="dark"] #bber-talk {
     border: 1px solid var(--dark-background-secondary);
 }
@@ -111,12 +110,11 @@ html[data-theme="dark"] #bber-talk {
     text-decoration: none;
 }
 
-.dark #bber-talk,
 html[data-theme="dark"] #bber-talk {
     background-color: var(--dark-header);
 }
 
-.dark .talk-list {
+html[data-theme="dark"] .talk-list {
     color: var(--dark-color);
 }
 
@@ -281,7 +279,7 @@ a.read-more {
     border: 1px solid var(--light-background-secondary);
 }
 
-.dark .homemore a {
+html[data-theme="dark"] .homemore a {
     background: var(--dark-background-secondary);
     border: 1px solid var(--dark-background-secondary);
 }
@@ -294,8 +292,6 @@ a.read-more {
     padding: 0 20px;
     background: var(--light-header);
     width: 100%;
-    border-top: 1px solid var(--light-background-secondary);
-    border-bottom: 1px solid var(--light-background-secondary);
     padding-top: 1.2rem;
 }
 
@@ -306,7 +302,7 @@ a.read-more {
     background: var(--friends-light-bg, #f3f4f6);
 }
 
-.dark .douban.friends {
+html[data-theme="dark"] .douban.friends {
     background: var(--friends-dark-bg, #111111);
 }
 
@@ -322,10 +318,8 @@ a.read-more {
     margin-right: auto;
 }
 
-.dark .douban {
+html[data-theme="dark"] .douban {
     background: var(--dark-header);
-    border-top: 1px solid var(--dark-background-secondary);
-    border-bottom: 1px solid var(--dark-background-secondary);
 }
 
 .douban h3,
@@ -364,7 +358,7 @@ a.read-more {
     border: 1px solid var(--light-background-secondary);
 }
 
-.dark .fri-item {
+html[data-theme="dark"] .fri-item {
     background: var(--dark-background-secondary);
     border: 1px solid var(--dark-background-secondary);
 }
@@ -504,7 +498,7 @@ a.read-more {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
 }
 
-.dark .goods-bankuai {
+html[data-theme="dark"] .goods-bankuai {
     background: var(--dark-background);
     border: 1px solid var(--dark-background-secondary);
 }
@@ -747,13 +741,11 @@ a.read-more {
 }
 
 /* dark mode */
-.dark body,
-body.dark {
+html[data-theme="dark"] body {
     background-color: var(--dark-background);
     color: var(--dark-color);
 }
 
-.dark .post-title,
-body.dark .post-title {
+html[data-theme="dark"] .post-title {
     color: var(--dark-color);
 }

@@ -5,9 +5,9 @@
     "type": "module",
     "private": false,
     "scripts": {
-        "dev": "rm -rf node_modules/.astro node_modules/.vite .astro && astro dev",
-        "start": "rm -rf node_modules/.astro node_modules/.vite .astro && astro dev",
-        "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" astro build && npx pagefind",
+        "dev": "rm -rf node_modules/.vite && astro dev",
+        "start": "rm -rf node_modules/.vite && astro dev",
+        "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" astro check && astro build && npx pagefind",
         "preview": "astro preview",
         "astro": "astro",
         "type-check": "tsc --noEmit --isolatedDeclarations",
