@@ -1,8 +1,6 @@
 ---
-import SectionPage from "~/components/Layout/SectionPage.astro";
 import TabNav from "~/components/bangumi/TabNav.astro";
 import BangumiSection from "~/components/bangumi/BangumiSection.astro";
-import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { formatDateI18nWithTime } from "~/utils/date-utils";
 import type { UserSubjectCollection } from "~/types/bangumi";
 
@@ -52,8 +50,6 @@ const t = {
         },
     },
 }[locale];
-
-const buildTime = formatDateI18nWithTime(new Date());
 
 const categoryMap: Record<
     string,
@@ -137,17 +133,7 @@ const activeTab = tabs[0]?.id || "anime";
 const hasData = tabs.length > 0;
 ---
 
-<SectionPage
-    title="Bangumi"
-    subtitle={t.subtitle}
-    buildTime={`${t.buildTimePrefix}${buildTime}`}
-    empty={!hasData}
-    emptyTitle={isUserIdConfigured ? t.emptyTitleNoData : t.emptyTitleNoUser}
-    emptyMessage={isUserIdConfigured
-        ? t.emptyMessageNoData
-        : t.emptyMessageNoUser}
->
-    <DynamicIcon name="tabler:movie" slot="icon" />
+
     {
         hasData && (
             <>
@@ -157,10 +143,10 @@ const hasData = tabs.length > 0;
                         sectionId={tab.id}
                         items={bangumiData[tab.id] || []}
                         isActive={tab.id === activeTab}
-                        itemsPerPage={12}
+                        itemsPerPage={8}
                     />
                 ))}
             </>
         )
     }
-</SectionPage>
+
