@@ -14,30 +14,50 @@ const itemsJson = JSON.stringify(items);
 
 <script>
     const DURATION = 6000;
-    const list = document.querySelector(".talk-list") as HTMLElement;
-    const items = JSON.parse(list.dataset.items || "[]");
-    let index = 0;
+    let intervalId: ReturnType<typeof setInterval> | null = null;
 
-    function render() {
+    function initTalk() {
+        const list = document.querySelector(".talk-list") as HTMLElement | null;
+        if (!list) return;
+
+        const items = JSON.parse(list.dataset.items || "[]");
         if (!items.length) return;
-        const item = items[index];
-        list.innerHTML = `
-            <li class="item">
-                <span class="datetime" title="${item.datetime}">${item.display}</span>
-                <a href="${item.url}">${item.content}</a>
-            </li>
-        `;
+
+        let index = 0;
+
+        function render() {
+            const item = items[index];
+            list!.innerHTML = `
+                <li class="item">
+                    <span class="datetime" title="${item.datetime}">${item.display}</span>
+                    <a href="${item.url}">${item.content}</a>
+                </li>
+            `;
+        }
+
+        render();
+        intervalId = setInterval(() => {
+            index = (index + 1) % items.length;
+            list!.style.opacity = "0";
+            list!.style.transform = "translateY(-8px)";
+            setTimeout(() => {
+                render();
+                list!.style.opacity = "1";
+                list!.style.transform = "translateY(0)";
+            }, 250);
+        }, DURATION);
     }
 
-    render();
-    setInterval(() => {
-        index = (index + 1) % items.length;
-        list.style.opacity = "0";
-        list.style.transform = "translateY(-8px)";
-        setTimeout(() => {
-            render();
-            list.style.opacity = "1";
-            list.style.transform = "translateY(0)";
-        }, 250);
-    }, DURATION);
+    function destroyTalk() {
+        if (intervalId != null) {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+    }
+
+    document.addEventListener("astro:before-swap", destroyTalk);
+    document.addEventListener("astro:page-load", initTalk);
+
+    // initial call (fires before astro:page-load on first visit)
+    initTalk();
 </script>

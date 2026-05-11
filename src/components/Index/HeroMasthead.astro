@@ -2,10 +2,10 @@
 interface Props {
     subtitle: string;
     totalArticles: number;
-    postsCount: number;
+    tagsCount: number;
 }
 
-const { subtitle, totalArticles, postsCount } = Astro.props;
+const { subtitle, totalArticles, tagsCount } = Astro.props;
 ---
 
 <header class="hero-masthead animate-in">
@@ -22,8 +22,8 @@ const { subtitle, totalArticles, postsCount } = Astro.props;
             Articles
         </div>
         <div class="hero-stat">
-            <span class="hero-stat-value">{postsCount}+</span>
-            Posts
+            <span class="hero-stat-value">{tagsCount}+</span>
+            Tags
         </div>
     </div>
 </header>

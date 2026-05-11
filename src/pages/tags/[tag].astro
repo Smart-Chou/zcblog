@@ -76,18 +76,5 @@ const postsWithMeta = articles.map((post) => {
 </style>
 
 <script>
-    import { pageviewCount } from "@waline/client/pageview";
-    import { waline } from "~/self.config";
-
-    document.addEventListener("astro:page-load", () => {
-        const serverURL = waline.serverUrl;
-        const path = window.location.pathname;
-
-        pageviewCount({
-            serverURL,
-            path,
-            selector: ".waline-pageview-count",
-            update: true,
-        });
-    });
+    import "~/utils/waline-pageview";
 </script>

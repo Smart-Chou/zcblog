@@ -19,6 +19,8 @@ const allArticles = await getCollection("article", ({ data }) => !data.draft);
 const sortedArticles = sortByPubDate(allArticles);
 const recentPosts = sortedArticles.slice(0, 5);
 const totalArticles = allArticles.length;
+
+const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || [])).size;
 ---
 
 <BaseLayout
@@ -37,7 +39,7 @@ const totalArticles = allArticles.length;
             <HeroMasthead
                 subtitle={site.subtitle}
                 totalArticles={totalArticles}
-                postsCount={sortedArticles.length}
+                tagsCount={tagsCount}
             />
 
             <!-- Talk Ticker -->
