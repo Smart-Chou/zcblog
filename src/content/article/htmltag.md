@@ -152,11 +152,10 @@ tags:
 我们还是需要一点JavaScript来启动它
 
 ```js
-<script>
-    var dialog = document.getElementById("dialog");
-    dialog.showModal();
-    function closeModal() {
-        this.dialog.close();
-    }
-</script>
+// HTML 示例
+var dialog = document.getElementById("dialog");
+dialog.showModal();
+function closeModal() {
+    dialog.close();
+}
 ```

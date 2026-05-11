@@ -291,7 +291,7 @@ pre code {
 在**设置外观 - 开发者设置 - 自定义 JavaScript** 中添加如下代码：
 
 ```js
-<!--彩色标签云-->
+// 彩色标签云
 let tags = document.querySelectorAll("#tag_cloud-2 a");
 let colorArr = ["#428BCA", "#AEDCAE", "#ECA9A7", "#DA99FF", "#FFB380", "#D9B999"];
 tags.forEach(tag => {

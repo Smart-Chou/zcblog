@@ -87,17 +87,15 @@ localStorage.setItem('modelId', '7'); localStorage.setItem('modelTexturesId',
 下；
 
 ```css
-<style type="text/css">
-    #waifu-tips {
-        top: -60px;               #对话框高度
-        display:none !important;  #隐藏对话框
-    }
-</style>
+#waifu-tips {
+    top: -60px;               /* 对话框高度 */
+    display:none !important;  /* 隐藏对话框 */
+}
 ```
 
 - 个性化演示如下，修改大小并指定首次加载模型；
 
-```html
+```text
 <style type="text/css">
     #waifu #live2d {
         height: 500px !important;

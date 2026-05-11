@@ -83,7 +83,7 @@ sticky: 20
 
 不要问为什么能在`md`中还能写`js`,甚至写`Vue`,`React`都可以,因为`vuepress`牛逼~
 
-```js
+```html
 <script src="https://my.openwrite.cn/js/readmore.js" type="text/javascript"></script>
 <script>
     const btw = new BTWPlugin();  // 实例化btw插件对象

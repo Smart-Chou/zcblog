@@ -180,9 +180,8 @@ import { donate } from "~/self.config";
 <div class="donate">
     <div class="reward">
         <button
+            id="donateTrigger"
             class="reward-btn"
-            commandfor="donateDialog"
-            command="show-modal"
         >
             <HeartIcon filled={true} />
             <span class="text">&nbsp;赞赏博主</span>
@@ -196,9 +195,8 @@ import { donate } from "~/self.config";
                     <span class="title-text">&nbsp;赞赏博主</span>
                 </div>
                 <button
+                    id="donateClose"
                     class="close"
-                    commandfor="donateDialog"
-                    command="close"
                     aria-label="Close"
                 >
                     &times;
@@ -248,11 +246,32 @@ import { donate } from "~/self.config";
 <script>
     import { lockScroll, unlockScroll } from "~/scripts/scroll-lock";
 
-    document.addEventListener("astro:page-load", () => {
+    function setupDonate() {
         const dialog = document.getElementById(
             "donateDialog",
         ) as HTMLDialogElement | null;
-        if (!dialog) return;
+        const trigger = document.getElementById("donateTrigger");
+        const closeBtn = document.getElementById("donateClose");
+        if (!dialog || !trigger || !closeBtn) return;
+
+        // Prevent duplicate listeners
+        if (dialog.dataset.donateReady) return;
+        dialog.dataset.donateReady = "true";
+
+        trigger.addEventListener("click", () => {
+            dialog.showModal();
+        });
+
+        closeBtn.addEventListener("click", () => {
+            dialog.close();
+        });
+
+        // Close on backdrop click
+        dialog.addEventListener("click", (e) => {
+            if (e.target === dialog) {
+                dialog.close();
+            }
+        });
 
         dialog.addEventListener("toggle", () => {
             if (dialog.open) {
@@ -261,5 +280,13 @@ import { donate } from "~/self.config";
                 unlockScroll();
             }
         });
-    });
+    }
+
+    document.addEventListener("astro:page-load", setupDonate);
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setupDonate);
+    } else {
+        setupDonate();
+    }
 </script>
