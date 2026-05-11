@@ -23,24 +23,6 @@ const { posts } = Astro.props;
 const pathname = Astro.url.pathname;
 const locale: Locale = pathname.startsWith("/en") ? "en" : defaultLocale;
 
-function formatDate(date: Date, locale: Locale): string {
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-    const labels = {
-        zh: { today: "今天", dayAgo: "天前", monthAgo: "个月前", yearAgo: "年前" },
-        en: { today: "Today", dayAgo: "days ago", monthAgo: "months ago", yearAgo: "years ago" },
-    };
-    const l = labels[locale] || labels.zh;
-
-    if (days === 0) return l.today;
-    if (days === 1) return `1 ${l.dayAgo}`;
-    if (days < 30) return `${days} ${l.dayAgo}`;
-    if (days < 365) return `${Math.floor(days / 30)} ${l.monthAgo}`;
-    return `${Math.floor(days / 365)} ${l.yearAgo}`;
-}
-
 function getImageUrl(image: Post["data"]["image"]): string {
     if (!image) return "";
     if (typeof image.url === "string") return image.url;
