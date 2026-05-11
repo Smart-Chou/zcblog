@@ -11,12 +11,11 @@ export function initWalinePageview() {
     try {
         pageviewCount({
             serverURL,
-            path: window.location.pathname,
             selector: ".waline-pageview-count",
             update: true,
         });
     } catch (error) {
-        console.error("Failed to initialize Waline:", error);
+        console.error("Failed to initialize Waline pageview:", error);
     }
 }
 
