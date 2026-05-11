@@ -190,7 +190,8 @@ import "@waline/client/waline-meta.css";
         });
     }
 
-    // Reset state on each page navigation, then ensure toggle is wired
+    // Page load: init Waline immediately so pageview refreshes without waiting for click.
+    // The comment widget stays hidden until the user toggles it.
     document.addEventListener("astro:page-load", () => {
         const toggle = document.getElementById("waline-toggle");
         const walineEl = document.getElementById("waline");
@@ -202,13 +203,24 @@ import "@waline/client/waline-meta.css";
         toggle.textContent = "展开评论";
         toggle.style.display = "";
 
+        requestAnimationFrame(() => {
+            doInitWaline();
+        });
+
         setupWalineToggle();
     });
 
     // Initial setup
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", setupWalineToggle);
-    } else {
+    function boot() {
         setupWalineToggle();
+        requestAnimationFrame(() => {
+            doInitWaline();
+        });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", boot);
+    } else {
+        boot();
     }
 </script>
