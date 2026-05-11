@@ -49,14 +49,14 @@ html {
         "Liberation Mono", Menlo, monospace;
 
     /* ---- Type Scale (1.25 Major Third) ---- */
-    --text-xs: 0.75rem;
-    --text-sm: 0.875rem;
-    --text-base: 1rem;
-    --text-lg: 1.125rem;
-    --text-xl: 1.25rem;
-    --text-2xl: 1.5rem;
-    --text-3xl: 1.875rem;
-    --text-4xl: 2.25rem;
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-base: 16px;
+    --text-lg: 18px;
+    --text-xl: 20px;
+    --text-2xl: 24px;
+    --text-3xl: 30px;
+    --text-4xl: 36px;
     --base-font-size: var(--text-base);
 
     /* ---- Line Heights ---- */
@@ -125,14 +125,14 @@ html {
     --toast-width: 400px;
 
     /* ---- Spacing Scale (4pt-based) ---- */
-    --space-2xs: 0.25rem;
-    --space-xs: 0.5rem;
-    --space-sm: 0.75rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
-    --space-2xl: 3rem;
-    --space-3xl: 4rem;
+    --space-2xs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
 
     /* ---- Shadow / Elevation ---- */
     --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
@@ -178,12 +178,12 @@ html {
     }
     @media screen and (max-width: 650px) {
         --base-font-size: 16px;
-        --space: 1.3rem;
+        --space: 20.8px;
         --header-height: 56px;
         --toast-width: 280px;
     }
     @media screen and (max-width: 480px) {
-        --space: 1rem;
+        --space: 16px;
         --header-height: 52px;
         --radius: 3px;
         --radius-md: 3px;
