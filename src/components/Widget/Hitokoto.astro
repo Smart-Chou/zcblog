@@ -23,7 +23,13 @@ if (!hitokoto) return;
 <div class="hitokoto">
     <blockquote class="hitokoto-text" id="hitokoto-text">{hitokoto}</blockquote>
     <p class="hitokoto-source" id="hitokoto-source">
-        {(fromWho || from) ? "—— " : ""}{fromWho}{fromWho && from ? "《" + from + "》" : from && !fromWho ? "《" + from + "》" : ""}
+        {fromWho || from ? "—— " : ""}{fromWho}{
+            fromWho && from
+                ? "《" + from + "》"
+                : from && !fromWho
+                  ? "《" + from + "》"
+                  : ""
+        }
     </p>
 </div>
 
@@ -47,8 +53,12 @@ if (!hitokoto) return;
         transition: opacity 0.3s ease;
     }
 
-    .hitokoto-text::before { content: "\201C"; }
-    .hitokoto-text::after  { content: "\201D"; }
+    .hitokoto-text::before {
+        content: "\201C";
+    }
+    .hitokoto-text::after {
+        content: "\201D";
+    }
 
     .hitokoto-source {
         margin-top: 0.75em;
@@ -73,13 +83,16 @@ if (!hitokoto) return;
 
     function getHitokoto() {
         fetch("https://v1.hitokoto.cn/?c=d&c=i&c=k")
-            .then(res => res.json())
-            .then(data => {
+            .then((res) => res.json())
+            .then((data) => {
                 textEl.style.opacity = "0";
                 sourceEl.style.opacity = "0";
                 setTimeout(() => {
                     textEl.textContent = data.hitokoto;
-                    sourceEl.textContent = formatSource(data.from, data.from_who);
+                    sourceEl.textContent = formatSource(
+                        data.from,
+                        data.from_who,
+                    );
                     textEl.style.opacity = "";
                     sourceEl.style.opacity = "";
                 }, 320);

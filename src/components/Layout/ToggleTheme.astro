@@ -21,7 +21,11 @@ import MoonIcon from "~/components/icons/Moon.astro";
 
         const getStoredTheme = () => {
             if (typeof localStorage === "undefined") return null;
-            return localStorage.getItem(STORAGE_KEY);
+            try {
+                return localStorage.getItem(STORAGE_KEY);
+            } catch (e) {
+                return null;
+            }
         };
 
         const getSystemTheme = () => {
@@ -38,13 +42,19 @@ import MoonIcon from "~/components/icons/Moon.astro";
             const root = document.documentElement;
 
             if (theme === "dark") {
+                root.classList.add("dark");
                 root.setAttribute("data-theme", "dark");
             } else {
+                root.classList.remove("dark");
                 root.setAttribute("data-theme", "light");
             }
 
-            if (typeof localStorage !== "undefined") {
-                localStorage.setItem(STORAGE_KEY, theme);
+            try {
+                if (typeof localStorage !== "undefined") {
+                    localStorage.setItem(STORAGE_KEY, theme);
+                }
+            } catch (e) {
+                // localStorage 不可用时静默失败，主题切换仍生效
             }
 
             updateButton(theme);

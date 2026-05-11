@@ -91,10 +91,15 @@ const {
         }
     </style>
 
-    <!-- 立即主题设置，防止刷新时闪烁 -->
     <script is:inline>
         (function () {
-            var savedTheme = localStorage.getItem("preferredTheme");
+            var savedTheme = null;
+            try {
+                savedTheme = localStorage.getItem("preferredTheme");
+            } catch (e) {
+                // localStorage 不可用（iOS Safari 隐私模式 / ITP 限制等），回退到系统主题
+            }
+
             var systemDark = window.matchMedia(
                 "(prefers-color-scheme: dark)",
             ).matches;
@@ -104,16 +109,18 @@ const {
             if (isDark) {
                 document.documentElement.classList.add("dark");
                 document.documentElement.setAttribute("data-theme", "dark");
-                localStorage.setItem("preferredTheme", "dark");
             } else {
                 document.documentElement.classList.remove("dark");
                 document.documentElement.setAttribute("data-theme", "light");
-                localStorage.setItem("preferredTheme", "light");
             }
 
             // 监听 View Transitions 页面交换事件
             document.addEventListener("astro:after-swap", function () {
-                var savedTheme = localStorage.getItem("preferredTheme");
+                var savedTheme = null;
+                try {
+                    savedTheme = localStorage.getItem("preferredTheme");
+                } catch (e) {}
+
                 var systemDark = window.matchMedia(
                     "(prefers-color-scheme: dark)",
                 ).matches;
