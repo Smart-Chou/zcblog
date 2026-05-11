@@ -1,0 +1,29 @@
+---
+interface Props {
+    subtitle: string;
+    totalArticles: number;
+    postsCount: number;
+}
+
+const { subtitle, totalArticles, postsCount } = Astro.props;
+---
+
+<header class="hero-masthead animate-in">
+    <h1 class="hero-title">
+        <span class="hero-title-accent">Marx</span>&#8202;'s Blog
+    </h1>
+    <p class="hero-subtitle">{subtitle}</p>
+    <div class="hero-divider">
+        <span class="hero-divider-dot"></span>
+    </div>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <span class="hero-stat-value">{totalArticles}</span>
+            Articles
+        </div>
+        <div class="hero-stat">
+            <span class="hero-stat-value">{postsCount}+</span>
+            Posts
+        </div>
+    </div>
+</header>

@@ -4,10 +4,10 @@ import ChevronRightIcon from "~/components/icons/ChevronRight.astro";
 
 interface Props {
     page: any;
-    basePath?: string;
+    blogPath?: string;
 }
 
-const { page, basePath = "/blog" } = Astro.props;
+const { page, blogPath = "/blog" } = Astro.props;
 ---
 
 <style>
@@ -43,6 +43,10 @@ const { page, basePath = "/blog" } = Astro.props;
         display: none;
     }
 
+    #pagination a.square-class {
+        border-radius: 50%;
+    }
+
     @media screen and (max-width: 650px) {
         #pagination a:not([aria-label]) {
             display: none;
@@ -64,7 +68,7 @@ const { page, basePath = "/blog" } = Astro.props;
         href={page.url.prev}
         aria-label="Previous"
         aria-disabled={!page.url.prev}
-        class={page.url.prev ? "" : "disabled"}
+        class:list={[page.url.prev ? "" : "disabled", "square-class"]}
     >
         <ChevronLeftIcon />
     </a>
@@ -95,7 +99,7 @@ const { page, basePath = "/blog" } = Astro.props;
                 pageNumber < endPage + 1;
                 pageNumber++
             ) {
-                const href = `${basePath}/${pageNumber}/`;
+                const href = `${blogPath}/${pageNumber}/`;
                 pages.push(
                     <a
                         data-key={`page-${pageNumber}`}
@@ -116,7 +120,7 @@ const { page, basePath = "/blog" } = Astro.props;
         href={page.url.next}
         aria-label="Next"
         aria-disabled={!page.url.next}
-        class={page.url.next ? "" : "disabled"}
+        class:list={[page.url.next ? "" : "disabled", "square-class"]}
     >
         <ChevronRightIcon />
     </a>

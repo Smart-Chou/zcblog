@@ -2,12 +2,14 @@
 import "~/styles/home.css";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import HeroMasthead from "~/components/Index/HeroMasthead.astro";
 import Talk from "~/components/Index/Talk.astro";
 import Posts from "~/components/Index/Posts.astro";
 import Friends from "~/components/Index/Friends.astro";
 import Photos from "~/components/Index/Photos.astro";
 import Goods from "~/components/Index/Goods.astro";
 import Media from "~/components/Index/Media.astro";
+import Author from "~/components/Feature/Author.astro";
 import booksItems from "~/data/books.json";
 import moviesItems from "~/data/movies.json";
 import { site } from "~/self.config";
@@ -33,27 +35,11 @@ const totalArticles = allArticles.length;
         <div class="hero-background"></div>
         <main class="main-content">
             <!-- Hero Masthead -->
-            <header class="hero-masthead animate-in">
-                <h1 class="hero-title">
-                    <span class="hero-title-accent">Marx</span>&#8202;'s Blog
-                </h1>
-                <p class="hero-subtitle">{site.subtitle}</p>
-                <div class="hero-divider">
-                    <span class="hero-divider-dot"></span>
-                </div>
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <span class="hero-stat-value">{totalArticles}</span>
-                        Articles
-                    </div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-value"
-                            >{sortedArticles.length}+</span
-                        >
-                        Posts
-                    </div>
-                </div>
-            </header>
+            <HeroMasthead
+                subtitle={site.subtitle}
+                totalArticles={totalArticles}
+                postsCount={sortedArticles.length}
+            />
 
             <!-- Talk Ticker -->
             <Talk />
@@ -86,7 +72,7 @@ const totalArticles = allArticles.length;
                 />
             </div>
 
-            <div class="home-footer-spacer"></div>
+            <Author />
         </main>
     </div>
 </BaseLayout>

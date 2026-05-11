@@ -58,7 +58,20 @@ export default defineConfig({
     },
     integrations: [
         redirectAttributeByLink(),
-        sitemap(),
+        sitemap({
+            // 多语言站点地图配置
+            i18n: {
+                defaultLocale: "zh",
+                locales: {
+                    zh: "zh-CN",
+                    en: "en-US",
+                },
+            },
+            // 过滤不需要收录的页面
+            filter: (page) =>
+                page !== "https://marxchou.com/redirect/" &&
+                page !== "https://marxchou.com/en/redirect/",
+        }),
         icon(),
         expressiveCode({
             plugins: [pluginLineNumbers(), pluginCollapsibleSections()],
