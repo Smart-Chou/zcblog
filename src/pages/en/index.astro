@@ -20,7 +20,8 @@ const sortedArticles = sortByPubDate(allArticles);
 const recentPosts = sortedArticles.slice(0, 5);
 const totalArticles = allArticles.length;
 
-const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || [])).size;
+const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
+    .size;
 ---
 
 <BaseLayout

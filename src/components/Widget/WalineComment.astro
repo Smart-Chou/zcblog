@@ -4,12 +4,12 @@ import "@waline/client/waline-meta.css";
 ---
 
 <style>
-    #commentDetails {
+    #comment-wrapper {
         margin: 1rem auto;
         text-align: center;
     }
 
-    #commentDetails > summary {
+    #waline-toggle {
         display: inline-block;
         min-width: 180px;
         padding: 0.5rem 1rem;
@@ -20,25 +20,26 @@ import "@waline/client/waline-meta.css";
         cursor: pointer;
         border-radius: 5px;
         text-align: center;
-        list-style: none;
+        font: inherit;
     }
 
-    #commentDetails > summary::-webkit-details-marker {
-        display: none;
-    }
-
-    #commentDetails[open] > summary {
+    #waline-toggle.active {
         font-weight: bold;
         border: 1.5px solid var(--color-link);
     }
 
     #waline {
+        display: none;
         min-height: 38rem;
         max-width: var(--content-width);
         position: relative;
         overflow: hidden;
         margin: 0 auto;
         padding: 0 var(--space);
+    }
+
+    #waline.visible {
+        display: block;
     }
 
     @media screen and (max-width: 650px) {
@@ -52,10 +53,10 @@ import "@waline/client/waline-meta.css";
     }
 </style>
 
-<details id="commentDetails">
-    <summary>展开评论</summary>
+<div id="comment-wrapper">
+    <button id="waline-toggle" type="button">展开评论</button>
     <div id="waline"></div>
-</details>
+</div>
 
 <script>
     import { init } from "@waline/client";
@@ -63,124 +64,151 @@ import "@waline/client/waline-meta.css";
 
     let walineInitialized = false;
 
-    document.addEventListener("astro:page-load", () => {
-        const details = document.getElementById(
-            "commentDetails",
-        ) as HTMLDetailsElement | null;
-        if (!details) return;
+    function doInitWaline() {
+        if (walineInitialized) return;
+        walineInitialized = true;
 
-        walineInitialized = false;
-
-        const initWaline = () => {
-            if (walineInitialized) return;
-            walineInitialized = true;
-
-            const locale = {
-                level0: "炼体",
-                level1: "炼气",
-                level2: "筑基",
-                level3: "金丹",
-                level4: "元婴",
-                level5: "化神",
-                placeholder: "写下你的评论...",
-                nick: "昵称",
-                mail: "邮箱",
-                link: "网址",
-                submit: "提交评论",
-                reply: "回复",
-                cancelReply: "取消回复",
-                comment: "评论",
-                comments: "评论",
-                preview: "预览",
-                emoji: "表情",
-                uploading: "上传中...",
-                login: "登录",
-                logout: "登出",
-                admin: "管理员",
-                sticky: "置顶",
-                word: "字",
-                anonymous: "匿名",
-                level: "等级",
-                like: "点赞",
-                liked: "已赞",
-                dislike: "点踩",
-                disliked: "已踩",
-                quote: "引用",
-                at: "@",
-                flag: "举报",
-                flagConfirm: "确定要举报这条评论吗？",
-                approved: "已通过",
-                waiting: "等待审核",
-                spam: "垃圾评论",
-                score: "评分",
-                reactionTitle: "你认为这篇文章怎么样？",
-                reaction0: "牛逼哄哄",
-                reaction1: "不太行哦",
-                reaction2: "还不错呦",
-                reaction3: "你觉得呢",
-                reaction4: "自己看看",
-                reaction5: "周公叫我",
-            };
-
-            const walineElement = document.getElementById("waline");
-            if (!waline.enable || !walineElement) {
-                console.error(
-                    "Required elements or configuration are missing.",
-                );
-                return;
-            }
-
-            const origin = waline.serverUrl;
-            const walineProps = walineElement!.dataset;
-            const walineConfig: any = {
-                el: "#waline",
-                serverURL: origin,
-                comment: true,
-                locale,
-                path: walineProps.walinePath!,
-                lang: waline.lang,
-                pageSize: waline.pageSize,
-                pageview: true,
-                meta: ["nick", "mail", "link"],
-                requiredMeta: ["nick", "mail"],
-                login: "disable",
-                search: waline.search,
-                dark: 'html[data-theme="dark"]',
-                emoji: [
-                    "https://unpkg.com/@waline/emojis@1.2.0/qq",
-                    "https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili",
-                    "https://unpkg.com/@waline/emojis@1.2.0/tieba",
-                    "https://unpkg.com/@waline/emojis@1.2.0/weibo",
-                ],
-                wordLimit: [0, 1000],
-                reaction: true,
-                codeSyntaxHighlight: true,
-                imageUploader: () => {
-                    alert("图片上传功能暂未开放");
-                    return Promise.reject(new Error("图片上传功能暂未开放"));
-                },
-            };
-
-            if (waline.whiteList.includes(location.pathname)) {
-                walineConfig.reaction =
-                    typeof waline.reaction === "boolean" &&
-                    waline.reaction === true
-                        ? []
-                        : (waline.reaction as string[]);
-            }
-
-            init(walineConfig);
+        const locale = {
+            level0: "炼体",
+            level1: "炼气",
+            level2: "筑基",
+            level3: "金丹",
+            level4: "元婴",
+            level5: "化神",
+            placeholder: "写下你的评论...",
+            nick: "昵称",
+            mail: "邮箱",
+            link: "网址",
+            submit: "提交评论",
+            reply: "回复",
+            cancelReply: "取消回复",
+            comment: "评论",
+            comments: "评论",
+            preview: "预览",
+            emoji: "表情",
+            uploading: "上传中...",
+            login: "登录",
+            logout: "登出",
+            admin: "管理员",
+            sticky: "置顶",
+            word: "字",
+            anonymous: "匿名",
+            level: "等级",
+            like: "点赞",
+            liked: "已赞",
+            dislike: "点踩",
+            disliked: "已踩",
+            quote: "引用",
+            at: "@",
+            flag: "举报",
+            flagConfirm: "确定要举报这条评论吗？",
+            approved: "已通过",
+            waiting: "等待审核",
+            spam: "垃圾评论",
+            score: "评分",
+            reactionTitle: "你认为这篇文章怎么样？",
+            reaction0: "牛逼哄哄",
+            reaction1: "不太行哦",
+            reaction2: "还不错呦",
+            reaction3: "你觉得呢",
+            reaction4: "自己看看",
+            reaction5: "周公叫我",
         };
 
-        details.addEventListener("toggle", () => {
-            if (details.open) {
-                initWaline();
-                const summary = details.querySelector("summary");
-                if (summary) summary.textContent = "收起评论";
+        const walineElement = document.getElementById("waline");
+        if (!waline.enable || !walineElement) {
+            console.error("Required elements or configuration are missing.");
+            return;
+        }
+
+        const origin = waline.serverUrl;
+        const walineConfig: any = {
+            el: "#waline",
+            serverURL: origin,
+            comment: true,
+            locale,
+            path: walineElement.dataset.walinePath!,
+            lang: waline.lang,
+            pageSize: waline.pageSize,
+            pageview: true,
+            meta: ["nick", "mail", "link"],
+            requiredMeta: ["nick", "mail"],
+            login: "disable",
+            search: waline.search,
+            dark: 'html[data-theme="dark"]',
+            emoji: [
+                "https://unpkg.com/@waline/emojis@1.2.0/qq",
+                "https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili",
+                "https://unpkg.com/@waline/emojis@1.2.0/tieba",
+                "https://unpkg.com/@waline/emojis@1.2.0/weibo",
+            ],
+            wordLimit: [0, 1000],
+            reaction: true,
+            codeSyntaxHighlight: true,
+            imageUploader: () => {
+                alert("图片上传功能暂未开放");
+                return Promise.reject(new Error("图片上传功能暂未开放"));
+            },
+        };
+
+        if (waline.whiteList.includes(location.pathname)) {
+            walineConfig.reaction =
+                typeof waline.reaction === "boolean" && waline.reaction === true
+                    ? []
+                    : (waline.reaction as string[]);
+        }
+
+        init(walineConfig);
+    }
+
+    // Set up click handler once (toggle button is server-rendered, persists across SPA)
+    function setupWalineToggle() {
+        const toggle = document.getElementById("waline-toggle");
+        const walineEl = document.getElementById("waline");
+        if (!toggle || !walineEl) return;
+
+        // Avoid duplicate listener registration
+        if (toggle.dataset.walineReady) return;
+        toggle.dataset.walineReady = "true";
+
+        toggle.addEventListener("click", () => {
+            if (walineInitialized) {
+                // Already initialized — toggle visibility
+                const visible = walineEl.classList.toggle("visible");
+                toggle.classList.toggle("active", visible);
+                toggle.textContent = visible ? "收起评论" : "展开评论";
             } else {
-                const summary = details.querySelector("summary");
-                if (summary) summary.textContent = "展开评论";
+                // First click — show container and init
+                walineEl.classList.add("visible");
+                toggle.classList.add("active");
+                toggle.textContent = "收起评论";
+                // Ensure container is rendered before Waline measures it
+                requestAnimationFrame(() => {
+                    doInitWaline();
+                });
             }
         });
+    }
+
+    // Reset state on each page navigation, then ensure toggle is wired
+    document.addEventListener("astro:page-load", () => {
+        const toggle = document.getElementById("waline-toggle");
+        const walineEl = document.getElementById("waline");
+        if (!toggle || !walineEl) return;
+
+        walineInitialized = false;
+        walineEl.classList.remove("visible");
+        toggle.classList.remove("active");
+        toggle.textContent = "展开评论";
+        toggle.style.display = "";
+
+        setupWalineToggle();
     });
+
+    // Initial setup
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setupWalineToggle);
+    } else {
+        setupWalineToggle();
+    }
 </script>

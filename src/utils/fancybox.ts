@@ -51,7 +51,7 @@ export const DEFAULT_OPTIONS: FancyboxOptions = {
  * 初始化动态扫描模式的 Fancybox
  */
 export async function initDynamicFancybox(
-    contentSelector: string = ".post__content",
+    contentSelector: string = ".post-content",
     options: Partial<FancyboxOptions> = {},
 ): Promise<void> {
     const debug = options.debug ?? !isProduction();
@@ -135,7 +135,7 @@ export function initArticleFancybox(): void {
     if (typeof document === "undefined") return;
 
     const init = async () => {
-        await initDynamicFancybox(".post__content", { debug: false });
+        await initDynamicFancybox(".post-content", { debug: false });
     };
 
     document.addEventListener("astro:page-load", init);
