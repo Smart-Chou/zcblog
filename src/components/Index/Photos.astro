@@ -1,5 +1,4 @@
 ---
-// 相册数据（来自 immm）
 const photos = [
     { url: "images/18.jpg", title: "今日夕阳", time: "1 年前" },
     { url: "images/19.webp", title: "工业朋克前的小鼠标", time: "1 年前" },
@@ -10,30 +9,26 @@ const photos = [
 ];
 ---
 
-<div class="home">
-    <h3><a href="/albums/">近期光影</a></h3>
-    <div id="album">
-        <div class="memos-photo-wrapper">
-            {
-                photos.map((photo) => (
-                    <div class="memos-photo">
-                        <img
-                            class="photo-img"
-                            loading="lazy"
-                            decoding="async"
-                            src={photo.url}
-                            alt={photo.title}
-                        />
-                        <span class="photo-title">{photo.title}</span>
-                        <span
-                            class="photo-time"
-                            title={new Date().toISOString()}
-                        >
-                            {photo.time}
-                        </span>
-                    </div>
-                ))
-            }
-        </div>
+<section class="photos-section">
+    <div class="section-header">
+        <h2 class="section-label">近期光影</h2>
+        <a class="section-link" href="/albums/">查看全部 →</a>
     </div>
-</div>
+    <div class="photos-grid">
+        {
+            photos.map((photo) => (
+                <div class="photo-item">
+                    <img
+                        loading="lazy"
+                        decoding="async"
+                        src={photo.url}
+                        alt={photo.title}
+                    />
+                    <div class="photo-overlay">
+                        <span class="photo-caption">{photo.title}</span>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>

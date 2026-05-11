@@ -1,5 +1,5 @@
 ---
-import "~/styles/hero.css";
+import "~/styles/home.css";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import Talk from "~/components/Index/Talk.astro";
@@ -13,10 +13,10 @@ import moviesItems from "~/data/movies.json";
 import { site } from "~/self.config";
 import { sortByPubDate } from "~/utils/date-utils";
 
-// 获取文章列表
 const allArticles = await getCollection("article", ({ data }) => !data.draft);
 const sortedArticles = sortByPubDate(allArticles);
 const recentPosts = sortedArticles.slice(0, 5);
+const totalArticles = allArticles.length;
 ---
 
 <BaseLayout
@@ -31,23 +31,61 @@ const recentPosts = sortedArticles.slice(0, 5);
     <div class="page-container">
         <div class="hero-background"></div>
         <main class="main-content">
+            <!-- Hero Masthead -->
+            <header class="hero-masthead animate-in">
+                <h1 class="hero-title">
+                    <span class="hero-title-accent">Marx</span>&#8202;'s Blog
+                </h1>
+                <p class="hero-subtitle">{site.subtitle}</p>
+                <div class="hero-divider">
+                    <span class="hero-divider-dot"></span>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">{totalArticles}</span>
+                        Articles
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value"
+                            >{sortedArticles.length}+</span
+                        >
+                        Posts
+                    </div>
+                </div>
+            </header>
+
+            <!-- Talk Ticker -->
             <Talk />
+
+            <!-- Recent Posts -->
             <Posts posts={recentPosts} />
+
+            <!-- Friends -->
             <Friends />
+
+            <!-- Photos -->
             <Photos />
+
+            <!-- Goods -->
             <Goods limit={4} />
-            <Media
-                title="近期观影"
-                items={moviesItems}
-                href="/movies/"
-                limit={4}
-            />
-            <Media
-                title="近期阅读"
-                items={booksItems}
-                href="/books/"
-                limit={4}
-            />
+
+            <!-- Media Duo: Movies + Books -->
+            <div class="media-duo">
+                <Media
+                    title="近期观影"
+                    items={moviesItems}
+                    href="/movies/"
+                    limit={4}
+                />
+                <Media
+                    title="近期阅读"
+                    items={booksItems}
+                    href="/books/"
+                    limit={4}
+                />
+            </div>
+
+            <div class="home-footer-spacer"></div>
         </main>
     </div>
 </BaseLayout>

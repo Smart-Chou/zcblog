@@ -1,5 +1,4 @@
 ---
-import HeroPostCard from "../Article/HeroPostCard.astro";
 import { t, defaultLocale, type Locale } from "~/utils/i18n";
 
 interface Post {
@@ -21,7 +20,6 @@ interface Props {
 
 const { posts } = Astro.props;
 
-// 自动从 URL 检测语言
 const pathname = Astro.url.pathname;
 const locale: Locale = pathname.startsWith("/en") ? "en" : defaultLocale;
 
@@ -31,18 +29,8 @@ function formatDate(date: Date, locale: Locale): string {
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
     const labels = {
-        zh: {
-            today: "今天",
-            dayAgo: "天前",
-            monthAgo: "个月前",
-            yearAgo: "年前",
-        },
-        en: {
-            today: "Today",
-            dayAgo: "days ago",
-            monthAgo: "months ago",
-            yearAgo: "years ago",
-        },
+        zh: { today: "今天", dayAgo: "天前", monthAgo: "个月前", yearAgo: "年前" },
+        en: { today: "Today", dayAgo: "days ago", monthAgo: "months ago", yearAgo: "years ago" },
     };
     const l = labels[locale] || labels.zh;
 
@@ -60,63 +48,60 @@ function getImageUrl(image: Post["data"]["image"]): string {
 }
 
 const archiveUrl = locale === defaultLocale ? "/archives/" : "/en/archives/";
+
+function formatDateFull(date: Date): string {
+    return date.toLocaleDateString(locale === "en" ? "en-US" : "zh-CN", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+    });
+}
 ---
 
-<div class="posts posts-home home grid-cols-2">
-    {
-        posts.length > 0 && (
-            <div class="post first col-span-2 home-1">
-                {posts[0].data.image && (
-                    <img
-                        loading="lazy"
-                        decoding="async"
-                        src={getImageUrl(posts[0].data.image)}
-                        class="post-cover home"
-                        alt={posts[0].data.image.alt}
-                    />
-                )}
-                <div class="post-body">
-                    <h1 class="post-title">
-                        <a href={`/article/${posts[0].id}/`}>
-                            {posts[0].data.title}
-                        </a>
-                    </h1>
-                    <div class="post-meta">
-                        <span
-                            class="post-date"
-                            title={posts[0].data.pubDate.toISOString()}
-                        >
-                            {formatDate(posts[0].data.pubDate, locale)}
+{
+    posts.length > 0 && (
+        <section>
+            <div class="section-header">
+                <h2 class="section-label">{t(locale, "stats.recentPosts")}</h2>
+                <a class="section-link" href={archiveUrl}>{t(locale, "common.viewAll")} →</a>
+            </div>
+            <div class="posts-home stagger-children">
+                <!-- Featured post -->
+                <article class="post-featured">
+                    {posts[0].data.image && (
+                        <img
+                            loading="lazy"
+                            decoding="async"
+                            src={getImageUrl(posts[0].data.image)}
+                            class="post-featured-cover"
+                            alt={posts[0].data.image.alt}
+                        />
+                    )}
+                    <div class="post-featured-body">
+                        <span class="post-featured-label">Featured</span>
+                        <h1 class="post-featured-title">
+                            <a href={`/article/${posts[0].id}/`}>
+                                {posts[0].data.title}
+                            </a>
+                        </h1>
+                        <span class="post-featured-date">
+                            {formatDateFull(posts[0].data.pubDate)}
                         </span>
                     </div>
-                    <div class="post-content">
-                        <a
-                            class="read-more button"
-                            href={`/article/${posts[0].id}/`}
-                        >
-                            {t(locale, "common.readMore")} →
-                        </a>
-                    </div>
-                </div>
+                </article>
+
+                <!-- Secondary posts -->
+                {posts.slice(1).map((post) => (
+                    <article class="post-card">
+                        <h2 class="post-card-title">
+                            <a href={`/article/${post.id}/`}>{post.data.title}</a>
+                        </h2>
+                        <span class="post-card-meta">
+                            {formatDateFull(post.data.pubDate)}
+                        </span>
+                    </article>
+                ))}
             </div>
-        )
-    }
-
-    {
-        posts
-            .slice(1)
-            .map((post) => (
-                <HeroPostCard
-                    title={post.data.title}
-                    description={post.data.description}
-                    publishedTime={post.data.pubDate.toISOString()}
-                    postUrl={`/article/${post.id}/`}
-                    currentSlug={post.id}
-                />
-            ))
-    }
-</div>
-
-<div class="homemore">
-    <a href={archiveUrl}>{t(locale, "common.viewAll")}</a>
-</div>
+        </section>
+    )
+}

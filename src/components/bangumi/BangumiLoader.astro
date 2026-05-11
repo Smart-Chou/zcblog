@@ -132,20 +132,18 @@ const activeTab = tabs[0]?.id || "anime";
 const hasData = tabs.length > 0;
 ---
 
-
-    {
-        hasData && (
-            <>
-                <TabNav tabs={tabs} activeTab={activeTab} />
-                {tabs.map((tab) => (
-                    <BangumiSection
-                        sectionId={tab.id}
-                        items={bangumiData[tab.id] || []}
-                        isActive={tab.id === activeTab}
-                        itemsPerPage={8}
-                    />
-                ))}
-            </>
-        )
-    }
-
+{
+    hasData && (
+        <>
+            <TabNav tabs={tabs} activeTab={activeTab} />
+            {tabs.map((tab) => (
+                <BangumiSection
+                    sectionId={tab.id}
+                    items={bangumiData[tab.id] || []}
+                    isActive={tab.id === activeTab}
+                    itemsPerPage={8}
+                />
+            ))}
+        </>
+    )
+}

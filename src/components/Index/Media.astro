@@ -20,7 +20,10 @@ const { title, items, href = "#", limit } = Astro.props;
 const displayItems = limit ? items.slice(0, limit) : items;
 ---
 
-<div class="douban home">
-    <h3><a href={href}>{title}</a></h3>
+<div class="media-panel">
+    <div class="section-header">
+        <h2 class="section-label">{title}</h2>
+        <a class="section-link" href={href}>查看全部 →</a>
+    </div>
     <MediaCardGrid items={displayItems} />
 </div>

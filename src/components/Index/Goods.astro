@@ -10,7 +10,10 @@ const { limit } = Astro.props;
 const displayItems = limit ? goods.slice(0, limit) : goods;
 ---
 
-<div class="home">
-    <h3><a href="/goods/">近期好物</a></h3>
+<section class="goods-section">
+    <div class="section-header">
+        <h2 class="section-label">近期好物</h2>
+        <a class="section-link" href="/goods/">查看全部 →</a>
+    </div>
     <GoodsCardList items={displayItems} />
-</div>
+</section>

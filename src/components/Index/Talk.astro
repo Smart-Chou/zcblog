@@ -1,16 +1,14 @@
 ---
-import TalkIcon from "~/components/icons/TalkIcon.astro";
 import items from "~/data/talks.json";
 
 const itemsJson = JSON.stringify(items);
 ---
 
-<div id="bber-talk">
-    <span class="index-talk-icon">
-        <TalkIcon />
-    </span>
-    <div class="talk-wrap">
-        <ul class="talk-list" data-items={itemsJson}></ul>
+<div class="talk-container">
+    <div id="bber-talk">
+        <div class="talk-wrap">
+            <ul class="talk-list" data-items={itemsJson}></ul>
+        </div>
     </div>
 </div>
 
@@ -25,7 +23,7 @@ const itemsJson = JSON.stringify(items);
         const item = items[index];
         list.innerHTML = `
             <li class="item">
-                <span class="datetime" title="${item.datetime}">${item.display}</span>：
+                <span class="datetime" title="${item.datetime}">${item.display}</span>
                 <a href="${item.url}">${item.content}</a>
             </li>
         `;
@@ -35,9 +33,11 @@ const itemsJson = JSON.stringify(items);
     setInterval(() => {
         index = (index + 1) % items.length;
         list.style.opacity = "0";
+        list.style.transform = "translateY(-8px)";
         setTimeout(() => {
             render();
             list.style.opacity = "1";
-        }, 200);
+            list.style.transform = "translateY(0)";
+        }, 250);
     }, DURATION);
 </script>

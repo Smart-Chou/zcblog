@@ -3,19 +3,24 @@ import FriendCard from "~/components/ui/FriendCard.astro";
 import friends from "~/data/friends-articles.json";
 ---
 
-<div class="douban friends home">
-    <h3><a href="/friends/">朋友连接</a></h3>
-    <div id="friArticle">
-        {
-            friends.map((friend) => (
-                <FriendCard
-                    name={friend.name}
-                    avatar={friend.avatar}
-                    title={friend.title}
-                    url={friend.url}
-                    updated={friend.updated}
-                />
-            ))
-        }
+<section class="friends-section">
+    <div class="friends-inner">
+        <div class="section-header">
+            <h2 class="section-label">朋友连接</h2>
+            <a class="section-link" href="/friends/">查看全部 →</a>
+        </div>
+        <div id="friArticle">
+            {
+                friends.map((friend) => (
+                    <FriendCard
+                        name={friend.name}
+                        avatar={friend.avatar}
+                        title={friend.title}
+                        url={friend.url}
+                        updated={friend.updated}
+                    />
+                ))
+            }
+        </div>
     </div>
-</div>
+</section>
