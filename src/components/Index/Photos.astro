@@ -1,12 +1,17 @@
 ---
 const photos = [
-    { url: "images/18.jpg", title: "今日夕阳", time: "1 年前" },
-    { url: "images/19.webp", title: "工业朋克前的小鼠标", time: "1 年前" },
-    { url: "images/20.jpg", title: "山顶咖啡", time: "1 年前" },
-    { url: "images/21.jpg", title: "溜车", time: "1 年前" },
-    { url: "images/22.webp", title: "茑屋书店", time: "1 年前" },
-    { url: "images/23.webp", title: "茑屋书店", time: "1 年前" },
+    { url: "images/18.jpg", title: "今日夕阳" },
+    { url: "images/19.webp", title: "工业朋克前的小鼠标" },
+    { url: "images/20.jpg", title: "山顶咖啡" },
+    { url: "images/21.jpg", title: "溜车" },
+    { url: "images/22.webp", title: "茑屋书店" },
+    { url: "images/23.webp", title: "茑屋书店" },
+    { url: "images/18.jpg", title: "街角黄昏" },
+    { url: "images/19.webp", title: "晨光" },
+    { url: "images/20.jpg", title: "海边落日" },
 ];
+
+const isLargeGrid = photos.length >= 9;
 ---
 
 <section class="photos-section">
@@ -14,7 +19,7 @@ const photos = [
         <h2 class="section-label">近期光影</h2>
         <a class="section-link" href="/albums/">查看全部 →</a>
     </div>
-    <div class="photos-grid">
+    <div class:list={["photos-grid", { "photos-grid--large": isLargeGrid }]}>
         {
             photos.map((photo) => (
                 <div class="photo-item">
