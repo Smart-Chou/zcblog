@@ -83,7 +83,9 @@ export default defineConfig({
         astroVtBot({
             viewTransitionsFallback: "none",
         }),
-        compressor(),
+        compressor({
+            brotli: false,
+        }),
     ],
     image: {
         layout: "constrained",
