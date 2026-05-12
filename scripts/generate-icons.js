@@ -1,6 +1,6 @@
 /**
  * 图标预处理脚本
- * 在构建时自动扫描 Svelte 组件中使用的图标，并生成内联 SVG 数据
+ * 在构建时自动扫描 Astro 组件中使用的图标，并生成内联 SVG 数据
  *
  * 使用方法：node scripts/generate-icons.js
  */
@@ -13,17 +13,15 @@ import { getIconData, iconToSVG, iconToHTML, replaceIDs } from "@iconify/utils";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, "..");
 const SRC_DIR = join(ROOT_DIR, "src");
-const OUTPUT_FILE = join(SRC_DIR, "constants", "icons.ts");
+const OUTPUT_FILE = join(SRC_DIR, "components", "icons.ts");
 
 // 支持的图标集及其包名
 const ICON_SETS = {
-    "material-symbols": "@iconify-json/material-symbols",
-    "fa7-solid": "@iconify-json/fa7-solid",
-    "fa7-brands": "@iconify-json/fa7-brands",
-    "fa7-regular": "@iconify-json/fa7-regular",
-    mdi: "@iconify-json/mdi",
+    tabler: "@iconify-json/tabler",
+    ph: "@iconify-json/ph",
     "simple-icons": "@iconify-json/simple-icons",
-    "svg-spinners": "@iconify-json/svg-spinners",
+    logos: "@iconify-json/logos",
+    mingcute: "@iconify-json/mingcute",
 };
 
 // 图标集数据缓存
@@ -32,7 +30,7 @@ const iconSetCache = new Map();
 /**
  * 递归获取目录下所有文件
  */
-function getAllFiles(dir, extensions = [".svelte"]) {
+function getAllFiles(dir, extensions = [".astro"]) {
     const files = [];
 
     function walk(currentDir) {
@@ -62,12 +60,12 @@ function getAllFiles(dir, extensions = [".svelte"]) {
 function extractIconNames(content) {
     const icons = new Set();
 
-    // 匹配各种图标使用模式
+    // 匹配 DynamicIcon name="prefix:icon-name" 模式
     const patterns = [
-        // icon="xxx:yyy" 或 icon='xxx:yyy'
-        /icon=["']([a-z0-9-]+:[a-z0-9-]+)["']/gi,
-        // icon={`xxx:yyy`}
-        /icon=\{[`"']([a-z0-9-]+:[a-z0-9-]+)[`"']\}/gi,
+        // <DynamicIcon name="xxx:yyy" />
+        /DynamicIcon\s+name=["']([a-z0-9-]+:[a-z0-9-]+)["']/gi,
+        // DynamicIcon name={`xxx:yyy`}
+        /DynamicIcon\s+name=\{["'`]([a-z0-9-]+:[a-z0-9-]+)["'`]\}/gi,
         // getIconSvg("xxx:yyy") 或 getIconSvg('xxx:yyy')
         /getIconSvg\(["']([a-z0-9-]+:[a-z0-9-]+)["']\)/gi,
         // hasIcon("xxx:yyy")
