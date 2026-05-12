@@ -18,135 +18,122 @@
     --prime-blue: #0355e3;
     --B80-t: #8e8787;
     --B60-t: #655e5e;
-}
 
-html[data-theme="dark"]:root {
-    color-scheme: dark;
-    --B0: #232222;
-    --B10: #272626;
-    --B20: #171514;
-    --B30: #2b2929;
-    --B40: #373737;
-    --B60: #7f7f7f;
-    --B80: #cac3c3;
-    --B100: #fff;
-    --green: #57ef96;
-    --red: #f94135;
-    --sspai-red: #d71a1b;
-    --blue: #44b9fb;
-    --pink: #ed638c;
-    --white: #171514;
-    --orange: #ee6c35;
-    --prime-blue: #3577e8;
-    --B60-t: #fafafa;
-    --B80-t: #7f7f7f;
-}
-
-:root {
     --a-dur-default: 0.36s;
     --a-func-default: cubic-bezier(0.5, 0, 0, 1);
     --a-dur-short: 0.15s;
     --a-func-short: cubic-bezier(0, 0, 0, 1);
+
+    html[data-theme="dark"] & {
+        color-scheme: dark;
+        --B0: #232222;
+        --B10: #272626;
+        --B20: #171514;
+        --B30: #2b2929;
+        --B40: #373737;
+        --B60: #7f7f7f;
+        --B80: #cac3c3;
+        --B100: #fff;
+        --green: #57ef96;
+        --red: #f94135;
+        --sspai-red: #d71a1b;
+        --blue: #44b9fb;
+        --pink: #ed638c;
+        --white: #171514;
+        --orange: #ee6c35;
+        --prime-blue: #3577e8;
+        --B60-t: #fafafa;
+        --B80-t: #7f7f7f;
+    }
 }
 
 .toc-content {
     position: fixed;
     left: calc((100vw - min(100vw, 664px)) / 2 + min(100vw, 664px) + 178px);
     top: 50%;
-    -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     z-index: 90;
     padding: 10px 0;
     width: auto;
     max-height: 600px;
     overflow: hidden;
-}
+    overflow-y: auto;
 
-@media screen and (max-width: 1440px) {
-    .toc-content {
+    @media screen and (max-width: 1440px) {
         left: calc(100vw - 200px);
     }
-}
 
-@media screen and (max-width: 1280px) {
-    .toc-content {
+    @media screen and (max-width: 1280px) {
         display: none;
     }
-}
 
-.toc-content:hover {
-    overflow: auto;
-}
+    &:hover {
+        overflow: auto;
+    }
 
-.toc-content:hover .toc-list-item .toc-link {
-    display: inline-block;
-    opacity: 1;
-    cursor: pointer;
-}
+    & > .toc-list {
+        overflow: hidden;
+        position: relative;
 
-.toc-content .toc-list-item {
-    text-align: left;
-    margin-bottom: 0px;
-}
+        & li {
+            list-style: none;
+        }
+    }
 
-.toc-content .toc-list-item .toc-link {
-    font-size: 12px;
-    line-height: 17px;
-    color: var(--B80-t);
-    display: inline-block;
-    opacity: 0;
-    width: 9rem;
-    vertical-align: middle;
-    text-align: left;
-    -webkit-transition: opacity 0.5s;
-    transition: opacity 0.5s;
-    margin-top: -2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-left: 10px;
-}
+    &:hover .toc-list-item .toc-link {
+        display: inline-block;
+        opacity: 1;
+        cursor: pointer;
+    }
 
-.toc-content .toc-list-item .toc-link:hover {
-    color: var(--B60-t);
-    display: inline-block;
-    opacity: 1;
-    cursor: pointer;
-}
+    & .toc-list-item {
+        text-align: left;
+        margin-bottom: 0;
 
-.toc-content .toc-list-item .toc-link {
-    margin-left: 8px;
-}
+        & .toc-link {
+            font-size: 12px;
+            line-height: 17px;
+            color: var(--B80-t);
+            display: inline-block;
+            opacity: 0;
+            width: 9rem;
+            vertical-align: middle;
+            text-align: left;
+            transition: opacity 0.5s;
+            margin-top: -2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-left: 10px;
+            margin-left: 8px;
 
-html[data-theme="dark"] .toc-content .toc-list-item .toc-link {
-    color: var(--B80-t);
-}
+            &:hover {
+                color: var(--B60-t);
+                display: inline-block;
+                opacity: 1;
+                cursor: pointer;
+            }
 
-html[data-theme="dark"] .toc-content .toc-list-item .toc-link:hover {
-    color: var(--B60-t);
+            html[data-theme="dark"] & {
+                color: var(--B80-t);
+
+                &:hover {
+                    color: var(--B60-t);
+                }
+            }
+        }
+    }
 }
 
 ol {
     list-style-type: none;
 }
 
-.toc-content {
-    overflow-y: auto;
-}
-
-.toc-content > .toc-list {
-    overflow: hidden;
-    position: relative;
-}
-
-.toc-content > .toc-list li {
-    list-style: none;
-}
-
 .toc-list {
     margin: 0;
     padding-left: 10px;
 }
+
 a.toc-link {
     color: currentColor;
     height: 100%;

@@ -11,9 +11,9 @@ import type { AstroIntegration } from "astro";
 import { config, site } from "../self.config.ts";
 import {
     REDIRECT_PAGE,
-    EXTERNAL_LINK_SVG,
     toUrlSafeBase64,
     isExternalUrl,
+    appendExternalLinkIcon,
 } from "../utils/redirect-utils.ts";
 
 const hasClassInTree = (element: Element, classList: string[]): boolean => {
@@ -67,16 +67,7 @@ const redirectIntegration = (): AstroIntegration => ({
                         link.setAttribute("target", "_blank");
                         link.setAttribute("rel", "noopener noreferrer");
 
-                        const svg = document.createElementNS(
-                            "http://www.w3.org/2000/svg",
-                            "svg",
-                        );
-                        svg.setAttribute("width", "16");
-                        svg.setAttribute("height", "16");
-                        svg.setAttribute("viewBox", "0 0 100 100");
-                        svg.setAttribute("fill", "currentColor");
-                        svg.innerHTML = EXTERNAL_LINK_SVG;
-                        link.appendChild(svg);
+                        appendExternalLinkIcon(link as unknown as Element);
                     }
 
                     html = dom.serialize();

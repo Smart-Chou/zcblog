@@ -93,10 +93,10 @@ blockquote {
     font-family: var(--font-heading);
     font-size: 1.1em;
     line-height: 1.6;
-}
 
-blockquote p {
-    opacity: 0.85;
+    & p {
+        opacity: 0.85;
+    }
 }
 
 em {
@@ -109,10 +109,10 @@ ul {
     margin-left: 1.25em;
     margin-bottom: 1.25em;
     line-height: 1.8;
-}
 
-ul li {
-    margin-bottom: 0.5em;
+    & li {
+        margin-bottom: 0.5em;
+    }
 }
 
 ol {
@@ -120,10 +120,10 @@ ol {
     margin-left: 1.25em;
     margin-bottom: 1.25em;
     line-height: 1.8;
-}
 
-ol li {
-    margin-bottom: 0.5em;
+    & li {
+        margin-bottom: 0.5em;
+    }
 }
 
 /* ---- Code ---- */
@@ -148,11 +148,11 @@ pre {
     border-radius: var(--radius);
     overflow: auto;
     color: var(--color-code-fg);
-}
 
-pre code {
-    padding: 0;
-    background-color: transparent;
+    & code {
+        padding: 0;
+        background-color: transparent;
+    }
 }
 
 code {
@@ -165,12 +165,12 @@ code {
 :not(pre) > code {
     color: var(--color-code-accent);
     white-space: normal;
-}
 
-:not(pre) > code:before,
-:not(pre) > code:after {
-    content: "`";
-    opacity: 0.4;
+    &:before,
+    &:after {
+        content: "`";
+        opacity: 0.4;
+    }
 }
 
 /* ---- Tables ---- */
@@ -180,21 +180,21 @@ table {
     overflow: auto;
     margin-bottom: 1.25em;
     border-collapse: collapse;
-}
 
-table tr {
-    border-top: 1px solid var(--color-border);
-}
+    & tr {
+        border-top: 1px solid var(--color-border);
+    }
 
-table td,
-table th {
-    padding: var(--space-xs) var(--space-md);
-    border: 1px solid var(--color-border);
-}
+    & td,
+    & th {
+        padding: var(--space-xs) var(--space-md);
+        border: 1px solid var(--color-border);
+    }
 
-table th {
-    font-weight: 600;
-    background-color: var(--color-code-bg);
+    & th {
+        font-weight: 600;
+        background-color: var(--color-code-bg);
+    }
 }
 
 /* ---- Superscript ---- */
@@ -204,38 +204,44 @@ sup {
     vertical-align: top;
     color: var(--color-link);
     margin: 0 0.15em;
-}
 
-sup:before {
-    content: "[";
-}
+    &:before {
+        content: "[";
+    }
 
-sup:after {
-    content: "]";
+    &:after {
+        content: "]";
+    }
 }
 
 /* ---- Post content ---- */
-.post-content h2:first-child {
-    margin-top: 0;
+.post-content {
+    & h2:first-child {
+        margin-top: 0;
+    }
+
+    & p {
+        line-height: 1.8;
+    }
+
+    & a {
+        display: inline-flex;
+        align-items: anchor-center;
+    }
+
+    & img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+        border-radius: var(--radius);
+        object-fit: cover;
+    }
 }
 
-.post-content p {
-    line-height: 1.8;
-}
-
-.post-content a,
 .post-footer a {
     display: inline-flex;
     align-items: anchor-center;
-}
-
-.post-content img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-    border-radius: var(--radius);
-    object-fit: cover;
 }
 
 .expressive-code {
@@ -249,21 +255,10 @@ sup:after {
 
 /* ---- Responsive ---- */
 @media screen and (max-width: 650px) {
-    h1 {
-        font-size: var(--text-3xl);
-    }
-
-    h2 {
-        font-size: var(--text-2xl);
-    }
-
-    h3 {
-        font-size: var(--text-xl);
-    }
-
-    h4 {
-        font-size: var(--text-lg);
-    }
+    h1 { font-size: var(--text-3xl); }
+    h2 { font-size: var(--text-2xl); }
+    h3 { font-size: var(--text-xl); }
+    h4 { font-size: var(--text-lg); }
 
     pre {
         padding: calc(var(--space) * 0.5);
@@ -276,12 +271,12 @@ sup:after {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         white-space: nowrap;
-    }
 
-    table td,
-    table th {
-        padding: 8px 10px;
-        font-size: 0.9em;
+        & td,
+        & th {
+            padding: 8px 10px;
+            font-size: 0.9em;
+        }
     }
 }
 

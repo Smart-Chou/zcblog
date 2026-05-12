@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 interface Props {
     name: string;
     avatar: string;
@@ -10,12 +12,12 @@ const { name, avatar, url, style } = Astro.props;
 ---
 
 <a class="fri-pill" href={url} target="_blank" rel="noopener" style={style}>
-    <img
+    <Image
         class="fri-pill-avatar"
         src={avatar}
         alt={name}
-        width="48"
-        height="48"
+        width={48}
+        height={48}
         loading="lazy"
         decoding="async"
     />

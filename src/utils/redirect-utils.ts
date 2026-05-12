@@ -34,3 +34,16 @@ export function isExternalUrl(
         return false;
     }
 }
+
+/** Append external-link SVG icon to a link element (shared by build-time and client-side) */
+export function appendExternalLinkIcon(link: Element): void {
+    const doc = link.ownerDocument;
+    if (!doc) return;
+    const svg = doc.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "16");
+    svg.setAttribute("height", "16");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    svg.setAttribute("fill", "currentColor");
+    svg.innerHTML = EXTERNAL_LINK_SVG;
+    link.appendChild(svg);
+}

@@ -1,9 +1,9 @@
 import { config } from "~/self.config";
 import {
     REDIRECT_PAGE,
-    EXTERNAL_LINK_SVG,
     toUrlSafeBase64,
     isExternalUrl,
+    appendExternalLinkIcon,
 } from "~/utils/redirect-utils";
 
 function initRedirectHandler() {
@@ -55,16 +55,7 @@ function initRedirectHandler() {
             link.setAttribute("target", "_blank");
             link.setAttribute("rel", "noopener noreferrer");
 
-            const svg = document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "svg",
-            );
-            svg.setAttribute("width", "16");
-            svg.setAttribute("height", "16");
-            svg.setAttribute("viewBox", "0 0 100 100");
-            svg.setAttribute("fill", "currentColor");
-            svg.innerHTML = EXTERNAL_LINK_SVG;
-            link.appendChild(svg);
+            appendExternalLinkIcon(link);
         }
     } catch (error) {
         console.error("处理链接时出错：", error);
