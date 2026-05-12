@@ -862,7 +862,7 @@
 /* ========================================
    12. Responsive
    ======================================== */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .hero-masthead {
         padding: 3rem 0 2rem;
 

@@ -32,8 +32,11 @@ const { threshold = 300 } = Astro.props;
                 });
             };
 
-            window.addEventListener("scroll", handleScroll);
+            document.addEventListener("scroll", handleScroll, { passive: true });
             backToTopButton.addEventListener("click", scrollToTop);
+
+            // Initial check — iOS Safari may restore scroll position without firing a scroll event
+            handleScroll();
         }
     });
 </script>
@@ -57,5 +60,6 @@ const { threshold = 300 } = Astro.props;
 
     #back-to-top svg {
         font-size: 1.2em;
+        color: var(--color-body);
     }
 </style>

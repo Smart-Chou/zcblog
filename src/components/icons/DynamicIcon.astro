@@ -14,19 +14,22 @@ const { name, class: className, width, height, style } = Astro.props;
 const svg = getIconSvg(name);
 
 let result = svg;
-if (className) {
-    result = result.replace("<svg", `<svg class="${className}"`);
-}
-if (width) {
-    const w = typeof width === "number" ? String(width) : width;
-    result = result.replace("<svg", `<svg width="${w}"`);
-}
-if (height) {
-    const h = typeof height === "number" ? String(height) : height;
-    result = result.replace("<svg", `<svg height="${h}"`);
-}
-if (style) {
-    result = result.replace("<svg", `<svg style="${style}"`);
+if (svg) {
+    result = svg.replace(/<svg([^>]*)>/, (_full: string, attrs: string) => {
+        let cleanAttrs = attrs;
+        if (width) {
+            cleanAttrs = cleanAttrs.replace(/\s+width="[^"]*"/g, "");
+        }
+        if (height) {
+            cleanAttrs = cleanAttrs.replace(/\s+height="[^"]*"/g, "");
+        }
+        const additions: string[] = [];
+        if (className) additions.push(`class="${className}"`);
+        if (width) additions.push(`width="${typeof width === "number" ? width : width}"`);
+        if (height) additions.push(`height="${typeof height === "number" ? height : height}"`);
+        if (style) additions.push(`style="${style}"`);
+        return `<svg${cleanAttrs}${additions.length ? " " + additions.join(" ") : ""}>`;
+    });
 }
 ---
 
