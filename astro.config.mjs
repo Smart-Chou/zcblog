@@ -99,6 +99,29 @@ export default defineConfig({
     image: {
         layout: "constrained",
         responsiveStyles: true,
+        domains: [
+            "avatars.githubusercontent.com",
+            "pic-api.marxchou.com",
+            "lain.bgm.tv",
+        ],
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "avatars.githubusercontent.com",
+            },
+            {
+                protocol: "https",
+                hostname: "pic-api.marxchou.com",
+            },
+            {
+                protocol: "https",
+                hostname: "**.doubanio.com",
+            },
+            {
+                protocol: "https",
+                hostname: "lain.bgm.tv",
+            },
+        ],
         service: {
             entrypoint: "astro/assets/services/sharp",
             config: {
@@ -106,17 +129,6 @@ export default defineConfig({
             },
         },
     },
-    domains: ["avatars.githubusercontent.com", "pic-api.marxchou.com"],
-    remotePatterns: [
-        {
-            protocol: "https",
-            hostname: "avatars.githubusercontent.com",
-        },
-        {
-            protocol: "https",
-            hostname: "pic-api.marxchou.com",
-        },
-    ],
     trailingSlash: "always",
     output: "static",
     // 构建输出配置

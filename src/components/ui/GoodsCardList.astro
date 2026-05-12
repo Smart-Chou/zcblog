@@ -1,5 +1,6 @@
 ---
 import MediaCard from "~/components/Widget/MediaCard.astro";
+import { getLocalImage } from "~/utils/image-map";
 
 interface GoodsItem {
     url: string;
@@ -18,28 +19,30 @@ const { items, imageBaseUrl = "" } = Astro.props;
 
 <div class="goods-grid">
     {
-        items.map((item) => (
-            <article class="goods-item">
-                <MediaCard
-                    href="#"
-                    image={
-                        imageBaseUrl ? `${imageBaseUrl}${item.url}` : item.url
-                    }
-                    alt={item.title}
-                    aspectRatio="1/1"
-                    placeholderEmoji="📦"
-                    class="goods-card"
-                >
-                    <div slot="overlay">
-                        <span class="goods-price">{item.price}</span>
+        items.map((item) => {
+            const imagePath = imageBaseUrl ? `${imageBaseUrl}${item.url}` : item.url;
+            const localImage = getLocalImage(imagePath);
+            return (
+                <article class="goods-item">
+                    <MediaCard
+                        href="#"
+                        image={localImage ?? imagePath}
+                        alt={item.title}
+                        aspectRatio="1/1"
+                        placeholderEmoji="📦"
+                        class="goods-card"
+                    >
+                        <div slot="overlay">
+                            <span class="goods-price">{item.price}</span>
+                        </div>
+                    </MediaCard>
+                    <div class="goods-body">
+                        <h4 class="goods-name">{item.title}</h4>
+                        <p class="goods-note">{item.note}</p>
                     </div>
-                </MediaCard>
-                <div class="goods-body">
-                    <h4 class="goods-name">{item.title}</h4>
-                    <p class="goods-note">{item.note}</p>
-                </div>
-            </article>
-        ))
+                </article>
+            );
+        })
     }
 </div>
 

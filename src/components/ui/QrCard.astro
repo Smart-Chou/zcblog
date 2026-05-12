@@ -1,24 +1,26 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+
 interface Props {
-    qrImage: string;
+    qrImage: ImageMetadata;
     alt: string;
     platformName: string;
     iconName: string;
     paypalUrl?: string;
 }
 
-import DynamicIcon from "~/components/icons/DynamicIcon.astro";
-
 const { qrImage, alt, platformName, iconName, paypalUrl } = Astro.props;
 ---
 
 <div class="donate-method">
     <div class="qr-code">
-        <img
+        <Image
             src={qrImage}
             alt={alt}
-            width="160"
-            height="160"
+            width={160}
+            height={160}
             loading="lazy"
             decoding="async"
         />

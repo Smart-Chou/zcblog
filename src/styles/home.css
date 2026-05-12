@@ -511,7 +511,7 @@
     gap: 0.75rem;
 
     /* >=9 photos: 1 large (2x2) + 4 beside + 4 bottom */
-    &--large {
+    &:is(.photos-grid--large) {
         grid-template-columns: 2fr 1fr 1fr 1fr;
         grid-template-rows: 200px 200px 200px;
     }
@@ -893,7 +893,7 @@
         grid-template-rows: auto;
         grid-auto-rows: 160px;
 
-        &--large {
+        &:is(.photos-grid--large) {
             grid-template-columns: 1fr 1fr;
             grid-template-rows: auto;
         }

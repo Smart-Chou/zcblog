@@ -1,5 +1,6 @@
 ---
 import MediaCard from "~/components/Widget/MediaCard.astro";
+import { getLocalImage } from "~/utils/image-map";
 
 interface MediaItem {
     url: string;
@@ -19,27 +20,29 @@ const { items, imageBaseUrl = "" } = Astro.props;
 
 <div class="media-grid">
     {
-        items.map((item) => (
-            <div class="media-grid-item">
-                <MediaCard
-                    href={item.link || "#"}
-                    image={
-                        imageBaseUrl ? `${imageBaseUrl}${item.url}` : item.url
-                    }
-                    alt={item.title}
-                    aspectRatio="2/3"
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    <span slot="badges" class="rating-badge">
-                        {item.ratingNum || (item.rating / 10).toFixed(1)}
-                    </span>
-                    <div slot="overlay">
-                        <span class="media-item-title">{item.title}</span>
-                    </div>
-                </MediaCard>
-            </div>
-        ))
+        items.map((item) => {
+            const imagePath = imageBaseUrl ? `${imageBaseUrl}${item.url}` : item.url;
+            const localImage = getLocalImage(imagePath);
+            return (
+                <div class="media-grid-item">
+                    <MediaCard
+                        href={item.link || "#"}
+                        image={localImage ?? imagePath}
+                        alt={item.title}
+                        aspectRatio="2/3"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        <span slot="badges" class="rating-badge">
+                            {item.ratingNum || (item.rating / 10).toFixed(1)}
+                        </span>
+                        <div slot="overlay">
+                            <span class="media-item-title">{item.title}</span>
+                        </div>
+                    </MediaCard>
+                </div>
+            );
+        })
     }
 </div>
 

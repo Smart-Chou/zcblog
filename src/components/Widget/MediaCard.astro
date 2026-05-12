@@ -1,7 +1,10 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
 interface Props {
     href: string;
-    image?: string;
+    image?: ImageMetadata | string;
     dataSrc?: string;
     alt: string;
     aspectRatio?: string;
@@ -35,9 +38,23 @@ const {
 >
     <div class="media-cover" style={`aspect-ratio: ${aspectRatio}`}>
         {
-            image || dataSrc ? (
+            image ? (
+                typeof image === "string" ? (
+                    <Image
+                        src={image}
+                        alt={alt}
+                        class="cover-img"
+                        inferSize
+                    />
+                ) : (
+                    <Image
+                        src={image}
+                        alt={alt}
+                        class="cover-img"
+                    />
+                )
+            ) : dataSrc ? (
                 <img
-                    src={image}
                     data-src={dataSrc}
                     alt={alt}
                     class="cover-img"

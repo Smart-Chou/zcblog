@@ -7,6 +7,9 @@ import DonatorsList from "~/components/ui/DonatorsList.astro";
 import WalineComment from "~/components/Widget/WalineComment.astro";
 import { donate } from "~/self.config";
 import donateData from "~/data/donators.json";
+import wechatQR from "~/assets/qr/wechat-pay.png";
+import alipayQR from "~/assets/qr/alipay.jpg";
+import paypalQR from "~/assets/qr/paypal.png";
 
 const { donators } = donateData;
 ---
@@ -26,13 +29,13 @@ const { donators } = donateData;
             </div>
             <div class="donate-methods">
                 <QrCard
-                    qrImage={donate.wechatQRCode}
+                    qrImage={wechatQR}
                     alt="微信支付"
                     platformName="微信支付"
                     iconName="mingcute:wechat-pay-line"
                 />
                 <QrCard
-                    qrImage={donate.alipayQRCode}
+                    qrImage={alipayQR}
                     alt="支付宝支付"
                     platformName="支付宝"
                     iconName="simple-icons:alipay"
@@ -40,7 +43,7 @@ const { donators } = donateData;
                 {
                     donate.paypalUrl && (
                         <QrCard
-                            qrImage={donate.paypalQRCode}
+                            qrImage={paypalQR}
                             alt="PayPal"
                             platformName="PayPal"
                             iconName="simple-icons:paypal"
