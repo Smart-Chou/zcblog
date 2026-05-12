@@ -101,25 +101,11 @@ export default defineConfig({
         responsiveStyles: true,
         domains: [
             "avatars.githubusercontent.com",
-            "pic-api.marxchou.com",
-            "lain.bgm.tv",
         ],
         remotePatterns: [
             {
                 protocol: "https",
                 hostname: "avatars.githubusercontent.com",
-            },
-            {
-                protocol: "https",
-                hostname: "pic-api.marxchou.com",
-            },
-            {
-                protocol: "https",
-                hostname: "**.doubanio.com",
-            },
-            {
-                protocol: "https",
-                hostname: "lain.bgm.tv",
             },
         ],
         service: {

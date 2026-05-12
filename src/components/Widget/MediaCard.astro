@@ -40,11 +40,12 @@ const {
         {
             image ? (
                 typeof image === "string" ? (
-                    <Image
+                    <img
                         src={image}
                         alt={alt}
                         class="cover-img"
-                        inferSize
+                        loading="lazy"
+                        decoding="async"
                     />
                 ) : (
                     <Image

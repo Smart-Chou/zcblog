@@ -96,6 +96,7 @@ blockquote {
 
     & p {
         opacity: 0.85;
+        margin-bottom: unset;
     }
 }
 
