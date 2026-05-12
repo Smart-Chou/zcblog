@@ -171,29 +171,29 @@ import DynamicIcon from "~/components/icons/DynamicIcon.astro";
         opacity: 0.8;
     }
 
-    .toggle-theme .feather {
+    .toggle-theme :global(.feather) {
         transition: all var(--duration-slow) var(--ease-out);
     }
 
-    .toggle-theme .feather-sun {
+    .toggle-theme :global(.feather-sun) {
         display: none;
         width: 30px;
         height: 30px;
         color: #f59e0b;
     }
 
-    .toggle-theme .feather-moon {
+    .toggle-theme :global(.feather-moon) {
         display: block;
         width: 30px;
         height: 24px;
         color: #3b82f6;
     }
 
-    .toggle-theme[data-theme="dark"] .feather-sun {
+    .toggle-theme[data-theme="dark"] :global(.feather-sun) {
         display: block;
     }
 
-    .toggle-theme[data-theme="dark"] .feather-moon {
+    .toggle-theme[data-theme="dark"] :global(.feather-moon) {
         display: none;
     }
 </style>

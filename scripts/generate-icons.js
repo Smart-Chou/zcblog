@@ -19,7 +19,6 @@ const OUTPUT_FILE = join(SRC_DIR, "components", "icons.ts");
 const ICON_SETS = {
     tabler: "@iconify-json/tabler",
     ph: "@iconify-json/ph",
-    "simple-icons": "@iconify-json/simple-icons",
     logos: "@iconify-json/logos",
     mingcute: "@iconify-json/mingcute",
 };
@@ -30,7 +29,7 @@ const iconSetCache = new Map();
 /**
  * 递归获取目录下所有文件
  */
-function getAllFiles(dir, extensions = [".astro"]) {
+function getAllFiles(dir, extensions = [".astro", ".ts", ".tsx"]) {
     const files = [];
 
     function walk(currentDir) {
@@ -60,7 +59,7 @@ function getAllFiles(dir, extensions = [".astro"]) {
 function extractIconNames(content) {
     const icons = new Set();
 
-    // 匹配 DynamicIcon name="prefix:icon-name" 模式
+    // 匹配所有图标名称引用
     const patterns = [
         // <DynamicIcon name="xxx:yyy" />
         /DynamicIcon\s+name=["']([a-z0-9-]+:[a-z0-9-]+)["']/gi,
@@ -70,6 +69,10 @@ function extractIconNames(content) {
         /getIconSvg\(["']([a-z0-9-]+:[a-z0-9-]+)["']\)/gi,
         // hasIcon("xxx:yyy")
         /hasIcon\(["']([a-z0-9-]+:[a-z0-9-]+)["']\)/gi,
+        // iconName="xxx:yyy" / svg="xxx:yyy" (组件 props 传递的图标名称)
+        /(?:iconName|svg)=["']([a-z0-9-]+:[a-z0-9-]+)["']/gi,
+        // svg: "xxx:yyy" (TypeScript 配置中的图标引用)
+        /svg:\s*["']([a-z0-9-]+:[a-z0-9-]+)["']/gi,
     ];
 
     for (const pattern of patterns) {

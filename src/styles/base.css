@@ -116,10 +116,4 @@ hr:before {
     .post-title {
         padding: calc(var(--space) * 0.75) 0 calc(var(--space) * 0.75) !important;
     }
-
-    .post-footer {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-    }
 }

@@ -19,7 +19,7 @@ const { donators } = donateData;
     publishedTime={new Date()}
     modifiedTime={new Date()}
 >
-    <DynamicIcon name="ph:heart-fill" slot="icon" />
+    <DynamicIcon name="tabler:heart-handshake" slot="icon" />
 
     <div class="donate-sections">
         <div class="donate-section s-card">
@@ -37,7 +37,7 @@ const { donators } = donateData;
                     qrImage={alipayQR}
                     alt="支付宝支付"
                     platformName="支付宝"
-                    iconName="simple-icons:alipay"
+                    iconName="mingcute:alipay-line"
                 />
                 {
                     donate.paypalUrl && (
@@ -45,7 +45,7 @@ const { donators } = donateData;
                             qrImage={paypalQR}
                             alt="PayPal"
                             platformName="PayPal"
-                            iconName="simple-icons:paypal"
+                            iconName="mingcute:paypal-fill"
                             paypalUrl={donate.paypalUrl}
                         />
                     )
@@ -65,7 +65,7 @@ const { donators } = donateData;
 
         <div class="thank-section s-card">
             <div class="thank-content">
-                <DynamicIcon name="ph:heart-fill" class="thank-icon" />
+                <DynamicIcon name="tabler:heart-handshake" class="thank-icon" />
                 <h2 class="thank-title">再次感谢</h2>
                 <p class="thank-text">
                     每一份支持都是对我最大的鼓励，我会继续努力创作更多有价值的内容。
@@ -124,7 +124,7 @@ const { donators } = donateData;
         gap: 1rem;
     }
 
-    .thank-icon {
+    .thank-content :global(.thank-icon) {
         font-size: 2.5rem;
         color: #e74c3c;
     }
@@ -159,7 +159,7 @@ const { donators } = donateData;
         color: rgba(255, 255, 255, 0.65);
     }
 
-    html[data-theme="dark"] .thank-icon {
+    html[data-theme="dark"] .thank-content :global(.thank-icon) {
         color: #f2a19a;
     }
 </style>

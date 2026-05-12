@@ -3,7 +3,7 @@
         {
             "id": "1",
             "name": "张三",
-            "avatar": "/images/avatar1.jpg",
+            "avatar": "",
             "amount": 50,
             "date": "2026-01-18",
             "message": "感谢你的分享！"
@@ -11,74 +11,26 @@
         {
             "id": "2",
             "name": "李四",
-            "avatar": "/images/avatar2.jpg",
+            "avatar": "",
             "amount": 100,
             "date": "2026-01-20",
-            "message": "支持你的博客！"
-        },
-        {
-            "id": "3",
-            "name": "王五",
-            "avatar": "/images/avatar3.jpg",
-            "amount": 20,
-            "date": "2026-01-22",
             "message": ""
         },
         {
-            "id": "4",
-            "name": "赵六",
-            "avatar": "/images/avatar4.jpg",
-            "amount": 75,
-            "date": "2026-01-25",
-            "message": "继续加油！"
-        },
-        {
-            "id": "5",
-            "name": "钱七",
-            "avatar": "/images/avatar5.jpg",
-            "amount": 30,
-            "date": "2026-01-28",
-            "message": "喜欢你的内容！"
-        },
-        {
-            "id": "6",
-            "name": "孙八",
-            "avatar": "/images/avatar6.jpg",
-            "amount": 60,
-            "date": "2026-01-30",
-            "message": "谢谢你的分享！"
-        },
-        {
-            "id": "7",
-            "name": "周九",
-            "avatar": "/images/avatar7.jpg",
-            "amount": 90,
-            "date": "2026-02-02",
-            "message": "支持你的博客！"
-        },
-        {
-            "id": "8",
+            "id": "3",
             "name": "吴十",
-            "avatar": "/images/avatar8.jpg",
+            "avatar": "",
             "amount": 40,
             "date": "2026-02-05",
             "message": ""
         },
         {
-            "id": "9",
+            "id": "4",
             "name": "郑十一",
-            "avatar": "/images/avatar9.jpg",
+            "avatar": "",
             "amount": 80,
             "date": "2026-02-10",
             "message": "继续加油！"
-        },
-        {
-            "id": "10",
-            "name": "冯十二",
-            "avatar": "/images/avatar10.jpg",
-            "amount": 25,
-            "date": "2026-02-15",
-            "message": "喜欢你的内容！"
         }
     ]
 }

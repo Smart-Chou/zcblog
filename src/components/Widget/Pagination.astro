@@ -44,6 +44,9 @@ const { page, blogPath = "/blog" } = Astro.props;
 
     #pagination a.square-class {
         border-radius: 50%;
+        padding: unset;
+        width: 30px;
+        height: 30px;
     }
 
     @media screen and (max-width: 450px) {
@@ -69,7 +72,7 @@ const { page, blogPath = "/blog" } = Astro.props;
         aria-disabled={!page.url.prev}
         class:list={[page.url.prev ? "" : "disabled", "square-class"]}
     >
-        <DynamicIcon name="tabler:arrow-badge-left-filled" />
+        <DynamicIcon name="tabler:chevrons-left" />
     </a>
     {
         (() => {
@@ -121,6 +124,6 @@ const { page, blogPath = "/blog" } = Astro.props;
         aria-disabled={!page.url.next}
         class:list={[page.url.next ? "" : "disabled", "square-class"]}
     >
-        <DynamicIcon name="tabler:arrow-badge-right-filled" />
+        <DynamicIcon name="tabler:chevrons-right" />
     </a>
 </nav>

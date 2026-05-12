@@ -55,7 +55,7 @@ export interface FooterItem {
     title: string; // 标题
     text: string; // 描述
     color: string; // 背景颜色样式
-    logo: string; // simple-icons 图标
+    logo: string; // iconify-json icons 图标
     logoColor: string; // 图标颜色样式
     labelColor: string; // 标签背景颜色
     url: string; // 链接
@@ -123,7 +123,7 @@ export const socialLinks: SocialLinkItem[] = [
         url: "//mcc.im",
         title: "🚀 Portfolio",
         style: "color: var(--title-color)",
-        svg: "simple-icons:ghostery",
+        svg: "mingcute:world-2-fill",
     },
     {
         url: "//x.com/MIFSH912",
@@ -141,7 +141,7 @@ export const socialLinks: SocialLinkItem[] = [
         url: "//github.com/Smart-Chou",
         title: "🔗 @Smart-Chou",
         style: "color: var(--title-color)",
-        svg: "simple-icons:github",
+        svg: "logos:github-icon",
     },
 ];
 
