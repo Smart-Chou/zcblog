@@ -50,7 +50,7 @@ const allTags = [...new Set(albums.map((a) => a.name).filter(Boolean))].sort();
     emptyEmoji="📷"
     emptyTitle="No albums yet"
 >
-    <DynamicIcon name="tabler:gallery" slot="icon" />
+    <DynamicIcon name="tabler:library-photo" slot="icon" />
 
     {
         albums.length > 0 && allTags.length > 0 && (

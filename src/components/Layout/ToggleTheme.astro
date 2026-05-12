@@ -1,6 +1,5 @@
 ---
-import SunIcon from "~/components/icons/Sun.astro";
-import MoonIcon from "~/components/icons/Moon.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 ---
 
 <button
@@ -11,8 +10,8 @@ import MoonIcon from "~/components/icons/Moon.astro";
     class="toggle-theme"
     tabindex="0"
 >
-    <SunIcon class="feather feather-sun" />
-    <MoonIcon class="feather feather-moon" />
+    <DynamicIcon name="tabler:sun" class="feather feather-sun" />
+    <DynamicIcon name="tabler:moon-stars" class="feather feather-moon" />
 </button>
 
 <script is:inline>

@@ -1,7 +1,5 @@
 ---
-import Twitter from "~/components/icons/Twitter.astro";
-import Github from "~/components/icons/Github.astro";
-import Grid from "~/components/icons/Grid.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { heroConfig } from "~/config/hero.config";
 ---
 
@@ -94,7 +92,7 @@ import { heroConfig } from "~/config/hero.config";
                                         rel="noreferrer nofollow"
                                     >
                                         <span class="flex h-9 w-9 items-center justify-center rounded-xl">
-                                            <Twitter class="h-5 w-5" />
+                                            <DynamicIcon name="logos:twitter" class="h-5 w-5" />
                                         </span>
                                     </a>
                                 </li>
@@ -114,7 +112,7 @@ import { heroConfig } from "~/config/hero.config";
                                         rel="noreferrer nofollow"
                                     >
                                         <span class="flex h-9 w-9 items-center justify-center rounded-xl">
-                                            <Github class="h-5 w-5" />
+                                            <DynamicIcon name="simple-icons:github" class="h-5 w-5" />
                                         </span>
                                     </a>
                                 </li>
@@ -133,7 +131,7 @@ import { heroConfig } from "~/config/hero.config";
                             aria-label="Open Quick Access"
                             title="Open Quick Access"
                         >
-                            <Grid class="h-5 w-5" />
+                            <DynamicIcon name="tabler:layout-grid" class="h-5 w-5" />
                             <div
                                 class="hidden items-center gap-2 text-xs font-bold xl:flex dark:font-normal"
                             >

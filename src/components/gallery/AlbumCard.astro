@@ -1,6 +1,6 @@
 ---
 import MediaCard from "~/components/Widget/MediaCard.astro";
-import Location from "~/components/icons/Location.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 
 interface Props {
     id: string;
@@ -35,7 +35,7 @@ const { id, name, cover, description, date, location, tags, photoCount } =
             {
                 location && (
                     <span class="location">
-                        <Location width="12" height="12" />
+                        <DynamicIcon name="tabler:map-pin-filled" width="12" height="12" />
                         {location}
                     </span>
                 )

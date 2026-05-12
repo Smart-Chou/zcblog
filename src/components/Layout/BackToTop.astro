@@ -1,5 +1,5 @@
 ---
-import RocketIcon from "~/components/icons/Rocket.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 
 interface Props {
     threshold?: number;
@@ -9,7 +9,7 @@ const { threshold = 300 } = Astro.props;
 ---
 
 <div id="back-to-top">
-    <RocketIcon />
+    <DynamicIcon name="simple-icons:spaceship" />
 </div>
 
 <script is:inline define:vars={{ threshold }}>

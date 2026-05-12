@@ -1,5 +1,4 @@
 ---
-import HeartIcon from "~/components/icons/Heart.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { donate } from "~/self.config";
 ---
@@ -183,7 +182,7 @@ import { donate } from "~/self.config";
             id="donateTrigger"
             class="reward-btn"
         >
-            <HeartIcon filled={true} />
+            <DynamicIcon name="ph:heart-fill" />
             <span class="text">&nbsp;赞赏博主</span>
         </button>
     </div>
@@ -191,7 +190,7 @@ import { donate } from "~/self.config";
         <div class="modal-main">
             <div class="header-title">
                 <div class="title-left">
-                    <HeartIcon filled={true} />
+                    <DynamicIcon name="ph:heart-fill" />
                     <span class="title-text">&nbsp;赞赏博主</span>
                 </div>
                 <button

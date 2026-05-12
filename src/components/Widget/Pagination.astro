@@ -1,6 +1,5 @@
 ---
-import ChevronLeftIcon from "~/components/icons/ChevronLeft.astro";
-import ChevronRightIcon from "~/components/icons/ChevronRight.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 
 interface Props {
     page: any;
@@ -70,7 +69,7 @@ const { page, blogPath = "/blog" } = Astro.props;
         aria-disabled={!page.url.prev}
         class:list={[page.url.prev ? "" : "disabled", "square-class"]}
     >
-        <ChevronLeftIcon />
+        <DynamicIcon name="tabler:arrow-badge-left-filled" />
     </a>
     {
         (() => {
@@ -122,6 +121,6 @@ const { page, blogPath = "/blog" } = Astro.props;
         aria-disabled={!page.url.next}
         class:list={[page.url.next ? "" : "disabled", "square-class"]}
     >
-        <ChevronRightIcon />
+        <DynamicIcon name="tabler:arrow-badge-right-filled" />
     </a>
 </nav>

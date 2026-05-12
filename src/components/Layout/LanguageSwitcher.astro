@@ -1,5 +1,5 @@
 ---
-import Globe from "~/components/icons/Globe.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { getLocale, defaultLocale, locales } from "~/utils/i18n";
 
 const currentLocale = getLocale(Astro.currentLocale || defaultLocale);
@@ -26,7 +26,7 @@ const localeLabels: Record<string, string> = {
         aria-expanded="false"
     >
         <span class="language-icon">
-            <Globe width="18" height="18" />
+            <DynamicIcon name="tabler:world" width="18" height="18" />
         </span>
         <span class="language-label">{localeLabels[currentLocale]}</span>
     </button>

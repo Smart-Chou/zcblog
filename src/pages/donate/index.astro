@@ -1,7 +1,6 @@
 ---
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
-import HeartIcon from "~/components/icons/Heart.astro";
 import QrCard from "~/components/ui/QrCard.astro";
 import DonatorsList from "~/components/ui/DonatorsList.astro";
 import WalineComment from "~/components/Widget/WalineComment.astro";
@@ -66,7 +65,7 @@ const { donators } = donateData;
 
         <div class="thank-section s-card">
             <div class="thank-content">
-                <HeartIcon filled={true} class="thank-icon" />
+                <DynamicIcon name="ph:heart-fill" class="thank-icon" />
                 <h2 class="thank-title">再次感谢</h2>
                 <p class="thank-text">
                     每一份支持都是对我最大的鼓励，我会继续努力创作更多有价值的内容。

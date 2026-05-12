@@ -3,7 +3,7 @@ import PostLayout from "~/layouts/PostLayout.astro";
 import PostTag from "~/components/Article/PostTag.astro";
 import PostMeta from "~/components/Article/PostMeta.astro";
 import PostCardImage from "~/components/Article/PostCardImage.astro";
-import FlameIcon from "~/components/icons/Flame.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 
 const {
     altText,
@@ -34,7 +34,8 @@ const {
         }
         {
             sticky > 0 && (
-                <FlameIcon
+                <DynamicIcon
+                    name="tabler:flame"
                     filled={false}
                     style="color:red; position: absolute;top: 10px; right: 10px; width: 30px; height: 30px;"
                     aria-label="Sticky post"
