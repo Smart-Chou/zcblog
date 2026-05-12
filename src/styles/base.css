@@ -108,7 +108,7 @@ hr:before {
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 450px) {
     .main {
         padding: calc(3.5vw + 48px) 10px 0;
     }

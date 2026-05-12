@@ -167,7 +167,7 @@
 }
 
 /* ---- Responsive ---- */
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 768px) {
     .post-card-image {
         max-height: 10rem;
     }
@@ -175,9 +175,7 @@
     .wl-editor {
         min-height: auto !important;
     }
-}
 
-@media screen and (max-width: 768px) {
     site-search button[data-open-modal] {
         min-width: 44px;
         min-height: 44px;

@@ -173,16 +173,16 @@ html {
     }
 
     /* ---- Responsive Overrides ---- */
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 1024px) {
         --content-width: 90vw;
     }
-    @media screen and (max-width: 650px) {
+    @media screen and (max-width: 768px) {
         --base-font-size: 16px;
         --space: 20.8px;
         --header-height: 56px;
         --toast-width: 280px;
     }
-    @media screen and (max-width: 480px) {
+    @media screen and (max-width: 450px) {
         --space: 16px;
         --header-height: 52px;
         --radius: 3px;
