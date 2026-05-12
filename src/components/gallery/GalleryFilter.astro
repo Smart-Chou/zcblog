@@ -1,0 +1,72 @@
+---
+interface Props {
+    tags: string[];
+    allLabel: string;
+}
+
+const { tags, allLabel } = Astro.props;
+---
+
+<div class="gallery-filter">
+    <button class="filter-tag active" data-tag="all">
+        {allLabel}
+    </button>
+    {tags.map((tag) => (
+        <button class="filter-tag" data-tag={tag}>
+            {tag}
+        </button>
+    ))}
+</div>
+
+<script is:inline>
+    document.querySelectorAll(".filter-tag").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const tag = this.getAttribute("data-tag");
+            document
+                .querySelectorAll(".filter-tag")
+                .forEach((b) => b.classList.remove("active"));
+            this.classList.add("active");
+            document.querySelectorAll(".album-card").forEach((card) => {
+                const tags = (card.getAttribute("data-tags") || "").split(",");
+                if (tag === "all" || (tag && tags.includes(tag))) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
+
+<style>
+    .gallery-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+
+    .filter-tag {
+        padding: 6px 16px;
+        border: none;
+        border-radius: 20px;
+        background: var(--color-surface);
+        color: var(--color-body);
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all var(--duration-normal) var(--ease-out);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .filter-tag:hover {
+        background: var(--color-link);
+        color: white;
+    }
+
+    .filter-tag.active {
+        background: var(--color-link);
+        color: white;
+    }
+</style>

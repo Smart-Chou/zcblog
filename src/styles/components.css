@@ -104,6 +104,8 @@
 .post-card {
     margin-bottom: 0;
     position: relative;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 320px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);

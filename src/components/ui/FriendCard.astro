@@ -12,6 +12,13 @@ interface Props {
 const { name, avatar, title, url, updated } = Astro.props;
 ---
 
+<style>
+    .fri-item:nth-child(n+6) {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 64px;
+    }
+</style>
+
 <div class="fri-item">
     <Image
         src={avatar}

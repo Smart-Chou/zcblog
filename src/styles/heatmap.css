@@ -3,6 +3,12 @@
     --heatmap-gap: 2px;
 }
 
+/* Defer rendering of heatmap until scrolled into view */
+.heatmap-container {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 180px;
+}
+
 .heatmap-months {
     display: grid;
     grid-template-columns: repeat(53, var(--heatmap-cell-size));

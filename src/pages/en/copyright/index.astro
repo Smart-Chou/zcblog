@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import "~/styles/legal.css";
 ---
 
 <BaseLayout
@@ -83,51 +84,3 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
     </div>
 </BaseLayout>
 
-<style>
-    .legal-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
-    }
-
-    .legal-container h1 {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        color: var(--color-title);
-    }
-
-    .legal-container h2 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-        color: var(--color-title);
-    }
-
-    .legal-container p {
-        color: var(--color-body);
-        line-height: 1.8;
-        margin-bottom: 1rem;
-    }
-
-    .legal-container a {
-        color: var(--color-link);
-        text-decoration: none;
-    }
-
-    .legal-container a:hover {
-        text-decoration: underline;
-    }
-
-    .legal-container ul {
-        color: var(--color-body);
-        line-height: 1.8;
-        margin-bottom: 1rem;
-        padding-left: 1.5rem;
-    }
-
-    .legal-container li {
-        margin-bottom: 0.5rem;
-    }
-</style>

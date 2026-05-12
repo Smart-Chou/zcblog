@@ -1,0 +1,76 @@
+/* Shared styles for legal pages (cookies, copyright, privacy-policy) */
+
+.legal-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.legal-container h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--color-title);
+}
+
+.legal-container h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-title);
+}
+
+.legal-container p {
+    color: var(--color-body);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.legal-container a {
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+.legal-container a:hover {
+    text-decoration: underline;
+}
+
+.legal-container ul,
+.legal-container ol {
+    color: var(--color-body);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.legal-container li {
+    margin-bottom: 0.5rem;
+}
+
+.legal-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+.legal-container th,
+.legal-container td {
+    border: 1px solid var(--color-border);
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.legal-container th {
+    background: var(--color-surface);
+    font-weight: 600;
+}
+
+.legal-container td {
+    background: var(--color-bg);
+}
+
+.legal-container strong {
+    color: var(--color-title);
+    font-weight: 600;
+}
