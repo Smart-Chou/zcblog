@@ -7,7 +7,7 @@
     "scripts": {
         "dev": "rm -rf node_modules/.vite && astro dev",
         "start": "rm -rf node_modules/.vite && astro dev",
-        "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" astro check && astro build && npx pagefind",
+        "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" node scripts/generate-icons.js && astro check && astro build && npx pagefind",
         "preview": "astro preview",
         "astro": "astro",
         "type-check": "tsc --noEmit --isolatedDeclarations",
@@ -97,6 +97,5 @@
     },
     "engines": {
         "node": ">= 22.0.0"
-    },
-    "packageManager": "pnpm@11.0.9+sha512.34ce82e6780233cf9cad8685029a8f81d2e06196c5a9bad98879f7424940c6817c4e4524fb7d38b8553ceed48b9758b8ebaf1abd3600c232c4c8cf7366086f38"
+    }
 }
