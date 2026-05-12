@@ -13,9 +13,9 @@ const { searchEnable = search.enable } = Astro.props;
     <div class="nav-shell">
         <div class="header-left">
             <Logo />
+            {searchEnable && <Search />}
         </div>
         <div class="header-right">
-            {searchEnable && <Search />}
             <LanguageSwitcher />
             <Nav />
             <ToggleTheme />
