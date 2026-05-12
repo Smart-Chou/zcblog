@@ -68,7 +68,7 @@ function formatDateFull(date: Date): string {
                             {formatDateFull(posts[0].data.pubDate)}
                         </span>
                     </div>
-                    <a href={`/article/${posts[0].id}/`} class="post-card-link"></a>
+                    <a href={`/article/${posts[0].id}/`} class="post-card-link" aria-label={`${locale === "en" ? "Read" : "阅读"} ${posts[0].data.title}`}></a>
                 </article>
 
                 <!-- Secondary posts -->
@@ -80,7 +80,7 @@ function formatDateFull(date: Date): string {
                         <span class="post-card-meta">
                             {formatDateFull(post.data.pubDate)}
                         </span>
-                            <a href={`/article/${post.id}/`} class="post-card-link"></a>
+                            <a href={`/article/${post.id}/`} class="post-card-link" aria-label={`${locale === "en" ? "Read" : "阅读"} ${post.data.title}`}></a>
                     </article>
                 ))}
             </div>

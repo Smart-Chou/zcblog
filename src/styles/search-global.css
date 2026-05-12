@@ -69,7 +69,6 @@ button[data-open-modal] {
     align-items: center;
     background: var(--docsearch-searchbox-background);
     border: 0;
-    outline: none;
     border-radius: 40px;
     color: var(--docsearch-muted-color);
     cursor: pointer;
@@ -103,6 +102,10 @@ button[data-open-modal] {
     button[data-open-modal] > :last-child {
         margin-inline-start: auto;
     }
+}
+
+button[data-open-modal]:focus:not(:focus-visible) {
+    outline: none;
 }
 
 button > kbd {

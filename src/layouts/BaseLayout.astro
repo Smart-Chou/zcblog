@@ -16,11 +16,14 @@ const {
     mathjax = false,
     mermaid = false,
     fullWidth = false,
+    locale = "zh",
 } = Astro.props;
+
+const lang = locale === "en" ? "en" : "zh-CN";
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={lang}>
     <BaseHead
         title={title}
         description={description}
@@ -33,9 +36,10 @@ const {
         mermaid={mermaid}
     />
     <body>
+        <a href="#main-content" class="skip-link">{locale === "en" ? "Skip to content" : "跳至内容"}</a>
         <div id="app" class="full-width">
             <Header />
-            <main class="main">
+            <main id="main-content" class="main">
                 <div class:list={["content", { "content--full": fullWidth }]}>
                     <slot />
                 </div>

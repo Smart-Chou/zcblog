@@ -36,7 +36,7 @@ const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
 >
     <div class="page-container">
         <div class="hero-background"></div>
-        <main class="main-content">
+        <div class="main-content">
             <!-- Hero Masthead -->
             <HeroMasthead
                 subtitle={site.subtitle}
@@ -76,6 +76,6 @@ const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
             </div>
 
             <Author />
-        </main>
+        </div>
     </div>
 </BaseLayout>
