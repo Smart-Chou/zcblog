@@ -108,9 +108,7 @@ export default defineConfig({
     image: {
         layout: "constrained",
         responsiveStyles: true,
-        domains: [
-            "avatars.githubusercontent.com",
-        ],
+        domains: ["avatars.githubusercontent.com"],
         remotePatterns: [
             {
                 protocol: "https",

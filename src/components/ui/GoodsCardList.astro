@@ -20,7 +20,9 @@ const { items, imageBaseUrl = "" } = Astro.props;
 <div class="goods-grid">
     {
         items.map((item) => {
-            const imagePath = imageBaseUrl ? `${imageBaseUrl}${item.url}` : item.url;
+            const imagePath = imageBaseUrl
+                ? `${imageBaseUrl}${item.url}`
+                : item.url;
             const localImage = getLocalImage(imagePath);
             return (
                 <article class="goods-item">
@@ -37,7 +39,7 @@ const { items, imageBaseUrl = "" } = Astro.props;
                         </div>
                     </MediaCard>
                     <div class="goods-body">
-                        <h4 class="goods-name">{item.title}</h4>
+                        <h3 class="goods-name">{item.title}</h3>
                         <p class="goods-note">{item.note}</p>
                     </div>
                 </article>

@@ -21,7 +21,9 @@ const { items, imageBaseUrl = "" } = Astro.props;
 <div class="media-grid">
     {
         items.map((item) => {
-            const imagePath = imageBaseUrl ? `${imageBaseUrl}${item.url}` : item.url;
+            const imagePath = imageBaseUrl
+                ? `${imageBaseUrl}${item.url}`
+                : item.url;
             const localImage = getLocalImage(imagePath);
             return (
                 <div class="media-grid-item">

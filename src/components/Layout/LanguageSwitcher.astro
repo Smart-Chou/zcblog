@@ -22,7 +22,7 @@ const localeLabels: Record<string, string> = {
 <div class="language-switcher">
     <button
         class="language-switcher-button"
-        aria-label="Switch language"
+        aria-label={`切换语言，当前：${localeLabels[currentLocale]}`}
         aria-expanded="false"
     >
         <span class="language-icon">

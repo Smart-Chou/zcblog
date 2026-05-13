@@ -4,7 +4,7 @@
     --docsearch-spacing: 12px;
     --docsearch-icon-stroke-width: 1.4;
     --docsearch-highlight-color: var(--docsearch-primary-color);
-    --docsearch-muted-color: rgb(150, 159, 175);
+    --docsearch-muted-color: rgb(89, 96, 110);
     --docsearch-modal-container-background: rgba(101, 108, 133, 0.8);
     --docsearch-modal-width: 560px;
     --docsearch-modal-height: 600px;
@@ -65,6 +65,7 @@ html[data-theme="dark"] {
 site-search {
     display: contents;
 }
+
 button[data-open-modal] {
     align-items: center;
     background: var(--docsearch-searchbox-background);
@@ -79,6 +80,10 @@ button[data-open-modal] {
     user-select: none;
     gap: 0.5rem;
     font-size: var(--sl-text-xl);
+}
+
+button .search-mobile-center {
+    margin: auto;
 }
 
 @media (min-width: 50rem) {

@@ -256,10 +256,18 @@ sup {
 
 /* ---- Responsive ---- */
 @media screen and (max-width: 768px) {
-    h1 { font-size: var(--text-3xl); }
-    h2 { font-size: var(--text-2xl); }
-    h3 { font-size: var(--text-xl); }
-    h4 { font-size: var(--text-lg); }
+    h1 {
+        font-size: var(--text-3xl);
+    }
+    h2 {
+        font-size: var(--text-2xl);
+    }
+    h3 {
+        font-size: var(--text-xl);
+    }
+    h4 {
+        font-size: var(--text-lg);
+    }
 
     pre {
         padding: calc(var(--space) * 0.5);

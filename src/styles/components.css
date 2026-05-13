@@ -176,12 +176,6 @@
         min-height: auto !important;
     }
 
-    site-search button[data-open-modal] {
-        min-width: 44px;
-        min-height: 44px;
-        padding: 10px;
-    }
-
     .post-navigation .navlink {
         float: none;
         display: block;
