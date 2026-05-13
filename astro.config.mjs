@@ -22,7 +22,6 @@ import astroVtBot from "astro-vtbot";
 import katex from "katex";
 import "katex/dist/contrib/mhchem.mjs";
 import tailwindcss from "@tailwindcss/vite";
-import remarkSectionize from "remark-sectionize";
 
 // https://astro.build/config
 export default defineConfig({
