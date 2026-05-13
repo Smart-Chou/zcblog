@@ -26,16 +26,18 @@ export async function GET(context) {
             const wordCount = getReadingTime(body).words || "";
             const readTime = getReadingTime(body).text || "";
 
+            const descriptionHtml = sanitizeHtml(
+                marked.parse(post.data.description || ""),
+            );
+            const bodyHtml = sanitizeHtml(marked.parse(body));
+
             return {
                 title: post.data.title,
                 pubDate: post.data.pubDate,
                 description: post.data.description,
                 link: `/article/${post.id}/`,
-                content: `${[
-                    sanitizeHtml(
-                        marked.parse("WordCount: " + wordCount + " words"),
-                    ) + sanitizeHtml(marked.parse("ReadTime: " + readTime)),
-                ]}`,
+                content: `${descriptionHtml}<hr/>${bodyHtml}`,
+                customData: `<wordCount>${wordCount}</wordCount><readTime>${readTime}</readTime>`,
             };
         }),
         stylesheet: "/assets/rss/styles.xsl",

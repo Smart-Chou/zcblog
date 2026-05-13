@@ -21,6 +21,8 @@ const {
     keywords = [],
     publishedTime,
     modifiedTime,
+    prevUrl,
+    nextUrl,
 } = Astro.props;
 ---
 
@@ -166,6 +168,7 @@ const {
     <JsonLd
         title={title}
         description={description}
+        image={image}
         modifiedTime={modifiedTime}
     />
     <Analytics />
@@ -181,6 +184,40 @@ const {
         title="RSS Feed"
         href="/rss.xml"
     />
+    <!-- 分页导航 -->
+    {prevUrl && <link rel="prev" href={prevUrl} />}
+    {nextUrl && <link rel="next" href={nextUrl} />}
+    <!-- hreflang 多语言标注 -->
+    {
+        (() => {
+            const siteUrl = (Astro.site?.toString() || "").replace(/\/$/, "");
+            const currentPath = Astro.url.pathname;
+            const isEnglish = currentPath.startsWith("/en/");
+            const zhPath = isEnglish
+                ? currentPath.replace(/^\/en/, "")
+                : currentPath;
+            const enPath = isEnglish ? currentPath : "/en" + currentPath;
+            return (
+                <>
+                    <link
+                        rel="alternate"
+                        hreflang="zh"
+                        href={siteUrl + zhPath}
+                    />
+                    <link
+                        rel="alternate"
+                        hreflang="en"
+                        href={siteUrl + enPath}
+                    />
+                    <link
+                        rel="alternate"
+                        hreflang="x-default"
+                        href={siteUrl + zhPath}
+                    />
+                </>
+            );
+        })()
+    }
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

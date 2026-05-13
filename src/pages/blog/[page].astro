@@ -50,6 +50,13 @@ const { page } = Astro.props as any;
 
 // 元数据已在getStaticPaths中预先计算，直接使用page.data
 const postsWithMeta = page.data;
+
+const prevUrl = page.url.prev
+    ? new URL(page.url.prev, Astro.site).toString()
+    : undefined;
+const nextUrl = page.url.next
+    ? new URL(page.url.next, Astro.site).toString()
+    : undefined;
 ---
 
 <BaseLayout
@@ -60,6 +67,8 @@ const postsWithMeta = page.data;
     keywords={site.keywords}
     publishedTime={new Date()}
     modifiedTime={new Date()}
+    prevUrl={prevUrl}
+    nextUrl={nextUrl}
 >
     <Hitokoto />
     <Author />

@@ -6,7 +6,9 @@ if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {
     ldJson = "article";
 }
 
-const { title, imageUrl, modifiedTime } = Astro.props;
+const { title, image, modifiedTime } = Astro.props;
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 
 // 安全地处理日期，确保它是有效的 Date 对象
 const getSafeDateISOString = (time: Date | string | null | undefined) => {
@@ -32,9 +34,9 @@ const safeDateModified = getSafeDateISOString(modifiedTime);
 const ldJsonSchema = {
     "@context": "https://schema.org",
     "@type": ldJson,
-    headline: title,
-    image: imageUrl,
-    url: Astro.site,
+    ...(ldJson === "article" ? { headline: title } : { name: title }),
+    image: image,
+    url: pageUrl,
     dateModified: safeDateModified,
     author: {
         "@type": "Person",

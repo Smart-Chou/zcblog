@@ -17,6 +17,8 @@ const {
     mermaid = false,
     fullWidth = false,
     locale = "zh",
+    prevUrl,
+    nextUrl,
 } = Astro.props;
 
 const lang = locale === "en" ? "en" : "zh-CN";
@@ -34,6 +36,8 @@ const lang = locale === "en" ? "en" : "zh-CN";
         modifiedTime={modifiedTime}
         mathjax={mathjax}
         mermaid={mermaid}
+        prevUrl={prevUrl}
+        nextUrl={nextUrl}
     />
     <body>
         <a href="#main-content" class="skip-link"

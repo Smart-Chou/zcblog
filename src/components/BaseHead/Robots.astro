@@ -1,11 +1,19 @@
 ---
-import { site, config } from "~/self.config";
+import { site } from "~/self.config";
 ---
 
 <!-- 浏览器和搜索引擎相关 -->
 <meta name="robots" content="index, follow" />
-<meta http-equiv="Content-Language" content={config.lang} />
-<meta name="theme-color" content="#ffffff" />
+<meta
+    name="theme-color"
+    content="#ffffff"
+    media="(prefers-color-scheme: light)"
+/>
+<meta
+    name="theme-color"
+    content="#1c1917"
+    media="(prefers-color-scheme: dark)"
+/>
 <meta name="x-astro-vitals-route" content="/" />
 <link
     rel="sitemap"

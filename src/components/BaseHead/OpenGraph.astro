@@ -34,7 +34,9 @@ const safeModifiedTime = getSafeModifiedTime(modifiedTime);
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:url" content={fullUrl} />
-<meta property="og:secure_url" content={fullUrl} />
 <meta property="og:site_name" content={author.type} />
-<meta property="og:locale" content={config.lang} />
+<meta
+    property="og:locale"
+    content={Astro.url.pathname.startsWith("/en/") ? "en-US" : config.lang}
+/>
 <meta property="og:updated_time" content={safeModifiedTime} />
