@@ -41,9 +41,10 @@ const redirectIntegration = (): AstroIntegration => ({
             } = config;
             const siteHost = new URL(site.url).host;
 
+            const total = files.length;
+
             await Promise.all(
                 files.map(async (file) => {
-                    logger.info(`Processing file: ${file}`);
                     let html = await fs.readFile(file, "utf-8");
                     const dom = new JSDOM(html);
                     const document = dom.window.document;
@@ -79,6 +80,8 @@ const redirectIntegration = (): AstroIntegration => ({
                     await fs.writeFile(file, html);
                 }),
             );
+
+            logger.info(`Processed ${total} files for external link redirects`);
         },
     },
 });

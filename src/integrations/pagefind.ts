@@ -1,63 +1,44 @@
-/**
- * Pagefind 搜索索引集成
- *
- * 此集成用于在 Astro 构建完成后运行 Pagefind 来生成搜索索引文件。
- * 主要功能包括：
- * 1. 创建 Pagefind 索引
- * 2. 添加构建输出目录到索引中
- * 3. 将生成的搜索索引文件写入到指定目录
- * 4. 记录索引过程的日志信息
- *
- * 使用方法：
- * 在 astro.config.mjs 中导入并在构建完成钩子中调用此函数
- *
- * @example
- * // astro.config.mjs
- * import { starlightPagefind } from './src/integrations/pagefind.ts';
- *
- * export default defineConfig({
- *   integrations: [
- *     {
- *       name: 'pagefind-integration',
- *       hooks: {
- *         'astro:build:done': async ({ dir, logger }) => {
- *           await starlightPagefind({ dir, logger });
- *         }
- *       }
- *     }
- *   ]
- * });
- */
 import type { HookParameters } from "astro";
 import { fileURLToPath } from "node:url";
 import * as pagefind from "pagefind";
+import type { PagefindConfig } from "../schemas/pagefind";
 
-/** Run Pagefind to generate search index files based on the build output directory. */
 export async function starlightPagefind({
     dir,
     logger: starlightLogger,
-}: PagefindIntegrationOptions) {
-    const logger = starlightLogger.fork("starlight:pagefind");
-    const options = { dir, logger };
+    pagefindConfig,
+}: {
+    dir: HookParameters<"astro:build:done">["dir"];
+    logger: HookParameters<"astro:build:done">["logger"];
+    pagefindConfig: PagefindConfig;
+}) {
+    const logger = starlightLogger.fork("pagefind");
 
     try {
         const now = performance.now();
         logger.info("Building search index with Pagefind...");
 
-        const newIndexResponse = await pagefind.createIndex();
+        const newIndexResponse = await pagefind.createIndex({
+            forceLanguage: pagefindConfig.forceLanguage,
+            excludeSelectors: pagefindConfig.excludeSelectors,
+            keepIndexUrl: pagefindConfig.keepIndexUrl,
+            writePlayground: pagefindConfig.writePlayground,
+            includeCharacters: pagefindConfig.includeCharacters,
+        });
 
         const { index } = assertPagefindResponse<pagefind.NewIndexResponse>(
             newIndexResponse,
-            options,
+            logger,
         );
 
         const indexingResponse = await index.addDirectory({
             path: fileURLToPath(dir),
+            glob: pagefindConfig.glob,
         });
         const { page_count } =
             assertPagefindResponse<pagefind.IndexingResponse>(
                 indexingResponse,
-                options,
+                logger,
             );
 
         logger.info(`Found ${page_count} HTML files.`);
@@ -67,7 +48,7 @@ export async function starlightPagefind({
         });
         assertPagefindResponse<pagefind.WriteFilesResponse>(
             writeFilesResponse,
-            options,
+            logger,
         );
 
         const pagefindTime = performance.now() - now;
@@ -81,9 +62,9 @@ export async function starlightPagefind({
     }
 }
 
-function assertPagefindResponse<T extends PagefindBaseResponse>(
+function assertPagefindResponse<T extends { errors: string[] }>(
     response: T,
-    { logger }: PagefindIntegrationOptions,
+    logger: ReturnType<HookParameters<"astro:build:done">["logger"]["fork"]>,
 ) {
     if (response.errors.length > 0) {
         for (const error of response.errors)
@@ -92,12 +73,3 @@ function assertPagefindResponse<T extends PagefindBaseResponse>(
     }
     return response as Required<T>;
 }
-
-interface PagefindBaseResponse {
-    errors: string[];
-}
-
-type PagefindIntegrationOptions = Pick<
-    HookParameters<"astro:build:done">,
-    "dir" | "logger"
->;
