@@ -9,10 +9,23 @@ const imageModules = import.meta.glob<{ default: ImageMetadata }>(
     { eager: true },
 );
 
+// 同时扫描 src/assets/ 根目录的图片（如 author.jpg）
+const rootImageModules = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/*.{jpg,jpeg,webp,png,gif}",
+    { eager: true },
+);
+
 /** Maps filename → ImageMetadata (e.g. "34.jpg" → ImageMetadata) */
 const imageMap = new Map<string, ImageMetadata>();
 
 for (const [key, mod] of Object.entries(imageModules)) {
+    const filename = key.split("/").pop();
+    if (filename) {
+        imageMap.set(filename, mod.default);
+    }
+}
+
+for (const [key, mod] of Object.entries(rootImageModules)) {
     const filename = key.split("/").pop();
     if (filename) {
         imageMap.set(filename, mod.default);

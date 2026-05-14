@@ -10,8 +10,17 @@ interface Props {
 const { locale } = Astro.props;
 
 const BANGUMI_CONFIG = {
-    username: "1143164",
+    username: "1246668",
+    // 国内访问 api.bgm.tv 容易超时，可换成镜像。常用镜像：
+    //   https://bangumi-api.vercel.app
+    //   https://bgm-api.hualin.app
+    // 或自建 Cloudflare Worker 反代
     apiUrl: "https://api.bgm.tv",
+    fetch: {
+        timeoutMs: 15000,   // 单次请求超时
+        retries: 2,         // 重试次数
+        retryDelayMs: 1000, // 重试间隔
+    },
     pagination: {
         limit: 50,
         delay: 50,
@@ -32,6 +41,7 @@ const t = {
             book: "书籍",
             music: "音乐",
             game: "游戏",
+            tv: "影视",
         },
     },
     en: {
@@ -46,6 +56,7 @@ const t = {
             book: "Book",
             music: "Music",
             game: "Game",
+            tv: "TV",
         },
     },
 }[locale];
@@ -58,31 +69,62 @@ const categoryMap: Record<
     book: { id: "book", name: t.categories.book, subjectType: 1 },
     music: { id: "music", name: t.categories.music, subjectType: 3 },
     game: { id: "game", name: t.categories.game, subjectType: 4 },
+    tv: { id: "tv", name: t.categories.tv, subjectType: 6 },
 };
 
-async function fetchBangumiData(
-    username: string,
-    subjectType: number,
-): Promise<UserSubjectCollection[]> {
-    try {
-        const { limit, delay, maxTotal } = BANGUMI_CONFIG.pagination;
-        let offset = 0;
-        let allData: UserSubjectCollection[] = [];
-        let hasMore = true;
-        const isDev = import.meta.env.DEV;
-
-        while (hasMore) {
-            if (isDev && allData.length >= limit) break;
-            if (maxTotal > 0 && allData.length >= maxTotal) break;
-
-            const url = `${BANGUMI_CONFIG.apiUrl}/v0/users/${username}/collections?subject_type=${subjectType}&limit=${limit}&offset=${offset}`;
-
+async function fetchWithRetry(
+    url: string,
+    timeoutMs: number,
+    retries: number,
+    retryDelayMs: number,
+): Promise<Response> {
+    let lastError: unknown;
+    for (let attempt = 0; attempt <= retries; attempt++) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeoutMs);
+        try {
             const response = await fetch(url, {
                 headers: {
                     "User-Agent": "YuuOuRou Blog",
                     Accept: "application/json",
                 },
+                signal: controller.signal,
             });
+            return response;
+        } catch (err) {
+            lastError = err;
+            if (attempt < retries) {
+                await new Promise((r) => setTimeout(r, retryDelayMs));
+            }
+        } finally {
+            clearTimeout(timer);
+        }
+    }
+    throw lastError;
+}
+
+async function fetchBangumiData(
+    username: string,
+    subjectType: number,
+): Promise<UserSubjectCollection[]> {
+    const { limit, delay, maxTotal } = BANGUMI_CONFIG.pagination;
+    const { timeoutMs, retries, retryDelayMs } = BANGUMI_CONFIG.fetch;
+    let offset = 0;
+    let allData: UserSubjectCollection[] = [];
+    let hasMore = true;
+
+    try {
+        while (hasMore) {
+            if (maxTotal > 0 && allData.length >= maxTotal) break;
+
+            const url = `${BANGUMI_CONFIG.apiUrl}/v0/users/${username}/collections?subject_type=${subjectType}&limit=${limit}&offset=${offset}`;
+
+            const response = await fetchWithRetry(
+                url,
+                timeoutMs,
+                retries,
+                retryDelayMs,
+            );
 
             if (!response.ok) break;
 

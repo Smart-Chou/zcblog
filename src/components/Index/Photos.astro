@@ -1,17 +1,16 @@
 ---
-const photos = [
-    { url: "images/18.jpg", title: "今日夕阳" },
-    { url: "images/19.webp", title: "工业朋克前的小鼠标" },
-    { url: "images/20.jpg", title: "山顶咖啡" },
-    { url: "images/21.jpg", title: "溜车" },
-    { url: "images/22.webp", title: "茑屋书店" },
-    { url: "images/23.webp", title: "茑屋书店" },
-    { url: "images/18.jpg", title: "街角黄昏" },
-    { url: "images/19.webp", title: "晨光" },
-    { url: "images/20.jpg", title: "海边落日" },
-];
+import { Image } from "astro:assets";
+import photos from "~/data/herophotos.json";
+import { getLocalImage } from "~/utils/image-map";
 
 const isLargeGrid = photos.length >= 9;
+const photosWithLocal = photos.map((photo) => {
+    const localImage = getLocalImage(photo.url);
+    return {
+        ...photo,
+        image: localImage, // ImageMetadata | undefined
+    };
+});
 ---
 
 <section class="photos-section">
@@ -21,14 +20,24 @@ const isLargeGrid = photos.length >= 9;
     </div>
     <div class:list={["photos-grid", { "photos-grid--large": isLargeGrid }]}>
         {
-            photos.map((photo) => (
+            photosWithLocal.map((photo) => (
                 <div class="photo-item">
-                    <img
-                        loading="lazy"
-                        decoding="async"
-                        src={photo.url}
-                        alt={photo.title}
-                    />
+                    {photo.image ? (
+                        <Image
+                            src={photo.image}
+                            alt={photo.title}
+                            loading="lazy"
+                            decoding="async"
+                            inferSize
+                        />
+                    ) : (
+                        <img
+                            src={photo.url}
+                            alt={photo.title}
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    )}
                     <div class="photo-overlay">
                         <span class="photo-caption">{photo.title}</span>
                     </div>

@@ -1,4 +1,6 @@
 ---
+import { getLocalImage } from "~/utils/image-map";
+
 interface EssayItem {
     username: string;
     time: string;
@@ -23,12 +25,13 @@ const images = item.images
         ? item.images
         : [item.images]
     : [];
+const avatarImage = getLocalImage(item.avatar_url);
 ---
 
 <article class="essay-card">
     <div class="essay-header">
         <img
-            src={item.avatar_url}
+            src={avatarImage?.src ?? item.avatar_url}
             alt={item.username}
             class="avatar"
             loading="lazy"

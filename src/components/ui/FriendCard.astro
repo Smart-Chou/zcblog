@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { getLocalImage } from "~/utils/image-map";
 
 interface Props {
     name: string;
@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { name, avatar, title, url, updated } = Astro.props;
+const avatarSrc = getLocalImage(avatar)?.src ?? avatar;
 ---
 
 <style>
@@ -20,11 +21,11 @@ const { name, avatar, title, url, updated } = Astro.props;
 </style>
 
 <div class="fri-item">
-    <Image
-        src={avatar}
+    <img
+        src={avatarSrc}
         alt={name}
-        width={48}
-        height={48}
+        width="48"
+        height="48"
         loading="lazy"
         decoding="async"
         class="fri-avatar"
