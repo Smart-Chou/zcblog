@@ -1,25 +1,25 @@
 :root {
-    --docsearch-primary-color: rgb(255, 81, 114);
-    --docsearch-text-color: rgb(28, 30, 33);
-    --docsearch-spacing: 12px;
+    --docsearch-primary-color: var(--primary-color);
+    --docsearch-text-color: var(--color-title);
+    --docsearch-spacing: var(--space-sm);
     --docsearch-icon-stroke-width: 1.4;
     --docsearch-highlight-color: var(--docsearch-primary-color);
-    --docsearch-muted-color: rgb(89, 96, 110);
+    --docsearch-muted-color: var(--color-muted);
     --docsearch-modal-container-background: rgba(101, 108, 133, 0.8);
     --docsearch-modal-width: 560px;
     --docsearch-modal-height: 600px;
-    --docsearch-modal-background: rgb(245, 246, 247);
+    --docsearch-modal-background: var(--color-surface);
     --docsearch-modal-shadow:
         inset 1px 1px 0 0 rgba(255, 255, 255, 0.5),
         0 3px 8px 0 rgba(85, 90, 100, 1);
     --docsearch-searchbox-height: 56px;
-    --docsearch-searchbox-background: rgb(235, 237, 240);
-    --docsearch-searchbox-focus-background: #fff;
+    --docsearch-searchbox-background: var(--color-surface-secondary);
+    --docsearch-searchbox-focus-background: var(--color-surface);
     --docsearch-searchbox-shadow: inset 0 0 0 2px var(--docsearch-primary-color);
     --docsearch-hit-height: 56px;
-    --docsearch-hit-color: rgb(68, 73, 80);
+    --docsearch-hit-color: var(--color-body);
     --docsearch-hit-active-color: #fff;
-    --docsearch-hit-background: #fff;
+    --docsearch-hit-background: var(--color-surface);
     --docsearch-hit-shadow: 0 1px 3px 0 rgb(212, 217, 225);
     --docsearch-key-gradient: linear-gradient(
         -225deg,
@@ -30,23 +30,23 @@
         inset 0 -2px 0 0 rgb(205, 205, 230), inset 0 0 1px 1px #fff,
         0 1px 2px 1px rgba(30, 35, 90, 0.4);
     --docsearch-footer-height: 44px;
-    --docsearch-footer-background: #fff;
+    --docsearch-footer-background: var(--color-surface);
     --docsearch-footer-shadow:
         0 -1px 0 0 rgb(224, 227, 232), 0 -3px 6px 0 rgba(69, 98, 155, 0.12);
-    --docsearch-icon-color: rgb(21, 21, 21);
+    --docsearch-icon-color: var(--color-title);
 }
 
 html[data-theme="dark"] {
-    --docsearch-text-color: rgb(245, 246, 247);
+    --docsearch-text-color: var(--color-body);
     --docsearch-modal-container-background: rgba(9, 10, 17, 0.8);
-    --docsearch-modal-background: rgb(21, 23, 42);
+    --docsearch-modal-background: var(--color-surface);
     --docsearch-modal-shadow:
         inset 1px 1px 0 0 rgb(44, 46, 64), 0 3px 8px 0 rgb(0, 3, 9);
-    --docsearch-searchbox-background: rgb(9, 10, 17);
-    --docsearch-searchbox-focus-background: #000;
-    --docsearch-hit-color: rgb(190, 195, 201);
+    --docsearch-searchbox-background: var(--color-bg);
+    --docsearch-searchbox-focus-background: var(--color-bg);
+    --docsearch-hit-color: var(--color-body);
     --docsearch-hit-shadow: none;
-    --docsearch-hit-background: rgb(9, 10, 17);
+    --docsearch-hit-background: var(--color-bg);
     --docsearch-key-gradient: linear-gradient(
         -26.5deg,
         rgb(86, 88, 114) 0%,
@@ -55,11 +55,11 @@ html[data-theme="dark"] {
     --docsearch-key-shadow:
         inset 0 -2px 0 0 rgb(40, 45, 85), inset 0 0 1px 1px rgb(81, 87, 125),
         0 2px 2px 0 rgba(3, 4, 9, 0.3);
-    --docsearch-footer-background: rgb(30, 33, 54);
+    --docsearch-footer-background: var(--color-surface);
     --docsearch-footer-shadow:
         inset 0 1px 0 0 rgba(73, 76, 106, 0.5), 0 -4px 8px 0 rgba(0, 0, 0, 0.2);
-    --docsearch-muted-color: rgb(127, 132, 151);
-    --docsearch-icon-color: rgb(255, 255, 255);
+    --docsearch-muted-color: var(--color-muted);
+    --docsearch-icon-color: var(--color-title);
 }
 
 site-search {

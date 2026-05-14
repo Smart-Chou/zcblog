@@ -11,9 +11,9 @@
         --sl-color-gray-6: var(--docsearch-searchbox-background);
         --sl-color-black: hsl(224, 10%, 10%);
 
-        --sl-color-accent-low: hsl(224, 54%, 20%);
-        --sl-color-accent: hsl(224, 100%, 60%);
-        --sl-color-accent-high: hsl(224, 100%, 85%);
+        --sl-color-accent-low: hsl(4, 50%, 20%);
+        --sl-color-accent: var(--color-accent);
+        --sl-color-accent-high: hsl(4, 70%, 75%);
 
         --sl-color-text: var(--sl-color-gray-2);
         --sl-color-text-accent: var(--sl-color-accent-high);
@@ -34,10 +34,7 @@
         --sl-text-xl: 1.25rem; /* 20px */
 
         /* Font */
-        --sl-font-system:
-            ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
-            Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-            "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        --sl-font-system: var(--font-body);
         ---sl-font:
             var(--sl-font, var(--sl-font-system)), var(--sl-font-system);
     }
@@ -54,9 +51,9 @@
         --sl-color-gray-6: hsl(224, 20%, 94%);
         --sl-color-black: hsl(0, 0%, 100%);
 
-        --sl-color-accent-high: hsl(234, 80%, 30%);
-        --sl-color-accent: hsl(234, 90%, 60%);
-        --sl-color-accent-low: hsl(234, 88%, 90%);
+        --sl-color-accent-high: hsl(4, 60%, 30%);
+        --sl-color-accent: var(--color-accent);
+        --sl-color-accent-low: hsl(4, 70%, 92%);
 
         --sl-color-text: var(--sl-color-gray-2);
         --sl-color-text-accent: var(--sl-color-accent);
@@ -65,22 +62,15 @@
         --sl-color-backdrop-overlay: hsla(225, 9%, 36%, 0.66);
 
         /* Shadows (light mode) */
-        --sl-shadow-lg:
-            0px 25px 7px rgba(0, 0, 0, 0.01),
-            0px 16px 6px hsla(0, 0%, 0%, 0.03),
-            0px 9px 5px hsla(223, 13%, 10%, 0.08),
-            0px 4px 4px hsla(0, 0%, 0%, 0.16), 0px 4px 2px hsla(0, 0%, 0%, 0.04);
+        --sl-shadow-lg: var(--shadow-lg);
 
         /* Text size */
-        --sl-text-2xs: 0.75rem; /* 12px */
-        --sl-text-sm: 0.875rem; /* 14px */
-        --sl-text-xl: 1.25rem; /* 20px */
+        --sl-text-2xs: var(--text-xs);
+        --sl-text-sm: var(--text-sm);
+        --sl-text-xl: var(--text-xl);
 
         /* Font */
-        --sl-font-system:
-            ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
-            Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-            "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        --sl-font-system: var(--font-body);
         ---sl-font:
             var(--sl-font, var(--sl-font-system)), var(--sl-font-system);
     }

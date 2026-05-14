@@ -1,6 +1,15 @@
 :root {
     --heatmap-cell-size: 11px;
     --heatmap-gap: 2px;
+    --heatmap-radius: 3px;
+
+    /* 热力等级色 — GitHub 风格绿阶 */
+    --heatmap-empty: #d6d8db;
+    --heatmap-level-1: #9ad99b;
+    --heatmap-level-2: #68be67;
+    --heatmap-level-3: #3f7f46;
+    --heatmap-level-4: #2f6336;
+    --heatmap-hover-outline: #555;
 }
 
 /* Defer rendering of heatmap until scrolled into view */
@@ -48,28 +57,28 @@
 .heatmap-day {
     width: var(--heatmap-cell-size);
     height: var(--heatmap-cell-size);
-    border-radius: 3px;
+    border-radius: var(--heatmap-radius);
     cursor: pointer;
 }
 
 .color-empty {
-    background-color: #d6d8db;
+    background-color: var(--heatmap-empty);
 }
 .color-github-1 {
-    background-color: #9ad99b;
+    background-color: var(--heatmap-level-1);
 }
 .color-github-2 {
-    background-color: #68be67;
+    background-color: var(--heatmap-level-2);
 }
 .color-github-3 {
-    background-color: #3f7f46;
+    background-color: var(--heatmap-level-3);
 }
 .color-github-4 {
-    background-color: #2f6336;
+    background-color: var(--heatmap-level-4);
 }
 
 .heatmap-day:hover {
-    outline: 1px solid #555;
+    outline: 1px solid var(--heatmap-hover-outline);
 }
 
 .heatmap-tooltip {
@@ -106,7 +115,7 @@
 .heatmap-legend-item {
     width: var(--heatmap-cell-size);
     height: var(--heatmap-cell-size);
-    border-radius: 3px;
+    border-radius: var(--heatmap-radius);
 }
 
 @media (max-width: 768px) {

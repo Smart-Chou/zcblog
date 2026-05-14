@@ -49,14 +49,10 @@ html[data-theme="dark"] body::before {
 
 /* ---- Link Styles (unlayered — overrides Tailwind preflight) ---- */
 a {
-    color: #c2413b;
+    color: var(--color-link);
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
     transition: opacity var(--duration-fast);
-}
-
-html[data-theme="dark"] a {
-    color: #e8736a;
 }
 
 a:hover {

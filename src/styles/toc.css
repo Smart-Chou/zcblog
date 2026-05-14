@@ -1,59 +1,11 @@
-/* TOC 专用颜色变量，命名沿用 B0(白)→B100(黑) 亮度梯度 */
-:root {
-    --B0: #fff;
-    --B10: #f8f8f9;
-    --B20: #f7f7f8;
-    --B30: #efefef;
-    --B40: #e5e5e5;
-    --B60: #8e8787;
-    --B80: #655e5e;
-    --B100: #292525;
-    --green: #3fd67e;
-    --red: #fd281a;
-    --sspai-red: #d71a1b;
-    --blue: #44b9fb;
-    --pink: #ff2c78;
-    --white: #f4f4f4;
-    --orange: #fc7310;
-    --prime-blue: #0355e3;
-    --B80-t: #8e8787;
-    --B60-t: #655e5e;
-
-    --a-dur-default: 0.36s;
-    --a-func-default: cubic-bezier(0.5, 0, 0, 1);
-    --a-dur-short: 0.15s;
-    --a-func-short: cubic-bezier(0, 0, 0, 1);
-
-    html[data-theme="dark"] & {
-        color-scheme: dark;
-        --B0: #232222;
-        --B10: #272626;
-        --B20: #171514;
-        --B30: #2b2929;
-        --B40: #373737;
-        --B60: #7f7f7f;
-        --B80: #cac3c3;
-        --B100: #fff;
-        --green: #57ef96;
-        --red: #f94135;
-        --sspai-red: #d71a1b;
-        --blue: #44b9fb;
-        --pink: #ed638c;
-        --white: #171514;
-        --orange: #ee6c35;
-        --prime-blue: #3577e8;
-        --B60-t: #fafafa;
-        --B80-t: #7f7f7f;
-    }
-}
-
+/* TOC — 使用项目 design tokens */
 .toc-content {
     position: fixed;
-    left: calc((100vw - min(100vw, 664px)) / 2 + min(100vw, 664px) + 178px);
+    left: calc((100vw - min(100vw, var(--content-width-medium, 664px))) / 2 + min(100vw, var(--content-width-medium, 664px)) + 178px);
     top: 50%;
     transform: translateY(-50%);
     z-index: 90;
-    padding: 10px 0;
+    padding: var(--space-xs) 0;
     width: auto;
     max-height: 600px;
     overflow: hidden;
@@ -91,34 +43,34 @@
         margin-bottom: 0;
 
         & .toc-link {
-            font-size: 12px;
-            line-height: 17px;
-            color: var(--B80-t);
+            font-size: var(--text-xs);
+            line-height: var(--leading-snug);
+            color: var(--color-muted);
             display: inline-block;
             opacity: 0;
             width: 9rem;
             vertical-align: middle;
             text-align: left;
-            transition: opacity 0.5s;
+            transition: opacity var(--duration-slower);
             margin-top: -2px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            padding-left: 10px;
-            margin-left: 8px;
+            padding-left: var(--space-xs);
+            margin-left: var(--space-xs);
 
             &:hover {
-                color: var(--B60-t);
+                color: var(--color-body);
                 display: inline-block;
                 opacity: 1;
                 cursor: pointer;
             }
 
             html[data-theme="dark"] & {
-                color: var(--B80-t);
+                color: var(--color-muted);
 
                 &:hover {
-                    color: var(--B60-t);
+                    color: var(--color-body);
                 }
             }
         }
@@ -131,7 +83,7 @@ ol {
 
 .toc-list {
     margin: 0;
-    padding-left: 10px;
+    padding-left: var(--space-xs);
 }
 
 a.toc-link {

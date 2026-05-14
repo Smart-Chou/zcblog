@@ -6,7 +6,7 @@
     --cb-admonition-color: #fff;
     --cb-admonition-padding-vertical: 1rem;
     --cb-admonition-padding-horizontal: 1rem;
-    --cb-color-info: #5c5c5c;
+    --cb-color-info: var(--color-muted, #5c5c5c);
     --cb-color-info-lighten: #5c5c5c33;
     --cb-color-note: #0070f3;
     --cb-color-note-lighten: #0071f333;
@@ -14,11 +14,11 @@
     --cb-color-tip-lighten: #19cc9633;
     --cb-color-important: #d400ff;
     --cb-color-important-lighten: #d400ff33;
-    --cb-color-warning: #f5a623;
+    --cb-color-warning: var(--color-warning, #f5a623);
     --cb-color-warning-lighten: #f5a62333;
-    --cb-color-danger: #e00;
+    --cb-color-danger: var(--color-error, #e00);
     --cb-color-danger-lighten: #e0000033;
-    --cb-color-text-dark: #000;
+    --cb-color-text-dark: var(--color-title, #000);
 }
 
 .remark-aside {
