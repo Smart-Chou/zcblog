@@ -1,11 +1,12 @@
 ---
+import authorImg from "~/assets/author.jpg";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { author, categories, socialLinks } from "~/self.config";
 ---
 
 <div class="author">
     <img
-        src={`/${author.avatar}`}
+        src={authorImg.src}
         alt="Author"
         class="author-image"
         width="180"

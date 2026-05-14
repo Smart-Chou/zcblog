@@ -12,14 +12,14 @@ import path from "node:path";
 // 加载本地字体 (Noto Sans SC 支持中文字形)
 const fontRegularPath = path.join(
     process.cwd(),
-    "public",
+    "src",
     "assets",
     "fonts",
     "NotoSansSC-Regular.ttf",
 );
 const fontBoldPath = path.join(
     process.cwd(),
-    "public",
+    "src",
     "assets",
     "fonts",
     "NotoSansSC-Bold.ttf",
