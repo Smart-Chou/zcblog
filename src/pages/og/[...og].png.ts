@@ -42,7 +42,10 @@ export const GET: APIRoute = async ({ props }) => {
 
     // 截断过长标题（中文约 1-2 行）
     const displayTitle = title.length > 30 ? title.slice(0, 30) + "…" : title;
-    const displayDesc = description.length > 100 ? description.slice(0, 100) + "…" : description;
+    const displayDesc =
+        description.length > 100
+            ? description.slice(0, 100) + "…"
+            : description;
 
     const svg = await satori(
         {
@@ -54,7 +57,8 @@ export const GET: APIRoute = async ({ props }) => {
                     display: "flex",
                     flexDirection: "column",
                     padding: "72px 88px 56px",
-                    backgroundImage: "linear-gradient(135deg, #0d1117 0%, #161b22 40%, #0f1419 100%)",
+                    backgroundImage:
+                        "linear-gradient(135deg, #0d1117 0%, #161b22 40%, #0f1419 100%)",
                     borderLeftWidth: "6px",
                     borderLeftStyle: "solid",
                     borderLeftColor: "#d4a040",
@@ -152,7 +156,10 @@ export const GET: APIRoute = async ({ props }) => {
                                 {
                                     type: "div",
                                     props: {
-                                        children: site.url.replace("https://", ""),
+                                        children: site.url.replace(
+                                            "https://",
+                                            "",
+                                        ),
                                         style: {
                                             fontSize: "18px",
                                             fontWeight: 400,

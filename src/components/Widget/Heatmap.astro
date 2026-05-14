@@ -50,8 +50,14 @@ const { postsData } = Astro.props;
         container.innerHTML = "";
 
         const today = new Date();
+        const isMobile = window.innerWidth < 768;
         const startDate = new Date(today);
-        startDate.setFullYear(today.getFullYear() - 1);
+        // 移动端只显示最近半年，桌面端显示一年
+        if (isMobile) {
+            startDate.setMonth(today.getMonth() - 6);
+        } else {
+            startDate.setFullYear(today.getFullYear() - 1);
+        }
         startDate.setDate(startDate.getDate() - startDate.getDay());
 
         const dataMap = {};
@@ -151,15 +157,19 @@ const { postsData } = Astro.props;
 
         var legendDiv = document.createElement("div");
         legendDiv.className = "heatmap-legend";
-        var colors = ["#d6d8db", "#9ad99b", "#68be67", "#3f7f46", "#2f6336"];
+        var levelClasses = [
+            "color-empty",
+            "color-github-1",
+            "color-github-2",
+            "color-github-3",
+            "color-github-4",
+        ];
         legendDiv.innerHTML =
             "<span>Less</span>" +
-            colors
-                .map(function (c) {
+            levelClasses
+                .map(function (cls) {
                     return (
-                        '<span class="heatmap-legend-item" style="background-color:' +
-                        c +
-                        '"></span>'
+                        '<span class="heatmap-legend-item ' + cls + '"></span>'
                     );
                 })
                 .join("") +

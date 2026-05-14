@@ -17,8 +17,8 @@ const BANGUMI_CONFIG = {
     // 或自建 Cloudflare Worker 反代
     apiUrl: "https://api.bgm.tv",
     fetch: {
-        timeoutMs: 15000,   // 单次请求超时
-        retries: 2,         // 重试次数
+        timeoutMs: 15000, // 单次请求超时
+        retries: 2, // 重试次数
         retryDelayMs: 1000, // 重试间隔
     },
     pagination: {
@@ -183,7 +183,6 @@ const hasData = tabs.length > 0;
                     sectionId={tab.id}
                     items={bangumiData[tab.id] || []}
                     isActive={tab.id === activeTab}
-                    itemsPerPage={8}
                 />
             ))}
         </>

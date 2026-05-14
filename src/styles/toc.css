@@ -1,7 +1,10 @@
 /* TOC — 使用项目 design tokens */
 .toc-content {
     position: fixed;
-    left: calc((100vw - min(100vw, var(--content-width-medium, 664px))) / 2 + min(100vw, var(--content-width-medium, 664px)) + 178px);
+    left: calc(
+        (100vw - min(100vw, var(--content-width-medium, 664px))) / 2 +
+            min(100vw, var(--content-width-medium, 664px)) + 178px
+    );
     top: 50%;
     transform: translateY(-50%);
     z-index: 90;
