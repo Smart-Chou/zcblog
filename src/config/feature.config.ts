@@ -97,9 +97,9 @@ export const postView: ViewConfig = {
 export const donate: DonateConfig = {
     enable: true,
     tip: "赞赏金额将全部用于开源项目维护，以及服务器、域名及各类云服务的开销",
-    wechatQRCode: "/assets/image/WePayQR.png",
-    alipayQRCode: "/assets/image/AliPayQR.jpg",
-    paypalQRCode: "/assets/image/PayPalQR.png",
+    wechatQRCode: "../assets/qr/wechat-pay.png",
+    alipayQRCode: "../assets/qr/alipay.jpg",
+    paypalQRCode: "../assets/qr/paypal.png",
     paypalUrl: "https://paypal.me/zcily",
 };
 

@@ -1,6 +1,9 @@
 ---
+import { Image } from "astro:assets";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { donate } from "~/self.config";
+import wechatQR from "~/assets/qr/wechat-pay.png";
+import alipayQR from "~/assets/qr/alipay.jpg";
 ---
 
 <style>
@@ -199,10 +202,12 @@ import { donate } from "~/self.config";
                     <span class="thank">🙏 感谢您赐予我前进的力量</span>
                     <div class="qr">
                         <div class="qr-img">
-                            <img
-                                src={donate.wechatQRCode}
+                            <Image
+                                src={wechatQR}
                                 alt="微信支付"
-                                loading="lazy"
+                                width={200}
+                                format="avif"
+                                quality={80}
                             />
                             <span class="tip"
                                 ><DynamicIcon
@@ -211,10 +216,12 @@ import { donate } from "~/self.config";
                             >
                         </div>
                         <div class="qr-img">
-                            <img
-                                src={donate.alipayQRCode}
+                            <Image
+                                src={alipayQR}
                                 alt="支付宝支付"
-                                loading="lazy"
+                                width={200}
+                                format="avif"
+                                quality={80}
                             />
                             <span class="tip"
                                 ><DynamicIcon
