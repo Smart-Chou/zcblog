@@ -1,0 +1,59 @@
+---
+// Mermaid 图表客户端渲染器
+// 在 BaseLayout 中引入此组件以自动渲染页面中的 Mermaid 图表
+---
+
+<script>
+    // Auto-initialize mermaid diagrams
+    function initMermaid() {
+        const containers =
+            document.querySelectorAll<HTMLElement>(".mermaid-container");
+        if (containers.length === 0) return;
+
+        // Dynamically load mermaid
+        if (typeof (window as any).mermaid === "undefined") {
+            const script = document.createElement("script");
+            script.src =
+                "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
+            script.onload = () => renderAll();
+            document.head.appendChild(script);
+        } else {
+            renderAll();
+        }
+    }
+
+    function renderAll() {
+        const mermaid = (window as any).mermaid;
+        if (!mermaid) return;
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: document.documentElement.classList.contains("dark")
+                ? "dark"
+                : "default",
+        });
+
+        document
+            .querySelectorAll<HTMLElement>(".mermaid-container")
+            .forEach(async (container) => {
+                if (container.dataset.mermaidRendered) return;
+                const code =
+                    container.dataset.mermaidCode ||
+                    container.textContent ||
+                    "";
+                if (!code.trim()) return;
+                try {
+                    const { svg } = await mermaid.render(
+                        "mermaid-" + Math.random().toString(36).slice(2, 8),
+                        code,
+                    );
+                    container.innerHTML = svg;
+                    container.dataset.mermaidRendered = "true";
+                } catch (e) {
+                    container.innerHTML = `<pre class="text-red-500 text-xs">Mermaid render error: ${e}</pre>`;
+                }
+            });
+    }
+
+    initMermaid();
+    document.addEventListener("astro:page-load", initMermaid);
+</script>

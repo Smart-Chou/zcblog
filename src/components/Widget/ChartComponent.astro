@@ -1,0 +1,54 @@
+---
+// Chart.js 图表组件
+// 用法：<ChartComponent type="bar" data={...} options={...} />
+// 或通过 markdown 指令使用
+
+export interface Props {
+    type: "bar" | "line" | "pie" | "doughnut" | "radar" | "polarArea";
+    data: any;
+    options?: any;
+    height?: number;
+    class?: string;
+}
+
+const {
+    type,
+    data,
+    options = {},
+    height = 400,
+    class: className = "",
+} = Astro.props;
+const chartId = "chart-" + Math.random().toString(36).slice(2, 8);
+const dataJson = JSON.stringify(data);
+const optsJson = JSON.stringify(options);
+---
+
+<div class:list={["chart-container", className]} style={`height:${height}px`}>
+    <canvas id={chartId}></canvas>
+</div>
+
+<script>
+    (function () {
+        const canvas = document.getElementById("{chartId}");
+        if (!canvas) return;
+
+        function render() {
+            const ChartJS = (window as any).Chart;
+            if (!ChartJS) {
+                // Load Chart.js from CDN
+                const s = document.createElement("script");
+                s.src =
+                    "https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js";
+                s.onload = () => render();
+                document.head.appendChild(s);
+                return;
+            }
+            new ChartJS(canvas, {
+                type: "{type}",
+                data: { dataJson },
+                options: { optsJson },
+            });
+        }
+        render();
+    })();
+</script>

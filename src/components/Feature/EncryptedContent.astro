@@ -1,0 +1,167 @@
+---
+// 加密内容组件 - 用密码保护文章内容
+// 用法：<EncryptedContent password="secret" slug="article-slug" hint="提示">...内容...</EncryptedContent>
+import { encryptContent } from "~/utils/encrypt";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    password: string;
+    slug: string;
+    hint?: string;
+}
+
+const { password, slug, hint = "" } = Astro.props;
+const rawHtml = await Astro.slots.render("default");
+const encryptedData = encryptContent(rawHtml, password, slug);
+---
+
+<div id="encrypted-container" data-encrypted={encryptedData} data-slug={slug}>
+    <div id="password-ui" class="flex justify-center py-16 px-4">
+        <div
+            class="flex flex-col items-center gap-3 max-w-md w-full p-8 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+        >
+            <Icon
+                name="material-symbols:shield-lock"
+                class="text-6xl text-blue-500"
+            />
+            <h2 class="text-lg font-bold">内容已加密</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
+                请输入密码查看隐藏内容
+            </p>
+            {
+                hint && (
+                    <p class="text-xs text-gray-400 text-center">
+                        提示：{hint}
+                    </p>
+                )
+            }
+            <form id="password-form" class="w-full mt-2 space-y-2">
+                <input
+                    id="password-input"
+                    type="password"
+                    placeholder="输入密码"
+                    autocomplete="off"
+                    class="w-full px-3 py-2 rounded-lg text-sm border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 outline-none focus:border-blue-500 transition"
+                />
+                <button
+                    type="submit"
+                    class="w-full py-2 rounded-lg text-sm font-medium bg-blue-500 text-white hover:bg-blue-600 active:scale-[0.98] transition-all"
+                >
+                    解密
+                </button>
+            </form>
+            <p id="password-error" class="text-xs text-red-500 hidden">
+                密码错误，请重试
+            </p>
+        </div>
+    </div>
+    <div id="decrypted-content" class="hidden"></div>
+</div>
+
+<script is:inline>
+    (function () {
+        var ITER = 100000,
+            SALT = 16,
+            IV = 12,
+            TAG = 16;
+        var container = document.getElementById("encrypted-container");
+        if (!container) return;
+        var data = container.getAttribute("data-encrypted");
+        var slug = container.getAttribute("data-slug");
+        var ck = "pw:" + slug;
+        var ui = document.getElementById("password-ui");
+        var form = document.getElementById("password-form");
+        var input = document.getElementById("password-input");
+        var errEl = document.getElementById("password-error");
+        var ct = document.getElementById("decrypted-content");
+
+        function show(html) {
+            ct.innerHTML = html;
+            ct.classList.remove("hidden");
+            ui.classList.add("hidden");
+            var scripts = ct.querySelectorAll("script");
+            for (var i = 0; i < scripts.length; i++) {
+                var s = scripts[i],
+                    ns = document.createElement("script");
+                for (var j = 0; j < s.attributes.length; j++)
+                    ns.setAttribute(
+                        s.attributes[j].name,
+                        s.attributes[j].value,
+                    );
+                ns.textContent = s.textContent;
+                s.parentNode.replaceChild(ns, s);
+            }
+            setTimeout(function () {
+                document.dispatchEvent(new CustomEvent("password:decrypted"));
+            }, 100);
+        }
+
+        function b64toBuf(b64) {
+            var b = atob(b64),
+                u = new Uint8Array(b.length);
+            for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i);
+            return u;
+        }
+
+        async function decrypt(pwd) {
+            var raw = b64toBuf(data);
+            var salt = raw.slice(0, SALT),
+                iv = raw.slice(SALT, SALT + IV),
+                tag = raw.slice(SALT + IV, SALT + IV + TAG),
+                ct = raw.slice(SALT + IV + TAG);
+            var combo = new Uint8Array(ct.length + TAG);
+            combo.set(ct);
+            combo.set(tag, ct.length);
+            var enc = new TextEncoder();
+            var km = await crypto.subtle.importKey(
+                "raw",
+                enc.encode(pwd),
+                "PBKDF2",
+                false,
+                ["deriveBits", "deriveKey"],
+            );
+            var key = await crypto.subtle.deriveKey(
+                {
+                    name: "PBKDF2",
+                    salt: salt,
+                    iterations: ITER,
+                    hash: "SHA-256",
+                },
+                km,
+                { name: "AES-GCM", length: 256 },
+                false,
+                ["decrypt"],
+            );
+            return new TextDecoder().decode(
+                await crypto.subtle.decrypt(
+                    { name: "AES-GCM", iv: iv },
+                    key,
+                    combo,
+                ),
+            );
+        }
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var p = input.value.trim();
+            if (!p) return;
+            errEl.classList.add("hidden");
+            decrypt(p)
+                .then(function (h) {
+                    sessionStorage.setItem(ck, p);
+                    show(h);
+                })
+                .catch(function () {
+                    errEl.classList.remove("hidden");
+                });
+        });
+
+        var cached = sessionStorage.getItem(ck);
+        if (cached)
+            decrypt(cached)
+                .then(show)
+                .catch(function () {
+                    sessionStorage.removeItem(ck);
+                });
+    })();
+</script>

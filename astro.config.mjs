@@ -10,6 +10,13 @@ import rehypeComponents from "rehype-components"; /* Render the custom directive
 import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
 import { remarkAsides } from "./src/remarkPlugin/remark-asides.js";
 import { remarkDeruntify } from "./src/remarkPlugin/remark-deruntify.js";
+import { remarkSpoiler } from "./src/remarkPlugin/remark-spoiler.mjs";
+import { remarkSuperSubMark } from "./src/remarkPlugin/remark-super-sub-mark.mjs";
+import { remarkImageGrid } from "./src/remarkPlugin/remark-image-grid.mjs";
+import { remarkMermaid } from "./src/remarkPlugin/remark-mermaid.mjs";
+import { remarkPlantuml } from "./src/remarkPlugin/remark-plantuml.mjs";
+import { GithubCardComponent } from "./src/remarkPlugin/rehype-github-card.mjs";
+import { rehypePlantuml } from "./src/remarkPlugin/rehype-plantuml.mjs";
 import expressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
@@ -47,14 +54,20 @@ export default defineConfig({
             resetRemark,
             remarkDirective,
             remarkAsides({}),
-            remarkGfm, // 扩展MDX语法支持GitHub Flavored Markdown
+            remarkGfm,
+            remarkSpoiler,
+            remarkSuperSubMark,
+            remarkImageGrid,
+            remarkMermaid,
+            remarkPlantuml,
         ],
         rehypePlugins: [
             [rehypeKatex, { katex }],
             rehypeCallouts,
             rehypeSlug, // 标题添加ID
             [rehypeAutolinkHeadings, { behavior: "append" }], // 标题添加锚点
-            [rehypeComponents, { components: {} }],
+            [rehypeComponents, { components: { github: GithubCardComponent } }],
+            rehypePlantuml,
         ],
     },
     integrations: [
