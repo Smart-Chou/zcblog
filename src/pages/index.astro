@@ -44,6 +44,8 @@ const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
                 tagsCount={tagsCount}
             />
 
+            <Author />
+
             <div class="hero-typewriter">
                 <TypewriterText
                     text={[
@@ -87,8 +89,6 @@ const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
                     limit={4}
                 />
             </div>
-
-            <Author />
         </div>
     </div>
 </BaseLayout>
