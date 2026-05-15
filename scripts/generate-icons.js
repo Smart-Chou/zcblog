@@ -21,6 +21,7 @@ const ICON_SETS = {
     ph: "@iconify-json/ph",
     logos: "@iconify-json/logos",
     mingcute: "@iconify-json/mingcute",
+    "material-symbols": "@iconify-json/material-symbols",
 };
 
 // 图标集数据缓存

@@ -163,6 +163,14 @@
     line-height: 1.2;
 }
 
+.hero-typewriter {
+    text-align: center;
+    margin: -1rem auto 2rem;
+    font-size: 1.05em;
+    color: var(--color-muted);
+    min-height: 1.8em;
+}
+
 /* ========================================
    3. Talk Ticker
    ======================================== */

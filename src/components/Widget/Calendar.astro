@@ -32,7 +32,7 @@ const monthNames = [
             class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             aria-label="上月"
         >
-            <Icon name="fa7-solid:chevron-left" class="text-xs" />
+            <Icon name="tabler:chevron-left" class="text-xs" />
         </button>
         <span
             id="cal-month-display"
@@ -44,14 +44,14 @@ const monthNames = [
                 class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 aria-label="今天"
             >
-                <Icon name="fa7-solid:arrow-rotate-left" class="text-xs" />
+                <Icon name="tabler:refresh" class="text-xs" />
             </button>
             <button
                 id="cal-next"
                 class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 aria-label="下月"
             >
-                <Icon name="fa7-solid:chevron-right" class="text-xs" />
+                <Icon name="tabler:chevron-right" class="text-xs" />
             </button>
         </div>
     </div>
@@ -78,26 +78,24 @@ const monthNames = [
 <script is:inline define:vars={{ monthNames }}>
     let displayYear = new Date().getFullYear();
     let displayMonth = new Date().getMonth();
-    let postDateMap: Record<
-        string,
-        { id: string; title: string; published: string }[]
-    > = {};
-    let allPosts: { id: string; title: string; published: string }[] = [];
+    let postDateMap = {};
+    let allPosts = [];
 
     async function fetchData() {
         try {
-            if ((window as any).__allPostMetaCache) {
-                allPosts = (window as any).__allPostMetaCache;
+            if (window.__allPostMetaCache) {
+                allPosts = window.__allPostMetaCache;
             } else {
                 const res = await fetch("/api/allPostMeta.json");
                 allPosts = await res.json();
-                (window as any).__allPostMetaCache = allPosts;
+                window.__allPostMetaCache = allPosts;
             }
             postDateMap = {};
-            allPosts.forEach((p) => {
+            allPosts.forEach(function (p) {
                 const d = new Date(p.published);
                 const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-                (postDateMap[key] ??= []).push(p);
+                if (!postDateMap[key]) postDateMap[key] = [];
+                postDateMap[key].push(p);
             });
             render();
         } catch (e) {
@@ -106,8 +104,9 @@ const monthNames = [
     }
 
     function render() {
-        const grid = document.getElementById("cal-grid")!;
-        const display = document.getElementById("cal-month-display")!;
+        const grid = document.getElementById("cal-grid");
+        const display = document.getElementById("cal-month-display");
+        if (!grid || !display) return;
         display.textContent = `${displayYear}年${monthNames[displayMonth]}`;
 
         const firstDay = new Date(displayYear, displayMonth, 1).getDay();
@@ -127,7 +126,7 @@ const monthNames = [
         for (let d = 1; d <= daysInMonth; d++) {
             const key = `${displayYear}-${String(displayMonth + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
             const has = !!postDateMap[key];
-            const count = postDateMap[key]?.length || 0;
+            const count = postDateMap[key] ? postDateMap[key].length : 0;
             const isToday = isCurrent && d === today.getDate();
             html += `<div class="aspect-square flex items-center justify-center rounded text-xs relative cursor-pointer
         ${has ? "font-bold text-gray-800 dark:text-gray-100" : "text-gray-500 dark:text-gray-400"}
@@ -142,7 +141,7 @@ const monthNames = [
         grid.innerHTML = html;
 
         // Show monthly posts
-        const monthlyPosts = allPosts.filter((p) => {
+        const monthlyPosts = allPosts.filter(function (p) {
             const d = new Date(p.published);
             return (
                 d.getFullYear() === displayYear && d.getMonth() === displayMonth
@@ -151,33 +150,32 @@ const monthNames = [
         showPosts(monthlyPosts);
 
         // Click handlers
-        grid.querySelectorAll<HTMLElement>(
+        grid.querySelectorAll(
             "[data-date][data-has='true']",
-        ).forEach((el) => {
-            el.addEventListener("click", () => {
-                const key = el.dataset.date!;
+        ).forEach(function (el) {
+            el.addEventListener("click", function () {
+                const key = el.dataset.date;
                 const posts = postDateMap[key] || [];
                 showPosts(posts);
-                grid.querySelectorAll(".cal-selected").forEach((e) =>
-                    e.classList.remove("cal-selected"),
-                );
+                grid.querySelectorAll(".cal-selected").forEach(function (e) {
+                    e.classList.remove("cal-selected");
+                });
                 el.classList.add("cal-selected");
             });
         });
     }
 
-    function showPosts(
-        posts: { id: string; title: string; published: string }[],
-    ) {
-        const wrapper = document.getElementById("cal-posts")!;
-        const list = document.getElementById("cal-posts-list")!;
+    function showPosts(posts) {
+        const wrapper = document.getElementById("cal-posts");
+        const list = document.getElementById("cal-posts-list");
+        if (!wrapper || !list) return;
         if (posts.length === 0) {
             wrapper.classList.add("hidden");
             return;
         }
         wrapper.classList.remove("hidden");
         list.innerHTML = posts
-            .map((p) => {
+            .map(function (p) {
                 const d = new Date(p.published);
                 return `<a href="/article/${p.id}/" class="flex justify-between text-xs px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300 hover:text-blue-500">
         <span class="truncate">${p.title}</span>
@@ -187,7 +185,7 @@ const monthNames = [
             .join("");
     }
 
-    function changeMonth(delta: number) {
+    function changeMonth(delta) {
         displayMonth += delta;
         if (displayMonth > 11) {
             displayMonth = 0;
@@ -206,10 +204,17 @@ const monthNames = [
         render();
     }
 
-    document.getElementById("cal-prev")!.onclick = () => changeMonth(-1);
-    document.getElementById("cal-next")!.onclick = () => changeMonth(1);
-    document.getElementById("cal-today")!.onclick = () => resetToday();
-    document.getElementById("cal-month-display")!.onclick = () => {
+    function safeById(id) {
+        return document.getElementById(id);
+    }
+    const elPrev = safeById("cal-prev");
+    const elNext = safeById("cal-next");
+    const elToday = safeById("cal-today");
+    const elDisplay = safeById("cal-month-display");
+    if (elPrev) elPrev.onclick = function () { changeMonth(-1); };
+    if (elNext) elNext.onclick = function () { changeMonth(1); };
+    if (elToday) elToday.onclick = function () { resetToday(); };
+    if (elDisplay) elDisplay.onclick = function () {
         displayYear = new Date().getFullYear();
         displayMonth = new Date().getMonth();
         render();

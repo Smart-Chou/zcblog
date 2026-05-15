@@ -8,9 +8,8 @@ export interface Props {
     class?: string;
 }
 
-const { content, height = 400, class: className = "" } = Astro.props;
+const { content = "", height = 400, class: className = "" } = Astro.props;
 const mmId = "markmap-" + Math.random().toString(36).slice(2, 8);
-const escaped = content.replace(/`/g, "\\`").replace(/\$/g, "\\$");
 ---
 
 <div
@@ -20,17 +19,17 @@ const escaped = content.replace(/`/g, "\\`").replace(/\$/g, "\\$");
 >
 </div>
 
-<script>
+<script is:inline define:vars={{ mmId, content }}>
     (function () {
-        const container = document.getElementById("{mmId}");
+        const container = document.getElementById(mmId);
         if (!container) return;
 
         function render() {
-            const { markmap } = window as any;
+            const markmap = window.markmap;
             if (!markmap) {
                 const s = document.createElement("script");
                 s.src = "https://cdn.jsdelivr.net/npm/markmap-autoloader@0.17";
-                s.onload = () => setTimeout(render, 200);
+                s.onload = function () { setTimeout(render, 200); };
                 document.head.appendChild(s);
                 return;
             }
@@ -39,12 +38,12 @@ const escaped = content.replace(/`/g, "\\`").replace(/\$/g, "\\$");
             const { Markmap, loadCSS, loadJS } = markmap;
 
             const transformer = new Transformer();
-            const { root, features } = transformer.transform(`{escaped}`);
+            const { root, features } = transformer.transform(content);
             const { styles, scripts } = transformer.getUsedAssets(features);
 
             if (styles) loadCSS(styles);
             if (scripts)
-                loadJS(scripts, { getMarkmap: () => (window as any).markmap });
+                loadJS(scripts, { getMarkmap: function () { return window.markmap; } });
 
             Markmap.create(container, {}, root);
         }

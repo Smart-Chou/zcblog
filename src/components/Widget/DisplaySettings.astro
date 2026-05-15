@@ -27,7 +27,7 @@ import { Icon } from "astro-icon/components";
                     title="恢复默认"
                     style="display:none"
                 >
-                    <Icon name="fa7-solid:arrow-rotate-left" class="text-xs" />
+                    <Icon name="tabler:refresh" class="text-xs" />
                 </button>
             </div>
         </div>
@@ -141,7 +141,7 @@ import { Icon } from "astro-icon/components";
 
         hueSlider.addEventListener("input", () => {
             hue = parseInt(hueSlider.value);
-            applyHue(h);
+            applyHue(hue);
         });
         hueReset.addEventListener("click", () => {
             hue = defaultHue;

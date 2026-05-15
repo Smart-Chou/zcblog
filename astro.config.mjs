@@ -17,6 +17,11 @@ import { remarkMermaid } from "./src/remarkPlugin/remark-mermaid.mjs";
 import { remarkPlantuml } from "./src/remarkPlugin/remark-plantuml.mjs";
 import { GithubCardComponent } from "./src/remarkPlugin/rehype-github-card.mjs";
 import { rehypePlantuml } from "./src/remarkPlugin/rehype-plantuml.mjs";
+import { remarkChart } from "./src/remarkPlugin/remark-chart.mjs";
+import { remarkMarkmap } from "./src/remarkPlugin/remark-markmap.mjs";
+import { remarkReveal } from "./src/remarkPlugin/remark-reveal.mjs";
+import { remarkEncrypted } from "./src/remarkPlugin/remark-encrypted.mjs";
+import { rehypeEncrypted } from "./src/remarkPlugin/rehype-encrypted.mjs";
 import expressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
@@ -60,6 +65,10 @@ export default defineConfig({
             remarkImageGrid,
             remarkMermaid,
             remarkPlantuml,
+            remarkChart,
+            remarkMarkmap,
+            remarkReveal,
+            remarkEncrypted,
         ],
         rehypePlugins: [
             [rehypeKatex, { katex }],
@@ -68,6 +77,7 @@ export default defineConfig({
             [rehypeAutolinkHeadings, { behavior: "append" }], // 标题添加锚点
             [rehypeComponents, { components: { github: GithubCardComponent } }],
             rehypePlantuml,
+            rehypeEncrypted,
         ],
     },
     integrations: [

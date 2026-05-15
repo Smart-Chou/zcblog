@@ -49,47 +49,43 @@ const {
 
 <script>
     function initLayoutSwitch() {
-        const btn = document.getElementById(
-            "layout-switch-btn",
-        ) as HTMLButtonElement | null;
+        const btn = document.getElementById("layout-switch-btn");
         if (!btn) return;
 
         const saved = localStorage.getItem("postListLayout");
-        let current: "list" | "grid" =
-            saved === "list" || saved === "grid"
-                ? saved
-                : (btn.dataset.layout as "list" | "grid") || "list";
+        let current = btn.dataset.layout || "list";
+        if (saved === "list" || saved === "grid") {
+            current = saved;
+        }
 
-        function applyLayout(layout: "list" | "grid") {
+        // @ts-ignore
+        function applyLayout(layout) {
+            if (!btn) return;
             current = layout;
             localStorage.setItem("postListLayout", layout);
-            btn!.dataset.layout = layout;
-            const listIcon = btn!.querySelector(
-                ".layout-icon-list",
-            ) as HTMLElement;
-            const gridIcon = btn!.querySelector(
-                ".layout-icon-grid",
-            ) as HTMLElement;
+            btn.dataset.layout = layout;
+            const listIcon = btn.querySelector(".layout-icon-list");
+            const gridIcon = btn.querySelector(".layout-icon-grid");
             if (layout === "grid") {
-                listIcon.style.display = "none";
-                gridIcon.style.display = "";
-                btn!.title = "切换到列表模式";
+                if (listIcon) listIcon.setAttribute("style", "display:none");
+                if (gridIcon) gridIcon.setAttribute("style", "display:unset");
+                btn.title = "切换到列表模式";
             } else {
-                listIcon.style.display = "";
-                gridIcon.style.display = "none";
-                btn!.title = "切换到网格模式";
+                if (listIcon) listIcon.setAttribute("style", "display:unset");
+                if (gridIcon) gridIcon.setAttribute("style", "display:none");
+                btn.title = "切换到网格模式";
             }
             window.dispatchEvent(
-                new CustomEvent("layoutChange", { detail: { layout } }),
+                new CustomEvent("layoutChange", { detail: { layout: layout } }),
             );
         }
 
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", function () {
             applyLayout(current === "list" ? "grid" : "list");
         });
 
         // Apply saved preference on load
-        if (saved && saved !== current) {
+        if (saved && saved !== current && (saved === "list" || saved === "grid")) {
             applyLayout(saved);
         }
     }

@@ -11,8 +11,10 @@ export interface Props {
   class?: string;
 }
 
-const { width = 960, height = 540, class: className = "" } = Astro.props;
+const { class: className = "" } = Astro.props;
 const revealId = "reveal-" + Math.random().toString(36).slice(2, 8);
+const w = 960;
+const h = 540;
 ---
 
 <div class:list={["reveal-wrapper", className]}>
@@ -23,13 +25,13 @@ const revealId = "reveal-" + Math.random().toString(36).slice(2, 8);
   </div>
 </div>
 
-<script>
+<script is:inline define:vars={{ revealId, w, h }}>
   (function() {
-    const el = document.getElementById("{revealId}");
+    const el = document.getElementById(revealId);
     if (!el) return;
 
     function init() {
-      const Reveal = (window as any).Reveal;
+      const Reveal = window["Reveal"];
       if (!Reveal) {
         const link = document.createElement("link");
         link.rel = "stylesheet";
@@ -49,14 +51,14 @@ const revealId = "reveal-" + Math.random().toString(36).slice(2, 8);
         return;
       }
 
-      const deck = new Reveal(el, {{
-        width: {width},
-        height: {height},
+      const deck = new Reveal(el, {
+        width: w,
+        height: h,
         margin: 0.1,
         transition: "slide",
         embedded: true,
         hash: false,
-      }});
+      });
       deck.initialize();
     }
     init();
@@ -72,6 +74,6 @@ const revealId = "reveal-" + Math.random().toString(36).slice(2, 8);
     background: #fff;
   }
   .reveal-wrapper .reveal {
-    height: {height}px !important;
+    height: 540px !important;
   }
 </style>

@@ -6,7 +6,7 @@ export interface Props {
     configId?: string;
 }
 
-const { class: className = "", configId } = Astro.props as Props;
+const { class: className = "" } = Astro.props as Props;
 
 // Default ad configs - 可在 types/ad.ts 中覆盖
 const defaultAd: AdConfig = {
