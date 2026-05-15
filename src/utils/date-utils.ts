@@ -1,3 +1,12 @@
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import utc from "dayjs/plugin/utc";
+import { config } from "~/self.config";
+
+dayjs.locale(config.lang);
+dayjs.extend(advancedFormat);
+dayjs.extend(utc);
+
 /** 按 pubDate 降序排列（最新在前） */
 export function sortByPubDate<T extends { data: { pubDate: Date } }>(
     posts: T[],
@@ -76,4 +85,13 @@ export function formatDateTimeToYYYYMMDDHHmm(dateInput: Date | string): string {
         parts.find((p) => p.type === type)?.value || "";
 
     return `${get("year")}-${get("month")}-${get("day")} ${get("hour")}:${get("minute")}`;
+}
+
+export function formatDate(dateStr: string | Date): string {
+    if (!dateStr) return "";
+    try {
+        return dayjs(dateStr).utc().format("YYYY-MM-DD");
+    } catch {
+        return "";
+    }
 }

@@ -1,37 +1,5 @@
 ---
-import SectionPage from "~/components/Layout/SectionPage.astro";
-import EssayItem from "~/components/essay/EssayItem.astro";
-import DynamicIcon from "~/components/icons/DynamicIcon.astro";
-import Author from "~/components/Feature/Author.astro";
-import { site } from "~/self.config";
-import essaysData from "~/data/essays.json";
+import EssayContent from "~/components/pages/EssayContent.astro";
 ---
 
-<SectionPage
-    title="Essays"
-    subtitle="A collection of moments from my social media - mostly from my wild youth days"
-    description={`${site.title}'s essays collection`}
-    empty={essaysData.length === 0}
-    emptyEmoji="📝"
-    emptyTitle="No essays yet"
->
-    <DynamicIcon name="tabler:message-circle" slot="icon" />
-    <div class="essay-masonry">
-        {essaysData.map((item) => <EssayItem item={item} />)}
-    </div>
-    <Author />
-</SectionPage>
-
-<style>
-    .essay-masonry {
-        columns: 1;
-        column-gap: 0;
-    }
-
-    @media (min-width: 768px) {
-        .essay-masonry {
-            columns: 2;
-            column-gap: 1rem;
-        }
-    }
-</style>
+<EssayContent locale="en" />

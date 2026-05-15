@@ -1,0 +1,30 @@
+---
+import SectionPage from "~/components/Layout/SectionPage.astro";
+import BangumiLoader from "~/components/bangumi/BangumiLoader.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import Author from "~/components/ui/Author.astro";
+import { formatDateI18nWithTime } from "~/utils";
+
+interface Props {
+    locale?: "zh" | "en";
+}
+
+const { locale = "zh" } = Astro.props;
+const isEn = locale === "en";
+
+const buildTime = formatDateI18nWithTime(new Date());
+---
+
+<SectionPage
+    title="Bangumi"
+    subtitle={
+        isEn
+            ? "My anime, book, music and game collection"
+            : "我的动漫、书籍、音乐和游戏收藏"
+    }
+    buildTime={`${isEn ? "Last updated" : "最后更新"}: ${buildTime}`}
+>
+    <DynamicIcon name="tabler:movie" slot="icon" />
+    <BangumiLoader locale={locale} />
+    <Author />
+</SectionPage>

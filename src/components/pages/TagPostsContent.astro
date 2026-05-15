@@ -1,0 +1,80 @@
+---
+import type { CollectionEntry } from "astro:content";
+import SectionPage from "~/components/Layout/SectionPage.astro";
+import TagsPostCard from "~/components/Article/TagsPostCard.astro";
+import { site } from "~/self.config";
+import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
+
+interface Props {
+    locale?: string;
+    articles: CollectionEntry<"article">[];
+}
+
+const { locale = "zh", articles } = Astro.props;
+const isEn = locale === "en";
+
+const tag = (Astro.params.tag as string) || "";
+
+const postsWithMeta = articles.map((post: CollectionEntry<"article">) => {
+    const { wordCount, readTime, excerpt } = getPostsWithMeta({
+        ...post,
+        slug: post.id,
+    });
+    return {
+        ...post,
+        wordCount,
+        readTime,
+        excerpt,
+        slug: post.id,
+    };
+});
+---
+
+<SectionPage
+    title={`# ${tag}`}
+    subtitle={
+        isEn
+            ? `${postsWithMeta.length} posts tagged "${tag}"`
+            : `${postsWithMeta.length} 篇文章标签为 "${tag}"`
+    }
+    description={`${tag} - ${site.description}`}
+    image={`${Astro.site + site.coverImage}`}
+    imageAlt={tag}
+    keywords={[tag]}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+    empty={postsWithMeta.length === 0}
+    emptyTitle={isEn ? "No posts found" : "暂无文章"}
+    emptyMessage={
+        isEn
+            ? `No posts tagged with "${tag}"`
+            : `没有标签为 "${tag}" 的文章`
+    }
+>
+    <div class="posts">
+        {
+            postsWithMeta.map((post) => (
+                <TagsPostCard
+                    title={post.data.title}
+                    description={post.excerpt}
+                    tags={post.data.tags || []}
+                    postUrl={`/article/${post.slug}/`}
+                    publishedTime={post.data.pubDate}
+                    wordCount={post.wordCount}
+                    readTime={post.readTime}
+                    currentSlug={post.slug}
+                />
+            ))
+        }
+    </div>
+</SectionPage>
+
+<style>
+    .posts {
+        gap: 1.5rem;
+    }
+</style>
+
+<script>
+    import "~/utils/waline-pageview";
+</script>

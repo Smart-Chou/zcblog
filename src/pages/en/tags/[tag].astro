@@ -1,79 +1,10 @@
 ---
-import { getCollection } from "astro:content";
-import SectionPage from "~/components/Layout/SectionPage.astro";
-import TagsPostCard from "~/components/Article/TagsPostCard.astro";
-import { site } from "~/self.config";
-import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
+import TagPostsContent from "~/components/pages/TagPostsContent.astro";
+import { tagPostsGetStaticPaths } from "~/utils/tag-paths";
 
-export async function getStaticPaths() {
-    const allArticles = await getCollection("article");
-    const uniqueTags = [
-        ...new Set(allArticles.map((post) => post.data.tags || []).flat()),
-    ];
-    return uniqueTags.map((tag) => ({
-        params: { tag },
-        props: {
-            articles: allArticles.filter((post) =>
-                (post.data.tags || []).includes(tag),
-            ),
-        },
-    }));
-}
+export const getStaticPaths = tagPostsGetStaticPaths;
 
-const { tag } = Astro.params;
 const { articles } = Astro.props;
-
-const postsWithMeta = articles.map((post) => {
-    const { wordCount, readTime, excerpt } = getPostsWithMeta({
-        ...post,
-        slug: post.id,
-    });
-    return {
-        ...post,
-        wordCount,
-        readTime,
-        excerpt,
-        slug: post.id,
-    };
-});
 ---
 
-<SectionPage
-    title={`# ${tag}`}
-    subtitle={`${postsWithMeta.length} posts tagged "${tag}"`}
-    description={`${tag} - ${site.description}`}
-    image={`${Astro.site + site.coverImage}`}
-    imageAlt={tag}
-    keywords={[tag]}
-    publishedTime={new Date()}
-    modifiedTime={new Date()}
-    empty={postsWithMeta.length === 0}
-    emptyTitle="No posts found"
-    emptyMessage={`No posts tagged with "${tag}"`}
->
-    <div class="posts">
-        {
-            postsWithMeta.map((post) => (
-                <TagsPostCard
-                    title={post.data.title}
-                    description={post.excerpt}
-                    postUrl={`/article/${post.slug}/`}
-                    publishedTime={post.data.pubDate}
-                    wordCount={post.wordCount}
-                    readTime={post.readTime}
-                    currentSlug={post.slug}
-                />
-            ))
-        }
-    </div>
-</SectionPage>
-
-<style>
-    .posts {
-        gap: 1.5rem;
-    }
-</style>
-
-<script>
-    import "~/utils/waline-pageview";
-</script>
+<TagPostsContent articles={articles} locale="en" />
