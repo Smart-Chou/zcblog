@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { getRandomImageUrl } from "~/utils";
+import { imageService } from "~/self.config";
 
 interface Props {
     imagePath: string;
@@ -10,9 +11,8 @@ interface Props {
 
 const { imagePath, altText, loading = "lazy" } = Astro.props;
 
-const isDefaultImage =
-    /^https:\/\/pic\.marxchou\.com\/api\/random(\?.*)?$/.test(imagePath) ||
-    /^https:\/\/pic\.mcc\.im\/images(\?.*)?$/.test(imagePath);
+const defaultImageUrl = `${imageService.baseUrl}${imageService.randomPath}`;
+const isDefaultImage = imagePath.startsWith(defaultImageUrl);
 
 const src = isDefaultImage ? getRandomImageUrl() : imagePath;
 ---

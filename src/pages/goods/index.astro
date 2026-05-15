@@ -3,13 +3,14 @@ import SectionPage from "~/components/Layout/SectionPage.astro";
 import GoodsCardList from "~/components/ui/GoodsCardList.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import Author from "~/components/Feature/Author.astro";
+import { site } from "~/self.config";
 import items from "~/data/goods.json";
 ---
 
 <SectionPage
     title="Goods"
     subtitle="我的好物推荐"
-    description="Marx's Blog 的好物清单"
+    description={`${site.title} 的好物清单`}
     fullWidth
 >
     <DynamicIcon name="tabler:shopping-bag-heart" slot="icon" />

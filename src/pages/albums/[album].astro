@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import { site } from "~/self.config";
+import { site, imageService } from "~/self.config";
 
 interface AlbumPhoto {
     id: string;
@@ -26,7 +26,7 @@ import albumsData from "~/data/albums.json";
 const allAlbums: Album[] = (albumsData as Album[]).map((album) => ({
     ...album,
     cover: album.cover
-        ? `https://pic-api.marxchou.com/api/pic${album.cover}`
+        ? `${imageService.baseUrl}${imageService.picPath}${album.cover}`
         : "",
     photoCount: album.photos?.length || 0,
 }));
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
     const allAlbums = (data.default as Album[]).map((album) => ({
         ...album,
         cover: album.cover
-            ? `https://pic-api.marxchou.com/api/pic${album.cover}`
+            ? `${imageService.baseUrl}${imageService.picPath}${album.cover}`
             : "",
         photoCount: album.photos?.length || 0,
     }));
@@ -82,7 +82,7 @@ if (!foundAlbum) {
             {
                 foundAlbum.photos.map((photo, index) => (
                     <a
-                        href={`https://pic-api.marxchou.com/api/pic${photo.url}`}
+                        href={`${imageService.baseUrl}${imageService.picPath}${photo.url}`}
                         class="photo-item"
                         data-fancybox="gallery"
                         data-caption=""
@@ -90,7 +90,7 @@ if (!foundAlbum) {
                     >
                         <div class="photo-wrapper">
                             <img
-                                src={`https://pic-api.marxchou.com/api/pic${photo.url}`}
+                                src={`${imageService.baseUrl}${imageService.picPath}${photo.url}`}
                                 alt={photo.alt || ""}
                                 class="photo-image"
                                 loading="lazy"

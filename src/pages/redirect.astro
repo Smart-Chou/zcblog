@@ -2,6 +2,8 @@
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { site, redirectPage } from "~/self.config";
 import "~/styles/redirect.css";
+
+const domainsJson = JSON.stringify(site.domains);
 ---
 
 <BaseLayout
@@ -36,11 +38,10 @@ import "~/styles/redirect.css";
         const jumpContent = document.getElementById("jump-content");
         const jumpButton = document.getElementById("jump-button");
         // 网址白名单
+        const siteDomains = { domainsJson };
         const whitelist = [
-            "marxchou.com",
-            "*.marxchou.com",
-            "mcc.im",
-            "*.mcc.im",
+            ...siteDomains,
+            ...siteDomains.map((d) => `*.${d}`),
             "github.com",
             "astro.build",
             "vercel.com",

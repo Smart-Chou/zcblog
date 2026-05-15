@@ -18,6 +18,7 @@ export const {
     tagsPage,
     archivesPage,
     redirectPage,
+    imageService,
 } = siteConfig;
 
 export const { config, pageView, postView, donate, waline, search, umami } =

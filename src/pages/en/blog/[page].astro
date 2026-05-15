@@ -6,7 +6,7 @@ import PostCard from "~/components/Article/PostCard.astro";
 import Pagination from "~/components/Widget/Pagination.astro";
 import BackToTop from "~/components/Layout/BackToTop.astro";
 import Hitokoto from "~/components/Widget/Hitokoto.astro";
-import { site, config, pageView } from "~/self.config";
+import { site, config, pageView, imageService } from "~/self.config";
 import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
 import { compareByPubDate } from "~/utils/date-utils";
 
@@ -73,7 +73,7 @@ const postsWithMeta = page.data;
                     postUrl={`/article/${post.slug}/`}
                     imagePath={
                         post.data.image?.url ||
-                        "https://pic-api.marxchou.com/api/random"
+                        `${imageService.baseUrl}${imageService.randomPath}`
                     }
                     description={post.excerpt}
                     tags={post.data.tags}

@@ -1,5 +1,5 @@
 ---
-import { config, umami } from "~/self.config";
+import { config, umami, site } from "~/self.config";
 ---
 
 <!-- Analytics --><!-- Umami -->{
@@ -11,7 +11,7 @@ import { config, umami } from "~/self.config";
                 src={`${umami.umamiBaseUrl}/script.js`}
                 defer
                 data-website-id={String(umami.umamiId)}
-                data-domains="marxchou.com"
+                data-domains={site.domains.join(",")}
             />
         </>
     )

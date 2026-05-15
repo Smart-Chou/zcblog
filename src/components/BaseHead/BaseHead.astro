@@ -10,6 +10,7 @@ import Analytics from "~/components/BaseHead/Analytics.astro";
 import Scripts from "~/components/BaseHead/Scripts.astro";
 import KatexManager from "~/components/Feature/KatexManager.astro";
 import { ClientRouter } from "astro:transitions";
+import { imageService } from "~/self.config";
 
 const {
     title,
@@ -228,6 +229,6 @@ const {
     />
 
     <!-- 预连接到外部资源 -->
-    <link rel="preconnect" href="https://pic-api.marxchou.com" crossorigin />
-    <link rel="dns-prefetch" href="https://pic-api.marxchou.com" />
+    <link rel="preconnect" href={imageService.baseUrl} crossorigin />
+    <link rel="dns-prefetch" href={imageService.baseUrl} />
 </head>

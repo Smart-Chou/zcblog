@@ -1,4 +1,6 @@
 ---
+import { site } from "~/self.config";
+
 interface Props {
     subtitle: string;
     totalArticles: number;
@@ -6,11 +8,14 @@ interface Props {
 }
 
 const { subtitle, totalArticles, tagsCount } = Astro.props;
+const [titleAccent, titleRest] = site.title.split("'s ");
 ---
 
 <header class="hero-masthead animate-in">
     <h1 class="hero-title">
-        <span class="hero-title-accent">Marx</span>&#8202;'s Blog
+        <span class="hero-title-accent">{titleAccent}</span>&#8202;'s {
+            titleRest
+        }
     </h1>
     <p class="hero-subtitle">{subtitle}</p>
     <div class="hero-divider">

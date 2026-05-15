@@ -2,7 +2,7 @@
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import utc from "dayjs/plugin/utc";
-import { config } from "~/self.config";
+import { config, imageService } from "~/self.config";
 
 dayjs.locale(config.lang);
 dayjs.extend(advancedFormat);
@@ -96,7 +96,7 @@ export function generateTagCloud(posts: Post[]): TagCloudItem[] {
     return result;
 }
 
-const DEFAULT_IMAGE_SERVICE_URL = "https://pic-api.marxchou.com/api/random";
+const DEFAULT_IMAGE_SERVICE_URL = `${imageService.baseUrl}${imageService.randomPath}`;
 
 /**
  * 生成指定长度的随机字符串

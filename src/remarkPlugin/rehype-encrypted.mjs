@@ -27,8 +27,19 @@ function toHtml(nodes) {
                 .join("");
             const children = (n.children || []).map(walk).join("");
             const voidTags = new Set([
-                "br", "hr", "img", "input", "meta", "link", "area",
-                "base", "col", "embed", "source", "track", "wbr",
+                "br",
+                "hr",
+                "img",
+                "input",
+                "meta",
+                "link",
+                "area",
+                "base",
+                "col",
+                "embed",
+                "source",
+                "track",
+                "wbr",
             ]);
             return voidTags.has(n.tagName)
                 ? `<${n.tagName}${attrs}>`
@@ -55,7 +66,11 @@ export function rehypeEncrypted() {
             if (!parent || index === undefined) return;
 
             const cls = node.properties?.className;
-            const classList = Array.isArray(cls) ? cls : typeof cls === "string" ? cls.split(/\s+/) : [];
+            const classList = Array.isArray(cls)
+                ? cls
+                : typeof cls === "string"
+                  ? cls.split(/\s+/)
+                  : [];
             if (!classList.includes("encrypted-container-wrapper")) return;
 
             const password = String(node.properties["data-password"] || "");
@@ -91,7 +106,10 @@ export function rehypeEncrypted() {
                     {
                         type: "element",
                         tagName: "div",
-                        properties: { id: `decrypted-content-${uid}`, className: ["hidden"] },
+                        properties: {
+                            id: `decrypted-content-${uid}`,
+                            className: ["hidden"],
+                        },
                         children: [],
                     },
                     buildDecryptScript(uid),
@@ -104,39 +122,111 @@ export function rehypeEncrypted() {
 function buildPasswordUI(hint, uid) {
     const children = [
         el("h2", ["text-lg", "font-bold"], [txt("内容已加密")]),
-        el("p", ["text-sm", "text-gray-500", "dark:text-gray-400", "text-center"], [txt("请输入密码查看隐藏内容")]),
+        el(
+            "p",
+            ["text-sm", "text-gray-500", "dark:text-gray-400", "text-center"],
+            [txt("请输入密码查看隐藏内容")],
+        ),
     ];
 
     if (hint) {
-        children.push(el("p", ["text-xs", "text-gray-400", "text-center"], [txt(`提示：${hint}`)]));
+        children.push(
+            el(
+                "p",
+                ["text-xs", "text-gray-400", "text-center"],
+                [txt(`提示：${hint}`)],
+            ),
+        );
     }
 
     children.push({
         type: "element",
         tagName: "form",
-        properties: { id: `password-form-${uid}`, className: ["w-full", "mt-2", "space-y-2"] },
+        properties: {
+            id: `password-form-${uid}`,
+            className: ["w-full", "mt-2", "space-y-2"],
+        },
         children: [
-            { type: "element", tagName: "input", properties: { id: `password-input-${uid}`, type: "password", placeholder: "输入密码", autocomplete: "off", className: ["w-full", "px-3", "py-2", "rounded-lg", "text-sm", "border", "border-gray-200", "dark:border-gray-600", "bg-gray-50", "dark:bg-gray-700", "outline-none"] }, children: [] },
-            { type: "element", tagName: "button", properties: { type: "submit", className: ["w-full", "py-2", "rounded-lg", "text-sm", "font-medium", "bg-blue-500", "text-white", "hover:bg-blue-600"] }, children: [txt("解密")] },
+            {
+                type: "element",
+                tagName: "input",
+                properties: {
+                    id: `password-input-${uid}`,
+                    type: "password",
+                    placeholder: "输入密码",
+                    autocomplete: "off",
+                    className: [
+                        "w-full",
+                        "px-3",
+                        "py-2",
+                        "rounded-lg",
+                        "text-sm",
+                        "border",
+                        "border-gray-200",
+                        "dark:border-gray-600",
+                        "bg-gray-50",
+                        "dark:bg-gray-700",
+                        "outline-none",
+                    ],
+                },
+                children: [],
+            },
+            {
+                type: "element",
+                tagName: "button",
+                properties: {
+                    type: "submit",
+                    className: [
+                        "w-full",
+                        "py-2",
+                        "rounded-lg",
+                        "text-sm",
+                        "font-medium",
+                        "bg-blue-500",
+                        "text-white",
+                        "hover:bg-blue-600",
+                    ],
+                },
+                children: [txt("解密")],
+            },
         ],
     });
 
-    children.push(el("p", ["text-xs", "text-red-500", "hidden"], [txt("密码错误，请重试")], `password-error-${uid}`));
+    children.push(
+        el(
+            "p",
+            ["text-xs", "text-red-500", "hidden"],
+            [txt("密码错误，请重试")],
+            `password-error-${uid}`,
+        ),
+    );
 
     return {
         type: "element",
         tagName: "div",
-        properties: { id: `password-ui-${uid}`, className: ["flex", "justify-center", "py-16", "px-4"] },
+        properties: {
+            id: `password-ui-${uid}`,
+            className: ["flex", "justify-center", "py-16", "px-4"],
+        },
         children: [
             {
                 type: "element",
                 tagName: "div",
                 properties: {
                     className: [
-                        "flex", "flex-col", "items-center", "gap-3",
-                        "max-w-md", "w-full", "p-8", "rounded-xl",
-                        "border", "border-gray-200", "dark:border-gray-700",
-                        "bg-white", "dark:bg-gray-800",
+                        "flex",
+                        "flex-col",
+                        "items-center",
+                        "gap-3",
+                        "max-w-md",
+                        "w-full",
+                        "p-8",
+                        "rounded-xl",
+                        "border",
+                        "border-gray-200",
+                        "dark:border-gray-700",
+                        "bg-white",
+                        "dark:bg-gray-800",
                     ],
                 },
                 children,

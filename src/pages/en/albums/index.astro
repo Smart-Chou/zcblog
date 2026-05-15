@@ -3,7 +3,7 @@ import SectionPage from "~/components/Layout/SectionPage.astro";
 import AlbumCard from "~/components/gallery/AlbumCard.astro";
 import GalleryFilter from "~/components/gallery/GalleryFilter.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
-import { site } from "~/self.config";
+import { site, imageService } from "~/self.config";
 
 interface AlbumPhoto {
     id: string;
@@ -26,11 +26,11 @@ interface Album {
 
 import albumsData from "~/data/albums.json";
 
+const picBase = `${imageService.baseUrl}${imageService.picPath}`;
+
 const albums: Album[] = (albumsData as Album[]).map((album) => ({
     ...album,
-    cover: album.cover
-        ? `https://pic-api.marxchou.com/api/pic${album.cover}`
-        : "",
+    cover: album.cover ? `${picBase}${album.cover}` : "",
     photoCount: album.photos?.length || 0,
 }));
 

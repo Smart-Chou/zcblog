@@ -20,6 +20,8 @@ function formatNumber(num: number): string {
     return num.toString();
 }
 
+const sitemapBadgeUrl = `https://img.shields.io/badge/sitemap-%232bb24c?style=flat-square&logo=maplibre&logoColor=%23ffffff&labelColor=%232bb24c&link=${encodeURIComponent(site.url + "/sitemap-index.xml")}`;
+
 const statsBadges = [
     { label: "Articles", value: formatNumber(totalPosts) },
     { label: "Words", value: formatNumber(totalWordCount) },
@@ -99,7 +101,7 @@ const statsBadges = [
         </a>
         <a href="/sitemap-index.xml">
             <Image
-                src="https://img.shields.io/badge/sitemap-%232bb24c?style=flat-square&logo=maplibre&logoColor=%23ffffff&labelColor=%232bb24c&link=https%3A%2F%2Fmarxchou.com%2Fsitemap-index.xml"
+                src={sitemapBadgeUrl}
                 alt="sitemap"
                 loading="lazy"
                 width={100}

@@ -2,13 +2,14 @@
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import TalkTimeline from "~/components/ui/TalkTimeline.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import { site } from "~/self.config";
 import items from "~/data/talks.json";
 ---
 
 <SectionPage
     title="Talks"
     subtitle="我的碎碎念"
-    description="Marx's Blog 的日常说说"
+    description={`${site.title} 的日常说说`}
 >
     <DynamicIcon name="tabler:message-chatbot-filled" slot="icon" />
     <TalkTimeline items={items} />

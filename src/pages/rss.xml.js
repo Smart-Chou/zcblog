@@ -19,7 +19,7 @@ export async function GET(context) {
         author: author.type,
         source: {
             title: siteTitle,
-            url: "https://marxchou.com",
+            url: site.url,
         },
         items: formattedBlogs.map((post) => {
             const body = post.body?.toString().replace(/\n/g, "") || "";

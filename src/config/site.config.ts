@@ -13,9 +13,19 @@ export interface SiteConfig {
     coverImage: string; // 网站封面
     coverImageAlt: string; // 网站封面Alt
     url: string; // 网站链接
+    domains: string[]; // 网站域名列表，用于重定向白名单和统计
     startYear: string; // 网站开始年份
     beian: string; // 中国政策 / 萌 ICP
     beianURL: string; // ICP备案链接
+}
+
+/**
+ * 图床服务配置
+ */
+export interface ImageServiceConfig {
+    baseUrl: string; // 图床基础URL
+    randomPath: string; // 随机图片路径
+    picPath: string; // 指定图片路径
 }
 
 /**
@@ -59,9 +69,19 @@ export const site: SiteConfig = {
     coverImage: "cover.png",
     coverImageAlt: "Marx's Blog",
     url: "https://marxchou.com",
+    domains: ["marxchou.com", "mcc.im"],
     startYear: "2020",
     beian: "萌ICP备20249889号",
     beianURL: "https://icp.gov.moe/?keyword=20249889",
+};
+
+/**
+ * 图床服务
+ */
+export const imageService: ImageServiceConfig = {
+    baseUrl: "https://pic-api.marxchou.com",
+    randomPath: "/api/random",
+    picPath: "/api/pic",
 };
 
 /**

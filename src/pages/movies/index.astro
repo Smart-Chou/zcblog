@@ -3,13 +3,14 @@ import SectionPage from "~/components/Layout/SectionPage.astro";
 import MediaCardGrid from "~/components/ui/MediaCardGrid.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import Author from "~/components/Feature/Author.astro";
+import { site } from "~/self.config";
 import items from "~/data/movies.json";
 ---
 
 <SectionPage
     title="Movies"
     subtitle="我的观影记录"
-    description="Marx's Blog 的观影清单"
+    description={`${site.title} 的观影清单`}
     fullWidth
 >
     <DynamicIcon name="tabler:movie" slot="icon" />

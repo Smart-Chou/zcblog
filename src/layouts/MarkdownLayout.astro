@@ -97,7 +97,9 @@ const ogImage =
             pubDate={frontmatter.pubDate.toISOString()}
             coverImage={frontmatter.image?.url}
             description={frontmatter.description}
-            avatar={author.avatar ? new URL(author.avatar, Astro.site).toString() : null}
+            avatar={author.avatar
+                ? new URL(author.avatar, Astro.site).toString()
+                : null}
             siteTitle={site.title}
         />
     </div>
