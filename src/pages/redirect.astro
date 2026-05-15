@@ -27,7 +27,7 @@ const domainsJson = JSON.stringify(site.domains);
             <div id="jump-button">继续前往</div>
         </div>
     </div>
-    <script is:inline>
+    <script is:inline define:vars={{ domainsJson }}>
         // 跳转网址
         let jumpLink;
         let interval;
