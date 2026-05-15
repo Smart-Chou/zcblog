@@ -159,11 +159,26 @@ import "@waline/client/waline-meta.css";
 
         // 销毁旧实例，避免重复挂载
         if (walineInstance) {
-            walineInstance.destroy();
+            try {
+                walineInstance.destroy();
+            } catch {
+                // 忽略 View Transitions 切换时的 AbortError
+            }
             walineInstance = null;
         }
 
         walineInstance = init(walineConfig);
+    }
+
+    function destroyWaline() {
+        if (walineInstance) {
+            try {
+                walineInstance.destroy();
+            } catch {
+                // 忽略 AbortError
+            }
+            walineInstance = null;
+        }
     }
 
     function setupWalineToggle() {
@@ -207,6 +222,16 @@ import "@waline/client/waline-meta.css";
         });
 
         setupWalineToggle();
+    });
+
+    // View Transitions 切换前清理，避免 AbortError
+    document.addEventListener("astro:before-swap", () => {
+        destroyWaline();
+    });
+
+    // 页面卸载时清理
+    window.addEventListener("beforeunload", () => {
+        destroyWaline();
     });
 
     // 首次加载

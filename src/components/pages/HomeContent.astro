@@ -51,8 +51,6 @@ const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
                 tagsCount={tagsCount}
             />
 
-            {!isEn && <Author />}
-
             {!isEn && (
                 <div class="hero-typewriter">
                     <TypewriterText
@@ -67,6 +65,8 @@ const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
                     />
                 </div>
             )}
+
+            {!isEn && <Author />}
 
             <Talk />
             <Posts posts={recentPosts} />
