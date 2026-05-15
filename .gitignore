@@ -47,3 +47,4 @@ codeFather/
 
 design-system/
 pnpm-workspace.yaml
+src/components/icons.ts
