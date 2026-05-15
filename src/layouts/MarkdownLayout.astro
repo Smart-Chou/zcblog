@@ -11,9 +11,8 @@ import BackToTop from "~/components/Layout/BackToTop.astro";
 import Donate from "~/components/ui/Donate.astro";
 import Author from "~/components/ui/Author.astro";
 import WalineComment from "~/components/ui/WalineComment.astro";
-import SharePoster from "~/components/ui/SharePoster.astro";
 import MermaidRenderer from "~/layouts/MermaidRenderer.astro";
-import { site, author, postView, waline, donate } from "~/self.config";
+import { site, postView, waline, donate } from "~/self.config";
 import { getRandomImageUrl } from "~/utils";
 
 const {
@@ -90,18 +89,6 @@ const ogImage =
         </div>
         <PostFooter tags={frontmatter.tags} />
         <PostNavigation slug={slug} />
-        <SharePoster
-            title={frontmatter.title}
-            author={author.type}
-            url={new URL(`/article/${slug}/`, Astro.site).toString()}
-            pubDate={frontmatter.pubDate.toISOString()}
-            coverImage={ogImage}
-            description={frontmatter.description}
-            avatar={author.avatar
-                ? new URL(author.avatar, Astro.site).toString()
-                : null}
-            siteTitle={site.title}
-        />
     </div>
     {frontmatter.toc && <Toc />}
     {postView.backtotop && <BackToTop />}
