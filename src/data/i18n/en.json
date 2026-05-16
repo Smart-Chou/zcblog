@@ -16,7 +16,7 @@
         "about": "About",
         "bangumi": "Bangumi",
         "stats": "Stats",
-        "essay": "Essays",
+        "talks": "Talks",
         "gallery": "Gallery"
     },
     "common": {
@@ -125,9 +125,9 @@
         "title": "Gallery",
         "description": "Image gallery"
     },
-    "essay": {
-        "title": "Essays",
-        "description": "Life essays"
+    "talks": {
+        "title": "Talks",
+        "description": "Talks and essays"
     },
     "bangumi": {
         "title": "Bangumi",

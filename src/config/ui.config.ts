@@ -69,7 +69,7 @@ export const navLinks: NavLink[] = [
     { label: "归档", href: "/archives/" },
     { label: "标签", href: "/tags/" },
     { label: "相册", href: "/albums/" },
-    { label: "随笔", href: "/essay/" },
+    { label: "随笔", href: "/talks/" },
     { label: "番剧", href: "/bangumi/" },
     { label: "友人", href: "/friends/" },
 ];

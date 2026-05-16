@@ -39,11 +39,11 @@ const merged = [...talkItems, ...essayItems].sort(
 
 <SectionPage
     title="Talks"
-    subtitle="我的碎碎念"
-    description={`${site.title} 的日常说说`}
+    subtitle="My casual thoughts"
+    description={`${site.title}'s talks & essays`}
     empty={merged.length === 0}
     emptyEmoji="💬"
-    emptyTitle="暂无说说"
+    emptyTitle="No talks yet"
 >
     <DynamicIcon name="tabler:message-chatbot-filled" slot="icon" />
     <div class="talk-timeline">
@@ -56,7 +56,7 @@ const merged = [...talkItems, ...essayItems].sort(
     </div>
 </SectionPage>
 
-<style is:global>
+<style>
     .talk-timeline {
         position: relative;
         max-width: 800px;

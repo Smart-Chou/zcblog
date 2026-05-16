@@ -129,6 +129,25 @@ async function initStaticFancybox(
 }
 
 /**
+ * 便捷函数：初始化随笔图片的 Fancybox
+ */
+export function initEssayFancybox(): void {
+    if (typeof document === "undefined") return;
+
+    const init = async () => {
+        await initDynamicFancybox(".essay-images", { debug: false });
+    };
+
+    document.addEventListener("astro:page-load", init);
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+}
+
+/**
  * 便捷函数：初始化文章内容图片的 Fancybox
  */
 export function initArticleFancybox(): void {

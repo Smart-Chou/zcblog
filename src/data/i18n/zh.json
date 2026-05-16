@@ -16,7 +16,7 @@
         "about": "关于",
         "bangumi": "Bangumi",
         "stats": "统计",
-        "essay": "随笔",
+        "talks": "随笔",
         "gallery": "画廊"
     },
     "common": {
@@ -125,9 +125,9 @@
         "title": "画廊",
         "description": "图片展示"
     },
-    "essay": {
+    "talks": {
         "title": "随笔",
-        "description": "生活随笔"
+        "description": "说说与随笔"
     },
     "bangumi": {
         "title": "Bangumi",
