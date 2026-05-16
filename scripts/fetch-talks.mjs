@@ -68,7 +68,7 @@ function extractImages(note) {
 // ── 主逻辑 ──
 
 async function main() {
-  process.loadEnvFile(); // 从项目根目录 .env 加载
+  try { process.loadEnvFile(); } catch { /* .env 不存在时忽略（如 CI 环境） */ }
 
   const TOKEN = process.env.BLINKO_API_TOKEN;
   if (!TOKEN) {
