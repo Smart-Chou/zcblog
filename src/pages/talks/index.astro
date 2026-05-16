@@ -47,12 +47,14 @@ const merged = [...talkItems, ...essayItems].sort(
 >
     <DynamicIcon name="tabler:message-chatbot-filled" slot="icon" />
     <div class="talk-timeline">
-        {merged.map((item) => (
-            <div class="talk-item">
-                <div class="talk-marker" />
-                <EssayItem item={item} />
-            </div>
-        ))}
+        {
+            merged.map((item) => (
+                <div class="talk-item">
+                    <div class="talk-marker" />
+                    <EssayItem item={item} />
+                </div>
+            ))
+        }
     </div>
 </SectionPage>
 

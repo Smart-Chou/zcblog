@@ -46,9 +46,9 @@ const allTags = [...new Set(albums.map((a) => a.name).filter(Boolean))].sort();
 
 <SectionPage
     title="Albums"
-    subtitle={
-        isEn ? "Capturing beautiful moments in life" : "记录生活中的美好瞬间"
-    }
+    subtitle={isEn
+        ? "Capturing beautiful moments in life"
+        : "记录生活中的美好瞬间"}
     description={site.title + " - Photo Albums"}
     image={`${Astro.site + site.coverImage}`}
     imageAlt="Albums"

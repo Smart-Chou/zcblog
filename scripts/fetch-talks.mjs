@@ -1,44 +1,82 @@
-import { writeFileSync, existsSync, mkdirSync } from "fs";
-import { resolve, dirname } from "path";
-import { fileURLToPath } from "url";
+/**
+ * fetch-talks.mjs
+ * 从 Blinko REST API 抓取公开笔记，生成 talks.json
+ *
+ * 环境变量: BLINKO_API_TOKEN  (Blinko 设置 → API Token)
+ * 用法:      node scripts/fetch-talks.mjs
+ */
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { writeFile } from "node:fs/promises";
+
 const BLINKO_API = "https://memos.marxchou.com/api/v1/note/list";
 const BLINKO_BASE = "https://memos.marxchou.com";
-const TOKEN = process.env.BLINKO_API_TOKEN;
-const OUTPUT = resolve(__dirname, "../src/data/talks.json");
+const OUTPUT = "src/data/talks.json";
+
+// ── 工具函数 ──
+
+function relativeTime(iso) {
+  const diff = (Date.now() - new Date(iso).getTime()) / 1000;
+  if (diff < 60) return "刚刚";
+  const units = [
+    [3600, 60, "分钟"],
+    [86400, 3600, "小时"],
+    [2592000, 86400, "天"],
+    [31104000, 2592000, "个月"],
+    [Infinity, 31104000, "年"],
+  ];
+  for (const [max, div, unit] of units) {
+    if (diff < max) return `${Math.floor(diff / div)}${unit}前`;
+  }
+}
 
 function formatDate(iso) {
   const d = new Date(iso);
-  if (isNaN(d.getTime())) return iso;
-  return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}`;
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
-function relativeTime(iso) {
-  const now = new Date();
-  const diff = now - new Date(iso);
-  const seconds = Math.floor(diff / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const months = Math.floor(days / 30);
-  const years = Math.floor(months / 12);
+/** 补全协议 + 补全域名 */
+const fullUrl = (raw) => {
+  if (raw.startsWith("http://") || raw.startsWith("https://")) {
+    return raw.replace(/^http:/, "https:");
+  }
+  return BLINKO_BASE + (raw.startsWith("/") ? "" : "/") + raw;
+};
 
-  if (seconds < 60) return "刚刚";
-  if (minutes < 60) return `${minutes} 分钟前`;
-  if (hours < 24) return `${hours} 小时前`;
-  if (days < 30) return `${days} 天前`;
-  if (months < 12) return `${months} 个月前`;
-  return `${years} 年前`;
+/** 从笔记中提取所有图片 URL */
+function extractImages(note) {
+  const urls = [];
+
+  // 结构化附件
+  for (const a of note.attachments || []) {
+    if (
+      a.mimeType?.startsWith("image/") ||
+      /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(a.fileName || a.path || "")
+    ) {
+      urls.push(fullUrl(a.url || a.path));
+    }
+  }
+
+  // Markdown 兜底
+  for (const [, url] of (note.content || "").matchAll(/!\[.*?\]\(([^)\s]+)\)/g)) {
+    urls.push(fullUrl(url));
+  }
+
+  return [...new Set(urls)];
 }
+
+// ── 主逻辑 ──
 
 async function main() {
+  process.loadEnvFile(); // 从项目根目录 .env 加载
+
+  const TOKEN = process.env.BLINKO_API_TOKEN;
   if (!TOKEN) {
     console.error("❌ 未设置 BLINKO_API_TOKEN 环境变量");
     process.exit(1);
   }
 
-  let data;
+  let notes;
   try {
     const res = await fetch(BLINKO_API, {
       method: "POST",
@@ -58,16 +96,23 @@ async function main() {
     });
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    data = await res.json();
+    notes = await res.json();
   } catch (err) {
     console.warn(`⚠ 无法获取 Blinko API: ${err.message}，保留旧数据`);
     process.exit(0);
   }
 
-  const notes = Array.isArray(data) ? data : [];
+  if (!Array.isArray(notes)) {
+    console.warn("⚠ API 返回格式异常，保留旧数据");
+    process.exit(0);
+  }
 
+  // 只保留真正公开的笔记（无密码、未过期）
   const publicNotes = notes.filter(
-    (n) => n.isShare && !n.sharePassword && (!n.shareExpiryDate || new Date(n.shareExpiryDate) > new Date())
+    (n) =>
+      n.isShare &&
+      !n.sharePassword &&
+      (!n.shareExpiryDate || new Date(n.shareExpiryDate) > new Date()),
   );
 
   if (publicNotes.length === 0) {
@@ -77,34 +122,20 @@ async function main() {
 
   const items = publicNotes.map((n) => {
     const iso = n.updatedAt || n.createdAt;
-    const link = `${BLINKO_BASE}/share/${n.shareEncryptedUrl || n.id}`;
-
-    const images = (n.attachments || [])
-      .filter((a) => a.mimeType?.startsWith("image/") || a.url || a.path)
-      .map((a) => {
-        const raw = a.url || a.path || "";
-        if (raw.startsWith("http://") || raw.startsWith("https://")) {
-          return raw.replace(/^http:/, "https:");
-        }
-        return BLINKO_BASE + (raw.startsWith("/") ? "" : "/") + raw;
-      });
+    const images = extractImages(n);
 
     return {
       datetime: formatDate(iso),
       display: relativeTime(iso),
-      url: link,
-      content: n.content,
+      url: `${BLINKO_BASE}/share/${n.shareEncryptedUrl || n.id}`,
+      content: n.content || "",
       ...(images.length > 0 && { images }),
     };
   });
 
   items.sort((a, b) => (b.datetime > a.datetime ? 1 : -1));
 
-  const dir = dirname(OUTPUT);
-  if (!existsSync(dir)) {
-    mkdirSync(dir, { recursive: true });
-  }
-  writeFileSync(OUTPUT, JSON.stringify(items, null, 2) + "\n", "utf-8");
+  await writeFile(OUTPUT, JSON.stringify(items, null, 2) + "\n", "utf-8");
   console.log(`✅ talks.json 已更新 (${items.length} 条)`);
 }
 

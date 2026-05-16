@@ -39,7 +39,6 @@
         "astro-vtbot": "^2.1.12",
         "dayjs": "^1.11.20",
         "fast-glob": "^3.3.3",
-        "fast-xml-parser": "^5.8.0",
         "hastscript": "^9.0.1",
         "html-minifier": "^4.0.0",
         "katex": "^0.16.46",

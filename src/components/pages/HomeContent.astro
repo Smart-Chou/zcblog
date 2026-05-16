@@ -51,20 +51,22 @@ const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
                 tagsCount={tagsCount}
             />
 
-            {!isEn && (
-                <div class="hero-typewriter">
-                    <TypewriterText
-                        text={[
-                            "记录技术与生活的点滴 ✨",
-                            "Stay Hungry, Stay Foolish.",
-                            "代码改变世界，文字记录成长。",
-                            "学无止境，行以致远。",
-                        ]}
-                        speed={80}
-                        pauseTime={2500}
-                    />
-                </div>
-            )}
+            {
+                !isEn && (
+                    <div class="hero-typewriter">
+                        <TypewriterText
+                            text={[
+                                "记录技术与生活的点滴 ✨",
+                                "Stay Hungry, Stay Foolish.",
+                                "代码改变世界，文字记录成长。",
+                                "学无止境，行以致远。",
+                            ]}
+                            speed={80}
+                            pauseTime={2500}
+                        />
+                    </div>
+                )
+            }
 
             {!isEn && <Author />}
 

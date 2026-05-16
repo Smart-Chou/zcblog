@@ -67,11 +67,9 @@ const postsData = postsWithMeta.map((post) => ({
 
 <SectionPage
     title={archivesPage.title}
-    subtitle={
-        isEn
-            ? `(｡･∀･)ﾉﾞ Since ${startYear}, I've published ${totalPosts} posts with a total of ${totalWordsInThousands} words.`
-            : `(｡･∀･)ﾉﾞ 自 ${startYear} 以来, 我共发布了 ${totalPosts} 篇文章，共计 ${totalWordsInThousands} 字。`
-    }
+    subtitle={isEn
+        ? `(｡･∀･)ﾉﾞ Since ${startYear}, I've published ${totalPosts} posts with a total of ${totalWordsInThousands} words.`
+        : `(｡･∀･)ﾉﾞ 自 ${startYear} 以来, 我共发布了 ${totalPosts} 篇文章，共计 ${totalWordsInThousands} 字。`}
     description={`${archivesPage.description} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={archivesPage.description}

@@ -53,4 +53,3 @@ export function getLocalePath(locale: Locale, path: string = ""): string {
     }
     return `/${locale}${path || "/"}`;
 }
-

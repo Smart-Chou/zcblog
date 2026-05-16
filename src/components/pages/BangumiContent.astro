@@ -17,11 +17,9 @@ const buildTime = formatDateI18nWithTime(new Date());
 
 <SectionPage
     title="Bangumi"
-    subtitle={
-        isEn
-            ? "My anime, book, music and game collection"
-            : "我的动漫、书籍、音乐和游戏收藏"
-    }
+    subtitle={isEn
+        ? "My anime, book, music and game collection"
+        : "我的动漫、书籍、音乐和游戏收藏"}
     buildTime={`${isEn ? "Last updated" : "最后更新"}: ${buildTime}`}
 >
     <DynamicIcon name="tabler:movie" slot="icon" />

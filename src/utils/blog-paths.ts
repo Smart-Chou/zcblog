@@ -12,11 +12,12 @@ export async function blogGetStaticPaths({
     const pageSize = config.PageSize || 10;
 
     const postsWithPrecomputedMeta = allPosts.map((post) => {
-        const { wordCount, readTime, modifiedTime, excerpt } =
-            getPostsWithMeta({
+        const { wordCount, readTime, modifiedTime, excerpt } = getPostsWithMeta(
+            {
                 ...post,
                 slug: post.id,
-            });
+            },
+        );
         const sticky = post.data.sticky || 0;
 
         return {

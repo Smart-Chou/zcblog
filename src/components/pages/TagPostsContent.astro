@@ -32,11 +32,9 @@ const postsWithMeta = articles.map((post: CollectionEntry<"article">) => {
 
 <SectionPage
     title={`# ${tag}`}
-    subtitle={
-        isEn
-            ? `${postsWithMeta.length} posts tagged "${tag}"`
-            : `${postsWithMeta.length} 篇文章标签为 "${tag}"`
-    }
+    subtitle={isEn
+        ? `${postsWithMeta.length} posts tagged "${tag}"`
+        : `${postsWithMeta.length} 篇文章标签为 "${tag}"`}
     description={`${tag} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={tag}
@@ -45,11 +43,9 @@ const postsWithMeta = articles.map((post: CollectionEntry<"article">) => {
     modifiedTime={new Date()}
     empty={postsWithMeta.length === 0}
     emptyTitle={isEn ? "No posts found" : "暂无文章"}
-    emptyMessage={
-        isEn
-            ? `No posts tagged with "${tag}"`
-            : `没有标签为 "${tag}" 的文章`
-    }
+    emptyMessage={isEn
+        ? `No posts tagged with "${tag}"`
+        : `没有标签为 "${tag}" 的文章`}
 >
     <div class="posts">
         {
