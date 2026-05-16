@@ -5,7 +5,6 @@ import {
     formatDateToYYYYMMDD,
     formatDateI18n,
     formatDateI18nWithTime,
-    formatDateTimeToYYYYMMDDHHmm,
 } from "../date-utils";
 
 interface PostLike {
@@ -95,19 +94,3 @@ describe("formatDateI18nWithTime", () => {
     });
 });
 
-describe("formatDateTimeToYYYYMMDDHHmm", () => {
-    it("formats date with time in YYYY-MM-DD HH:mm", () => {
-        const result = formatDateTimeToYYYYMMDDHHmm(
-            new Date("2025-06-15T14:30:00"),
-        );
-        expect(result).toMatch(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/);
-        expect(result).toContain("2025-06-15");
-        expect(result).toContain("14:30");
-    });
-
-    it("accepts string input", () => {
-        const result = formatDateTimeToYYYYMMDDHHmm("2025-01-08T09:05:00");
-        expect(result).toContain("2025-01-08");
-        expect(result).toContain("09:05");
-    });
-});

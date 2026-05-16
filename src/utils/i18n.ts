@@ -54,12 +54,3 @@ export function getLocalePath(locale: Locale, path: string = ""): string {
     return `/${locale}${path || "/"}`;
 }
 
-export function getAlternateLink(
-    _currentLocale: Locale,
-    currentPath: string,
-): { locale: Locale; href: string }[] {
-    return locales.map((locale) => ({
-        locale,
-        href: getLocalePath(locale, currentPath),
-    }));
-}

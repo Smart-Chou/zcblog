@@ -1,7 +1,7 @@
 import { pageviewCount } from "@waline/client/pageview";
 import { waline } from "~/self.config";
 
-export function initWalinePageview() {
+function initWalinePageview() {
     const serverURL = waline.serverUrl;
     if (!serverURL) {
         console.warn("Waline server URL is not configured");

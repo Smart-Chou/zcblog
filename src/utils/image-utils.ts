@@ -2,7 +2,7 @@ import { imageService } from "~/self.config";
 
 const DEFAULT_IMAGE_URL = `${imageService.baseUrl}${imageService.randomPath}`;
 
-export function generateRandomString(length: number = 10): string {
+function generateRandomString(length: number = 10): string {
     const chars =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";

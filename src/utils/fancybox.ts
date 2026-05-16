@@ -18,7 +18,7 @@ function isProduction(): boolean {
     return false;
 }
 
-export interface FancyboxOptions {
+interface FancyboxOptions {
     /** 画廊容器选择器 */
     gallerySelector: string;
     /** 是否启用键盘导航 */
@@ -37,7 +37,7 @@ export interface FancyboxOptions {
     debug?: boolean;
 }
 
-export const DEFAULT_OPTIONS: FancyboxOptions = {
+const DEFAULT_OPTIONS: FancyboxOptions = {
     gallerySelector: "#fancybox-gallery",
     keyboard: true,
     backdropOpacity: 0.9,
@@ -50,7 +50,7 @@ export const DEFAULT_OPTIONS: FancyboxOptions = {
 /**
  * 初始化动态扫描模式的 Fancybox
  */
-export async function initDynamicFancybox(
+async function initDynamicFancybox(
     contentSelector: string = ".post-content",
     options: Partial<FancyboxOptions> = {},
 ): Promise<void> {
@@ -103,7 +103,7 @@ export async function initDynamicFancybox(
 /**
  * 初始化静态画廊模式的 Fancybox
  */
-export async function initStaticFancybox(
+async function initStaticFancybox(
     options: Partial<FancyboxOptions> = {},
 ): Promise<void> {
     const debug = options.debug ?? !isProduction();
