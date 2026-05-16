@@ -19,7 +19,7 @@ const talkItems = talksData.map((t) => ({
     username: author.type,
     time: t.datetime,
     content: stripTags(t.content),
-    images: null as string[] | null,
+    images: (t as { images?: string[] }).images ?? null,
     comment: null as string | null,
     avatar_url: "/author.jpg",
     tags: extractTags(t.content),
