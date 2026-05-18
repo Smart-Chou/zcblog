@@ -17,7 +17,8 @@ const allPosts = await getCollection("article");
 const allTags = allPosts.flatMap((post) => post.data.tags || []);
 const tagCounts = allTags.reduce(
     (acc, tag) => {
-        acc[tag] = (acc[tag] || 0) + 1;
+        const key = tag.toUpperCase();
+        acc[key] = (acc[key] || 0) + 1;
         return acc;
     },
     {} as Record<string, number>,

@@ -1,16 +1,32 @@
 ---
-import { Image } from "astro:assets";
-import photos from "~/data/herophotos.json";
-import { getLocalImage } from "~/utils/image-map";
+import albums from "~/data/albums.json";
+import { imageService } from "~/self.config";
+
+function extractDate(alt: string): Date | null {
+    const match = alt.match(/(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}:\d{2})?/);
+    if (!match) return null;
+    const dateStr = match[2]
+        ? `${match[1]}T${match[2]}`
+        : `${match[1]}T00:00:00`;
+    return new Date(dateStr);
+}
+
+const MAX_PHOTOS = 9;
+const allPhotos = albums.flatMap((album) =>
+    album.photos.map((p) => ({
+        url: `${imageService.baseUrl}${imageService.picPath}${p.url}`,
+        title: p.alt || p.description || "",
+    })),
+);
+const sortedPhotos = allPhotos
+    .filter((p) => extractDate(p.title) !== null)
+    .sort(
+        (a, b) =>
+            extractDate(b.title)!.getTime() - extractDate(a.title)!.getTime(),
+    );
+const photos = sortedPhotos.slice(0, MAX_PHOTOS);
 
 const isLargeGrid = photos.length >= 9;
-const photosWithLocal = photos.map((photo) => {
-    const localImage = getLocalImage(photo.url);
-    return {
-        ...photo,
-        image: localImage, // ImageMetadata | undefined
-    };
-});
 ---
 
 <section class="photos-section">
@@ -20,24 +36,14 @@ const photosWithLocal = photos.map((photo) => {
     </div>
     <div class:list={["photos-grid", { "photos-grid--large": isLargeGrid }]}>
         {
-            photosWithLocal.map((photo) => (
+            photos.map((photo) => (
                 <div class="photo-item">
-                    {photo.image ? (
-                        <Image
-                            src={photo.image}
-                            alt={photo.title}
-                            loading="lazy"
-                            decoding="async"
-                            inferSize
-                        />
-                    ) : (
-                        <img
-                            src={photo.url}
-                            alt={photo.title}
-                            loading="lazy"
-                            decoding="async"
-                        />
-                    )}
+                    <img
+                        src={photo.url}
+                        alt={photo.title}
+                        loading="lazy"
+                        decoding="async"
+                    />
                     <div class="photo-overlay">
                         <span class="photo-caption">{photo.title}</span>
                     </div>

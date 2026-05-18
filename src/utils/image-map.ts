@@ -9,7 +9,7 @@ const imageModules = import.meta.glob<{ default: ImageMetadata }>(
     { eager: true },
 );
 
-// 同时扫描 src/assets/ 根目录的图片（如 author.jpg）
+// 同时扫描 src/assets/ 根目录的图片（如 logo.svg）
 const rootImageModules = import.meta.glob<{ default: ImageMetadata }>(
     "/src/assets/*.{jpg,jpeg,webp,png,gif}",
     { eager: true },

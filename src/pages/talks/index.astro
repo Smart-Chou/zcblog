@@ -4,7 +4,7 @@ import EssayItem from "~/components/ui/EssayItem.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { site, author } from "~/self.config";
 import talksData from "~/data/talks.json";
-import essaysData from "~/data/essays.json";
+import logo from "~/assets/logo.svg";
 
 function extractTags(content: string): string[] {
     const matches = content.match(/#[^\s#]+/g);
@@ -21,18 +21,12 @@ const talkItems = talksData.map((t) => ({
     content: stripTags(t.content),
     images: (t as { images?: string[] }).images ?? null,
     comment: null as string | null,
-    avatar_url: "/author.jpg",
+    avatar_url: logo.src,
     tags: extractTags(t.content),
     url: t.url,
 }));
 
-const essayItems = essaysData.map((e) => ({
-    ...e,
-    tags: (e as { tags?: string[] }).tags || [],
-    url: (e as { url?: string }).url,
-}));
-
-const merged = [...talkItems, ...essayItems].sort(
+const merged = [...talkItems].sort(
     (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime(),
 );
 ---

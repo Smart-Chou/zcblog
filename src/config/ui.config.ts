@@ -45,7 +45,6 @@ export interface FriendItem {
 export interface FriendsPageConfig {
     title: string; // 标题
     note: string; // 描述
-    list: FriendItem[]; // 友链列表
 }
 
 /**
@@ -66,12 +65,12 @@ export interface FooterItem {
  */
 export const navLinks: NavLink[] = [
     { label: "博客", href: "/blog/1/" },
+    { label: "友人", href: "/friends/" },
     { label: "归档", href: "/archives/" },
     { label: "标签", href: "/tags/" },
+    { label: "番剧", href: "/bangumi/" },
     { label: "相册", href: "/albums/" },
     { label: "随笔", href: "/talks/" },
-    { label: "番剧", href: "/bangumi/" },
-    { label: "友人", href: "/friends/" },
 ];
 
 /**
@@ -149,64 +148,8 @@ export const socialLinks: SocialLinkItem[] = [
  * 友链页面配置
  */
 export const friendsPage: FriendsPageConfig = {
-    title: "Friends & Guestbook",
-    note: "I don't accept friend link requests from someone I don't know.",
-    list: [
-        {
-            id: "@Felinae",
-            link: "https://code.felinae98.cn/",
-            avatar: "https://avatars.githubusercontent.com/u/23295345",
-            style: "color: #fff; background-color: #473922",
-        },
-        {
-            id: "@agnoCJY",
-            link: "https://jychuuu.com/",
-            avatar: "https://avatars.githubusercontent.com/u/46088026",
-            style: "color: #fff; background-color: #191919",
-        },
-        {
-            id: "@TenkeySeven",
-            link: "https://blog.tenkeyseven.com/",
-            avatar: "https://avatars.githubusercontent.com/u/33371927",
-            style: "color: #fff; background-color: #b59672",
-        },
-        {
-            id: "@Silvester",
-            link: "https://silvester.wang/",
-            avatar: "https://avatars.githubusercontent.com/u/34436920",
-            style: "color: #fff; background-color: #595058",
-        },
-        {
-            id: "@ash0ne",
-            link: "https://blog.ash0ne.com/",
-            avatar: "https://avatars.githubusercontent.com/u/28522665",
-            style: "color: #fff; background-color: #9f8cd1",
-        },
-        {
-            id: "@FKY",
-            link: "http://blog.fkynjyq.com/",
-            avatar: "https://avatars.githubusercontent.com/u/16451516",
-            style: "color: #fff; background-color: #005240",
-        },
-        {
-            id: "@idealclover",
-            link: "https://idealclover.top/",
-            avatar: "https://avatars.githubusercontent.com/u/24428416",
-            style: "color: #fff; background-color: #487747",
-        },
-        {
-            id: "@kastnerorz",
-            link: "https://github.com/kastnerorz",
-            avatar: "https://avatars.githubusercontent.com/u/26199342",
-            style: "color: #fff; background-color: #26498e",
-        },
-        {
-            id: "@Patrick Wu",
-            link: "https://patrickwu.space/",
-            avatar: "https://avatars.githubusercontent.com/u/15316889",
-            style: "color: #fff; background-color: #61a3cf",
-        },
-    ],
+    title: "Friends",
+    note: "欢迎申请友链，在评论区留下你的博客信息即可。",
 };
 
 /**

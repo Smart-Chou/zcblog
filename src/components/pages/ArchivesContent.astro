@@ -81,25 +81,25 @@ const postsData = postsWithMeta.map((post) => ({
     <section class="stats-section">
         <Heatmap postsData={postsData} />
     </section>
-
-    {
-        Object.keys(postsByYear)
-            .map((year) => Number(year))
-            .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
-            .map((year) => (
-                <section data-key={year}>
-                    <h2>{year}</h2>
-                    {sortByPubDate(postsByYear[year]).map((post) => (
-                        <Archive
-                            key={post.slug}
-                            url={`/article/${post.slug}/`}
-                            title={post.data.title}
-                            publishedTime={post.data.pubDate}
-                        />
-                    ))}
-                </section>
-            ))
-    }
-
+    <div style="padding: 0 2rem;">
+        {
+            Object.keys(postsByYear)
+                .map((year) => Number(year))
+                .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+                .map((year) => (
+                    <section data-key={year}>
+                        <h2>{year}</h2>
+                        {sortByPubDate(postsByYear[year]).map((post) => (
+                            <Archive
+                                key={post.slug}
+                                url={`/article/${post.slug}/`}
+                                title={post.data.title}
+                                publishedTime={post.data.pubDate}
+                            />
+                        ))}
+                    </section>
+                ))
+        }
+    </div>
     <Author />
 </SectionPage>

@@ -99,7 +99,7 @@ export const author: AuthorConfig = {
     type: "Marx Chou",
     url: "https://marxchou.com",
     motto: "阿巴阿巴 o((>ω< ))o",
-    avatar: "author.jpg",
+    avatar: "logo.svg",
 };
 
 /**

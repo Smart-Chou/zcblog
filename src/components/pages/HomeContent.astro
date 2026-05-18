@@ -13,6 +13,7 @@ import Media from "~/components/Index/Media.astro";
 import Author from "~/components/ui/Author.astro";
 import booksItems from "~/data/books.json";
 import moviesItems from "~/data/movies.json";
+import typewriterTexts from "~/data/typewriter.json";
 import { site } from "~/self.config";
 import { sortByPubDate } from "~/utils";
 
@@ -55,12 +56,7 @@ const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
                 !isEn && (
                     <div class="hero-typewriter">
                         <TypewriterText
-                            text={[
-                                "记录技术与生活的点滴 ✨",
-                                "Stay Hungry, Stay Foolish.",
-                                "代码改变世界，文字记录成长。",
-                                "学无止境，行以致远。",
-                            ]}
+                            text={typewriterTexts}
                             speed={80}
                             pauseTime={2500}
                         />
