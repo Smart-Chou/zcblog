@@ -286,12 +286,6 @@ async function main() {
   await writeJson("douban-movies.json", sortedMovies);
   await writeJson("douban-music.json", sortedMusic);
 
-  const all = {
-    updated: new Date().toISOString(),
-    items: sortByDate(clean(raw)),
-  };
-  await writeJson("douban-all.json", all);
-
   // 7. 统计
   console.log(
     `✅ 豆瓣数据已更新 (书:${books.length} 影:${movies.length} 音:${music.length} | 封面:${downloaded}/${raw.length})`,

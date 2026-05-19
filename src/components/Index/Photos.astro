@@ -11,7 +11,7 @@ function extractDate(alt: string): Date | null {
     return new Date(dateStr);
 }
 
-const MAX_PHOTOS = 9;
+const MAX_PHOTOS = 5;
 const allPhotos = albums.flatMap((album) =>
     album.photos.map((p) => ({
         url: `${imageService.baseUrl}${imageService.picPath}${p.url}`,

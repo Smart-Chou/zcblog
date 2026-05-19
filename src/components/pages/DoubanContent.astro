@@ -134,7 +134,7 @@ const hasData = tabs.length > 0;
         sections.forEach((s) => {
           const el = s as HTMLElement;
           const match = el.getAttribute("data-section") === target;
-          el.style.display = match ? "" : "none";
+          el.classList.toggle("hidden", !match);
         });
       });
     });

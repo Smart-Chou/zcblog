@@ -10,11 +10,22 @@ import Friends from "~/components/Index/Friends.astro";
 import Photos from "~/components/Index/Photos.astro";
 import Media from "~/components/Index/Media.astro";
 import Author from "~/components/ui/Author.astro";
-import booksItems from "~/data/books.json";
-import moviesItems from "~/data/movies.json";
+import booksData from "~/data/douban-books.json";
+import moviesData from "~/data/douban-movies.json";
 import typewriterTexts from "~/data/typewriter.json";
 import { site } from "~/self.config";
 import { sortByPubDate } from "~/utils";
+
+const toMediaItem = (item: typeof booksData[number]) => ({
+  url: item.cover || "",
+  rating: item.rating * 20,
+  ratingNum: item.rating || undefined,
+  title: item.title,
+  link: item.url,
+});
+
+const booksItems = booksData.map(toMediaItem);
+const moviesItems = moviesData.map(toMediaItem);
 
 interface Props {
     locale?: string;
@@ -73,13 +84,13 @@ const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
                 <Media
                     title={isEn ? "Recent Movies" : "近期观影"}
                     items={moviesItems}
-                    href="/movies/"
+                    href="/douban/"
                     limit={4}
                 />
                 <Media
                     title={isEn ? "Recent Books" : "近期阅读"}
                     items={booksItems}
-                    href="/books/"
+                    href="/douban/"
                     limit={4}
                 />
             </div>
