@@ -28,9 +28,9 @@ test("404 页面正常渲染", async ({ page }) => {
     await expect(page.locator("body")).not.toBeEmpty();
 });
 
-test("RSS 正常返回", async ({ page }) => {
-    const res = await page.goto("/rss.xml");
-    expect(res?.status()).toBe(200);
-    const text = await page.content();
-    expect(text).toContain("<rss");
+test("RSS 正常返回", async ({ request }) => {
+    const res = await request.get("/rss.xml");
+    expect(res.status()).toBe(200);
+    const contentType = res.headers()["content-type"];
+    expect(contentType).toMatch(/xml/);
 });

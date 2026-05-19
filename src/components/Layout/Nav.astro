@@ -32,7 +32,7 @@ const currentPath = Astro.url.pathname;
                         href={link.href}
                         class:list={[
                             "nav-dropdown-link",
-                            { active: currentPath.startsWith(link.href) },
+                            { active: link.href === "/" ? currentPath === "/" : currentPath.startsWith(link.href) },
                         ]}
                     >
                         {link.label}

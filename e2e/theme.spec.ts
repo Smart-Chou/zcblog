@@ -8,10 +8,9 @@ test("主题按钮存在", async ({ page }) => {
 test("点击主题按钮切换暗色模式", async ({ page }) => {
     await page.goto("/");
     const btn = page.locator("#theme-btn");
-    // 先确定当前状态
-    const isDark = await page.locator("html").getAttribute("data-theme");
+    const isDark = (await page.locator("html").getAttribute("data-theme")) === "dark";
     await btn.click();
-    if (isDark === "dark") {
+    if (isDark) {
         await expect(page.locator("html")).not.toHaveAttribute("data-theme", "dark");
     } else {
         await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
@@ -32,10 +31,9 @@ test("主题偏好持久化到 localStorage", async ({ page }) => {
     await page.goto("/");
     const btn = page.locator("#theme-btn");
     const isDarkBefore = (await page.locator("html").getAttribute("data-theme")) === "dark";
-    // 切换到相反主题
     await btn.click();
-    // 刷新后应保持
-    await page.reload({ waitUntil: "networkidle" });
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await page.waitForTimeout(500);
     const isDarkAfter = (await page.locator("html").getAttribute("data-theme")) === "dark";
     expect(isDarkAfter).not.toBe(isDarkBefore);
 });
@@ -45,6 +43,5 @@ test("英文页面主题切换正常", async ({ page }) => {
     const btn = page.locator("#theme-btn");
     await expect(btn).toBeVisible();
     await btn.click();
-    // 主题应该有变化
     await expect(page.locator("html")).toHaveAttribute("data-theme", /dark|light/);
 });
