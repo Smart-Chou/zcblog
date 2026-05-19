@@ -7,7 +7,7 @@
     "scripts": {
         "dev": "rm -rf node_modules/.vite && astro dev",
         "start": "rm -rf node_modules/.vite && astro dev",
-        "build": "pnpm run fetch-talks && pnpm run fetch-douban && pnpm run icons && astro check && astro build",
+        "build": "pnpm run fetch-talks && pnpm run fetch-douban && pnpm run fetch-friends && pnpm run icons && astro check && astro build",
         "preview": "astro preview",
         "astro": "astro",
         "type-check": "tsc --noEmit",
@@ -16,6 +16,7 @@
         "icons": "node scripts/generate-icons.js",
         "fetch-talks": "node scripts/fetch-talks.mjs",
         "fetch-douban": "node scripts/fetch-douban.mjs",
+        "fetch-friends": "node scripts/fetch-friends.mjs",
         "format": "prettier -w .",
         "format:check": "prettier --check .",
         "lint": "pnpm run format:check",
