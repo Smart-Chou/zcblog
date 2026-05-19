@@ -8,7 +8,6 @@ import Talk from "~/components/Index/Talk.astro";
 import Posts from "~/components/Index/Posts.astro";
 import Friends from "~/components/Index/Friends.astro";
 import Photos from "~/components/Index/Photos.astro";
-import Goods from "~/components/Index/Goods.astro";
 import Media from "~/components/Index/Media.astro";
 import Author from "~/components/ui/Author.astro";
 import booksItems from "~/data/books.json";
@@ -70,8 +69,6 @@ const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
             <Posts posts={recentPosts} />
             <Friends />
             <Photos />
-            <Goods limit={4} />
-
             <div class="media-duo">
                 <Media
                     title={isEn ? "Recent Movies" : "近期观影"}
