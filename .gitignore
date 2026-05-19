@@ -50,3 +50,5 @@ pnpm-workspace.yaml
 src/components/icons.ts
 .env
 public/images/douban/
+playwright-report/
+test-results/
