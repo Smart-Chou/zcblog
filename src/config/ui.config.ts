@@ -64,6 +64,7 @@ export interface FooterItem {
  * 主导航链接
  */
 export const navLinks: NavLink[] = [
+    { label: "首页", href: "/" },
     { label: "博客", href: "/blog/1/" },
     { label: "友人", href: "/friends/" },
     { label: "归档", href: "/archives/" },

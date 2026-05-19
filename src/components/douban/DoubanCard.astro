@@ -1,0 +1,163 @@
+---
+export interface DoubanItem {
+  title: string;
+  url: string;
+  cover: string;
+  rating: number;
+  status: string;
+  tags: string[];
+  comment: string;
+  type: string;
+  date: string;
+}
+
+interface Props {
+  item: DoubanItem;
+  statusLabel: string;
+}
+
+const { item, statusLabel } = Astro.props;
+
+const stars = item.rating > 0 ? "★".repeat(item.rating) + "☆".repeat(5 - item.rating) : "";
+---
+
+<a href={item.url} target="_blank" rel="noreferrer" class="douban-card">
+  <div class="cover-wrap">
+    {
+      item.cover ? (
+        <img
+          src={item.cover}
+          alt={item.title}
+          class="cover-img"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="cover-placeholder">📷</div>
+      )
+    }
+    {statusLabel && <span class="status-badge">{statusLabel}</span>}
+  </div>
+  <div class="meta">
+    <h3 class="title">{item.title}</h3>
+    {stars && <div class="rating">{stars}</div>}
+    {item.comment && <p class="comment">{item.comment}</p>}
+    {item.tags.length > 0 && (
+      <div class="tags">
+        {item.tags.map((tag) => <span class="tag">{tag}</span>)}
+      </div>
+    )}
+  </div>
+</a>
+
+<style>
+  .douban-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    transition:
+      transform var(--duration-slow) var(--ease-out),
+      box-shadow var(--duration-slow) var(--ease-out);
+  }
+
+  .douban-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .cover-wrap {
+    position: relative;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    background: var(--color-surface-hover);
+  }
+
+  .cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .douban-card:hover .cover-img {
+    transform: scale(1.05);
+  }
+
+  .cover-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    background: var(--color-surface-hover);
+  }
+
+  .status-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .meta {
+    padding: 10px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-heading);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .rating {
+    color: #f5a623;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  .comment {
+    font-size: 0.78rem;
+    color: var(--color-body);
+    opacity: 0.8;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 2px;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: var(--color-surface-hover);
+    color: var(--color-body);
+  }
+</style>
