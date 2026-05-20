@@ -6,7 +6,7 @@ import Author from "~/components/ui/Author.astro";
 import Heatmap from "~/components/ui/Heatmap.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { site, archivesPage } from "~/self.config";
-import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
+import { enrichPost } from "~/utils/getPostsWithMeta";
 import { sortByPubDate, formatDateToYYYYMMDD } from "~/utils";
 import type { CollectionEntry } from "astro:content";
 
@@ -28,16 +28,7 @@ interface PostsByYear {
 
 const allPosts = await getCollection("article");
 
-const postsWithMeta = await Promise.all(
-    allPosts.map(async (post) => {
-        const { wordCount } = getPostsWithMeta({ ...post, slug: post.id });
-        return {
-            ...post,
-            wordCount,
-            slug: post.id,
-        } as PostWithMeta;
-    }),
-);
+const postsWithMeta = allPosts.map((post) => enrichPost(post)) as PostWithMeta[];
 
 const postsByYear = postsWithMeta.reduce<PostsByYear>((acc, post) => {
     const year = new Date(post.data.pubDate).getFullYear();

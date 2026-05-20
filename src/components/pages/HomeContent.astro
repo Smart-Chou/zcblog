@@ -15,6 +15,7 @@ import moviesData from "~/data/douban-movies.json";
 import typewriterTexts from "~/data/typewriter.json";
 import { site } from "~/self.config";
 import { sortByPubDate } from "~/utils";
+import { getAllTags } from "~/utils/article-stats";
 
 const toMediaItem = (item: typeof booksData[number]) => ({
   url: item.cover || "",
@@ -39,8 +40,7 @@ const sortedArticles = sortByPubDate(allArticles);
 const recentPosts = sortedArticles.slice(0, 5);
 const totalArticles = allArticles.length;
 
-const tagsCount = new Set(allArticles.flatMap((post) => post.data.tags || []))
-    .size;
+const tagsCount = new Set(getAllTags(allArticles)).size;
 ---
 
 <BaseLayout

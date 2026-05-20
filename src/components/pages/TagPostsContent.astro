@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import TagsPostCard from "~/components/Article/TagsPostCard.astro";
 import { site } from "~/self.config";
-import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
+import { enrichPost } from "~/utils/getPostsWithMeta";
 
 interface Props {
     locale?: string;
@@ -15,19 +15,9 @@ const isEn = locale === "en";
 
 const tag = (Astro.params.tag as string) || "";
 
-const postsWithMeta = articles.map((post: CollectionEntry<"article">) => {
-    const { wordCount, readTime, excerpt } = getPostsWithMeta({
-        ...post,
-        slug: post.id,
-    });
-    return {
-        ...post,
-        wordCount,
-        readTime,
-        excerpt,
-        slug: post.id,
-    };
-});
+const postsWithMeta = articles.map((post: CollectionEntry<"article">) =>
+    enrichPost(post),
+);
 ---
 
 <SectionPage

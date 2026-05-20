@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import MarkdownLayout from "~/layouts/MarkdownLayout.astro";
-import { getPostsWithMeta } from "~/utils/getPostsWithMeta";
+import { enrichPost } from "~/utils/getPostsWithMeta";
 
 export async function getStaticPaths() {
     try {
@@ -21,10 +21,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
-const postMeta = getPostsWithMeta({ ...entry, slug: entry.id });
-const modifiedTime = postMeta.modifiedTime;
-const readTime = postMeta.readTime;
-const wordCount = postMeta.wordCount;
+const { modifiedTime, readTime, wordCount } = enrichPost(entry);
 ---
 
 <MarkdownLayout

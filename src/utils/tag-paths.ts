@@ -1,8 +1,9 @@
 import { getCollection } from "astro:content";
+import { getAllTags } from "./article-stats";
 
 export async function tagPostsGetStaticPaths() {
     const allArticles = await getCollection("article");
-    const allTags = allArticles.map((post) => post.data.tags || []).flat();
+    const allTags = getAllTags(allArticles);
     const uniqueTags = [...new Set(allTags.map((tag) => tag.toUpperCase()))];
     return uniqueTags.map((tag) => ({
         params: { tag },

@@ -4,6 +4,7 @@ import SectionPage from "~/components/Layout/SectionPage.astro";
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import Author from "~/components/ui/Author.astro";
 import { site, tagsPage } from "~/self.config";
+import { getAllTags } from "~/utils/article-stats";
 
 interface Props {
     locale?: string;
@@ -14,7 +15,7 @@ const isEn = locale === "en";
 
 const allPosts = await getCollection("article");
 
-const allTags = allPosts.flatMap((post) => post.data.tags || []);
+const allTags = getAllTags(allPosts);
 const tagCounts = allTags.reduce(
     (acc, tag) => {
         const key = tag.toUpperCase();
