@@ -52,3 +52,4 @@ src/components/icons.ts
 public/images/douban/
 playwright-report/
 test-results/
+.codegraph/

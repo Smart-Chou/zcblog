@@ -1,18 +1,12 @@
 ---
 import { site, footerList } from "~/self.config";
-import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
+import DynamicIcon from "../icons/DynamicIcon.astro";
+import { getArticleStats } from "~/utils/article-stats";
 
 const currentYear = new Date().getFullYear();
 
-// 获取文章统计数据
-const allPosts = await getCollection("article");
-const totalPosts = allPosts.length;
-const totalTags = new Set(allPosts.flatMap((p) => p.data.tags || [])).size;
-const totalWordCount = allPosts.reduce((sum, post) => {
-    const body = post.body || "";
-    return sum + body.replace(/\s+/g, "").length;
-}, 0);
+const { totalPosts, totalTags, totalWordCount } = await getArticleStats();
 
 function formatNumber(num: number): string {
     if (num >= 1000000) return `${(num / 1000000).toFixed(1)}m`;
@@ -20,27 +14,37 @@ function formatNumber(num: number): string {
     return num.toString();
 }
 
-const sitemapBadgeUrl = `https://img.shields.io/badge/sitemap-%232bb24c?style=flat-square&logo=maplibre&logoColor=%23ffffff&labelColor=%232bb24c&link=${encodeURIComponent(site.url + "/sitemap-index.xml")}`;
-
-const statsBadges = [
-    { label: "Articles", value: formatNumber(totalPosts) },
-    { label: "Words", value: formatNumber(totalWordCount) },
-    { label: "Tags", value: formatNumber(totalTags) },
+const stats = [
+    { label: "文章", value: formatNumber(totalPosts) },
+    { label: "标签", value: formatNumber(totalTags) },
+    { label: "字数", value: formatNumber(totalWordCount) },
 ];
 ---
 
 <footer class="footer" role="contentinfo">
-    <div class="footer-copyright">
-        <span>
-            Copyright {site.startYear} - {currentYear}. All rights reserved.
-        </span>
-    </div>
-    <div class="footer-links">
-        <a href={site.beianURL} target="_blank" rel="noopener noreferrer">
-            <span>{site.beian}</span>
+    <!-- Stats bar — custom crafted, no external images -->
+    <div class="footer-stats" aria-label="站点统计">
+        {
+            stats.map((stat) => (
+                <a href="/article/" class="stat-item">
+                    <span class="stat-value">{stat.value}</span>
+                    <span class="stat-label">{stat.label}</span>
+                </a>
+            ))
+        }
+        <span class="stat-divider" aria-hidden="true"></span>
+        <a href="/rss.xml" class="stat-item stat-item--icon" aria-label="RSS 订阅">
+            <DynamicIcon name="tabler:rss" />
+            <span class="stat-label">RSS</span>
+        </a>
+        <a href="/sitemap-0.xml" class="stat-item stat-item--icon" aria-label="站点地图">
+            <DynamicIcon name="tabler:focus-centered" />
+            <span class="stat-label">Sitemap</span>
         </a>
     </div>
-    <div class="footer-links">
+
+    <!-- Tech badges row -->
+    <div class="footer-tech">
         {
             footerList.map((meta) => (
                 <a
@@ -48,6 +52,7 @@ const statsBadges = [
                     href={meta.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    class="tech-badge"
                     aria-label={`${meta.title}: ${meta.text}`}
                 >
                     <Image
@@ -61,53 +66,19 @@ const statsBadges = [
             ))
         }
     </div>
-    <div id="rss-stats">
-        &nbsp;&nbsp;
-        <a href="/article/" aria-label="Articles">
-            <Image
-                src={`https://img.shields.io/badge/Articles-${statsBadges[0].value}-informational?style=flat-square&logo=blogger&logoColor=%23ffffff&labelColor=%23303336`}
-                alt="Articles badge"
-                loading="lazy"
-                width={100}
-                height={20}
-            />
-        </a>
-        <a href="/article/" aria-label="Words">
-            <Image
-                src={`https://img.shields.io/badge/Words-${statsBadges[1].value}-informational?style=flat-square&logo=blogger&logoColor=%23ffffff&labelColor=%23303336`}
-                alt="Words badge"
-                loading="lazy"
-                width={100}
-                height={20}
-            />
-        </a>
-        <a href="/article/" aria-label="Tags">
-            <Image
-                src={`https://img.shields.io/badge/Tags-${statsBadges[2].value}-informational?style=flat-square&logo=blogger&logoColor=%23ffffff&labelColor=%23303336`}
-                alt="Tags badge"
-                loading="lazy"
-                width={80}
-                height={20}
-            />
-        </a>
-        <a href="/rss.xml">
-            <Image
-                src="https://img.shields.io/badge/RSS-sky?logo=rss"
-                alt="RSS"
-                loading="lazy"
-                width={80}
-                height={20}
-            />
-        </a>
-        <a href="/sitemap-index.xml">
-            <Image
-                src={sitemapBadgeUrl}
-                alt="sitemap"
-                loading="lazy"
-                width={100}
-                height={20}
-            />
-        </a>
+
+    <!-- Meta row -->
+    <div class="footer-meta">
+        <span class="footer-copyright">
+            &copy; {site.startYear}&ndash;{currentYear}
+        </span>
+        {
+            site.beian && (
+                <a href={site.beianURL} target="_blank" rel="noopener noreferrer" class="footer-beian">
+                    {site.beian}
+                </a>
+            )
+        }
     </div>
 </footer>
 
@@ -116,86 +87,190 @@ const statsBadges = [
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: var(--space) 15px var(--space);
-        text-align: center;
-        line-height: 1.8;
-        font-size: 0.9em;
+        gap: var(--space-sm);
+        padding: var(--space) 15px;
+        font-size: var(--text-sm);
         font-family: var(--font-body);
+        color: var(--color-muted);
         margin-top: auto;
+        border-top: 1px solid var(--color-border);
     }
 
-    .footer > span {
-        margin: 0.25em;
+    /* ---- Stats bar ---- */
+    .footer-stats {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
     }
 
-    .footer a {
-        color: currentColor;
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 14px;
+        border-radius: var(--radius-full);
+        color: var(--color-muted);
+        text-decoration: none;
+        line-height: 1;
+        transition:
+            color var(--duration-fast) var(--ease-out),
+            background var(--duration-fast) var(--ease-out);
     }
 
-    .footer svg {
-        max-width: 0.9rem;
+    .stat-item:hover {
+        color: var(--color-accent);
+        background: var(--color-hover);
     }
 
-    .footer #rss-stats {
-        /* padding-top removed, using margin-top from flex container */
+    .stat-value {
+        font-family: var(--font-mono);
+        font-size: 0.85em;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: var(--color-body);
+        line-height: 1;
     }
 
-    .footer #rss-stats a {
-        /* margin-right removed, using gap from flex container */
+    .stat-label {
+        font-size: 0.8em;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-weight: 500;
+        line-height: 1;
     }
 
-    /* 图片等高，宽度自适应 */
-    .footer img {
-        height: 20px;
-        width: auto;
+    .stat-divider {
+        display: inline-block;
+        width: 1px;
+        height: 14px;
+        background: var(--color-border);
+        margin: 0 2px;
+        border-radius: 1px;
     }
 
-    /* 图片链接容器使用 flex 布局 */
-    .footer-links:has(img),
-    #rss-stats {
+    .stat-svg {
+        width: 0.85em;
+        height: 0.85em;
+        opacity: 0.6;
+        flex-shrink: 0;
+        transition: opacity var(--duration-fast) var(--ease-out);
+    }
+
+    .stat-item:hover .stat-svg {
+        opacity: 1;
+    }
+
+    /* ---- Tech badges row ---- */
+    .footer-tech {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        gap: 0.35rem;
-        margin-top: 0.5rem;
+        gap: 6px;
     }
 
-    /* 移动端优化 */
+    .tech-badge {
+        display: inline-block;
+        line-height: 0;
+        opacity: 0.55;
+        transition: opacity var(--duration-fast) var(--ease-out);
+    }
+
+    .tech-badge:hover {
+        opacity: 1;
+    }
+
+    .tech-badge img {
+        height: 20px;
+        width: auto;
+        display: block;
+    }
+
+    /* ---- Meta row ---- */
+    .footer-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-xs);
+        font-size: 0.8em;
+    }
+
+    .footer-copyright {
+        white-space: nowrap;
+    }
+
+    .footer-beian {
+        color: inherit;
+        text-decoration: none;
+        transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .footer-beian:hover {
+        color: var(--color-accent);
+    }
+
+    /* ---- Mobile ---- */
     @media screen and (max-width: 768px) {
         .footer {
-            padding: calc(var(--space) * 0.75) 12px calc(var(--space) * 0.75);
-            font-size: 0.85em;
+            padding: var(--space) 12px;
+            gap: 10px;
         }
 
-        .footer-links:has(img),
-        #rss-stats {
-            gap: 0.25rem;
+        .stat-item {
+            padding: 4px 10px;
+            gap: 4px;
         }
 
-        .footer img {
+        .stat-divider {
+            height: 12px;
+            margin: 0 1px;
+        }
+
+        .tech-badge img {
             height: 18px;
         }
     }
 
-    @media screen and (max-width: 450px) {
+    @media screen and (max-width: 480px) {
         .footer {
-            padding: calc(var(--space) * 0.6) 10px calc(var(--space) * 0.6);
+            padding: var(--space-sm) 10px;
+            gap: var(--space-xs);
         }
 
-        .footer-copyright span {
-            display: block;
-            margin-bottom: 0.5rem;
+        .footer-stats {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0;
         }
 
-        .footer-links:has(img) {
-            flex-direction: column;
-            gap: 0.5rem;
+        .stat-item {
+            padding: 4px 8px;
         }
 
-        .footer img {
+        .stat-value {
+            font-size: 0.8em;
+        }
+
+        .stat-label {
+            font-size: 0.72em;
+            letter-spacing: 0.02em;
+        }
+
+        .stat-divider {
+            display: none;
+        }
+
+        .tech-badge img {
             height: 16px;
         }
     }
+
+    @media screen and (max-width: 360px) {
+        .stat-item {
+            padding: 3px 6px;
+        }
+    }
 </style>
+</footer>
