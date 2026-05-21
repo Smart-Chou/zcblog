@@ -38,7 +38,7 @@ const domainsJson = JSON.stringify(site.domains);
         const jumpContent = document.getElementById("jump-content");
         const jumpButton = document.getElementById("jump-button");
         // 网址白名单
-        const siteDomains = { domainsJson };
+        const siteDomains = JSON.parse(domainsJson);
         const whitelist = [
             ...siteDomains,
             ...siteDomains.map((d) => `*.${d}`),
