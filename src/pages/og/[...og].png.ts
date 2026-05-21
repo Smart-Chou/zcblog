@@ -9,23 +9,27 @@ import { site } from "~/self.config";
 import fs from "node:fs";
 import path from "node:path";
 
-// 加载本地字体 (Noto Sans SC 支持中文字形)
-const fontRegularPath = path.join(
-    process.cwd(),
-    "src",
-    "assets",
-    "fonts",
-    "NotoSansSC-Regular.ttf",
-);
-const fontBoldPath = path.join(
-    process.cwd(),
-    "src",
-    "assets",
-    "fonts",
-    "NotoSansSC-Bold.ttf",
-);
-const fontRegularData = fs.readFileSync(fontRegularPath);
-const fontBoldData = fs.readFileSync(fontBoldPath);
+// Lazy-loaded font cache — avoids blocking build startup with sync reads
+let _fontRegular: Buffer | null = null;
+let _fontBold: Buffer | null = null;
+
+function getFontRegular(): Buffer {
+    if (!_fontRegular) {
+        _fontRegular = fs.readFileSync(
+            path.join(process.cwd(), "src", "assets", "fonts", "NotoSansSC-Regular.ttf"),
+        );
+    }
+    return _fontRegular;
+}
+
+function getFontBold(): Buffer {
+    if (!_fontBold) {
+        _fontBold = fs.readFileSync(
+            path.join(process.cwd(), "src", "assets", "fonts", "NotoSansSC-Bold.ttf"),
+        );
+    }
+    return _fontBold;
+}
 
 export async function getStaticPaths() {
     const articles = await getCollection("article");
@@ -40,7 +44,6 @@ export const GET: APIRoute = async ({ props }) => {
     const title = entry.data.title || "Article";
     const description = entry.data.description || site.description;
 
-    // 截断过长标题（中文约 1-2 行）
     const displayTitle = title.length > 30 ? title.slice(0, 30) + "…" : title;
     const displayDesc =
         description.length > 100
@@ -65,7 +68,6 @@ export const GET: APIRoute = async ({ props }) => {
                     position: "relative",
                 },
                 children: [
-                    // 右上角装饰光晕
                     {
                         type: "div",
                         props: {
@@ -80,7 +82,6 @@ export const GET: APIRoute = async ({ props }) => {
                             },
                         },
                     },
-                    // 底部装饰光点
                     {
                         type: "div",
                         props: {
@@ -95,7 +96,6 @@ export const GET: APIRoute = async ({ props }) => {
                             },
                         },
                     },
-                    // 标题
                     {
                         type: "div",
                         props: {
@@ -109,7 +109,6 @@ export const GET: APIRoute = async ({ props }) => {
                             },
                         },
                     },
-                    // 金色装饰线
                     {
                         type: "div",
                         props: {
@@ -122,7 +121,6 @@ export const GET: APIRoute = async ({ props }) => {
                             },
                         },
                     },
-                    // 描述
                     {
                         type: "div",
                         props: {
@@ -136,9 +134,7 @@ export const GET: APIRoute = async ({ props }) => {
                             },
                         },
                     },
-                    // 弹性占位
                     { type: "div", props: { style: { flexGrow: 1 } } },
-                    // 底部分隔线 + URL
                     {
                         type: "div",
                         props: {
@@ -191,12 +187,12 @@ export const GET: APIRoute = async ({ props }) => {
             fonts: [
                 {
                     name: "Noto Sans SC",
-                    data: fontRegularData,
+                    data: getFontRegular(),
                     weight: 400,
                 },
                 {
                     name: "Noto Sans SC",
-                    data: fontBoldData,
+                    data: getFontBold(),
                     weight: 700,
                 },
             ],

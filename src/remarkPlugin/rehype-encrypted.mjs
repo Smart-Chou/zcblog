@@ -6,58 +6,13 @@
  * <div class="encrypted-container-wrapper" data-password="..." data-hint="...">，
  * 本插件在 rehype 阶段将其子节点渲染为 HTML 后加密。
  */
+import { createHash } from "node:crypto";
+import { toHtml } from "hast-util-to-html";
 import { encryptContent } from "../utils/encrypt.js";
 import { visit } from "unist-util-visit";
 
-function toHtml(nodes) {
-    function walk(n) {
-        if (!n) return "";
-        if (n.type === "text") return escapeHtml(n.value || "");
-        if (n.type === "element") {
-            const attrs = Object.entries(n.properties || {})
-                .filter(([, v]) => v != null && v !== false)
-                .map(([k, v]) => {
-                    if (k === "className") {
-                        const cls = Array.isArray(v) ? v.join(" ") : String(v);
-                        return cls ? ` class="${escapeHtml(cls)}"` : "";
-                    }
-                    if (v === true) return ` ${k}`;
-                    return ` ${k}="${escapeHtml(String(v))}"`;
-                })
-                .join("");
-            const children = (n.children || []).map(walk).join("");
-            const voidTags = new Set([
-                "br",
-                "hr",
-                "img",
-                "input",
-                "meta",
-                "link",
-                "area",
-                "base",
-                "col",
-                "embed",
-                "source",
-                "track",
-                "wbr",
-            ]);
-            return voidTags.has(n.tagName)
-                ? `<${n.tagName}${attrs}>`
-                : `<${n.tagName}${attrs}>${children}</${n.tagName}>`;
-        }
-        if (n.type === "comment") return `<!--${n.value}-->`;
-        if (n.type === "raw") return n.value || "";
-        return "";
-    }
-    return (nodes || []).map(walk).join("");
-}
-
-function escapeHtml(str) {
-    return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
+function childrenToHtml(nodes) {
+    return toHtml({ type: "root", children: nodes || [] });
 }
 
 export function rehypeEncrypted() {
@@ -78,20 +33,16 @@ export function rehypeEncrypted() {
 
             if (!password) return;
 
-            const innerHtml = toHtml(node.children || []);
+            const innerHtml = childrenToHtml(node.children || []);
 
-            // Use password hash for deterministic salt/IV
-            let hash = 0;
-            for (let i = 0; i < password.length; i++) {
-                hash = ((hash << 5) - hash + password.charCodeAt(i)) | 0;
-            }
-            const context = "ctx-" + Math.abs(hash).toString(36);
+            // Use SHA-256 hash for deterministic salt/IV derivation
+            const hash = createHash("sha256").update(password).digest("hex");
+            const context = "ctx-" + hash.slice(0, 8);
 
             const encryptedData = encryptContent(innerHtml, password, context);
 
             const uid = "ec-" + Math.random().toString(36).slice(2, 8);
 
-            // Build the encrypted container element with unique IDs and decryption script
             parent.children[index] = {
                 type: "element",
                 tagName: "div",

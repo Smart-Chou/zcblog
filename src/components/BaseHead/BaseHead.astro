@@ -24,6 +24,7 @@ const {
     modifiedTime,
     prevUrl,
     nextUrl,
+    noindex = false,
 } = Astro.props;
 ---
 
@@ -60,37 +61,6 @@ const {
         html.theme-no-transition body,
         .theme-no-transition {
             transition: none !important;
-        }
-
-        /* 防止 post-title 布局偏移 - 使用硬编码值避免变量解析延迟 */
-        #app .content,
-        .content {
-            max-width: 860px !important;
-            margin: 0 auto !important;
-            box-sizing: border-box;
-        }
-
-        /* 高特异性选择器确保 post-title 立即居中 */
-        #app .post-title,
-        .post-title {
-            max-width: 860px !important;
-            margin-inline: auto !important;
-            text-align: center !important;
-            width: 100% !important;
-            box-sizing: border-box !important;
-            display: block !important;
-            padding: 3.5rem 0 3.5rem !important;
-            /* 防止初始渲染偏移 */
-            position: relative;
-            /* 强制布局计算 */
-            contain: layout style;
-            /* 防止flex压缩和布局偏移 */
-            flex-shrink: 0;
-            /* 确保在flex容器中正确对齐 */
-            align-self: center;
-            /* 立即应用布局，防止闪烁 */
-            transform: translateZ(0);
-            backface-visibility: hidden;
         }
     </style>
 
@@ -164,7 +134,7 @@ const {
         image={image}
         imageAlt={imageAlt}
     />
-    <Robots />
+    <Robots noindex={noindex} />
     <Favicon />
     <JsonLd
         title={title}
@@ -173,7 +143,7 @@ const {
         modifiedTime={modifiedTime}
     />
     <Analytics />
-    <KatexManager />
+    <KatexManager mathjax={mathjax} />
     <Scripts mathjax={mathjax} mermaid={mermaid} />
     <ClientRouter fallback="none" />
 

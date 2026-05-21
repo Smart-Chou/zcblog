@@ -22,6 +22,8 @@ interface Props {
     modifiedTime?: Date;
     // Layout
     fullWidth?: boolean;
+    // SEO
+    noindex?: boolean;
 }
 
 const {
@@ -39,6 +41,7 @@ const {
     publishedTime,
     modifiedTime,
     fullWidth = false,
+    noindex = false,
 } = Astro.props;
 
 const pageDescription = description || `${site.title} 的${title}页面`;
@@ -56,6 +59,7 @@ const hasEmptyIcon = Astro.slots.has("empty-icon");
     publishedTime={publishedTime}
     modifiedTime={modifiedTime}
     fullWidth={fullWidth}
+    noindex={noindex}
 >
     <div
         class:list={[

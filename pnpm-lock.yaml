@@ -59,6 +59,9 @@ importers:
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3
+      hast-util-to-html:
+        specifier: ^9.0.5
+        version: 9.0.5
       hastscript:
         specifier: ^9.0.1
         version: 9.0.1

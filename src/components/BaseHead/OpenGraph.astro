@@ -1,5 +1,5 @@
 ---
-import { config, author } from "~/self.config";
+import { config, site } from "~/self.config";
 const { title, description, image, imageAlt, modifiedTime } = Astro.props;
 
 const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
@@ -34,7 +34,7 @@ const safeModifiedTime = getSafeModifiedTime(modifiedTime);
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:url" content={fullUrl} />
-<meta property="og:site_name" content={author.type} />
+<meta property="og:site_name" content={site.title} />
 <meta
     property="og:locale"
     content={Astro.url.pathname.startsWith("/en/") ? "en-US" : config.lang}

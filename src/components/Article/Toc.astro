@@ -8,27 +8,22 @@ import "~/styles/toc.css";
 
 <script>
     import tocbot from "tocbot";
+
+    let tocAbortController: AbortController | null = null;
+
     document.addEventListener("astro:page-load", () => {
-        // 等待主题完全应用后再初始化 TOC，避免样式闪烁
         requestAnimationFrame(() => {
+            // ---- Init tocbot ----
             tocbot.init({
                 tocSelector: ".toc-content",
                 contentSelector: "#post-content",
                 headingSelector: "h2, h3, h4",
                 headingsOffset: 100,
                 scrollSmoothOffset: -100,
-                // 避免与 base.css 全局 scroll-behavior: smooth 冲突
                 scrollSmooth: false,
-                // 关闭滚动时的 hash 自动更新，避免 pushState 产生多余历史记录
-                // 仅点击 TOC 链接时更新 hash（通过下方拦截器改用 replaceState）
                 enableUrlHashUpdateOnScroll: false,
-                // 子级标题折叠，滚动到对应父级时自动展开
                 collapseDepth: 0,
-                // title 属性，辅助被截断标题（CSS text-overflow: ellipsis）
                 includeTitleTags: true,
-                // data-heading-label 属性内置支持，无需 callback
-                // 在 markdown 标题上加 data-heading-label="短标题" 即可覆盖 TOC 显示
-                // 跳过不想进目录的标题（在 markdown 标题上加 class="toc-ignore"）
                 ignoreSelector: ".toc-ignore",
             });
 
@@ -41,14 +36,14 @@ import "~/styles/toc.css";
                 }
                 return _push(state, title, url);
             };
-        });
-    });
-</script>
 
-<script>
-    document.addEventListener("astro:page-load", () => {
-        // 等待主题完全应用后再初始化滚动监听
-        requestAnimationFrame(() => {
+            // 页面切换时恢复原始 pushState，避免与其他库冲突
+            document.addEventListener("astro:after-swap", function restore() {
+                history.pushState = _push;
+                document.removeEventListener("astro:after-swap", restore);
+            });
+
+            // ---- Init scroll positioning ----
             const tocContent = document.querySelector(
                 ".toc-content",
             ) as HTMLElement;
@@ -56,8 +51,19 @@ import "~/styles/toc.css";
             const footer = document.querySelector(
                 ".post-footer",
             ) as HTMLElement;
-            if (tocContent && post && footer) {
-                window.addEventListener("scroll", function () {
+            if (!tocContent || !post || !footer) return;
+
+            // Cancel previous scroll listener to prevent leaks across SPA navigations
+            if (tocAbortController) {
+                tocAbortController.abort();
+            }
+            tocAbortController = new AbortController();
+
+            let ticking = false;
+            const handler = function () {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(() => {
                     const postBottom =
                         post.getBoundingClientRect().bottom +
                         footer.offsetHeight;
@@ -72,8 +78,14 @@ import "~/styles/toc.css";
                         tocContent.style.top = "50%";
                         tocContent.style.transform = "translateY(-50%)";
                     }
+                    ticking = false;
                 });
-            }
+            };
+
+            window.addEventListener("scroll", handler, {
+                passive: true,
+                signal: tocAbortController.signal,
+            });
         });
     });
 </script>

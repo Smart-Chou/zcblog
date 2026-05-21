@@ -31,6 +31,7 @@ const postsWithMeta = articles.map((post: CollectionEntry<"article">) =>
     keywords={[tag]}
     publishedTime={new Date()}
     modifiedTime={new Date()}
+    noindex={true}
     empty={postsWithMeta.length === 0}
     emptyTitle={isEn ? "No posts found" : "暂无文章"}
     emptyMessage={isEn

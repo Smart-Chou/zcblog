@@ -1,9 +1,11 @@
 ---
 import { site } from "~/self.config";
+
+const { noindex = false } = Astro.props;
 ---
 
 <!-- 浏览器和搜索引擎相关 -->
-<meta name="robots" content="index, follow" />
+<meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
 <meta
     name="theme-color"
     content="#ffffff"

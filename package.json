@@ -43,6 +43,7 @@
         "astro-vtbot": "^2.1.12",
         "dayjs": "^1.11.20",
         "fast-glob": "^3.3.3",
+        "hast-util-to-html": "^9.0.5",
         "hastscript": "^9.0.1",
         "html-minifier-terser": "^7.2.0",
         "katex": "^0.16.46",

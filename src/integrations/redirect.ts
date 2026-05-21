@@ -45,39 +45,47 @@ const redirectIntegration = (): AstroIntegration => ({
 
             await Promise.all(
                 files.map(async (file) => {
-                    let html = await fs.readFile(file, "utf-8");
-                    const dom = new JSDOM(html);
-                    const document = dom.window.document;
+                    try {
+                        let html = await fs.readFile(file, "utf-8");
+                        const dom = new JSDOM(html);
+                        const document = dom.window.document;
 
-                    const links = Array.from(
-                        document.getElementsByTagName("a"),
-                    ) as Element[];
-                    for (const link of links) {
-                        if (hasClassInTree(link, excludeClass)) continue;
-                        if (!hasClassInTree(link, includeClass)) continue;
+                        const links = Array.from(
+                            document.getElementsByTagName("a"),
+                        ) as Element[];
+                        for (const link of links) {
+                            if (hasClassInTree(link, excludeClass)) continue;
+                            if (!hasClassInTree(link, includeClass)) continue;
 
-                        const href = link.getAttribute("href");
-                        if (!href || href.includes(REDIRECT_PAGE)) continue;
-                        if (!isExternalUrl(href, siteHost)) continue;
+                            const href = link.getAttribute("href");
+                            if (!href || href.includes(REDIRECT_PAGE)) continue;
+                            if (!isExternalUrl(href, siteHost)) continue;
 
-                        link.setAttribute("original-href", href);
-                        link.setAttribute(
-                            "href",
-                            `${REDIRECT_PAGE}${toUrlSafeBase64(href)}`,
-                        );
-                        link.setAttribute("target", "_blank");
-                        link.setAttribute("rel", "noopener noreferrer");
+                            link.setAttribute("original-href", href);
+                            link.setAttribute(
+                                "href",
+                                `${REDIRECT_PAGE}${toUrlSafeBase64(href)}`,
+                            );
+                            link.setAttribute("target", "_blank");
+                            link.setAttribute("rel", "noopener noreferrer");
 
-                        appendExternalLinkIcon(link as unknown as Element);
+                            appendExternalLinkIcon(link as unknown as Element);
+                        }
+
+                        html = dom.serialize();
+                        html = await minify(html, {
+                            removeComments: true,
+                            preserveLineBreaks: true,
+                            collapseWhitespace: true,
+                        });
+                        await fs.writeFile(file, html);
+                    } catch (err: any) {
+                        if (err.code === "ENOENT") {
+                            logger.warn(`Skipping missing file: ${file}`);
+                        } else {
+                            throw err;
+                        }
                     }
-
-                    html = dom.serialize();
-                    html = minify(html, {
-                        removeComments: true,
-                        preserveLineBreaks: true,
-                        collapseWhitespace: true,
-                    });
-                    await fs.writeFile(file, html);
                 }),
             );
 

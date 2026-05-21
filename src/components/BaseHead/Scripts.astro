@@ -6,7 +6,6 @@ const { mathjax, mermaid } = Astro.props;
     mathjax && (
         <script
             is:inline
-            type="text/partytown"
             src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"
         />
     )
@@ -15,7 +14,6 @@ const { mathjax, mermaid } = Astro.props;
     mermaid && (
         <script
             is:inline
-            type="text/partytown"
             src="https://cdn.bootcdn.net/ajax/libs/mermaid/10.9.0/mermaid.min.js"
         />
     )
