@@ -1,6 +1,8 @@
 /**
  * 初始化页面中的 Chart.js 图表
  */
+import { b64ToUtf8 } from "~/scripts/b64-utf8";
+
 function initCharts() {
     document
         .querySelectorAll<HTMLDivElement>(".chart-container")
@@ -11,7 +13,7 @@ function initCharts() {
 
             let config: { type: string; data: any; options: any };
             try {
-                config = JSON.parse(atob(encoded));
+                config = JSON.parse(b64ToUtf8(encoded));
             } catch {
                 return;
             }

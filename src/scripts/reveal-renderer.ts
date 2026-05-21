@@ -1,6 +1,8 @@
 /**
  * 初始化页面中的 Reveal.js 演示文稿
  */
+import { b64ToUtf8 } from "~/scripts/b64-utf8";
+
 function initReveal() {
     document
         .querySelectorAll<HTMLDivElement>(".reveal-wrapper")
@@ -9,7 +11,7 @@ function initReveal() {
             if (!encoded || (container as any).__revealInit) return;
             (container as any).__revealInit = true;
 
-            const data = atob(encoded);
+            const data = b64ToUtf8(encoded);
             const slides = data
                 .split(/^---$/m)
                 .map((s: string) => s.trim())

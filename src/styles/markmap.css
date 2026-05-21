@@ -1,0 +1,39 @@
+/* Markmap 思维导图主题适配
+ * 容器为 <svg class="markmap-container">（remark 端直接输出 SVG 元素）
+ * Markmap.create() 渲染后会追加 markmap 类及 SVG 内容。 */
+
+.markmap-container {
+    display: block;
+    width: 100%;
+    margin: 1.5rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+}
+
+/* 浅色主题 */
+.markmap {
+    --markmap-text-color: var(--color-body, #333);
+    --markmap-circle-open-bg: var(--color-bg, #fff);
+    --markmap-code-bg: var(--color-surface, #f0f0f0);
+    --markmap-code-color: var(--color-body, #555);
+    --markmap-a-color: var(--color-link, #0097e6);
+    --markmap-a-hover-color: var(--color-link-hover, #00a8ff);
+}
+
+/* 暗色主题 */
+[data-theme="dark"] .markmap {
+    --markmap-text-color: var(--color-body, #eee);
+    --markmap-circle-open-bg: var(--color-bg, #444);
+    --markmap-code-bg: #1a1b26;
+    --markmap-code-color: #ddd;
+    --markmap-a-color: var(--color-link, #66b3ff);
+    --markmap-a-hover-color: var(--color-link-hover, #99ccff);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .markmap-container {
+        margin: 1rem 0;
+    }
+}

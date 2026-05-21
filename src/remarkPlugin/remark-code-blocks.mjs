@@ -75,11 +75,11 @@ export function remarkCodeBlocks() {
                 const encoded = Buffer.from(node.value).toString("base64");
                 node.type = "html";
                 node.value =
-                    '<div class="markmap-container" id="' +
+                    '<svg class="markmap-container" id="' +
                     mmId +
                     '" data-markmap="' +
                     encoded +
-                    '" style="height:400px"></div>';
+                    '" style="width:100%;height:400px"></svg>';
                 return;
             }
 

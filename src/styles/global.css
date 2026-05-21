@@ -13,6 +13,7 @@
 @import url(./transitions.css);
 @import url(./fancybox-overrides.css);
 @import url(./markdown-extend.css);
+@import url(./markmap.css);
 @import url(./post-grid.css);
 
 /* ---- Tailwind CSS v4 ---- */
