@@ -7,16 +7,11 @@ import remarkGfm from "remark-gfm"; // GitHub Flavored Markdown
 import rehypeSlug from "rehype-slug"; // 标题添加ID
 import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 标题添加锚点
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
-import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
+import { remarkCodeBlocks } from "./src/remarkPlugin/remark-code-blocks.mjs";
 import { remarkInlineSyntax } from "./src/remarkPlugin/remark-inline-syntax.mjs";
 import { remarkAsides } from "./src/remarkPlugin/remark-asides.mjs";
 import { remarkImageGrid } from "./src/remarkPlugin/remark-image-grid.mjs";
-import { remarkPlantuml } from "./src/remarkPlugin/remark-plantuml.mjs";
 import { GithubCardComponent } from "./src/remarkPlugin/rehype-github-card.mjs";
-import { rehypePlantuml } from "./src/remarkPlugin/rehype-plantuml.mjs";
-import { remarkChart } from "./src/remarkPlugin/remark-chart.mjs";
-import { remarkMarkmap } from "./src/remarkPlugin/remark-markmap.mjs";
-import { remarkReveal } from "./src/remarkPlugin/remark-reveal.mjs";
 import { remarkEncrypted } from "./src/remarkPlugin/remark-encrypted.mjs";
 import { rehypeEncrypted } from "./src/remarkPlugin/rehype-encrypted.mjs";
 import expressiveCode from "astro-expressive-code";
@@ -51,15 +46,11 @@ export default defineConfig({
         remarkPlugins: [
             remarkMath,
             remarkInlineSyntax,
-            resetRemark,
+            remarkCodeBlocks,
             remarkDirective,
             remarkAsides({}),
             remarkGfm,
             remarkImageGrid,
-            remarkPlantuml,
-            remarkChart,
-            remarkMarkmap,
-            remarkReveal,
             remarkEncrypted,
         ],
         rehypePlugins: [
@@ -68,7 +59,6 @@ export default defineConfig({
             rehypeSlug, // 标题添加ID
             [rehypeAutolinkHeadings, { behavior: "append" }], // 标题添加锚点
             [rehypeComponents, { components: { github: GithubCardComponent } }],
-            rehypePlantuml,
             rehypeEncrypted,
         ],
     },

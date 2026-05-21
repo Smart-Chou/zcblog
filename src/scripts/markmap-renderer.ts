@@ -16,20 +16,20 @@ function initMarkmap() {
                 if (!m) {
                     const s = document.createElement("script");
                     s.src =
-                        "https://cdn.jsdelivr.net/npm/markmap-autoloader@0.17";
-                    s.onload = () => setTimeout(render, 200);
+                        "https://cdn.jsdelivr.net/npm/markmap-view@0.18";
+                    s.onload = () => setTimeout(render, 100);
                     document.head.appendChild(s);
                     return;
                 }
                 const t = new m.Transformer();
-                const x = t.transform(data);
-                const a = t.getUsedAssets(x.features);
-                if (a.styles) m.loadCSS(a.styles);
-                if (a.scripts)
-                    m.loadJS(a.scripts, {
+                const { root, features } = t.transform(data);
+                const { styles, scripts } = t.getUsedAssets(features);
+                if (styles) m.loadCSS(styles);
+                if (scripts)
+                    m.loadJS(scripts, {
                         getMarkmap: () => (window as any).markmap,
                     });
-                m.Markmap.create(container, {}, x.root);
+                m.Markmap.create(container, {}, root);
             }
 
             render();
