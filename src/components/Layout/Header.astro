@@ -23,32 +23,6 @@ const { searchEnable = search.enable } = Astro.props;
     </div>
 </header>
 
-<script>
-    import Lenis from "lenis";
-
-    const lenis = new Lenis({
-        autoRaf: true,
-        lerp: 0.1,
-        smoothWheel: true,
-    });
-
-    document.addEventListener("astro:page-load", () => {
-        const navShell = document.querySelector<HTMLElement>(".nav-shell");
-
-        lenis.on("scroll", ({ progress }: { progress: number }) => {
-            const progressBar =
-                document.querySelector<HTMLElement>(".scroll-progress");
-            if (progressBar) {
-                progressBar.style.width = `${progress * 100}%`;
-            }
-
-            if (navShell) {
-                const expand = Math.min(progress / 0.25, 1);
-                navShell.style.setProperty("--nav-expand", String(expand));
-            }
-        });
-    });
-</script>
 
 <style>
     .scroll-progress {
@@ -58,8 +32,15 @@ const { searchEnable = search.enable } = Astro.props;
         top: 0;
         left: 0;
         height: 2px;
-        width: 0%;
-        transition: width 0.1s ease-out;
+        width: 100%;
+        transform-origin: left;
+        animation: scroll-progress linear;
+        animation-timeline: scroll(root);
+    }
+
+    @keyframes scroll-progress {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
     }
 
     #progress-container {
@@ -77,12 +58,10 @@ const { searchEnable = search.enable } = Astro.props;
     }
 
     .nav-shell {
-        --nav-expand: 0;
         width: 100%;
-        max-width: calc(
-            var(--content-width) * (1 - var(--nav-expand)) +
-                var(--header-width) * var(--nav-expand)
-        );
+        max-width: var(--content-width);
+        animation: nav-expand linear;
+        animation-timeline: scroll(root);
         height: 72px;
         background: var(--color-surface);
         background: color-mix(in srgb, var(--color-surface) 65%, transparent);
@@ -99,6 +78,12 @@ const { searchEnable = search.enable } = Astro.props;
             background-color var(--duration-slow),
             border-color var(--duration-slow),
             box-shadow var(--duration-slow);
+    }
+
+    @keyframes nav-expand {
+        0% { max-width: var(--content-width); }
+        25% { max-width: var(--header-width); }
+        100% { max-width: var(--header-width); }
     }
 
     .header-left,

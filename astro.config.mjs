@@ -8,10 +8,8 @@ import rehypeSlug from "rehype-slug"; // 标题添加ID
 import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 标题添加锚点
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
 import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
-import { remarkPangu } from "./src/remarkPlugin/remark-pangu.mjs";
+import { remarkInlineSyntax } from "./src/remarkPlugin/remark-inline-syntax.mjs";
 import { remarkAsides } from "./src/remarkPlugin/remark-asides.mjs";
-import { remarkSpoiler } from "./src/remarkPlugin/remark-spoiler.mjs";
-import { remarkSuperSubMark } from "./src/remarkPlugin/remark-super-sub-mark.mjs";
 import { remarkImageGrid } from "./src/remarkPlugin/remark-image-grid.mjs";
 import { remarkPlantuml } from "./src/remarkPlugin/remark-plantuml.mjs";
 import { GithubCardComponent } from "./src/remarkPlugin/rehype-github-card.mjs";
@@ -52,13 +50,11 @@ export default defineConfig({
     markdown: {
         remarkPlugins: [
             remarkMath,
-            remarkPangu,
+            remarkInlineSyntax,
             resetRemark,
             remarkDirective,
             remarkAsides({}),
             remarkGfm,
-            remarkSpoiler,
-            remarkSuperSubMark,
             remarkImageGrid,
             remarkPlantuml,
             remarkChart,
@@ -159,7 +155,6 @@ export default defineConfig({
                         if (id.includes("node_modules")) {
                             if (id.includes("@waline")) return "waline";
                             if (id.includes("astro-icon")) return "icons";
-                            if (id.includes("lenis")) return "lenis";
                             return "vendor";
                         }
                     },
