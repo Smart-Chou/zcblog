@@ -7,7 +7,7 @@
     "scripts": {
         "dev": "rm -rf node_modules/.vite && astro dev",
         "start": "rm -rf node_modules/.vite && astro dev",
-        "build": "pnpm run talks && pnpm run douban && pnpm run friends && pnpm run icons && astro check && astro build",
+        "build": "pnpm run talks & pnpm run douban & pnpm run friends & wait && pnpm run icons && astro check && astro build",
         "preview": "astro preview",
         "astro": "astro",
         "type-check": "tsc --noEmit",
@@ -41,7 +41,6 @@
         "astro-expressive-code": "^0.42.0",
         "astro-icon": "^1.1.5",
         "astro-vtbot": "^2.1.12",
-        "dayjs": "^1.11.20",
         "fast-glob": "^3.3.3",
         "hast-util-to-html": "^9.0.5",
         "hastscript": "^9.0.1",

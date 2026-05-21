@@ -1,10 +1,10 @@
 ---
-import { formatDate } from "~/utils";
+import { formatDateToYYYYMMDD } from "~/utils";
 const { publishedTime, wordCount, readTime, currentSlug } = Astro.props;
 ---
 
 <div class="post-meta post-card-meta">
-    Posted {formatDate(publishedTime)}.&nbsp;&nbsp;
+    Posted {formatDateToYYYYMMDD(publishedTime)}.&nbsp;&nbsp;
     <span id="word-count">{wordCount} words.</span>&nbsp;
     <span id="read-time">{readTime}.</span>&nbsp;
     <span class="waline-pageview-count" data-path={`/article/${currentSlug}/`}

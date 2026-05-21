@@ -1,12 +1,3 @@
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat";
-import utc from "dayjs/plugin/utc";
-import { config } from "~/self.config";
-
-dayjs.locale(config.lang);
-dayjs.extend(advancedFormat);
-dayjs.extend(utc);
-
 /** 按 pubDate 降序排列（最新在前） */
 export function sortByPubDate<T extends { data: { pubDate: Date } }>(
     posts: T[],
@@ -66,11 +57,3 @@ export function formatDateI18nWithTime(dateInput: Date | string): string {
     return formatDateI18n(dateInput, true);
 }
 
-export function formatDate(dateStr: string | Date): string {
-    if (!dateStr) return "";
-    try {
-        return dayjs(dateStr).utc().format("YYYY-MM-DD");
-    } catch {
-        return "";
-    }
-}

@@ -181,7 +181,7 @@ export default defineConfig({
         // 构建性能优化
         cacheDir: ".vite-cache",
         optimizeDeps: {
-            include: ["dayjs", "astro-icon", "@waline/client"],
+            include: ["astro-icon", "@waline/client"],
             exclude: [],
         },
     },
