@@ -57,8 +57,6 @@ export function remarkReveal() {
                 `i()})();`,
                 `</script>`,
             ].join("");
-            node.lang = undefined;
-            node.value = undefined;
         });
     };
 }

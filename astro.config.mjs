@@ -13,7 +13,6 @@ import { remarkAsides } from "./src/remarkPlugin/remark-asides.mjs";
 import { remarkSpoiler } from "./src/remarkPlugin/remark-spoiler.mjs";
 import { remarkSuperSubMark } from "./src/remarkPlugin/remark-super-sub-mark.mjs";
 import { remarkImageGrid } from "./src/remarkPlugin/remark-image-grid.mjs";
-import { remarkMermaid } from "./src/remarkPlugin/remark-mermaid.mjs";
 import { remarkPlantuml } from "./src/remarkPlugin/remark-plantuml.mjs";
 import { GithubCardComponent } from "./src/remarkPlugin/rehype-github-card.mjs";
 import { rehypePlantuml } from "./src/remarkPlugin/rehype-plantuml.mjs";
@@ -61,7 +60,6 @@ export default defineConfig({
             remarkSpoiler,
             remarkSuperSubMark,
             remarkImageGrid,
-            remarkMermaid,
             remarkPlantuml,
             remarkChart,
             remarkMarkmap,

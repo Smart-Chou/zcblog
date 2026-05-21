@@ -37,8 +37,6 @@ export function remarkMarkmap() {
                 `r()})();`,
                 `</script>`,
             ].join("");
-            node.lang = undefined;
-            node.value = undefined;
         });
     };
 }
