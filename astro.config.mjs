@@ -8,6 +8,7 @@ import rehypeSlug from "rehype-slug"; // 标题添加ID
 import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 标题添加锚点
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
 import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
+import { remarkPangu } from "./src/remarkPlugin/remark-pangu.mjs";
 import { remarkAsides } from "./src/remarkPlugin/remark-asides.mjs";
 import { remarkDeruntify } from "./src/remarkPlugin/remark-deruntify.js";
 import { remarkSpoiler } from "./src/remarkPlugin/remark-spoiler.mjs";
@@ -54,6 +55,7 @@ export default defineConfig({
         remarkPlugins: [
             remarkMath,
             remarkDeruntify,
+            remarkPangu,
             resetRemark,
             remarkDirective,
             remarkAsides({}),
