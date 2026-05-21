@@ -25,6 +25,10 @@ const article = defineCollection({
             waline: z.boolean().default(true).nullable(),
             sticky: z.number().default(0).nullable(),
             draft: z.boolean().default(false).optional(),
+            plantuml: z.boolean().default(false).nullable(),
+            katex: z.boolean().default(false).nullable(),
+            chart: z.boolean().default(false).nullable(),
+            markmap: z.boolean().default(false).nullable(),
         }),
 });
 

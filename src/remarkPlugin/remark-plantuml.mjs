@@ -29,15 +29,36 @@ export function remarkPlantuml() {
         visit(tree, "code", (node) => {
             if (node.lang === "plantuml" && node.value && node.value.trim()) {
                 const encoded = encodePlantUML(node.value);
-                const url = SERVER + "/svg/" + encoded;
+                const url = SERVER + "/svg/~1" + encoded;
                 node.type = "plantuml";
                 node.data = {
                     hName: "div",
                     hProperties: {
-                        className: ["plantuml-container"],
-                        "data-plantuml-url": url,
+                        className: ["plantuml-diagram"],
                     },
-                    hChildren: [{ type: "text", value: node.value }],
+                    hChildren: [
+                        {
+                            type: "element",
+                            tagName: "div",
+                            properties: {
+                                className: ["plantuml-wrapper"],
+                            },
+                            children: [
+                                {
+                                    type: "element",
+                                    tagName: "img",
+                                    properties: {
+                                        className: ["plantuml-image"],
+                                        src: url,
+                                        alt: "PlantUML diagram",
+                                        loading: "lazy",
+                                        decoding: "async",
+                                    },
+                                    children: [],
+                                },
+                            ],
+                        },
+                    ],
                 };
                 node.value = undefined;
             }

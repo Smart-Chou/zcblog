@@ -1,5 +1,5 @@
 /**
- * rehype-plantuml — 将 div.plantuml-container 转为可交互的 PlantUML 图表
+ * rehype-plantuml — 为 PlantUML 图表注入错误处理脚本
  */
 import { h } from "hastscript";
 import { visit } from "unist-util-visit";
@@ -11,28 +11,14 @@ export function rehypePlantuml() {
         let found = false;
 
         visit(tree, "element", (node) => {
-            if (node.tagName !== "div" || !node.properties) return;
-            const cls = node.properties.className;
+            if (node.tagName !== "img" || !node.properties) return;
+            const cls =
+                node.properties.className || node.properties.class;
             const has = Array.isArray(cls)
-                ? cls.includes("plantuml-container")
+                ? cls.includes("plantuml-image")
                 : typeof cls === "string" &&
-                  cls.split(/\s+/).includes("plantuml-container");
-            if (!has) return;
-
-            const url = node.properties["data-plantuml-url"] || "";
-            if (!url) return;
-
-            const img = h("img", {
-                class: "plantuml-image",
-                alt: "PlantUML diagram",
-                src: url,
-                loading: "lazy",
-                decoding: "async",
-            });
-
-            node.properties = { class: "plantuml-diagram" };
-            node.children = [h("div", { class: "plantuml-wrapper" }, [img])];
-            found = true;
+                  cls.split(/\s+/).includes("plantuml-image");
+            if (has) found = true;
         });
 
         if (found && !injectedTrees.has(tree)) {

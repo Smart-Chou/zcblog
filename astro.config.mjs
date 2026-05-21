@@ -104,13 +104,7 @@ export default defineConfig({
             // 优化渲染性能
             renderInPlace: true,
         }),
-        mdx({
-            remarkPlugins: [remarkGfm], // 扩展MDX语法
-            rehypePlugins: [
-                rehypeSlug,
-                [rehypeAutolinkHeadings, { behavior: "append" }], // 标题锚点
-            ],
-        }),
+        mdx(),
         partytown(),
         {
             name: "pagefind-integration",

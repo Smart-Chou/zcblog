@@ -72,6 +72,8 @@ async function initDynamicFancybox(
         images.forEach((img) => {
             // 如果已经有父级链接，跳过
             if (img.closest("a")) return;
+            // 跳过 PlantUML 等非内容图片
+            if (img.classList.contains("plantuml-image")) return;
 
             img.style.cursor = "zoom-in";
 
