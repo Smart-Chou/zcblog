@@ -6,6 +6,8 @@ export function formatPosts(
         sortByDate = true,
     } = {},
 ) {
+    const now = filterOutFuturePosts ? Date.now() : 0;
+
     const filteredPosts = posts.reduce(
         (
             acc: typeof posts,
@@ -19,12 +21,8 @@ export function formatPosts(
             }
 
             // filterOutFuturePosts if true
-            if (filterOutFuturePosts) {
-                const currentDate = new Date();
-                const postDate = new Date(pubDate);
-                if (postDate > currentDate) {
-                    return acc;
-                }
+            if (filterOutFuturePosts && new Date(pubDate).getTime() > now) {
+                return acc;
             }
 
             // add post to acc
@@ -38,9 +36,9 @@ export function formatPosts(
     // sortByDate or randomize
     if (sortByDate) {
         filteredPosts.sort((a, b) => {
-            const dateA = new Date(a.data.pubDate);
-            const dateB = new Date(b.data.pubDate);
-            return dateB.getTime() - dateA.getTime();
+            const dateA = new Date(a.data.pubDate).getTime();
+            const dateB = new Date(b.data.pubDate).getTime();
+            return dateB - dateA;
         });
     } else {
         filteredPosts.sort(() => Math.random() - 0.5);

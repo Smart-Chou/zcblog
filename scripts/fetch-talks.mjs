@@ -148,7 +148,7 @@ async function main() {
         };
     });
 
-    items.sort((a, b) => (b.datetime > a.datetime ? 1 : -1));
+    items.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
 
     await writeFile(OUTPUT, JSON.stringify(items, null, 2) + "\n", "utf-8");
     console.log(`✅ talks.json 已更新 (${items.length} 条)`);

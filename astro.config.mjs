@@ -10,7 +10,6 @@ import rehypeComponents from "rehype-components"; /* Render the custom directive
 import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
 import { remarkPangu } from "./src/remarkPlugin/remark-pangu.mjs";
 import { remarkAsides } from "./src/remarkPlugin/remark-asides.mjs";
-import { remarkDeruntify } from "./src/remarkPlugin/remark-deruntify.js";
 import { remarkSpoiler } from "./src/remarkPlugin/remark-spoiler.mjs";
 import { remarkSuperSubMark } from "./src/remarkPlugin/remark-super-sub-mark.mjs";
 import { remarkImageGrid } from "./src/remarkPlugin/remark-image-grid.mjs";
@@ -54,7 +53,6 @@ export default defineConfig({
     markdown: {
         remarkPlugins: [
             remarkMath,
-            remarkDeruntify,
             remarkPangu,
             resetRemark,
             remarkDirective,
@@ -149,7 +147,7 @@ export default defineConfig({
     output: "static",
     // 构建输出配置
     build: {
-        concurrency: 2, // 降低并行度避免 Vercel OOM
+        concurrency: Number(process.env.BUILD_CONCURRENCY) || 2,
     },
     vite: {
         plugins: [tailwindcss()],

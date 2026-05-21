@@ -23,8 +23,9 @@ export async function GET(context) {
         },
         items: formattedBlogs.map((post) => {
             const body = post.body?.toString().replace(/\n/g, "") || "";
-            const wordCount = getReadingTime(body).words || "";
-            const readTime = getReadingTime(body).text || "";
+            const readingStats = getReadingTime(body);
+            const wordCount = readingStats.words || "";
+            const readTime = readingStats.text || "";
 
             const descriptionHtml = sanitizeHtml(
                 marked.parse(post.data.description || ""),

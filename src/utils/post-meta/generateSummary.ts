@@ -1,31 +1,14 @@
-import { marked } from "marked";
-import { JSDOM } from "jsdom";
-
 /**
- * 基于Markdown转换的摘要生成函数
+ * 纯文本摘要生成函数（不依赖 JSDOM/marked）
  * @param markdownContent Markdown内容
  * @returns 生成的摘要
  */
 export function generateSummary(markdownContent: string): string {
     const excerptLength = 160;
     const separators = [
-        "。",
-        "，",
-        ".",
-        ",",
-        "：",
-        ":",
-        ")",
-        "）",
-        "!",
-        "！",
-        "?",
-        "？",
+        "。", "，", ".", ",", "：", ":", ")", "）", "!", "！", "?", "？",
     ];
 
-    /**
-     * 截取文本到指定长度，并在句子边界结束
-     */
     function truncateToExcerpt(
         text: string,
         maxLength: number,
@@ -35,12 +18,10 @@ export function generateSummary(markdownContent: string): string {
         let len = 0;
         let i = 0;
 
-        // 跳过开头的空白字符
         while (i < text.length && /\s/.test(text[i])) {
             i++;
         }
 
-        // 按照长度截取文本
         while (len < maxLength && i < text.length) {
             const char = text[i];
             output += char;
@@ -49,17 +30,15 @@ export function generateSummary(markdownContent: string): string {
             i++;
         }
 
-        // 确保摘要在句子边界结束
         let outputUntil = output.length;
-        for (i = output.length - 1; i >= 0; i--) {
-            const char = output[i];
+        for (let j = output.length - 1; j >= 0; j--) {
+            const char = output[j];
             if (char && separators.includes(char)) {
-                outputUntil = i + 1;
+                outputUntil = j + 1;
                 break;
             }
         }
 
-        // 生成最终摘要
         let finalExcerpt = output.substring(0, outputUntil).trim();
         if (finalExcerpt.length < output.length) {
             finalExcerpt += "...";
@@ -68,111 +47,15 @@ export function generateSummary(markdownContent: string): string {
         return finalExcerpt;
     }
 
-    try {
-        // 1. 将Markdown转换为HTML
-        const htmlContent = marked(markdownContent);
+    // 纯文本/正则清理，避免 JSDOM + marked 的构造开销
+    const cleanedText = markdownContent
+        .replace(/```[\s\S]*?```/g, "")
+        .replace(/^\s*\|.*\|?\s*$/gm, "")
+        .replace(/^\s*.*:[-]+.*$/gm, "")
+        .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
+        .replace(/[#*_`~>=]+/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
 
-        // 3. 使用JSDOM解析HTML，直接处理原始HTML
-        const dom = new JSDOM(`<div>${htmlContent}</div>`);
-        const document = dom.window.document;
-
-        // 清理HTML，只保留安全的标签
-        const allowedTags = new Set([
-            "p",
-            "h1",
-            "h2",
-            "h3",
-            "h4",
-            "h5",
-            "h6",
-            "blockquote",
-            "ul",
-            "ol",
-            "li",
-        ]);
-        // 表格标签，直接移除不保留文本
-        const tableTags = new Set([
-            "table",
-            "thead",
-            "tbody",
-            "tfoot",
-            "tr",
-            "td",
-            "th",
-        ]);
-
-        // 递归清理元素
-        function cleanElement(element: Element) {
-            const children = Array.from(element.children);
-            children.forEach((child) => {
-                const tagName = child.tagName.toLowerCase();
-                if (tableTags.has(tagName)) {
-                    // 表格标签直接移除，不保留文本
-                    child.remove();
-                } else if (!allowedTags.has(tagName)) {
-                    // 替换为文本内容
-                    const textNode = document.createTextNode(
-                        child.textContent || "",
-                    );
-                    child.replaceWith(textNode);
-                } else {
-                    // 移除所有属性
-                    Array.from(child.attributes).forEach((attr) => {
-                        child.removeAttribute(attr.name);
-                    });
-                    // 递归清理子元素
-                    cleanElement(child);
-                }
-            });
-        }
-
-        // 移除所有表格元素，防止表格内容污染摘要
-        const tableElements = document.querySelectorAll(
-            "table, thead, tbody, tfoot, tr, td, th",
-        );
-        tableElements.forEach((el: Element) => el.remove());
-
-        // 清理根元素
-        cleanElement(document.body.firstChild as Element);
-
-        // 4. 提取有意义的文本内容
-        // 优先获取段落和标题内容
-        const meaningfulElements = document.querySelectorAll(
-            "p, h1, h2, h3, h4, h5, h6",
-        );
-        let textContent = "";
-
-        meaningfulElements.forEach((element: Element) => {
-            // 只添加非空内容
-            const elementText = element.textContent?.trim() || "";
-            if (elementText) {
-                textContent += elementText + " ";
-            }
-        });
-
-        // 如果没有找到段落或标题，使用所有文本
-        if (!textContent.trim()) {
-            textContent = document.body.textContent?.trim() || "";
-        }
-
-        // 5. 清理文本，移除多余空格
-        const cleanedText = textContent.replace(/\s+/g, " ").trim();
-
-        // 6. 使用公共函数生成摘要
-        return truncateToExcerpt(cleanedText, excerptLength, separators);
-    } catch (error) {
-        console.error("Error generating excerpt from markdown:", error);
-
-        // 降级处理：使用简单的文本处理
-        const cleanedText = markdownContent
-            .replace(/```[\s\S]*?```/g, "")
-            .replace(/^\s*\|.*\|?\s*$/gm, "") // 移除表格行（允许前导空格，结尾|可选）
-            .replace(/^\s*.*:[-]+.*$/gm, "") // 移除包含表格对齐语法的行（如 :---, ---:, :---:）
-            .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
-            .replace(/[#*_`~>=]+/g, "")
-            .replace(/\s+/g, " ")
-            .trim();
-
-        return truncateToExcerpt(cleanedText, excerptLength, separators);
-    }
+    return truncateToExcerpt(cleanedText, excerptLength, separators);
 }
