@@ -50,6 +50,7 @@ export function rehypeEncrypted() {
                     id: `encrypted-container-${uid}`,
                     "data-encrypted": encryptedData,
                     "data-slug": context,
+                    "data-version": "2",
                     className: [],
                 },
                 children: [

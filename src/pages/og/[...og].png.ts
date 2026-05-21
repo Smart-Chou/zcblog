@@ -33,6 +33,11 @@ function getFontBold(): Buffer {
 
 export async function getStaticPaths() {
     const articles = await getCollection("article");
+
+    // Preload fonts during build to avoid sync readFile on first render
+    getFontRegular();
+    getFontBold();
+
     return articles.map((entry) => ({
         params: { og: entry.id },
         props: { entry },

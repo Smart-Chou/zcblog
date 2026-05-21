@@ -26,6 +26,14 @@ const {
     nextUrl,
     noindex = false,
 } = Astro.props;
+
+const siteUrl = (Astro.site?.toString() || "").replace(/\/$/, "");
+const currentPath = Astro.url.pathname;
+const isEnglish = currentPath.startsWith("/en/");
+const zhPath = isEnglish
+    ? currentPath.replace(/^\/en/, "")
+    : currentPath;
+const enPath = isEnglish ? currentPath : "/en" + currentPath;
 ---
 
 <head>
@@ -159,36 +167,9 @@ const {
     {prevUrl && <link rel="prev" href={prevUrl} />}
     {nextUrl && <link rel="next" href={nextUrl} />}
     <!-- hreflang 多语言标注 -->
-    {
-        (() => {
-            const siteUrl = (Astro.site?.toString() || "").replace(/\/$/, "");
-            const currentPath = Astro.url.pathname;
-            const isEnglish = currentPath.startsWith("/en/");
-            const zhPath = isEnglish
-                ? currentPath.replace(/^\/en/, "")
-                : currentPath;
-            const enPath = isEnglish ? currentPath : "/en" + currentPath;
-            return (
-                <>
-                    <link
-                        rel="alternate"
-                        hreflang="zh"
-                        href={siteUrl + zhPath}
-                    />
-                    <link
-                        rel="alternate"
-                        hreflang="en"
-                        href={siteUrl + enPath}
-                    />
-                    <link
-                        rel="alternate"
-                        hreflang="x-default"
-                        href={siteUrl + zhPath}
-                    />
-                </>
-            );
-        })()
-    }
+    <link rel="alternate" hreflang="zh" href={siteUrl + zhPath} />
+    <link rel="alternate" hreflang="en" href={siteUrl + enPath} />
+    <link rel="alternate" hreflang="x-default" href={siteUrl + zhPath} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -201,4 +182,6 @@ const {
     <!-- 预连接到外部资源 -->
     <link rel="preconnect" href={imageService.baseUrl} crossorigin />
     <link rel="dns-prefetch" href={imageService.baseUrl} />
+    <link rel="dns-prefetch" href="https://cdn.bootcdn.net" />
+    <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin />
 </head>

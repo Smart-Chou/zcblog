@@ -42,17 +42,29 @@ const redirectIntegration = (): AstroIntegration => ({
             const siteHost = new URL(site.url).host;
 
             const total = files.length;
+            let skipped = 0;
 
             await Promise.all(
                 files.map(async (file) => {
                     try {
                         let html = await fs.readFile(file, "utf-8");
+
+                        // Fast pre-check: skip JSDOM if no matching links present
+                        const hasCandidateLink = includeClass.some(
+                            (cls) => html.includes(cls),
+                        );
+                        if (!hasCandidateLink) {
+                            skipped++;
+                            return;
+                        }
+
                         const dom = new JSDOM(html);
                         const document = dom.window.document;
 
                         const links = Array.from(
                             document.getElementsByTagName("a"),
                         ) as Element[];
+                        let modified = false;
                         for (const link of links) {
                             if (hasClassInTree(link, excludeClass)) continue;
                             if (!hasClassInTree(link, includeClass)) continue;
@@ -70,6 +82,12 @@ const redirectIntegration = (): AstroIntegration => ({
                             link.setAttribute("rel", "noopener noreferrer");
 
                             appendExternalLinkIcon(link as unknown as Element);
+                            modified = true;
+                        }
+
+                        if (!modified) {
+                            skipped++;
+                            return;
                         }
 
                         html = dom.serialize();
@@ -89,7 +107,7 @@ const redirectIntegration = (): AstroIntegration => ({
                 }),
             );
 
-            logger.info(`Processed ${total} files for external link redirects`);
+            logger.info(`Processed ${total} files (${skipped} skipped) for external link redirects`);
         },
     },
 });
