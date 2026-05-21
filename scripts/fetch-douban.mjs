@@ -6,8 +6,9 @@
  * 用法:      node scripts/fetch-douban.mjs
  */
 
-import { writeFile, mkdir, readdir, unlink } from "node:fs/promises";
+import { writeFile, mkdir, readdir, unlink, access } from "node:fs/promises";
 import sharp from "sharp";
+import { loadEnvFile } from "./lib/env.mjs";
 
 const RSS_URL = (userId) =>
   `https://www.douban.com/feed/people/${userId}/interests`;
@@ -177,12 +178,6 @@ async function downloadCover(imageUrl, subjectId) {
   }
 }
 
-/** fs.access 的简单包装 */
-async function access(path) {
-  const { access: fsAccess } = await import("node:fs/promises");
-  return fsAccess(path);
-}
-
 // ── 清理孤儿封面 ──
 
 async function cleanOrphanCovers(validSubjectIds) {
@@ -214,12 +209,7 @@ async function writeJson(filename, data) {
 // ── 主逻辑 ──
 
 async function main() {
-  // 加载 .env
-  try {
-    process.loadEnvFile();
-  } catch {
-    /* .env 不存在时忽略 */
-  }
+  loadEnvFile();
 
   const userId = process.env.DOUBAN_USER_ID;
   if (!userId) {

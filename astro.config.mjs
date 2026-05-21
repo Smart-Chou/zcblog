@@ -8,7 +8,7 @@ import rehypeSlug from "rehype-slug"; // 标题添加ID
 import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 标题添加锚点
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
 import { resetRemark } from "./src/remarkPlugin/reset-remark.js";
-import { remarkAsides } from "./src/remarkPlugin/remark-asides.js";
+import { remarkAsides } from "./src/remarkPlugin/remark-asides.mjs";
 import { remarkDeruntify } from "./src/remarkPlugin/remark-deruntify.js";
 import { remarkSpoiler } from "./src/remarkPlugin/remark-spoiler.mjs";
 import { remarkSuperSubMark } from "./src/remarkPlugin/remark-super-sub-mark.mjs";
@@ -33,8 +33,6 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import rehypeCallouts from "rehype-callouts";
 import astroVtBot from "astro-vtbot";
-import katex from "katex";
-import "katex/dist/contrib/mhchem.mjs";
 import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
@@ -71,7 +69,7 @@ export default defineConfig({
             remarkEncrypted,
         ],
         rehypePlugins: [
-            [rehypeKatex, { katex }],
+            rehypeKatex,
             rehypeCallouts,
             rehypeSlug, // 标题添加ID
             [rehypeAutolinkHeadings, { behavior: "append" }], // 标题添加锚点
@@ -153,11 +151,7 @@ export default defineConfig({
     },
     vite: {
         plugins: [tailwindcss()],
-        define: {
-            __VUE_OPTIONS_API__: "false",
-            __VUE_PROD_DEVTOOLS__: "false",
-            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: "false",
-        },
+        define: {},
         build: {
             // esbuild 比 terser 内存占用更低，避免 Vercel OOM
             minify: "esbuild",

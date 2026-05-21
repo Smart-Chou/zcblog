@@ -11,7 +11,7 @@ import BackToTop from "~/components/Layout/BackToTop.astro";
 import Donate from "~/components/ui/Donate.astro";
 import Author from "~/components/ui/Author.astro";
 import WalineComment from "~/components/ui/WalineComment.astro";
-import MermaidRenderer from "~/layouts/MermaidRenderer.astro";
+import MermaidRenderer from "~/components/Layout/MermaidRenderer.astro";
 import { site, postView, waline, donate } from "~/self.config";
 import { getRandomImageUrl } from "~/utils";
 
@@ -95,7 +95,7 @@ const ogImage =
     {frontmatter.donate && donate.enable && <Donate />}
     {frontmatter.author && postView.author && <Author />}
     {frontmatter.waline && waline.enable && <WalineComment />}
-    <MermaidRenderer />
+    {frontmatter.mermaid && <MermaidRenderer />}
 </BaseLayout>
 
 <style>

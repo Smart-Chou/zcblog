@@ -7,6 +7,7 @@
  */
 
 import { writeFile } from "node:fs/promises";
+import { loadEnvFile } from "./lib/env.mjs";
 
 const BLINKO_API = "https://memos.marxchou.com/api/v1/note/list";
 const BLINKO_BASE = "https://memos.marxchou.com";
@@ -70,11 +71,7 @@ function extractImages(note) {
 // ── 主逻辑 ──
 
 async function main() {
-    try {
-        process.loadEnvFile();
-    } catch {
-        /* .env 不存在时忽略（如 CI 环境） */
-    }
+    loadEnvFile();
 
     const TOKEN = process.env.BLINKO_API_TOKEN;
     if (!TOKEN) {
@@ -82,39 +79,51 @@ async function main() {
         process.exit(1);
     }
 
-    let notes;
-    try {
-        const res = await fetch(BLINKO_API, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${TOKEN}`,
-            },
-            body: JSON.stringify({
-                isShare: true,
-                isRecycle: false,
-                isArchived: false,
-                orderBy: "desc",
-                size: 50,
-                page: 1,
-            }),
-            signal: AbortSignal.timeout(10000),
-        });
+    // 分页拉取所有公开笔记
+    const allNotes = [];
+    let page = 1;
+    const PAGE_SIZE = 50;
 
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        notes = await res.json();
+    try {
+        while (true) {
+            const res = await fetch(BLINKO_API, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${TOKEN}`,
+                },
+                body: JSON.stringify({
+                    isShare: true,
+                    isRecycle: false,
+                    isArchived: false,
+                    orderBy: "desc",
+                    size: PAGE_SIZE,
+                    page,
+                }),
+                signal: AbortSignal.timeout(10000),
+            });
+
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const pageData = await res.json();
+
+            if (!Array.isArray(pageData) || pageData.length === 0) break;
+            allNotes.push(...pageData);
+
+            if (pageData.length < PAGE_SIZE) break;
+            page++;
+        }
     } catch (err) {
         console.warn(`⚠ 无法获取 Blinko API: ${err.message}，保留旧数据`);
         process.exit(0);
     }
 
-    if (!Array.isArray(notes)) {
+    if (allNotes.length === 0) {
         console.warn("⚠ API 返回格式异常，保留旧数据");
         process.exit(0);
     }
 
     // 只保留真正公开的笔记（无密码、未过期）
-    const publicNotes = notes.filter(
+    const publicNotes = allNotes.filter(
         (n) =>
             n.isShare &&
             !n.sharePassword &&

@@ -8,6 +8,7 @@
  */
 
 import { writeFile, readFile, mkdir } from "node:fs/promises";
+import { loadEnvFile } from "./lib/env.mjs";
 
 const DEFAULT_RSS =
   "https://rsshub.rssforever.com/foreverblog/feeds";
@@ -76,11 +77,7 @@ function parseItem(itemXml) {
 // ── 主逻辑 ──
 
 async function main() {
-  try {
-    process.loadEnvFile();
-  } catch {
-    /* .env 不存在时忽略 */
-  }
+  loadEnvFile();
 
   const rssUrl = process.env.FOREVERBLOG_RSS_URL || DEFAULT_RSS;
 

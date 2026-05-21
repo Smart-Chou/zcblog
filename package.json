@@ -3,7 +3,7 @@
     "version": "2.0.0",
     "description": "个人博客网站，使用Astro框架构建，包含文章、标签、归档、捐赠等功能",
     "type": "module",
-    "private": false,
+    "private": true,
     "scripts": {
         "dev": "rm -rf node_modules/.vite && astro dev",
         "start": "rm -rf node_modules/.vite && astro dev",
@@ -44,7 +44,7 @@
         "dayjs": "^1.11.20",
         "fast-glob": "^3.3.3",
         "hastscript": "^9.0.1",
-        "html-minifier": "^4.0.0",
+        "html-minifier-terser": "^7.2.0",
         "katex": "^0.16.46",
         "lenis": "^1.3.23",
         "marked": "^17.0.6",

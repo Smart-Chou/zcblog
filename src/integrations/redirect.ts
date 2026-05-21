@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import fg from "fast-glob";
-import { minify } from "html-minifier";
+import { minify } from "html-minifier-terser";
 import { JSDOM } from "jsdom";
 import type { AstroIntegration } from "astro";
 import { config, site } from "../self.config.ts";

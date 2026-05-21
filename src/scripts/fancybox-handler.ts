@@ -5,9 +5,3 @@
 import { initArticleFancybox } from "~/utils/fancybox";
 
 document.addEventListener("astro:page-load", initArticleFancybox);
-
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initArticleFancybox);
-} else {
-    initArticleFancybox();
-}
