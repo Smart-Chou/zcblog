@@ -2,13 +2,13 @@
  * remark-inline-syntax — 合并 CJK 排版、剧透、上下标与高亮的单次 tree walk
  *
  *   pangu 空格 / deruntify（原 remark-pangu）
- *   :spoiler[text] → <span class="spoiler">  （原 remark-spoiler）
+ *   ||text|| → <span class="spoiler">  （原 :spoiler[text]）
  *   ^text^ → <sup>, ~text~ → <sub>, ==text== → <mark>  （原 remark-super-sub-mark）
  */
 import pangu from "pangu";
 import { visit } from "unist-util-visit";
 
-const SPOILER = /:spoiler\[([^\]]+)\]/g;
+const SPOILER = /\|\|(.+?)\|\|/g;
 
 const CJK_BOUNDARY_BEFORE = /(?:^|(?<=[\s一-龥，。；：！？、""''）\)\]】>]))/;
 const CJK_BOUNDARY_AFTER = /(?:$|(?=[\s一-龥，。；：！？、""''（\(\[【<]))/;
