@@ -12,6 +12,13 @@ const itemsJson = JSON.stringify(items);
     </div>
 </div>
 
+<style>
+    .talk-list {
+        will-change: transform, opacity;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+</style>
+
 <script>
     const DURATION = 6000;
     let intervalId: ReturnType<typeof setInterval> | null = null;
@@ -27,12 +34,23 @@ const itemsJson = JSON.stringify(items);
 
         function render() {
             const item = items[index];
-            list!.innerHTML = `
-                <li class="item">
-                    <span class="datetime" title="${item.datetime}">${item.display}</span>
-                    <a href="${item.url}">${item.content}</a>
-                </li>
-            `;
+            // 用 DOM API 替代 innerHTML，防止 XSS
+            const li = document.createElement("li");
+            li.className = "item";
+
+            const span = document.createElement("span");
+            span.className = "datetime";
+            span.title = item.datetime;
+            span.textContent = item.display;
+
+            const a = document.createElement("a");
+            a.href = item.url;
+            a.textContent = item.content;
+
+            li.appendChild(span);
+            li.appendChild(a);
+
+            list!.replaceChildren(li);
         }
 
         render();

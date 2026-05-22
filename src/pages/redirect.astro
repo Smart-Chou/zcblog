@@ -58,11 +58,11 @@ const domainsJson = JSON.stringify(site.domains);
         const autoJump = () => {
             let count = 5;
             const updateContent = () => {
-                jumpButton.innerHTML = `${count} 秒后自动跳转`;
+                jumpButton.textContent = `${count} 秒后自动跳转`;
                 count--;
                 if (count < 0) {
                     clearInterval(interval);
-                    jumpButton.innerHTML = "正在跳转";
+                    jumpButton.textContent = "正在跳转";
                     window.location.replace(jumpLink);
                 }
             };
@@ -95,16 +95,16 @@ const domainsJson = JSON.stringify(site.domains);
                 if (jumpLink.startsWith("//")) {
                     jumpLink = "https:" + jumpLink;
                 }
-                urlDom.innerHTML = jumpLink;
-                // 获取网址的主机名
+                // 先验证 URL 合法性，再设置文本内容（用 textContent 防 XSS）
                 const urlHostname = new URL(jumpLink).hostname;
+                urlDom.textContent = jumpLink;
                 // 判断网址是否在黑名单中
                 for (let i = 0; i < blacklist.length; i++) {
                     const blackPattern = blacklist[i].replace(/\*/g, ".*");
                     if (urlHostname.match(blackPattern)) {
                         // 显示提示信息
-                        urlTip.innerHTML = tipText.danger;
-                        jumpButton.innerHTML = "禁止跳转";
+                        urlTip.textContent = tipText.danger;
+                        jumpButton.textContent = "禁止跳转";
                         jumpButton.style.cursor = "not-allowed";
                         jumpButton.style.pointerEvents = "none";
                         jumpButton.style.opacity = "0.4";
@@ -117,7 +117,7 @@ const domainsJson = JSON.stringify(site.domains);
                     const whitePattern = whitelist[i].replace(/\*/g, ".*");
                     if (urlHostname.match(whitePattern)) {
                         // 显示提示信息
-                        urlTip.innerHTML = tipText.safe;
+                        urlTip.textContent = tipText.safe;
                         jumpContent.className = "safe";
                         autoJump();
                         return true;
@@ -127,10 +127,10 @@ const domainsJson = JSON.stringify(site.domains);
                 console.error("Error during URL parsing:", error);
                 tipDescription.remove();
                 jumpContent.remove();
-                urlDom.innerHTML = "获取跳转链接失败";
+                urlDom.textContent = "获取跳转链接失败";
                 const sorryMessage = document.createElement("span");
                 sorryMessage.className = "redirect-tip";
-                sorryMessage.innerHTML = "😔 非常抱歉";
+                sorryMessage.textContent = "😔 非常抱歉";
                 urlDom.parentElement.insertBefore(sorryMessage, urlDom);
             }
         };
@@ -151,7 +151,7 @@ const domainsJson = JSON.stringify(site.domains);
         });
         jumpButton.addEventListener("click", () => {
             clearInterval(interval);
-            jumpButton.innerHTML = "正在跳转";
+            jumpButton.textContent = "正在跳转";
             if (jumpLink) window.location.replace(jumpLink);
         });
         window.addEventListener("DOMContentLoaded", () => {
