@@ -68,3 +68,102 @@ button {
     color: inherit;
     opacity: 1;
 }
+
+/* =========================================
+   Print Styles
+   ========================================= */
+@media print {
+    /* 隐藏所有非内容元素 */
+    header,
+    nav,
+    footer,
+    .scroll-progress,
+    .back-to-top,
+    .language-switcher,
+    .toggle-theme,
+    #waline,
+    #waline-toggle,
+    #comment-wrapper,
+    .donate-section,
+    .hitokoto,
+    site-search,
+    [data-open-modal],
+    [data-close-modal],
+    .nav-dropdown,
+    .nav-menu-btn {
+        display: none !important;
+    }
+
+    /* 全宽排版 */
+    body,
+    .page-container,
+    .main-content,
+    .post-content,
+    article {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* 黑白打印优化 */
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+        line-height: 1.6;
+    }
+
+    /* 移除装饰 */
+    *,
+    *::before,
+    *::after {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        background-image: none !important;
+    }
+
+    /* 链接显示完整 URL */
+    a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        font-weight: normal;
+    }
+
+    /* 内部链接和空链接不显示 URL */
+    a[href^="/"]::after,
+    a[href^="#"]::after,
+    a[href=""]::after {
+        content: none;
+    }
+
+    /* 图片不超出页面 */
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    /* 代码块不分页 */
+    pre,
+    blockquote,
+    table {
+        page-break-inside: avoid;
+    }
+
+    /* 标题后不分页 */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        page-break-after: avoid;
+    }
+
+    /* 确保分页不切断内容 */
+    p,
+    li {
+        orphans: 3;
+        widows: 3;
+    }
+}

@@ -31,13 +31,13 @@ const sortedTags = Object.entries(tagCounts)
 
 const maxTagCount = Math.max(...sortedTags.map((t) => t.count), 1);
 
-function getTagColor(count: number): string {
+function getTagLevel(count: number): number {
     const percentage = count / maxTagCount;
-    if (percentage >= 0.8) return "#1e40af";
-    if (percentage >= 0.6) return "#1d4ed8";
-    if (percentage >= 0.4) return "#3b82f6";
-    if (percentage >= 0.2) return "#60a5fa";
-    return "#93c5fd";
+    if (percentage >= 0.8) return 5;
+    if (percentage >= 0.6) return 4;
+    if (percentage >= 0.4) return 3;
+    if (percentage >= 0.2) return 2;
+    return 1;
 }
 ---
 
@@ -61,7 +61,7 @@ function getTagColor(count: number): string {
                     <a href={`/tags/${name}/`}>{name}</a>
                     <span
                         class="tag-count"
-                        style={`background-color: ${getTagColor(count)}`}
+                        data-level={getTagLevel(count)}
                     >
                         {count}
                     </span>
@@ -110,4 +110,16 @@ function getTagColor(count: number): string {
         font-weight: 600;
         color: white;
     }
+
+    .tag-count[data-level="1"] { background: #93c5fd; }
+    .tag-count[data-level="2"] { background: #60a5fa; }
+    .tag-count[data-level="3"] { background: #3b82f6; }
+    .tag-count[data-level="4"] { background: #1d4ed8; }
+    .tag-count[data-level="5"] { background: #1e40af; }
+
+    html[data-theme="dark"] .tag-count[data-level="1"] { background: #1e3a5f; }
+    html[data-theme="dark"] .tag-count[data-level="2"] { background: #1d4ed8; }
+    html[data-theme="dark"] .tag-count[data-level="3"] { background: #2563eb; }
+    html[data-theme="dark"] .tag-count[data-level="4"] { background: #3b82f6; }
+    html[data-theme="dark"] .tag-count[data-level="5"] { background: #60a5fa; }
 </style>
