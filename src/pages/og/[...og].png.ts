@@ -9,44 +9,55 @@ import { site } from "~/config";
 import fs from "node:fs";
 import path from "node:path";
 
-// Lazy-loaded font cache — avoids blocking build startup with sync reads
+// 字体从 CDN 下载并缓存在 .astro/fonts/（已 gitignore）
+const FONT_CACHE = path.join(process.cwd(), ".astro", "fonts");
+const FONT_REGULAR = path.join(FONT_CACHE, "NotoSansSC-Regular.otf");
+const FONT_BOLD = path.join(FONT_CACHE, "NotoSansSC-Bold.otf");
+
+const FONT_URL_REGULAR =
+    "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansSC-Regular.otf";
+const FONT_URL_BOLD =
+    "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansSC-Bold.otf";
+
+async function ensureFonts() {
+    fs.mkdirSync(FONT_CACHE, { recursive: true });
+    const downloads: Promise<void>[] = [];
+    for (const [url, dest] of [
+        [FONT_URL_REGULAR, FONT_REGULAR],
+        [FONT_URL_BOLD, FONT_BOLD],
+    ] as const) {
+        if (!fs.existsSync(dest)) {
+            downloads.push(
+                fetch(url).then(async (res) => {
+                    if (!res.ok)
+                        throw new Error(`Failed to download font: ${url} (HTTP ${res.status})`);
+                    const buf = Buffer.from(await res.arrayBuffer());
+                    fs.writeFileSync(dest, buf);
+                }),
+            );
+        }
+    }
+    await Promise.all(downloads);
+}
+
 let _fontRegular: Buffer | null = null;
 let _fontBold: Buffer | null = null;
 
 function getFontRegular(): Buffer {
-    if (!_fontRegular) {
-        _fontRegular = fs.readFileSync(
-            path.join(
-                process.cwd(),
-                "src",
-                "assets",
-                "fonts",
-                "NotoSansSC-Regular.ttf",
-            ),
-        );
-    }
+    if (!_fontRegular) _fontRegular = fs.readFileSync(FONT_REGULAR);
     return _fontRegular;
 }
 
 function getFontBold(): Buffer {
-    if (!_fontBold) {
-        _fontBold = fs.readFileSync(
-            path.join(
-                process.cwd(),
-                "src",
-                "assets",
-                "fonts",
-                "NotoSansSC-Bold.ttf",
-            ),
-        );
-    }
+    if (!_fontBold) _fontBold = fs.readFileSync(FONT_BOLD);
     return _fontBold;
 }
 
 export async function getStaticPaths() {
     const articles = await getCollection("article");
 
-    // Preload fonts during build to avoid sync readFile on first render
+    // Download fonts from CDN if not cached, then preload
+    await ensureFonts();
     getFontRegular();
     getFontBold();
 
@@ -61,7 +72,10 @@ export const GET: APIRoute = async ({ props }) => {
     const title = entry.data.title || "Article";
     const description = entry.data.description || site.description;
 
-    const displayTitle = title.length > 30 ? title.slice(0, 30) + "…" : title;
+    // CJK 字符约 2x 拉丁字符宽度，1200px 容器 80px 字号约放 12-14 个 CJK 字
+    const isCJK = /[一-鿿㐀-䶿]/.test(title);
+    const maxLen = isCJK ? 14 : 42;
+    const displayTitle = title.length > maxLen ? title.slice(0, maxLen) + "…" : title;
     const displayDesc =
         description.length > 100
             ? description.slice(0, 100) + "…"

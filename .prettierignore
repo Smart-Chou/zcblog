@@ -1,0 +1,3 @@
+# 不格式化 Markdown 内容文件
+*.md
+*.mdx

@@ -30,14 +30,12 @@ export async function GET(context) {
             const descriptionHtml = sanitizeHtml(
                 marked.parse(post.data.description || ""),
             );
-            const bodyHtml = sanitizeHtml(marked.parse(body));
-
             return {
                 title: post.data.title,
                 pubDate: post.data.pubDate,
                 description: post.data.description,
                 link: `/article/${post.id}/`,
-                content: `${descriptionHtml}<hr/>${bodyHtml}`,
+                content: descriptionHtml,
                 customData: `<wordCount>${wordCount}</wordCount><readTime>${readTime}</readTime>`,
             };
         }),
