@@ -1,9 +1,23 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 import { site, redirectPage } from "~/config";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 import "~/styles/redirect.css";
 
+const loc: Locale = getLocale(Astro.url.pathname.startsWith("/en") ? "en" : "zh");
+
 const domainsJson = JSON.stringify(site.domains);
+
+const scriptTexts = JSON.stringify({
+    trustedSite: t(loc, "redirect.trustedSite"),
+    blacklistedSite: t(loc, "redirect.blacklistedSite"),
+    blockedButton: t(loc, "redirect.blockedButton"),
+    autoJumpCountdown: t(loc, "redirect.autoJumpCountdown"),
+    jumping: t(loc, "redirect.jumping"),
+    fetchFailed: t(loc, "redirect.fetchFailed"),
+    sorry: t(loc, "redirect.sorry"),
+});
 ---
 
 <BaseLayout
@@ -17,17 +31,20 @@ const domainsJson = JSON.stringify(site.domains);
 >
     <div class="redirect">
         <span class="redirect-tip" id="redirect-tip"
-            >您即将离开{site.title}，前往</span
+            >{t(loc, "redirect.leavingMessage", { site: site.title })}</span
         >
         <span id="url"></span>
         <div id="jump-content" class="warn">
-            <span id="site-info"
-                >⚠️ 该网址安全性未知，请注意您的帐号和财产安全</span
-            >
-            <div id="jump-button">继续前往</div>
+            <span id="site-info">
+                <span class="redirect-icon warn-icon" aria-hidden="true">
+                    <DynamicIcon name="tabler:alert-triangle-filled" width="18" height="18" />
+                </span>
+                {t(loc, "redirect.safetyWarning")}
+            </span>
+            <div id="jump-button">{t(loc, "redirect.continueButton")}</div>
         </div>
     </div>
-    <script is:inline define:vars={{ domainsJson }}>
+    <script is:inline define:vars={{ domainsJson, scriptTexts }}>
         // 跳转网址
         let jumpLink;
         let interval;
@@ -49,20 +66,17 @@ const domainsJson = JSON.stringify(site.domains);
         ];
         // 网址黑名单
         const blacklist = ["*.taobao.com", "*.jd.com"];
-        // 提示文本
-        const tipText = {
-            safe: "✅ 该网址为信任网址，即将跳转",
-            danger: "⛔ 该网址处于黑名单",
-        };
+        // 翻译文本（由服务端注入）
+        const texts = JSON.parse(scriptTexts);
         // 自动跳转
         const autoJump = () => {
             let count = 5;
             const updateContent = () => {
-                jumpButton.textContent = `${count} 秒后自动跳转`;
+                jumpButton.textContent = texts.autoJumpCountdown.replace("{{count}}", count);
                 count--;
                 if (count < 0) {
                     clearInterval(interval);
-                    jumpButton.textContent = "正在跳转";
+                    jumpButton.textContent = texts.jumping;
                     window.location.replace(jumpLink);
                 }
             };
@@ -103,8 +117,8 @@ const domainsJson = JSON.stringify(site.domains);
                     const blackPattern = blacklist[i].replace(/\*/g, ".*");
                     if (urlHostname.match(blackPattern)) {
                         // 显示提示信息
-                        urlTip.textContent = tipText.danger;
-                        jumpButton.textContent = "禁止跳转";
+                        urlTip.textContent = texts.blacklistedSite;
+                        jumpButton.textContent = texts.blockedButton;
                         jumpButton.style.cursor = "not-allowed";
                         jumpButton.style.pointerEvents = "none";
                         jumpButton.style.opacity = "0.4";
@@ -117,7 +131,7 @@ const domainsJson = JSON.stringify(site.domains);
                     const whitePattern = whitelist[i].replace(/\*/g, ".*");
                     if (urlHostname.match(whitePattern)) {
                         // 显示提示信息
-                        urlTip.textContent = tipText.safe;
+                        urlTip.textContent = texts.trustedSite;
                         jumpContent.className = "safe";
                         autoJump();
                         return true;
@@ -127,10 +141,10 @@ const domainsJson = JSON.stringify(site.domains);
                 console.error("Error during URL parsing:", error);
                 tipDescription.remove();
                 jumpContent.remove();
-                urlDom.textContent = "获取跳转链接失败";
+                urlDom.textContent = texts.fetchFailed;
                 const sorryMessage = document.createElement("span");
                 sorryMessage.className = "redirect-tip";
-                sorryMessage.textContent = "😔 非常抱歉";
+                sorryMessage.textContent = texts.sorry;
                 urlDom.parentElement.insertBefore(sorryMessage, urlDom);
             }
         };
@@ -151,7 +165,7 @@ const domainsJson = JSON.stringify(site.domains);
         });
         jumpButton.addEventListener("click", () => {
             clearInterval(interval);
-            jumpButton.textContent = "正在跳转";
+            jumpButton.textContent = texts.jumping;
             if (jumpLink) window.location.replace(jumpLink);
         });
         window.addEventListener("DOMContentLoaded", () => {

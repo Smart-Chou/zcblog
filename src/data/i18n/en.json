@@ -171,5 +171,17 @@
             "listening": "Listening",
             "listened": "Listened"
         }
+    },
+    "redirect": {
+        "leavingMessage": "You are leaving {{site}}, heading to",
+        "safetyWarning": "The safety of this URL is unknown. Please protect your account and property.",
+        "continueButton": "Continue",
+        "trustedSite": "This is a trusted site. Redirecting...",
+        "blacklistedSite": "This URL is blacklisted",
+        "blockedButton": "Blocked",
+        "autoJumpCountdown": "Redirecting in {{count}}s",
+        "jumping": "Redirecting...",
+        "fetchFailed": "Failed to get redirect link",
+        "sorry": "Sorry"
     }
 }

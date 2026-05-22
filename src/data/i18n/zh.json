@@ -171,5 +171,17 @@
             "game": "游戏",
             "tv": "影视"
         }
+    },
+    "redirect": {
+        "leavingMessage": "您即将离开{{site}}，前往",
+        "safetyWarning": "该网址安全性未知，请注意您的帐号和财产安全",
+        "continueButton": "继续前往",
+        "trustedSite": "该网址为信任网址，即将跳转",
+        "blacklistedSite": "该网址处于黑名单",
+        "blockedButton": "禁止跳转",
+        "autoJumpCountdown": "{{count}} 秒后自动跳转",
+        "jumping": "正在跳转",
+        "fetchFailed": "获取跳转链接失败",
+        "sorry": "非常抱歉"
     }
 }

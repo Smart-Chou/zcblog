@@ -81,3 +81,22 @@ main {
 .redirect #jump-button:hover {
     background-color: var(--color-bg);
 }
+
+.redirect-icon {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+#jump-content.warn .warn-icon {
+    color: var(--cb-color-warning);
+}
+
+#jump-content.safe .warn-icon {
+    color: var(--cb-color-note);
+}
+
+#jump-content.danger .warn-icon {
+    color: var(--cb-color-danger);
+}
