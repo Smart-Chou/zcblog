@@ -1,5 +1,5 @@
 ---
-import { author } from "~/self.config";
+import { author } from "~/config";
 const currentPath = Astro.url.pathname;
 let ldJson = "website";
 if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {

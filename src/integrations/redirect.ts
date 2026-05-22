@@ -8,7 +8,7 @@ import fg from "fast-glob";
 import { minify } from "html-minifier-terser";
 import { JSDOM } from "jsdom";
 import type { AstroIntegration } from "astro";
-import { config, site } from "../self.config.ts";
+import { config, site } from "~/config";
 import {
     REDIRECT_PAGE,
     toUrlSafeBase64,

@@ -10,7 +10,7 @@ import Analytics from "~/components/BaseHead/Analytics.astro";
 import Scripts from "~/components/BaseHead/Scripts.astro";
 import KatexManager from "~/components/Layout/KatexManager.astro";
 import { ClientRouter } from "astro:transitions";
-import { imageService } from "~/self.config";
+import { imageService } from "~/config";
 
 const {
     title,
@@ -169,13 +169,21 @@ const enPath = isEnglish ? currentPath : "/en" + currentPath;
     <link rel="alternate" hreflang="en" href={siteUrl + enPath} />
     <link rel="alternate" hreflang="x-default" href={siteUrl + zhPath} />
 
-    <!-- Fonts -->
+    <!-- Fonts — async load to avoid render-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+        rel="preload"
+        as="style"
         href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Serif+Display&display=swap"
-        rel="stylesheet"
+        onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Serif+Display&display=swap"
+            rel="stylesheet"
+        />
+    </noscript>
 
     <!-- 预连接到外部资源 -->
     <link rel="preconnect" href={imageService.baseUrl} crossorigin />

@@ -1,5 +1,5 @@
 import { pageviewCount } from "@waline/client/pageview";
-import { waline } from "~/self.config";
+import { waline } from "~/config";
 
 function initWalinePageview() {
     const serverURL = waline.serverUrl;

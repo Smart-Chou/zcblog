@@ -5,7 +5,7 @@ import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import satori from "satori";
 import sharp from "sharp";
-import { site } from "~/self.config";
+import { site } from "~/config";
 import fs from "node:fs";
 import path from "node:path";
 

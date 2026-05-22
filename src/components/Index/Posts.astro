@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { t, defaultLocale, type Locale } from "~/utils/i18n";
 
 interface Post {
@@ -8,7 +9,7 @@ interface Post {
         description?: string | null;
         pubDate: Date;
         image?: {
-            url: string | { src: string };
+            url: string | { src: string; width: number; height: number };
             alt: string;
         };
     };
@@ -51,12 +52,13 @@ function formatDateFull(date: Date): string {
                 <!-- Featured post -->
                 <article class="post-featured">
                     {posts[0].data.image && (
-                        <img
+                        <Image
+                            src={getImageUrl(posts[0].data.image)}
+                            alt={posts[0].data.image.alt}
+                            width={720}
+                            class="post-featured-cover"
                             loading="lazy"
                             decoding="async"
-                            src={getImageUrl(posts[0].data.image)}
-                            class="post-featured-cover"
-                            alt={posts[0].data.image.alt}
                         />
                     )}
                     <div class="post-featured-body">
@@ -71,7 +73,7 @@ function formatDateFull(date: Date): string {
                     <a href={`/article/${posts[0].id}/`} class="post-card-link" aria-label={`${locale === "en" ? "Read" : "阅读"} ${posts[0].data.title}`}></a>
                 </article>
 
-                <!-- Secondary posts -->
+                {/* Secondary posts */}
                 {posts.slice(1).map((post) => (
                     <article class="post-card">
                         <h2 class="post-card-title">

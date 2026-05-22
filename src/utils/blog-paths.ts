@@ -1,5 +1,5 @@
 import { getCollection } from "astro:content";
-import { config } from "~/self.config";
+import { config } from "~/config";
 import { enrichPost } from "~/utils/getPostsWithMeta";
 import { compareByPubDate } from "~/utils";
 

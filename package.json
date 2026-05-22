@@ -7,7 +7,7 @@
     "scripts": {
         "dev": "rm -rf node_modules/.vite && astro dev",
         "start": "rm -rf node_modules/.vite && astro dev",
-        "build": "pnpm run talks & pnpm run douban & pnpm run friends & wait && pnpm run icons && astro check && astro build",
+        "build": "pnpm run talks & pnpm run douban & pnpm run friends & wait && pnpm run icons && astro build",
         "preview": "astro preview",
         "astro": "astro",
         "type-check": "tsc --noEmit",

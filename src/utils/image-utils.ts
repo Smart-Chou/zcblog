@@ -1,4 +1,4 @@
-import { imageService } from "~/self.config";
+import { imageService } from "~/config";
 
 const DEFAULT_IMAGE_URL = `${imageService.baseUrl}${imageService.randomPath}`;
 

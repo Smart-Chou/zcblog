@@ -1,4 +1,4 @@
-import { config } from "~/self.config";
+import { config } from "~/config";
 import {
     REDIRECT_PAGE,
     toUrlSafeBase64,
