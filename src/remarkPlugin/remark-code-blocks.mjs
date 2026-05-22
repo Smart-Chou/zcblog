@@ -15,6 +15,8 @@ import { deflateSync } from "node:zlib";
 import { config } from "../config/index.ts";
 
 const PLANTUML_SERVER = "https://www.plantuml.com/plantuml";
+const YOUTUBE_EMBED = "https://www.youtube.com/embed/";
+const BILIBILI_EMBED = "https://player.bilibili.com/player.html";
 
 function encode64(data) {
     const chars =
@@ -130,6 +132,40 @@ export function remarkCodeBlocks() {
                     '" style="height:400px"><canvas id="' +
                     chartId +
                     '-canvas"></canvas></div>';
+                return;
+            }
+
+            // YouTube embed
+            if (lang === "youtube" || lang === "yt") {
+                const videoId = node.value.trim();
+                if (!videoId) return;
+                node.type = "html";
+                node.value =
+                    '<div class="video-wrapper">' +
+                    '<iframe src="' +
+                    YOUTUBE_EMBED +
+                    videoId +
+                    '" title="YouTube video" frameborder="0"' +
+                    ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"' +
+                    ' allowfullscreen loading="lazy"></iframe>' +
+                    "</div>";
+                return;
+            }
+
+            // Bilibili embed
+            if (lang === "bilibili" || lang === "bili") {
+                const videoId = node.value.trim();
+                if (!videoId) return;
+                node.type = "html";
+                node.value =
+                    '<div class="video-wrapper">' +
+                    '<iframe src="' +
+                    BILIBILI_EMBED +
+                    "?bvid=" +
+                    videoId +
+                    '" title="Bilibili video" frameborder="0"' +
+                    ' allowfullscreen loading="lazy"></iframe>' +
+                    "</div>";
                 return;
             }
 
