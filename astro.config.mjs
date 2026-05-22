@@ -38,10 +38,6 @@ export default defineConfig({
             prefixDefaultLocale: false, // 默认语言(中文)不带前缀
         },
     },
-    // experimental: {
-    //     preserveScriptOrder: true,
-    //     svgo: true,
-    // },
     markdown: {
         remarkPlugins: [
             remarkMath,

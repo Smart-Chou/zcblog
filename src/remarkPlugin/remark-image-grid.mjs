@@ -11,6 +11,41 @@
  */
 import { visit } from "unist-util-visit";
 
+function gridColClass(count) {
+    return `md:grid-cols-${Math.min(count || 2, 4)}`;
+}
+
+function createGridWrapper(children, imgCount) {
+    return {
+        type: "paragraph",
+        data: {
+            hName: "div",
+            hProperties: {
+                className: [
+                    "image-grid",
+                    "grid",
+                    "grid-cols-1",
+                    gridColClass(imgCount),
+                    "gap-4",
+                    "my-4",
+                ],
+            },
+        },
+        children,
+    };
+}
+
+function handleSingleParagraphGrid(node) {
+    let imgCount = 0;
+    visit({ type: "root", children: [node] }, "image", () => {
+        imgCount++;
+    });
+    return createGridWrapper(
+        node.children.filter((n) => n.type !== "text" || n.value.trim() !== ""),
+        imgCount,
+    );
+}
+
 export function remarkImageGrid() {
     return (tree) => {
         if (tree.type !== "root") return;
@@ -48,40 +83,7 @@ export function remarkImageGrid() {
 
                 // Single-paragraph grid
                 if (isStart && isEnd && !inGrid) {
-                    let imgCount = 0;
-                    visit({ type: "root", children: [node] }, "image", () => {
-                        imgCount++;
-                    });
-                    const cols = Math.min(imgCount || 2, 4);
-                    const colClass =
-                        "md:grid-cols-" +
-                        (cols === 1
-                            ? "1"
-                            : cols === 2
-                              ? "2"
-                              : cols === 3
-                                ? "3"
-                                : "4");
-
-                    newChildren.push({
-                        type: "paragraph",
-                        data: {
-                            hName: "div",
-                            hProperties: {
-                                className: [
-                                    "image-grid",
-                                    "grid",
-                                    "grid-cols-1",
-                                    colClass,
-                                    "gap-4",
-                                    "my-4",
-                                ],
-                            },
-                        },
-                        children: node.children.filter(
-                            (n) => n.type !== "text" || n.value.trim() !== "",
-                        ),
-                    });
+                    newChildren.push(handleSingleParagraphGrid(node));
                     continue;
                 }
 
@@ -117,34 +119,8 @@ export function remarkImageGrid() {
                             imgCount++;
                         }),
                     );
-                    const cols = Math.min(imgCount || 2, 4);
-                    const colClass =
-                        "md:grid-cols-" +
-                        (cols === 1
-                            ? "1"
-                            : cols === 2
-                              ? "2"
-                              : cols === 3
-                                ? "3"
-                                : "4");
 
-                    newChildren.push({
-                        type: "paragraph",
-                        data: {
-                            hName: "div",
-                            hProperties: {
-                                className: [
-                                    "image-grid",
-                                    "grid",
-                                    "grid-cols-1",
-                                    colClass,
-                                    "gap-4",
-                                    "my-4",
-                                ],
-                            },
-                        },
-                        children: gridChildren,
-                    });
+                    newChildren.push(createGridWrapper(gridChildren, imgCount));
                     gridChildren = [];
                     continue;
                 }

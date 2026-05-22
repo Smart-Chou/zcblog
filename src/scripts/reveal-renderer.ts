@@ -3,10 +3,49 @@
  */
 import { b64ToUtf8 } from "~/scripts/b64-utf8";
 
+const REVEAL_CSS = "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.min.css";
+const REVEAL_THEME = "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css";
+const REVEAL_JS = "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.min.js";
+
+function ensureScript(src: string): Promise<void> {
+    return new Promise((resolve) => {
+        if (document.querySelector(`script[src="${src}"]`)) {
+            resolve();
+            return;
+        }
+        const s = document.createElement("script");
+        s.src = src;
+        s.onload = () => resolve();
+        document.head.appendChild(s);
+    });
+}
+
+function ensureLink(href: string, id?: string): void {
+    const selector = id
+        ? `link[href="${href}"], link[id="${id}"]`
+        : `link[href="${href}"]`;
+    if (document.querySelector(selector)) return;
+    const l = document.createElement("link");
+    l.rel = "stylesheet";
+    l.href = href;
+    if (id) l.id = id;
+    document.head.appendChild(l);
+}
+
+async function loadReveal(): Promise<any> {
+    const R = (window as any).Reveal;
+    if (!R) {
+        ensureLink(REVEAL_CSS);
+        ensureLink(REVEAL_THEME, "reveal-theme");
+        await ensureScript(REVEAL_JS);
+    }
+    return (window as any).Reveal;
+}
+
 function initReveal() {
     document
         .querySelectorAll<HTMLDivElement>(".reveal-wrapper")
-        .forEach((container) => {
+        .forEach(async (container) => {
             const encoded = container.getAttribute("data-reveal");
             if (!encoded || (container as any).__revealInit) return;
             (container as any).__revealInit = true;
@@ -30,43 +69,17 @@ function initReveal() {
                 `</div></div>`,
             ].join("");
 
-            function init() {
-                const R = (window as any).Reveal;
-                if (!R) {
-                    const l = document.createElement("link");
-                    l.rel = "stylesheet";
-                    l.href =
-                        "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.min.css";
-                    document.head.appendChild(l);
-
-                    const t = document.createElement("link");
-                    t.rel = "stylesheet";
-                    t.href =
-                        "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css";
-                    t.id = "reveal-theme";
-                    document.head.appendChild(t);
-
-                    const s = document.createElement("script");
-                    s.src =
-                        "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.min.js";
-                    s.onload = init;
-                    document.head.appendChild(s);
-                    return;
-                }
-
-                const el = container.querySelector<HTMLElement>(".reveal");
-                if (!el) return;
-                new R(el, {
-                    width: 960,
-                    height: 540,
-                    margin: 0.1,
-                    transition: "slide",
-                    embedded: true,
-                    hash: false,
-                }).initialize();
-            }
-
-            init();
+            const R = await loadReveal();
+            const el = container.querySelector<HTMLElement>(".reveal");
+            if (!el) return;
+            new R(el, {
+                width: 960,
+                height: 540,
+                margin: 0.1,
+                transition: "slide",
+                embedded: true,
+                hash: false,
+            }).initialize();
         });
 }
 

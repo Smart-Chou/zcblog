@@ -3,10 +3,33 @@
  */
 import { b64ToUtf8 } from "~/scripts/b64-utf8";
 
+const CHART_CDN = "https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js";
+
+function ensureScript(src: string): Promise<void> {
+    return new Promise((resolve) => {
+        if (document.querySelector(`script[src="${src}"]`)) {
+            resolve();
+            return;
+        }
+        const s = document.createElement("script");
+        s.src = src;
+        s.onload = () => resolve();
+        document.head.appendChild(s);
+    });
+}
+
+async function loadChart(): Promise<any> {
+    const C = (window as any).Chart;
+    if (!C) {
+        await ensureScript(CHART_CDN);
+    }
+    return (window as any).Chart;
+}
+
 function initCharts() {
     document
         .querySelectorAll<HTMLDivElement>(".chart-container")
-        .forEach((container) => {
+        .forEach(async (container) => {
             const encoded = container.getAttribute("data-chart");
             if (!encoded || (container as any).__chartInit) return;
             (container as any).__chartInit = true;
@@ -21,24 +44,12 @@ function initCharts() {
             const canvas = container.querySelector<HTMLCanvasElement>("canvas");
             if (!canvas) return;
 
-            function render() {
-                const C = (window as any).Chart;
-                if (!C) {
-                    const s = document.createElement("script");
-                    s.src =
-                        "https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js";
-                    s.onload = render;
-                    document.head.appendChild(s);
-                    return;
-                }
-                new C(canvas, {
-                    type: config.type,
-                    data: config.data,
-                    options: config.options,
-                });
-            }
-
-            render();
+            const C = await loadChart();
+            new C(canvas, {
+                type: config.type,
+                data: config.data,
+                options: config.options,
+            });
         });
 }
 
