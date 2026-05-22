@@ -37,7 +37,10 @@ const avatarImage = getLocalImage(item.avatar_url);
             src={avatarImage?.src ?? item.avatar_url}
             alt={item.username}
             class="avatar"
+            width={40}
+            height={40}
             loading="lazy"
+            decoding="async"
         />
         <div class="essay-meta">
             <span class="username">{item.username}</span>

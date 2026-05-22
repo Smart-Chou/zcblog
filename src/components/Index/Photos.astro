@@ -18,12 +18,12 @@ const allPhotos = albums.flatMap((album) =>
         title: p.alt || p.description || "",
     })),
 );
-const sortedPhotos = allPhotos
-    .filter((p) => extractDate(p.title) !== null)
-    .sort(
-        (a, b) =>
-            extractDate(b.title)!.getTime() - extractDate(a.title)!.getTime(),
-    );
+const withDates = allPhotos
+    .map((p) => ({ ...p, _date: extractDate(p.title) }))
+    .filter((p) => p._date !== null);
+const sortedPhotos = withDates.sort(
+    (a, b) => b._date!.getTime() - a._date!.getTime(),
+);
 const photos = sortedPhotos.slice(0, MAX_PHOTOS);
 
 const isLargeGrid = photos.length >= 9;
@@ -41,6 +41,8 @@ const isLargeGrid = photos.length >= 9;
                     <img
                         src={photo.url}
                         alt={photo.title}
+                        width={400}
+                        height={300}
                         loading="lazy"
                         decoding="async"
                     />
