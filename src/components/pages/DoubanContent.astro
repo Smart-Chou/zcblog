@@ -8,49 +8,16 @@ import { site } from "~/config";
 import books from "~/data/douban-books.json";
 import movies from "~/data/douban-movies.json";
 import music from "~/data/douban-music.json";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 
 interface Props {
-    locale?: "zh" | "en";
+    locale?: string;
 }
 
 const { locale = "zh" } = Astro.props;
+const loc: Locale = getLocale(locale);
 
-const t = {
-    zh: {
-        title: "豆瓣",
-        subtitle: "我的书影音记录",
-        description: `${site.title} 的豆瓣书影音`,
-        empty: "暂无数据，请先运行",
-        emptyHint: "获取豆瓣数据",
-        tabs: { book: "书籍", movie: "影视", music: "音乐" },
-        status: {
-            wish: "想看",
-            watching: "在看",
-            watched: "看过",
-            reading: "在读",
-            read: "读过",
-            listening: "在听",
-            listened: "听过",
-        } as Record<string, string>,
-    },
-    en: {
-        title: "Douban",
-        subtitle: "My books, movies & music",
-        description: `${site.title}'s Douban collection`,
-        empty: "No data yet. Run",
-        emptyHint: "to fetch data",
-        tabs: { book: "Books", movie: "Movies", music: "Music" },
-        status: {
-            wish: "Wishlist",
-            watching: "Watching",
-            watched: "Watched",
-            reading: "Reading",
-            read: "Read",
-            listening: "Listening",
-            listened: "Listened",
-        } as Record<string, string>,
-    },
-}[locale];
+const description = `${site.title}${loc === "en" ? "'s Douban collection" : " 的豆瓣书影音"}`;
 
 interface Tab {
     id: string;
@@ -59,18 +26,18 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-    { id: "book", name: t.tabs.book, items: books as DoubanItem[] },
-    { id: "movie", name: t.tabs.movie, items: movies as DoubanItem[] },
-    { id: "music", name: t.tabs.music, items: music as DoubanItem[] },
+    { id: "book", name: t(loc, "douban.tabs.book"), items: books as DoubanItem[] },
+    { id: "movie", name: t(loc, "douban.tabs.movie"), items: movies as DoubanItem[] },
+    { id: "music", name: t(loc, "douban.tabs.music"), items: music as DoubanItem[] },
 ].filter((tab) => tab.items.length > 0);
 
 const hasData = tabs.length > 0;
 ---
 
 <SectionPage
-    title={t.title}
-    subtitle={t.subtitle}
-    description={t.description}
+    title={t(loc, "douban.title")}
+    subtitle={t(loc, "douban.description")}
+    description={description}
     fullWidth
 >
     <DynamicIcon name="mingcute:book-3-line" slot="icon" />
@@ -79,7 +46,7 @@ const hasData = tabs.length > 0;
         !hasData ? (
             <div class="empty-state">
                 <p>
-                    {t.empty} <code>pnpm run fetch-douban</code> {t.emptyHint}
+                    {t(loc, "douban.empty")} <code>pnpm run fetch-douban</code> {t(loc, "douban.emptyHint")}
                 </p>
             </div>
         ) : (
@@ -114,7 +81,7 @@ const hasData = tabs.length > 0;
                             {tab.items.map((item) => (
                                 <DoubanCard
                                     item={item}
-                                    statusLabel={t.status[item.status] || ""}
+                                    statusLabel={t(loc, `douban.status.${item.status}`)}
                                 />
                             ))}
                         </div>

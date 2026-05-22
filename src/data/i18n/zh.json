@@ -129,14 +129,47 @@
         "title": "随笔",
         "description": "说说与随笔"
     },
-    "bangumi": {
-        "title": "Bangumi",
-        "description": "番剧与音乐"
-    },
     "home": {
         "friendsTitle": "朋友连接",
         "photosTitle": "近期光影",
         "moviesTitle": "近期观影",
         "booksTitle": "近期阅读"
+    },
+    "douban": {
+        "title": "豆瓣",
+        "description": "我的书影音记录",
+        "empty": "暂无数据，请先运行",
+        "emptyHint": "获取豆瓣数据",
+        "tabs": {
+            "book": "书籍",
+            "movie": "影视",
+            "music": "音乐"
+        },
+        "status": {
+            "wish": "想看",
+            "watching": "在看",
+            "watched": "看过",
+            "reading": "在读",
+            "read": "读过",
+            "listening": "在听",
+            "listened": "听过"
+        }
+    },
+    "bangumi": {
+        "title": "Bangumi",
+        "description": "番剧与音乐",
+        "subtitle": "我的动漫、书籍、音乐和游戏收藏",
+        "buildTimePrefix": "最后更新: ",
+        "emptyTitleNoUser": "未配置 Bangumi 用户ID",
+        "emptyMessageNoUser": "请在页面代码中配置你的 Bangumi 用户ID",
+        "emptyTitleNoData": "暂无数据",
+        "emptyMessageNoData": "你的收藏列表是空的",
+        "categories": {
+            "anime": "动画",
+            "book": "书籍",
+            "music": "音乐",
+            "game": "游戏",
+            "tv": "影视"
+        }
     }
 }

@@ -145,7 +145,7 @@ import "@waline/client/waline-meta.css";
             reaction: true as boolean | string[],
             codeSyntaxHighlight: true,
             imageUploader: () => {
-                alert("图片上传功能暂未开放");
+                console.warn("Waline 图片上传功能暂未开放");
                 return Promise.reject(new Error("图片上传功能暂未开放"));
             },
         };

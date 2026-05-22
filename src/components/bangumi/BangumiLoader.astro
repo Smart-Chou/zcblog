@@ -2,12 +2,14 @@
 import TabNav from "~/components/bangumi/TabNav.astro";
 import BangumiSection from "~/components/bangumi/BangumiSection.astro";
 import type { UserSubjectCollection } from "~/types/bangumi";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 
 interface Props {
-    locale: "zh" | "en";
+    locale: string;
 }
 
 const { locale } = Astro.props;
+const loc: Locale = getLocale(locale);
 
 const BANGUMI_CONFIG = {
     username: "1246668",
@@ -28,48 +30,15 @@ const BANGUMI_CONFIG = {
     },
 };
 
-const t = {
-    zh: {
-        subtitle: "我的动漫、书籍、音乐和游戏收藏",
-        buildTimePrefix: "最后更新: ",
-        emptyTitleNoUser: "未配置 Bangumi 用户ID",
-        emptyMessageNoUser: "请在页面代码中配置你的 Bangumi 用户ID",
-        emptyTitleNoData: "暂无数据",
-        emptyMessageNoData: "你的收藏列表是空的",
-        categories: {
-            anime: "动画",
-            book: "书籍",
-            music: "音乐",
-            game: "游戏",
-            tv: "影视",
-        },
-    },
-    en: {
-        subtitle: "My anime, book, music and game collection",
-        buildTimePrefix: "Last updated: ",
-        emptyTitleNoUser: "Bangumi user ID not configured",
-        emptyMessageNoUser: "Please configure your Bangumi user ID in the code",
-        emptyTitleNoData: "No data available",
-        emptyMessageNoData: "Your collection is empty",
-        categories: {
-            anime: "Anime",
-            book: "Book",
-            music: "Music",
-            game: "Game",
-            tv: "TV",
-        },
-    },
-}[locale];
-
 const categoryMap: Record<
     string,
     { id: string; name: string; subjectType: number }
 > = {
-    anime: { id: "anime", name: t.categories.anime, subjectType: 2 },
-    book: { id: "book", name: t.categories.book, subjectType: 1 },
-    music: { id: "music", name: t.categories.music, subjectType: 3 },
-    game: { id: "game", name: t.categories.game, subjectType: 4 },
-    tv: { id: "tv", name: t.categories.tv, subjectType: 6 },
+    anime: { id: "anime", name: t(loc, "bangumi.categories.anime"), subjectType: 2 },
+    book: { id: "book", name: t(loc, "bangumi.categories.book"), subjectType: 1 },
+    music: { id: "music", name: t(loc, "bangumi.categories.music"), subjectType: 3 },
+    game: { id: "game", name: t(loc, "bangumi.categories.game"), subjectType: 4 },
+    tv: { id: "tv", name: t(loc, "bangumi.categories.tv"), subjectType: 6 },
 };
 
 async function fetchWithRetry(

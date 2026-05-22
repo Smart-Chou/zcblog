@@ -44,17 +44,16 @@ function avatarForName(name) {
     return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 }
 
-// ── 解析 RSS <item> ──
+// ── 解析 RSS <item>（使用 DOMParser，避免正则解析 XML 的脆弱性）──
 
 function parseItem(itemXml) {
     try {
-        const titleMatch = itemXml.match(/<title>([^<]+)<\/title>/);
-        const linkMatch = itemXml.match(/<link>([^<]+)<\/link>/);
-        const dateMatch = itemXml.match(/<pubDate>([^<]+)<\/pubDate>/);
-
-        const rawTitle = titleMatch?.[1]?.trim() ?? "";
-        const url = linkMatch?.[1]?.trim() ?? "";
-        const date = dateMatch?.[1] ? new Date(dateMatch[1]).toISOString() : "";
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(itemXml, "text/xml");
+        const rawTitle = doc.querySelector("title")?.textContent?.trim() ?? "";
+        const url = doc.querySelector("link")?.textContent?.trim() ?? "";
+        const dateEl = doc.querySelector("pubDate");
+        const date = dateEl?.textContent ? new Date(dateEl.textContent).toISOString() : "";
 
         if (!rawTitle || !url) return null;
 

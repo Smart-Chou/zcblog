@@ -1,12 +1,12 @@
 ---
 import { site } from "~/config";
 import { Image } from "astro:assets";
-import logo from "~/assets/logo.svg";
+import logo from "~/assets/logo.webp";
 ---
 
 <a class="logo" href="/">
     <span class="logo-text">
-        <Image src={logo} alt="Blog Logo" loading="eager" class="logo-image" />
+        <Image src={logo} alt="Blog Logo" loading="eager" width={64} height={64} class="logo-image" />
         {site.title}
     </span>
 </a>

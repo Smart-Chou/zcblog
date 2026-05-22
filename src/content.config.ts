@@ -14,8 +14,8 @@ const article = defineCollection({
             description: z.string().nullable().optional(),
             summary: z.string().nullable().optional(),
             pubDate: z.date(),
-            update: z.date().nullable().optional(),
-            tags: z.array(z.string()).optional(),
+            upDate: z.date().nullable().optional(),
+            tags: z.array(z.string()),
             image: z
                 .object({
                     url: z.preprocess(
@@ -32,18 +32,18 @@ const article = defineCollection({
                     ),
                 })
                 .optional(),
-            sticky: z.number().default(0).nullable(),
+            sticky: z.number().default(0),
             draft: z.boolean().default(false).optional(),
-            toc: z.boolean().default(true).nullable(),
-            waline: z.boolean().default(true).nullable(),
-            donate: z.boolean().default(true).nullable(),
-            author: z.boolean().default(true).nullable(),
-            mathjax: z.boolean().default(false).nullable(),
-            mermaid: z.boolean().default(false).nullable(),
-            plantuml: z.boolean().default(false).nullable(),
-            katex: z.boolean().default(false).nullable(),
-            chart: z.boolean().default(false).nullable(),
-            markmap: z.boolean().default(false).nullable(),
+            toc: z.boolean().default(true).optional(),
+            waline: z.boolean().default(true).optional(),
+            donate: z.boolean().default(true).optional(),
+            author: z.boolean().default(true).optional(),
+            mathjax: z.boolean().default(false).optional(),
+            mermaid: z.boolean().default(false).optional(),
+            plantuml: z.boolean().default(false).optional(),
+            katex: z.boolean().default(false).optional(),
+            chart: z.boolean().default(false).optional(),
+            markmap: z.boolean().default(false).optional(),
         }),
 });
 

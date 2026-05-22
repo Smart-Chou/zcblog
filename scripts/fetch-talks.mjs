@@ -144,11 +144,15 @@ async function main() {
             display: relativeTime(iso),
             url: `${BLINKO_BASE}/share/${n.shareEncryptedUrl || n.id}`,
             content: n.content || "",
+            sortDate: new Date(iso).toISOString(),
             ...(images.length > 0 && { images }),
         };
     });
 
-    items.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+    items.sort((a, b) => new Date(b.sortDate).getTime() - new Date(a.sortDate).getTime());
+
+    // 移除仅用于排序的内部字段
+    for (const item of items) delete item.sortDate;
 
     await writeFile(OUTPUT, JSON.stringify(items, null, 2) + "\n", "utf-8");
     console.log(`✅ talks.json 已更新 (${items.length} 条)`);

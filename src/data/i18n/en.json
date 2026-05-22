@@ -131,12 +131,45 @@
     },
     "bangumi": {
         "title": "Bangumi",
-        "description": "Anime and music"
+        "description": "Anime and music",
+        "subtitle": "My anime, book, music and game collection",
+        "buildTimePrefix": "Last updated: ",
+        "emptyTitleNoUser": "Bangumi user ID not configured",
+        "emptyMessageNoUser": "Please configure your Bangumi user ID in the code",
+        "emptyTitleNoData": "No data available",
+        "emptyMessageNoData": "Your collection is empty",
+        "categories": {
+            "anime": "Anime",
+            "book": "Book",
+            "music": "Music",
+            "game": "Game",
+            "tv": "TV"
+        }
     },
     "home": {
         "friendsTitle": "Friend Connections",
         "photosTitle": "Recent Photos",
         "moviesTitle": "Recent Movies",
         "booksTitle": "Recent Books"
+    },
+    "douban": {
+        "title": "Douban",
+        "description": "My books, movies & music",
+        "empty": "No data yet. Run",
+        "emptyHint": "to fetch data",
+        "tabs": {
+            "book": "Books",
+            "movie": "Movies",
+            "music": "Music"
+        },
+        "status": {
+            "wish": "Wishlist",
+            "watching": "Watching",
+            "watched": "Watched",
+            "reading": "Reading",
+            "read": "Read",
+            "listening": "Listening",
+            "listened": "Listened"
+        }
     }
 }
