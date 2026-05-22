@@ -1,8 +1,14 @@
 ---
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 
+interface PageInfo {
+    url: { prev?: string; next?: string };
+    lastPage: number;
+    currentPage: number;
+}
+
 interface Props {
-    page: any;
+    page: PageInfo;
     blogPath?: string;
 }
 

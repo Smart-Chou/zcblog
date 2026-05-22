@@ -1,13 +1,21 @@
 ---
 import FriendCard from "~/components/ui/FriendCard.astro";
 import friends from "~/data/friends-articles.json";
+import { t, type Locale } from "~/utils/i18n";
+
+interface Props {
+    title: string;
+    locale: Locale;
+}
+
+const { title, locale } = Astro.props;
 ---
 
 <section class="friends-section">
     <div class="friends-inner">
         <div class="section-header">
-            <h2 class="section-label">朋友连接</h2>
-            <a class="section-link" href="/friends/">查看全部 →</a>
+            <h2 class="section-label">{title}</h2>
+            <a class="section-link" href="/friends/">{t(locale, "common.viewAll")} →</a>
         </div>
         <div id="friArticle">
             {

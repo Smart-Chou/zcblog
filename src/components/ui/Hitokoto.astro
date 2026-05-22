@@ -13,8 +13,8 @@ try {
         from = data.from;
         fromWho = data.from_who;
     }
-} catch {
-    // silently ignore
+} catch (e) {
+    console.debug("hitokoto fetch failed", e);
 }
 
 if (!hitokoto) return;
@@ -97,7 +97,9 @@ if (!hitokoto) return;
                     sourceEl.style.opacity = "";
                 }, 320);
             })
-            .catch(() => {});
+            .catch((e) => {
+                console.debug("hitokoto fetch failed", e);
+            });
     }
 
     setInterval(getHitokoto, 60000);

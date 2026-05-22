@@ -7,9 +7,30 @@ import BackToTop from "~/components/Layout/BackToTop.astro";
 import Hitokoto from "~/components/ui/Hitokoto.astro";
 import { site, pageView, imageService } from "~/config";
 
+interface PostData {
+    slug: string;
+    data: {
+        title: string;
+        pubDate: Date;
+        tags?: string[];
+        image?: { url?: string; alt?: string };
+        description?: string;
+    };
+    wordCount: number;
+    readTime: string;
+    modifiedTime: Date | string;
+    excerpt: string;
+    sticky?: number;
+}
+
 interface Props {
     locale?: string;
-    page: any;
+    page: {
+        data: PostData[];
+        url: { prev?: string; next?: string };
+        currentPage: number;
+        lastPage: number;
+    };
 }
 
 const { locale = "zh", page } = Astro.props;
@@ -40,7 +61,7 @@ const nextUrl = page.url.next
     <Author />
     <div class="post">
         {
-            postsWithMeta.map((post: any, index: number) => (
+            postsWithMeta.map((post, index: number) => (
                 <PostCard
                     key={post.slug}
                     title={post.data.title}

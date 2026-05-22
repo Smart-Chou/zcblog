@@ -16,6 +16,7 @@ import typewriterTexts from "~/data/typewriter.json";
 import { site } from "~/config";
 import { sortByPubDate } from "~/utils";
 import { getAllTags } from "~/utils/article-stats";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 
 const toMediaItem = (item: (typeof booksData)[number]) => ({
     url: item.cover || "",
@@ -33,7 +34,8 @@ interface Props {
 }
 
 const { locale = "zh" } = Astro.props;
-const isEn = locale === "en";
+const loc: Locale = getLocale(locale);
+const isEn = loc === "en";
 
 const allArticles = await getCollection("article", ({ data }) => !data.draft);
 const sortedArticles = sortByPubDate(allArticles);
@@ -78,20 +80,22 @@ const tagsCount = new Set(getAllTags(allArticles)).size;
 
             <Talk />
             <Posts posts={recentPosts} />
-            <Friends />
-            <Photos />
+            <Friends title={t(loc, "home.friendsTitle")} locale={loc} />
+            <Photos title={t(loc, "home.photosTitle")} locale={loc} />
             <div class="media-duo">
                 <Media
-                    title={isEn ? "Recent Movies" : "近期观影"}
+                    title={t(loc, "home.moviesTitle")}
                     items={moviesItems}
                     href="/douban/"
                     limit={4}
+                    locale={loc}
                 />
                 <Media
-                    title={isEn ? "Recent Books" : "近期阅读"}
+                    title={t(loc, "home.booksTitle")}
                     items={booksItems}
                     href="/douban/"
                     limit={4}
+                    locale={loc}
                 />
             </div>
 

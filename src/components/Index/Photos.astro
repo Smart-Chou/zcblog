@@ -1,6 +1,14 @@
 ---
 import albums from "~/data/albums.json";
 import { imageService } from "~/config";
+import { t, type Locale } from "~/utils/i18n";
+
+interface Props {
+    title: string;
+    locale: Locale;
+}
+
+const { title, locale } = Astro.props;
 
 function extractDate(alt: string): Date | null {
     const match = alt.match(/(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}:\d{2})?/);
@@ -31,8 +39,8 @@ const isLargeGrid = photos.length >= 9;
 
 <section class="photos-section">
     <div class="section-header">
-        <h2 class="section-label">近期光影</h2>
-        <a class="section-link" href="/albums/">查看全部 →</a>
+        <h2 class="section-label">{title}</h2>
+        <a class="section-link" href="/albums/">{t(locale, "common.viewAll")} →</a>
     </div>
     <div class:list={["photos-grid", { "photos-grid--large": isLargeGrid }]}>
         {

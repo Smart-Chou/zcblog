@@ -1,4 +1,4 @@
-import { statSync, readFileSync } from "fs";
+import { statSync, readFileSync, type Stats } from "fs";
 import path from "path";
 
 /**
@@ -27,7 +27,7 @@ export function readMetadata(postId: string) {
     // 尝试不同的文件扩展名
     const extensions = [".md", ".mdx", ""];
     let fileContent: string | null = null;
-    let fileStats: any = null;
+    let fileStats: Stats | null = null;
 
     for (const ext of extensions) {
         const tryPath = filePath + ext;

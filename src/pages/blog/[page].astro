@@ -4,7 +4,30 @@ import { blogGetStaticPaths } from "~/utils/blog-paths";
 
 export const getStaticPaths = blogGetStaticPaths;
 
-const { page } = Astro.props as any;
+interface PostData {
+    slug: string;
+    data: {
+        title: string;
+        pubDate: Date;
+        tags?: string[];
+        image?: { url?: string; alt?: string };
+        description?: string;
+    };
+    wordCount: number;
+    readTime: string;
+    modifiedTime: Date | string;
+    excerpt: string;
+    sticky?: number;
+}
+
+const { page } = Astro.props as {
+    page: {
+        data: PostData[];
+        url: { prev?: string; next?: string };
+        currentPage: number;
+        lastPage: number;
+    };
+};
 ---
 
 <BlogContent page={page} locale="zh" />

@@ -121,7 +121,7 @@ import "@waline/client/waline-meta.css";
         };
 
         const origin = waline.serverUrl;
-        const walineConfig: any = {
+        const walineConfig = {
             el: "#waline",
             serverURL: origin,
             comment: true,
@@ -142,7 +142,7 @@ import "@waline/client/waline-meta.css";
                 "https://unpkg.com/@waline/emojis@1.2.0/weibo",
             ],
             wordLimit: [0, 1000],
-            reaction: true,
+            reaction: true as boolean | string[],
             codeSyntaxHighlight: true,
             imageUploader: () => {
                 alert("图片上传功能暂未开放");

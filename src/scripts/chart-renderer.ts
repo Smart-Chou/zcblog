@@ -23,7 +23,7 @@ function initCharts() {
             if (!encoded || (container as any).__chartInit) return;
             (container as any).__chartInit = true;
 
-            let config: { type: string; data: any; options: any };
+            let config: { type: string; data: Record<string, unknown>; options: Record<string, unknown> };
             try {
                 config = JSON.parse(b64ToUtf8(encoded));
             } catch {

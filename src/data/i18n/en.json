@@ -132,5 +132,11 @@
     "bangumi": {
         "title": "Bangumi",
         "description": "Anime and music"
+    },
+    "home": {
+        "friendsTitle": "Friend Connections",
+        "photosTitle": "Recent Photos",
+        "moviesTitle": "Recent Movies",
+        "booksTitle": "Recent Books"
     }
 }

@@ -6,7 +6,12 @@ import { compareByPubDate } from "~/utils";
 export async function blogGetStaticPaths({
     paginate,
 }: {
-    paginate: (data: any[], options: { pageSize: number }) => any[];
+    paginate: (data: unknown[], options: { pageSize: number }) => Promise<{
+        data: unknown[];
+        url: { prev?: string; next?: string };
+        currentPage: number;
+        lastPage: number;
+    }>;
 }) {
     const allPosts = await getCollection("article");
     const pageSize = config.PageSize || 10;

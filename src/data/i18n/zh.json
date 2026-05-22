@@ -132,5 +132,11 @@
     "bangumi": {
         "title": "Bangumi",
         "description": "番剧与音乐"
+    },
+    "home": {
+        "friendsTitle": "朋友连接",
+        "photosTitle": "近期光影",
+        "moviesTitle": "近期观影",
+        "booksTitle": "近期阅读"
     }
 }
