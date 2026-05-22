@@ -56,4 +56,3 @@ export function formatDateI18n(
 export function formatDateI18nWithTime(dateInput: Date | string): string {
     return formatDateI18n(dateInput, true);
 }
-

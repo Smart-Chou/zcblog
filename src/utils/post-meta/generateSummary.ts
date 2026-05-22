@@ -6,7 +6,18 @@
 export function generateSummary(markdownContent: string): string {
     const excerptLength = 160;
     const separators = [
-        "。", "，", ".", ",", "：", ":", ")", "）", "!", "！", "?", "？",
+        "。",
+        "，",
+        ".",
+        ",",
+        "：",
+        ":",
+        ")",
+        "）",
+        "!",
+        "！",
+        "?",
+        "？",
     ];
 
     function truncateToExcerpt(

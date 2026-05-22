@@ -10,10 +10,8 @@ import { visit } from "unist-util-visit";
 
 const SPOILER = /:spoiler\[([^\]]+)\]/g;
 
-const CJK_BOUNDARY_BEFORE =
-    /(?:^|(?<=[\s一-龥，。；：！？、""''）\)\]】>]))/;
-const CJK_BOUNDARY_AFTER =
-    /(?:$|(?=[\s一-龥，。；：！？、""''（\(\[【<]))/;
+const CJK_BOUNDARY_BEFORE = /(?:^|(?<=[\s一-龥，。；：！？、""''）\)\]】>]))/;
+const CJK_BOUNDARY_AFTER = /(?:$|(?=[\s一-龥，。；：！？、""''（\(\[【<]))/;
 
 const SUP_PATTERN = new RegExp(
     CJK_BOUNDARY_BEFORE.source + "\\^(.+?)\\^" + CJK_BOUNDARY_AFTER.source,
@@ -29,10 +27,10 @@ const MARK_PATTERN = new RegExp(
 );
 
 const INLINE_PATTERNS = [
-    [SPOILER,       "span", "spoiler"],
-    [SUP_PATTERN,   "sup",  null],
-    [SUB_PATTERN,   "sub",  null],
-    [MARK_PATTERN,  "mark", null],
+    [SPOILER, "span", "spoiler"],
+    [SUP_PATTERN, "sup", null],
+    [SUB_PATTERN, "sub", null],
+    [MARK_PATTERN, "mark", null],
 ];
 
 function hasMatch(text) {
@@ -64,7 +62,10 @@ function parseInlineNodes(text) {
         }
 
         if (earliest.idx > 0) {
-            nodes.push({ type: "text", value: remaining.slice(0, earliest.idx) });
+            nodes.push({
+                type: "text",
+                value: remaining.slice(0, earliest.idx),
+            });
         }
 
         if (earliest.cls) {

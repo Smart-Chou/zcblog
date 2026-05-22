@@ -28,7 +28,9 @@ interface PostsByYear {
 
 const allPosts = await getCollection("article");
 
-const postsWithMeta = allPosts.map((post) => enrichPost(post)) as PostWithMeta[];
+const postsWithMeta = allPosts.map((post) =>
+    enrichPost(post),
+) as PostWithMeta[];
 
 const postsByYear = postsWithMeta.reduce<PostsByYear>((acc, post) => {
     const year = new Date(post.data.pubDate).getFullYear();

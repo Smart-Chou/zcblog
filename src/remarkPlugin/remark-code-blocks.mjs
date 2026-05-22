@@ -64,7 +64,7 @@ export function remarkCodeBlocks() {
                     '<img class="plantuml-image" src="' +
                     src +
                     '" alt="PlantUML diagram" loading="lazy" decoding="async" ' +
-                    'onerror="this.style.display=\'none\';var p=this.parentElement;if(p)p.innerHTML=\'<span class=&quot;text-sm text-gray-400&quot;>PlantUML 图表加载失败</span>\'' +
+                    "onerror=\"this.style.display='none';var p=this.parentElement;if(p)p.innerHTML='<span class=&quot;text-sm text-gray-400&quot;>PlantUML 图表加载失败</span>'" +
                     '" /></div></div>';
                 return;
             }
@@ -136,9 +136,7 @@ export function remarkCodeBlocks() {
             // Regular code block: apply code folding
             if (config.codeFoldingStartLines) {
                 const collapse = `collapse={${config.codeFoldingStartLines}-1000000}`;
-                node.meta = node.meta
-                    ? `${node.meta} ${collapse}`
-                    : collapse;
+                node.meta = node.meta ? `${node.meta} ${collapse}` : collapse;
             }
         });
     };

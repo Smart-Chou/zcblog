@@ -109,12 +109,16 @@ export function getPostsWithMeta(post: Post): PostMeta {
 }
 
 /** Convenience wrapper: auto-fills slug from id and merges meta into the post object. */
-export function enrichPost<T extends Post>(post: T): T & PostMeta & { slug: string } {
+export function enrichPost<T extends Post>(
+    post: T,
+): T & PostMeta & { slug: string } {
     const meta = getPostsWithMeta({ ...post, slug: post.id || post.slug });
     return { ...post, ...meta, slug: (post.id || post.slug)! };
 }
 
 /** Batch version of enrichPost. */
-export function enrichPosts<T extends Post>(posts: T[]): (T & PostMeta & { slug: string })[] {
+export function enrichPosts<T extends Post>(
+    posts: T[],
+): (T & PostMeta & { slug: string })[] {
     return posts.map((post) => enrichPost(post));
 }

@@ -23,7 +23,6 @@ const { searchEnable = search.enable } = Astro.props;
     </div>
 </header>
 
-
 <style>
     .scroll-progress {
         background: var(--color-accent);
@@ -39,8 +38,12 @@ const { searchEnable = search.enable } = Astro.props;
     }
 
     @keyframes scroll-progress {
-        from { transform: scaleX(0); }
-        to { transform: scaleX(1); }
+        from {
+            transform: scaleX(0);
+        }
+        to {
+            transform: scaleX(1);
+        }
     }
 
     #progress-container {
@@ -81,9 +84,15 @@ const { searchEnable = search.enable } = Astro.props;
     }
 
     @keyframes nav-expand {
-        0% { max-width: var(--content-width); }
-        25% { max-width: var(--header-width); }
-        100% { max-width: var(--header-width); }
+        0% {
+            max-width: var(--content-width);
+        }
+        25% {
+            max-width: var(--header-width);
+        }
+        100% {
+            max-width: var(--header-width);
+        }
     }
 
     .header-left,

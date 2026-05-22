@@ -8,7 +8,7 @@ import Favicon from "~/components/BaseHead/Favicon.astro";
 import JsonLd from "~/components/BaseHead/JsonLd.astro";
 import Analytics from "~/components/BaseHead/Analytics.astro";
 import Scripts from "~/components/BaseHead/Scripts.astro";
-import KatexManager from "~/layouts/KatexManager.astro";
+import KatexManager from "~/components/Layout/KatexManager.astro";
 import { ClientRouter } from "astro:transitions";
 import { imageService } from "~/self.config";
 
@@ -30,9 +30,7 @@ const {
 const siteUrl = (Astro.site?.toString() || "").replace(/\/$/, "");
 const currentPath = Astro.url.pathname;
 const isEnglish = currentPath.startsWith("/en/");
-const zhPath = isEnglish
-    ? currentPath.replace(/^\/en/, "")
-    : currentPath;
+const zhPath = isEnglish ? currentPath.replace(/^\/en/, "") : currentPath;
 const enPath = isEnglish ? currentPath : "/en" + currentPath;
 ---
 

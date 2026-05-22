@@ -51,7 +51,14 @@ const {
         currentSlug={currentSlug}
     />
     <div class="post-tags post-card-tags">
-        {tags.map((tag: string) => <PostTag tag={tag.toUpperCase()} url={`/tags/${tag.toUpperCase()}/`} />)}
+        {
+            tags.map((tag: string) => (
+                <PostTag
+                    tag={tag.toUpperCase()}
+                    url={`/tags/${tag.toUpperCase()}/`}
+                />
+            ))
+        }
     </div>
     <a
         href={postUrl}

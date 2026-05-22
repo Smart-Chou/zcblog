@@ -5,23 +5,11 @@
  * markmap-view 的 UMD 构建依赖 window.d3，remark 端已将容器生成为 <svg> 元素。
  */
 import { b64ToUtf8 } from "~/scripts/b64-utf8";
+import { ensureScript } from "~/scripts/ensure-script";
 
 const MARKMAP_LIB = "https://cdn.jsdelivr.net/npm/markmap-lib@0.18";
 const MARKMAP_VIEW = "https://cdn.jsdelivr.net/npm/markmap-view@0.18";
 const D3 = "https://cdn.jsdelivr.net/npm/d3@7";
-
-function ensureScript(src: string): Promise<void> {
-    return new Promise((resolve) => {
-        if (document.querySelector(`script[src="${src}"]`)) {
-            resolve();
-            return;
-        }
-        const s = document.createElement("script");
-        s.src = src;
-        s.onload = () => resolve();
-        document.head.appendChild(s);
-    });
-}
 
 async function loadDeps(): Promise<any> {
     const win = window as any;
@@ -45,7 +33,8 @@ async function renderOne(svg: Element) {
         const { root, features } = t.transform(data);
         const { styles, scripts } = t.getUsedAssets(features);
         if (styles) m.loadCSS(styles);
-        if (scripts) m.loadJS(scripts, { getMarkmap: () => (window as any).markmap });
+        if (scripts)
+            m.loadJS(scripts, { getMarkmap: () => (window as any).markmap });
         m.Markmap.create(svg, {}, root);
     } catch (e) {
         console.error("Markmap render failed:", e);

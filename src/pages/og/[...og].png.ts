@@ -16,7 +16,13 @@ let _fontBold: Buffer | null = null;
 function getFontRegular(): Buffer {
     if (!_fontRegular) {
         _fontRegular = fs.readFileSync(
-            path.join(process.cwd(), "src", "assets", "fonts", "NotoSansSC-Regular.ttf"),
+            path.join(
+                process.cwd(),
+                "src",
+                "assets",
+                "fonts",
+                "NotoSansSC-Regular.ttf",
+            ),
         );
     }
     return _fontRegular;
@@ -25,7 +31,13 @@ function getFontRegular(): Buffer {
 function getFontBold(): Buffer {
     if (!_fontBold) {
         _fontBold = fs.readFileSync(
-            path.join(process.cwd(), "src", "assets", "fonts", "NotoSansSC-Bold.ttf"),
+            path.join(
+                process.cwd(),
+                "src",
+                "assets",
+                "fonts",
+                "NotoSansSC-Bold.ttf",
+            ),
         );
     }
     return _fontBold;

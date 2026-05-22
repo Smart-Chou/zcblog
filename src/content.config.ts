@@ -1,7 +1,7 @@
 import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
-import { imageService } from "~/config"
+import { imageService } from "~/config";
 
 const article = defineCollection({
     loader: glob({
@@ -16,16 +16,22 @@ const article = defineCollection({
             pubDate: z.date(),
             update: z.date().nullable().optional(),
             tags: z.array(z.string()).optional(),
-            image: z.object({
-                url: z.preprocess(
-                    (val) => (val === "" ? undefined : val),
-                    z.union([image(), z.string()]).default(`${imageService.baseUrl}${imageService.randomPath}`)
-                ),
-                alt: z.preprocess(
-                    (val) => (val === "" ? undefined : val),
-                    z.string().default("Occupying Picture Alt")
-                ),
-            }).optional(),
+            image: z
+                .object({
+                    url: z.preprocess(
+                        (val) => (val === "" ? undefined : val),
+                        z
+                            .union([image(), z.string()])
+                            .default(
+                                `${imageService.baseUrl}${imageService.randomPath}`,
+                            ),
+                    ),
+                    alt: z.preprocess(
+                        (val) => (val === "" ? undefined : val),
+                        z.string().default("Occupying Picture Alt"),
+                    ),
+                })
+                .optional(),
             sticky: z.number().default(0).nullable(),
             draft: z.boolean().default(false).optional(),
             toc: z.boolean().default(true).nullable(),

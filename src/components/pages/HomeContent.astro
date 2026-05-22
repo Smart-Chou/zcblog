@@ -17,12 +17,12 @@ import { site } from "~/self.config";
 import { sortByPubDate } from "~/utils";
 import { getAllTags } from "~/utils/article-stats";
 
-const toMediaItem = (item: typeof booksData[number]) => ({
-  url: item.cover || "",
-  rating: item.rating * 20,
-  ratingNum: item.rating || undefined,
-  title: item.title,
-  link: item.url,
+const toMediaItem = (item: (typeof booksData)[number]) => ({
+    url: item.cover || "",
+    rating: item.rating * 20,
+    ratingNum: item.rating || undefined,
+    title: item.title,
+    link: item.url,
 });
 
 const booksItems = booksData.map(toMediaItem);

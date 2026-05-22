@@ -50,8 +50,8 @@ const redirectIntegration = (): AstroIntegration => ({
                         let html = await fs.readFile(file, "utf-8");
 
                         // Fast pre-check: skip JSDOM if no matching links present
-                        const hasCandidateLink = includeClass.some(
-                            (cls) => html.includes(cls),
+                        const hasCandidateLink = includeClass.some((cls) =>
+                            html.includes(cls),
                         );
                         if (!hasCandidateLink) {
                             skipped++;
@@ -107,7 +107,9 @@ const redirectIntegration = (): AstroIntegration => ({
                 }),
             );
 
-            logger.info(`Processed ${total} files (${skipped} skipped) for external link redirects`);
+            logger.info(
+                `Processed ${total} files (${skipped} skipped) for external link redirects`,
+            );
         },
     },
 });

@@ -62,34 +62,27 @@ async function initDynamicFancybox(
         const content = document.querySelector(contentSelector);
         if (!content) return;
 
-        // 为图片添加 data-fancybox 属性
         const images = content.querySelectorAll<HTMLImageElement>("img");
         if (images.length === 0) return;
 
         if (debug) console.log(`找到 ${images.length} 张图片`);
 
-        // 为每张图片包装一个链接，并添加 data-fancybox 属性
         images.forEach((img) => {
-            // 如果已经有父级链接，跳过
             if (img.closest("a")) return;
-            // 跳过 PlantUML 等非内容图片
             if (img.classList.contains("plantuml-image")) return;
 
             img.style.cursor = "zoom-in";
 
-            // 创建链接包装
             const link = document.createElement("a");
             link.href = img.src;
             link.setAttribute("data-fancybox", "gallery");
             link.setAttribute("data-caption", img.alt || "");
             link.style.display = "contents";
 
-            // 将图片插入到链接中
             img.parentNode?.insertBefore(link, img);
             link.appendChild(img);
         });
 
-        // 使用 Fancybox.bind 绑定
         const { Fancybox } = await import("@fancyapps/ui");
         Fancybox.bind(contentSelector + " img[src]", {
             groupAll: true,
@@ -119,7 +112,7 @@ async function initStaticFancybox(
 
         const { Fancybox } = await import("@fancyapps/ui");
 
-        Fancybox.bind("#fancybox-gallery a[href]", {
+        Fancybox.bind(`${config.gallerySelector} a[href]`, {
             groupAll: true,
             Carousel: { transition: config.animationEffect as any },
         });
@@ -131,13 +124,13 @@ async function initStaticFancybox(
 }
 
 /**
- * 便捷函数：初始化随笔图片的 Fancybox
+ * 注册一个 Fancybox 初始化函数，自动处理 SSR、astro:page-load 和首屏加载
  */
-export function initEssayFancybox(): void {
+function registerFancybox(fn: () => Promise<void>): void {
     if (typeof document === "undefined") return;
 
     const init = async () => {
-        await initDynamicFancybox(".essay-images", { debug: false });
+        await fn();
     };
 
     document.addEventListener("astro:page-load", init);
@@ -149,43 +142,15 @@ export function initEssayFancybox(): void {
     }
 }
 
-/**
- * 便捷函数：初始化文章内容图片的 Fancybox
- */
-export function initArticleFancybox(): void {
-    if (typeof document === "undefined") return;
+export const initEssayFancybox = () =>
+    registerFancybox(() =>
+        initDynamicFancybox(".essay-images", { debug: false }),
+    );
 
-    const init = async () => {
-        await initDynamicFancybox(".post-content", { debug: false });
-    };
+export const initArticleFancybox = () =>
+    registerFancybox(() =>
+        initDynamicFancybox(".post-content", { debug: false }),
+    );
 
-    document.addEventListener("astro:page-load", init);
-
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init);
-    } else {
-        init();
-    }
-}
-
-/**
- * 便捷函数：初始化相册图片的 Fancybox
- */
-export function initAlbumFancybox(): void {
-    if (typeof document === "undefined") return;
-
-    const init = async () => {
-        await initStaticFancybox({
-            gallerySelector: "#fancybox-gallery",
-            debug: false,
-        });
-    };
-
-    document.addEventListener("astro:page-load", init);
-
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init);
-    } else {
-        init();
-    }
-}
+export const initAlbumFancybox = () =>
+    registerFancybox(() => initStaticFancybox({ debug: false }));

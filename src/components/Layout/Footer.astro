@@ -33,11 +33,19 @@ const stats = [
             ))
         }
         <span class="stat-divider" aria-hidden="true"></span>
-        <a href="/rss.xml" class="stat-item stat-item--icon" aria-label="RSS 订阅">
+        <a
+            href="/rss.xml"
+            class="stat-item stat-item--icon"
+            aria-label="RSS 订阅"
+        >
             <DynamicIcon name="tabler:rss" />
             <span class="stat-label">RSS</span>
         </a>
-        <a href="/sitemap-0.xml" class="stat-item stat-item--icon" aria-label="站点地图">
+        <a
+            href="/sitemap-0.xml"
+            class="stat-item stat-item--icon"
+            aria-label="站点地图"
+        >
             <DynamicIcon name="tabler:focus-centered" />
             <span class="stat-label">Sitemap</span>
         </a>
@@ -74,7 +82,12 @@ const stats = [
         </span>
         {
             site.beian && (
-                <a href={site.beianURL} target="_blank" rel="noopener noreferrer" class="footer-beian">
+                <a
+                    href={site.beianURL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="footer-beian"
+                >
                     {site.beian}
                 </a>
             )
@@ -273,4 +286,3 @@ const stats = [
         }
     }
 </style>
-</footer>

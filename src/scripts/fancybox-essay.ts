@@ -4,10 +4,4 @@
 
 import { initEssayFancybox } from "~/utils/fancybox";
 
-document.addEventListener("astro:page-load", initEssayFancybox);
-
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initEssayFancybox);
-} else {
-    initEssayFancybox();
-}
+initEssayFancybox();

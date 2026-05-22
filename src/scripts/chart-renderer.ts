@@ -2,21 +2,10 @@
  * 初始化页面中的 Chart.js 图表
  */
 import { b64ToUtf8 } from "~/scripts/b64-utf8";
+import { ensureScript } from "~/scripts/ensure-script";
 
-const CHART_CDN = "https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js";
-
-function ensureScript(src: string): Promise<void> {
-    return new Promise((resolve) => {
-        if (document.querySelector(`script[src="${src}"]`)) {
-            resolve();
-            return;
-        }
-        const s = document.createElement("script");
-        s.src = src;
-        s.onload = () => resolve();
-        document.head.appendChild(s);
-    });
-}
+const CHART_CDN =
+    "https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js";
 
 async function loadChart(): Promise<any> {
     const C = (window as any).Chart;
