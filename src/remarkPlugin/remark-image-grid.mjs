@@ -1,21 +1,18 @@
 /**
  * remark-image-grid — 图片画廊网格
  *
- * 语法:
- *   [grid]
- *   ![描述1](url1)
- *   ![描述2](url2)
- *   [/grid]
+ * 新语法 (统一到 ::: 容器体系):
+ * :::grid
+ * ![描述1](url1)
+ * ![描述2](url2)
+ * :::
  *
  * 根据图片数量自动生成响应式网格 (1-4列)
  */
 import { visit } from "unist-util-visit";
 
-function gridColClass(count) {
-    return `md:grid-cols-${Math.min(count || 2, 4)}`;
-}
-
 function createGridWrapper(children, imgCount) {
+    const cols = Math.min(imgCount || 2, 4);
     return {
         type: "paragraph",
         data: {
@@ -25,7 +22,7 @@ function createGridWrapper(children, imgCount) {
                     "image-grid",
                     "grid",
                     "grid-cols-1",
-                    gridColClass(imgCount),
+                    `md:grid-cols-${cols}`,
                     "gap-4",
                     "my-4",
                 ],
@@ -35,105 +32,25 @@ function createGridWrapper(children, imgCount) {
     };
 }
 
-function handleSingleParagraphGrid(node) {
-    let imgCount = 0;
-    visit({ type: "root", children: [node] }, "image", () => {
-        imgCount++;
-    });
-    return createGridWrapper(
-        node.children.filter((n) => n.type !== "text" || n.value.trim() !== ""),
-        imgCount,
-    );
-}
-
 export function remarkImageGrid() {
     return (tree) => {
-        if (tree.type !== "root") return;
-
-        const newChildren = [];
-        let inGrid = false;
-        let gridChildren = [];
-
-        for (const node of tree.children) {
+        visit(tree, (node, index, parent) => {
             if (
-                node.type === "paragraph" &&
-                node.children &&
-                node.children.length > 0
+                !parent ||
+                index === undefined ||
+                node.type !== "containerDirective" ||
+                node.name !== "grid"
             ) {
-                const first = node.children[0];
-                const last = node.children[node.children.length - 1];
-
-                let isStart = false,
-                    isEnd = false;
-
-                if (
-                    first.type === "text" &&
-                    first.value.trim().startsWith("[grid]")
-                ) {
-                    isStart = true;
-                    first.value = first.value.replace(/^\s*\[grid\]\s*/, "");
-                }
-                if (
-                    last.type === "text" &&
-                    last.value.trim().endsWith("[/grid]")
-                ) {
-                    isEnd = true;
-                    last.value = last.value.replace(/\s*\[\/grid\]\s*$/, "");
-                }
-
-                // Single-paragraph grid
-                if (isStart && isEnd && !inGrid) {
-                    newChildren.push(handleSingleParagraphGrid(node));
-                    continue;
-                }
-
-                // Multi-paragraph start
-                if (isStart && !inGrid && !isEnd) {
-                    inGrid = true;
-                    if (
-                        !(
-                            node.children.length === 1 &&
-                            first.value.trim() === ""
-                        )
-                    ) {
-                        gridChildren.push(node);
-                    }
-                    continue;
-                }
-
-                // Multi-paragraph end
-                if (isEnd && inGrid) {
-                    inGrid = false;
-                    if (
-                        !(
-                            node.children.length === 1 &&
-                            last.value.trim() === ""
-                        )
-                    ) {
-                        gridChildren.push(node);
-                    }
-
-                    let imgCount = 0;
-                    gridChildren.forEach((c) =>
-                        visit(c, "image", () => {
-                            imgCount++;
-                        }),
-                    );
-
-                    newChildren.push(createGridWrapper(gridChildren, imgCount));
-                    gridChildren = [];
-                    continue;
-                }
+                return;
             }
 
-            if (inGrid) {
-                gridChildren.push(node);
-            } else {
-                newChildren.push(node);
-            }
-        }
+            let imgCount = 0;
+            visit(node, "image", () => {
+                imgCount++;
+            });
 
-        if (inGrid) newChildren.push(...gridChildren);
-        tree.children = newChildren;
+            const wrapper = createGridWrapper(node.children, imgCount);
+            parent.children[index] = wrapper;
+        });
     };
 }

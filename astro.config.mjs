@@ -11,6 +11,7 @@ import { remarkCodeBlocks } from "./src/remarkPlugin/remark-code-blocks.mjs";
 import { remarkInlineSyntax } from "./src/remarkPlugin/remark-inline-syntax.mjs";
 import { remarkAsides } from "./src/remarkPlugin/remark-asides.mjs";
 import { remarkImageGrid } from "./src/remarkPlugin/remark-image-grid.mjs";
+import { remarkGithubCard } from "./src/remarkPlugin/remark-github-card.mjs";
 import { GithubCardComponent } from "./src/remarkPlugin/rehype-github-card.mjs";
 import { remarkEncrypted } from "./src/remarkPlugin/remark-encrypted.mjs";
 import { rehypeEncrypted } from "./src/remarkPlugin/rehype-encrypted.mjs";
@@ -47,6 +48,7 @@ export default defineConfig({
             remarkAsides({}),
             remarkGfm,
             remarkImageGrid,
+            remarkGithubCard,
             remarkEncrypted,
         ],
         rehypePlugins: [

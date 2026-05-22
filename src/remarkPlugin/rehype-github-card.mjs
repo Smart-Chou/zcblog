@@ -3,20 +3,24 @@ import { h } from "hastscript";
 
 /**
  * GitHub 仓库卡片组件
- * 语法: ::github{repo="owner/repo"}
+ * 语法: ::github[owner/repo]
+ * 也兼容旧语法: ::github{repo="owner/repo"}
  */
 export function GithubCardComponent(properties, children) {
-    if (Array.isArray(children) && children.length !== 0)
-        return h("div", { class: "hidden" }, [
-            'Invalid directive. ("github" directive must be leaf type ::github{repo="owner/repo"}")',
-        ]);
+    // New syntax ::github[owner/repo] — label text arrives as children
+    // Old syntax ::github{repo="owner/repo"} — repo is in properties
+    let repo = properties.repo;
+    if (!repo && Array.isArray(children) && children.length > 0) {
+        const labelChild = children.find(
+            (c) => c.type === "text" && c.value?.trim(),
+        );
+        if (labelChild) repo = labelChild.value.trim();
+    }
 
-    if (!properties.repo || !properties.repo.includes("/"))
+    if (!repo || !repo.includes("/"))
         return h("div", { class: "hidden" }, [
             'Invalid repository. ("repo" must be in format "owner/repo")',
         ]);
-
-    const repo = properties.repo;
     const cardUuid = `GC${Math.random().toString(36).slice(-6)}`;
 
     const nAvatar = h(`div#${cardUuid}-avatar`, { class: "gc-avatar" });
