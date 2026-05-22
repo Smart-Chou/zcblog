@@ -12,7 +12,7 @@
  */
 import { visit } from "unist-util-visit";
 import { deflateSync } from "node:zlib";
-import { config } from "../self.config.js";
+import { config } from "../config/index.ts";
 
 const PLANTUML_SERVER = "https://www.plantuml.com/plantuml";
 
