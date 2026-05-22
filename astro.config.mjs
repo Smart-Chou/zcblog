@@ -103,15 +103,11 @@ export default defineConfig({
     image: {
         layout: "constrained",
         responsiveStyles: true,
-        domains: ["avatars.githubusercontent.com", "pic-api.marxchou.com"],
+        domains: ["avatars.githubusercontent.com"],
         remotePatterns: [
             {
                 protocol: "https",
                 hostname: "avatars.githubusercontent.com",
-            },
-            {
-                protocol: "https",
-                hostname: "pic-api.marxchou.com",
             },
         ],
         service: {

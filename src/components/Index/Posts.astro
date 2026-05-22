@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { t, defaultLocale, type Locale } from "~/utils/i18n";
 
 interface Post {
@@ -52,7 +51,7 @@ function formatDateFull(date: Date): string {
                 <!-- Featured post -->
                 <article class="post-featured">
                     {posts[0].data.image && (
-                        <Image
+                        <img
                             src={getImageUrl(posts[0].data.image)}
                             alt={posts[0].data.image.alt}
                             width={720}
