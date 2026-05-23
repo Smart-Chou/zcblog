@@ -16,13 +16,7 @@ export function readMetadata(postId: string) {
     }
 
     // 构建文件路径，考虑可能的文件扩展名
-    let filePath = path.join(
-        process.cwd(),
-        "src",
-        "content",
-        "article",
-        postId,
-    );
+    let filePath = path.join(process.cwd(), "src", "content", "article", postId);
 
     // 尝试不同的文件扩展名
     const extensions = [".md", ".mdx", ""];

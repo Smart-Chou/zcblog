@@ -18,10 +18,7 @@ interface Props {
 
 const { item, statusLabel } = Astro.props;
 
-const stars =
-    item.rating > 0
-        ? "★".repeat(item.rating) + "☆".repeat(5 - item.rating)
-        : "";
+const stars = item.rating > 0 ? "★".repeat(item.rating) + "☆".repeat(5 - item.rating) : "";
 ---
 
 <a href={item.url} target="_blank" rel="noreferrer" class="douban-card">

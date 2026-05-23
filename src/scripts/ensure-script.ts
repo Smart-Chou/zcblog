@@ -18,9 +18,7 @@ export function ensureScript(src: string): Promise<void> {
  * 按需从 CDN 加载样式，自动去重
  */
 export function ensureLink(href: string, id?: string): void {
-    const selector = id
-        ? `link[href="${href}"], link[id="${id}"]`
-        : `link[href="${href}"]`;
+    const selector = id ? `link[href="${href}"], link[id="${id}"]` : `link[href="${href}"]`;
     if (document.querySelector(selector)) return;
     const l = document.createElement("link");
     l.rel = "stylesheet";

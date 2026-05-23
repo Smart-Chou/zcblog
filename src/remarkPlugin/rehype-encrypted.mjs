@@ -82,13 +82,7 @@ function buildPasswordUI(hint, uid) {
     ];
 
     if (hint) {
-        children.push(
-            el(
-                "p",
-                ["text-xs", "text-gray-400", "text-center"],
-                [txt(`提示：${hint}`)],
-            ),
-        );
+        children.push(el("p", ["text-xs", "text-gray-400", "text-center"], [txt(`提示：${hint}`)]));
     }
 
     children.push({

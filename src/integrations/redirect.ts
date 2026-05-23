@@ -35,10 +35,8 @@ const redirectIntegration = (): AstroIntegration => ({
             const outDirPath = path.relative(process.cwd(), destDir);
             const files = await fg(`${outDirPath}/**/*.html`);
 
-            const {
-                redirectIncludeClass: includeClass,
-                redirectExcludeClass: excludeClass,
-            } = config;
+            const { redirectIncludeClass: includeClass, redirectExcludeClass: excludeClass } =
+                config;
             const siteHost = new URL(site.url).host;
 
             const total = files.length;
@@ -50,9 +48,7 @@ const redirectIntegration = (): AstroIntegration => ({
                         let html = await fs.readFile(file, "utf-8");
 
                         // Fast pre-check: skip JSDOM if no matching links present
-                        const hasCandidateLink = includeClass.some((cls) =>
-                            html.includes(cls),
-                        );
+                        const hasCandidateLink = includeClass.some((cls) => html.includes(cls));
                         if (!hasCandidateLink) {
                             skipped++;
                             return;
@@ -61,9 +57,7 @@ const redirectIntegration = (): AstroIntegration => ({
                         const dom = new JSDOM(html);
                         const document = dom.window.document;
 
-                        const links = Array.from(
-                            document.getElementsByTagName("a"),
-                        ) as Element[];
+                        const links = Array.from(document.getElementsByTagName("a")) as Element[];
                         let modified = false;
                         for (const link of links) {
                             if (hasClassInTree(link, excludeClass)) continue;
@@ -74,10 +68,7 @@ const redirectIntegration = (): AstroIntegration => ({
                             if (!isExternalUrl(href, siteHost)) continue;
 
                             link.setAttribute("original-href", href);
-                            link.setAttribute(
-                                "href",
-                                `${REDIRECT_PAGE}${toUrlSafeBase64(href)}`,
-                            );
+                            link.setAttribute("href", `${REDIRECT_PAGE}${toUrlSafeBase64(href)}`);
                             link.setAttribute("target", "_blank");
                             link.setAttribute("rel", "noopener noreferrer");
 

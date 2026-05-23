@@ -27,10 +27,7 @@ describe("formatPosts", () => {
     });
 
     it("keeps drafts when filterOutDrafts is false", () => {
-        const posts = [
-            makePost("2025-01-01", false),
-            makePost("2025-02-01", true),
-        ];
+        const posts = [makePost("2025-01-01", false), makePost("2025-02-01", true)];
         const result = formatPosts(posts, { filterOutDrafts: false });
         expect(result).toHaveLength(2);
     });
@@ -38,10 +35,7 @@ describe("formatPosts", () => {
     it("filters out future posts by default", () => {
         const farFuture = new Date();
         farFuture.setFullYear(farFuture.getFullYear() + 10);
-        const posts = [
-            makePost("2020-01-01", false),
-            makePost(farFuture.toISOString(), false),
-        ];
+        const posts = [makePost("2020-01-01", false), makePost(farFuture.toISOString(), false)];
         const result = formatPosts(posts);
         expect(result).toHaveLength(1);
     });
@@ -49,10 +43,7 @@ describe("formatPosts", () => {
     it("keeps future posts when filterOutFuturePosts is false", () => {
         const farFuture = new Date();
         farFuture.setFullYear(farFuture.getFullYear() + 10);
-        const posts = [
-            makePost("2020-01-01", false),
-            makePost(farFuture.toISOString(), false),
-        ];
+        const posts = [makePost("2020-01-01", false), makePost(farFuture.toISOString(), false)];
         const result = formatPosts(posts, { filterOutFuturePosts: false });
         expect(result).toHaveLength(2);
     });

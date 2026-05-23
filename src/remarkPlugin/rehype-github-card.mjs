@@ -11,9 +11,7 @@ export function GithubCardComponent(properties, children) {
     // Old syntax ::github{repo="owner/repo"} — repo is in properties
     let repo = properties.repo;
     if (!repo && Array.isArray(children) && children.length > 0) {
-        const labelChild = children.find(
-            (c) => c.type === "text" && c.value?.trim(),
-        );
+        const labelChild = children.find((c) => c.type === "text" && c.value?.trim());
         if (labelChild) repo = labelChild.value.trim();
     }
 
@@ -24,11 +22,7 @@ export function GithubCardComponent(properties, children) {
     const cardUuid = `GC${Math.random().toString(36).slice(-6)}`;
 
     const nAvatar = h(`div#${cardUuid}-avatar`, { class: "gc-avatar" });
-    const nLanguage = h(
-        `span#${cardUuid}-language`,
-        { class: "gc-language" },
-        "Waiting...",
-    );
+    const nLanguage = h(`span#${cardUuid}-language`, { class: "gc-language" }, "Waiting...");
 
     const nTitle = h("div", { class: "gc-titlebar" }, [
         h("div", { class: "gc-titlebar-left" }, [
@@ -49,11 +43,7 @@ export function GithubCardComponent(properties, children) {
     );
     const nStars = h(`div#${cardUuid}-stars`, { class: "gc-stars" }, "0");
     const nForks = h(`div#${cardUuid}-forks`, { class: "gc-forks" }, "0");
-    const nLicense = h(
-        `div#${cardUuid}-license`,
-        { class: "gc-license" },
-        "N/A",
-    );
+    const nLicense = h(`div#${cardUuid}-license`, { class: "gc-license" }, "N/A");
 
     const nScript = h(
         `script#${cardUuid}-script`,
@@ -93,12 +83,7 @@ export function GithubCardComponent(properties, children) {
         [
             nTitle,
             nDescription,
-            h("div", { class: "gc-infobar" }, [
-                nStars,
-                nForks,
-                nLicense,
-                nLanguage,
-            ]),
+            h("div", { class: "gc-infobar" }, [nStars, nForks, nLicense, nLanguage]),
             nScript,
         ],
     );

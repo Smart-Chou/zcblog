@@ -40,13 +40,9 @@ const { donators } = Astro.props;
                 <div class="donator-info">
                     <div class="donator-main">
                         <span class="donator-name">{donator.name}</span>
-                        <span class="donator-amount">
-                            ¥{donator.amount.toFixed(2)}
-                        </span>
+                        <span class="donator-amount">¥{donator.amount.toFixed(2)}</span>
                     </div>
-                    {donator.message && (
-                        <div class="donator-message">"{donator.message}"</div>
-                    )}
+                    {donator.message && <div class="donator-message">"{donator.message}"</div>}
                     <div class="donator-time">{donator.date}</div>
                 </div>
             </div>

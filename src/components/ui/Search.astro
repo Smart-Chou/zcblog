@@ -19,11 +19,7 @@ const dataAttributes: DOMStringMap = {
         aria-haspopup="dialog"
         aria-expanded="false"
     >
-        <DynamicIcon
-            name="tabler:search"
-            class="search-mobile-center"
-            aria-hidden="true"
-        />
+        <DynamicIcon name="tabler:search" class="search-mobile-center" aria-hidden="true" />
         <span class="sl-hidden md:sl-block" aria-hidden="true">搜索</span>
         <kbd class="sl-hidden md:sl-flex" style="display: none;">
             <kbd>Ctrl</kbd><kbd>K</kbd>
@@ -35,10 +31,7 @@ const dataAttributes: DOMStringMap = {
             <button data-close-modal class="sl-flex md:sl-hidden">取消</button>
             {
                 import.meta.env.DEV ? (
-                    <div
-                        style="margin: auto; text-align: center; white-space: pre-line;"
-                        dir="ltr"
-                    >
+                    <div style="margin: auto; text-align: center; white-space: pre-line;" dir="ltr">
                         <p>搜索功能在开发模式下不可用。</p>
                     </div>
                 ) : (
@@ -62,12 +55,8 @@ const dataAttributes: DOMStringMap = {
     class SiteSearch extends HTMLElement {
         constructor() {
             super();
-            const openBtn = this.querySelector<HTMLButtonElement>(
-                "button[data-open-modal]",
-            )!;
-            const closeBtn = this.querySelector<HTMLButtonElement>(
-                "button[data-close-modal]",
-            )!;
+            const openBtn = this.querySelector<HTMLButtonElement>("button[data-open-modal]")!;
+            const closeBtn = this.querySelector<HTMLButtonElement>("button[data-close-modal]")!;
             const dialog = this.querySelector("dialog")!;
             const dialogFrame = this.querySelector(".dialog-frame")!;
             const shortcut = openBtn?.querySelector("kbd");
@@ -158,10 +147,7 @@ const dataAttributes: DOMStringMap = {
 
             // Listen for `ctrl + k` and `cmd + k` keyboard shortcuts.
             window.addEventListener("keydown", (e) => {
-                if (
-                    (e.metaKey === true || e.ctrlKey === true) &&
-                    e.key === "k"
-                ) {
+                if ((e.metaKey === true || e.ctrlKey === true) && e.key === "k") {
                     dialog.open ? closeModal() : openModal();
                     e.preventDefault();
                 }
@@ -173,11 +159,8 @@ const dataAttributes: DOMStringMap = {
             } catch {}
 
             const shouldStrip = this.dataset.stripTrailingSlash !== undefined;
-            const stripTrailingSlash = (path: string) =>
-                path.replace(/(.)\/$/, "$1");
-            const formatURL = shouldStrip
-                ? stripTrailingSlash
-                : (path: string) => path;
+            const stripTrailingSlash = (path: string) => path.replace(/(.)\/$/, "$1");
+            const formatURL = shouldStrip ? stripTrailingSlash : (path: string) => path;
 
             // Check if we're in development mode
             if (import.meta.env.DEV) {
@@ -192,21 +175,16 @@ const dataAttributes: DOMStringMap = {
                     const { PagefindUI } = await import("@pagefind/default-ui");
 
                     // Ensure the starlight__search element exists before initializing
-                    const searchElement =
-                        this.querySelector("#starlight__search");
+                    const searchElement = this.querySelector("#starlight__search");
                     if (!searchElement) {
-                        console.error(
-                            "Search element #starlight__search not found",
-                        );
+                        console.error("Search element #starlight__search not found");
                         return;
                     }
 
                     new PagefindUI({
                         element: searchElement,
                         baseUrl: import.meta.env.BASE_URL,
-                        bundlePath:
-                            import.meta.env.BASE_URL.replace(/\/$/, "") +
-                            "/pagefind/",
+                        bundlePath: import.meta.env.BASE_URL.replace(/\/$/, "") + "/pagefind/",
                         showImages: false,
                         translations,
                         showSubResults: true,
@@ -215,30 +193,22 @@ const dataAttributes: DOMStringMap = {
                             sub_results: Array<{ url: string }>;
                         }) => {
                             result.url = formatURL(result.url);
-                            result.sub_results = result.sub_results.map(
-                                (sub_result) => {
-                                    sub_result.url = formatURL(sub_result.url);
-                                    return sub_result;
-                                },
-                            );
+                            result.sub_results = result.sub_results.map((sub_result) => {
+                                sub_result.url = formatURL(sub_result.url);
+                                return sub_result;
+                            });
                         },
                     });
 
                     // Add id and name attributes to the search input for better accessibility
                     const searchInput =
-                        (
-                            searchElement as Element
-                        ).querySelector<HTMLInputElement>(
+                        (searchElement as Element).querySelector<HTMLInputElement>(
                             ".pagefind-ui__search-input",
                         ) ||
-                        (
-                            searchElement as Element
-                        ).querySelector<HTMLInputElement>(
+                        (searchElement as Element).querySelector<HTMLInputElement>(
                             'input[type="search"]',
                         ) ||
-                        (
-                            searchElement as Element
-                        ).querySelector<HTMLInputElement>("input");
+                        (searchElement as Element).querySelector<HTMLInputElement>("input");
                     if (searchInput) {
                         searchInput.id = "starlight__search-input";
                         (searchInput as HTMLInputElement).name = "q";

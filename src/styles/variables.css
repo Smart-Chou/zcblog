@@ -36,17 +36,15 @@
 html {
     /* ---- Typography — Font Families ---- */
     --font-body:
-        "DM Sans", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Helvetica, Arial, "Source Han Sans SC", "Noto Sans CJK SC",
-        "Sarasa Gothic SC", "Microsoft YaHei", sans-serif, "Apple Color Emoji",
-        "Segoe UI Emoji";
+        "DM Sans", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+        "Source Han Sans SC", "Noto Sans CJK SC", "Sarasa Gothic SC", "Microsoft YaHei", sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji";
     --font-heading:
-        "DM Serif Display", "Playfair Display", Georgia, "Times New Roman",
-        "Source Han Serif SC", "Noto Serif CJK SC", serif, "Apple Color Emoji",
-        "Segoe UI Emoji";
+        "DM Serif Display", "Playfair Display", Georgia, "Times New Roman", "Source Han Serif SC",
+        "Noto Serif CJK SC", serif, "Apple Color Emoji", "Segoe UI Emoji";
     --font-mono:
-        "JetBrains Mono", "IBM Plex Mono", "Ubuntu Mono", Consolas,
-        "Liberation Mono", Menlo, monospace;
+        "JetBrains Mono", "IBM Plex Mono", "Ubuntu Mono", Consolas, "Liberation Mono", Menlo,
+        monospace;
 
     /* ---- Type Scale (1.25 Major Third) ---- */
     --text-xs: 12px;
@@ -136,15 +134,10 @@ html {
 
     /* ---- Shadow / Elevation ---- */
     --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-    --shadow-sm:
-        0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
-    --shadow-md:
-        0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-    --shadow-lg:
-        0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
-    --shadow-xl:
-        0 20px 25px -5px rgba(0, 0, 0, 0.08),
-        0 8px 10px -6px rgba(0, 0, 0, 0.03);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
 
     /* ---- Transition Durations ---- */
     --duration-fast: 150ms;
@@ -230,14 +223,12 @@ html {
     --color-error: #c2413b;
 
     --font-sans:
-        "DM Sans", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Helvetica, Arial, "Source Han Sans SC", "Noto Sans CJK SC",
-        "Sarasa Gothic SC", "Microsoft YaHei", sans-serif;
+        "DM Sans", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+        "Source Han Sans SC", "Noto Sans CJK SC", "Sarasa Gothic SC", "Microsoft YaHei", sans-serif;
     --font-title:
-        "DM Serif Display", "Playfair Display", Georgia, "Times New Roman",
-        "Source Han Serif SC", "Noto Serif CJK SC", serif;
-    --font-mono:
-        "JetBrains Mono", "IBM Plex Mono", "Ubuntu Mono", Consolas, monospace;
+        "DM Serif Display", "Playfair Display", Georgia, "Times New Roman", "Source Han Serif SC",
+        "Noto Serif CJK SC", serif;
+    --font-mono: "JetBrains Mono", "IBM Plex Mono", "Ubuntu Mono", Consolas, monospace;
 
     --spacing: 3.5rem;
     --content-width: 860px;
@@ -245,10 +236,7 @@ html {
     --radius: 4px;
 
     --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-    --shadow-sm:
-        0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
-    --shadow-md:
-        0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-    --shadow-lg:
-        0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
 }

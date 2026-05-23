@@ -23,15 +23,7 @@ const {
 
 <PostLayout>
     <div class="post-card-header">
-        {
-            (
-                <PostCardImage
-                    imagePath={imagePath}
-                    altText={altText}
-                    loading={loading}
-                />
-            )
-        }
+        {(<PostCardImage imagePath={imagePath} altText={altText} loading={loading} />)}
         {
             sticky > 0 && (
                 <DynamicIcon
@@ -53,24 +45,16 @@ const {
     <div class="post-tags post-card-tags">
         {
             tags.map((tag: string) => (
-                <PostTag
-                    tag={tag.toUpperCase()}
-                    url={`/tags/${tag.toUpperCase()}/`}
-                />
+                <PostTag tag={tag.toUpperCase()} url={`/tags/${tag.toUpperCase()}/`} />
             ))
         }
     </div>
-    <a
-        href={postUrl}
-        class="post-card-link"
-        aria-label={`Read article: ${title}`}>Read More</a
-    >
+    <a href={postUrl} class="post-card-link" aria-label={`Read article: ${title}`}>Read More</a>
 </PostLayout>
 
 <style>
     .post-card-header {
-        margin: calc(var(--space) * -1) calc(var(--space) * -1)
-            calc(var(--space) / 2);
+        margin: calc(var(--space) * -1) calc(var(--space) * -1) calc(var(--space) / 2);
         overflow: hidden;
         border-radius: var(--radius) var(--radius) 0 0;
         position: relative;

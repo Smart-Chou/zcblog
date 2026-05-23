@@ -7,8 +7,6 @@ const { publishedTime, wordCount, readTime, currentSlug } = Astro.props;
     Posted {formatDateToYYYYMMDD(publishedTime)}.&nbsp;&nbsp;
     <span id="word-count">{wordCount} words.</span>&nbsp;
     <span id="read-time">{readTime}.</span>&nbsp;
-    <span class="waline-pageview-count" data-path={`/article/${currentSlug}/`}
-        >0</span
-    >
+    <span class="waline-pageview-count" data-path={`/article/${currentSlug}/`}>0</span>
     <span> views.&nbsp;</span>
 </div>

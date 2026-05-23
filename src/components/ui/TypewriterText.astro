@@ -85,39 +85,22 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
             if (this.isDeleting) {
                 if (this.currentIndex > 0) {
                     this.currentIndex--;
-                    this.element.textContent = segments
-                        .slice(0, this.currentIndex)
-                        .join("");
-                    this.timeoutId = window.setTimeout(
-                        () => this.type(),
-                        this.deleteSpeed,
-                    );
+                    this.element.textContent = segments.slice(0, this.currentIndex).join("");
+                    this.timeoutId = window.setTimeout(() => this.type(), this.deleteSpeed);
                 } else {
                     this.isDeleting = false;
-                    this.currentTextIndex =
-                        (this.currentTextIndex + 1) % this.texts.length;
-                    this.timeoutId = window.setTimeout(
-                        () => this.type(),
-                        this.speed,
-                    );
+                    this.currentTextIndex = (this.currentTextIndex + 1) % this.texts.length;
+                    this.timeoutId = window.setTimeout(() => this.type(), this.speed);
                 }
             } else {
                 if (this.currentIndex < segments.length) {
                     this.currentIndex++;
-                    this.element.textContent = segments
-                        .slice(0, this.currentIndex)
-                        .join("");
-                    this.timeoutId = window.setTimeout(
-                        () => this.type(),
-                        this.speed,
-                    );
+                    this.element.textContent = segments.slice(0, this.currentIndex).join("");
+                    this.timeoutId = window.setTimeout(() => this.type(), this.speed);
                 } else {
                     if (this.texts.length > 1) {
                         this.isDeleting = true;
-                        this.timeoutId = window.setTimeout(
-                            () => this.type(),
-                            this.pauseTime,
-                        );
+                        this.timeoutId = window.setTimeout(() => this.type(), this.pauseTime);
                     }
                 }
             }

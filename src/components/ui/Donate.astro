@@ -193,9 +193,7 @@ import alipayQR from "~/assets/qr/alipay.jpg";
                     <DynamicIcon name="mingcute:hand-heart-line" />
                     <span class="title-text">&nbsp;赞赏博主</span>
                 </div>
-                <button id="donateClose" class="close" aria-label="Close">
-                    &times;
-                </button>
+                <button id="donateClose" class="close" aria-label="Close"> &times; </button>
             </div>
             <div class="modal-content">
                 <div class="reward-card">
@@ -210,9 +208,7 @@ import alipayQR from "~/assets/qr/alipay.jpg";
                                 quality={80}
                             />
                             <span class="tip"
-                                ><DynamicIcon
-                                    name="mingcute:wechat-pay-line"
-                                />&nbsp;微信</span
+                                ><DynamicIcon name="mingcute:wechat-pay-line" />&nbsp;微信</span
                             >
                         </div>
                         <div class="qr-img">
@@ -224,9 +220,7 @@ import alipayQR from "~/assets/qr/alipay.jpg";
                                 quality={80}
                             />
                             <span class="tip"
-                                ><DynamicIcon
-                                    name="mingcute:alipay-line"
-                                />&nbsp;支付宝</span
+                                ><DynamicIcon name="mingcute:alipay-line" />&nbsp;支付宝</span
                             >
                         </div>
                     </div>
@@ -246,9 +240,7 @@ import alipayQR from "~/assets/qr/alipay.jpg";
     import { lockScroll, unlockScroll } from "~/scripts/scroll-lock";
 
     function setupDonate() {
-        const dialog = document.getElementById(
-            "donateDialog",
-        ) as HTMLDialogElement | null;
+        const dialog = document.getElementById("donateDialog") as HTMLDialogElement | null;
         const trigger = document.getElementById("donateTrigger");
         const closeBtn = document.getElementById("donateClose");
         if (!dialog || !trigger || !closeBtn) return;

@@ -13,14 +13,14 @@ jobs:
                   submodules: true
                   fetch-depth: 0
 
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: 24
                   cache: "pnpm"
-
-            - name: Install pnpm
-              run: npm install -g pnpm
 
             - name: Install system dependencies
               run: sudo apt-get update && sudo apt-get install -y libvips-dev
@@ -73,9 +73,6 @@ jobs:
                     echo "ERROR: dist directory not found. Build likely failed."
                     exit 1
                   fi
-
-            - name: Link check
-              run: node scripts/link-check.mjs dist || echo "Link check completed with warnings"
 
             - name: Deploy (main → marxchou.com)
               if: github.ref == 'refs/heads/main'

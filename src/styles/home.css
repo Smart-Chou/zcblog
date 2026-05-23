@@ -36,11 +36,7 @@
         background-color: var(--color-bg);
         background-image:
             linear-gradient(rgba(232, 115, 106, 0.04) 1px, transparent 1px),
-            linear-gradient(
-                90deg,
-                rgba(232, 115, 106, 0.04) 1px,
-                transparent 1px
-            );
+            linear-gradient(90deg, rgba(232, 115, 106, 0.04) 1px, transparent 1px);
     }
 }
 
@@ -358,11 +354,7 @@
         right: 0;
         width: 80px;
         height: 80px;
-        background: linear-gradient(
-            45deg,
-            transparent 50%,
-            rgba(194, 65, 59, 0.06) 50%
-        );
+        background: linear-gradient(45deg, transparent 50%, rgba(194, 65, 59, 0.06) 50%);
         pointer-events: none;
     }
 }

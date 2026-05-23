@@ -20,7 +20,11 @@ function collectHtmlFiles(dir) {
         if (!existsSync(d)) return;
         for (const entry of readdirSync(d, { withFileTypes: true })) {
             const full = join(d, entry.name);
-            if (entry.isDirectory() && !entry.name.startsWith(".") && entry.name !== "node_modules") {
+            if (
+                entry.isDirectory() &&
+                !entry.name.startsWith(".") &&
+                entry.name !== "node_modules"
+            ) {
                 walk(full);
             } else if (entry.name.endsWith(".html")) {
                 files.push(full);

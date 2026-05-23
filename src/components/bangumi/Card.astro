@@ -67,14 +67,9 @@ const getStatusText = (type: number) => {
 const displayTags =
     item.tags && item.tags.length > 0
         ? item.tags
-        : (item.subject.tags || [])
-              .map((t: { name: string }) => t.name)
-              .slice(0, 5);
+        : (item.subject.tags || []).map((t: { name: string }) => t.name).slice(0, 5);
 const visibleCoverTags = displayTags.slice(0, 3);
-const hiddenCoverTagCount = Math.max(
-    displayTags.length - visibleCoverTags.length,
-    0,
-);
+const hiddenCoverTagCount = Math.max(displayTags.length - visibleCoverTags.length, 0);
 ---
 
 <MediaCard
@@ -88,27 +83,16 @@ const hiddenCoverTagCount = Math.max(
     rel="noopener noreferrer nofollow"
 >
     <div slot="badges" class="badges">
-        <span
-            class="status-badge"
-            style={`background: ${getStatusColor(item.type)}`}
-        >
+        <span class="status-badge" style={`background: ${getStatusColor(item.type)}`}>
             {getStatusText(item.type)}
         </span>
-        {
-            item.subject.score && (
-                <span class="score-badge">⭐ {item.subject.score}</span>
-            )
-        }
+        {item.subject.score && <span class="score-badge">⭐ {item.subject.score}</span>}
     </div>
     <div slot="overlay">
         <h3 class="overlay-title">
             {item.subject.name_cn || item.subject.name}
         </h3>
-        {
-            item.subject.date && (
-                <p class="overlay-date">{item.subject.date.substring(0, 4)}</p>
-            )
-        }
+        {item.subject.date && <p class="overlay-date">{item.subject.date.substring(0, 4)}</p>}
         {
             visibleCoverTags.length > 0 && (
                 <div class="overlay-tags">

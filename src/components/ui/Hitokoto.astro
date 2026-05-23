@@ -24,11 +24,7 @@ if (!hitokoto) return;
     <blockquote class="hitokoto-text" id="hitokoto-text">{hitokoto}</blockquote>
     <p class="hitokoto-source" id="hitokoto-source">
         {fromWho || from ? "—— " : ""}{fromWho}{
-            fromWho && from
-                ? "《" + from + "》"
-                : from && !fromWho
-                  ? "《" + from + "》"
-                  : ""
+            fromWho && from ? "《" + from + "》" : from && !fromWho ? "《" + from + "》" : ""
         }
     </p>
 </div>
@@ -89,10 +85,7 @@ if (!hitokoto) return;
                 sourceEl.style.opacity = "0";
                 setTimeout(() => {
                     textEl.textContent = data.hitokoto;
-                    sourceEl.textContent = formatSource(
-                        data.from,
-                        data.from_who,
-                    );
+                    sourceEl.textContent = formatSource(data.from, data.from_who);
                     textEl.style.opacity = "";
                     sourceEl.style.opacity = "";
                 }, 320);

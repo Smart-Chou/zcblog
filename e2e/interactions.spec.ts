@@ -132,7 +132,11 @@ test("键盘 Tab 可到达主题切换和语言切换", async ({ page }) => {
         if (aria?.includes("主题") || aria?.includes("theme") || cls.includes("toggle-theme")) {
             foundTheme = true;
         }
-        if (aria?.includes("语言") || aria?.includes("language") || cls.includes("language-switcher")) {
+        if (
+            aria?.includes("语言") ||
+            aria?.includes("language") ||
+            cls.includes("language-switcher")
+        ) {
             foundLang = true;
         }
     }

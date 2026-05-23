@@ -25,14 +25,8 @@ if (svg) {
         }
         const additions: string[] = [];
         if (className) additions.push(`class="${className}"`);
-        if (width)
-            additions.push(
-                `width="${typeof width === "number" ? width : width}"`,
-            );
-        if (height)
-            additions.push(
-                `height="${typeof height === "number" ? height : height}"`,
-            );
+        if (width) additions.push(`width="${typeof width === "number" ? width : width}"`);
+        if (height) additions.push(`height="${typeof height === "number" ? height : height}"`);
         if (style) additions.push(`style="${style}"`);
         return `<svg${cleanAttrs}${additions.length ? " " + additions.join(" ") : ""}>`;
     });

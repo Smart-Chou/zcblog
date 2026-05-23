@@ -14,9 +14,7 @@ function initTabs() {
         const panels = container.querySelectorAll<HTMLElement>(
             ":scope > .tabs-panels > .tabs-panel",
         );
-        const buttons = nav?.querySelectorAll<HTMLButtonElement>(
-            `[data-tabs-target="${tabId}"]`,
-        );
+        const buttons = nav?.querySelectorAll<HTMLButtonElement>(`[data-tabs-target="${tabId}"]`);
 
         if (!buttons || buttons.length === 0) continue;
 

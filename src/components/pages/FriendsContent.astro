@@ -64,11 +64,7 @@ const siteInfo = {
                             decoding="async"
                         />
                         <span class="verified-badge">
-                            <DynamicIcon
-                                name="tabler:circle-check"
-                                width="12"
-                                height="12"
-                            />
+                            <DynamicIcon name="tabler:circle-check" width="12" height="12" />
                         </span>
                     </div>
                     <div>
@@ -90,19 +86,9 @@ const siteInfo = {
                                     <span class="field-label">{label}</span>
                                     <span class="field-value">{value}</span>
                                 </div>
-                                <button
-                                    class="copy-btn"
-                                    data-copy={value}
-                                    title="复制"
-                                >
-                                    <DynamicIcon
-                                        name="tabler:copy"
-                                        class="copy-icon"
-                                    />
-                                    <DynamicIcon
-                                        name="tabler:check"
-                                        class="check-icon"
-                                    />
+                                <button class="copy-btn" data-copy={value} title="复制">
+                                    <DynamicIcon name="tabler:copy" class="copy-icon" />
+                                    <DynamicIcon name="tabler:check" class="check-icon" />
                                 </button>
                             </div>
                         ))
@@ -116,11 +102,7 @@ const siteInfo = {
             <div class="card-body">
                 <h3 class="steps-title">
                     <span class="steps-icon">
-                        <DynamicIcon
-                            name="tabler:checklist"
-                            width="14"
-                            height="14"
-                        />
+                        <DynamicIcon name="tabler:checklist" width="14" height="14" />
                     </span>
                     申请友链
                 </h3>
@@ -146,9 +128,7 @@ const siteInfo = {
                         </div>
                         <div class="step-content">
                             <p class="step-heading">评论区提交申请</p>
-                            <p class="step-desc">
-                                复制下方模板，修改后粘贴到评论区
-                            </p>
+                            <p class="step-desc">复制下方模板，修改后粘贴到评论区</p>
                             <div class="template-box">
                                 <button
                                     class="copy-btn template-copy"
@@ -158,14 +138,8 @@ const siteInfo = {
 头像链接：您的站点头像"
                                     title="复制模板"
                                 >
-                                    <DynamicIcon
-                                        name="tabler:copy"
-                                        class="copy-icon"
-                                    />
-                                    <DynamicIcon
-                                        name="tabler:check"
-                                        class="check-icon"
-                                    />
+                                    <DynamicIcon name="tabler:copy" class="copy-icon" />
+                                    <DynamicIcon name="tabler:check" class="check-icon" />
                                 </button>
                                 <pre><code>站点名称：您的站点名称
 站点描述：您的站点描述
@@ -181,9 +155,7 @@ const siteInfo = {
                         </div>
                         <div class="step-content">
                             <p class="step-heading">等待审核</p>
-                            <p class="step-desc">
-                                确认信息无误后会尽快添加您的友链
-                            </p>
+                            <p class="step-desc">确认信息无误后会尽快添加您的友链</p>
                         </div>
                     </div>
                 </div>
@@ -201,29 +173,25 @@ const siteInfo = {
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>互换原则</strong
-                    >：请先将本站添加到您的友链页面，确认后会添加您的友链
+                    <strong>互换原则</strong>：请先将本站添加到您的友链页面，确认后会添加您的友链
                 </p>
             </div>
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>链接维护</strong
-                    >：友链网站长期无法访问或内容违规，将会被移除
+                    <strong>链接维护</strong>：友链网站长期无法访问或内容违规，将会被移除
                 </p>
             </div>
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>内容要求</strong
-                    >：内容积极向上，不含有任何色情/反动/暴力等违法违规内容
+                    <strong>内容要求</strong>：内容积极向上，不含有任何色情/反动/暴力等违法违规内容
                 </p>
             </div>
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>站点要求</strong>：支持
-                    HTTPS，以原创内容为主，能够正常访问且有持续更新
+                    <strong>站点要求</strong>：支持 HTTPS，以原创内容为主，能够正常访问且有持续更新
                 </p>
             </div>
         </div>
@@ -701,9 +669,7 @@ const siteInfo = {
 
 <script>
     document.addEventListener("click", (e) => {
-        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
-            "[data-copy]",
-        );
+        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-copy]");
         if (!btn) return;
 
         const text = btn.dataset.copy || "";

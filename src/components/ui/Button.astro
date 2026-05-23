@@ -7,21 +7,10 @@ interface Props {
     class?: string;
 }
 
-const {
-    href,
-    variant = "primary",
-    target,
-    rel,
-    class: className,
-} = Astro.props;
+const { href, variant = "primary", target, rel, class: className } = Astro.props;
 ---
 
-<a
-    href={href}
-    class:list={["btn", `btn-${variant}`, className]}
-    target={target}
-    rel={rel}
->
+<a href={href} class:list={["btn", `btn-${variant}`, className]} target={target} rel={rel}>
     <slot />
 </a>
 

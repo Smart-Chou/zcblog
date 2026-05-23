@@ -61,18 +61,8 @@ const hasEmptyIcon = Astro.slots.has("empty-icon");
     fullWidth={fullWidth}
     noindex={noindex}
 >
-    <div
-        class:list={[
-            "section-container",
-            { "section-container--full": fullWidth },
-        ]}
-    >
-        <PageHeader
-            title={title}
-            subtitle={subtitle}
-            buildTime={buildTime}
-            showIcon={hasIcon}
-        >
+    <div class:list={["section-container", { "section-container--full": fullWidth }]}>
+        <PageHeader title={title} subtitle={subtitle} buildTime={buildTime} showIcon={hasIcon}>
             {hasIcon && <slot name="icon" slot="icon" />}
         </PageHeader>
 

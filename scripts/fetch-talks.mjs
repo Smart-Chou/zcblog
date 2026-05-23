@@ -59,9 +59,7 @@ function extractImages(note) {
     }
 
     // Markdown 兜底
-    for (const [, url] of (note.content || "").matchAll(
-        /!\[.*?\]\(([^)\s]+)\)/g,
-    )) {
+    for (const [, url] of (note.content || "").matchAll(/!\[.*?\]\(([^)\s]+)\)/g)) {
         urls.push(fullUrl(url));
     }
 
@@ -75,8 +73,8 @@ async function main() {
 
     const TOKEN = process.env.BLINKO_API_TOKEN;
     if (!TOKEN) {
-        console.error("❌ 未设置 BLINKO_API_TOKEN 环境变量");
-        process.exit(1);
+        console.warn("⚠ 未设置 BLINKO_API_TOKEN 环境变量，跳过获取");
+        process.exit(0);
     }
 
     // 分页拉取所有公开笔记

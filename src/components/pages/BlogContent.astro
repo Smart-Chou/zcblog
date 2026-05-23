@@ -36,12 +36,8 @@ interface Props {
 const { locale = "zh", page } = Astro.props;
 const postsWithMeta = page.data;
 const blogPath = locale === "en" ? "/en/blog" : "/blog";
-const prevUrl = page.url.prev
-    ? new URL(page.url.prev, Astro.site).toString()
-    : undefined;
-const nextUrl = page.url.next
-    ? new URL(page.url.next, Astro.site).toString()
-    : undefined;
+const prevUrl = page.url.prev ? new URL(page.url.prev, Astro.site).toString() : undefined;
+const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : undefined;
 ---
 
 <BaseLayout
@@ -69,8 +65,7 @@ const nextUrl = page.url.next
                     modifiedTime={post.modifiedTime}
                     postUrl={`/article/${post.slug}/`}
                     imagePath={
-                        post.data.image?.url ||
-                        `${imageService.baseUrl}${imageService.randomPath}`
+                        post.data.image?.url || `${imageService.baseUrl}${imageService.randomPath}`
                     }
                     description={post.excerpt}
                     tags={post.data.tags}

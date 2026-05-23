@@ -27,11 +27,7 @@ export function remarkGithubCard() {
 
             // Extract repo from label [owner/repo]
             remove(node, (child) => {
-                if (
-                    child.data &&
-                    "directiveLabel" in child.data &&
-                    child.data.directiveLabel
-                ) {
+                if (child.data && "directiveLabel" in child.data && child.data.directiveLabel) {
                     if (
                         "children" in child &&
                         Array.isArray(child.children) &&

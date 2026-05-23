@@ -22,10 +22,7 @@ export function toUrlSafeBase64(str: string): string {
 }
 
 /** Check if an href is an external link (different host) */
-export function isExternalUrl(
-    href: string | null,
-    currentHost: string,
-): boolean {
+export function isExternalUrl(href: string | null, currentHost: string): boolean {
     if (!href) return false;
     if (/^(\.|\/(?!\/)|#)/.test(href)) return false;
     try {

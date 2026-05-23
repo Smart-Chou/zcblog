@@ -17,12 +17,7 @@ interface PostMeta {
 }
 
 // 导入模块化工具函数
-import {
-    readMetadata,
-    findSecondDash,
-    generateSummary,
-    calculateStats,
-} from "./post-meta";
+import { readMetadata, findSecondDash, generateSummary, calculateStats } from "./post-meta";
 
 // 缓存对象，用于存储已处理的文章元数据
 const postMetaCache = new Map<string, PostMeta>();
@@ -89,10 +84,7 @@ export function getPostsWithMeta(post: Post): PostMeta {
     // 生成摘要
     const excerpt = generateSummary(contentForExcerpt);
     // 如果摘要为空或为N/A，使用frontmatter中的description
-    const finalExcerpt =
-        excerpt && excerpt !== "N/A"
-            ? excerpt
-            : frontmatterDescription || "N/A";
+    const finalExcerpt = excerpt && excerpt !== "N/A" ? excerpt : frontmatterDescription || "N/A";
 
     // 构建结果对象
     const result: PostMeta = {
@@ -109,16 +101,12 @@ export function getPostsWithMeta(post: Post): PostMeta {
 }
 
 /** Convenience wrapper: auto-fills slug from id and merges meta into the post object. */
-export function enrichPost<T extends Post>(
-    post: T,
-): T & PostMeta & { slug: string } {
+export function enrichPost<T extends Post>(post: T): T & PostMeta & { slug: string } {
     const meta = getPostsWithMeta({ ...post, slug: post.id || post.slug });
     return { ...post, ...meta, slug: (post.id || post.slug)! };
 }
 
 /** Batch version of enrichPost. */
-export function enrichPosts<T extends Post>(
-    posts: T[],
-): (T & PostMeta & { slug: string })[] {
+export function enrichPosts<T extends Post>(posts: T[]): (T & PostMeta & { slug: string })[] {
     return posts.map((post) => enrichPost(post));
 }

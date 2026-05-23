@@ -18,12 +18,7 @@ const currentPath = Astro.url.pathname;
     </span>
 </button>
 
-<nav
-    id="nav-dropdown"
-    class="nav-dropdown"
-    aria-label="主导航"
-    aria-hidden="true"
->
+<nav id="nav-dropdown" class="nav-dropdown" aria-label="主导航" aria-hidden="true">
     <ul class="nav-dropdown-list" role="list">
         {
             navLinks.map((link) => (
@@ -51,10 +46,8 @@ const currentPath = Astro.url.pathname;
 <script>
     let open = false;
 
-    const getBtn = () =>
-        document.getElementById("nav-menu-btn") as HTMLButtonElement | null;
-    const getDropdown = () =>
-        document.getElementById("nav-dropdown") as HTMLElement | null;
+    const getBtn = () => document.getElementById("nav-menu-btn") as HTMLButtonElement | null;
+    const getDropdown = () => document.getElementById("nav-dropdown") as HTMLElement | null;
 
     const setOpen = (v: boolean) => {
         open = v;

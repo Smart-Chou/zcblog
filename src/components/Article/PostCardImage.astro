@@ -12,8 +12,7 @@ interface Props {
 const { imagePath, altText, loading = "lazy" } = Astro.props;
 
 const defaultImageUrl = `${imageService.baseUrl}${imageService.randomPath}`;
-const isDefaultImage =
-    typeof imagePath === "string" && imagePath.startsWith(defaultImageUrl);
+const isDefaultImage = typeof imagePath === "string" && imagePath.startsWith(defaultImageUrl);
 
 const src = isDefaultImage ? getRandomImageUrl() : imagePath;
 ---

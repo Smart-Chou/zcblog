@@ -6,19 +6,7 @@ const { noindex = false } = Astro.props;
 
 <!-- 浏览器和搜索引擎相关 -->
 <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
-<meta
-    name="theme-color"
-    content="#ffffff"
-    media="(prefers-color-scheme: light)"
-/>
-<meta
-    name="theme-color"
-    content="#1c1917"
-    media="(prefers-color-scheme: dark)"
-/>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1c1917" media="(prefers-color-scheme: dark)" />
 <meta name="x-astro-vitals-route" content="/" />
-<link
-    rel="sitemap"
-    type="application/xml"
-    href={`${site.url}/sitemap-index.xml`}
-/>
+<link rel="sitemap" type="application/xml" href={`${site.url}/sitemap-index.xml`} />

@@ -126,9 +126,7 @@ export function remarkTabs() {
 
             const panels = tabs.map((tab, i) => {
                 const isActive = i === 0;
-                const filtered = tab.children.filter(
-                    (child) => !isConsumedTabMarker(child),
-                );
+                const filtered = tab.children.filter((child) => !isConsumedTabMarker(child));
                 return h(
                     "div",
                     {
@@ -141,14 +139,10 @@ export function remarkTabs() {
                 );
             });
 
-            parent.children[index] = h(
-                "div",
-                { class: "tabs-container", "data-tabs-id": tabId },
-                [
-                    h("div", { class: "tabs-nav", role: "tablist" }, navButtons),
-                    h("div", { class: "tabs-panels" }, panels),
-                ],
-            );
+            parent.children[index] = h("div", { class: "tabs-container", "data-tabs-id": tabId }, [
+                h("div", { class: "tabs-nav", role: "tablist" }, navButtons),
+                h("div", { class: "tabs-panels" }, panels),
+            ]);
         });
     };
 }

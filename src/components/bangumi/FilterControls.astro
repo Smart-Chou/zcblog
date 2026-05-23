@@ -18,18 +18,13 @@ const { filters, activeFilter, sectionId } = Astro.props;
     {
         filters.map((filter) => (
             <button
-                class:list={[
-                    "filter-btn",
-                    { active: filter.value === activeFilter },
-                ]}
+                class:list={["filter-btn", { active: filter.value === activeFilter }]}
                 data-filter={filter.value}
                 data-section={sectionId}
                 type="button"
             >
                 {filter.label}
-                {filter.count !== undefined && (
-                    <span class="filter-count">({filter.count})</span>
-                )}
+                {filter.count !== undefined && <span class="filter-count">({filter.count})</span>}
             </button>
         ))
     }
@@ -50,23 +45,19 @@ const { filters, activeFilter, sectionId } = Astro.props;
                 });
                 this.classList.add("active");
 
-                const items = document.querySelectorAll(
-                    `[data-item-section="${sectionId}"]`,
-                );
+                const items = document.querySelectorAll(`[data-item-section="${sectionId}"]`);
                 items.forEach((item) => {
                     const itemStatus = item.getAttribute("data-item-status");
                     if (filter === "all" || itemStatus === filter) {
                         item.classList.remove("hidden");
                         item.style.display = "";
-                        item.querySelectorAll("img[data-src]").forEach(
-                            (img) => {
-                                const src = img.getAttribute("data-src");
-                                if (src) {
-                                    img.src = src;
-                                    img.removeAttribute("data-src");
-                                }
-                            },
-                        );
+                        item.querySelectorAll("img[data-src]").forEach((img) => {
+                            const src = img.getAttribute("data-src");
+                            if (src) {
+                                img.src = src;
+                                img.removeAttribute("data-src");
+                            }
+                        });
                     } else {
                         item.classList.add("hidden");
                         item.style.display = "none";
