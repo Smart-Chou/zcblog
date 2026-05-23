@@ -73,8 +73,8 @@ async function main() {
 
     const TOKEN = process.env.BLINKO_API_TOKEN;
     if (!TOKEN) {
-        console.error("❌ 未设置 BLINKO_API_TOKEN 环境变量");
-        process.exit(1);
+        console.warn("⚠ 未设置 BLINKO_API_TOKEN 环境变量，跳过获取");
+        process.exit(0);
     }
 
     // 分页拉取所有公开笔记

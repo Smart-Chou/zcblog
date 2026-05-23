@@ -201,8 +201,8 @@ async function main() {
 
     const userId = process.env.DOUBAN_USER_ID;
     if (!userId) {
-        console.error("❌ 未设置 DOUBAN_USER_ID 环境变量");
-        process.exit(1);
+        console.warn("⚠ 未设置 DOUBAN_USER_ID 环境变量，跳过获取");
+        process.exit(0);
     }
 
     // 1. 拉取 RSS
