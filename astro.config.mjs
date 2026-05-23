@@ -13,6 +13,9 @@ import { remarkAsides } from "./src/remarkPlugin/remark-asides.mjs";
 import { remarkImageGrid } from "./src/remarkPlugin/remark-image-grid.mjs";
 import { remarkGithubCard } from "./src/remarkPlugin/remark-github-card.mjs";
 import { GithubCardComponent } from "./src/remarkPlugin/rehype-github-card.mjs";
+import { remarkTabs } from "./src/remarkPlugin/remark-tabs.mjs";
+import { remarkAlign } from "./src/remarkPlugin/remark-align.mjs";
+import { remarkInclude } from "./src/remarkPlugin/remark-include.mjs";
 import { remarkEncrypted } from "./src/remarkPlugin/remark-encrypted.mjs";
 import { rehypeEncrypted } from "./src/remarkPlugin/rehype-encrypted.mjs";
 import expressiveCode from "astro-expressive-code";
@@ -27,6 +30,7 @@ import remarkMath from "remark-math";
 import rehypeCallouts from "rehype-callouts";
 import astroVtBot from "astro-vtbot";
 import tailwindcss from "@tailwindcss/vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://astro.build/config
 export default defineConfig({
@@ -45,10 +49,13 @@ export default defineConfig({
             remarkInlineSyntax,
             remarkCodeBlocks,
             remarkDirective,
+            remarkInclude,
+            remarkAlign,
             remarkAsides({}),
             remarkGfm,
             remarkImageGrid,
             remarkGithubCard,
+            remarkTabs,
             remarkEncrypted,
         ],
         rehypePlugins: [
@@ -126,7 +133,56 @@ export default defineConfig({
         concurrency: Number(process.env.BUILD_CONCURRENCY) || 2,
     },
     vite: {
-        plugins: [tailwindcss()],
+        plugins: [
+            tailwindcss(),
+            VitePWA({
+                registerType: "autoUpdate",
+                workbox: {
+                    globPatterns: ["**/*.{html,js,css,svg,png,jpg,webp,woff2}"],
+                    runtimeCaching: [
+                        {
+                            urlPattern: /^https:\/\/marxchou\.com\/.*/,
+                            handler: "StaleWhileRevalidate",
+                            options: {
+                                cacheName: "pages-cache",
+                                expiration: { maxEntries: 100, maxAgeSeconds: 86400 },
+                            },
+                        },
+                        {
+                            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/,
+                            handler: "CacheFirst",
+                            options: {
+                                cacheName: "images-cache",
+                                expiration: { maxEntries: 200, maxAgeSeconds: 2592000 },
+                            },
+                        },
+                        {
+                            urlPattern: /\.(?:woff2?|ttf|otf|eot)$/,
+                            handler: "CacheFirst",
+                            options: {
+                                cacheName: "fonts-cache",
+                                expiration: { maxEntries: 50, maxAgeSeconds: 2592000 },
+                            },
+                        },
+                    ],
+                },
+                manifest: {
+                    name: "Marx's Blog",
+                    short_name: "MarxBlog",
+                    description: "Marx Chou's personal blog",
+                    theme_color: "#c2413b",
+                    background_color: "#ffffff",
+                    display: "standalone",
+                    icons: [
+                        {
+                            src: "/favicon.svg",
+                            sizes: "any",
+                            type: "image/svg+xml",
+                        },
+                    ],
+                },
+            }),
+        ],
         define: {},
         build: {
             // esbuild 比 terser 内存占用更低，避免 Vercel OOM

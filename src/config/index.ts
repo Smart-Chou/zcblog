@@ -21,7 +21,7 @@ export const {
     imageService,
 } = siteConfig;
 
-export const { config, pageView, postView, donate, waline, search, umami } =
+export const { config, pageView, postView, donate, waline, search, umami, notice, watermark } =
     featureConfig;
 
 export const { categories, socialLinks, friendsPage, footerList } = uiConfig;

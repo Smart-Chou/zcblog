@@ -131,3 +131,53 @@ export const umami: UmamiConfig = {
     umamiBaseUrl: "https://umami.marxchou.com",
     umamiId: "73b29141-fccf-4d54-9c2f-f7d0d146f86b",
 };
+
+/**
+ * 公告栏配置
+ */
+export interface NoticeConfig {
+    enable: boolean;
+    title: string;
+    content: string;
+    path?: string; // 只在匹配路径显示，为空则全局显示
+    key?: string; // localStorage 键名，用于关闭后不再显示
+    showOnce?: boolean; // true: localStorage 持久关闭, false: sessionStorage 仅本次
+    confirm?: boolean; // 是否需要确认按钮
+    confirmText?: string; // 确认按钮文案
+}
+
+export const notice: NoticeConfig = {
+    enable: false,
+    title: "",
+    content: "",
+    path: "",
+    key: "",
+    showOnce: false,
+    confirm: false,
+    confirmText: "知道了",
+};
+
+/**
+ * 水印配置
+ */
+export interface WatermarkConfig {
+    enable: boolean;
+    content: string;
+    fontSize: number;
+    opacity: number;
+    rotate: number;
+    color: string;
+    gapX: number;
+    gapY: number;
+}
+
+export const watermark: WatermarkConfig = {
+    enable: false,
+    content: "",
+    fontSize: 16,
+    opacity: 0.06,
+    rotate: -20,
+    color: "#000000",
+    gapX: 200,
+    gapY: 150,
+};

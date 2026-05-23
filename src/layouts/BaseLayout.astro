@@ -3,6 +3,8 @@ import "~/styles/global.css";
 import BaseHead from "~/components/BaseHead/BaseHead.astro";
 import Header from "~/components/Layout/Header.astro";
 import Footer from "~/components/Layout/Footer.astro";
+import Notice from "~/components/ui/Notice.astro";
+import Watermark from "~/components/ui/Watermark.astro";
 
 const {
     title,
@@ -44,6 +46,7 @@ const lang = locale === "en" ? "en" : "zh-CN";
         <a href="#main-content" class="skip-link"
             >{locale === "en" ? "Skip to content" : "跳至内容"}</a
         >
+        <Notice />
         <div id="app" class="full-width">
             <Header />
             <main id="main-content" class="main">
@@ -53,8 +56,12 @@ const lang = locale === "en" ? "en" : "zh-CN";
             </main>
             <Footer />
         </div>
+        <Watermark />
         <script>
             import "~/scripts/redirect-handler";
+        </script>
+        <script>
+            import "~/scripts/tabs";
         </script>
     </body>
 </html>

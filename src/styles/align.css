@@ -1,0 +1,11 @@
+/* =========================================
+   Align — :::center / :::right container styles
+   ========================================= */
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}

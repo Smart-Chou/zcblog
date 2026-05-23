@@ -1,0 +1,189 @@
+---
+import { notice } from "~/config";
+
+const { pathname = "" } = Astro.url;
+
+if (!notice.enable || !notice.content) {
+    return;
+}
+
+if (notice.path && !pathname.startsWith(notice.path)) {
+    return;
+}
+
+function simpleHash(str: string): string {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const chr = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0;
+    }
+    return Math.abs(hash).toString(36);
+}
+
+const storageKey = notice.key || `notice-${simpleHash(notice.title + notice.content)}`;
+const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
+---
+
+<script>
+    (function () {
+        const banner = document.getElementById("global-notice");
+        if (!banner) return;
+
+        const key = banner.dataset.storageKey || "";
+        const storage = banner.dataset.storageType === "localStorage" ? localStorage : sessionStorage;
+
+        if (storage.getItem(key)) return;
+        banner.style.display = "";
+
+        const closeBtn = banner.querySelector("[data-notice-close]");
+        if (closeBtn) {
+            closeBtn.addEventListener("click", () => {
+                banner.style.display = "none";
+                storage.setItem(key, "1");
+            });
+        }
+
+        const confirmBtn = banner.querySelector("[data-notice-confirm]");
+        if (confirmBtn) {
+            confirmBtn.addEventListener("click", () => {
+                banner.style.display = "none";
+                storage.setItem(key, "1");
+            });
+        }
+    })();
+</script>
+
+<aside
+    id="global-notice"
+    class="notice-banner"
+    style="display: none;"
+    role="status"
+    aria-live="polite"
+    data-storage-key={storageKey}
+    data-storage-type={storageType}
+>
+    <div class="notice-banner-inner">
+        <div class="notice-banner-body">
+            {notice.title && (
+                <strong class="notice-banner-title">{notice.title}</strong>
+            )}
+            <span class="notice-banner-content">
+                {notice.content}
+            </span>
+        </div>
+        <div class="notice-banner-actions">
+            {notice.confirm ? (
+                <button
+                    data-notice-confirm
+                    class="notice-btn notice-btn--primary"
+                >
+                    {notice.confirmText || "知道了"}
+                </button>
+            ) : (
+                <button
+                    data-notice-close
+                    class="notice-btn notice-btn--close"
+                    aria-label="关闭公告"
+                >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M18 6 6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            )}
+        </div>
+    </div>
+</aside>
+
+<style>
+    .notice-banner {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        width: 100%;
+        background: var(--color-accent);
+        color: #fff;
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    html[data-theme="dark"] .notice-banner {
+        background: var(--color-accent);
+    }
+
+    .notice-banner-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-sm);
+        max-width: var(--content-width);
+        margin: 0 auto;
+        padding: var(--space-xs) var(--space);
+    }
+
+    .notice-banner-body {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-xs);
+        flex-wrap: wrap;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .notice-banner-title {
+        font-weight: 600;
+    }
+
+    .notice-banner-content {
+        opacity: 0.95;
+    }
+
+    .notice-banner-content a {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    .notice-banner-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-shrink: 0;
+    }
+
+    .notice-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+        border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        transition: opacity var(--duration-fast);
+    }
+
+    .notice-btn:hover {
+        opacity: 0.8;
+    }
+
+    .notice-btn--close {
+        background: none;
+        color: #fff;
+        padding: var(--space-2xs);
+        opacity: 0.7;
+    }
+
+    .notice-btn--close:hover {
+        opacity: 1;
+    }
+
+    .notice-btn--primary {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        padding: var(--space-2xs) var(--space-sm);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .notice-btn--primary:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+</style>

@@ -1,0 +1,72 @@
+---
+import { watermark } from "~/config";
+
+if (!watermark.enable || !watermark.content) {
+    return;
+}
+---
+
+<span
+    id="watermark-config"
+    hidden
+    data-content={watermark.content}
+    data-font-size={watermark.fontSize}
+    data-opacity={watermark.opacity}
+    data-rotate={watermark.rotate}
+    data-color={watermark.color}
+    data-gap-x={watermark.gapX}
+    data-gap-y={watermark.gapY}
+></span>
+
+<script>
+    (function () {
+        const el = document.getElementById("watermark-config");
+        if (!el) return;
+
+        const text = el.dataset.content || "";
+        const fontSize = parseInt(el.dataset.fontSize || "16", 10);
+        const opacity = parseFloat(el.dataset.opacity || "0.06");
+        const rotate = parseInt(el.dataset.rotate || "-20", 10);
+        const color = el.dataset.color || "#000000";
+        const gapX = parseInt(el.dataset.gapX || "200", 10);
+        const gapY = parseInt(el.dataset.gapY || "150", 10);
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        ctx.font = `${fontSize}px system-ui, -apple-system, sans-serif`;
+        const metrics = ctx.measureText(text);
+        const textWidth = metrics.width;
+        const textHeight = fontSize;
+
+        canvas.width = textWidth + gapX;
+        canvas.height = textHeight + gapY;
+
+        ctx.font = `${fontSize}px system-ui, -apple-system, sans-serif`;
+        ctx.fillStyle = color;
+        ctx.globalAlpha = opacity;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+        const angleRad = (rotate * Math.PI) / 180;
+
+        ctx.translate(cx, cy);
+        ctx.rotate(angleRad);
+        ctx.fillText(text, 0, 0);
+
+        const div = document.createElement("div");
+        div.id = "watermark-overlay";
+        div.style.cssText = [
+            "position: fixed",
+            "inset: 0",
+            "z-index: 9999",
+            "pointer-events: none",
+            `background-image: url(${canvas.toDataURL()})`,
+            "background-repeat: repeat",
+        ].join(";");
+        document.body.appendChild(div);
+    })();
+</script>

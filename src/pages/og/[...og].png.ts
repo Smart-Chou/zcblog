@@ -15,9 +15,9 @@ const FONT_REGULAR = path.join(FONT_CACHE, "NotoSansSC-Regular.otf");
 const FONT_BOLD = path.join(FONT_CACHE, "NotoSansSC-Bold.otf");
 
 const FONT_URL_REGULAR =
-    "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansSC-Regular.otf";
+    "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf";
 const FONT_URL_BOLD =
-    "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansSC-Bold.otf";
+    "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/SC/NotoSansSC-Bold.otf";
 
 async function ensureFonts() {
     fs.mkdirSync(FONT_CACHE, { recursive: true });

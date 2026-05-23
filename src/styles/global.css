@@ -14,6 +14,8 @@
 @import url(./fancybox-overrides.css);
 @import url(./markdown-extend.css);
 @import url(./markmap.css);
+@import url(./tabs.css);
+@import url(./align.css);
 
 /* ---- Tailwind CSS v4 ---- */
 @import "tailwindcss";
