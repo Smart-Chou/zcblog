@@ -1,4 +1,5 @@
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import { getAllTags } from "./article-stats";
 
 export async function tagPostsGetStaticPaths() {
@@ -8,8 +9,8 @@ export async function tagPostsGetStaticPaths() {
     return uniqueTags.map((tag) => ({
         params: { tag },
         props: {
-            articles: allArticles.filter((post) =>
-                (post.data.tags || []).some((t) => t.toUpperCase() === tag),
+            articles: allArticles.filter((post: CollectionEntry<"article">) =>
+                (post.data.tags || []).some((t: string) => t.toUpperCase() === tag),
             ),
         },
     }));

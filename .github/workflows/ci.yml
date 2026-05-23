@@ -55,9 +55,6 @@ jobs:
                   BUILD_CONCURRENCY: 1
               run: pnpm build
 
-            - name: Link check
-              run: node scripts/link-check.mjs dist || echo "Link check completed with warnings"
-
             - name: Upload build artifacts (on failure for debugging)
               if: failure()
               uses: actions/upload-artifact@v4

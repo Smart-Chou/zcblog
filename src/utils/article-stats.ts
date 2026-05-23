@@ -11,7 +11,7 @@ export async function getArticleStats(): Promise<ArticleStats> {
     const allPosts = await getCollection("article");
     const totalPosts = allPosts.length;
     const totalTags = new Set(getAllTags(allPosts)).size;
-    const totalWordCount = allPosts.reduce((sum, post) => {
+    const totalWordCount = allPosts.reduce((sum: number, post: CollectionEntry<"article">) => {
         const body = post.body || "";
         return sum + body.replace(/\s+/g, "").length;
     }, 0);

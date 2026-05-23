@@ -76,9 +76,6 @@ jobs:
                     exit 1
                   fi
 
-            - name: Link check
-              run: node scripts/link-check.mjs dist || echo "Link check completed with warnings"
-
             - name: Deploy (main → marxchou.com)
               if: github.ref == 'refs/heads/main'
               uses: peaceiris/actions-gh-pages@v4

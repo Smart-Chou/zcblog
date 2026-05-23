@@ -61,7 +61,7 @@ export async function getStaticPaths() {
     getFontRegular();
     getFontBold();
 
-    return articles.map((entry) => ({
+    return articles.map((entry: { id: string }) => ({
         params: { og: entry.id },
         props: { entry },
     }));
