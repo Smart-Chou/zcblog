@@ -37,14 +37,6 @@ jobs:
             - name: Run unit tests
               run: pnpm test:unit
 
-            - name: Run E2E tests (if configured)
-              run: |
-                  if [ -f "playwright.config.ts" ] || [ -f "playwright.config.js" ]; then
-                    pnpm test:e2e
-                  else
-                    echo "No Playwright config found, skipping E2E tests"
-                  fi
-
             - name: Build project
               env:
                   CI: true
@@ -54,6 +46,14 @@ jobs:
                   FOREVERBLOG_RSS_URL: ${{ secrets.FOREVERBLOG_RSS_URL }}
                   BUILD_CONCURRENCY: 1
               run: pnpm build
+
+            - name: Run E2E tests (if configured)
+              run: |
+                  if [ -f "playwright.config.ts" ] || [ -f "playwright.config.js" ]; then
+                    pnpm test:e2e
+                  else
+                    echo "No Playwright config found, skipping E2E tests"
+                  fi
 
             - name: Upload build artifacts (on failure for debugging)
               if: failure()
