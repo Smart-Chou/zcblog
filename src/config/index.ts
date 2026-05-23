@@ -11,15 +11,8 @@ export * from "./feature.config";
 export * from "./ui.config";
 
 // 保持与原self.config.ts相同的导出结构
-export const {
-    site,
-    author,
-    notFoundPage,
-    tagsPage,
-    archivesPage,
-    redirectPage,
-    imageService,
-} = siteConfig;
+export const { site, author, notFoundPage, tagsPage, archivesPage, redirectPage, imageService } =
+    siteConfig;
 
 export const { config, pageView, postView, donate, waline, search, umami, notice, watermark } =
     featureConfig;

@@ -95,8 +95,7 @@ export function initHeatmap(postsData: PostData[]): void {
         const dayData = dataMap[dateStr];
 
         if (dayData) {
-            cell.className =
-                "heatmap-day " + getClassForValue(dayData.wordCount);
+            cell.className = "heatmap-day " + getClassForValue(dayData.wordCount);
             cell.dataset.date = dayData.date;
             cell.dataset.title = dayData.title;
             cell.dataset.count = dayData.wordCount.toString();
@@ -123,9 +122,7 @@ export function initHeatmap(postsData: PostData[]): void {
             });
 
             cell.addEventListener("mouseleave", () => {
-                document
-                    .querySelectorAll(".heatmap-tooltip")
-                    .forEach((t) => t.remove());
+                document.querySelectorAll(".heatmap-tooltip").forEach((t) => t.remove());
             });
         } else {
             cell.className = "heatmap-day color-empty";
@@ -150,10 +147,7 @@ export function initHeatmap(postsData: PostData[]): void {
     legendDiv.innerHTML =
         "<span>Less</span>" +
         levelClasses
-            .map(
-                (cls) =>
-                    '<span class="heatmap-legend-item ' + cls + '"></span>',
-            )
+            .map((cls) => '<span class="heatmap-legend-item ' + cls + '"></span>')
             .join("") +
         "<span>More</span>";
     container.appendChild(legendDiv);

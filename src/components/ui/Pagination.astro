@@ -102,19 +102,13 @@ const { page, blogPath = "/blog" } = Astro.props;
                 endPage = currentPage + 2;
             }
 
-            for (
-                let pageNumber = startPage;
-                pageNumber < endPage + 1;
-                pageNumber++
-            ) {
+            for (let pageNumber = startPage; pageNumber < endPage + 1; pageNumber++) {
                 const href = `${blogPath}/${pageNumber}/`;
                 pages.push(
                     <a
                         data-key={`page-${pageNumber}`}
                         href={href}
-                        aria-current={
-                            pageNumber === currentPage ? "page" : null
-                        }
+                        aria-current={pageNumber === currentPage ? "page" : null}
                         class={pageNumber === currentPage ? "active" : ""}
                     >
                         {pageNumber}

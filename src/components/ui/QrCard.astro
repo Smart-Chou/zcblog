@@ -16,14 +16,7 @@ const { qrImage, alt, platformName, iconName, paypalUrl } = Astro.props;
 
 <div class="donate-method">
     <div class="qr-code">
-        <Image
-            src={qrImage}
-            alt={alt}
-            width={160}
-            height={160}
-            loading="lazy"
-            decoding="async"
-        />
+        <Image src={qrImage} alt={alt} width={160} height={160} loading="lazy" decoding="async" />
         <div class="qr-info">
             {
                 paypalUrl ? (

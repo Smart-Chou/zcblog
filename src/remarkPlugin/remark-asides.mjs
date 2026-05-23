@@ -31,14 +31,7 @@
 import { h as _h, s as _s } from "hastscript";
 import { remove } from "unist-util-remove";
 import { visit } from "unist-util-visit";
-const variants = new Set([
-    "note",
-    "info",
-    "important",
-    "tip",
-    "warning",
-    "danger",
-]);
+const variants = new Set(["note", "info", "important", "tip", "warning", "danger"]);
 
 function defaultLabel(v) {
     switch (v) {
@@ -162,11 +155,7 @@ export function remarkAsides(options) {
 
     const transformer = (tree) => {
         visit(tree, (node, index, parent) => {
-            if (
-                !parent ||
-                index === undefined ||
-                node.type !== "containerDirective"
-            ) {
+            if (!parent || index === undefined || node.type !== "containerDirective") {
                 return;
             }
             const variant = node.name;
@@ -179,11 +168,7 @@ export function remarkAsides(options) {
             let title = options.label?.(variant);
 
             remove(node, (child) => {
-                if (
-                    child.data &&
-                    "directiveLabel" in child.data &&
-                    child.data.directiveLabel
-                ) {
+                if (child.data && "directiveLabel" in child.data && child.data.directiveLabel) {
                     if (
                         "children" in child &&
                         Array.isArray(child.children) &&

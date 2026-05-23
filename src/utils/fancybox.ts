@@ -98,9 +98,7 @@ async function initDynamicFancybox(
 /**
  * 初始化静态画廊模式的 Fancybox
  */
-async function initStaticFancybox(
-    options: Partial<FancyboxOptions> = {},
-): Promise<void> {
+async function initStaticFancybox(options: Partial<FancyboxOptions> = {}): Promise<void> {
     const debug = options.debug ?? !isProduction();
     const config = { ...DEFAULT_OPTIONS, ...options, debug };
 
@@ -143,14 +141,9 @@ function registerFancybox(fn: () => Promise<void>): void {
 }
 
 export const initEssayFancybox = () =>
-    registerFancybox(() =>
-        initDynamicFancybox(".essay-images", { debug: false }),
-    );
+    registerFancybox(() => initDynamicFancybox(".essay-images", { debug: false }));
 
 export const initArticleFancybox = () =>
-    registerFancybox(() =>
-        initDynamicFancybox(".post-content", { debug: false }),
-    );
+    registerFancybox(() => initDynamicFancybox(".post-content", { debug: false }));
 
-export const initAlbumFancybox = () =>
-    registerFancybox(() => initStaticFancybox({ debug: false }));
+export const initAlbumFancybox = () => registerFancybox(() => initStaticFancybox({ debug: false }));

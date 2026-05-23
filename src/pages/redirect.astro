@@ -94,13 +94,10 @@ const scriptTexts = JSON.stringify({
                     throw new Error("URL 参数为空");
                 }
                 // 处理 URL 安全的 Base64 编码，将 - 转换为 +，_ 转换为 /
-                const base64EncodedUrl = encodedUrl
-                    .replace(/-/g, "+")
-                    .replace(/_/g, "/");
+                const base64EncodedUrl = encodedUrl.replace(/-/g, "+").replace(/_/g, "/");
                 // 添加适当的填充字符
                 const paddedEncodedUrl = base64EncodedUrl.padEnd(
-                    base64EncodedUrl.length +
-                        ((4 - (base64EncodedUrl.length % 4)) % 4),
+                    base64EncodedUrl.length + ((4 - (base64EncodedUrl.length % 4)) % 4),
                     "=",
                 );
                 // Base64 解码

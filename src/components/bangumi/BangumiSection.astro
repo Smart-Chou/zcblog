@@ -38,18 +38,11 @@ const filters = [
 ].filter((f) => f.value === "all" || f.count > 0);
 ---
 
-<div
-    class:list={["bangumi-section", { hidden: !isActive }]}
-    data-section={sectionId}
->
+<div class:list={["bangumi-section", { hidden: !isActive }]} data-section={sectionId}>
     {
         items.length > 0 ? (
             <>
-                <FilterControls
-                    filters={filters}
-                    activeFilter="all"
-                    sectionId={sectionId}
-                />
+                <FilterControls filters={filters} activeFilter="all" sectionId={sectionId} />
                 <div class="bangumi-grid">
                     {items.map((item) => (
                         <div

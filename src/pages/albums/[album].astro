@@ -26,9 +26,7 @@ import albumsData from "~/data/albums.json";
 
 const allAlbums: Album[] = (albumsData as Album[]).map((album) => ({
     ...album,
-    cover: album.cover
-        ? `${imageService.baseUrl}${imageService.picPath}${album.cover}`
-        : "",
+    cover: album.cover ? `${imageService.baseUrl}${imageService.picPath}${album.cover}` : "",
     photoCount: album.photos?.length || 0,
 }));
 
@@ -36,9 +34,7 @@ export async function getStaticPaths() {
     const data = await import("~/data/albums.json");
     const allAlbums = (data.default as Album[]).map((album) => ({
         ...album,
-        cover: album.cover
-            ? `${imageService.baseUrl}${imageService.picPath}${album.cover}`
-            : "",
+        cover: album.cover ? `${imageService.baseUrl}${imageService.picPath}${album.cover}` : "",
         photoCount: album.photos?.length || 0,
     }));
 
@@ -68,14 +64,8 @@ if (!foundAlbum) {
             <h1 class="album-title">{foundAlbum.name}</h1>
             <p class="album-description">{foundAlbum.description}</p>
             <div class="album-meta">
-                <span class="photo-count"
-                    >{foundAlbum.photos.length} 张照片</span
-                >
-                {
-                    foundAlbum.location && (
-                        <span class="location">{foundAlbum.location}</span>
-                    )
-                }
+                <span class="photo-count">{foundAlbum.photos.length} 张照片</span>
+                {foundAlbum.location && <span class="location">{foundAlbum.location}</span>}
             </div>
         </div>
 

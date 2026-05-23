@@ -1,18 +1,11 @@
 export function formatPosts(
     posts: { data: { pubDate: string; isDraft: boolean } }[],
-    {
-        filterOutDrafts = true,
-        filterOutFuturePosts = true,
-        sortByDate = true,
-    } = {},
+    { filterOutDrafts = true, filterOutFuturePosts = true, sortByDate = true } = {},
 ) {
     const now = filterOutFuturePosts ? Date.now() : 0;
 
     const filteredPosts = posts.reduce(
-        (
-            acc: typeof posts,
-            post: { data: { pubDate: string; isDraft: boolean } },
-        ) => {
+        (acc: typeof posts, post: { data: { pubDate: string; isDraft: boolean } }) => {
             const { pubDate, isDraft } = post.data;
 
             // filterOutDrafts if true

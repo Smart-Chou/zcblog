@@ -2,12 +2,7 @@
 import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 ---
 
-<button
-    id="theme-btn"
-    aria-label="切换主题"
-    aria-pressed="false"
-    class="toggle-theme"
->
+<button id="theme-btn" aria-label="切换主题" aria-pressed="false" class="toggle-theme">
     <DynamicIcon name="tabler:sun" class="feather feather-sun" />
     <DynamicIcon name="tabler:moon-stars" class="feather feather-moon" />
 </button>
@@ -26,9 +21,7 @@ import DynamicIcon from "~/components/icons/DynamicIcon.astro";
         };
 
         const getSystemTheme = () => {
-            return window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light";
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         };
 
         const getCurrentTheme = () => {
@@ -63,10 +56,7 @@ import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 
             const isDark = theme === "dark";
             btn.setAttribute("data-theme", theme);
-            btn.setAttribute(
-                "aria-label",
-                isDark ? "切换为浅色模式" : "切换为深色模式",
-            );
+            btn.setAttribute("aria-label", isDark ? "切换为浅色模式" : "切换为深色模式");
             btn.setAttribute("aria-pressed", isDark.toString());
         };
 
@@ -97,10 +87,7 @@ import DynamicIcon from "~/components/icons/DynamicIcon.astro";
             // 优先使用按钮已有的 data-theme 属性（由 BaseHead 设置）
             let currentTheme = btn.getAttribute("data-theme");
 
-            if (
-                !currentTheme ||
-                (currentTheme !== "dark" && currentTheme !== "light")
-            ) {
+            if (!currentTheme || (currentTheme !== "dark" && currentTheme !== "light")) {
                 // 回退到从 DOM 读取
                 currentTheme = getThemeFromDOM();
             }
@@ -123,13 +110,11 @@ import DynamicIcon from "~/components/icons/DynamicIcon.astro";
 
         // 使用 window 属性跨页面持久化，防止 View Transitions 导致重复注册监听器
         if (!window.__themeInitialized) {
-            window
-                .matchMedia("(prefers-color-scheme: dark)")
-                .addEventListener("change", (e) => {
-                    if (!getStoredTheme()) {
-                        setTheme(e.matches ? "dark" : "light");
-                    }
-                });
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+                if (!getStoredTheme()) {
+                    setTheme(e.matches ? "dark" : "light");
+                }
+            });
             window.__themeInitialized = true;
         }
 

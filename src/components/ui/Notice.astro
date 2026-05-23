@@ -15,7 +15,7 @@ function simpleHash(str: string): string {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
         const chr = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + chr;
+        hash = (hash << 5) - hash + chr;
         hash |= 0;
     }
     return Math.abs(hash).toString(36);
@@ -31,7 +31,8 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
         if (!banner) return;
 
         const key = banner.dataset.storageKey || "";
-        const storage = banner.dataset.storageType === "localStorage" ? localStorage : sessionStorage;
+        const storage =
+            banner.dataset.storageType === "localStorage" ? localStorage : sessionStorage;
 
         if (storage.getItem(key)) return;
         banner.style.display = "";
@@ -65,32 +66,37 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
 >
     <div class="notice-banner-inner">
         <div class="notice-banner-body">
-            {notice.title && (
-                <strong class="notice-banner-title">{notice.title}</strong>
-            )}
+            {notice.title && <strong class="notice-banner-title">{notice.title}</strong>}
             <span class="notice-banner-content">
                 {notice.content}
             </span>
         </div>
         <div class="notice-banner-actions">
-            {notice.confirm ? (
-                <button
-                    data-notice-confirm
-                    class="notice-btn notice-btn--primary"
-                >
-                    {notice.confirmText || "知道了"}
-                </button>
-            ) : (
-                <button
-                    data-notice-close
-                    class="notice-btn notice-btn--close"
-                    aria-label="关闭公告"
-                >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                        <path d="M18 6 6 18M6 6l12 12"/>
-                    </svg>
-                </button>
-            )}
+            {
+                notice.confirm ? (
+                    <button data-notice-confirm class="notice-btn notice-btn--primary">
+                        {notice.confirmText || "知道了"}
+                    </button>
+                ) : (
+                    <button
+                        data-notice-close
+                        class="notice-btn notice-btn--close"
+                        aria-label="关闭公告"
+                    >
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        >
+                            <path d="M18 6 6 18M6 6l12 12" />
+                        </svg>
+                    </button>
+                )
+            }
         </div>
     </div>
 </aside>

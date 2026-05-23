@@ -10,16 +10,12 @@ function initRedirectHandler() {
     try {
         if (!config.redirect) return;
 
-        const {
-            redirectIncludeClass: includeClass,
-            redirectExcludeClass: excludeClass,
-        } = config;
+        const { redirectIncludeClass: includeClass, redirectExcludeClass: excludeClass } = config;
 
         const hasClassInTree = (element: HTMLElement): boolean => {
             let current: HTMLElement | null = element;
             while (current) {
-                if (includeClass.some((c) => current!.classList.contains(c)))
-                    return true;
+                if (includeClass.some((c) => current!.classList.contains(c))) return true;
                 current = current.parentElement;
             }
             return false;
@@ -28,8 +24,7 @@ function initRedirectHandler() {
         const isExcluded = (element: HTMLElement): boolean => {
             let current: HTMLElement | null = element;
             while (current) {
-                if (excludeClass.some((c) => current!.classList.contains(c)))
-                    return true;
+                if (excludeClass.some((c) => current!.classList.contains(c))) return true;
                 current = current.parentElement;
             }
             return false;
@@ -48,10 +43,7 @@ function initRedirectHandler() {
             if (!isExternalUrl(href, currentHost)) continue;
 
             link.setAttribute("original-href", href);
-            link.setAttribute(
-                "href",
-                `${REDIRECT_PAGE}${toUrlSafeBase64(href)}`,
-            );
+            link.setAttribute("href", `${REDIRECT_PAGE}${toUrlSafeBase64(href)}`);
             link.setAttribute("target", "_blank");
             link.setAttribute("rel", "noopener noreferrer");
 

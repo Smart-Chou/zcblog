@@ -23,9 +23,7 @@ const { tabs, activeTab } = Astro.props;
                     type="button"
                 >
                     {tab.name}
-                    {tab.count !== undefined && (
-                        <span class="count">({tab.count})</span>
-                    )}
+                    {tab.count !== undefined && <span class="count">({tab.count})</span>}
                 </button>
             ))
         }
@@ -50,10 +48,7 @@ const { tabs, activeTab } = Astro.props;
 
         function activateTab(targetTab: string) {
             tabButtons.forEach((btn) => {
-                btn.classList.toggle(
-                    "active",
-                    btn.getAttribute("data-tab") === targetTab,
-                );
+                btn.classList.toggle("active", btn.getAttribute("data-tab") === targetTab);
             });
             sections.forEach((section) => {
                 const el = section as HTMLElement;

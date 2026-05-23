@@ -33,8 +33,7 @@ async function renderOne(svg: Element) {
         const { root, features } = t.transform(data);
         const { styles, scripts } = t.getUsedAssets(features);
         if (styles) m.loadCSS(styles);
-        if (scripts)
-            m.loadJS(scripts, { getMarkmap: () => (window as any).markmap });
+        if (scripts) m.loadJS(scripts, { getMarkmap: () => (window as any).markmap });
         m.Markmap.create(svg, {}, root);
     } catch (e) {
         console.error("Markmap render failed:", e);
@@ -42,13 +41,11 @@ async function renderOne(svg: Element) {
 }
 
 function initMarkmap() {
-    document
-        .querySelectorAll<SVGElement>(".markmap-container[data-markmap]")
-        .forEach((svg) => {
-            if ((svg as any).__markmapInit) return;
-            (svg as any).__markmapInit = true;
-            renderOne(svg);
-        });
+    document.querySelectorAll<SVGElement>(".markmap-container[data-markmap]").forEach((svg) => {
+        if ((svg as any).__markmapInit) return;
+        (svg as any).__markmapInit = true;
+        renderOne(svg);
+    });
 }
 
 document.addEventListener("astro:page-load", initMarkmap);

@@ -39,9 +39,7 @@ const publishedDays = Math.floor(
 const imageUrl = frontmatter.image?.url || getRandomImageUrl();
 const imageAlt = frontmatter.image?.alt || "Blog Cover";
 const ogImage =
-    import.meta.env.DEV || import.meta.env.PREVIEW
-        ? imageUrl
-        : `${Astro.site}og/${slug}.png`;
+    import.meta.env.DEV || import.meta.env.PREVIEW ? imageUrl : `${Astro.site}og/${slug}.png`;
 ---
 
 <style is:global>

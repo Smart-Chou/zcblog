@@ -5,26 +5,9 @@
  */
 export function generateSummary(markdownContent: string): string {
     const excerptLength = 160;
-    const separators = [
-        "。",
-        "，",
-        ".",
-        ",",
-        "：",
-        ":",
-        ")",
-        "）",
-        "!",
-        "！",
-        "?",
-        "？",
-    ];
+    const separators = ["。", "，", ".", ",", "：", ":", ")", "）", "!", "！", "?", "？"];
 
-    function truncateToExcerpt(
-        text: string,
-        maxLength: number,
-        separators: string[],
-    ): string {
+    function truncateToExcerpt(text: string, maxLength: number, separators: string[]): string {
         let output = "";
         let len = 0;
         let i = 0;

@@ -35,21 +35,17 @@ export async function starlightPagefind({
             path: fileURLToPath(dir),
             glob: pagefindConfig.glob,
         });
-        const { page_count } =
-            assertPagefindResponse<pagefind.IndexingResponse>(
-                indexingResponse,
-                logger,
-            );
+        const { page_count } = assertPagefindResponse<pagefind.IndexingResponse>(
+            indexingResponse,
+            logger,
+        );
 
         logger.info(`Found ${page_count} HTML files.`);
 
         const writeFilesResponse = await index.writeFiles({
             outputPath: fileURLToPath(new URL("./pagefind/", dir)),
         });
-        assertPagefindResponse<pagefind.WriteFilesResponse>(
-            writeFilesResponse,
-            logger,
-        );
+        assertPagefindResponse<pagefind.WriteFilesResponse>(writeFilesResponse, logger);
 
         const pagefindTime = performance.now() - now;
         logger.info(
@@ -67,8 +63,7 @@ function assertPagefindResponse<T extends { errors: string[] }>(
     logger: ReturnType<HookParameters<"astro:build:done">["logger"]["fork"]>,
 ) {
     if (response.errors.length > 0) {
-        for (const error of response.errors)
-            logger.error(`Pagefind error: ${error}`);
+        for (const error of response.errors) logger.error(`Pagefind error: ${error}`);
         throw new Error("Pagefind response contained errors.");
     }
     return response as Required<T>;

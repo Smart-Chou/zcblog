@@ -19,8 +19,7 @@ const YOUTUBE_EMBED = "https://www.youtube.com/embed/";
 const BILIBILI_EMBED = "https://player.bilibili.com/player.html";
 
 function encode64(data) {
-    const chars =
-        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
+    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
     let result = "";
     for (let i = 0; i < data.length; i += 3) {
         const b1 = data[i],
@@ -51,8 +50,7 @@ export function remarkCodeBlocks() {
             // Mermaid
             if (lang === "mermaid") {
                 node.type = "html";
-                node.value =
-                    '<pre class="mermaid">\n' + node.value + "\n</pre>";
+                node.value = '<pre class="mermaid">\n' + node.value + "\n</pre>";
                 return;
             }
 

@@ -13,9 +13,7 @@ const { title, locale } = Astro.props;
 function extractDate(alt: string): Date | null {
     const match = alt.match(/(\d{4}-\d{2}-\d{2})\s*(\d{2}:\d{2}:\d{2})?/);
     if (!match) return null;
-    const dateStr = match[2]
-        ? `${match[1]}T${match[2]}`
-        : `${match[1]}T00:00:00`;
+    const dateStr = match[2] ? `${match[1]}T${match[2]}` : `${match[1]}T00:00:00`;
     return new Date(dateStr);
 }
 
@@ -29,9 +27,7 @@ const allPhotos = albums.flatMap((album) =>
 const withDates = allPhotos
     .map((p) => ({ ...p, _date: extractDate(p.title) }))
     .filter((p) => p._date !== null);
-const sortedPhotos = withDates.sort(
-    (a, b) => b._date!.getTime() - a._date!.getTime(),
-);
+const sortedPhotos = withDates.sort((a, b) => b._date!.getTime() - a._date!.getTime());
 const photos = sortedPhotos.slice(0, MAX_PHOTOS);
 
 const isLargeGrid = photos.length >= 9;

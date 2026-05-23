@@ -10,8 +10,7 @@ import { writeFile, mkdir, readdir, unlink, access } from "node:fs/promises";
 import sharp from "sharp";
 import { loadEnvFile } from "./lib/env.mjs";
 
-const RSS_URL = (userId) =>
-    `https://www.douban.com/feed/people/${userId}/interests`;
+const RSS_URL = (userId) => `https://www.douban.com/feed/people/${userId}/interests`;
 
 const OUTPUT_DIR = "src/data";
 const COVER_DIR = "public/images/douban";
@@ -98,9 +97,7 @@ function parseItem(itemXml) {
     try {
         const linkMatch = itemXml.match(/<link>([^<]+)<\/link>/);
         const titleMatch = itemXml.match(/<title>([^<]+)<\/title>/);
-        const descMatch = itemXml.match(
-            /<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/,
-        );
+        const descMatch = itemXml.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/);
         const dateMatch = itemXml.match(/<pubDate>([^<]+)<\/pubDate>/);
 
         const url = linkMatch?.[1]?.trim() ?? "";
@@ -165,10 +162,7 @@ async function downloadCover(imageUrl, subjectId) {
         if (!res.ok) return "";
 
         const buffer = Buffer.from(await res.arrayBuffer());
-        await sharp(buffer)
-            .resize(COVER_WIDTH)
-            .webp({ quality: 80 })
-            .toFile(filePath);
+        await sharp(buffer).resize(COVER_WIDTH).webp({ quality: 80 }).toFile(filePath);
 
         return publicPath;
     } catch {
@@ -197,11 +191,7 @@ async function cleanOrphanCovers(validSubjectIds) {
 
 async function writeJson(filename, data) {
     await mkdir(OUTPUT_DIR, { recursive: true });
-    await writeFile(
-        `${OUTPUT_DIR}/${filename}`,
-        JSON.stringify(data, null, 2) + "\n",
-        "utf-8",
-    );
+    await writeFile(`${OUTPUT_DIR}/${filename}`, JSON.stringify(data, null, 2) + "\n", "utf-8");
 }
 
 // ── 主逻辑 ──
@@ -260,8 +250,7 @@ async function main() {
     await cleanOrphanCovers(raw.map((e) => e.subjectId));
 
     // 6. 去除内部字段后写 JSON
-    const clean = (arr) =>
-        arr.map(({ subjectId, rawCoverUrl, ...rest }) => rest);
+    const clean = (arr) => arr.map(({ subjectId, rawCoverUrl, ...rest }) => rest);
 
     const sortByDate = (arr) => arr.sort((a, b) => (b.date > a.date ? 1 : -1));
 

@@ -28,9 +28,7 @@ interface PostsByYear {
 
 const allPosts = await getCollection("article");
 
-const postsWithMeta = allPosts.map((post) =>
-    enrichPost(post),
-) as PostWithMeta[];
+const postsWithMeta = allPosts.map((post) => enrichPost(post)) as PostWithMeta[];
 
 const postsByYear = postsWithMeta.reduce<PostsByYear>((acc, post) => {
     const year = new Date(post.data.pubDate).getFullYear();
@@ -50,9 +48,7 @@ const startYear = Math.min(
 );
 
 const postsData = postsWithMeta.map((post) => ({
-    date: post.data.pubDate
-        ? formatDateToYYYYMMDD(new Date(post.data.pubDate))
-        : "",
+    date: post.data.pubDate ? formatDateToYYYYMMDD(new Date(post.data.pubDate)) : "",
     title: post.data.title || "",
     wordCount: post.wordCount,
 }));

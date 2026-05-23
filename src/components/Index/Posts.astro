@@ -45,10 +45,12 @@ function formatDateFull(date: Date): string {
         <section>
             <div class="section-header">
                 <h2 class="section-label">{t(locale, "stats.recentPosts")}</h2>
-                <a class="section-link" href={archiveUrl}>{t(locale, "common.viewAll")} →</a>
+                <a class="section-link" href={archiveUrl}>
+                    {t(locale, "common.viewAll")} →
+                </a>
             </div>
             <div class="posts-home stagger-children">
-                <!-- Featured post -->
+                {/* Featured post */}
                 <article class="post-featured">
                     {posts[0].data.image && (
                         <img
@@ -63,26 +65,28 @@ function formatDateFull(date: Date): string {
                     )}
                     <div class="post-featured-body">
                         <span class="post-featured-label">Featured</span>
-                        <h1 class="post-featured-title">
-                                {posts[0].data.title}
-                        </h1>
+                        <h1 class="post-featured-title">{posts[0].data.title}</h1>
                         <span class="post-featured-date">
                             {formatDateFull(posts[0].data.pubDate)}
                         </span>
                     </div>
-                    <a href={`/article/${posts[0].id}/`} class="post-card-link" aria-label={`${locale === "en" ? "Read" : "阅读"} ${posts[0].data.title}`}></a>
+                    <a
+                        href={`/article/${posts[0].id}/`}
+                        class="post-card-link"
+                        aria-label={`${locale === "en" ? "Read" : "阅读"} ${posts[0].data.title}`}
+                    />
                 </article>
 
                 {/* Secondary posts */}
                 {posts.slice(1).map((post) => (
                     <article class="post-card">
-                        <h2 class="post-card-title">
-                            {post.data.title}
-                        </h2>
-                        <span class="post-card-meta">
-                            {formatDateFull(post.data.pubDate)}
-                        </span>
-                            <a href={`/article/${post.id}/`} class="post-card-link" aria-label={`${locale === "en" ? "Read" : "阅读"} ${post.data.title}`}></a>
+                        <h2 class="post-card-title">{post.data.title}</h2>
+                        <span class="post-card-meta">{formatDateFull(post.data.pubDate)}</span>
+                        <a
+                            href={`/article/${post.id}/`}
+                            class="post-card-link"
+                            aria-label={`${locale === "en" ? "Read" : "阅读"} ${post.data.title}`}
+                        />
                     </article>
                 ))}
             </div>

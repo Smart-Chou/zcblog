@@ -30,10 +30,7 @@ const BANGUMI_CONFIG = {
     },
 };
 
-const categoryMap: Record<
-    string,
-    { id: string; name: string; subjectType: number }
-> = {
+const categoryMap: Record<string, { id: string; name: string; subjectType: number }> = {
     anime: { id: "anime", name: t(loc, "bangumi.categories.anime"), subjectType: 2 },
     book: { id: "book", name: t(loc, "bangumi.categories.book"), subjectType: 1 },
     music: { id: "music", name: t(loc, "bangumi.categories.music"), subjectType: 3 },
@@ -88,12 +85,7 @@ async function fetchBangumiData(
 
             const url = `${BANGUMI_CONFIG.apiUrl}/v0/users/${username}/collections?subject_type=${subjectType}&limit=${limit}&offset=${offset}`;
 
-            const response = await fetchWithRetry(
-                url,
-                timeoutMs,
-                retries,
-                retryDelayMs,
-            );
+            const response = await fetchWithRetry(url, timeoutMs, retries, retryDelayMs);
 
             if (!response.ok) break;
 
@@ -108,8 +100,7 @@ async function fetchBangumiData(
                 hasMore = false;
             }
 
-            if (hasMore)
-                await new Promise((resolve) => setTimeout(resolve, delay));
+            if (hasMore) await new Promise((resolve) => setTimeout(resolve, delay));
         }
         return allData;
     } catch (error) {
@@ -121,15 +112,11 @@ async function fetchBangumiData(
 const bangumiData: Record<string, UserSubjectCollection[]> = {};
 const tabs: Array<{ id: string; name: string; count: number }> = [];
 
-const isUserIdConfigured =
-    BANGUMI_CONFIG.username && BANGUMI_CONFIG.username.trim() !== "";
+const isUserIdConfigured = BANGUMI_CONFIG.username && BANGUMI_CONFIG.username.trim() !== "";
 
 if (isUserIdConfigured) {
     for (const [categoryKey, categoryInfo] of Object.entries(categoryMap)) {
-        const data = await fetchBangumiData(
-            BANGUMI_CONFIG.username,
-            categoryInfo.subjectType,
-        );
+        const data = await fetchBangumiData(BANGUMI_CONFIG.username, categoryInfo.subjectType);
         bangumiData[categoryKey] = data;
         tabs.push({
             id: categoryKey,

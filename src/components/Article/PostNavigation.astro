@@ -8,8 +8,7 @@ const allPosts = await getCollection("article");
 const sorted = sortByPubDate(allPosts);
 const currentIndex = sorted.findIndex((post) => post.id === slug);
 const prevPost = currentIndex > 0 ? sorted[currentIndex - 1] : null;
-const nextPost =
-    currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
+const nextPost = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
 ---
 
 {

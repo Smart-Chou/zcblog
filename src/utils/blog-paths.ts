@@ -6,7 +6,10 @@ import { compareByPubDate } from "~/utils";
 export async function blogGetStaticPaths({
     paginate,
 }: {
-    paginate: (data: unknown[], options: { pageSize: number }) => Promise<{
+    paginate: (
+        data: unknown[],
+        options: { pageSize: number },
+    ) => Promise<{
         data: unknown[];
         url: { prev?: string; next?: string };
         currentPage: number;

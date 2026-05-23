@@ -27,9 +27,7 @@ export async function GET(context) {
             const wordCount = readingStats.words || "";
             const readTime = readingStats.text || "";
 
-            const descriptionHtml = sanitizeHtml(
-                marked.parse(post.data.description || ""),
-            );
+            const descriptionHtml = sanitizeHtml(marked.parse(post.data.description || ""));
             return {
                 title: post.data.title,
                 pubDate: post.data.pubDate,

@@ -76,10 +76,7 @@ export const GET: APIRoute = async ({ props }) => {
     const isCJK = /[一-鿿㐀-䶿]/.test(title);
     const maxLen = isCJK ? 14 : 42;
     const displayTitle = title.length > maxLen ? title.slice(0, maxLen) + "…" : title;
-    const displayDesc =
-        description.length > 100
-            ? description.slice(0, 100) + "…"
-            : description;
+    const displayDesc = description.length > 100 ? description.slice(0, 100) + "…" : description;
 
     const svg = await satori(
         {
@@ -183,10 +180,7 @@ export const GET: APIRoute = async ({ props }) => {
                                 {
                                     type: "div",
                                     props: {
-                                        children: site.url.replace(
-                                            "https://",
-                                            "",
-                                        ),
+                                        children: site.url.replace("https://", ""),
                                         style: {
                                             fontSize: "18px",
                                             fontWeight: 400,

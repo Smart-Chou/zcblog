@@ -59,9 +59,7 @@ function extractImages(note) {
     }
 
     // Markdown 兜底
-    for (const [, url] of (note.content || "").matchAll(
-        /!\[.*?\]\(([^)\s]+)\)/g,
-    )) {
+    for (const [, url] of (note.content || "").matchAll(/!\[.*?\]\(([^)\s]+)\)/g)) {
         urls.push(fullUrl(url));
     }
 

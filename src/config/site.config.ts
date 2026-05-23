@@ -62,8 +62,7 @@ export const site: SiteConfig = {
     subtitle: "Marx Chou - A Noob Developer",
     description:
         "Welcome to Marx's Blog, where I share my journey as a noob developer. Here, you'll find insights, tutorials, and musings on programming, technology, and the challenges of learning to code. Join me as I navigate the world of software development and share my experiences along the way.",
-    keywords:
-        "Marx's Blog, Marx Chou, noob developer, programming, technology, coding journey",
+    keywords: "Marx's Blog, Marx Chou, noob developer, programming, technology, coding journey",
     favicon: "favicon.svg",
     logo: "logo.svg",
     coverImage: "cover.png",

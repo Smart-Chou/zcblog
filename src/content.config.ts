@@ -22,9 +22,7 @@ const article = defineCollection({
                         (val) => (val === "" ? undefined : val),
                         z
                             .union([image(), z.string()])
-                            .default(
-                                `${imageService.baseUrl}${imageService.randomPath}`,
-                            ),
+                            .default(`${imageService.baseUrl}${imageService.randomPath}`),
                     ),
                     alt: z.preprocess(
                         (val) => (val === "" ? undefined : val),

@@ -23,11 +23,7 @@ const time = new Date(item.time).toLocaleDateString("zh-CN", {
     month: "long",
     day: "numeric",
 });
-const images = item.images
-    ? Array.isArray(item.images)
-        ? item.images
-        : [item.images]
-    : [];
+const images = item.images ? (Array.isArray(item.images) ? item.images : [item.images]) : [];
 const avatarImage = getLocalImage(item.avatar_url);
 ---
 

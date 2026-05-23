@@ -19,9 +19,7 @@ import { remove } from "unist-util-remove";
 import { visit } from "unist-util-visit";
 
 const DEFAULT_PASSWORD =
-    typeof process !== "undefined" &&
-    process.env?.ENCRYPTION_PASSWORD ||
-    "marxchou-default";
+    (typeof process !== "undefined" && process.env?.ENCRYPTION_PASSWORD) || "marxchou-default";
 
 function h(el, attrs = {}, children = []) {
     const { tagName, properties } = _h(el, attrs);
@@ -53,11 +51,7 @@ export function remarkEncrypted() {
 
             // Extract label and/or attributes from directive
             remove(node, (child) => {
-                if (
-                    child.data &&
-                    "directiveLabel" in child.data &&
-                    child.data.directiveLabel
-                ) {
+                if (child.data && "directiveLabel" in child.data && child.data.directiveLabel) {
                     if (
                         "children" in child &&
                         Array.isArray(child.children) &&

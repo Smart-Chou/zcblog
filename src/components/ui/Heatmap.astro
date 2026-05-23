@@ -14,12 +14,7 @@ interface Props {
 const { postsData } = Astro.props;
 ---
 
-<div
-    class="heatmap-container"
-    id="heatmap-container"
-    data-posts={JSON.stringify(postsData)}
->
-</div>
+<div class="heatmap-container" id="heatmap-container" data-posts={JSON.stringify(postsData)}></div>
 
 <script>
     import { registerHeatmap } from "~/scripts/heatmap";

@@ -15,9 +15,7 @@ const isEn = locale === "en";
 
 const tag = (Astro.params.tag as string) || "";
 
-const postsWithMeta = articles.map((post: CollectionEntry<"article">) =>
-    enrichPost(post),
-);
+const postsWithMeta = articles.map((post: CollectionEntry<"article">) => enrichPost(post));
 ---
 
 <SectionPage
@@ -34,9 +32,7 @@ const postsWithMeta = articles.map((post: CollectionEntry<"article">) =>
     noindex={true}
     empty={postsWithMeta.length === 0}
     emptyTitle={isEn ? "No posts found" : "暂无文章"}
-    emptyMessage={isEn
-        ? `No posts tagged with "${tag}"`
-        : `没有标签为 "${tag}" 的文章`}
+    emptyMessage={isEn ? `No posts tagged with "${tag}"` : `没有标签为 "${tag}" 的文章`}
 >
     <div class="posts">
         {
