@@ -90,12 +90,6 @@
         "vite-plugin-pwa": "^1.3.0",
         "vitest": "^4.1.6"
     },
-    "pnpm": {
-        "onlyBuiltDependencies": [
-            "sharp",
-            "esbuild"
-        ]
-    },
     "engines": {
         "node": ">= 22.0.0"
     }
