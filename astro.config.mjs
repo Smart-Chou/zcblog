@@ -7,17 +7,17 @@ import remarkGfm from "remark-gfm"; // GitHub Flavored Markdown
 import rehypeSlug from "rehype-slug"; // 标题添加ID
 import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 标题添加锚点
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
-import { remarkCodeBlocks } from "./src/remarkPlugin/remark-code-blocks.mjs";
-import { remarkInlineSyntax } from "./src/remarkPlugin/remark-inline-syntax.mjs";
-import { remarkAsides } from "./src/remarkPlugin/remark-asides.mjs";
-import { remarkImageGrid } from "./src/remarkPlugin/remark-image-grid.mjs";
-import { remarkGithubCard } from "./src/remarkPlugin/remark-github-card.mjs";
-import { GithubCardComponent } from "./src/remarkPlugin/rehype-github-card.mjs";
-import { remarkTabs } from "./src/remarkPlugin/remark-tabs.mjs";
-import { remarkAlign } from "./src/remarkPlugin/remark-align.mjs";
-import { remarkInclude } from "./src/remarkPlugin/remark-include.mjs";
-import { remarkEncrypted } from "./src/remarkPlugin/remark-encrypted.mjs";
-import { rehypeEncrypted } from "./src/remarkPlugin/rehype-encrypted.mjs";
+import { remarkCodeBlocks } from "./src/remark-plugin/remark-code-blocks.mjs";
+import { remarkInlineSyntax } from "./src/remark-plugin/remark-inline-syntax.mjs";
+import { remarkAsides } from "./src/remark-plugin/remark-asides.mjs";
+import { remarkImageGrid } from "./src/remark-plugin/remark-image-grid.mjs";
+import { remarkGithubCard } from "./src/remark-plugin/remark-github-card.mjs";
+import { GithubCardComponent } from "./src/remark-plugin/rehype-github-card.mjs";
+import { remarkTabs } from "./src/remark-plugin/remark-tabs.mjs";
+import { remarkAlign } from "./src/remark-plugin/remark-align.mjs";
+import { remarkInclude } from "./src/remark-plugin/remark-include.mjs";
+import { remarkEncrypted } from "./src/remark-plugin/remark-encrypted.mjs";
+import { rehypeEncrypted } from "./src/remark-plugin/rehype-encrypted.mjs";
 import expressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";

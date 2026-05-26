@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "title": "绝代风华",
+    "url": "https://music.douban.com/subject/30385142/",
+    "cover": "/images/douban/30385142.webp",
+    "rating": 0,
+    "status": "wish",
+    "tags": [],
+    "comment": "",
+    "type": "music",
+    "date": "2026-05-23T04:52:21.000Z"
+  },
+  {
+    "title": "最近在听寻雾启示",
+    "url": "https://music.douban.com/subject/4913704/",
+    "cover": "/images/douban/4913704.webp",
+    "rating": 5,
+    "status": "",
+    "tags": [],
+    "comment": "",
+    "type": "music",
+    "date": "2026-05-23T04:52:11.000Z"
+  },
+  {
+    "title": "最近在听素颜",
+    "url": "https://music.douban.com/subject/5064190/",
+    "cover": "/images/douban/5064190.webp",
+    "rating": 4,
+    "status": "",
+    "tags": [],
+    "comment": "",
+    "type": "music",
+    "date": "2026-05-23T04:52:05.000Z"
+  },
+  {
+    "title": "自定义",
+    "url": "https://music.douban.com/subject/3711014/",
+    "cover": "/images/douban/3711014.webp",
+    "rating": 5,
+    "status": "listened",
+    "tags": [],
+    "comment": "",
+    "type": "music",
+    "date": "2026-05-23T04:51:58.000Z"
+  }
+]

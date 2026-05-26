@@ -13,7 +13,7 @@
  *
  * @example
  * // astro.config.mjs
- * import { remarkAsides } from './src/remarkPlugin/remark-asides.js';
+ * import { remarkAsides } from './src/remark-plugin/remark-asides.js';
  *
  * export default defineConfig({
  *   markdown: {

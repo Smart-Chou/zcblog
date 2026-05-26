@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { formatPosts } from "../formatPosts";
+import { formatPosts } from "../format-posts";
 
 interface PostData {
     pubDate: string;
