@@ -84,7 +84,17 @@ html[data-theme="dark"] .loading-intro__circle {
         top: calc(var(--header-height) + 2.5rem);
     }
 
+    /* No ring on mobile — only the red rule spins on its own */
     .loading-intro__circle {
-        display: none;
+        width: 48px;
+        height: 48px;
+        border: none;
+        animation: circle-spin 1s linear infinite;
+    }
+
+    .loading-intro__rule {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
