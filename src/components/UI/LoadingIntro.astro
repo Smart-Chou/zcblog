@@ -1,0 +1,70 @@
+---
+// Loading intro — ring + red rule spin together as one unit,
+// positioned to match the hero's ::before / ::after ornaments.
+// Fades out to reveal the real hero underneath.
+---
+
+<div id="loading-intro" class="loading-intro" aria-hidden="true">
+    <div class="loading-intro__inner">
+        <div class="loading-intro__circle" aria-hidden="true">
+            <div class="loading-intro__rule" aria-hidden="true"></div>
+        </div>
+    </div>
+</div>
+
+<noscript>
+    <style>
+        .loading-intro {
+            display: none !important;
+        }
+    </style>
+</noscript>
+
+<script>
+    (function () {
+        const STORAGE_KEY = "loading-intro-shown";
+
+        const overlay = document.getElementById("loading-intro");
+        if (!overlay) return;
+
+        if (sessionStorage.getItem(STORAGE_KEY)) {
+            overlay.remove();
+            return;
+        }
+
+        sessionStorage.setItem(STORAGE_KEY, "1");
+
+        // Capture non-null reference for closure safety
+        const el = overlay;
+        const MIN_SPIN_MS = 1100; // at least one full rotation (1s) + small buffer
+        const startTime = performance.now();
+
+        function reveal() {
+            el.classList.add("loading-intro--done");
+
+            el.addEventListener(
+                "transitionend",
+                () => el.remove(),
+                { once: true },
+            );
+
+            // Fallback removal
+            setTimeout(() => {
+                if (el.parentNode) el.remove();
+            }, 800);
+        }
+
+        function onPageReady() {
+            const elapsed = performance.now() - startTime;
+            // Ensure at least one full spin, then reveal
+            const remaining = Math.max(0, MIN_SPIN_MS - elapsed);
+            setTimeout(reveal, remaining);
+        }
+
+        if (document.readyState === "complete") {
+            onPageReady();
+        } else {
+            window.addEventListener("load", onPageReady);
+        }
+    })();
+</script>
