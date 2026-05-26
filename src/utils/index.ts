@@ -1,5 +1,5 @@
 export * from "./date-utils";
-export * from "./formatPosts";
+export * from "./format-posts";
 export * from "./i18n";
 export * from "./encrypt";
 export * from "./redirect-utils";

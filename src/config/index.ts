@@ -1,14 +1,14 @@
 // 统一导出所有配置，保持向后兼容
 
 // 导入各个配置文件
-import * as siteConfig from "./site.config";
-import * as featureConfig from "./feature.config";
-import * as uiConfig from "./ui.config";
+import * as siteConfig from "./site";
+import * as featureConfig from "./feature";
+import * as uiConfig from "./ui";
 
 // 重新导出所有配置
-export * from "./site.config";
-export * from "./feature.config";
-export * from "./ui.config";
+export * from "./site";
+export * from "./feature";
+export * from "./ui";
 
 // 保持与原self.config.ts相同的导出结构
 export const { site, author, notFoundPage, tagsPage, archivesPage, redirectPage, imageService } =

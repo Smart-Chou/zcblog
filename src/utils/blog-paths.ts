@@ -1,7 +1,7 @@
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { config } from "~/config";
-import { enrichPost } from "~/utils/getPostsWithMeta";
+import { enrichPost } from "~/utils/get-posts-with-meta";
 import { compareByPubDate } from "~/utils";
 
 export async function blogGetStaticPaths({

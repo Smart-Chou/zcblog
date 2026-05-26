@@ -1,12 +1,12 @@
 ---
 import { getCollection } from "astro:content";
 import SectionPage from "~/components/Layout/SectionPage.astro";
-import Archive from "~/components/ui/Archive.astro";
-import Author from "~/components/ui/Author.astro";
-import Heatmap from "~/components/ui/Heatmap.astro";
-import DynamicIcon from "~/components/icons/DynamicIcon.astro";
+import Archive from "~/components/UI/Archive.astro";
+import Author from "~/components/UI/Author.astro";
+import Heatmap from "~/components/UI/Heatmap.astro";
+import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import { site, archivesPage } from "~/config";
-import { enrichPost } from "~/utils/getPostsWithMeta";
+import { enrichPost } from "~/utils/get-posts-with-meta";
 import { sortByPubDate, formatDateToYYYYMMDD } from "~/utils";
 import type { CollectionEntry } from "astro:content";
 

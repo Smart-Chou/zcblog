@@ -1,79 +1,24 @@
 [
-    {
-        "title": "湖山事事幽",
-        "url": "https://book.douban.com/subject/38434908/",
-        "cover": "/images/douban/38434908.webp",
-        "rating": 0,
-        "status": "wish",
-        "tags": [],
-        "comment": "",
-        "type": "book",
-        "date": "2026-05-19T07:01:21.000Z"
-    },
-    {
-        "title": "荒野之境",
-        "url": "https://book.douban.com/subject/36216064/",
-        "cover": "/images/douban/36216064.webp",
-        "rating": 4,
-        "status": "read",
-        "tags": [],
-        "comment": "拖了好久終於讀完了。二十年前Macfarlane著此書時還不到30歲，卻以與年齡不太相符的筆觸完成了漫長的荒野遠行和書寫（譯者也翻譯了《深時之旅》，至今仍是最愛的書）。羨慕作者像野人一樣露宿，觀鳥、野泳、撿石頭，結交的朋友都是自然歷史學家、鳥類畫家、放鷹人，那樣的荒野遙不可及",
-        "type": "book",
-        "date": "2026-05-01T05:18:59.000Z"
-    },
-    {
-        "title": "契诃夫的一生",
-        "url": "https://book.douban.com/subject/37899097/",
-        "cover": "/images/douban/37899097.webp",
-        "rating": 0,
-        "status": "wish",
-        "tags": [],
-        "comment": "",
-        "type": "book",
-        "date": "2026-03-25T04:20:54.000Z"
-    },
-    {
-        "title": "佛曆西沉與黑玫瑰貓的記憶的記憶",
-        "url": "https://book.douban.com/subject/38205209/",
-        "cover": "/images/douban/38205209.webp",
-        "rating": 0,
-        "status": "wish",
-        "tags": [],
-        "comment": "",
-        "type": "book",
-        "date": "2026-03-11T01:06:13.000Z"
-    },
-    {
-        "title": "陆地的尽头，是海洋的开始",
-        "url": "https://book.douban.com/subject/37348677/",
-        "cover": "/images/douban/37348677.webp",
-        "rating": 0,
-        "status": "wish",
-        "tags": [],
-        "comment": "",
-        "type": "book",
-        "date": "2026-01-14T23:03:08.000Z"
-    },
-    {
-        "title": "根深叶茂",
-        "url": "https://book.douban.com/subject/36519237/",
-        "cover": "/images/douban/36519237.webp",
-        "rating": 0,
-        "status": "wish",
-        "tags": [],
-        "comment": "",
-        "type": "book",
-        "date": "2025-10-03T10:14:40.000Z"
-    },
-    {
-        "title": "下天山",
-        "url": "https://book.douban.com/subject/36812669/",
-        "cover": "/images/douban/36812669.webp",
-        "rating": 0,
-        "status": "wish",
-        "tags": [],
-        "comment": "",
-        "type": "book",
-        "date": "2025-06-04T14:25:13.000Z"
-    }
+  {
+    "title": "天色已晚",
+    "url": "https://book.douban.com/subject/37890167/",
+    "cover": "/images/douban/37890167.webp",
+    "rating": 0,
+    "status": "wish",
+    "tags": [],
+    "comment": "",
+    "type": "book",
+    "date": "2026-05-23T04:49:27.000Z"
+  },
+  {
+    "title": "大厂小民",
+    "url": "https://book.douban.com/subject/38208793/",
+    "cover": "/images/douban/38208793.webp",
+    "rating": 0,
+    "status": "wish",
+    "tags": [],
+    "comment": "",
+    "type": "book",
+    "date": "2026-05-23T04:49:19.000Z"
+  }
 ]

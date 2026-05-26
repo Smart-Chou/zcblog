@@ -13,7 +13,7 @@ import { getIconData, iconToSVG, iconToHTML, replaceIDs } from "@iconify/utils";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = join(__dirname, "..");
 const SRC_DIR = join(ROOT_DIR, "src");
-const OUTPUT_FILE = join(SRC_DIR, "components", "icons.ts");
+const OUTPUT_FILE = join(SRC_DIR, "components", "Icons", "index.ts");
 
 // 支持的图标集及其包名
 const ICON_SETS = {

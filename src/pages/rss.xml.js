@@ -2,7 +2,7 @@ import rss from "@astrojs/rss";
 import sanitizeHtml from "sanitize-html";
 import { marked } from "marked";
 import { getCollection } from "astro:content";
-import { formatPosts } from "~/utils/formatPosts";
+import { formatPosts } from "~/utils/format-posts";
 import getReadingTime from "reading-time";
 import { site, author } from "~/config";
 
