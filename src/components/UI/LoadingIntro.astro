@@ -42,11 +42,7 @@
         function reveal() {
             el.classList.add("loading-intro--done");
 
-            el.addEventListener(
-                "transitionend",
-                () => el.remove(),
-                { once: true },
-            );
+            el.addEventListener("transitionend", () => el.remove(), { once: true });
 
             // Fallback removal
             setTimeout(() => {
