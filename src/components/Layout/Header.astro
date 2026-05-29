@@ -5,6 +5,11 @@ import Search from "~/components/UI/Search.astro";
 import ToggleTheme from "~/components/Layout/ToggleTheme.astro";
 import LanguageSwitcher from "~/components/Layout/LanguageSwitcher.astro";
 import { search } from "~/config";
+
+interface Props {
+    searchEnable?: boolean;
+}
+
 const { searchEnable = search.enable } = Astro.props;
 ---
 

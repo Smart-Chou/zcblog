@@ -90,18 +90,4 @@ export function getIconSvg(iconName: string): string {
 	return iconSvgData[iconName] || "";
 }
 
-/**
- * 检查图标是否可用
- */
-export function hasIcon(iconName: string): boolean {
-	return iconName in iconSvgData;
-}
-
-/**
- * 获取所有可用图标名称
- */
-export function getAvailableIcons(): string[] {
-	return Object.keys(iconSvgData);
-}
-
 export default iconSvgData;

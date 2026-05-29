@@ -1,4 +1,6 @@
 ---
+import { getCollection } from "astro:content";
+import { sortByPubDate } from "~/utils/date-utils";
 import "~/styles/remark-aside.css";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
@@ -16,6 +18,14 @@ import MermaidRenderer from "~/components/Layout/MermaidRenderer.astro";
 import { site, postView, waline, donate } from "~/config";
 import { getRandomImageUrl } from "~/utils";
 
+interface Props {
+    frontmatter: Record<string, any>;
+    slug: string;
+    modifiedTime: Date | string;
+    readTime: string;
+    wordCount: number;
+}
+
 const {
     frontmatter = {
         waline: false,
@@ -29,6 +39,14 @@ const {
     readTime,
     wordCount,
 } = Astro.props;
+
+const allPosts = await getCollection("article");
+const sorted = sortByPubDate(allPosts);
+const currentIndex = sorted.findIndex((post) => post.id === slug);
+const prevSlug = currentIndex > 0 ? sorted[currentIndex - 1]?.id : null;
+const nextSlug = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1]?.id : null;
+const prevUrl = prevSlug ? `/article/${prevSlug}/` : null;
+const nextUrl = nextSlug ? `/article/${nextSlug}/` : null;
 
 const today = new Date();
 const publishedTime = frontmatter.pubDate;
@@ -79,6 +97,8 @@ const ogImage =
     modifiedTime={modifiedTime}
     mathjax={frontmatter.mathjax}
     mermaid={frontmatter.mermaid}
+    prevUrl={prevUrl}
+    nextUrl={nextUrl}
 >
     <div class="reading-progress"></div>
     <div class="post-title">

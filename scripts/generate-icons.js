@@ -18,10 +18,8 @@ const OUTPUT_FILE = join(SRC_DIR, "components", "Icons", "index.ts");
 // 支持的图标集及其包名
 const ICON_SETS = {
     tabler: "@iconify-json/tabler",
-    ph: "@iconify-json/ph",
     logos: "@iconify-json/logos",
     mingcute: "@iconify-json/mingcute",
-    "material-symbols": "@iconify-json/material-symbols",
 };
 
 // 图标集数据缓存
@@ -175,20 +173,6 @@ ${iconEntries}
  */
 export function getIconSvg(iconName: string): string {
 	return iconSvgData[iconName] || "";
-}
-
-/**
- * 检查图标是否可用
- */
-export function hasIcon(iconName: string): boolean {
-	return iconName in iconSvgData;
-}
-
-/**
- * 获取所有可用图标名称
- */
-export function getAvailableIcons(): string[] {
-	return Object.keys(iconSvgData);
 }
 
 export default iconSvgData;

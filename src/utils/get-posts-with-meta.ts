@@ -105,8 +105,3 @@ export function enrichPost<T extends Post>(post: T): T & PostMeta & { slug: stri
     const meta = getPostsWithMeta({ ...post, slug: post.id || post.slug });
     return { ...post, ...meta, slug: (post.id || post.slug)! };
 }
-
-/** Batch version of enrichPost. */
-export function enrichPosts<T extends Post>(posts: T[]): (T & PostMeta & { slug: string })[] {
-    return posts.map((post) => enrichPost(post));
-}

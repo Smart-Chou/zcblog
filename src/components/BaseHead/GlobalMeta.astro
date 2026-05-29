@@ -1,5 +1,12 @@
 ---
 import { author } from "~/config";
+
+interface Props {
+    title: string;
+    description: string;
+    keywords: string | string[];
+}
+
 const { title, description, keywords } = Astro.props;
 
 const keywordsArray = Array.isArray(keywords) ? keywords : [keywords];

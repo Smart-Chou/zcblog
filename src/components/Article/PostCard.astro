@@ -5,6 +5,23 @@ import PostMeta from "~/components/Article/PostMeta.astro";
 import PostCardImage from "~/components/Article/PostCardImage.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 
+interface Props {
+    key?: string;
+    altText: string;
+    imagePath: string;
+    title: string;
+    description: string;
+    publishedTime: Date;
+    tags?: string[];
+    postUrl: string;
+    wordCount: number;
+    readTime: string;
+    currentSlug: string;
+    loading?: "lazy" | "eager";
+    sticky?: number;
+    modifiedTime?: Date | string;
+}
+
 const {
     altText,
     imagePath,
@@ -25,7 +42,7 @@ const {
     <div class="post-card-header">
         {(<PostCardImage imagePath={imagePath} altText={altText} loading={loading} />)}
         {
-            sticky > 0 && (
+            (sticky ?? 0) > 0 && (
                 <DynamicIcon
                     name="tabler:flame"
                     style="color:red; position: absolute;top: 10px; right: 10px; width: 30px; height: 30px;"
@@ -44,7 +61,7 @@ const {
     />
     <div class="post-tags post-card-tags">
         {
-            tags.map((tag: string) => (
+            tags?.map((tag: string) => (
                 <PostTag tag={tag.toUpperCase()} url={`/tags/${tag.toUpperCase()}/`} />
             ))
         }

@@ -1,6 +1,10 @@
 ---
 import { site } from "~/config";
 
+interface Props {
+    noindex?: boolean;
+}
+
 const { noindex = false } = Astro.props;
 ---
 

@@ -1,12 +1,20 @@
 ---
 import { author } from "~/config";
+
+interface Props {
+    title: string;
+    description: string;
+    image: string;
+    modifiedTime?: Date | string;
+}
+
 const currentPath = Astro.url.pathname;
 let ldJson = "website";
 if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {
     ldJson = "article";
 }
 
-const { title, image, modifiedTime } = Astro.props;
+const { title, description, image, modifiedTime } = Astro.props;
 
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 
@@ -35,6 +43,7 @@ const ldJsonSchema = {
     "@context": "https://schema.org",
     "@type": ldJson,
     ...(ldJson === "article" ? { headline: title } : { name: title }),
+    description: description,
     image: image,
     url: pageUrl,
     dateModified: safeDateModified,

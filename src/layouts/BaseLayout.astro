@@ -6,6 +6,23 @@ import Footer from "~/components/Layout/Footer.astro";
 import Notice from "~/components/UI/Notice.astro";
 import Watermark from "~/components/UI/Watermark.astro";
 
+interface Props {
+    title: string;
+    description: string;
+    image?: string;
+    imageAlt?: string;
+    keywords?: string | string[];
+    publishedTime?: Date | string;
+    modifiedTime?: Date | string;
+    mathjax?: boolean;
+    mermaid?: boolean;
+    fullWidth?: boolean;
+    locale?: string;
+    prevUrl?: string | null;
+    nextUrl?: string | null;
+    noindex?: boolean;
+}
+
 const {
     title,
     description,

@@ -42,10 +42,3 @@ export interface UserSubjectCollection {
     lasttouch: number;
     tags: string[];
 }
-
-export interface UserSubjectCollectionResponse {
-    data: UserSubjectCollection[];
-    total: number;
-    limit: number;
-    offset: number;
-}

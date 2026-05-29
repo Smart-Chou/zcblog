@@ -24,6 +24,8 @@ interface Props {
     fullWidth?: boolean;
     // SEO
     noindex?: boolean;
+    // i18n
+    locale?: string;
 }
 
 const {
@@ -40,6 +42,7 @@ const {
     keywords,
     publishedTime,
     modifiedTime,
+    locale,
     fullWidth = false,
     noindex = false,
 } = Astro.props;
@@ -60,6 +63,7 @@ const hasEmptyIcon = Astro.slots.has("empty-icon");
     modifiedTime={modifiedTime}
     fullWidth={fullWidth}
     noindex={noindex}
+    locale={locale}
 >
     <div class:list={["section-container", { "section-container--full": fullWidth }]}>
         <PageHeader title={title} subtitle={subtitle} buildTime={buildTime} showIcon={hasIcon}>

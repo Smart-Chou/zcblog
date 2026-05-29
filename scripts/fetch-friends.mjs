@@ -48,9 +48,15 @@ function avatarForName(name) {
 
 function parseItem(itemXml) {
     try {
-        const rawTitle = (itemXml.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/) || [])[1]?.trim() ?? "";
-        const url = (itemXml.match(/<link>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/) || [])[1]?.trim() ?? "";
-        const dateStr = (itemXml.match(/<pubDate>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/pubDate>/) || [])[1]?.trim() ?? "";
+        const rawTitle =
+            (itemXml.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/) ||
+                [])[1]?.trim() ?? "";
+        const url =
+            (itemXml.match(/<link>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/) ||
+                [])[1]?.trim() ?? "";
+        const dateStr =
+            (itemXml.match(/<pubDate>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/pubDate>/) ||
+                [])[1]?.trim() ?? "";
         const date = dateStr ? new Date(dateStr).toISOString() : "";
 
         if (!rawTitle || !url) return null;

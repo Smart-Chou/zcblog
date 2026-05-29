@@ -12,11 +12,26 @@ import KatexManager from "~/components/Layout/KatexManager.astro";
 import { ClientRouter } from "astro:transitions";
 import { imageService, waline, umami } from "~/config";
 
+interface Props {
+    title: string;
+    description: string;
+    image?: string;
+    imageAlt?: string;
+    mathjax?: boolean;
+    mermaid?: boolean;
+    keywords?: string | string[];
+    publishedTime?: Date | string;
+    modifiedTime?: Date | string;
+    prevUrl?: string | null;
+    nextUrl?: string | null;
+    noindex?: boolean;
+}
+
 const {
     title,
     description,
-    image,
-    imageAlt,
+    image = "",
+    imageAlt = "",
     mathjax,
     mermaid,
     keywords = [],

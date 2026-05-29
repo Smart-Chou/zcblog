@@ -1,4 +1,11 @@
 ---
+interface Props {
+    key?: string;
+    title: string;
+    url: string;
+    publishedTime: Date | string;
+}
+
 const { title, url, publishedTime } = Astro.props;
 
 // 验证和格式化日期

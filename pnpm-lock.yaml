@@ -128,15 +128,9 @@ importers:
             "@iconify-json/logos":
                 specifier: ^1.2.11
                 version: 1.2.11
-            "@iconify-json/material-symbols":
-                specifier: ^1.2.72
-                version: 1.2.72
             "@iconify-json/mingcute":
                 specifier: ^1.2.7
                 version: 1.2.7
-            "@iconify-json/ph":
-                specifier: ^1.2.2
-                version: 1.2.2
             "@iconify-json/tabler":
                 specifier: ^1.2.35
                 version: 1.2.35
@@ -167,9 +161,6 @@ importers:
             standard-version:
                 specifier: ^9.5.0
                 version: 9.5.0
-            svgo:
-                specifier: ^4.0.1
-                version: 4.0.1
             typescript:
                 specifier: ^5.9.3
                 version: 5.9.3
@@ -1550,22 +1541,10 @@ packages:
                 integrity: sha512-fOo4pGEatuyuCFNL+cwquYMa2Im0oJHRHV7lt/Qqs5Ode/lPImHCQcfTtPzZj7qYMPb/h8YHN3TG54uEowrjNQ==,
             }
 
-    "@iconify-json/material-symbols@1.2.72":
-        resolution:
-            {
-                integrity: sha512-hIfBPaAixWH7xnX2rRfuoZX7CZLviJKruL0nnuIY5MqAo14KPXnfNgWdvJdokjwKdsB/OgWOH4Ipm+AXuGSbsA==,
-            }
-
     "@iconify-json/mingcute@1.2.7":
         resolution:
             {
                 integrity: sha512-bp4z6F53KAQp99aSL7qPCHL7HWUNGMNKIhfo/dx9pwVHiad/WusUbTOFXEZfpA44syJPzSOxa3O6Pwiq7qZz1g==,
-            }
-
-    "@iconify-json/ph@1.2.2":
-        resolution:
-            {
-                integrity: sha512-PgkEZNtqa8hBGjHXQa4pMwZa93hmfu8FUSjs/nv4oUU6yLsgv+gh9nu28Kqi8Fz9CCVu4hj1MZs9/60J57IzFw==,
             }
 
     "@iconify-json/tabler@1.2.35":
@@ -9878,15 +9857,7 @@ snapshots:
         dependencies:
             "@iconify/types": 2.0.0
 
-    "@iconify-json/material-symbols@1.2.72":
-        dependencies:
-            "@iconify/types": 2.0.0
-
     "@iconify-json/mingcute@1.2.7":
-        dependencies:
-            "@iconify/types": 2.0.0
-
-    "@iconify-json/ph@1.2.2":
         dependencies:
             "@iconify/types": 2.0.0
 

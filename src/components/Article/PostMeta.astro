@@ -1,5 +1,13 @@
 ---
 import { formatDateToYYYYMMDD } from "~/utils";
+
+interface Props {
+    publishedTime: Date;
+    wordCount: number;
+    readTime: string;
+    currentSlug: string;
+}
+
 const { publishedTime, wordCount, readTime, currentSlug } = Astro.props;
 ---
 

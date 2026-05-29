@@ -64,7 +64,7 @@ export const site: SiteConfig = {
         "Welcome to Marx's Blog, where I share my journey as a noob developer. Here, you'll find insights, tutorials, and musings on programming, technology, and the challenges of learning to code. Join me as I navigate the world of software development and share my experiences along the way.",
     keywords: "Marx's Blog, Marx Chou, noob developer, programming, technology, coding journey",
     favicon: "favicon.svg",
-    logo: "logo.svg",
+    logo: "logo.webp",
     coverImage: "cover.png",
     coverImageAlt: "Marx's Blog",
     url: "https://marxchou.com",
@@ -98,7 +98,7 @@ export const author: AuthorConfig = {
     type: "Marx Chou",
     url: "https://marxchou.com",
     motto: "阿巴阿巴 o((>ω< ))o",
-    avatar: "logo.svg",
+    avatar: "logo.webp",
 };
 
 /**

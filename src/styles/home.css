@@ -220,10 +220,6 @@
     }
 }
 
-.index-talk-icon {
-    display: none;
-}
-
 .talk-wrap {
     flex: 1;
     overflow: hidden;
@@ -475,32 +471,6 @@
     color: var(--color-muted);
 }
 
-/* View all link */
-.view-all {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding-top: 0.5rem;
-}
-
-.view-all-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    color: var(--color-accent);
-    text-decoration: none;
-    padding: 0.6rem 2rem;
-    border: 1px solid var(--color-accent);
-    border-radius: var(--radius-full);
-    transition: all 0.3s ease;
-
-    &:hover {
-        background: var(--color-accent);
-        color: #fff;
-    }
-}
-
 /* ========================================
    6. Photos — Variable Grid
    ======================================== */
@@ -673,90 +643,11 @@
     }
 }
 
-.media-items {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-
-.media-item {
-    text-align: center;
-
-    &:hover .media-item-cover img {
-        transform: scale(1.08);
-    }
-}
-
-.media-item-cover {
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius-md);
-    margin-bottom: 0.5rem;
-    aspect-ratio: 3 / 4;
-
-    & img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.4s ease;
-    }
-}
-
-.media-item-title {
-    font-size: var(--text-sm);
-    line-height: 1.3;
-    margin: 0;
-
-    & a {
-        color: var(--color-body);
-        text-decoration: none;
-
-        &:hover {
-            color: var(--color-accent);
-        }
-    }
-}
-
-.media-item-rating {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    margin-top: 0.25rem;
-}
-
 .rating {
     font-size: var(--text-xs);
     display: flex;
     align-items: center;
     gap: 0.25rem;
-}
-
-.allstardark {
-    position: relative;
-    color: #fccd59;
-    height: 14px;
-    width: 70px;
-    background-size: auto 100%;
-    background-repeat: repeat;
-    background-image: url("data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjxwYXRoIGQ9Ik05MDguMSAzNTMuMWwtMjUzLjktMzYuOUw1NDAuNyA4Ni4xYy0zLjEtNi4zLTguMi0xMS40LTE0LjUtMTQuNS0xNS44LTcuOC0zNS0xLjMtNDIuOSAxNC41TDM2OS44IDMxNi4ybC0yNTMuOSAzNi45Yy03IDEtMTMuNCA0LjMtMTguMyA5LjMtMTIuMyAxMi43LTEyLjEgMzIuOS42IDQ1LjNsMTgzLjcgMTc5LjEtNDMuNCAyNTIuOWMtMS4yIDYuOS0uMSAxNC4xIDMuMiAyMC4zIDguMiAxNS42IDI3LjYgMjEuNyA0My4yIDEzLjRMNTEyIDc1NGwyMjcuMSAxMTkuNGM2LjIgMy4zIDEzLjQgNC40IDIwLjMgMy4yIDE3LjQtMyAyOS4xLTE5LjUgMjYuMS0zNi45bC00My40LTI1Mi45IDE4My43LTE3OS4xYzUtNC45IDguMy0xMS4zIDkuMy0xOC4zIDIuNy0xNy41LTkuNS0zMy43LTI3LTM2LjN6TTY2NC44IDU2MS42bDM2LjEgMjEwLjNMNTEyIDY3Mi43IDMyMy4xIDc3MmwzNi4xLTIxMC4zLTE1Mi44LTE0OUw0MTcuNiAzODIgNTEyIDE5MC43IDYwNi40IDM4MmwyMTEuMiAzMC43LTE1Mi44IDE0OC45eiIgZmlsbD0iI2Y5OWIwMSIvPjwvc3ZnPg==");
-}
-
-.allstarlight {
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #f99b01;
-    height: 14px;
-    overflow: hidden;
-    background-size: auto 100%;
-    background-repeat: repeat;
-    background-image: url("data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjxwYXRoIGQ9Ik05MDguMSAzNTMuMWwtMjUzLjktMzYuOUw1NDAuNyA4Ni4xYy0zLjEtNi4zLTguMi0xMS40LTE0LjUtMTQuNS0xNS44LTcuOC0zNS0xLjMtNDIuOSAxNC41TDM2OS44IDMxNi4ybC0yNTMuOSAzNi45Yy03IDEtMTMuNCA0LjMtMTguMyA5LjMtMTIuMyAxMi43LTEyLjEgMzIuOS42IDQ1LjNsMTgzLjcgMTc5LjEtNDMuNCAyNTIuOWMtMS4yIDYuOS0uMSAxNC4xIDMuMiAyMC4zIDguMiAxNS42IDI3LjYgMjEuNyA0My4yIDEzLjRMNTEyIDc1NGwyMjcuMSAxMTkuNGM2LjIgMy4zIDEzLjQgNC40IDIwLjMgMy4yIDE3LjQtMyAyOS4xLTE5LjUgMjYuMS0zNi45bC00My40LTI1Mi45IDE4My43LTE3OS4xYzUtNC45IDguMy0xMS4zIDkuMy0xOC4zIDIuNy0xNy41LTkuNS0zMy43LTI3LTM2LjN6IiBmaWxsPSIjZjk5YjAxIi8+PC9zdmc+");
-}
-
-.rating_nums {
-    font-size: var(--text-xs);
-    color: var(--color-muted);
 }
 
 /* ========================================
@@ -860,16 +751,8 @@
         }
     }
 
-    #goods {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .media-duo {
         grid-template-columns: 1fr;
-    }
-
-    .media-items {
-        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -905,28 +788,6 @@
         grid-template-rows: auto;
         grid-auto-rows: 140px;
         gap: 0.5rem;
-    }
-
-    #goods {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-    }
-
-    .goods-bankuai {
-        padding: 0.75rem;
-    }
-
-    .goods-duiqi {
-        height: 100px;
-    }
-
-    .media-items {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-    }
-
-    .media-panel {
-        padding: 1rem;
     }
 
     .friends-section {

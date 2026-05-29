@@ -1,6 +1,12 @@
 ---
 import { site, author } from "~/config";
 
+interface Props {
+    keywords?: string | string[];
+    publishedTime?: Date | string;
+    modifiedTime?: Date | string;
+}
+
 const { keywords = [], publishedTime, modifiedTime } = Astro.props;
 
 const currentPath = Astro.url.pathname;

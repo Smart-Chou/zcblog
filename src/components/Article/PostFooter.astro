@@ -2,13 +2,17 @@
 import PostTag from "~/components/Article/PostTag.astro";
 import PostCopyright from "~/components/Article/PostCopyright.astro";
 
+interface Props {
+    tags?: string[];
+}
+
 const { tags } = Astro.props;
 ---
 
 <div class="post-footer">
     <div class="post-tags post-card-tags post-card-tags-lists">
         {
-            tags.map((tag: string) => (
+            tags?.map((tag: string) => (
                 <PostTag tag={tag.toUpperCase()} url={`/tags/${tag.toUpperCase()}/`} />
             ))
         }

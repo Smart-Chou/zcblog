@@ -1,5 +1,14 @@
 ---
 import { config, site } from "~/config";
+
+interface Props {
+    title: string;
+    description: string;
+    image: string;
+    imageAlt: string;
+    modifiedTime?: Date | string;
+}
+
 const { title, description, image, imageAlt, modifiedTime } = Astro.props;
 
 const fullUrl = new URL(Astro.url.pathname, Astro.site).toString();
