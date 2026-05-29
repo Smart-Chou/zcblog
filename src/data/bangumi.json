@@ -1,0 +1,2746 @@
+{
+  "anime": [
+    {
+      "updated_at": "2026-05-14T14:50:58+08:00",
+      "comment": null,
+      "tags": [
+        "推理",
+        "死亡笔记",
+        "智斗"
+      ],
+      "subject": {
+        "date": "2006-10-04",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/4a/be/1773_rldoC.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/4a/be/1773_rldoC.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/4a/be/1773_rldoC.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/4a/be/1773_rldoC.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/4a/be/1773_rldoC.jpg"
+        },
+        "name": "DEATH NOTE",
+        "name_cn": "死亡笔记",
+        "short_summary": "高三生夜神月意外捡到一本名《DEATH NOTE》的笔记本，并且发现只要写下想要杀死的人的名字，就会变成现实。\r\n月开始利用死亡笔记制裁那些他认为该死的人。接着，笔记的原主人：死神也以旁观者的姿态出现在月面前。\r\n另一方面越来越多的罪犯离奇",
+        "tags": [
+          {
+            "name": "推理",
+            "count": 5289,
+            "total_cont": 0
+          },
+          {
+            "name": "死亡笔记",
+            "count": 5116,
+            "total_cont": 0
+          },
+          {
+            "name": "小畑健",
+            "count": 2711,
+            "total_cont": 0
+          },
+          {
+            "name": "MADHouse",
+            "count": 2691,
+            "total_cont": 0
+          },
+          {
+            "name": "智斗",
+            "count": 2610,
+            "total_cont": 0
+          },
+          {
+            "name": "TV",
+            "count": 2081,
+            "total_cont": 0
+          },
+          {
+            "name": "2006",
+            "count": 1876,
+            "total_cont": 0
+          },
+          {
+            "name": "犯罪学",
+            "count": 1821,
+            "total_cont": 0
+          },
+          {
+            "name": "新世界的神",
+            "count": 1713,
+            "total_cont": 0
+          },
+          {
+            "name": "漫画改",
+            "count": 1538,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.4,
+        "type": 2,
+        "id": 1773,
+        "eps": 37,
+        "volumes": 0,
+        "collection_total": 52024,
+        "rank": 65
+      },
+      "subject_id": 1773,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 2,
+      "rate": 9,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:50:35+08:00",
+      "comment": null,
+      "tags": [
+        "哆啦A梦",
+        "经典",
+        "童年回憶"
+      ],
+      "subject": {
+        "date": "2005-04-15",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/b4/4f/18692_Gilpl.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b4/4f/18692_Gilpl.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/b4/4f/18692_Gilpl.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b4/4f/18692_Gilpl.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/b4/4f/18692_Gilpl.jpg"
+        },
+        "name": "ドラえもん",
+        "name_cn": "哆啦A梦",
+        "short_summary": "『ドラえもん』は、藤子・F・不二雄の同名の漫画を原作としたテレビアニメ。2005年（平成17年）からテレビ朝日系列にて放送されている。テレビ朝日・シンエイ動画・ADKエモーションズ制作。\r\n\r\n2005年から放送を開始した本シリーズ（以下、",
+        "tags": [
+          {
+            "name": "童年",
+            "count": 1637,
+            "total_cont": 0
+          },
+          {
+            "name": "哆啦A梦",
+            "count": 1248,
+            "total_cont": 0
+          },
+          {
+            "name": "藤子・F・不二雄",
+            "count": 728,
+            "total_cont": 0
+          },
+          {
+            "name": "经典",
+            "count": 726,
+            "total_cont": 0
+          },
+          {
+            "name": "TV",
+            "count": 612,
+            "total_cont": 0
+          },
+          {
+            "name": "童年回憶",
+            "count": 399,
+            "total_cont": 0
+          },
+          {
+            "name": "2005",
+            "count": 393,
+            "total_cont": 0
+          },
+          {
+            "name": "漫画改",
+            "count": 332,
+            "total_cont": 0
+          },
+          {
+            "name": "没看完",
+            "count": 236,
+            "total_cont": 0
+          },
+          {
+            "name": "沒看全",
+            "count": 225,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.5,
+        "type": 2,
+        "id": 18692,
+        "eps": 0,
+        "volumes": 0,
+        "collection_total": 12069,
+        "rank": 43
+      },
+      "subject_id": 18692,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 2,
+      "rate": 9,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:50:19+08:00",
+      "comment": null,
+      "tags": [
+        "魔法少女",
+        "致郁",
+        "治愈"
+      ],
+      "subject": {
+        "date": "2011-01-06",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/cb/57/9717_sAVag.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/cb/57/9717_sAVag.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/cb/57/9717_sAVag.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/cb/57/9717_sAVag.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/cb/57/9717_sAVag.jpg"
+        },
+        "name": "魔法少女まどか☆マギカ",
+        "name_cn": "魔法少女小圆",
+        "short_summary": "大好きな家族がいて、親友がいて、時には笑い、時には泣く、そんなどこにでもある日常。\r\n見滝原中学校に通う、普通の中学二年生・鹿目まどかも、そんな日常の中で暮らす一人。\r\nある日、彼女に不思議な出会いが訪れる。\r\nこの出会いは偶然なのか、必然",
+        "tags": [
+          {
+            "name": "虚渊玄",
+            "count": 10483,
+            "total_cont": 0
+          },
+          {
+            "name": "新房昭之",
+            "count": 9079,
+            "total_cont": 0
+          },
+          {
+            "name": "魔法少女",
+            "count": 8322,
+            "total_cont": 0
+          },
+          {
+            "name": "致郁",
+            "count": 5184,
+            "total_cont": 0
+          },
+          {
+            "name": "梶浦由紀",
+            "count": 4195,
+            "total_cont": 0
+          },
+          {
+            "name": "原创",
+            "count": 4029,
+            "total_cont": 0
+          },
+          {
+            "name": "SHAFT",
+            "count": 3675,
+            "total_cont": 0
+          },
+          {
+            "name": "2011年1月",
+            "count": 3096,
+            "total_cont": 0
+          },
+          {
+            "name": "治愈",
+            "count": 2914,
+            "total_cont": 0
+          },
+          {
+            "name": "TV",
+            "count": 2763,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.6,
+        "type": 2,
+        "id": 9717,
+        "eps": 12,
+        "volumes": 0,
+        "collection_total": 68889,
+        "rank": 34
+      },
+      "subject_id": 9717,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 2,
+      "rate": 10,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:50:07+08:00",
+      "comment": null,
+      "tags": [
+        "童年",
+        "大闹天宫",
+        "孙悟空"
+      ],
+      "subject": {
+        "date": null,
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/95/f6/1962_qPd3y.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/95/f6/1962_qPd3y.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/95/f6/1962_qPd3y.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/95/f6/1962_qPd3y.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/95/f6/1962_qPd3y.jpg"
+        },
+        "name": "大闹天宫",
+        "name_cn": "大闹天宫",
+        "short_summary": "影片以《西游记》中孙悟空从诞生到大闹天宫这一段的经历为主要内容。\r\n\r\n1961年《大闹天宫》上集正式上映，在国内引起轰动。1964年，下集拍摄完成后由于文艺政策的变化，影片的全本没能够上映。1978年全本的《大闹天宫》终于得以上映。\r\n\r",
+        "tags": [
+          {
+            "name": "上海美术电影制片厂",
+            "count": 1612,
+            "total_cont": 0
+          },
+          {
+            "name": "国产",
+            "count": 1440,
+            "total_cont": 0
+          },
+          {
+            "name": "童年",
+            "count": 1019,
+            "total_cont": 0
+          },
+          {
+            "name": "大闹天宫",
+            "count": 627,
+            "total_cont": 0
+          },
+          {
+            "name": "孙悟空",
+            "count": 532,
+            "total_cont": 0
+          },
+          {
+            "name": "剧场版",
+            "count": 494,
+            "total_cont": 0
+          },
+          {
+            "name": "水墨经典",
+            "count": 447,
+            "total_cont": 0
+          },
+          {
+            "name": "经典",
+            "count": 382,
+            "total_cont": 0
+          },
+          {
+            "name": "1961",
+            "count": 303,
+            "total_cont": 0
+          },
+          {
+            "name": "神作",
+            "count": 275,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.6,
+        "type": 2,
+        "id": 1962,
+        "eps": 1,
+        "volumes": 0,
+        "collection_total": 10501,
+        "rank": 32
+      },
+      "subject_id": 1962,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 2,
+      "rate": 10,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:49:54+08:00",
+      "comment": null,
+      "tags": [
+        "宫崎骏",
+        "吉卜力",
+        "奇幻"
+      ],
+      "subject": {
+        "date": "2001-07-20",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/9d/fc/311_GAg3x.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/9d/fc/311_GAg3x.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/9d/fc/311_GAg3x.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/9d/fc/311_GAg3x.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/9d/fc/311_GAg3x.jpg"
+        },
+        "name": "千と千尋の神隠し",
+        "name_cn": "千与千寻",
+        "short_summary": "年仅10岁的荻野千尋是一个看起来非常普通的四年级小学生，她随父母搬家来到一个陌生的城镇准备开始一个全新的生活。然而，因为途中迷路，她和父母误闯入了一个人类不应该进入的灵异小镇。小镇的主管是当地一家叫“油屋”的澡堂的巫婆：湯婆婆；而“油屋”则",
+        "tags": [
+          {
+            "name": "宫崎骏",
+            "count": 9091,
+            "total_cont": 0
+          },
+          {
+            "name": "吉卜力",
+            "count": 5930,
+            "total_cont": 0
+          },
+          {
+            "name": "剧场版",
+            "count": 4613,
+            "total_cont": 0
+          },
+          {
+            "name": "久石让",
+            "count": 3325,
+            "total_cont": 0
+          },
+          {
+            "name": "奇幻",
+            "count": 2817,
+            "total_cont": 0
+          },
+          {
+            "name": "2001",
+            "count": 2189,
+            "total_cont": 0
+          },
+          {
+            "name": "千と千尋の神隠し",
+            "count": 2131,
+            "total_cont": 0
+          },
+          {
+            "name": "千与千寻",
+            "count": 1758,
+            "total_cont": 0
+          },
+          {
+            "name": "原创",
+            "count": 1663,
+            "total_cont": 0
+          },
+          {
+            "name": "治愈",
+            "count": 1303,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.6,
+        "type": 2,
+        "id": 311,
+        "eps": 1,
+        "volumes": 0,
+        "collection_total": 47923,
+        "rank": 28
+      },
+      "subject_id": 311,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 2,
+      "rate": 10,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:49:05+08:00",
+      "comment": null,
+      "tags": [
+        "银他妈",
+        "吐糟",
+        "搞笑",
+        "必看"
+      ],
+      "subject": {
+        "date": "2011-04-04",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/e1/36/11834_fEZvv.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/e1/36/11834_fEZvv.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/e1/36/11834_fEZvv.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/e1/36/11834_fEZvv.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/e1/36/11834_fEZvv.jpg"
+        },
+        "name": "銀魂'",
+        "name_cn": "银魂'",
+        "short_summary": "在2011年4月进行电视动画的第二期播放，集数承接第一期，从第202话开始。第二期动画标题做了小改动。以《银魂'》做为新标题，即在原标题的魂字右上角加了一点。",
+        "tags": [
+          {
+            "name": "银他妈",
+            "count": 3589,
+            "total_cont": 0
+          },
+          {
+            "name": "吐糟",
+            "count": 2905,
+            "total_cont": 0
+          },
+          {
+            "name": "银魂",
+            "count": 2110,
+            "total_cont": 0
+          },
+          {
+            "name": "人生的意义",
+            "count": 1511,
+            "total_cont": 0
+          },
+          {
+            "name": "搞笑",
+            "count": 1448,
+            "total_cont": 0
+          },
+          {
+            "name": "灵魂支柱",
+            "count": 1440,
+            "total_cont": 0
+          },
+          {
+            "name": "必看",
+            "count": 1403,
+            "total_cont": 0
+          },
+          {
+            "name": "JUMP",
+            "count": 1330,
+            "total_cont": 0
+          },
+          {
+            "name": "杉田智和",
+            "count": 1085,
+            "total_cont": 0
+          },
+          {
+            "name": "天然卷",
+            "count": 758,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.7,
+        "type": 2,
+        "id": 11834,
+        "eps": 51,
+        "volumes": 0,
+        "collection_total": 28805,
+        "rank": 19
+      },
+      "subject_id": 11834,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 2,
+      "rate": 9,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:48:47+08:00",
+      "comment": null,
+      "tags": [
+        "京阿尼",
+        "凉宫春日",
+        "校园"
+      ],
+      "subject": {
+        "date": "2010-02-06",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/9b/9b/3375_33BCV.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/9b/9b/3375_33BCV.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/9b/9b/3375_33BCV.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/9b/9b/3375_33BCV.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/9b/9b/3375_33BCV.jpg"
+        },
+        "name": "涼宮ハルヒの消失",
+        "name_cn": "凉宫春日的消失",
+        "short_summary": "转眼间经已12月18日，凉宫春日期待已久的圣诞节即将来临。SOS团火锅派对的活动拍板以后，阿虚就带着烦恼回家。第二天，阿虚如常上学，但他很快注意到，学校发生了与平日完全不同的事。应该在后面的座位的凉宫春日不在，却换上了理应让长门有希消灭了的",
+        "tags": [
+          {
+            "name": "京阿尼",
+            "count": 5948,
+            "total_cont": 0
+          },
+          {
+            "name": "剧场版",
+            "count": 5470,
+            "total_cont": 0
+          },
+          {
+            "name": "凉宫春日",
+            "count": 5424,
+            "total_cont": 0
+          },
+          {
+            "name": "大萌神",
+            "count": 2625,
+            "total_cont": 0
+          },
+          {
+            "name": "凉宫春日的消失",
+            "count": 2563,
+            "total_cont": 0
+          },
+          {
+            "name": "轻小说改",
+            "count": 2227,
+            "total_cont": 0
+          },
+          {
+            "name": "长门有希",
+            "count": 2180,
+            "total_cont": 0
+          },
+          {
+            "name": "2010",
+            "count": 1748,
+            "total_cont": 0
+          },
+          {
+            "name": "校园",
+            "count": 1074,
+            "total_cont": 0
+          },
+          {
+            "name": "谷川流",
+            "count": 970,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.7,
+        "type": 2,
+        "id": 3375,
+        "eps": 1,
+        "volumes": 0,
+        "collection_total": 46030,
+        "rank": 15
+      },
+      "subject_id": 3375,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 4,
+      "rate": 7,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:48:27+08:00",
+      "comment": null,
+      "tags": [
+        "钢之炼金术师",
+        "热血",
+        "钢炼"
+      ],
+      "subject": {
+        "date": "2009-04-05",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/06/63/1428_xwkMI.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/06/63/1428_xwkMI.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/06/63/1428_xwkMI.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/06/63/1428_xwkMI.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/06/63/1428_xwkMI.jpg"
+        },
+        "name": "鋼の錬金術師 FULLMETAL ALCHEMIST",
+        "name_cn": "钢之炼金术师 FULLMETAL ALCHEMIST",
+        "short_summary": "因思念已故母亲，触犯炼金术中被视为最大禁忌“人体炼成”，而失去一切的兄弟──装上机械铠、有“钢之炼金术师”之称号的哥哥爱德华·爱力克，以及灵魂被固定于铠甲的弟弟阿尔冯斯──两人为取回失去的东西，踏上寻找贤者之石的旅程，并随着接近贤者之石的真",
+        "tags": [
+          {
+            "name": "钢之炼金术师",
+            "count": 5547,
+            "total_cont": 0
+          },
+          {
+            "name": "BONES",
+            "count": 4502,
+            "total_cont": 0
+          },
+          {
+            "name": "骨头社",
+            "count": 3554,
+            "total_cont": 0
+          },
+          {
+            "name": "热血",
+            "count": 2634,
+            "total_cont": 0
+          },
+          {
+            "name": "漫画改",
+            "count": 2484,
+            "total_cont": 0
+          },
+          {
+            "name": "等价交换",
+            "count": 2289,
+            "total_cont": 0
+          },
+          {
+            "name": "钢炼",
+            "count": 2259,
+            "total_cont": 0
+          },
+          {
+            "name": "TV",
+            "count": 1885,
+            "total_cont": 0
+          },
+          {
+            "name": "2009年4月",
+            "count": 1660,
+            "total_cont": 0
+          },
+          {
+            "name": "2009",
+            "count": 1177,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.8,
+        "type": 2,
+        "id": 1428,
+        "eps": 64,
+        "volumes": 0,
+        "collection_total": 49330,
+        "rank": 11
+      },
+      "subject_id": 1428,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 3,
+      "rate": 6,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:48:11+08:00",
+      "comment": null,
+      "tags": [
+        "EVA",
+        "科幻",
+        "补完",
+        "神作"
+      ],
+      "subject": {
+        "date": "1997-07-19",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/fe/45/6049_zy52O.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fe/45/6049_zy52O.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/fe/45/6049_zy52O.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fe/45/6049_zy52O.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/fe/45/6049_zy52O.jpg"
+        },
+        "name": "新世紀エヴァンゲリオン劇場版 Air/まごころを、君に",
+        "name_cn": "新世纪福音战士剧场版 Air/真心为你",
+        "short_summary": "　　神秘的EVA零号机驾驶员绫波丽，在与碇元度约定之时，来到了NERV底层中央教条的红色水池边。她的命运似乎就将在此结束。\r\n　　在危急时刻，葛城美里不但要完成加持良治交待的对“第二次浩劫”真相以及“人类补完计划”的探查工作，还要保护碇真嗣",
+        "tags": [
+          {
+            "name": "EVA",
+            "count": 5858,
+            "total_cont": 0
+          },
+          {
+            "name": "庵野秀明",
+            "count": 4786,
+            "total_cont": 0
+          },
+          {
+            "name": "剧场版",
+            "count": 4527,
+            "total_cont": 0
+          },
+          {
+            "name": "GAINAX",
+            "count": 2327,
+            "total_cont": 0
+          },
+          {
+            "name": "科幻",
+            "count": 1993,
+            "total_cont": 0
+          },
+          {
+            "name": "补完",
+            "count": 1938,
+            "total_cont": 0
+          },
+          {
+            "name": "神作",
+            "count": 1892,
+            "total_cont": 0
+          },
+          {
+            "name": "1997",
+            "count": 1824,
+            "total_cont": 0
+          },
+          {
+            "name": "原创",
+            "count": 1538,
+            "total_cont": 0
+          },
+          {
+            "name": "GANAIX",
+            "count": 711,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.9,
+        "type": 2,
+        "id": 6049,
+        "eps": 2,
+        "volumes": 0,
+        "collection_total": 39036,
+        "rank": 7
+      },
+      "subject_id": 6049,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 1,
+      "rate": 0,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:47:37+08:00",
+      "comment": null,
+      "tags": [
+        "剑心",
+        "雪代巴",
+        "漫画改"
+      ],
+      "subject": {
+        "date": "1999-02-20",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/71/37/1728_HLsCr.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/71/37/1728_HLsCr.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/71/37/1728_HLsCr.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/71/37/1728_HLsCr.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/71/37/1728_HLsCr.jpg"
+        },
+        "name": "るろうに剣心 -明治剣客浪漫譚- 追憶編",
+        "name_cn": "浪客剑心 追忆篇",
+        "short_summary": "幕府时代末期，外忧内患，山河动荡，百姓生活困苦，且生命时刻受到威胁。少年心太因其善良纯洁之心感动飞天御剑流高手比古清十郎，被其收入门下学习剑法，更名剑心。\r\n在国家危难之际，年轻的剑心怀揣改变时代的梦想下山，加入奇兵队，日后更被桂小五郎纳入",
+        "tags": [
+          {
+            "name": "OVA",
+            "count": 2448,
+            "total_cont": 0
+          },
+          {
+            "name": "剑心",
+            "count": 1427,
+            "total_cont": 0
+          },
+          {
+            "name": "浪客剑心",
+            "count": 1304,
+            "total_cont": 0
+          },
+          {
+            "name": "追忆篇",
+            "count": 1046,
+            "total_cont": 0
+          },
+          {
+            "name": "雪代巴",
+            "count": 1029,
+            "total_cont": 0
+          },
+          {
+            "name": "1999",
+            "count": 921,
+            "total_cont": 0
+          },
+          {
+            "name": "悲剧",
+            "count": 881,
+            "total_cont": 0
+          },
+          {
+            "name": "十字伤",
+            "count": 623,
+            "total_cont": 0
+          },
+          {
+            "name": "studiodeen",
+            "count": 560,
+            "total_cont": 0
+          },
+          {
+            "name": "漫画改",
+            "count": 518,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.9,
+        "type": 2,
+        "id": 1728,
+        "eps": 4,
+        "volumes": 0,
+        "collection_total": 18402,
+        "rank": 6
+      },
+      "subject_id": 1728,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 3,
+      "rate": 8,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:47:14+08:00",
+      "comment": null,
+      "tags": [
+        "科幻",
+        "经典",
+        "日本",
+        "神配乐"
+      ],
+      "subject": {
+        "date": "1998-10-23",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/c2/4c/253_jJJj9.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c2/4c/253_jJJj9.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/c2/4c/253_jJJj9.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c2/4c/253_jJJj9.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/c2/4c/253_jJJj9.jpg"
+        },
+        "name": "カウボーイビバップ",
+        "name_cn": "星际牛仔",
+        "short_summary": "       2021年，随着超光速航行技术的实现，人类得以在太阳系范围内方便的自由移动，但是由于设计上的失误，这种技术引发了月球的爆炸，无数的月球碎片被吸引向地球，造成了空前绝后的大灾难。存活下来的人类逃离地球，并开始在太阳系各地建立家园",
+        "tags": [
+          {
+            "name": "渡边信一郎",
+            "count": 5662,
+            "total_cont": 0
+          },
+          {
+            "name": "菅野洋子",
+            "count": 4487,
+            "total_cont": 0
+          },
+          {
+            "name": "星际牛仔",
+            "count": 4072,
+            "total_cont": 0
+          },
+          {
+            "name": "科幻",
+            "count": 3745,
+            "total_cont": 0
+          },
+          {
+            "name": "经典",
+            "count": 3281,
+            "total_cont": 0
+          },
+          {
+            "name": "SUNRISE",
+            "count": 2489,
+            "total_cont": 0
+          },
+          {
+            "name": "神作",
+            "count": 2388,
+            "total_cont": 0
+          },
+          {
+            "name": "神配乐",
+            "count": 2042,
+            "total_cont": 0
+          },
+          {
+            "name": "TV",
+            "count": 1895,
+            "total_cont": 0
+          },
+          {
+            "name": "1998",
+            "count": 1688,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.1,
+        "type": 2,
+        "id": 253,
+        "eps": 26,
+        "volumes": 0,
+        "collection_total": 44102,
+        "rank": 4
+      },
+      "subject_id": 253,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 4,
+      "rate": 8,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:46:48+08:00",
+      "comment": null,
+      "tags": [
+        "童年",
+        "欧美",
+        "搞笑",
+        "经典"
+      ],
+      "subject": {
+        "date": "1965-09-25",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/fd/60/25961_WDKz6.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/fd/60/25961_WDKz6.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/fd/60/25961_WDKz6.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/fd/60/25961_WDKz6.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/fd/60/25961_WDKz6.jpg"
+        },
+        "name": "Tom and Jerry",
+        "name_cn": "猫和老鼠",
+        "short_summary": "Beginning in 1965, the Hanna and Barbera Tom and Jerry cartoons began to appear on television in heavily edited versions",
+        "tags": [
+          {
+            "name": "童年",
+            "count": 3530,
+            "total_cont": 0
+          },
+          {
+            "name": "欧美",
+            "count": 2442,
+            "total_cont": 0
+          },
+          {
+            "name": "搞笑",
+            "count": 2185,
+            "total_cont": 0
+          },
+          {
+            "name": "童年的经典",
+            "count": 1795,
+            "total_cont": 0
+          },
+          {
+            "name": "经典",
+            "count": 1706,
+            "total_cont": 0
+          },
+          {
+            "name": "神作",
+            "count": 1417,
+            "total_cont": 0
+          },
+          {
+            "name": "Tom&Jerry",
+            "count": 1319,
+            "total_cont": 0
+          },
+          {
+            "name": "TV",
+            "count": 1068,
+            "total_cont": 0
+          },
+          {
+            "name": "美国",
+            "count": 790,
+            "total_cont": 0
+          },
+          {
+            "name": "原创",
+            "count": 586,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.1,
+        "type": 2,
+        "id": 25961,
+        "eps": 161,
+        "volumes": 0,
+        "collection_total": 24014,
+        "rank": 3
+      },
+      "subject_id": 25961,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 2,
+      "rate": 10,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:46:30+08:00",
+      "comment": null,
+      "tags": [
+        "催泪",
+        "治愈",
+        "恋爱"
+      ],
+      "subject": {
+        "date": "2008-10-02",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/67/d1/876_dCfrd.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/67/d1/876_dCfrd.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/67/d1/876_dCfrd.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/67/d1/876_dCfrd.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/67/d1/876_dCfrd.jpg"
+        },
+        "name": "CLANNAD 〜AFTER STORY〜",
+        "name_cn": "",
+        "short_summary": "在某个小镇，主角冈崎朋也因为家庭的因素成为不良少年，一直与春原阳平为伍，在光坂高校过着潦倒的生活，但冀望终有一天能够离开所在的小镇。某一天，他在学校坡道前发现了一个止步不前的女孩，在朋也认识了这个名为“古河渚”的女孩后，他的生活开始有了重大",
+        "tags": [
+          {
+            "name": "Clannad",
+            "count": 9410,
+            "total_cont": 0
+          },
+          {
+            "name": "京阿尼",
+            "count": 8886,
+            "total_cont": 0
+          },
+          {
+            "name": "key",
+            "count": 7260,
+            "total_cont": 0
+          },
+          {
+            "name": "催泪",
+            "count": 7227,
+            "total_cont": 0
+          },
+          {
+            "name": "神作",
+            "count": 5047,
+            "total_cont": 0
+          },
+          {
+            "name": "麻枝准",
+            "count": 5013,
+            "total_cont": 0
+          },
+          {
+            "name": "治愈",
+            "count": 4884,
+            "total_cont": 0
+          },
+          {
+            "name": "人生",
+            "count": 4336,
+            "total_cont": 0
+          },
+          {
+            "name": "TV",
+            "count": 2108,
+            "total_cont": 0
+          },
+          {
+            "name": "~After-Story~",
+            "count": 1953,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.2,
+        "type": 2,
+        "id": 876,
+        "eps": 24,
+        "volumes": 0,
+        "collection_total": 57700,
+        "rank": 2
+      },
+      "subject_id": 876,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 1,
+      "rate": 0,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:46:08+08:00",
+      "comment": null,
+      "tags": [
+        "科幻",
+        "攻殻機動隊",
+        "攻壳机动队"
+      ],
+      "subject": {
+        "date": "2004-01-01",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/a6/66/326_D8wjw.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a6/66/326_D8wjw.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/a6/66/326_D8wjw.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a6/66/326_D8wjw.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/a6/66/326_D8wjw.jpg"
+        },
+        "name": "攻殻機動隊 S.A.C. 2nd GIG",
+        "name_cn": "攻壳机动队 S.A.C. 2nd GIG",
+        "short_summary": "这个世界距离我们并不遥远，你把它看作是现代社会的镜子亦为不可。\r\n也许：无论人类怎样发展，人性是不会改变的，即使容纳这渺小人性的外壳换作了机器身体亦是一样。\r\n无论怎样，在一个充斥着改装身体的社会里，人类的欲望得以被延续且发扬光大，由此相关",
+        "tags": [
+          {
+            "name": "科幻",
+            "count": 2234,
+            "total_cont": 0
+          },
+          {
+            "name": "菅野洋子",
+            "count": 2142,
+            "total_cont": 0
+          },
+          {
+            "name": "攻殻機動隊",
+            "count": 2062,
+            "total_cont": 0
+          },
+          {
+            "name": "攻壳机动队",
+            "count": 1866,
+            "total_cont": 0
+          },
+          {
+            "name": "神山健治",
+            "count": 1830,
+            "total_cont": 0
+          },
+          {
+            "name": "押井守",
+            "count": 1389,
+            "total_cont": 0
+          },
+          {
+            "name": "TV",
+            "count": 1284,
+            "total_cont": 0
+          },
+          {
+            "name": "Production.IG",
+            "count": 1194,
+            "total_cont": 0
+          },
+          {
+            "name": "2004",
+            "count": 866,
+            "total_cont": 0
+          },
+          {
+            "name": "士郎正宗",
+            "count": 764,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.2,
+        "type": 2,
+        "id": 326,
+        "eps": 26,
+        "volumes": 0,
+        "collection_total": 25773,
+        "rank": 1
+      },
+      "subject_id": 326,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 2,
+      "type": 1,
+      "rate": 0,
+      "private": false
+    }
+  ],
+  "book": [
+    {
+      "updated_at": "2026-05-14T14:53:11+08:00",
+      "comment": null,
+      "tags": [
+        "虫师",
+        "治愈",
+        "奇幻"
+      ],
+      "subject": {
+        "date": "2000-11-22",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/0e/57/3822_Or0Eq.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/0e/57/3822_Or0Eq.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/0e/57/3822_Or0Eq.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/0e/57/3822_Or0Eq.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/0e/57/3822_Or0Eq.jpg"
+        },
+        "name": "蟲師",
+        "name_cn": "虫师",
+        "short_summary": "“虫”，既不是动物，也不是植物，亦不是细菌，而是一种最接近生命之源的物体，有各种不同的型态和生存方式。当人和虫接触的时候就会产生奇妙的现象，有时会引起各种问题，虫师就是为解决这些问题而存在的职业。\r\n\r\n本作是以“虫”为主题，但它们并不是我",
+        "tags": [
+          {
+            "name": "漆原友紀",
+            "count": 262,
+            "total_cont": 0
+          },
+          {
+            "name": "漫画",
+            "count": 208,
+            "total_cont": 0
+          },
+          {
+            "name": "虫师",
+            "count": 189,
+            "total_cont": 0
+          },
+          {
+            "name": "治愈",
+            "count": 187,
+            "total_cont": 0
+          },
+          {
+            "name": "讲谈社",
+            "count": 104,
+            "total_cont": 0
+          },
+          {
+            "name": "空灵",
+            "count": 69,
+            "total_cont": 0
+          },
+          {
+            "name": "蟲師",
+            "count": 58,
+            "total_cont": 0
+          },
+          {
+            "name": "漆原友纪",
+            "count": 48,
+            "total_cont": 0
+          },
+          {
+            "name": "脱俗",
+            "count": 44,
+            "total_cont": 0
+          },
+          {
+            "name": "奇幻",
+            "count": 43,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.8,
+        "type": 1,
+        "id": 3822,
+        "eps": 50,
+        "volumes": 10,
+        "collection_total": 2413,
+        "rank": 30
+      },
+      "subject_id": 3822,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 1,
+      "type": 5,
+      "rate": 0,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:52:46+08:00",
+      "comment": null,
+      "tags": [
+        "四大名著",
+        "红楼梦",
+        "神作"
+      ],
+      "subject": {
+        "date": null,
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/2a/77/123224_9rXXk.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2a/77/123224_9rXXk.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/2a/77/123224_9rXXk.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2a/77/123224_9rXXk.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/2a/77/123224_9rXXk.jpg"
+        },
+        "name": "紅樓夢",
+        "name_cn": "红楼梦",
+        "short_summary": "《红楼梦》，中国古典四大名著之首，清代作家曹雪芹创作的章回体长篇小说。早期仅有前八十回抄本流传，原名《石头记》。程伟元搜集到后四十回残稿，邀请高鹗协同整理出版百二十回全本，定名《红楼梦》。亦有版本作《金玉缘》《脂砚斋重评石头记》。\r\n《红楼",
+        "tags": [
+          {
+            "name": "小说",
+            "count": 108,
+            "total_cont": 0
+          },
+          {
+            "name": "四大名著",
+            "count": 92,
+            "total_cont": 0
+          },
+          {
+            "name": "名著",
+            "count": 82,
+            "total_cont": 0
+          },
+          {
+            "name": "红楼梦",
+            "count": 62,
+            "total_cont": 0
+          },
+          {
+            "name": "曹雪芹",
+            "count": 57,
+            "total_cont": 0
+          },
+          {
+            "name": "神作",
+            "count": 44,
+            "total_cont": 0
+          },
+          {
+            "name": "中国",
+            "count": 39,
+            "total_cont": 0
+          },
+          {
+            "name": "国产",
+            "count": 38,
+            "total_cont": 0
+          },
+          {
+            "name": "石头记",
+            "count": 28,
+            "total_cont": 0
+          },
+          {
+            "name": "林黛玉",
+            "count": 28,
+            "total_cont": 0
+          }
+        ],
+        "score": 9,
+        "type": 1,
+        "id": 123224,
+        "eps": 120,
+        "volumes": 0,
+        "collection_total": 938,
+        "rank": 14
+      },
+      "subject_id": 123224,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 1,
+      "type": 4,
+      "rate": 9,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:52:26+08:00",
+      "comment": null,
+      "tags": [
+        "硬科幻",
+        "三体",
+        "刘慈欣"
+      ],
+      "subject": {
+        "date": "2008-05-01",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/07/dd/9586_F0Fbd.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/07/dd/9586_F0Fbd.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/07/dd/9586_F0Fbd.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/07/dd/9586_F0Fbd.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/07/dd/9586_F0Fbd.jpg"
+        },
+        "name": "三体Ⅱ：黑暗森林",
+        "name_cn": "",
+        "short_summary": "       三体人在利用魔法般的科技锁死了地球人的科学之后，庞大的宇宙舰队杀气腾腾地直扑太阳系，意欲清除地球文明。\r\n　　面对前所未有的危局，经历过无数磨难的地球人组建起同样庞大的太空舰队，同时，利用三体人思维透明的致命缺陷，制订了神秘莫",
+        "tags": [
+          {
+            "name": "刘慈欣",
+            "count": 498,
+            "total_cont": 0
+          },
+          {
+            "name": "科幻",
+            "count": 427,
+            "total_cont": 0
+          },
+          {
+            "name": "三体",
+            "count": 295,
+            "total_cont": 0
+          },
+          {
+            "name": "硬科幻",
+            "count": 266,
+            "total_cont": 0
+          },
+          {
+            "name": "小说",
+            "count": 218,
+            "total_cont": 0
+          },
+          {
+            "name": "地球往事三部曲",
+            "count": 163,
+            "total_cont": 0
+          },
+          {
+            "name": "黑暗森林",
+            "count": 160,
+            "total_cont": 0
+          },
+          {
+            "name": "国产",
+            "count": 119,
+            "total_cont": 0
+          },
+          {
+            "name": "科幻小说",
+            "count": 76,
+            "total_cont": 0
+          },
+          {
+            "name": "中国",
+            "count": 70,
+            "total_cont": 0
+          }
+        ],
+        "score": 9,
+        "type": 1,
+        "id": 9586,
+        "eps": 4,
+        "volumes": 0,
+        "collection_total": 2896,
+        "rank": 10
+      },
+      "subject_id": 9586,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 1,
+      "type": 3,
+      "rate": 8,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:52:12+08:00",
+      "comment": null,
+      "tags": [
+        "存在主义",
+        "犯罪",
+        "哲学"
+      ],
+      "subject": {
+        "date": null,
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/db/86/352515_Q3D2D.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/db/86/352515_Q3D2D.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/db/86/352515_Q3D2D.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/db/86/352515_Q3D2D.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/db/86/352515_Q3D2D.jpg"
+        },
+        "name": "Преступление и наказание",
+        "name_cn": "罪与罚",
+        "short_summary": "《罪与罚》是陀思妥耶夫斯基的小说。小说描写一心想成为拿破仑式的人物、认定自己是个超人的穷大学生拉斯柯尔尼科夫，受无政府主义思想毒害，为生计所迫，杀死放高利贷的房东老太婆和她的无辜的妹妹，制造了一起震惊全俄的凶杀案。经历了一场内心痛苦的忏悔后",
+        "tags": [
+          {
+            "name": "陀思妥耶夫斯基",
+            "count": 134,
+            "total_cont": 0
+          },
+          {
+            "name": "小说",
+            "count": 87,
+            "total_cont": 0
+          },
+          {
+            "name": "俄罗斯",
+            "count": 52,
+            "total_cont": 0
+          },
+          {
+            "name": "存在主义",
+            "count": 51,
+            "total_cont": 0
+          },
+          {
+            "name": "名著",
+            "count": 42,
+            "total_cont": 0
+          },
+          {
+            "name": "犯罪",
+            "count": 36,
+            "total_cont": 0
+          },
+          {
+            "name": "苦难",
+            "count": 36,
+            "total_cont": 0
+          },
+          {
+            "name": "哲学",
+            "count": 29,
+            "total_cont": 0
+          },
+          {
+            "name": "宗教",
+            "count": 27,
+            "total_cont": 0
+          },
+          {
+            "name": "1866",
+            "count": 17,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.2,
+        "type": 1,
+        "id": 352515,
+        "eps": 7,
+        "volumes": 0,
+        "collection_total": 830,
+        "rank": 8
+      },
+      "subject_id": 352515,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 1,
+      "type": 4,
+      "rate": 8,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:51:56+08:00",
+      "comment": null,
+      "tags": [
+        "jojo",
+        "战斗",
+        "热血"
+      ],
+      "subject": {
+        "date": "2004-05-20",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/88/64/44996_Gg1JJ.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/88/64/44996_Gg1JJ.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/88/64/44996_Gg1JJ.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/88/64/44996_Gg1JJ.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/88/64/44996_Gg1JJ.jpg"
+        },
+        "name": "ジョジョの奇妙な冒険 Part7『スティール・ボール・ラン』",
+        "name_cn": "JoJo的奇妙冒险 第七部 飙马野郎",
+        "short_summary": "1890年，一場世紀大賽「SBR」於美國舉開。全長共6000公里，是人類史上第一場騎乘馬匹橫越北美大陸的比賽！為了拿下高達5千萬美元（60億日元）的冠軍獎金，一群強悍的冒險家們正式展開了他們的爭戰！",
+        "tags": [
+          {
+            "name": "荒木飛呂彦",
+            "count": 747,
+            "total_cont": 0
+          },
+          {
+            "name": "jojo",
+            "count": 683,
+            "total_cont": 0
+          },
+          {
+            "name": "漫画",
+            "count": 579,
+            "total_cont": 0
+          },
+          {
+            "name": "ジョジョの奇妙な冒険",
+            "count": 347,
+            "total_cont": 0
+          },
+          {
+            "name": "战斗",
+            "count": 346,
+            "total_cont": 0
+          },
+          {
+            "name": "神作",
+            "count": 294,
+            "total_cont": 0
+          },
+          {
+            "name": "热血",
+            "count": 267,
+            "total_cont": 0
+          },
+          {
+            "name": "荒木飞吕彦",
+            "count": 187,
+            "total_cont": 0
+          },
+          {
+            "name": "集英社",
+            "count": 144,
+            "total_cont": 0
+          },
+          {
+            "name": "2004",
+            "count": 114,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.1,
+        "type": 1,
+        "id": 44996,
+        "eps": 95,
+        "volumes": 24,
+        "collection_total": 5694,
+        "rank": 6
+      },
+      "subject_id": 44996,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 1,
+      "type": 2,
+      "rate": 8,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:51:38+08:00",
+      "comment": null,
+      "tags": [
+        "热血",
+        "灌篮高手",
+        "青春"
+      ],
+      "subject": {
+        "date": "1991-02-08",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/5e/d6/36752_9tOt7.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/5e/d6/36752_9tOt7.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/5e/d6/36752_9tOt7.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/5e/d6/36752_9tOt7.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/5e/d6/36752_9tOt7.jpg"
+        },
+        "name": "SLAM DUNK",
+        "name_cn": "灌篮高手",
+        "short_summary": "在国中时期创下五十次失恋纪录的著名坏学生─樱木花道，进入了县立湘北高中。然而才刚开学不久，他就遇到了一位改变他未来的美少女─赤木晴子，樱木深深为她着迷，也因为她的鼓励，而加入了篮球队…",
+        "tags": [
+          {
+            "name": "井上雄彦",
+            "count": 269,
+            "total_cont": 0
+          },
+          {
+            "name": "漫画",
+            "count": 230,
+            "total_cont": 0
+          },
+          {
+            "name": "热血",
+            "count": 174,
+            "total_cont": 0
+          },
+          {
+            "name": "灌篮高手",
+            "count": 133,
+            "total_cont": 0
+          },
+          {
+            "name": "篮球",
+            "count": 118,
+            "total_cont": 0
+          },
+          {
+            "name": "青春",
+            "count": 106,
+            "total_cont": 0
+          },
+          {
+            "name": "体育",
+            "count": 90,
+            "total_cont": 0
+          },
+          {
+            "name": "神作",
+            "count": 73,
+            "total_cont": 0
+          },
+          {
+            "name": "集英社",
+            "count": 66,
+            "total_cont": 0
+          },
+          {
+            "name": "少年JUMP",
+            "count": 60,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.3,
+        "type": 1,
+        "id": 36752,
+        "eps": 276,
+        "volumes": 31,
+        "collection_total": 1813,
+        "rank": 3
+      },
+      "subject_id": 36752,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 1,
+      "type": 1,
+      "rate": 0,
+      "private": false
+    }
+  ],
+  "music": [
+    {
+      "updated_at": "2026-05-14T14:53:55+08:00",
+      "comment": null,
+      "tags": [
+        "galgame",
+        "治愈"
+      ],
+      "subject": {
+        "date": "2016-12-29",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/a0/a9/205970_EDQ3W.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a0/a9/205970_EDQ3W.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/a0/a9/205970_EDQ3W.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a0/a9/205970_EDQ3W.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/a0/a9/205970_EDQ3W.jpg"
+        },
+        "name": "Narcissu 10th Anniversary Soundtrack",
+        "name_cn": "",
+        "short_summary": "",
+        "tags": [
+          {
+            "name": "OST",
+            "count": 216,
+            "total_cont": 0
+          },
+          {
+            "name": "Narcissu",
+            "count": 209,
+            "total_cont": 0
+          },
+          {
+            "name": "galgame",
+            "count": 155,
+            "total_cont": 0
+          },
+          {
+            "name": "水仙",
+            "count": 144,
+            "total_cont": 0
+          },
+          {
+            "name": "水月陵",
+            "count": 82,
+            "total_cont": 0
+          },
+          {
+            "name": "治愈",
+            "count": 48,
+            "total_cont": 0
+          },
+          {
+            "name": "水仙十周年",
+            "count": 41,
+            "total_cont": 0
+          },
+          {
+            "name": "菊地創",
+            "count": 39,
+            "total_cont": 0
+          },
+          {
+            "name": "上松範康",
+            "count": 37,
+            "total_cont": 0
+          },
+          {
+            "name": "2016",
+            "count": 28,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.2,
+        "type": 3,
+        "id": 205970,
+        "eps": 0,
+        "volumes": 0,
+        "collection_total": 1281,
+        "rank": 7
+      },
+      "subject_id": 205970,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 3,
+      "type": 2,
+      "rate": 8,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:53:44+08:00",
+      "comment": null,
+      "tags": [
+        "游戏音乐",
+        "光田康典"
+      ],
+      "subject": {
+        "date": "2018-05-23",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/a3/14/238923_4pDJ3.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/a3/14/238923_4pDJ3.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/a3/14/238923_4pDJ3.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/a3/14/238923_4pDJ3.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/a3/14/238923_4pDJ3.jpg"
+        },
+        "name": "Xenoblade2 Original Soundtrack",
+        "name_cn": "异度神剑2 游戏原声集",
+        "short_summary": "記憶(おもいで)は消えない…\r\n本編全105曲+ジングル16曲+ピアノアレンジ5曲の全126曲、約6時間の大ボリュームを全て余すことなく収録した音楽コンプリート盤! \r\n2017年12月1日に任天堂株式会社から発売された、Nintendo ",
+        "tags": [
+          {
+            "name": "OST",
+            "count": 332,
+            "total_cont": 0
+          },
+          {
+            "name": "光田康典",
+            "count": 291,
+            "total_cont": 0
+          },
+          {
+            "name": "Xenoblade",
+            "count": 182,
+            "total_cont": 0
+          },
+          {
+            "name": "游戏音乐",
+            "count": 146,
+            "total_cont": 0
+          },
+          {
+            "name": "Xenoblade2",
+            "count": 143,
+            "total_cont": 0
+          },
+          {
+            "name": "平松健治",
+            "count": 106,
+            "total_cont": 0
+          },
+          {
+            "name": "2018年",
+            "count": 58,
+            "total_cont": 0
+          },
+          {
+            "name": "ACE",
+            "count": 46,
+            "total_cont": 0
+          },
+          {
+            "name": "2018",
+            "count": 42,
+            "total_cont": 0
+          },
+          {
+            "name": "清田愛未",
+            "count": 41,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.4,
+        "type": 3,
+        "id": 238923,
+        "eps": 0,
+        "volumes": 0,
+        "collection_total": 1754,
+        "rank": 1
+      },
+      "subject_id": 238923,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 3,
+      "type": 1,
+      "rate": 0,
+      "private": false
+    }
+  ],
+  "game": [
+    {
+      "updated_at": "2026-05-14T15:00:43+08:00",
+      "comment": null,
+      "tags": [
+        "沙盒",
+        "冒险",
+        "建造",
+        "开放世界"
+      ],
+      "subject": {
+        "date": "2019-02-06",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/74/10/193685_97Re9.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/74/10/193685_97Re9.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/74/10/193685_97Re9.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/74/10/193685_97Re9.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/74/10/193685_97Re9.jpg"
+        },
+        "name": "Astroneer",
+        "name_cn": "异星探险家",
+        "short_summary": "探索并重塑遥远世界！《ASTRONEER》的舞台设定在淘金热潮兴起的 25 世纪。玩家必须探索外太空边境，冒着生命危险在艰难环境下勘探资源，寻找一夜暴富的机会。\r\n\r\n在游戏冒险中，玩家最有用的工具是他们塑造世界、改变地形和从行星及卫星挖掘",
+        "tags": [
+          {
+            "name": "沙盒",
+            "count": 30,
+            "total_cont": 0
+          },
+          {
+            "name": "PC",
+            "count": 24,
+            "total_cont": 0
+          },
+          {
+            "name": "科幻",
+            "count": 17,
+            "total_cont": 0
+          },
+          {
+            "name": "STEAM",
+            "count": 10,
+            "total_cont": 0
+          },
+          {
+            "name": "冒险",
+            "count": 10,
+            "total_cont": 0
+          },
+          {
+            "name": "建造",
+            "count": 8,
+            "total_cont": 0
+          },
+          {
+            "name": "开放世界",
+            "count": 7,
+            "total_cont": 0
+          },
+          {
+            "name": "2019",
+            "count": 7,
+            "total_cont": 0
+          },
+          {
+            "name": "BUG探险家",
+            "count": 6,
+            "total_cont": 0
+          },
+          {
+            "name": "生存",
+            "count": 6,
+            "total_cont": 0
+          }
+        ],
+        "score": 7.1,
+        "type": 4,
+        "id": 193685,
+        "eps": 0,
+        "volumes": 0,
+        "collection_total": 198,
+        "rank": 2983
+      },
+      "subject_id": 193685,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 4,
+      "type": 2,
+      "rate": 8,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:58:29+08:00",
+      "comment": null,
+      "tags": [
+        "艺术品",
+        "AVG",
+        "社交"
+      ],
+      "subject": {
+        "date": "2019-06-21",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/c4/48/225636_3XTEH.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/c4/48/225636_3XTEH.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/c4/48/225636_3XTEH.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/c4/48/225636_3XTEH.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/c4/48/225636_3XTEH.jpg"
+        },
+        "name": "Sky",
+        "name_cn": "光·遇",
+        "short_summary": "众星相映，世界本具无尽光明\r\n时光流转，星群骤然离散，沉入云间\r\n在那里，他们新建一座云中王国，盼望重新开始\r\n然而风暴骤起，沙尘弥漫王国，黑暗蒙蔽本心\r\n有谁，心中尚存光明？是谁，梦中仍有善念？\r\n如果是你，请点燃黑暗，重聚璀璨星群\r\n…",
+        "tags": [
+          {
+            "name": "手游",
+            "count": 89,
+            "total_cont": 0
+          },
+          {
+            "name": "2019",
+            "count": 33,
+            "total_cont": 0
+          },
+          {
+            "name": "陈星汉",
+            "count": 29,
+            "total_cont": 0
+          },
+          {
+            "name": "iOS",
+            "count": 29,
+            "total_cont": 0
+          },
+          {
+            "name": "艺术品",
+            "count": 24,
+            "total_cont": 0
+          },
+          {
+            "name": "Android",
+            "count": 19,
+            "total_cont": 0
+          },
+          {
+            "name": "RPG",
+            "count": 15,
+            "total_cont": 0
+          },
+          {
+            "name": "Thatgamecompany",
+            "count": 15,
+            "total_cont": 0
+          },
+          {
+            "name": "AVG",
+            "count": 13,
+            "total_cont": 0
+          },
+          {
+            "name": "社交",
+            "count": 8,
+            "total_cont": 0
+          }
+        ],
+        "score": 6.3,
+        "type": 4,
+        "id": 225636,
+        "eps": 0,
+        "volumes": 0,
+        "collection_total": 502,
+        "rank": 7559
+      },
+      "subject_id": 225636,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 4,
+      "type": 3,
+      "rate": 9,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:58:00+08:00",
+      "comment": null,
+      "tags": [
+        "开放世界",
+        "ARPG",
+        "ACT"
+      ],
+      "subject": {
+        "date": "2024-05-23",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/2e/ef/385208_shW2q.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/2e/ef/385208_shW2q.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/2e/ef/385208_shW2q.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/2e/ef/385208_shW2q.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/2e/ef/385208_shW2q.jpg"
+        },
+        "name": "鸣潮",
+        "name_cn": "鸣潮",
+        "short_summary": "漂泊者，欢迎在这个时代醒来。\r\n这是抗争的时代。自百年之前的悲鸣开始，前所未见的存在浮现于世界之上，引发灾难与战乱在大地上肆虐。这一纪文明，曾一度滑落到毁灭边缘。\r\n这也是建设的时代。从黑暗中活下来的人类携手终结了与同类和异种的漫长战争，在",
+        "tags": [
+          {
+            "name": "库洛游戏",
+            "count": 246,
+            "total_cont": 0
+          },
+          {
+            "name": "开放世界",
+            "count": 235,
+            "total_cont": 0
+          },
+          {
+            "name": "手游",
+            "count": 220,
+            "total_cont": 0
+          },
+          {
+            "name": "国产",
+            "count": 187,
+            "total_cont": 0
+          },
+          {
+            "name": "ARPG",
+            "count": 141,
+            "total_cont": 0
+          },
+          {
+            "name": "PC",
+            "count": 130,
+            "total_cont": 0
+          },
+          {
+            "name": "2024",
+            "count": 91,
+            "total_cont": 0
+          },
+          {
+            "name": "游戏",
+            "count": 61,
+            "total_cont": 0
+          },
+          {
+            "name": "ACT",
+            "count": 52,
+            "total_cont": 0
+          },
+          {
+            "name": "Windows",
+            "count": 45,
+            "total_cont": 0
+          }
+        ],
+        "score": 6.2,
+        "type": 4,
+        "id": 385208,
+        "eps": 0,
+        "volumes": 0,
+        "collection_total": 1814,
+        "rank": 8332
+      },
+      "subject_id": 385208,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 4,
+      "type": 5,
+      "rate": 7,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:57:06+08:00",
+      "comment": null,
+      "tags": [
+        "鹰角网络",
+        "明日方舟",
+        "阿米娅",
+        "塔防"
+      ],
+      "subject": {
+        "date": "2019-04-30",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/b5/34/225878_ox8Ax.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/b5/34/225878_ox8Ax.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/b5/34/225878_ox8Ax.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/b5/34/225878_ox8Ax.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/b5/34/225878_ox8Ax.jpg"
+        },
+        "name": "明日方舟",
+        "name_cn": "明日方舟",
+        "short_summary": "《明日方舟》是一款魔物主题的策略手游。\r\n在游戏中，玩家将管理一艘满载“ 魔物干员”的方舟，为调查来源神秘的矿石灾难而踏上旅途。\r\n在这个宽广而危机四伏的世界中，你或许会看到废土中的城市废墟，或许会看到仿若幻境的亚人国度，或许会遭遇无法解读",
+        "tags": [
+          {
+            "name": "手游",
+            "count": 946,
+            "total_cont": 0
+          },
+          {
+            "name": "塔防",
+            "count": 827,
+            "total_cont": 0
+          },
+          {
+            "name": "鹰角网络",
+            "count": 618,
+            "total_cont": 0
+          },
+          {
+            "name": "国产",
+            "count": 572,
+            "total_cont": 0
+          },
+          {
+            "name": "明日方舟",
+            "count": 428,
+            "total_cont": 0
+          },
+          {
+            "name": "2019",
+            "count": 274,
+            "total_cont": 0
+          },
+          {
+            "name": "抽卡",
+            "count": 181,
+            "total_cont": 0
+          },
+          {
+            "name": "Android",
+            "count": 160,
+            "total_cont": 0
+          },
+          {
+            "name": "中国",
+            "count": 122,
+            "total_cont": 0
+          },
+          {
+            "name": "阿米娅",
+            "count": 108,
+            "total_cont": 0
+          }
+        ],
+        "score": 6.8,
+        "type": 4,
+        "id": 225878,
+        "eps": 0,
+        "volumes": 0,
+        "collection_total": 4514,
+        "rank": 4716
+      },
+      "subject_id": 225878,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 4,
+      "type": 4,
+      "rate": 9,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:56:32+08:00",
+      "comment": null,
+      "tags": [
+        "米哈游",
+        "动作",
+        "崩坏3",
+        "崩坏学园"
+      ],
+      "subject": {
+        "date": "2016-10-14",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/40/ae/172168_Al7K6.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/40/ae/172168_Al7K6.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/40/ae/172168_Al7K6.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/40/ae/172168_Al7K6.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/40/ae/172168_Al7K6.jpg"
+        },
+        "name": "崩坏3",
+        "name_cn": "崩坏3",
+        "short_summary": "在不远的未来,\r\n神秘的灾害「崩坏」侵蚀了世界,\r\n被崩坏感染的人类变成了没有思维，\r\n只懂破坏的「死士」。\r\n\r\n唯一可以抵抗崩坏的只有那些拥有抗体的少女和由她们组成的「女武神」部队。\r\n少女们穿起冰冷的机甲，\r\n拿起沉重的武器，\r\n为了",
+        "tags": [
+          {
+            "name": "手游",
+            "count": 391,
+            "total_cont": 0
+          },
+          {
+            "name": "米哈游",
+            "count": 323,
+            "total_cont": 0
+          },
+          {
+            "name": "ACT",
+            "count": 237,
+            "total_cont": 0
+          },
+          {
+            "name": "国产",
+            "count": 223,
+            "total_cont": 0
+          },
+          {
+            "name": "miHoYo",
+            "count": 152,
+            "total_cont": 0
+          },
+          {
+            "name": "氪金",
+            "count": 120,
+            "total_cont": 0
+          },
+          {
+            "name": "动作",
+            "count": 114,
+            "total_cont": 0
+          },
+          {
+            "name": "崩坏3",
+            "count": 113,
+            "total_cont": 0
+          },
+          {
+            "name": "好肝",
+            "count": 87,
+            "total_cont": 0
+          },
+          {
+            "name": "2016",
+            "count": 80,
+            "total_cont": 0
+          }
+        ],
+        "score": 5.8,
+        "type": 4,
+        "id": 172168,
+        "eps": 0,
+        "volumes": 0,
+        "collection_total": 2112,
+        "rank": 9596
+      },
+      "subject_id": 172168,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 4,
+      "type": 1,
+      "rate": 0,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T14:56:01+08:00",
+      "comment": null,
+      "tags": [
+        "miHoYo",
+        "开放世界",
+        "塞尔达"
+      ],
+      "subject": {
+        "date": "2020-09-28",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/1a/22/284157_zgv97.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/1a/22/284157_zgv97.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/1a/22/284157_zgv97.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/1a/22/284157_zgv97.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/1a/22/284157_zgv97.jpg"
+        },
+        "name": "原神",
+        "name_cn": "原神",
+        "short_summary": "在七种元素交汇的大陆——「提瓦特」，每个人都可以成为神。\r\n\r\n你从世界之外漂流而来，降临大地。在这广阔的世界中，你自由旅行、结识同伴、寻找掌控尘世元素的七神，直到与分离的血亲重聚，在终点见证一切旅途的沉淀。\r\n\r\n维系者正在死去，创造者尚",
+        "tags": [
+          {
+            "name": "miHoYo",
+            "count": 1060,
+            "total_cont": 0
+          },
+          {
+            "name": "手游",
+            "count": 843,
+            "total_cont": 0
+          },
+          {
+            "name": "开放世界",
+            "count": 838,
+            "total_cont": 0
+          },
+          {
+            "name": "国产",
+            "count": 629,
+            "total_cont": 0
+          },
+          {
+            "name": "米哈游",
+            "count": 520,
+            "total_cont": 0
+          },
+          {
+            "name": "吃不到饭那也不能吃屎啊",
+            "count": 343,
+            "total_cont": 0
+          },
+          {
+            "name": "PC",
+            "count": 329,
+            "total_cont": 0
+          },
+          {
+            "name": "缝合怪",
+            "count": 238,
+            "total_cont": 0
+          },
+          {
+            "name": "抄袭",
+            "count": 214,
+            "total_cont": 0
+          },
+          {
+            "name": "RPG",
+            "count": 191,
+            "total_cont": 0
+          }
+        ],
+        "score": 5.2,
+        "type": 4,
+        "id": 284157,
+        "eps": 0,
+        "volumes": 0,
+        "collection_total": 6091,
+        "rank": 10166
+      },
+      "subject_id": 284157,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 4,
+      "type": 4,
+      "rate": 7,
+      "private": false
+    }
+  ],
+  "tv": [
+    {
+      "updated_at": "2026-05-14T15:01:49+08:00",
+      "comment": null,
+      "tags": [
+        "迪迦",
+        "特摄",
+        "长野博",
+        "圆谷"
+      ],
+      "subject": {
+        "date": "1996-09-07",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/d6/c2/11304_twTtS.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/d6/c2/11304_twTtS.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/d6/c2/11304_twTtS.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/d6/c2/11304_twTtS.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/d6/c2/11304_twTtS.jpg"
+        },
+        "name": "ウルトラマンティガ",
+        "name_cn": "迪迦奥特曼",
+        "short_summary": "　　约三千万年以前，在地球遭到袭击面临巨大变异危机的时候，一位巨人挺身而出拯救了人类超古代文明。巨人把自己战斗的躯体隐藏在“迪迦地区”后，化作光离开了地球。\r\n　　21世纪初期，地球不再有侵略和战争，人类期盼已久的和平终于到来了。地球防卫军",
+        "tags": [
+          {
+            "name": "特摄",
+            "count": 688,
+            "total_cont": 0
+          },
+          {
+            "name": "奥特曼",
+            "count": 685,
+            "total_cont": 0
+          },
+          {
+            "name": "童年",
+            "count": 418,
+            "total_cont": 0
+          },
+          {
+            "name": "1996",
+            "count": 267,
+            "total_cont": 0
+          },
+          {
+            "name": "迪迦",
+            "count": 259,
+            "total_cont": 0
+          },
+          {
+            "name": "长野博",
+            "count": 208,
+            "total_cont": 0
+          },
+          {
+            "name": "TV",
+            "count": 188,
+            "total_cont": 0
+          },
+          {
+            "name": "日剧",
+            "count": 179,
+            "total_cont": 0
+          },
+          {
+            "name": "BGM神作",
+            "count": 137,
+            "total_cont": 0
+          },
+          {
+            "name": "日本",
+            "count": 102,
+            "total_cont": 0
+          }
+        ],
+        "score": 8.9,
+        "type": 6,
+        "id": 11304,
+        "eps": 52,
+        "volumes": 0,
+        "collection_total": 4090,
+        "rank": 15
+      },
+      "subject_id": 11304,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 6,
+      "type": 2,
+      "rate": 10,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T15:01:34+08:00",
+      "comment": null,
+      "tags": [
+        "政治",
+        "明朝",
+        "博弈"
+      ],
+      "subject": {
+        "date": "2007-01-08",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/dc/12/145315_nyv7f.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/dc/12/145315_nyv7f.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/dc/12/145315_nyv7f.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/dc/12/145315_nyv7f.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/dc/12/145315_nyv7f.jpg"
+        },
+        "name": "大明王朝1566",
+        "name_cn": "",
+        "short_summary": "本剧讲述的是嘉靖与海瑞的故事。嘉靖三十九年，贪墨横行、民不聊生。奸臣严嵩党羽密布、权倾朝野，清官海瑞不惧强权，敢于向腐朽封建的皇权发起挑战。皇帝朱厚熜练道修玄二十载，始终把控着大明朝的军政、经济大权。",
+        "tags": [
+          {
+            "name": "历史",
+            "count": 171,
+            "total_cont": 0
+          },
+          {
+            "name": "国产",
+            "count": 159,
+            "total_cont": 0
+          },
+          {
+            "name": "政治",
+            "count": 150,
+            "total_cont": 0
+          },
+          {
+            "name": "电视剧",
+            "count": 120,
+            "total_cont": 0
+          },
+          {
+            "name": "明朝",
+            "count": 85,
+            "total_cont": 0
+          },
+          {
+            "name": "嘉靖",
+            "count": 54,
+            "total_cont": 0
+          },
+          {
+            "name": "2007",
+            "count": 49,
+            "total_cont": 0
+          },
+          {
+            "name": "博弈",
+            "count": 39,
+            "total_cont": 0
+          },
+          {
+            "name": "刘和平",
+            "count": 37,
+            "total_cont": 0
+          },
+          {
+            "name": "国产剧",
+            "count": 35,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.1,
+        "type": 6,
+        "id": 145315,
+        "eps": 46,
+        "volumes": 0,
+        "collection_total": 1393,
+        "rank": 9
+      },
+      "subject_id": 145315,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 6,
+      "type": 1,
+      "rate": 0,
+      "private": false
+    },
+    {
+      "updated_at": "2026-05-14T15:01:18+08:00",
+      "comment": null,
+      "tags": [
+        "政治",
+        "讽刺",
+        "喜剧"
+      ],
+      "subject": {
+        "date": "1982-11-11",
+        "images": {
+          "small": "https://lain.bgm.tv/r/200/pic/cover/l/48/03/16261_I8O77.jpg",
+          "grid": "https://lain.bgm.tv/r/100/pic/cover/l/48/03/16261_I8O77.jpg",
+          "large": "https://lain.bgm.tv/pic/cover/l/48/03/16261_I8O77.jpg",
+          "medium": "https://lain.bgm.tv/r/800/pic/cover/l/48/03/16261_I8O77.jpg",
+          "common": "https://lain.bgm.tv/r/400/pic/cover/l/48/03/16261_I8O77.jpg"
+        },
+        "name": "Yes, Minister (Series 3)",
+        "name_cn": "是，大臣 第三季",
+        "short_summary": "本剧叙述在野党影子内阁成员Jim Hacker在帮助本党大选获胜之后得到行政事务部（DAA）部长的职务，从此开始面对以部秘书Sir Humphrey Appleby为首的公务员体系，而他的公派私人秘书、同属公务员的Bernard则夹在了当中",
+        "tags": [
+          {
+            "name": "英剧",
+            "count": 257,
+            "total_cont": 0
+          },
+          {
+            "name": "政治",
+            "count": 204,
+            "total_cont": 0
+          },
+          {
+            "name": "讽刺",
+            "count": 167,
+            "total_cont": 0
+          },
+          {
+            "name": "喜剧",
+            "count": 135,
+            "total_cont": 0
+          },
+          {
+            "name": "BBC",
+            "count": 112,
+            "total_cont": 0
+          },
+          {
+            "name": "非物质文化遗产",
+            "count": 72,
+            "total_cont": 0
+          },
+          {
+            "name": "1982",
+            "count": 65,
+            "total_cont": 0
+          },
+          {
+            "name": "Yes_Minister",
+            "count": 50,
+            "total_cont": 0
+          },
+          {
+            "name": "电视剧",
+            "count": 45,
+            "total_cont": 0
+          },
+          {
+            "name": "幽默",
+            "count": 29,
+            "total_cont": 0
+          }
+        ],
+        "score": 9.4,
+        "type": 6,
+        "id": 16261,
+        "eps": 7,
+        "volumes": 0,
+        "collection_total": 1560,
+        "rank": 1
+      },
+      "subject_id": 16261,
+      "vol_status": 0,
+      "ep_status": 0,
+      "subject_type": 6,
+      "type": 3,
+      "rate": 8,
+      "private": false
+    }
+  ]
+}

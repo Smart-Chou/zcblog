@@ -3,6 +3,7 @@ import TabNav from "~/components/Bangumi/TabNav.astro";
 import BangumiSection from "~/components/Bangumi/BangumiSection.astro";
 import type { UserSubjectCollection } from "~/types/bangumi";
 import { t, getLocale, type Locale } from "~/utils/i18n";
+import bangumiJson from "~/data/bangumi.json";
 
 interface Props {
     locale: string;
@@ -11,127 +12,33 @@ interface Props {
 const { locale } = Astro.props;
 const loc: Locale = getLocale(locale);
 
-const BANGUMI_CONFIG = {
-    username: "1246668",
-    // 国内访问 api.bgm.tv 容易超时，可换成镜像。常用镜像：
-    //   https://bangumi-api.vercel.app
-    //   https://bgm-api.hualin.app
-    // 或自建 Cloudflare Worker 反代
-    apiUrl: "https://api.bgm.tv",
-    fetch: {
-        timeoutMs: 15000, // 单次请求超时
-        retries: 2, // 重试次数
-        retryDelayMs: 1000, // 重试间隔
-    },
-    pagination: {
-        limit: 50,
-        delay: 50,
-        maxTotal: 1000,
-    },
+const categoryMap: Record<string, { id: string; name: string }> = {
+    anime: { id: "anime", name: t(loc, "bangumi.categories.anime") },
+    book: { id: "book", name: t(loc, "bangumi.categories.book") },
+    music: { id: "music", name: t(loc, "bangumi.categories.music") },
+    game: { id: "game", name: t(loc, "bangumi.categories.game") },
+    tv: { id: "tv", name: t(loc, "bangumi.categories.tv") },
 };
 
-const categoryMap: Record<string, { id: string; name: string; subjectType: number }> = {
-    anime: { id: "anime", name: t(loc, "bangumi.categories.anime"), subjectType: 2 },
-    book: { id: "book", name: t(loc, "bangumi.categories.book"), subjectType: 1 },
-    music: { id: "music", name: t(loc, "bangumi.categories.music"), subjectType: 3 },
-    game: { id: "game", name: t(loc, "bangumi.categories.game"), subjectType: 4 },
-    tv: { id: "tv", name: t(loc, "bangumi.categories.tv"), subjectType: 6 },
-};
+const bangumiData = bangumiJson as Record<string, UserSubjectCollection[]>;
 
-async function fetchWithRetry(
-    url: string,
-    timeoutMs: number,
-    retries: number,
-    retryDelayMs: number,
-): Promise<Response> {
-    let lastError: unknown;
-    for (let attempt = 0; attempt <= retries; attempt++) {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), timeoutMs);
-        try {
-            const response = await fetch(url, {
-                headers: {
-                    "User-Agent": "YuuOuRou Blog",
-                    Accept: "application/json",
-                },
-                signal: controller.signal,
-            });
-            return response;
-        } catch (err) {
-            lastError = err;
-            if (attempt < retries) {
-                await new Promise((r) => setTimeout(r, retryDelayMs));
-            }
-        } finally {
-            clearTimeout(timer);
-        }
-    }
-    throw lastError;
-}
-
-async function fetchBangumiData(
-    username: string,
-    subjectType: number,
-): Promise<UserSubjectCollection[]> {
-    const { limit, delay, maxTotal } = BANGUMI_CONFIG.pagination;
-    const { timeoutMs, retries, retryDelayMs } = BANGUMI_CONFIG.fetch;
-    let offset = 0;
-    let allData: UserSubjectCollection[] = [];
-    let hasMore = true;
-
-    try {
-        while (hasMore) {
-            if (maxTotal > 0 && allData.length >= maxTotal) break;
-
-            const url = `${BANGUMI_CONFIG.apiUrl}/v0/users/${username}/collections?subject_type=${subjectType}&limit=${limit}&offset=${offset}`;
-
-            const response = await fetchWithRetry(url, timeoutMs, retries, retryDelayMs);
-
-            if (!response.ok) break;
-
-            const data = await response.json();
-            const currentBatch = data.data || [];
-
-            if (currentBatch.length > 0) {
-                allData = allData.concat(currentBatch);
-                offset += limit;
-                if (currentBatch.length < limit) hasMore = false;
-            } else {
-                hasMore = false;
-            }
-
-            if (hasMore) await new Promise((resolve) => setTimeout(resolve, delay));
-        }
-        return allData;
-    } catch (error) {
-        console.error("[Bangumi] Error fetching data:", error);
-        return [];
-    }
-}
-
-const bangumiData: Record<string, UserSubjectCollection[]> = {};
 const tabs: Array<{ id: string; name: string; count: number }> = [];
 
-const isUserIdConfigured = BANGUMI_CONFIG.username && BANGUMI_CONFIG.username.trim() !== "";
-
-if (isUserIdConfigured) {
-    for (const [categoryKey, categoryInfo] of Object.entries(categoryMap)) {
-        const data = await fetchBangumiData(BANGUMI_CONFIG.username, categoryInfo.subjectType);
-        bangumiData[categoryKey] = data;
-        tabs.push({
-            id: categoryKey,
-            name: categoryInfo.name,
-            count: data.length,
-        });
-    }
+for (const [categoryKey, categoryInfo] of Object.entries(categoryMap)) {
+    const data = bangumiData[categoryKey] || [];
+    tabs.push({
+        id: categoryKey,
+        name: categoryInfo.name,
+        count: data.length,
+    });
 }
 
 const activeTab = tabs[0]?.id || "anime";
-const hasData = tabs.length > 0;
+const hasData = tabs.some((t) => t.count > 0);
 ---
 
 {
-    hasData && (
+    hasData ? (
         <>
             <TabNav tabs={tabs} activeTab={activeTab} />
             {tabs.map((tab) => (
@@ -142,5 +49,18 @@ const hasData = tabs.length > 0;
                 />
             ))}
         </>
+    ) : (
+        <p class="empty-notice">
+            {loc === "en" ? "No data available." : "暂无数据，请先运行 pnpm run bangumi"}
+        </p>
     )
 }
+
+<style>
+    .empty-notice {
+        text-align: center;
+        padding: 3rem;
+        color: var(--color-body);
+        opacity: 0.7;
+    }
+</style>
