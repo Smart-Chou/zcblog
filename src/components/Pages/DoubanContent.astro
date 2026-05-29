@@ -5,9 +5,7 @@ import type { DoubanItem } from "~/components/Douban/DoubanCard.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import Author from "~/components/UI/Author.astro";
 import { site } from "~/config";
-import books from "~/data/douban-books.json";
-import movies from "~/data/douban-movies.json";
-import music from "~/data/douban-music.json";
+import doubanData from "~/data/douban.json";
 import { t, getLocale, type Locale } from "~/utils/i18n";
 
 interface Props {
@@ -26,9 +24,9 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-    { id: "book", name: t(loc, "douban.tabs.book"), items: books as DoubanItem[] },
-    { id: "movie", name: t(loc, "douban.tabs.movie"), items: movies as DoubanItem[] },
-    { id: "music", name: t(loc, "douban.tabs.music"), items: music as DoubanItem[] },
+    { id: "book", name: t(loc, "douban.tabs.book"), items: doubanData.filter((d) => d.type === "book") },
+    { id: "movie", name: t(loc, "douban.tabs.movie"), items: doubanData.filter((d) => d.type === "movie") },
+    { id: "music", name: t(loc, "douban.tabs.music"), items: doubanData.filter((d) => d.type === "music") },
 ].filter((tab) => tab.items.length > 0);
 
 const hasData = tabs.length > 0;

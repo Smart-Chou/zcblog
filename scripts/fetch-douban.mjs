@@ -249,18 +249,14 @@ async function main() {
     // 5. 清理孤儿封面
     await cleanOrphanCovers(raw.map((e) => e.subjectId));
 
-    // 6. 去除内部字段后写 JSON
+    // 6. 去除内部字段后合并为单一文件
     const clean = (arr) => arr.map(({ subjectId, rawCoverUrl, ...rest }) => rest);
 
     const sortByDate = (arr) => arr.sort((a, b) => (b.date > a.date ? 1 : -1));
 
-    const sortedBooks = sortByDate(clean(books));
-    const sortedMovies = sortByDate(clean(movies));
-    const sortedMusic = sortByDate(clean(music));
+    const all = sortByDate([...clean(books), ...clean(movies), ...clean(music)]);
 
-    await writeJson("douban-books.json", sortedBooks);
-    await writeJson("douban-movies.json", sortedMovies);
-    await writeJson("douban-music.json", sortedMusic);
+    await writeJson("douban.json", all);
 
     // 7. 统计
     console.log(
