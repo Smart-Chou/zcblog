@@ -1,3 +1,9 @@
 # 不格式化 Markdown 内容文件
 *.md
 *.mdx
+
+# 不格式化 JSON 数据文件
+src/data/*.json
+
+# 不格式化特定的 TypeScript 文件
+src/components/Icons/index.ts

@@ -24,9 +24,21 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-    { id: "book", name: t(loc, "douban.tabs.book"), items: doubanData.filter((d) => d.type === "book") },
-    { id: "movie", name: t(loc, "douban.tabs.movie"), items: doubanData.filter((d) => d.type === "movie") },
-    { id: "music", name: t(loc, "douban.tabs.music"), items: doubanData.filter((d) => d.type === "music") },
+    {
+        id: "book",
+        name: t(loc, "douban.tabs.book"),
+        items: doubanData.filter((d) => d.type === "book"),
+    },
+    {
+        id: "movie",
+        name: t(loc, "douban.tabs.movie"),
+        items: doubanData.filter((d) => d.type === "movie"),
+    },
+    {
+        id: "music",
+        name: t(loc, "douban.tabs.music"),
+        items: doubanData.filter((d) => d.type === "music"),
+    },
 ].filter((tab) => tab.items.length > 0);
 
 const hasData = tabs.length > 0;
