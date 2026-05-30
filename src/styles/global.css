@@ -27,31 +27,6 @@
    and override layered/Tailwind preflight styles.
    ========================================= */
 
-/* ---- Paper Texture Overlay (pure CSS, zero SVG filter overhead) ---- */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.03;
-    background-image:
-        radial-gradient(circle at 25% 25%, #000 1px, transparent 1px),
-        radial-gradient(circle at 75% 75%, #000 1px, transparent 1px);
-    background-size: 4px 4px, 6px 6px;
-}
-
-html[data-theme="dark"] body::before {
-    opacity: 0.04;
-}
-
-/* Disable texture when reduced motion is preferred */
-@media (prefers-reduced-motion: reduce) {
-    body::before {
-        display: none;
-    }
-}
-
 /* ---- Link Styles (unlayered — overrides Tailwind preflight) ---- */
 a {
     color: var(--color-link);
