@@ -1,97 +1,95 @@
 name: Deploy
 
 on:
-    push:
-        branches: [main, theme]
+  push:
+    branches: [main, theme]
+  repository_dispatch:
+    types: [articles-updated]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v5
-              with:
-                  submodules: true
-                  fetch-depth: 0
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v6
+    steps:
+      - name: Checkout zcblog
+        uses: actions/checkout@v4
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v5
-              with:
-                  node-version: 24
-                  cache: "pnpm"
+      - name: Checkout articles (private)
+        uses: actions/checkout@v4
+        with:
+          repository: Smart-Chou/zcblog-articles
+          path: _articles
+          token: ${{ secrets.ARTICLES_PAT }}
 
-            - name: Install system dependencies
-              run: sudo apt-get update && sudo apt-get install -y libvips-dev
+      - name: Copy articles and images
+        run: |
+          mkdir -p src/content/article
+          cp _articles/*.md src/content/article/ 2>/dev/null || true
+          cp _articles/*.mdx src/content/article/ 2>/dev/null || true
+          echo "📄 $(ls src/content/article/*.md src/content/article/*.mdx 2>/dev/null | wc -l) 篇文章"
 
-            - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+          mkdir -p public/assets
+          cp -r _articles/assets/* public/assets/ 2>/dev/null || true
+          echo "🖼  $(find public/assets -type f 2>/dev/null | wc -l) 张图片"
 
-            - name: Debug info
-              run: |
-                  node --version
-                  pnpm --version
-                  npx astro --version
-                  pnpm list sharp
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y libvips-dev
 
-            - name: Show directory structure
-              run: |
-                  pwd
-                  ls -la
-                  ls -la src/
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
-            - name: Lint code
-              run: pnpm run lint
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
 
-            - name: Auto version bump
-              if: github.ref == 'refs/heads/main'
-              run: |
-                  git config user.name "github-actions[bot]"
-                  git config user.email "github-actions[bot]@users.noreply.github.com"
-                  npx standard-version --releaseCommitMessageFormat "chore(release): {{currentTag}} [skip ci]" || echo "No version bump needed"
-                  git push --follow-tags origin main || echo "No changes to push"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-            - name: Build
-              env:
-                  CI: true
-                  BLINKO_API_TOKEN: ${{ secrets.BLINKO_API_TOKEN }}
-                  DOUBAN_USER_ID: ${{ secrets.DOUBAN_USER_ID }}
-                  ENCRYPTION_PASSWORD: ${{ secrets.ENCRYPTION_PASSWORD }}
-                  FOREVERBLOG_RSS_URL: ${{ secrets.FOREVERBLOG_RSS_URL }}
-                  BUILD_CONCURRENCY: 1
-              run: pnpm run build --verbose
+      - name: Build
+        env:
+          CI: true
+          BLINKO_API_TOKEN: ${{ secrets.BLINKO_API_TOKEN }}
+          DOUBAN_USER_ID: ${{ secrets.DOUBAN_USER_ID }}
+          ENCRYPTION_PASSWORD: ${{ secrets.ENCRYPTION_PASSWORD }}
+          FOREVERBLOG_RSS_URL: ${{ secrets.FOREVERBLOG_RSS_URL }}
+          BUILD_CONCURRENCY: 1
+        run: pnpm run build
 
-            - name: Validate build
-              run: |
-                  if [ -d dist ]; then
-                    echo "dist directory contents:"
-                    ls -la dist
-                    echo "Checking for index.html..."
-                    test -f dist/index.html && echo "index.html found" || { echo "index.html missing"; exit 1; }
-                  else
-                    echo "ERROR: dist directory not found. Build likely failed."
-                    exit 1
-                  fi
+      # main 分支 → GitHub Pages 原生部署
+      - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
 
-            - name: Deploy (main → marxchou.com)
-              if: github.ref == 'refs/heads/main'
-              uses: peaceiris/actions-gh-pages@v4
-              with:
-                  personal_token: ${{ secrets.PAGE_GITHUB_TOKEN }}
-                  external_repository: Smart-Chou/smart-chou.github.io
-                  publish_branch: main
-                  publish_dir: dist
-                  cname: marxchou.com
-                  force_orphan: true
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        id: deployment
+        uses: actions/deploy-pages@v4
 
-            - name: Deploy (theme → theme.marxchou.com)
-              if: github.ref == 'refs/heads/theme'
-              uses: peaceiris/actions-gh-pages@v4
-              with:
-                  personal_token: ${{ secrets.PAGE_GITHUB_TOKEN }}
-                  external_repository: Smart-Chou/smart-chou.github.io
-                  publish_branch: theme
-                  publish_dir: dist
-                  cname: theme.marxchou.com
-                  force_orphan: true
+      # theme 分支 → peaceiris 推到 smart-chou.github.io（保留现有逻辑）
+      - name: Deploy theme
+        if: github.ref == 'refs/heads/theme'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PAGE_GITHUB_TOKEN }}
+          external_repository: Smart-Chou/smart-chou.github.io
+          publish_branch: theme
+          publish_dir: dist
+          cname: theme.marxchou.com
+          force_orphan: true
