@@ -9,6 +9,8 @@ on:
 
 permissions:
     contents: read
+    pages: write
+    id-token: write
 
 concurrency:
     group: deploy-${{ github.ref }}
@@ -80,14 +82,3 @@ jobs:
               id: deployment
               uses: actions/deploy-pages@v4
 
-            # theme 分支 → peaceiris 推到 smart-chou.github.io（保留现有逻辑）
-            - name: Deploy theme
-              if: github.ref == 'refs/heads/theme'
-              uses: peaceiris/actions-gh-pages@v4.1.0
-              with:
-                  personal_token: ${{ secrets.PAGE_GITHUB_TOKEN }}
-                  external_repository: Smart-Chou/smart-chou.github.io
-                  publish_branch: theme
-                  publish_dir: dist
-                  cname: theme.marxchou.com
-                  force_orphan: true
