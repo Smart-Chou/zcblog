@@ -22,74 +22,32 @@
 
 <script is:inline>
     (function () {
-        const STORAGE_KEY = "loading-intro-shown";
+        var el = document.getElementById("loading-intro");
+        if (!el) return;
 
-        // 仅在首页运行，防止 View Transitions 跨页面污染
-        const path = window.location.pathname.replace(/\/$/, "") || "/";
-        const isHome = path === "/" || path === "/en";
-        if (!isHome) return;
+        var path = window.location.pathname.replace(/\/$/, "") || "/";
+        if (path !== "/" && path !== "/en") { el.remove(); return; }
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { el.remove(); return; }
 
-        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-        const overlay = document.getElementById("loading-intro");
-        if (!overlay) return;
-
-        // 用户设置了减少动效，直接跳过
-        if (prefersReducedMotion) {
-            overlay.remove();
-            return;
-        }
-
-        const hasVisitedBefore = (function () {
-            try {
-                return localStorage.getItem(STORAGE_KEY) !== null;
-            } catch (e) {
-                return false;
-            }
-        })();
-
-        const el = overlay;
-
-        // 回访用户：缩短动画至 ≤300ms
-        const MIN_SPIN_MS = hasVisitedBefore ? 300 : 800;
-
+        var spinMs = 400;
         try {
-            localStorage.setItem(STORAGE_KEY, "1");
-        } catch (e) {
-            try {
-                sessionStorage.setItem(STORAGE_KEY, "1");
-            } catch (_) {}
-        }
+            if (localStorage.getItem("loading-intro-shown")) spinMs = 200;
+            localStorage.setItem("loading-intro-shown", "1");
+        } catch (e) {}
 
-        const startTime = performance.now();
-
-        function reveal() {
+        // 先加 fade-out class（能过渡最好，不能就 instant），
+        // 不依赖 transitionend——vt-freeze 的 !important 会压制所有 CSS 过渡
+        setTimeout(function () {
             el.classList.add("loading-intro--done");
-            el.addEventListener("transitionend", () => el.remove(), { once: true });
-            // Fallback removal
-            setTimeout(() => {
+            // 不管 CSS 过渡有没有生效，350ms 后强制 remove
+            setTimeout(function () {
                 if (el.parentNode) el.remove();
-            }, 800);
-        }
+            }, 350);
+        }, spinMs);
 
-        function onPageReady() {
-            const elapsed = performance.now() - startTime;
-            const remaining = Math.max(0, MIN_SPIN_MS - elapsed);
-            setTimeout(reveal, remaining);
-        }
-
-        if (document.readyState === "complete") {
-            onPageReady();
-        } else {
-            window.addEventListener("load", onPageReady);
-        }
-
-        // 硬超时兜底：不管什么情况，最多 2 秒后强制移除
-        setTimeout(() => {
-            if (el.parentNode) {
-                el.classList.add("loading-intro--done");
-                setTimeout(() => { if (el.parentNode) el.remove(); }, 300);
-            }
-        }, 2000);
+        // 终极兜底：3.5 秒后还在就强制干掉
+        setTimeout(function () {
+            if (el.parentNode) el.remove();
+        }, 3500);
     })();
 </script>
