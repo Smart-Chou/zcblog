@@ -22,7 +22,7 @@ import { visit } from "unist-util-visit";
 let currentFile = "";
 
 export function remarkInclude() {
-    return (tree, file) => {
+    return (tree: any, file: any) => {
         // Track the current file being processed for relative path resolution
         currentFile = file.path || "";
 

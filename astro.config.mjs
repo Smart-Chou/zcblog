@@ -8,19 +8,19 @@ import remarkGfm from "remark-gfm"; // GitHub Flavored Markdown
 import rehypeSlug from "rehype-slug"; // 标题添加ID
 import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 标题添加锚点
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
-import { remarkCodeBlocks } from "./src/remark-plugin/remark-code-blocks.mjs";
-import { remarkPlantUML } from "./src/remark-plugin/remark-plantuml.mjs";
-import { remarkReveal } from "./src/remark-plugin/remark-reveal.mjs";
-import { remarkInlineSyntax } from "./src/remark-plugin/remark-inline-syntax.mjs";
-import { remarkAsides } from "./src/remark-plugin/remark-asides.mjs";
-import { remarkImageGrid } from "./src/remark-plugin/remark-image-grid.mjs";
-import { remarkGithubCard } from "./src/remark-plugin/remark-github-card.mjs";
-import { GithubCardComponent } from "./src/remark-plugin/rehype-github-card.mjs";
-import { remarkTabs } from "./src/remark-plugin/remark-tabs.mjs";
-import { remarkAlign } from "./src/remark-plugin/remark-align.mjs";
-import { remarkInclude } from "./src/remark-plugin/remark-include.mjs";
-import { remarkEncrypted } from "./src/remark-plugin/remark-encrypted.mjs";
-import { rehypeEncrypted } from "./src/remark-plugin/rehype-encrypted.mjs";
+import { remarkCodeBlocks } from "./src/remark-plugin/remark-code-blocks.ts";
+import { remarkPlantUML } from "./src/remark-plugin/remark-plantuml.ts";
+import { remarkReveal } from "./src/remark-plugin/remark-reveal.ts";
+import { remarkInlineSyntax } from "./src/remark-plugin/remark-inline-syntax.ts";
+import { remarkAsides } from "./src/remark-plugin/remark-asides.ts";
+import { remarkImageGrid } from "./src/remark-plugin/remark-image-grid.ts";
+import { remarkGithubCard } from "./src/remark-plugin/remark-github-card.ts";
+import { GithubCardComponent } from "./src/remark-plugin/rehype-github-card.ts";
+import { remarkTabs } from "./src/remark-plugin/remark-tabs.ts";
+import { remarkAlign } from "./src/remark-plugin/remark-align.ts";
+import { remarkInclude } from "./src/remark-plugin/remark-include.ts";
+import { remarkEncrypted } from "./src/remark-plugin/remark-encrypted.ts";
+import { rehypeEncrypted } from "./src/remark-plugin/rehype-encrypted.ts";
 import expressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";

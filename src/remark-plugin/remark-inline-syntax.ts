@@ -33,15 +33,16 @@ const INLINE_PATTERNS = [
     [MARK_PATTERN, "mark", null],
 ];
 
-function hasMatch(text) {
+function hasMatch(text: any) {
     for (const [p] of INLINE_PATTERNS) {
-        p.lastIndex = 0;
-        if (p.test(text)) return true;
+        const re = p as RegExp;
+        re.lastIndex = 0;
+        if (re.test(text)) return true;
     }
     return false;
 }
 
-function parseInlineNodes(text) {
+function parseInlineNodes(text: any) {
     const nodes = [];
     let remaining = text;
 
@@ -49,8 +50,9 @@ function parseInlineNodes(text) {
         let earliest = null;
 
         for (const [pattern, tag, cls] of INLINE_PATTERNS) {
-            pattern.lastIndex = 0;
-            const m = pattern.exec(remaining);
+            const re = pattern as RegExp;
+            re.lastIndex = 0;
+            const m = re.exec(remaining);
             if (m && (earliest === null || m.index < earliest.idx)) {
                 earliest = { tag, cls, idx: m.index, full: m[0], inner: m[1] };
             }
@@ -87,7 +89,7 @@ function parseInlineNodes(text) {
 }
 
 export function remarkInlineSyntax() {
-    return (tree) => {
+    return (tree: any) => {
         visit(tree, "text", (node, index, parent) => {
             if (!parent || typeof node.value !== "string") return;
             if (parent.type === "inlineCode" || parent.type === "code") return;

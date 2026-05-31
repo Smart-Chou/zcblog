@@ -19,7 +19,7 @@ import { visit } from "unist-util-visit";
 const alignVariants = new Set(["center", "right"]);
 
 export function remarkAlign() {
-    return (tree) => {
+    return (tree: any) => {
         visit(tree, (node, index, parent) => {
             if (
                 !parent ||

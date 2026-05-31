@@ -11,7 +11,7 @@
  */
 import { visit } from "unist-util-visit";
 
-function createGridWrapper(children, imgCount) {
+function createGridWrapper(children: any, imgCount: any) {
     const cols = Math.min(imgCount || 2, 4);
     return {
         type: "paragraph",
@@ -33,7 +33,7 @@ function createGridWrapper(children, imgCount) {
 }
 
 export function remarkImageGrid() {
-    return (tree) => {
+    return (tree: any) => {
         visit(tree, (node, index, parent) => {
             if (
                 !parent ||

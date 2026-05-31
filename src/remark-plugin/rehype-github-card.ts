@@ -6,7 +6,7 @@ import { h } from "hastscript";
  * 语法: ::github[owner/repo]
  * 也兼容旧语法: ::github{repo="owner/repo"}
  */
-export function GithubCardComponent(properties, children) {
+export function GithubCardComponent(properties: any, children: any) {
     // New syntax ::github[owner/repo] — label text arrives as children
     // Old syntax ::github{repo="owner/repo"} — repo is in properties
     let repo = properties.repo;

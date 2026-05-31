@@ -11,12 +11,12 @@ import { toHtml } from "hast-util-to-html";
 import { encryptContent } from "../utils/encrypt.js";
 import { visit } from "unist-util-visit";
 
-function childrenToHtml(nodes) {
+function childrenToHtml(nodes: any) {
     return toHtml({ type: "root", children: nodes || [] });
 }
 
 export function rehypeEncrypted() {
-    return (tree) => {
+    return (tree: any) => {
         visit(tree, "element", (node, index, parent) => {
             if (!parent || index === undefined) return;
 
@@ -71,7 +71,7 @@ export function rehypeEncrypted() {
     };
 }
 
-function buildPasswordUI(hint, uid) {
+function buildPasswordUI(hint: any, uid: any) {
     const children = [
         el("h2", ["text-lg", "font-bold"], [txt("内容已加密")]),
         el(
@@ -181,7 +181,7 @@ function buildPasswordUI(hint, uid) {
     };
 }
 
-function buildDecryptScript(uid) {
+function buildDecryptScript(uid: any) {
     const script = `
 (function(){var c=document.getElementById("encrypted-container-${uid}");if(!c)return;
 var d=c.getAttribute("data-encrypted"),s=c.getAttribute("data-slug");
@@ -209,12 +209,12 @@ var cached=sessionStorage.getItem(ck);if(cached)dec(cached).then(show).catch(fun
     return { type: "raw", value: `<script>${script}</script>` };
 }
 
-function el(tag, cls, children, id) {
-    const props = { className: cls };
+function el(tag: any, cls: any, children: any, id?: any) {
+    const props: Record<string, any> = { className: cls };
     if (id) props.id = id;
     return { type: "element", tagName: tag, properties: props, children };
 }
 
-function txt(value) {
+function txt(value: any) {
     return { type: "text", value };
 }

@@ -7,7 +7,7 @@
     "scripts": {
         "dev": "rm -rf node_modules/.vite && astro dev",
         "start": "rm -rf node_modules/.vite && astro dev",
-        "build": "pnpm run fetch:all && pnpm run fetch:verify && astro build",
+        "build": "pnpm run fetch:all && pnpm run fetch:verify && astro build && pnpm run csp:hash",
         "preview": "astro preview",
         "astro": "astro",
         "type-check": "tsc --noEmit",
@@ -20,6 +20,7 @@
         "friends": "node scripts/fetch-friends.mjs",
         "bangumi": "node scripts/fetch-bangumi.mjs",
         "fetch:verify": "node scripts/verify-data.mjs",
+        "csp:hash": "node scripts/csp-hash.mjs",
         "links": "node scripts/link-check.mjs",
         "release": "standard-version",
         "release:dry": "standard-version --dry-run",

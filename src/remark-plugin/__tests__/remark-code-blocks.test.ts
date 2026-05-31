@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { remarkCodeBlocks } from "../remark-code-blocks.mjs";
+import { remarkCodeBlocks } from "../remark-code-blocks.ts";
 import type { Root, Code } from "mdast";
 
 function makeCodeNode(lang: string, value: string): Code {

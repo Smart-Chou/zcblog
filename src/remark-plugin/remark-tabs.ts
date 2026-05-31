@@ -17,8 +17,8 @@
 import { h as _h } from "hastscript";
 import { visit } from "unist-util-visit";
 
-function h(el, attrs = {}, children = []) {
-    const { tagName, properties } = _h(el, attrs);
+function h(el: any, attrs: any = {}, children: any[] = []) {
+    const { tagName, properties }: any = _h(el, attrs);
     if (properties.className && Array.isArray(properties.className)) {
         properties.class = properties.className.join(" ");
         delete properties.className;
@@ -30,7 +30,7 @@ function h(el, attrs = {}, children = []) {
     };
 }
 
-function splitByTabs(children) {
+function splitByTabs(children: any) {
     const tabs = [];
     let currentTitle = "";
     let currentChildren = [];
@@ -63,7 +63,7 @@ function splitByTabs(children) {
     return tabs;
 }
 
-function extractTabMarker(node) {
+function extractTabMarker(node: any) {
     if (node.type === "paragraph" && node.children) {
         for (const child of node.children) {
             if (child.type === "text") {
@@ -76,7 +76,7 @@ function extractTabMarker(node) {
     return null;
 }
 
-function isConsumedTabMarker(node) {
+function isConsumedTabMarker(node: any) {
     if (node.type !== "paragraph" || !node.children || node.children.length !== 1) {
         return false;
     }
@@ -90,7 +90,7 @@ function isConsumedTabMarker(node) {
 let tabCounter = 0;
 
 export function remarkTabs() {
-    return (tree) => {
+    return (tree: any) => {
         visit(tree, (node, index, parent) => {
             if (
                 !parent ||

@@ -4,12 +4,12 @@
  */
 import { visit } from "unist-util-visit";
 
-function randomId(prefix) {
+function randomId(prefix: any) {
     return prefix + "-" + Math.random().toString(36).slice(2, 8);
 }
 
 export function remarkReveal() {
-    return (tree) => {
+    return (tree: any) => {
         visit(tree, "code", (node) => {
             if (node.lang !== "reveal") return;
 

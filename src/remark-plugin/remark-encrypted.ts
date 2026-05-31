@@ -21,8 +21,8 @@ import { visit } from "unist-util-visit";
 const DEFAULT_PASSWORD =
     (typeof process !== "undefined" && process.env?.ENCRYPTION_PASSWORD) || "marxchou-default";
 
-function h(el, attrs = {}, children = []) {
-    const { tagName, properties } = _h(el, attrs);
+function h(el: any, attrs: any = {}, children: any = []) {
+    const { tagName, properties }: any = _h(el, attrs);
     if (properties.className && Array.isArray(properties.className)) {
         properties.class = properties.className.join(" ");
         delete properties.className;
@@ -35,7 +35,7 @@ function h(el, attrs = {}, children = []) {
 }
 
 export function remarkEncrypted() {
-    return (tree) => {
+    return (tree: any) => {
         visit(tree, (node, index, parent) => {
             if (
                 !parent ||

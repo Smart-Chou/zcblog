@@ -33,7 +33,7 @@ import { remove } from "unist-util-remove";
 import { visit } from "unist-util-visit";
 const variants = new Set(["note", "info", "important", "tip", "warning", "danger"]);
 
-function defaultLabel(v) {
+function defaultLabel(v: any) {
     switch (v) {
         case "info":
             return "信息";
@@ -53,8 +53,8 @@ function defaultLabel(v) {
 }
 
 /** Hacky function that generates an mdast HTML tree ready for conversion to HTML by rehype. */
-function h(el, attrs = {}, children = []) {
-    const { tagName, properties } = _h(el, attrs);
+function h(el: any, attrs: any = {}, children: any[] = []) {
+    const { tagName, properties }: any = _h(el, attrs);
     // hastscript converts class string → className array, but remark-rehype's
     // hProperties needs a raw class string for multi-class to work correctly.
     if (properties.className && Array.isArray(properties.className)) {
@@ -69,8 +69,8 @@ function h(el, attrs = {}, children = []) {
 }
 
 /** Hacky function that generates an mdast SVG tree ready for conversion to HTML by rehype. */
-function s(el, attrs = {}, children = []) {
-    const { tagName, properties } = _s(el, attrs);
+function s(el: any, attrs: any = {}, children: any[] = []) {
+    const { tagName, properties }: any = _s(el, attrs);
     return {
         type: "paragraph",
         data: { hName: tagName, hProperties: properties },
@@ -102,12 +102,12 @@ function s(el, attrs = {}, children = []) {
  * </Aside>
  * ```
  */
-export function remarkAsides(options) {
+export function remarkAsides(options: any) {
     options = {
         label: defaultLabel,
         ...options,
     };
-    const isAsideVariant = (s) => variants.has(s);
+    const isAsideVariant = (s: any) => variants.has(s);
 
     const iconPaths = {
         // Note container
@@ -153,7 +153,7 @@ export function remarkAsides(options) {
         ],
     };
 
-    const transformer = (tree) => {
+    const transformer = (tree: any) => {
         visit(tree, (node, index, parent) => {
             if (!parent || index === undefined || node.type !== "containerDirective") {
                 return;
@@ -203,7 +203,7 @@ export function remarkAsides(options) {
                                     fill: "currentColor",
                                     class: "remark-aside-icon",
                                 },
-                                iconPaths[variant],
+                                iconPaths[variant as keyof typeof iconPaths],
                             ),
                             { type: "text", value: title },
                         ],

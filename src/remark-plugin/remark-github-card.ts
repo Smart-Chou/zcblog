@@ -12,7 +12,7 @@ import { remove } from "unist-util-remove";
 import { visit } from "unist-util-visit";
 
 export function remarkGithubCard() {
-    return (tree) => {
+    return (tree: any) => {
         visit(tree, (node, index, parent) => {
             if (
                 !parent ||

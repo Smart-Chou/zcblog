@@ -7,7 +7,7 @@ import { deflateSync } from "node:zlib";
 
 const PLANTUML_SERVER = "https://www.plantuml.com/plantuml";
 
-function encode64(data) {
+function encode64(data: any) {
     const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
     let result = "";
     for (let i = 0; i < data.length; i += 3) {
@@ -22,13 +22,13 @@ function encode64(data) {
     return result;
 }
 
-function encodePlantUML(code) {
+function encodePlantUML(code: any) {
     const deflated = deflateSync(Buffer.from(code, "utf-8"), { level: 9 });
     return encode64(deflated);
 }
 
 export function remarkPlantUML() {
-    return (tree) => {
+    return (tree: any) => {
         visit(tree, "code", (node) => {
             if (node.lang !== "plantuml" || !node.value || !node.value.trim()) return;
 

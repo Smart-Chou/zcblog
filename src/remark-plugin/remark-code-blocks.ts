@@ -16,13 +16,13 @@ import { config } from "../config/index.ts";
 const YOUTUBE_EMBED = "https://www.youtube.com/embed/";
 const BILIBILI_EMBED = "https://player.bilibili.com/player.html";
 
-function randomId(prefix) {
+function randomId(prefix: any) {
     return prefix + "-" + Math.random().toString(36).slice(2, 8);
 }
 
 export function remarkCodeBlocks() {
-    return (tree) => {
-        visit(tree, "code", (node) => {
+    return (tree: any) => {
+        visit(tree, "code", (node: any) => {
             const lang = node.lang || "";
 
             // Mermaid
