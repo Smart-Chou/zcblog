@@ -20,9 +20,15 @@
     </style>
 </noscript>
 
-<script>
+<script is:inline>
     (function () {
         const STORAGE_KEY = "loading-intro-shown";
+
+        // 仅在首页运行，防止 View Transitions 跨页面污染
+        const path = window.location.pathname.replace(/\/$/, "") || "/";
+        const isHome = path === "/" || path === "/en";
+        if (!isHome) return;
+
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         const overlay = document.getElementById("loading-intro");
@@ -50,7 +56,6 @@
         try {
             localStorage.setItem(STORAGE_KEY, "1");
         } catch (e) {
-            // localStorage 不可用，降级到 sessionStorage
             try {
                 sessionStorage.setItem(STORAGE_KEY, "1");
             } catch (_) {}
@@ -60,9 +65,7 @@
 
         function reveal() {
             el.classList.add("loading-intro--done");
-
             el.addEventListener("transitionend", () => el.remove(), { once: true });
-
             // Fallback removal
             setTimeout(() => {
                 if (el.parentNode) el.remove();
@@ -80,5 +83,13 @@
         } else {
             window.addEventListener("load", onPageReady);
         }
+
+        // 硬超时兜底：不管什么情况，最多 2 秒后强制移除
+        setTimeout(() => {
+            if (el.parentNode) {
+                el.classList.add("loading-intro--done");
+                setTimeout(() => { if (el.parentNode) el.remove(); }, 300);
+            }
+        }, 2000);
     })();
 </script>
