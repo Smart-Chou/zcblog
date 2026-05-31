@@ -2,6 +2,13 @@
 import { navLinks } from "~/config";
 
 const currentPath = Astro.url.pathname;
+
+// 分页路由匹配：/blog/1/ → base=/blog/，匹配 /blog/2/、/blog/3/ 等
+function isActive(href: string) {
+    if (href === "/") return currentPath === "/";
+    const base = href.replace(/\/\d+\/$/, "/");
+    return currentPath.startsWith(base);
+}
 ---
 
 <button
@@ -27,12 +34,7 @@ const currentPath = Astro.url.pathname;
                         href={link.href}
                         class:list={[
                             "nav-dropdown-link",
-                            {
-                                active:
-                                    link.href === "/"
-                                        ? currentPath === "/"
-                                        : currentPath.startsWith(link.href),
-                            },
+                            { active: isActive(link.href) },
                         ]}
                     >
                         {link.label}
