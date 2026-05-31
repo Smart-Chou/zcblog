@@ -28,8 +28,14 @@ import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
             return getStoredTheme() || getSystemTheme();
         };
 
+        let themeTransitionTimer = null;
+
         const setTheme = (theme) => {
             const root = document.documentElement;
+
+            // 启用主题过渡，滚动时不触发
+            if (themeTransitionTimer) clearTimeout(themeTransitionTimer);
+            root.classList.add("theme-transitions-enabled");
 
             if (theme === "dark") {
                 root.classList.add("dark");
@@ -48,6 +54,11 @@ import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
             }
 
             updateButton(theme);
+
+            // 过渡完成后移除标记（500ms = --duration-slower），避免滚动时触发过渡
+            themeTransitionTimer = setTimeout(() => {
+                root.classList.remove("theme-transitions-enabled");
+            }, 500);
         };
 
         const updateButton = (theme) => {

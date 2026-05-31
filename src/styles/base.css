@@ -38,9 +38,6 @@ html {
 body {
     background-color: var(--color-bg);
     color: var(--color-body);
-    transition:
-        color var(--duration-slower),
-        background-color var(--duration-slower);
     font-family: var(--font-body);
     font-weight: 400;
     margin: 0;
@@ -49,6 +46,13 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+/* 仅在主题切换时启用过渡，避免滚动时持续触发 */
+html.theme-transitions-enabled body {
+    transition:
+        color var(--duration-slower),
+        background-color var(--duration-slower);
 }
 
 body ::selection {
@@ -74,7 +78,6 @@ hr:before {
 }
 
 #app {
-    scroll-behavior: smooth;
     flex: 1;
     display: flex;
     flex-direction: column;

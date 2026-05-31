@@ -64,7 +64,6 @@ html {
 
     /* ---- Colors — Light Mode (Warm Editorial) ---- */
     --color-bg: #fbf8f4;
-    --color-bg-rgb: 251, 248, 244;
     --color-surface: #fffcf8;
     --color-surface-translucent: #fffcf8ee;
     --color-surface-secondary: #f3eee7;
@@ -79,11 +78,13 @@ html {
     --color-selection: #fde8e5;
     --color-muted: #635d59;
     --color-hover: rgba(45, 40, 34, 0.04);
+    --color-text-dimmed: #948f8a;
+    --color-surface-hover: #f5f1ea;
+    --color-heading: #1a1714;
 
     /* ---- Colors — Dark Mode (Warm Charcoal) ---- */
     &[data-theme="dark"] {
         --color-bg: #1c1917;
-        --color-bg-rgb: 28, 25, 23;
         --color-surface: #24211e;
         --color-surface-translucent: #24211eee;
         --color-surface-secondary: #2a2724;
@@ -98,6 +99,9 @@ html {
         --color-selection: #3d1815;
         --color-muted: #a8a19b;
         --color-hover: rgba(232, 227, 222, 0.04);
+        --color-text-dimmed: #7a7570;
+        --color-surface-hover: #2d2a27;
+        --color-heading: #faf7f2;
     }
 
     /* ---- Semantic Colors ---- */
@@ -181,17 +185,6 @@ html {
         --radius: 3px;
         --radius-md: 3px;
     }
-}
-
-/* ---- Hero-specific surface tokens ---- */
-:root {
-    --light-background: #fbf8f4;
-    --light-background-secondary: #f3eee7;
-    --light-header: rgba(251, 248, 244, 0.85);
-    --dark-background: #1c1917;
-    --dark-background-secondary: #2a2724;
-    --dark-header: rgba(28, 25, 23, 0.85);
-    --dark-color: #e8e3de;
 }
 
 /* =========================================

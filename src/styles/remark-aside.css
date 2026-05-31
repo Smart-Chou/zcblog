@@ -77,6 +77,7 @@
     --cb-admonition-background-color: var(--cb-color-note);
     --cb-admonition-color: var(--cb-color-note);
     --cb-admonition-color-lighten: var(--cb-color-note-lighten);
+    --cb-admonition-icon-color: var(--cb-admonition-color);
 }
 
 .remark-aside--info {

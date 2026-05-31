@@ -28,18 +28,16 @@ const { searchEnable = search.enable } = Astro.props;
 </header>
 
 <script>
-    // 滚动超过阈值时切换导航栏宽度（替代 scroll-driven animation，避免持续重绘）
-    // Header 是 fixed 定位的持久元素，scroll 事件绑定一次即可，无需每次 swap 重绑
+    // 滚动超过阈值时切换导航栏宽度
+    // View Transitions 会替换 DOM，必须在 handler 内实时 querySelector
     const SCROLL_THRESHOLD = 100;
-    const navShell = document.querySelector<HTMLElement>(".nav-shell");
-    if (navShell && !navShell.dataset.scrollBound) {
-        navShell.dataset.scrollBound = "1";
-        const onScroll = () => {
-            navShell.classList.toggle("scrolled", window.scrollY > SCROLL_THRESHOLD);
-        };
-        onScroll();
-        document.addEventListener("scroll", onScroll, { passive: true });
+    function updateNav() {
+        const nav = document.querySelector(".nav-shell");
+        if (nav) nav.classList.toggle("scrolled", window.scrollY > SCROLL_THRESHOLD);
     }
+    updateNav();
+    document.addEventListener("scroll", updateNav, { passive: true });
+    document.addEventListener("astro:after-swap", updateNav);
 </script>
 
 <style>
@@ -54,17 +52,13 @@ const { searchEnable = search.enable } = Astro.props;
         padding: 0 24px;
         view-transition-name: none;
         transform: translateZ(0);
-        will-change: transform;
     }
 
     .nav-shell {
         width: 100%;
         max-width: var(--content-width);
         height: 72px;
-        background: var(--color-surface);
-        background: color-mix(in srgb, var(--color-surface) 65%, transparent);
-        -webkit-backdrop-filter: blur(24px);
-        backdrop-filter: blur(24px);
+        background: color-mix(in srgb, var(--color-surface) 92%, transparent);
         border: 1px solid var(--color-border);
         border-radius: 46px;
         display: flex;
@@ -72,7 +66,7 @@ const { searchEnable = search.enable } = Astro.props;
         justify-content: space-between;
         padding: 0 36px;
         box-shadow: var(--shadow-md);
-        transition: background-color var(--duration-slow), max-width 0.3s ease;
+        transition: background-color var(--duration-slow);
     }
 
     .nav-shell.scrolled {
@@ -118,8 +112,6 @@ const { searchEnable = search.enable } = Astro.props;
             height: 52px;
             border-radius: 26px;
             padding: 0 16px;
-            -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
         }
 
         .header-left,
