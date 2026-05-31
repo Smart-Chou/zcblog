@@ -20,34 +20,35 @@
     </style>
 </noscript>
 
-<script is:inline>
-    (function () {
-        var el = document.getElementById("loading-intro");
+<script>
+    let _loadingBound = false;
+
+    function handleLoading() {
+        const el = document.getElementById("loading-intro");
         if (!el) return;
 
-        var path = window.location.pathname.replace(/\/$/, "") || "/";
+        const path = window.location.pathname.replace(/\/$/, "") || "/";
         if (path !== "/" && path !== "/en") { el.remove(); return; }
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { el.remove(); return; }
 
-        var spinMs = 400;
+        const KEY = "loading-intro-shown";
+        let spinMs = 400;
         try {
-            if (localStorage.getItem("loading-intro-shown")) spinMs = 200;
-            localStorage.setItem("loading-intro-shown", "1");
+            if (localStorage.getItem(KEY)) spinMs = 200;
+            localStorage.setItem(KEY, "1");
         } catch (e) {}
 
-        // 先加 fade-out class（能过渡最好，不能就 instant），
-        // 不依赖 transitionend——vt-freeze 的 !important 会压制所有 CSS 过渡
-        setTimeout(function () {
+        setTimeout(() => {
             el.classList.add("loading-intro--done");
-            // 不管 CSS 过渡有没有生效，350ms 后强制 remove
-            setTimeout(function () {
-                if (el.parentNode) el.remove();
-            }, 350);
+            setTimeout(() => { if (el.parentNode) el.remove(); }, 350);
         }, spinMs);
 
-        // 终极兜底：3.5 秒后还在就强制干掉
-        setTimeout(function () {
-            if (el.parentNode) el.remove();
-        }, 3500);
-    })();
+        setTimeout(() => { if (el.parentNode) el.remove(); }, 3500);
+    }
+
+    if (!_loadingBound) {
+        _loadingBound = true;
+        document.addEventListener("astro:page-load", handleLoading);
+    }
+    handleLoading();
 </script>
