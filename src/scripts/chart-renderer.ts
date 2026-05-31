@@ -43,4 +43,9 @@ function initCharts() {
     });
 }
 
-document.addEventListener("astro:page-load", initCharts);
+// 确保 View Transitions 跨页面导航时只注册一次监听器
+let _chartRegistered = false;
+if (!_chartRegistered) {
+    document.addEventListener("astro:page-load", initCharts);
+    _chartRegistered = true;
+}

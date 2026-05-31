@@ -48,4 +48,9 @@ function initMarkmap() {
     });
 }
 
-document.addEventListener("astro:page-load", initMarkmap);
+// 确保 View Transitions 跨页面导航时只注册一次监听器
+let _markmapRegistered = false;
+if (!_markmapRegistered) {
+    document.addEventListener("astro:page-load", initMarkmap);
+    _markmapRegistered = true;
+}

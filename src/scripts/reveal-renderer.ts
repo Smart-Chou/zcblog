@@ -57,4 +57,9 @@ function initReveal() {
     });
 }
 
-document.addEventListener("astro:page-load", initReveal);
+// 确保 View Transitions 跨页面导航时只注册一次监听器
+let _revealRegistered = false;
+if (!_revealRegistered) {
+    document.addEventListener("astro:page-load", initReveal);
+    _revealRegistered = true;
+}

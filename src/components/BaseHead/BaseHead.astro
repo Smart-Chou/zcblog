@@ -132,6 +132,14 @@ const enPath = isEnglish ? currentPath : "/en" + currentPath;
             document.addEventListener("astro:before-swap", applyTheme);
             // astro:after-swap 作为备用，确保新页面加载后主题正确
             document.addEventListener("astro:after-swap", applyTheme);
+
+            // 过渡期间冻结页面 CSS 动画/过渡，防止视图抖动
+            document.addEventListener("astro:before-swap", function () {
+                document.documentElement.classList.add("vt-freeze");
+            });
+            document.addEventListener("astro:after-swap", function () {
+                document.documentElement.classList.remove("vt-freeze");
+            });
         })();
     </script>
 

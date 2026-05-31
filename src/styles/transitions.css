@@ -1,10 +1,18 @@
 /**
- * View Transitions API — editorial page animations
+ * View Transitions API — 页面过渡动画
  * Ref: https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API
  */
 
 @view-transition {
     navigation: auto;
+}
+
+/* ---- 过渡期间冻结页面动画/过渡，防止抖动 ---- */
+html.vt-freeze *,
+html.vt-freeze *::before,
+html.vt-freeze *::after {
+    animation-play-state: paused !important;
+    transition: none !important;
 }
 
 /* ---- Reduced motion ---- */
@@ -19,16 +27,16 @@
 
 /* ---- Forward navigation ---- */
 ::view-transition-old(root) {
-    animation: vt-fade-out var(--duration-normal) var(--ease-in) both;
+    animation: vt-fade-out 150ms var(--ease-in) both;
 }
 
 ::view-transition-new(root) {
     animation:
-        vt-fade-in var(--duration-slow) var(--ease-out) both,
-        vt-slide-up var(--duration-slow) var(--ease-out) both;
+        vt-fade-in 250ms var(--ease-out) both,
+        vt-slide-up 250ms var(--ease-out) both;
 }
 
-/* ---- Keyframes ---- */
+/* ---- Back navigation (no slide) ---- */
 @keyframes vt-fade-out {
     to {
         opacity: 0;
@@ -46,7 +54,7 @@
 
 @keyframes vt-slide-up {
     from {
-        transform: translateY(12px);
+        transform: translateY(4px);
     }
     to {
         transform: translateY(0);

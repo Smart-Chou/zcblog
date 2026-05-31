@@ -124,8 +124,15 @@ async function initStaticFancybox(options: Partial<FancyboxOptions> = {}): Promi
 /**
  * 注册一个 Fancybox 初始化函数，自动处理 SSR、astro:page-load 和首屏加载
  */
+// 防止 View Transitions 跨页面导航时重复注册监听器
+const _fancyboxHandlers = new Set<() => Promise<void>>();
+
 function registerFancybox(fn: () => Promise<void>): void {
     if (typeof document === "undefined") return;
+
+    // 同名函数已注册则跳过
+    if (_fancyboxHandlers.has(fn)) return;
+    _fancyboxHandlers.add(fn);
 
     const init = async () => {
         await fn();
