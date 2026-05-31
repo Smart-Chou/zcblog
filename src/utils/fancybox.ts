@@ -122,35 +122,53 @@ async function initStaticFancybox(options: Partial<FancyboxOptions> = {}): Promi
 }
 
 /**
- * 注册一个 Fancybox 初始化函数，自动处理 SSR、astro:page-load 和首屏加载
+ * 注册一个 Fancybox 初始化函数，自动处理 SSR、astro:page-load 和首屏加载。
+ *
+ * 防泄漏设计：
+ * 1. 只注册一次 astro:page-load 监听器（_bound flag）
+ * 2. 每次切换时先取消上一次的操作（AbortController）
+ * 3. 自动检测当前页面是否匹配 selector，不匹配则跳过
  */
-// 防止 View Transitions 跨页面导航时重复注册监听器
-const _fancyboxHandlers = new Set<() => Promise<void>>();
+let _fancyboxBound = false;
+let _fancyboxController: AbortController | null = null;
 
-function registerFancybox(fn: () => Promise<void>): void {
+function registerFancybox(selector: string, fn: () => Promise<void>): void {
     if (typeof document === "undefined") return;
 
-    // 同名函数已注册则跳过
-    if (_fancyboxHandlers.has(fn)) return;
-    _fancyboxHandlers.add(fn);
-
     const init = async () => {
+        // 检查当前页面是否包含目标选择器，不匹配则跳过
+        if (!document.querySelector(selector)) return;
+
+        // 取消上一次的操作
+        _fancyboxController?.abort();
+        _fancyboxController = new AbortController();
+
         await fn();
     };
 
-    document.addEventListener("astro:page-load", init);
+    // 只注册一次，防止 View Transitions 累积
+    if (!_fancyboxBound) {
+        _fancyboxBound = true;
+        document.addEventListener("astro:page-load", init);
+    }
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init);
-    } else {
+    // 首屏加载
+    if (document.readyState !== "loading") {
         init();
+    } else {
+        document.addEventListener("DOMContentLoaded", init, { once: true });
     }
 }
 
 export const initEssayFancybox = () =>
-    registerFancybox(() => initDynamicFancybox(".essay-images", { debug: false }));
+    registerFancybox(".essay-images", () =>
+        initDynamicFancybox(".essay-images", { debug: false }),
+    );
 
 export const initArticleFancybox = () =>
-    registerFancybox(() => initDynamicFancybox(".post-content", { debug: false }));
+    registerFancybox(".post-content", () =>
+        initDynamicFancybox(".post-content", { debug: false }),
+    );
 
-export const initAlbumFancybox = () => registerFancybox(() => initStaticFancybox({ debug: false }));
+export const initAlbumFancybox = () =>
+    registerFancybox(".album-images", () => initStaticFancybox({ debug: false }));

@@ -71,4 +71,9 @@ function initTabs() {
     }
 }
 
-document.addEventListener("astro:page-load", initTabs);
+// 确保 View Transitions 跨页面导航时只注册一次监听器
+let _tabsBound = false;
+if (!_tabsBound) {
+    _tabsBound = true;
+    document.addEventListener("astro:page-load", initTabs);
+}

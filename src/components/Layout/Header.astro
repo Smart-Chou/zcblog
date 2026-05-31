@@ -29,16 +29,16 @@ const { searchEnable = search.enable } = Astro.props;
 
 <script>
     // 滚动超过阈值时切换导航栏宽度（替代 scroll-driven animation，避免持续重绘）
+    // Header 是 fixed 定位的持久元素，scroll 事件绑定一次即可，无需每次 swap 重绑
     const SCROLL_THRESHOLD = 100;
-    const navShell = document.querySelector(".nav-shell");
-    if (navShell) {
+    const navShell = document.querySelector<HTMLElement>(".nav-shell");
+    if (navShell && !navShell.dataset.scrollBound) {
+        navShell.dataset.scrollBound = "1";
         const onScroll = () => {
             navShell.classList.toggle("scrolled", window.scrollY > SCROLL_THRESHOLD);
         };
-        // 初始检查（页面可能通过锚点加载在中间位置）
         onScroll();
         document.addEventListener("scroll", onScroll, { passive: true });
-        document.addEventListener("astro:after-swap", onScroll);
     }
 </script>
 

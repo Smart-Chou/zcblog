@@ -216,7 +216,8 @@ const firstTag = currentTags[0] || "";
     // reading-progress JS fallback：Firefox 等不支持 scroll-driven animation 的浏览器
     (function () {
         const bar = document.querySelector<HTMLElement>(".reading-progress");
-        if (!bar) return;
+        if (!bar || bar.dataset.progressBound) return;
+        bar.dataset.progressBound = "1";
 
         // 检测浏览器是否支持 animation-timeline
         const supportsScrollTimeline = CSS.supports("animation-timeline: scroll()");

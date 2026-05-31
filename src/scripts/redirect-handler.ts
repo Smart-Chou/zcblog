@@ -54,4 +54,9 @@ function initRedirectHandler() {
     }
 }
 
-document.addEventListener("astro:page-load", initRedirectHandler);
+// 确保 View Transitions 跨页面导航时只注册一次监听器
+let _redirectBound = false;
+if (!_redirectBound) {
+    _redirectBound = true;
+    document.addEventListener("astro:page-load", initRedirectHandler);
+}
