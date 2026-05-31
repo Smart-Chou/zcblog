@@ -78,32 +78,6 @@ const isEn = Astro.url.pathname.startsWith("/en/");
 const firstTag = currentTags[0] || "";
 ---
 
-<style is:global>
-    /* 防止 post-title 布局偏移 - 仅文章页 */
-    #app .content,
-    .content {
-        max-width: 860px !important;
-        margin: 0 auto !important;
-        box-sizing: border-box;
-    }
-
-    #app .post-title,
-    .post-title {
-        max-width: 860px !important;
-        margin-inline: auto !important;
-        text-align: center !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        display: block !important;
-        padding: 3.5rem 0 3.5rem !important;
-        position: relative;
-        contain: layout style;
-        flex-shrink: 0;
-        align-self: center;
-        transform: translateZ(0);
-        backface-visibility: hidden;
-    }
-</style>
 
 <BaseLayout
     title={`${frontmatter.title} - ${site.title}`}
@@ -150,7 +124,9 @@ const firstTag = currentTags[0] || "";
             <h2 id="post-content-title" class="toc-ignore sr-only">
                 {frontmatter.title}
             </h2>
-            <slot />
+            <div class="article-content">
+                <slot />
+            </div>
         </div>
         <PostFooter tags={frontmatter.tags} />
         <PostNavigation slug={slug} />
@@ -165,6 +141,29 @@ const firstTag = currentTags[0] || "";
 </BaseLayout>
 
 <style>
+    /* 文章页内容区统一宽度，不再全局污染 .content */
+    .article-content {
+        max-width: 860px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .post-title {
+        max-width: 860px;
+        margin-inline: auto;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+        display: block;
+        padding: 3.5rem 0 3.5rem;
+        position: relative;
+        contain: layout style;
+        flex-shrink: 0;
+        align-self: center;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
+
     .reading-progress {
         position: fixed;
         left: 0;
