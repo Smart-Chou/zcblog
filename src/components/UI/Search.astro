@@ -29,17 +29,9 @@ const dataAttributes: DOMStringMap = {
     <dialog style="padding:0" aria-label="搜索">
         <div class="dialog-frame sl-flex">
             <button data-close-modal class="sl-flex md:sl-hidden">取消</button>
-            {
-                import.meta.env.DEV ? (
-                    <div style="margin: auto; text-align: center; white-space: pre-line;" dir="ltr">
-                        <p>搜索功能在开发模式下不可用。</p>
-                    </div>
-                ) : (
-                    <div class="search-container">
-                        <div id="starlight__search" />
-                    </div>
-                )
-            }
+            <div class="search-container">
+                <div id="starlight__search" data-dev-mode={import.meta.env.DEV ? "true" : undefined} />
+            </div>
         </div>
     </dialog>
 </site-search>
@@ -153,7 +145,7 @@ const dataAttributes: DOMStringMap = {
                 }
             });
 
-            let translations = {};
+            let translations: Record<string, string> = {};
             try {
                 translations = JSON.parse(this.dataset.translations || "{}");
             } catch {}
@@ -162,8 +154,66 @@ const dataAttributes: DOMStringMap = {
             const stripTrailingSlash = (path: string) => path.replace(/(.)\/$/, "$1");
             const formatURL = shouldStrip ? stripTrailingSlash : (path: string) => path;
 
-            // Check if we're in development mode
+            // Check if we're in development mode — use mock search
             if (import.meta.env.DEV) {
+                this.addEventListener("connectedCallback", async () => {
+                    const searchElement = this.querySelector("#starlight__search");
+                    if (!searchElement) return;
+
+                    const input = document.createElement("input");
+                    input.type = "search";
+                    input.placeholder = translations.placeholder || "搜索 (Mock)";
+                    input.className = "pagefind-ui__search-input";
+                    input.id = "starlight__search-input";
+                    input.setAttribute("name", "q");
+
+                    const results = document.createElement("div");
+                    results.className = "pagefind-ui__results";
+                    results.style.padding = "1rem";
+
+                    searchElement.appendChild(input);
+                    searchElement.appendChild(results);
+
+                    // 从当前页面收集可搜索的链接（文章链接）
+                    const allLinks = Array.from(
+                        document.querySelectorAll<HTMLAnchorElement>(
+                            'a[href*="/article/"], a[href*="/blog/"], a[href*="/archives/"]',
+                        ),
+                    );
+                    const seen = new Set<string>();
+                    const items: Array<{ title: string; url: string }> = [];
+                    for (const a of allLinks) {
+                        const title = a.textContent?.trim() || "";
+                        const url = a.getAttribute("href") || "";
+                        if (title && !seen.has(url)) {
+                            seen.add(url);
+                            items.push({ title, url });
+                        }
+                    }
+
+                    input.addEventListener("input", () => {
+                        const q = input.value.toLowerCase().trim();
+                        if (!q) {
+                            results.innerHTML =
+                                '<p style="color:var(--color-text-dimmed);font-size:0.9rem">Mock 模式 — 输入关键词搜索当前页面文章</p>';
+                            return;
+                        }
+                        const matches = items
+                            .filter((i) => i.title.toLowerCase().includes(q))
+                            .slice(0, 10);
+                        if (matches.length === 0) {
+                            results.innerHTML =
+                                '<p style="color:var(--color-text-dimmed);font-size:0.9rem">未找到匹配结果（Mock 模式）</p>';
+                        } else {
+                            results.innerHTML = matches
+                                .map(
+                                    (m) =>
+                                        `<div style="padding:0.5rem 0;border-bottom:1px solid var(--color-border)"><a href="${m.url}" style="color:var(--color-accent);text-decoration:none">${m.title}</a></div>`,
+                                )
+                                .join("");
+                        }
+                    });
+                });
                 return;
             }
 

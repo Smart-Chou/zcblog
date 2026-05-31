@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import os from "node:os";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import mdx from "@astrojs/mdx";
@@ -8,6 +9,8 @@ import rehypeSlug from "rehype-slug"; // 标题添加ID
 import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 标题添加锚点
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
 import { remarkCodeBlocks } from "./src/remark-plugin/remark-code-blocks.mjs";
+import { remarkPlantUML } from "./src/remark-plugin/remark-plantuml.mjs";
+import { remarkReveal } from "./src/remark-plugin/remark-reveal.mjs";
 import { remarkInlineSyntax } from "./src/remark-plugin/remark-inline-syntax.mjs";
 import { remarkAsides } from "./src/remark-plugin/remark-asides.mjs";
 import { remarkImageGrid } from "./src/remark-plugin/remark-image-grid.mjs";
@@ -48,6 +51,8 @@ export default defineConfig({
             remarkMath,
             remarkInlineSyntax,
             remarkCodeBlocks,
+            remarkPlantUML,
+            remarkReveal,
             remarkDirective,
             remarkInclude,
             remarkAlign,
@@ -130,7 +135,7 @@ export default defineConfig({
     output: "static",
     // 构建输出配置
     build: {
-        concurrency: Number(process.env.BUILD_CONCURRENCY) || 2,
+        concurrency: Number(process.env.BUILD_CONCURRENCY) || os.cpus().length,
     },
     vite: {
         plugins: [

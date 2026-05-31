@@ -15,6 +15,8 @@ import Donate from "~/components/UI/Donate.astro";
 import Author from "~/components/UI/Author.astro";
 import WalineComment from "~/components/UI/WalineComment.astro";
 import MermaidRenderer from "~/components/Layout/MermaidRenderer.astro";
+import RelatedPosts from "~/components/Article/RelatedPosts.astro";
+import Breadcrumb from "~/components/Article/Breadcrumb.astro";
 import { site, postView, waline, donate } from "~/config";
 import { getRandomImageUrl } from "~/utils";
 
@@ -58,6 +60,22 @@ const imageUrl = frontmatter.image?.url || getRandomImageUrl();
 const imageAlt = frontmatter.image?.alt || "Blog Cover";
 const ogImage =
     import.meta.env.DEV || import.meta.env.PREVIEW ? imageUrl : `${Astro.site}og/${slug}.png`;
+
+// 相关文章：按标签匹配数量降序排列，排除当前文章，取前 3 篇
+const currentTags: string[] = frontmatter.tags || [];
+const relatedPosts = sorted
+    .filter((post) => post.id !== slug)
+    .map((post) => ({
+        post,
+        matchCount: (post.data.tags || []).filter((tag: string) => currentTags.includes(tag)).length,
+    }))
+    .filter(({ matchCount }) => matchCount > 0)
+    .sort((a, b) => b.matchCount - a.matchCount)
+    .slice(0, 3)
+    .map(({ post }) => post);
+
+const isEn = Astro.url.pathname.startsWith("/en/");
+const firstTag = currentTags[0] || "";
 ---
 
 <style is:global>
@@ -116,6 +134,7 @@ const ogImage =
         <div class="post-header">
             <PostCardImage imagePath={imageUrl} altText={imageAlt} />
         </div>
+        <Breadcrumb title={frontmatter.title} firstTag={firstTag} isEn={isEn} />
         {
             publishedDays >= 180 && (
                 <div class="remark-aside remark-aside--danger">
@@ -135,6 +154,7 @@ const ogImage =
         </div>
         <PostFooter tags={frontmatter.tags} />
         <PostNavigation slug={slug} />
+        <RelatedPosts relatedPosts={relatedPosts} />
     </div>
     {frontmatter.toc && <Toc />}
     {postView.backtotop && <BackToTop />}
@@ -156,6 +176,8 @@ const ogImage =
         transform-origin: left;
         animation: reading-progress linear;
         animation-timeline: scroll(root);
+        will-change: transform;
+        contain: strict;
     }
 
     @keyframes reading-progress {
@@ -185,9 +207,45 @@ const ogImage =
     }
 </style>
 
+{frontmatter.fancybox !== false && <script>import "~/scripts/fancybox-handler.ts";</script>}
+{frontmatter.markmap && <script>import "~/scripts/markmap-renderer.ts";</script>}
+{frontmatter.chart && <script>import "~/scripts/chart-renderer.ts";</script>}
+{frontmatter.reveal && <script>import "~/scripts/reveal-renderer.ts";</script>}
+
 <script>
-    import "~/scripts/fancybox-handler.ts";
-    import "~/scripts/markmap-renderer.ts";
-    import "~/scripts/chart-renderer.ts";
-    import "~/scripts/reveal-renderer.ts";
+    // reading-progress JS fallback：Firefox 等不支持 scroll-driven animation 的浏览器
+    (function () {
+        const bar = document.querySelector<HTMLElement>(".reading-progress");
+        if (!bar) return;
+
+        // 检测浏览器是否支持 animation-timeline
+        const supportsScrollTimeline = CSS.supports("animation-timeline: scroll()");
+
+        if (supportsScrollTimeline) return; // 用 CSS 原生实现，无需 JS
+
+        // JS fallback：scroll 事件 + requestAnimationFrame
+        let ticking = false;
+        function update() {
+            const el = bar as HTMLElement;
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+            el.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+            el.style.animation = "none";
+            ticking = false;
+        }
+
+        document.addEventListener(
+            "scroll",
+            () => {
+                if (!ticking) {
+                    requestAnimationFrame(update);
+                    ticking = true;
+                }
+            },
+            { passive: true },
+        );
+
+        update();
+    })();
 </script>

@@ -70,4 +70,23 @@ describe("formatPosts", () => {
         formatPosts(posts);
         expect(posts).toEqual(original);
     });
+
+    it("filters out posts with draft: true field", () => {
+        const posts = [
+            { data: { pubDate: "2025-01-01", draft: true } },
+            { data: { pubDate: "2025-02-01", draft: false } },
+            { data: { pubDate: "2025-03-01" } },
+        ] as any[];
+        const result = formatPosts(posts);
+        expect(result).toHaveLength(2);
+    });
+
+    it("accepts Date objects for pubDate", () => {
+        const posts = [
+            { data: { pubDate: new Date("2025-01-01") } },
+            { data: { pubDate: new Date("2025-02-01") } },
+        ] as any[];
+        const result = formatPosts(posts);
+        expect(result).toHaveLength(2);
+    });
 });

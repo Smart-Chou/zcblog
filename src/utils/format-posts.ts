@@ -1,15 +1,19 @@
-export function formatPosts(
-    posts: { data: { pubDate: string; isDraft: boolean } }[],
+interface FormatPostInput {
+    data: { pubDate: Date | string; isDraft?: boolean; draft?: boolean };
+}
+
+export function formatPosts<T extends FormatPostInput>(
+    posts: T[],
     { filterOutDrafts = true, filterOutFuturePosts = true, sortByDate = true } = {},
-) {
+): T[] {
     const now = filterOutFuturePosts ? Date.now() : 0;
 
     const filteredPosts = posts.reduce(
-        (acc: typeof posts, post: { data: { pubDate: string; isDraft: boolean } }) => {
-            const { pubDate, isDraft } = post.data;
+        (acc: T[], post: T) => {
+            const { pubDate, isDraft, draft } = post.data;
 
-            // filterOutDrafts if true
-            if (filterOutDrafts && isDraft) {
+            // filterOutDrafts if true (supports both isDraft and draft field names)
+            if (filterOutDrafts && (isDraft || draft)) {
                 return acc;
             }
 

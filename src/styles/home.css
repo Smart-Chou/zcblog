@@ -756,6 +756,22 @@
     }
 }
 
+@media (max-width: 640px) {
+    .post-featured {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .post-featured-cover {
+        aspect-ratio: 16 / 9;
+    }
+
+    .post-featured-title {
+        font-size: var(--text-lg);
+    }
+}
+
 @media (max-width: 450px) {
     .main-content {
         padding: 0 16px;

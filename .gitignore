@@ -55,3 +55,4 @@ public/images/douban/
 playwright-report/
 test-results/
 .codegraph/
+src/content/article/

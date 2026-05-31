@@ -1,0 +1,99 @@
+---
+interface Props {
+    title: string;
+    firstTag?: string;
+    isEn?: boolean;
+}
+
+const { title, firstTag, isEn = false } = Astro.props;
+
+const homeLabel = isEn ? "Home" : "首页";
+const homeUrl = isEn ? "/en/" : "/";
+const tagLabel = firstTag || "";
+const tagUrl = firstTag ? `/tags/${firstTag}/` : "";
+---
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol class="breadcrumb-list">
+        <li class="breadcrumb-item">
+            <a href={homeUrl} class="breadcrumb-link">{homeLabel}</a>
+        </li>
+        {tagLabel && (
+            <li class="breadcrumb-item">
+                <span class="breadcrumb-sep" aria-hidden="true">/</span>
+                <a href={tagUrl} class="breadcrumb-link">{tagLabel}</a>
+            </li>
+        )}
+        <li class="breadcrumb-item">
+            <span class="breadcrumb-sep" aria-hidden="true">/</span>
+            <span class="breadcrumb-current" aria-current="page">{title}</span>
+        </li>
+    </ol>
+</nav>
+
+<style>
+    .breadcrumb {
+        padding: 0.5rem 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .breadcrumb-list {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        gap: 0;
+        font-size: 0.85rem;
+    }
+
+    .breadcrumb-item {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    .breadcrumb-sep {
+        margin: 0 0.4rem;
+        color: var(--color-text-dimmed);
+        user-select: none;
+    }
+
+    .breadcrumb-link {
+        color: var(--color-text-dimmed);
+        text-decoration: none;
+        transition: color var(--duration-fast);
+        max-width: 12ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .breadcrumb-link:hover {
+        color: var(--color-accent);
+    }
+
+    .breadcrumb-current {
+        color: var(--color-text);
+        font-weight: 500;
+        max-width: 24ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    @media screen and (max-width: 640px) {
+        .breadcrumb {
+            padding: 0.25rem 0;
+        }
+
+        .breadcrumb-list {
+            font-size: 0.8rem;
+        }
+
+        .breadcrumb-current {
+            max-width: 16ch;
+        }
+    }
+</style>

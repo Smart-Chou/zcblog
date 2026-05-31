@@ -100,13 +100,15 @@ const enPath = isEnglish ? currentPath : "/en" + currentPath;
             if (isDark) {
                 document.documentElement.classList.add("dark");
                 document.documentElement.setAttribute("data-theme", "dark");
+                document.documentElement.style.colorScheme = "dark";
             } else {
                 document.documentElement.classList.remove("dark");
                 document.documentElement.setAttribute("data-theme", "light");
+                document.documentElement.style.colorScheme = "light";
             }
 
-            // 监听 View Transitions 页面交换事件
-            document.addEventListener("astro:after-swap", function () {
+            // 在 View Transitions 开始前就设置主题，避免过渡过程中出现白底闪烁
+            function applyTheme() {
                 var savedTheme = null;
                 try {
                     savedTheme = localStorage.getItem("preferredTheme");
@@ -118,11 +120,18 @@ const enPath = isEnglish ? currentPath : "/en" + currentPath;
                 if (isDark) {
                     document.documentElement.classList.add("dark");
                     document.documentElement.setAttribute("data-theme", "dark");
+                    document.documentElement.style.colorScheme = "dark";
                 } else {
                     document.documentElement.classList.remove("dark");
                     document.documentElement.setAttribute("data-theme", "light");
+                    document.documentElement.style.colorScheme = "light";
                 }
-            });
+            }
+
+            // astro:before-swap 在过渡动画之前触发，提前设置主题避免闪烁
+            document.addEventListener("astro:before-swap", applyTheme);
+            // astro:after-swap 作为备用，确保新页面加载后主题正确
+            document.addEventListener("astro:after-swap", applyTheme);
         })();
     </script>
 
@@ -146,7 +155,7 @@ const enPath = isEnglish ? currentPath : "/en" + currentPath;
 
     <!-- SEO 增强 -->
     <link rel="canonical" href={Astro.url.href} />
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href={isEnglish ? "/en/rss.xml" : "/rss.xml"} />
     <!-- 分页导航 -->
     {prevUrl && <link rel="prev" href={prevUrl} />}
     {nextUrl && <link rel="next" href={nextUrl} />}
@@ -180,6 +189,6 @@ const enPath = isEnglish ? currentPath : "/en" + currentPath;
     <!-- Content Security Policy -->
     <meta
         http-equiv="Content-Security-Policy"
-        content={`default-src 'self'; script-src 'self' 'unsafe-inline' data: https://cdn.jsdelivr.net https://cdn.bootcdn.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.bootcdn.net https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' ${waline.serverUrl} ${umami.umamiBaseUrl} https://v1.hitokoto.cn; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`}
+        content={`default-src 'self'; script-src 'self' 'unsafe-inline' data: https://cdn.jsdelivr.net https://cdn.bootcdn.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.bootcdn.net https://unpkg.com; font-src 'self' https://fonts.gstatic.com https://cdn.bootcdn.net; img-src 'self' data: https:; connect-src 'self' ${waline.serverUrl} ${umami.umamiBaseUrl} https://v1.hitokoto.cn https://api.github.com https://cdn.jsdelivr.net; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`}
     />
 </head>

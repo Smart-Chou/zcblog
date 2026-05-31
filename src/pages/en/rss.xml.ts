@@ -4,23 +4,16 @@ import { marked } from "marked";
 import { getCollection } from "astro:content";
 import { formatPosts } from "~/utils/format-posts";
 import getReadingTime from "reading-time";
-import { site, author } from "~/config";
+import { site } from "~/config";
 
-export async function GET(context) {
-    const article = await getCollection("article");
+export async function GET(context: { site: URL }) {
+    const article = await getCollection("article", ({ data }) => data.lang === "en");
     const formattedBlogs = formatPosts(article);
-    const siteTitle = site.title;
-    const siteDescription = site.description;
     return rss({
         xmlns: { atom: "http://www.w3.org/2005/Atom" },
-        title: siteTitle,
-        description: siteDescription,
+        title: `${site.title} (English)`,
+        description: site.description,
         site: context.site,
-        author: author.type,
-        source: {
-            title: siteTitle,
-            url: site.url,
-        },
         items: formattedBlogs.map((post) => {
             const body = post.body?.toString().replace(/\n/g, "") || "";
             const readingStats = getReadingTime(body);
@@ -31,7 +24,7 @@ export async function GET(context) {
             return {
                 title: post.data.title,
                 pubDate: post.data.pubDate,
-                description: post.data.description,
+                description: post.data.description || post.data.title,
                 link: `/article/${post.id}/`,
                 content: descriptionHtml,
                 customData: `<wordCount>${wordCount}</wordCount><readTime>${readTime}</readTime>`,

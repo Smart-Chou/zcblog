@@ -23,20 +23,39 @@
 <script>
     (function () {
         const STORAGE_KEY = "loading-intro-shown";
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         const overlay = document.getElementById("loading-intro");
         if (!overlay) return;
 
-        if (sessionStorage.getItem(STORAGE_KEY)) {
+        // 用户设置了减少动效，直接跳过
+        if (prefersReducedMotion) {
             overlay.remove();
             return;
         }
 
-        sessionStorage.setItem(STORAGE_KEY, "1");
+        const hasVisitedBefore = (function () {
+            try {
+                return localStorage.getItem(STORAGE_KEY) !== null;
+            } catch (e) {
+                return false;
+            }
+        })();
 
-        // Capture non-null reference for closure safety
         const el = overlay;
-        const MIN_SPIN_MS = 1100; // at least one full rotation (1s) + small buffer
+
+        // 回访用户：缩短动画至 ≤300ms
+        const MIN_SPIN_MS = hasVisitedBefore ? 300 : 800;
+
+        try {
+            localStorage.setItem(STORAGE_KEY, "1");
+        } catch (e) {
+            // localStorage 不可用，降级到 sessionStorage
+            try {
+                sessionStorage.setItem(STORAGE_KEY, "1");
+            } catch (_) {}
+        }
+
         const startTime = performance.now();
 
         function reveal() {
@@ -52,7 +71,6 @@
 
         function onPageReady() {
             const elapsed = performance.now() - startTime;
-            // Ensure at least one full spin, then reveal
             const remaining = Math.max(0, MIN_SPIN_MS - elapsed);
             setTimeout(reveal, remaining);
         }

@@ -11,6 +11,7 @@ const article = defineCollection({
     schema: ({ image }) =>
         z.object({
             title: z.string(),
+            lang: z.enum(["zh", "en"]).default("zh").optional(),
             description: z.string().nullable().optional(),
             summary: z.string().nullable().optional(),
             pubDate: z.date(),
@@ -42,6 +43,8 @@ const article = defineCollection({
             katex: z.boolean().default(false).optional(),
             chart: z.boolean().default(false).optional(),
             markmap: z.boolean().default(false).optional(),
+            reveal: z.boolean().default(false).optional(),
+            fancybox: z.boolean().default(true).optional(),
         }),
 });
 
