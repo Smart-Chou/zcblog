@@ -84,9 +84,21 @@ export default defineConfig({
                 },
             },
             // 过滤不需要收录的页面
-            filter: (page) =>
-                page !== "https://marxchou.com/redirect/" &&
-                page !== "https://marxchou.com/en/redirect/",
+            filter: (page) => {
+                // 排除跳转中转页
+                if (
+                    page === "https://marxchou.com/redirect/" ||
+                    page === "https://marxchou.com/en/redirect/"
+                ) {
+                    return false;
+                }
+                // 排除英文文章页：当前没有任何文章有 lang: en，所有 /en/article/ 页面
+                // 渲染的是中文内容，不应被索引。等有英文翻译后移除此规则
+                if (page.includes("/en/article/")) {
+                    return false;
+                }
+                return true;
+            },
         }),
         icon(),
         expressiveCode({

@@ -21,6 +21,7 @@ interface Props {
     prevUrl?: string | null;
     nextUrl?: string | null;
     noindex?: boolean;
+    noEnAlternate?: boolean;
 }
 
 const {
@@ -38,6 +39,7 @@ const {
     prevUrl,
     nextUrl,
     noindex = false,
+    noEnAlternate = false,
 } = Astro.props;
 
 const lang = locale === "en" ? "en" : "zh-CN";
@@ -58,6 +60,7 @@ const lang = locale === "en" ? "en" : "zh-CN";
         prevUrl={prevUrl}
         nextUrl={nextUrl}
         noindex={noindex}
+        noEnAlternate={noEnAlternate}
     />
     <body>
         <a href="#main-content" class="skip-link"

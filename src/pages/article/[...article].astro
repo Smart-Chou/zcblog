@@ -22,6 +22,12 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 
 const { modifiedTime, readTime, wordCount } = enrichPost(entry);
+
+// 检测当前页面语言与文章实际语言是否匹配
+// 当前没有英文文章，所有 /en/article/ 页面都是中文内容，应设为 noindex
+const articleLang = entry.data.lang ?? "zh";
+const isEnUrl = Astro.url.pathname.startsWith("/en/");
+const localeMismatch = isEnUrl && articleLang !== "en";
 ---
 
 <MarkdownLayout
@@ -30,6 +36,8 @@ const { modifiedTime, readTime, wordCount } = enrichPost(entry);
     modifiedTime={modifiedTime}
     readTime={readTime}
     wordCount={wordCount}
+    noindex={localeMismatch}
+    noEnAlternate={localeMismatch || articleLang === "zh"}
 >
     <Content />
 </MarkdownLayout>

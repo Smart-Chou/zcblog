@@ -26,6 +26,8 @@ interface Props {
     modifiedTime: Date | string;
     readTime: string;
     wordCount: number;
+    noindex?: boolean;
+    noEnAlternate?: boolean;
 }
 
 const {
@@ -40,6 +42,8 @@ const {
     modifiedTime,
     readTime,
     wordCount,
+    noindex = false,
+    noEnAlternate = false,
 } = Astro.props;
 
 const allPosts = await getCollection("article");
@@ -91,6 +95,9 @@ const firstTag = currentTags[0] || "";
     mermaid={frontmatter.mermaid}
     prevUrl={prevUrl}
     nextUrl={nextUrl}
+    noindex={noindex}
+    noEnAlternate={noEnAlternate}
+    locale={isEn ? "en" : "zh"}
 >
     <div class="reading-progress"></div>
     <div class="post-title">

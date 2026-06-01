@@ -25,6 +25,7 @@ interface Props {
     prevUrl?: string | null;
     nextUrl?: string | null;
     noindex?: boolean;
+    noEnAlternate?: boolean;
 }
 
 const {
@@ -40,6 +41,7 @@ const {
     prevUrl,
     nextUrl,
     noindex = false,
+    noEnAlternate = false,
 } = Astro.props;
 
 const siteUrl = (Astro.site?.toString() || "").replace(/\/$/, "");
@@ -169,7 +171,7 @@ const enPath = isEnglish ? currentPath : "/en" + currentPath;
     {nextUrl && <link rel="next" href={nextUrl} />}
     <!-- hreflang 多语言标注 -->
     <link rel="alternate" hreflang="zh" href={siteUrl + zhPath} />
-    <link rel="alternate" hreflang="en" href={siteUrl + enPath} />
+    {!noEnAlternate && <link rel="alternate" hreflang="en" href={siteUrl + enPath} />}
     <link rel="alternate" hreflang="x-default" href={siteUrl + zhPath} />
 
     <!-- Fonts — async load to avoid render-blocking -->
