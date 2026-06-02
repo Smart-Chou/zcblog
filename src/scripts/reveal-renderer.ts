@@ -5,15 +5,21 @@ import { b64ToUtf8 } from "~/scripts/b64-utf8";
 import { ensureScript, ensureLink } from "~/scripts/ensure-script";
 
 const REVEAL_CSS = "https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.min.css";
+const REVEAL_CSS_INTEGRITY =
+    "sha384-oWyxxY8CC40FK/4yBNc3yWhSVsZU6TiI3nzyiU/3ZtQdIiKsuminc3NfjMQ0kysp";
 const REVEAL_THEME = "https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css";
+const REVEAL_THEME_INTEGRITY =
+    "sha384-flndleNngtsjA21lEvW9JpgOND8agbgm+1EI+KQFbNa0OcOWGydVQbh+G3H2E1dI";
 const REVEAL_JS = "https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.min.js";
+const REVEAL_JS_INTEGRITY =
+    "sha384-wabY5HaRAmr9Hp+sfT5cYy8q4IEH8pbJUUxI0Xbntt1buEogDFE7ZxNoFvnznxBt";
 
 async function loadReveal(): Promise<any> {
     const R = (window as any).Reveal;
     if (!R) {
-        ensureLink(REVEAL_CSS);
-        ensureLink(REVEAL_THEME, "reveal-theme");
-        await ensureScript(REVEAL_JS);
+        ensureLink(REVEAL_CSS, undefined, REVEAL_CSS_INTEGRITY);
+        ensureLink(REVEAL_THEME, "reveal-theme", REVEAL_THEME_INTEGRITY);
+        await ensureScript(REVEAL_JS, REVEAL_JS_INTEGRITY);
     }
     return (window as any).Reveal;
 }

@@ -8,15 +8,21 @@ import { b64ToUtf8 } from "~/scripts/b64-utf8";
 import { ensureScript } from "~/scripts/ensure-script";
 
 const MARKMAP_LIB = "https://cdn.jsdelivr.net/npm/markmap-lib@0.18.11";
+const MARKMAP_LIB_INTEGRITY =
+    "sha384-0tkoBBEnQQioqDzG1CjuZx2uaKldL0UjItQ0+PjIjC6eNE/Wx+zyfuArsHUGsrPB";
 const MARKMAP_VIEW = "https://cdn.jsdelivr.net/npm/markmap-view@0.18.11";
+const MARKMAP_VIEW_INTEGRITY =
+    "sha384-CBBUDoTz0U0f+d7R/FRzc0MIt80mhxjnk5gmza0mloefItQfW/6xwCXNTZ9z8mb5";
 const D3 = "https://cdn.jsdelivr.net/npm/d3@7.9.0";
+const D3_INTEGRITY =
+    "sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i";
 
 async function loadDeps(): Promise<any> {
     const win = window as any;
 
-    if (!win.d3) await ensureScript(D3);
-    if (!win.markmap?.Transformer) await ensureScript(MARKMAP_LIB);
-    if (!win.markmap?.Markmap) await ensureScript(MARKMAP_VIEW);
+    if (!win.d3) await ensureScript(D3, D3_INTEGRITY);
+    if (!win.markmap?.Transformer) await ensureScript(MARKMAP_LIB, MARKMAP_LIB_INTEGRITY);
+    if (!win.markmap?.Markmap) await ensureScript(MARKMAP_VIEW, MARKMAP_VIEW_INTEGRITY);
 
     return win.markmap;
 }

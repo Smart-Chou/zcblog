@@ -5,11 +5,13 @@ import { b64ToUtf8 } from "~/scripts/b64-utf8";
 import { ensureScript } from "~/scripts/ensure-script";
 
 const CHART_CDN = "https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js";
+const CHART_INTEGRITY =
+    "sha384-vsrfeLOOY6KuIYKDlmVH5UiBmgIdB1oEf7p01YgWHuqmOHfZr374+odEv96n9tNC";
 
 async function loadChart(): Promise<any> {
     const C = (window as any).Chart;
     if (!C) {
-        await ensureScript(CHART_CDN);
+        await ensureScript(CHART_CDN, CHART_INTEGRITY);
     }
     return (window as any).Chart;
 }
