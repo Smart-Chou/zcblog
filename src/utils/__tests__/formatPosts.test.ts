@@ -4,6 +4,7 @@ import { formatPosts } from "../format-posts";
 interface PostData {
     pubDate: string;
     isDraft: boolean;
+    [key: string]: unknown;
 }
 
 interface Post {

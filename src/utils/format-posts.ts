@@ -1,5 +1,12 @@
 interface FormatPostInput {
-    data: { pubDate: Date | string; isDraft?: boolean; draft?: boolean };
+    id?: string;
+    body?: string;
+    data: {
+        pubDate: Date | string;
+        isDraft?: boolean;
+        draft?: boolean;
+        [key: string]: unknown;
+    };
 }
 
 export function formatPosts<T extends FormatPostInput>(

@@ -7,7 +7,7 @@ import getReadingTime from "reading-time";
 import { site } from "~/config";
 
 export async function GET(context: { site: URL }) {
-    const article = await getCollection("article", ({ data }) => data.lang === "en");
+    const article = await getCollection("article", ({ data }: { data: { lang?: string } }) => data.lang === "en");
     const formattedBlogs = formatPosts(article);
     return rss({
         xmlns: { atom: "http://www.w3.org/2005/Atom" },
@@ -15,16 +15,17 @@ export async function GET(context: { site: URL }) {
         description: site.description,
         site: context.site,
         items: formattedBlogs.map((post) => {
-            const body = post.body?.toString().replace(/\n/g, "") || "";
+            const body = (post.body?.toString() || "").replace(/\n/g, "");
             const readingStats = getReadingTime(body);
             const wordCount = readingStats.words || "";
             const readTime = readingStats.text || "";
 
-            const descriptionHtml = sanitizeHtml(marked.parse(post.data.description || ""));
+            const descriptionHtml = sanitizeHtml(marked.parse((post.data.description as string) || ""));
+            const pubDate = post.data.pubDate instanceof Date ? post.data.pubDate : new Date(post.data.pubDate);
             return {
-                title: post.data.title,
-                pubDate: post.data.pubDate,
-                description: post.data.description || post.data.title,
+                title: post.data.title as string,
+                pubDate,
+                description: (post.data.description as string) || (post.data.title as string),
                 link: `/article/${post.id}/`,
                 content: descriptionHtml,
                 customData: `<wordCount>${wordCount}</wordCount><readTime>${readTime}</readTime>`,
