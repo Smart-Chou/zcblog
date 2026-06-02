@@ -18,7 +18,7 @@
     --markmap-code-bg: var(--color-surface, #f0f0f0);
     --markmap-code-color: var(--color-body, #555);
     --markmap-a-color: var(--color-link, #0097e6);
-    --markmap-a-hover-color: var(--color-link-hover, #00a8ff);
+    --markmap-a-hover-color: var(--color-link);
 }
 
 /* 暗色主题 */
@@ -28,7 +28,7 @@
     --markmap-code-bg: #1a1b26;
     --markmap-code-color: #ddd;
     --markmap-a-color: var(--color-link, #66b3ff);
-    --markmap-a-hover-color: var(--color-link-hover, #99ccff);
+    --markmap-a-hover-color: var(--color-link);
 }
 
 /* 响应式 */

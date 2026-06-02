@@ -59,7 +59,7 @@ mark {
     width: 100%;
     height: 100%;
     border: 0;
-    border-radius: var(--radius-large, 8px);
+    border-radius: var(--radius-lg);
 }
 
 /* ---- 图片画廊网格 ---- */
@@ -87,7 +87,7 @@ mark {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--radius-medium, 6px);
+    border-radius: var(--radius-md);
 }
 
 /* ---- 提醒框 Admonitions 增强 ---- */
@@ -97,10 +97,7 @@ mark {
     padding: 1rem 1.25rem;
     margin: 1.25rem 0;
     border-radius: 0 6px 6px 0;
-    background: var(--callout-bg, #f8f9fa);
-}
-.dark .callout {
-    background: var(--callout-bg-dark, #1a1d23);
+    background: var(--color-surface-secondary);
 }
 .callout-title {
     display: flex;
@@ -113,25 +110,18 @@ mark {
 /* ---- GitHub 仓库卡片 ---- */
 a.card-github {
     display: block;
-    background: var(--color-bg-card, #f9fafb);
+    background: var(--color-surface);
     position: relative;
     margin: 0.5rem 0;
     padding: 1.1rem 1.5rem;
-    color: var(--color-text-primary, #1a1a2e);
+    color: var(--color-body);
     border-radius: 0.75rem;
     text-decoration: none;
-    border: 1px solid var(--color-border, #e5e7eb);
+    border: 1px solid var(--color-border);
     transition: all 0.15s ease;
 }
-.dark a.card-github {
-    background: var(--color-bg-card, #1e1e2e);
-    border-color: var(--color-border, #374151);
-}
 a.card-github:hover {
-    background: var(--color-bg-hover, #f3f4f6);
-}
-.dark a.card-github:hover {
-    background: var(--color-bg-hover, #2a2a3a);
+    background: var(--color-surface-hover);
 }
 a.card-github:active {
     scale: 0.98;
@@ -142,12 +132,9 @@ a.card-github .gc-titlebar {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 0.5rem;
-    color: var(--color-text-heading, #16213e);
+    color: var(--color-heading);
     font-size: 1.25rem;
     font-weight: 500;
-}
-.dark a.card-github .gc-titlebar {
-    color: var(--color-text-heading, #e2e8f0);
 }
 
 a.card-github .gc-titlebar-left {
@@ -183,10 +170,7 @@ a.card-github .gc-description {
     font-size: 1rem;
     font-weight: 300;
     line-height: 1.5rem;
-    color: var(--color-text-primary, #1a1a2e);
-}
-.dark a.card-github .gc-description {
-    color: var(--color-text-primary, #cbd5e1);
+    color: var(--color-body);
 }
 
 a.card-github .gc-infobar {
@@ -298,7 +282,7 @@ pre.mermaid {
     margin: 1.5rem 0;
     overflow-x: auto;
     padding: 1rem;
-    background: var(--color-bg-card, #f9fafb);
+    background: var(--color-surface);
     border-radius: 8px;
     border: 1px solid var(--color-border, #e5e7eb);
 }
