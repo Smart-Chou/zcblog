@@ -96,10 +96,11 @@
 .heatmap-tooltip-date {
     font-weight: 600;
     margin-bottom: 0.25rem;
+    
 }
 
 .heatmap-tooltip-content {
-    color: var(--color-body);
+    opacity: 0.85;
 }
 
 .heatmap-legend {
