@@ -7,12 +7,14 @@ describe("remarkTabs", () => {
     function makeTabsContainer(children: any[]) {
         return {
             type: "root",
-            children: [{
-                type: "containerDirective",
-                name: "tabs",
-                attributes: {},
-                children,
-            }],
+            children: [
+                {
+                    type: "containerDirective",
+                    name: "tabs",
+                    attributes: {},
+                    children,
+                },
+            ],
         };
     }
 
@@ -38,12 +40,14 @@ describe("remarkTabs", () => {
     it("keeps non-tabs containers unchanged", () => {
         const tree: any = {
             type: "root",
-            children: [{
-                type: "containerDirective",
-                name: "other",
-                attributes: {},
-                children: [makeParagraph("内容")],
-            }],
+            children: [
+                {
+                    type: "containerDirective",
+                    name: "other",
+                    attributes: {},
+                    children: [makeParagraph("内容")],
+                },
+            ],
         };
 
         const before = JSON.stringify(tree);

@@ -91,15 +91,8 @@ let tabCounter = 0;
 
 export function remarkTabs() {
     return (tree: any) => {
-        visit(tree, (node, index, parent) => {
-            if (
-                !parent ||
-                index === undefined ||
-                node.type !== "containerDirective" ||
-                node.name !== "tabs"
-            ) {
-                return;
-            }
+        visit(tree, "containerDirective", (node, index, parent) => {
+            if (!parent || index === undefined || node.name !== "tabs") return;
 
             const tabs = splitByTabs(node.children);
             if (!tabs || tabs.length === 0) return;

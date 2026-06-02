@@ -2,8 +2,19 @@
 import { Image } from "astro:assets";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import { donate } from "~/config";
-import wechatQR from "~/assets/qr/wechat-pay.png";
-import alipayQR from "~/assets/qr/alipay.jpg";
+import type { ImageMetadata } from "astro";
+
+const qrModules = import.meta.glob<{ default: ImageMetadata }>("~/assets/qr/*", { eager: true });
+
+function getQRImage(configPath: string): ImageMetadata | null {
+    const filename = configPath.split("/").pop();
+    if (!filename) return null;
+    const key = Object.keys(qrModules).find((k) => k.endsWith(filename));
+    return key ? qrModules[key]?.default : null;
+}
+
+const wechatQR = getQRImage(donate.wechatQRCode);
+const alipayQR = getQRImage(donate.alipayQRCode);
 ---
 
 <style>
@@ -199,30 +210,40 @@ import alipayQR from "~/assets/qr/alipay.jpg";
                 <div class="reward-card">
                     <span class="thank">🙏 感谢您赐予我前进的力量</span>
                     <div class="qr">
-                        <div class="qr-img">
-                            <Image
-                                src={wechatQR}
-                                alt="微信支付"
-                                width={200}
-                                format="avif"
-                                quality={80}
-                            />
-                            <span class="tip"
-                                ><DynamicIcon name="mingcute:wechat-pay-line" />&nbsp;微信</span
-                            >
-                        </div>
-                        <div class="qr-img">
-                            <Image
-                                src={alipayQR}
-                                alt="支付宝支付"
-                                width={200}
-                                format="avif"
-                                quality={80}
-                            />
-                            <span class="tip"
-                                ><DynamicIcon name="mingcute:alipay-line" />&nbsp;支付宝</span
-                            >
-                        </div>
+                        {
+                            wechatQR && (
+                                <div class="qr-img">
+                                    <Image
+                                        src={wechatQR}
+                                        alt="微信支付"
+                                        width={200}
+                                        format="avif"
+                                        quality={80}
+                                    />
+                                    <span class="tip">
+                                        <DynamicIcon name="mingcute:wechat-pay-line" />
+                                        &nbsp;微信
+                                    </span>
+                                </div>
+                            )
+                        }
+                        {
+                            alipayQR && (
+                                <div class="qr-img">
+                                    <Image
+                                        src={alipayQR}
+                                        alt="支付宝支付"
+                                        width={200}
+                                        format="avif"
+                                        quality={80}
+                                    />
+                                    <span class="tip">
+                                        <DynamicIcon name="mingcute:alipay-line" />
+                                        &nbsp;支付宝
+                                    </span>
+                                </div>
+                            )
+                        }
                     </div>
                     <a href="/donate/" class="all-list-btn">
                         <div class="all-list s-card hover">
@@ -237,8 +258,6 @@ import alipayQR from "~/assets/qr/alipay.jpg";
 </div>
 
 <script>
-    import { lockScroll, unlockScroll } from "~/scripts/scroll-lock";
-
     function setupDonate() {
         const dialog = document.getElementById("donateDialog") as HTMLDialogElement | null;
         const trigger = document.getElementById("donateTrigger");
@@ -249,7 +268,16 @@ import alipayQR from "~/assets/qr/alipay.jpg";
         if (dialog.dataset.donateReady) return;
         dialog.dataset.donateReady = "true";
 
-        trigger.addEventListener("click", () => {
+        let lockScrollFn: (() => void) | null = null;
+        let unlockScrollFn: (() => void) | null = null;
+
+        trigger.addEventListener("click", async () => {
+            // 延迟加载 scroll-lock：仅在用户点击捐赠按钮时才下载
+            if (!lockScrollFn) {
+                const mod = await import("~/scripts/scroll-lock");
+                lockScrollFn = mod.lockScroll;
+                unlockScrollFn = mod.unlockScroll;
+            }
             dialog.showModal();
         });
 
@@ -266,9 +294,9 @@ import alipayQR from "~/assets/qr/alipay.jpg";
 
         dialog.addEventListener("toggle", () => {
             if (dialog.open) {
-                lockScroll();
+                lockScrollFn?.();
             } else {
-                unlockScroll();
+                unlockScrollFn?.();
             }
         });
     }

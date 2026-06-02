@@ -18,12 +18,18 @@ const tagUrl = firstTag ? `/tags/${firstTag}/` : "";
         <li class="breadcrumb-item">
             <a href={homeUrl} class="breadcrumb-link">{homeLabel}</a>
         </li>
-        {tagLabel && (
-            <li class="breadcrumb-item">
-                <span class="breadcrumb-sep" aria-hidden="true">/</span>
-                <a href={tagUrl} class="breadcrumb-link">{tagLabel}</a>
-            </li>
-        )}
+        {
+            tagLabel && (
+                <li class="breadcrumb-item">
+                    <span class="breadcrumb-sep" aria-hidden="true">
+                        /
+                    </span>
+                    <a href={tagUrl} class="breadcrumb-link">
+                        {tagLabel}
+                    </a>
+                </li>
+            )
+        }
         <li class="breadcrumb-item">
             <span class="breadcrumb-sep" aria-hidden="true">/</span>
             <span class="breadcrumb-current" aria-current="page">{title}</span>

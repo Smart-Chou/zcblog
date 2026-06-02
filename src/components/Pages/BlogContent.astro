@@ -54,7 +54,7 @@ const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : 
     noindex={page.currentPage > 1}
 >
     <Hitokoto />
-    <Author />
+    {pageView.author && <Author />}
     <div class="post">
         {
             postsWithMeta.map((post, index: number) => (

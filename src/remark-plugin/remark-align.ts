@@ -20,15 +20,8 @@ const alignVariants = new Set(["center", "right"]);
 
 export function remarkAlign() {
     return (tree: any) => {
-        visit(tree, (node, index, parent) => {
-            if (
-                !parent ||
-                index === undefined ||
-                node.type !== "containerDirective" ||
-                !alignVariants.has(node.name)
-            ) {
-                return;
-            }
+        visit(tree, "containerDirective", (node, index, parent) => {
+            if (!parent || index === undefined || !alignVariants.has(node.name)) return;
 
             parent.children[index] = {
                 type: "paragraph",

@@ -154,10 +154,8 @@ export function remarkAsides(options: any) {
     };
 
     const transformer = (tree: any) => {
-        visit(tree, (node, index, parent) => {
-            if (!parent || index === undefined || node.type !== "containerDirective") {
-                return;
-            }
+        visit(tree, "containerDirective", (node, index, parent) => {
+            if (!parent || index === undefined) return;
             const variant = node.name;
             if (!isAsideVariant(variant)) return;
 

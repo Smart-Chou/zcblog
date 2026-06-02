@@ -14,10 +14,12 @@ describe("remarkAsides", () => {
             type: "containerDirective",
             name,
             attributes: {},
-            children: [{
-                type: "paragraph",
-                children: [{ type: "text", value: textContent }],
-            }],
+            children: [
+                {
+                    type: "paragraph",
+                    children: [{ type: "text", value: textContent }],
+                },
+            ],
         };
         if (label) {
             child.children.unshift({

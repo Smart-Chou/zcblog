@@ -1,20 +1,31 @@
 ---
 import { site } from "~/config";
 import { Image } from "astro:assets";
-import logo from "~/assets/logo.webp";
+import type { ImageMetadata } from "astro";
+
+const logoModules = import.meta.glob<{ default: ImageMetadata }>("~/assets/logo.*", {
+    eager: true,
+});
+const logoPath = `~/assets/${site.logo}`;
+const logo = logoModules[logoPath]?.default;
 ---
 
 <a class="logo" href="/">
     <span class="logo-text">
-        <Image
-            src={logo}
-            alt="Blog Logo"
-            loading="eager"
-            width={64}
-            height={64}
-            class="logo-image"
-        />
-        {site.title}
+        {
+            logo ? (
+                <Image
+                    src={logo}
+                    alt="Blog Logo"
+                    loading="eager"
+                    width={64}
+                    height={64}
+                    class="logo-image"
+                />
+            ) : (
+                <span class="logo-text-fallback">{site.title}</span>
+            )
+        }
     </span>
 </a>
 
@@ -35,5 +46,10 @@ import logo from "~/assets/logo.webp";
         height: 2rem;
         width: 2rem;
         margin-right: 1em;
+    }
+
+    .logo-text-fallback {
+        font-weight: 700;
+        font-size: 1.25rem;
     }
 </style>

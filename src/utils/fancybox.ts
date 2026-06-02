@@ -161,14 +161,10 @@ function registerFancybox(selector: string, fn: () => Promise<void>): void {
 }
 
 export const initEssayFancybox = () =>
-    registerFancybox(".essay-images", () =>
-        initDynamicFancybox(".essay-images", { debug: false }),
-    );
+    registerFancybox(".essay-images", () => initDynamicFancybox(".essay-images", { debug: false }));
 
 export const initArticleFancybox = () =>
-    registerFancybox(".post-content", () =>
-        initDynamicFancybox(".post-content", { debug: false }),
-    );
+    registerFancybox(".post-content", () => initDynamicFancybox(".post-content", { debug: false }));
 
 export const initAlbumFancybox = () =>
     registerFancybox(".album-images", () => initStaticFancybox({ debug: false }));

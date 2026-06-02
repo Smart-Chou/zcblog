@@ -45,6 +45,7 @@ const article = defineCollection({
             markmap: z.boolean().default(false).optional(),
             reveal: z.boolean().default(false).optional(),
             fancybox: z.boolean().default(true).optional(),
+            tabs: z.boolean().default(true).optional(),
         }),
 });
 

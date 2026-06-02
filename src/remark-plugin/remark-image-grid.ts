@@ -34,15 +34,8 @@ function createGridWrapper(children: any, imgCount: any) {
 
 export function remarkImageGrid() {
     return (tree: any) => {
-        visit(tree, (node, index, parent) => {
-            if (
-                !parent ||
-                index === undefined ||
-                node.type !== "containerDirective" ||
-                node.name !== "grid"
-            ) {
-                return;
-            }
+        visit(tree, "containerDirective", (node, index, parent) => {
+            if (!parent || index === undefined || node.name !== "grid") return;
 
             let imgCount = 0;
             visit(node, "image", () => {

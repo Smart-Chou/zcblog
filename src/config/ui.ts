@@ -30,16 +30,6 @@ export interface SocialLinkItem {
 }
 
 /**
- * 友链配置项
- */
-export interface FriendItem {
-    id: string; // friends ID
-    link: string; // 链接
-    avatar: string; // 头像
-    style: string; // 背景颜色样式
-}
-
-/**
  * 友链页面配置
  */
 export interface FriendsPageConfig {

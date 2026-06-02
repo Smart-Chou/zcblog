@@ -28,8 +28,14 @@
         if (!el) return;
 
         const path = window.location.pathname.replace(/\/$/, "") || "/";
-        if (path !== "/" && path !== "/en") { el.remove(); return; }
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { el.remove(); return; }
+        if (path !== "/" && path !== "/en") {
+            el.remove();
+            return;
+        }
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            el.remove();
+            return;
+        }
 
         const KEY = "loading-intro-shown";
         let spinMs = 400;
@@ -40,10 +46,14 @@
 
         setTimeout(() => {
             el.classList.add("loading-intro--done");
-            setTimeout(() => { if (el.parentNode) el.remove(); }, 350);
+            setTimeout(() => {
+                if (el.parentNode) el.remove();
+            }, 350);
         }, spinMs);
 
-        setTimeout(() => { if (el.parentNode) el.remove(); }, 3500);
+        setTimeout(() => {
+            if (el.parentNode) el.remove();
+        }, 3500);
     }
 
     if (!_loadingBound) {

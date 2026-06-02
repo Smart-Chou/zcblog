@@ -4,9 +4,9 @@
 import { b64ToUtf8 } from "~/scripts/b64-utf8";
 import { ensureScript, ensureLink } from "~/scripts/ensure-script";
 
-const REVEAL_CSS = "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.min.css";
-const REVEAL_THEME = "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css";
-const REVEAL_JS = "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.min.js";
+const REVEAL_CSS = "https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.min.css";
+const REVEAL_THEME = "https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css";
+const REVEAL_JS = "https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.min.js";
 
 async function loadReveal(): Promise<any> {
     const R = (window as any).Reveal;

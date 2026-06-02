@@ -30,7 +30,11 @@ const dataAttributes: DOMStringMap = {
         <div class="dialog-frame sl-flex">
             <button data-close-modal class="sl-flex md:sl-hidden">取消</button>
             <div class="search-container">
-                <div id="starlight__search" data-dev-mode={import.meta.env.DEV ? "true" : undefined} />
+                <div
+                    id="starlight__search"
+                    data-dev-mode={import.meta.env.DEV ? "true" : undefined}
+                >
+                </div>
             </div>
         </div>
     </dialog>

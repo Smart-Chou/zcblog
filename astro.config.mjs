@@ -15,7 +15,7 @@ import { remarkInlineSyntax } from "./src/remark-plugin/remark-inline-syntax.ts"
 import { remarkAsides } from "./src/remark-plugin/remark-asides.ts";
 import { remarkImageGrid } from "./src/remark-plugin/remark-image-grid.ts";
 import { remarkGithubCard } from "./src/remark-plugin/remark-github-card.ts";
-import { GithubCardComponent } from "./src/remark-plugin/rehype-github-card.ts";
+import { GithubCardComponent } from "./src/rehype-plugin/rehype-github-card.ts";
 import { remarkTabs } from "./src/remark-plugin/remark-tabs.ts";
 import { remarkAlign } from "./src/remark-plugin/remark-align.ts";
 import { remarkInclude } from "./src/remark-plugin/remark-include.ts";

@@ -32,10 +32,7 @@ function isActive(href: string) {
                 <li>
                     <a
                         href={link.href}
-                        class:list={[
-                            "nav-dropdown-link",
-                            { active: isActive(link.href) },
-                        ]}
+                        class:list={["nav-dropdown-link", { active: isActive(link.href) }]}
                     >
                         {link.label}
                     </a>

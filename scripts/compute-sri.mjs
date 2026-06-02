@@ -11,13 +11,22 @@ const RESOURCES = [
     // D3
     { url: "https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js", label: "D3 v7" },
     // markmap
-    { url: "https://cdn.jsdelivr.net/npm/markmap-lib@0.18/dist/browser/index.min.js", label: "markmap-lib" },
-    { url: "https://cdn.jsdelivr.net/npm/markmap-view@0.18/dist/browser/index.min.js", label: "markmap-view" },
+    {
+        url: "https://cdn.jsdelivr.net/npm/markmap-lib@0.18/dist/browser/index.min.js",
+        label: "markmap-lib",
+    },
+    {
+        url: "https://cdn.jsdelivr.net/npm/markmap-view@0.18/dist/browser/index.min.js",
+        label: "markmap-view",
+    },
     // Reveal.js
     { url: "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.min.js", label: "Reveal.js JS" },
     { url: "https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.min.css", label: "Reveal.js CSS" },
     // MathJax
-    { url: "https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js", label: "MathJax" },
+    {
+        url: "https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js",
+        label: "MathJax",
+    },
     // Mermaid
     { url: "https://cdn.bootcdn.net/ajax/libs/mermaid/10.9.0/mermaid.min.js", label: "Mermaid" },
     // KaTeX

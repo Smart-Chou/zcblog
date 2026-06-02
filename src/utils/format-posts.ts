@@ -8,27 +8,24 @@ export function formatPosts<T extends FormatPostInput>(
 ): T[] {
     const now = filterOutFuturePosts ? Date.now() : 0;
 
-    const filteredPosts = posts.reduce(
-        (acc: T[], post: T) => {
-            const { pubDate, isDraft, draft } = post.data;
+    const filteredPosts = posts.reduce((acc: T[], post: T) => {
+        const { pubDate, isDraft, draft } = post.data;
 
-            // filterOutDrafts if true (supports both isDraft and draft field names)
-            if (filterOutDrafts && (isDraft || draft)) {
-                return acc;
-            }
-
-            // filterOutFuturePosts if true
-            if (filterOutFuturePosts && new Date(pubDate).getTime() > now) {
-                return acc;
-            }
-
-            // add post to acc
-            acc.push(post);
-
+        // filterOutDrafts if true (supports both isDraft and draft field names)
+        if (filterOutDrafts && (isDraft || draft)) {
             return acc;
-        },
-        [],
-    );
+        }
+
+        // filterOutFuturePosts if true
+        if (filterOutFuturePosts && new Date(pubDate).getTime() > now) {
+            return acc;
+        }
+
+        // add post to acc
+        acc.push(post);
+
+        return acc;
+    }, []);
 
     // sortByDate or randomize
     if (sortByDate) {

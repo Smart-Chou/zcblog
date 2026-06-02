@@ -4,7 +4,7 @@
 import { b64ToUtf8 } from "~/scripts/b64-utf8";
 import { ensureScript } from "~/scripts/ensure-script";
 
-const CHART_CDN = "https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js";
+const CHART_CDN = "https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js";
 
 async function loadChart(): Promise<any> {
     const C = (window as any).Chart;
