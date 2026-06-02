@@ -9,8 +9,6 @@ import rehypeSlug from "rehype-slug"; // 标题添加ID
 import rehypeAutolinkHeadings from "rehype-autolink-headings"; // 标题添加锚点
 import rehypeComponents from "rehype-components"; /* Render the custom directive content */
 import { remarkCodeBlocks } from "./src/remark-plugin/remark-code-blocks.ts";
-import { remarkPlantUML } from "./src/remark-plugin/remark-plantuml.ts";
-import { remarkReveal } from "./src/remark-plugin/remark-reveal.ts";
 import { remarkInlineSyntax } from "./src/remark-plugin/remark-inline-syntax.ts";
 import { remarkAsides } from "./src/remark-plugin/remark-asides.ts";
 import { remarkImageGrid } from "./src/remark-plugin/remark-image-grid.ts";
@@ -51,8 +49,6 @@ export default defineConfig({
             remarkMath,
             remarkInlineSyntax,
             remarkCodeBlocks,
-            remarkPlantUML,
-            remarkReveal,
             remarkDirective,
             remarkInclude,
             remarkAlign,

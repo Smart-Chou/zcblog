@@ -14,8 +14,7 @@ const MARKMAP_VIEW = "https://cdn.jsdelivr.net/npm/markmap-view@0.18.11";
 const MARKMAP_VIEW_INTEGRITY =
     "sha384-CBBUDoTz0U0f+d7R/FRzc0MIt80mhxjnk5gmza0mloefItQfW/6xwCXNTZ9z8mb5";
 const D3 = "https://cdn.jsdelivr.net/npm/d3@7.9.0";
-const D3_INTEGRITY =
-    "sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i";
+const D3_INTEGRITY = "sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i";
 
 async function loadDeps(): Promise<any> {
     const win = window as any;

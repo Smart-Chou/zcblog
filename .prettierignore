@@ -7,3 +7,6 @@ src/data/*.json
 
 # 不格式化特定的 TypeScript 文件
 src/components/Icons/index.ts
+
+# 忽略 pnpm-lock.yaml 文件
+pnpm-lock.yaml
