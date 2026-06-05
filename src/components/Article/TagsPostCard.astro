@@ -14,8 +14,16 @@ interface Props {
     tags?: string[];
 }
 
-const { title, description, publishedTime, modifiedTime, postUrl, wordCount, readTime, currentSlug } =
-    Astro.props;
+const {
+    title,
+    description,
+    publishedTime,
+    modifiedTime,
+    postUrl,
+    wordCount,
+    readTime,
+    currentSlug,
+} = Astro.props;
 ---
 
 <PostLayout>

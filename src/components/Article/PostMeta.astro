@@ -26,7 +26,11 @@ const showUpdated =
 
 <div class="post-meta post-card-meta">
     Posted {formatDateToYYYYMMDD(publishedTime)}.<slot name="after-posted" />
-    {showUpdated && safeModified && <span>&nbsp;Updated {formatDateToYYYYMMDD(safeModified)}.</span>}
+    {
+        showUpdated && safeModified && (
+            <span>&nbsp;Updated {formatDateToYYYYMMDD(safeModified)}.</span>
+        )
+    }
     &nbsp;
     <span id="word-count">{wordCount} words.</span>&nbsp;
     <span id="read-time">{readTime}.</span>&nbsp;

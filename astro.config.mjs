@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import os from "node:os";
+import { unified } from "@astrojs/markdown-remark";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import mdx from "@astrojs/mdx";
@@ -45,30 +46,52 @@ export default defineConfig({
         },
     },
     markdown: {
-        remarkPlugins: [
-            remarkMath,
-            remarkInlineSyntax,
-            remarkCodeBlocks,
-            remarkDirective,
-            remarkInclude,
-            remarkAlign,
-            remarkAsides({}),
-            remarkGfm,
-            remarkImageGrid,
-            remarkGithubCard,
-            remarkTabs,
-            remarkEncrypted,
-        ],
-        rehypePlugins: [
-            rehypeKatex,
-            rehypeCallouts,
-            rehypeSlug, // 标题添加ID
-            [rehypeAutolinkHeadings, { behavior: "append" }], // 标题添加锚点
-            [rehypeComponents, { components: { github: GithubCardComponent } }],
-            rehypeEncrypted,
-        ],
+        processor: unified({
+            remarkPlugins: [
+                remarkMath,
+                remarkInlineSyntax,
+                remarkCodeBlocks,
+                remarkDirective,
+                remarkInclude,
+                remarkAlign,
+                remarkAsides({}),
+                remarkGfm,
+                remarkImageGrid,
+                remarkGithubCard,
+                remarkTabs,
+                remarkEncrypted,
+            ],
+            rehypePlugins: [
+                rehypeKatex,
+                rehypeCallouts,
+                rehypeSlug, // 标题添加ID
+                [rehypeAutolinkHeadings, { behavior: "append" }], // 标题添加锚点
+                [rehypeComponents, { components: { github: GithubCardComponent } }],
+                rehypeEncrypted,
+            ],
+        }),
     },
     integrations: [
+        {
+            name: "debug-markdown-config",
+            hooks: {
+                "astro:config:setup": ({ config }) => {
+                    const md = config.markdown;
+                    console.log(
+                        "[DEBUG-CONFIG] remarkPlugins:",
+                        md.remarkPlugins?.length ?? "undefined",
+                    );
+                    console.log(
+                        "[DEBUG-CONFIG] rehypePlugins:",
+                        md.rehypePlugins?.length ?? "undefined",
+                    );
+                    console.log(
+                        "[DEBUG-CONFIG] remarkRehype keys:",
+                        Object.keys(md.remarkRehype || {}).length,
+                    );
+                },
+            },
+        },
         redirectAttributeByLink(),
         sitemap({
             // 多语言站点地图配置
