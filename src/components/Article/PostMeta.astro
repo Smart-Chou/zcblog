@@ -3,16 +3,31 @@ import { formatDateToYYYYMMDD } from "~/utils";
 
 interface Props {
     publishedTime: Date;
+    modifiedTime?: Date | string;
     wordCount: number;
     readTime: string;
     currentSlug: string;
 }
 
-const { publishedTime, wordCount, readTime, currentSlug } = Astro.props;
+const { publishedTime, modifiedTime, wordCount, readTime, currentSlug } = Astro.props;
+
+/** 安全转换为 Date，用于后续比较和格式化 */
+const safeModified: Date | null = (() => {
+    if (!modifiedTime) return null;
+    const d = modifiedTime instanceof Date ? modifiedTime : new Date(modifiedTime);
+    return isNaN(d.getTime()) ? null : d;
+})();
+
+/** 判断更新日期是否与发布日期不同（超过 1 天才显示） */
+const showUpdated =
+    safeModified &&
+    Math.abs(safeModified.getTime() - publishedTime.getTime()) / (1000 * 60 * 60 * 24) > 1;
 ---
 
 <div class="post-meta post-card-meta">
-    Posted {formatDateToYYYYMMDD(publishedTime)}.&nbsp;&nbsp;
+    Posted {formatDateToYYYYMMDD(publishedTime)}.<slot name="after-posted" />
+    {showUpdated && safeModified && <span>&nbsp;Updated {formatDateToYYYYMMDD(safeModified)}.</span>}
+    &nbsp;
     <span id="word-count">{wordCount} words.</span>&nbsp;
     <span id="read-time">{readTime}.</span>&nbsp;
     <span class="waline-pageview-count" data-path={`/article/${currentSlug}/`}>0</span>

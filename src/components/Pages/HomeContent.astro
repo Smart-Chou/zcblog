@@ -15,6 +15,7 @@ import doubanData from "~/data/douban.json";
 import typewriterTexts from "~/data/typewriter.json";
 import { site } from "~/config";
 import { sortByPubDate } from "~/utils";
+import { enrichPost } from "~/utils/get-posts-with-meta";
 import { getAllTags } from "~/utils/article-stats";
 import { t, getLocale, type Locale } from "~/utils/i18n";
 
@@ -39,6 +40,8 @@ const isEn = loc === "en";
 
 const allArticles = await getCollection("article", ({ data }) => !data.draft);
 const sortedArticles = sortByPubDate(allArticles);
+const latestModified =
+    sortedArticles.length > 0 ? enrichPost(sortedArticles[0]).modifiedTime : new Date();
 const recentPosts = sortedArticles.slice(0, 5);
 const totalArticles = allArticles.length;
 
@@ -52,7 +55,7 @@ const tagsCount = new Set(getAllTags(allArticles)).size;
     imageAlt={site.coverImageAlt}
     keywords={site.keywords}
     publishedTime={new Date()}
-    modifiedTime={new Date()}
+    modifiedTime={latestModified}
     locale={locale}
 >
     <LoadingIntro />

@@ -19,6 +19,9 @@ const isEn = locale === "en";
 
 interface PostWithMeta extends CollectionEntry<"article"> {
     wordCount: number;
+    readTime: string;
+    modifiedTime: Date | string;
+    excerpt: string;
     slug: string;
 }
 
@@ -28,7 +31,8 @@ interface PostsByYear {
 
 const allPosts = await getCollection("article");
 
-const postsWithMeta = allPosts.map((post) => enrichPost(post)) as PostWithMeta[];
+const postsWithMeta = sortByPubDate(allPosts.map((post) => enrichPost(post))) as PostWithMeta[];
+const latestModified = postsWithMeta[0]?.modifiedTime || new Date();
 
 const postsByYear = postsWithMeta.reduce<PostsByYear>((acc, post) => {
     const year = new Date(post.data.pubDate).getFullYear();
@@ -63,8 +67,8 @@ const postsData = postsWithMeta.map((post) => ({
     image={`${Astro.site + site.coverImage}`}
     imageAlt={archivesPage.description}
     keywords={["Archives"]}
-    publishedTime={new Date()}
-    modifiedTime={new Date()}
+    publishedTime={latestModified}
+    modifiedTime={latestModified}
 >
     <DynamicIcon name="tabler:archive" slot="icon" />
     <section class="stats-section">

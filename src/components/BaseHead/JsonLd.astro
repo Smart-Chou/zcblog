@@ -46,7 +46,7 @@ const ldJsonSchema = {
     description: description,
     image: image,
     url: pageUrl,
-    dateModified: safeDateModified,
+    ...(safeDateModified ? { dateModified: safeDateModified } : {}),
     author: {
         "@type": "Person",
         name: author.type,

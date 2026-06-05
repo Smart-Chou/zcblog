@@ -6,3 +6,4 @@ export * from "./redirect-utils";
 export * from "./image-map";
 export * from "./image-utils";
 export * from "./fancybox";
+export * from "./git-date";

@@ -56,8 +56,9 @@ const nextUrl = nextSlug ? `/article/${nextSlug}/` : null;
 
 const today = new Date();
 const publishedTime = frontmatter.pubDate;
-const publishedDays = Math.floor(
-    (today.getTime() - publishedTime.getTime()) / (1000 * 60 * 60 * 24),
+const updateTime = modifiedTime instanceof Date ? modifiedTime : new Date(modifiedTime);
+const daysSinceUpdate = Math.floor(
+    (today.getTime() - updateTime.getTime()) / (1000 * 60 * 60 * 24),
 );
 
 const imageUrl = frontmatter.image?.url || getRandomImageUrl();
@@ -106,6 +107,7 @@ const firstTag = currentTags[0] || "";
         </h1>
         <PostMeta
             publishedTime={publishedTime}
+            modifiedTime={modifiedTime}
             wordCount={wordCount}
             readTime={readTime}
             currentSlug={slug}
@@ -117,11 +119,11 @@ const firstTag = currentTags[0] || "";
         </div>
         <Breadcrumb title={frontmatter.title} firstTag={firstTag} isEn={isEn} />
         {
-            publishedDays >= 180 && (
+            daysSinceUpdate >= 180 && (
                 <div class="remark-aside remark-aside--danger">
                     <p>
                         🌶 <strong>过期警告：</strong> 本页面距今已有
-                        {publishedDays}
+                        {daysSinceUpdate}
                         天未更新，年久失修，内容可能有所偏颇，还请仔细甄别！
                     </p>
                 </div>

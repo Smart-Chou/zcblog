@@ -18,6 +18,7 @@ interface PostMeta {
 
 // 导入模块化工具函数
 import { readMetadata, findSecondDash, generateSummary, calculateStats } from "./post-meta";
+import { getGitCommitDate } from "./git-date";
 
 // 缓存对象，用于存储已处理的文章元数据
 const postMetaCache = new Map<string, PostMeta>();
@@ -42,31 +43,35 @@ export function getPostsWithMeta(post: Post): PostMeta {
         return {
             wordCount: 0,
             readTime: "N/A",
-            modifiedTime: "N/A",
+            modifiedTime: post.data?.upDate || new Date(),
             excerpt: frontmatterDescription || "N/A",
         };
     }
 
     // 优先使用 post.body（如果可用），避免文件系统读取
     let content: string | null = null;
-    let mtime: Date | string | null = null;
 
     if (post.body) {
         content = post.body;
-        mtime = new Date(); // 如果没有文件修改时间，使用当前时间
     } else {
         // 回退到文件系统读取
         const fileData = readMetadata(postId);
         content = fileData.content;
-        mtime = fileData.mtime;
     }
+
+    // 确定 modifiedTime，优先级：frontmatter upDate > git 提交时间 > 文件系统 mtime > 当前时间
+    const frontmatterUpDate = post.data?.upDate as Date | null | undefined;
+    const filePath = `src/content/article/${postId}.md`;
+    const gitDate = getGitCommitDate(filePath);
+    const fallbackMtime = gitDate ?? new Date();
+    const mtime: Date | string = frontmatterUpDate ?? gitDate ?? fallbackMtime;
 
     if (!content) {
         console.error(`Error accessing content for post: ${post.id}`);
         return {
             wordCount: 0,
             readTime: "N/A",
-            modifiedTime: mtime || "N/A",
+            modifiedTime: mtime || post.data?.upDate || new Date(),
             excerpt: frontmatterDescription || "N/A",
         };
     }
@@ -90,7 +95,7 @@ export function getPostsWithMeta(post: Post): PostMeta {
     const result: PostMeta = {
         wordCount,
         readTime,
-        modifiedTime: mtime || "N/A",
+        modifiedTime: mtime,
         excerpt: finalExcerpt,
     };
 

@@ -6,6 +6,7 @@ interface Props {
     title: string;
     description: string;
     publishedTime: Date;
+    modifiedTime: Date | string;
     postUrl: string;
     wordCount: number;
     readTime: string;
@@ -13,7 +14,7 @@ interface Props {
     tags?: string[];
 }
 
-const { title, description, publishedTime, postUrl, wordCount, readTime, currentSlug } =
+const { title, description, publishedTime, modifiedTime, postUrl, wordCount, readTime, currentSlug } =
     Astro.props;
 ---
 
@@ -22,6 +23,7 @@ const { title, description, publishedTime, postUrl, wordCount, readTime, current
     <p class="post-card-description">{description}</p>
     <PostMeta
         publishedTime={publishedTime}
+        modifiedTime={modifiedTime}
         wordCount={wordCount}
         readTime={readTime}
         currentSlug={currentSlug}

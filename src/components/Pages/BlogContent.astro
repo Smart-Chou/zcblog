@@ -35,6 +35,7 @@ interface Props {
 
 const { locale = "zh", page } = Astro.props;
 const postsWithMeta = page.data;
+const latestModified = postsWithMeta[0]?.modifiedTime || new Date();
 const blogPath = locale === "en" ? "/en/blog" : "/blog";
 const prevUrl = page.url.prev ? new URL(page.url.prev, Astro.site).toString() : undefined;
 const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : undefined;
@@ -47,7 +48,7 @@ const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : 
     imageAlt={site.coverImageAlt}
     keywords={site.keywords}
     publishedTime={new Date()}
-    modifiedTime={new Date()}
+    modifiedTime={latestModified}
     prevUrl={prevUrl}
     nextUrl={nextUrl}
     locale={locale}
