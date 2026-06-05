@@ -72,26 +72,6 @@ export default defineConfig({
         }),
     },
     integrations: [
-        {
-            name: "debug-markdown-config",
-            hooks: {
-                "astro:config:setup": ({ config }) => {
-                    const md = config.markdown;
-                    console.log(
-                        "[DEBUG-CONFIG] remarkPlugins:",
-                        md.remarkPlugins?.length ?? "undefined",
-                    );
-                    console.log(
-                        "[DEBUG-CONFIG] rehypePlugins:",
-                        md.rehypePlugins?.length ?? "undefined",
-                    );
-                    console.log(
-                        "[DEBUG-CONFIG] remarkRehype keys:",
-                        Object.keys(md.remarkRehype || {}).length,
-                    );
-                },
-            },
-        },
         redirectAttributeByLink(),
         sitemap({
             // 多语言站点地图配置
