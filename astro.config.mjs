@@ -26,6 +26,7 @@ import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-s
 import partytown from "@astrojs/partytown";
 import redirectAttributeByLink from "./src/integrations/redirect.ts";
 import { starlightPagefind } from "./src/integrations/pagefind.ts";
+import ogImage from "./src/integrations/og-image.ts";
 import { pagefindConfig } from "./src/schemas/pagefind";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
@@ -73,6 +74,7 @@ export default defineConfig({
     },
     integrations: [
         redirectAttributeByLink(),
+        ogImage(),
         sitemap({
             // 多语言站点地图配置
             i18n: {

@@ -1,7 +1,7 @@
 /**
  * OG 图片生成 (Satori + Sharp)
  */
-import type { APIRoute } from "astro";
+import type { APIRoute, AstroIntegration } from "astro";
 import { getCollection } from "astro:content";
 import satori from "satori";
 import sharp from "sharp";
@@ -233,3 +233,20 @@ export const GET: APIRoute = async ({ props }) => {
         },
     });
 };
+
+/**
+ * Astro 集成：注入 OG 图片生成路由
+ */
+export default function ogImage(): AstroIntegration {
+    return {
+        name: "og-image",
+        hooks: {
+            "astro:config:setup": ({ injectRoute }) => {
+                injectRoute({
+                    pattern: "/og/[...og].png",
+                    entrypoint: "./src/integrations/og-image.ts",
+                });
+            },
+        },
+    };
+}
