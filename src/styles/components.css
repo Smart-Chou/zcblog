@@ -108,7 +108,7 @@
 .post-card-image {
     min-width: 100%;
     width: var(--content-width);
-    aspect-ratio: 16 / 5;
+    aspect-ratio: 12 / 5;
     height: auto;
     object-fit: cover;
     vertical-align: bottom;
@@ -139,10 +139,6 @@
 
 /* ---- Responsive ---- */
 @media screen and (max-width: 768px) {
-    .post-card-image {
-        max-height: 10rem;
-    }
-
     .wl-editor {
         min-height: auto !important;
     }
