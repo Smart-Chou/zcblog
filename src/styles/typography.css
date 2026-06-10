@@ -239,7 +239,7 @@ sup {
 
 .post-footer a {
     display: inline-flex;
-    align-items: anchor-center;
+    align-items: center;
 }
 
 .expressive-code {
