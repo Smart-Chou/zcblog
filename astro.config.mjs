@@ -38,6 +38,9 @@ import { VitePWA } from "vite-plugin-pwa";
 // https://astro.build/config
 export default defineConfig({
     site: "https://marxchou.com",
+    prefetch: {
+        defaultStrategy: "hover",
+    },
     // i18n 配置
     i18n: {
         defaultLocale: "zh",
@@ -201,7 +204,11 @@ export default defineConfig({
                 },
             }),
         ],
-        define: {},
+        define: {
+            __VUE_OPTIONS_API__: "true",
+            __VUE_PROD_DEVTOOLS__: "false",
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: "false",
+        },
         build: {
             // esbuild 比 terser 内存占用更低，避免 Vercel OOM
             minify: "esbuild",
