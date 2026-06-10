@@ -14,7 +14,7 @@ const isEn = locale === "en";
 
 const allPosts = await getAllArticles();
 
-const allTags = getAllTags(allPosts, 3);
+const allTags = getAllTags(allPosts, 1);
 const tagCounts = allTags.reduce(
     (acc, tag) => {
         const key = tag.toUpperCase();
