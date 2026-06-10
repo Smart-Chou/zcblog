@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getAllArticles } from "~/utils/article-stats";
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import Archive from "~/components/UI/Archive.astro";
 import Author from "~/components/UI/Author.astro";
@@ -29,7 +29,7 @@ interface PostsByYear {
     [year: number]: PostWithMeta[];
 }
 
-const allPosts = await getCollection("article");
+const allPosts = await getAllArticles();
 
 const postsWithMeta = sortByPubDate(allPosts.map((post) => enrichPost(post))) as PostWithMeta[];
 const latestModified = postsWithMeta[0]?.modifiedTime || new Date();

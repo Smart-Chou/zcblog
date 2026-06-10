@@ -1,8 +1,8 @@
-import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { config } from "~/config";
 import { enrichPost } from "~/utils/get-posts-with-meta";
 import { compareByPubDate } from "~/utils";
+import { getAllArticles } from "~/utils/article-stats";
 
 export async function blogGetStaticPaths({
     paginate,
@@ -17,7 +17,7 @@ export async function blogGetStaticPaths({
         lastPage: number;
     }>;
 }) {
-    const allPosts = await getCollection("article");
+    const allPosts = await getAllArticles();
     const pageSize = config.PageSize || 10;
 
     const postsWithPrecomputedMeta = allPosts.map((post: CollectionEntry<"article">) => {

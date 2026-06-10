@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getAllArticles } from "~/utils/article-stats";
 import { sortByPubDate } from "~/utils/date-utils";
 import "~/styles/remark-aside.css";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
@@ -46,7 +46,7 @@ const {
     noEnAlternate = false,
 } = Astro.props;
 
-const allPosts = await getCollection("article");
+const allPosts = await getAllArticles();
 const sorted = sortByPubDate(allPosts);
 const currentIndex = sorted.findIndex((post) => post.id === slug);
 const prevSlug = currentIndex > 0 ? sorted[currentIndex - 1]?.id : null;

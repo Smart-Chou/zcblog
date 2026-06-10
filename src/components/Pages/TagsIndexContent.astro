@@ -1,10 +1,9 @@
 ---
-import { getCollection } from "astro:content";
+import { getAllTags, getAllArticles } from "~/utils/article-stats";
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import Author from "~/components/UI/Author.astro";
 import { site, tagsPage } from "~/config";
-import { getAllTags } from "~/utils/article-stats";
 
 interface Props {
     locale?: string;
@@ -13,9 +12,9 @@ interface Props {
 const { locale = "zh" } = Astro.props;
 const isEn = locale === "en";
 
-const allPosts = await getCollection("article");
+const allPosts = await getAllArticles();
 
-const allTags = getAllTags(allPosts);
+const allTags = getAllTags(allPosts, 3);
 const tagCounts = allTags.reduce(
     (acc, tag) => {
         const key = tag.toUpperCase();

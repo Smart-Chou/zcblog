@@ -2,7 +2,7 @@
  * OG 图片生成 (Satori + Sharp)
  */
 import type { APIRoute } from "astro";
-import { getCollection } from "astro:content";
+import { getAllArticles } from "~/utils/article-stats";
 import satori from "satori";
 import sharp from "sharp";
 import { site } from "~/config";
@@ -54,7 +54,7 @@ function getFontBold(): Buffer {
 }
 
 export async function getStaticPaths() {
-    const articles = await getCollection("article");
+    const articles = await getAllArticles();
 
     // Download fonts from CDN if not cached, then preload
     await ensureFonts();
