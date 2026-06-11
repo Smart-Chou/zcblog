@@ -1,27 +1,23 @@
 ---
 /**
  * Search component using Pagefind Component UI (v1.5.0+).
- * CSS / JS assets loaded dynamically to avoid Vite path rewriting in dev mode.
  * Requires `pnpm build` once to generate public/pagefind/ for dev server.
  */
 ---
 
 <script is:inline>
-    const pfBase = "/pagefind/";
-    const link = document.createElement("link");
+    var pfBase = "/pagefind/";
+    var link = document.createElement("link");
     link.href = pfBase + "pagefind-component-ui.css";
     link.rel = "stylesheet";
     document.head.appendChild(link);
-    const script = document.createElement("script");
-    script.src = pfBase + "pagefind-component-ui.js";
-    script.type = "module";
-    document.head.appendChild(script);
+    var s = document.createElement("script");
+    s.src = pfBase + "pagefind-component-ui.js";
+    s.type = "module";
+    document.head.appendChild(s);
 </script>
 
-<pagefind-modal-trigger
-    placeholder="搜索"
-    shortcut="mod+k"
-></pagefind-modal-trigger>
+<pagefind-modal-trigger placeholder="搜索" shortcut="mod+k"></pagefind-modal-trigger>
 
 <pagefind-modal reset-on-close>
     <pagefind-modal-header>
@@ -33,96 +29,12 @@
     </pagefind-modal-body>
     <pagefind-modal-footer>
         <pagefind-keyboard-hints></pagefind-keyboard-hints>
-        <div class="search-footer-brand">
+        <div class="footer-brand">
             Search by <strong>Pagefind</strong>
         </div>
     </pagefind-modal-footer>
 </pagefind-modal>
 
-<style>
-    /* ============================================
-       Trigger button
-       ============================================ */
-    pagefind-modal-trigger {
-        --pf-border-radius: 40px;
-        --pf-input-height: 38px;
-        --pf-background: var(--search-modal-bg);
-        --pf-border: var(--search-border);
-        --pf-text-secondary: var(--search-text-subtle);
-        --pf-font: var(---sl-font);
-    }
-
-    /* ============================================
-       Modal
-       ============================================ */
-    pagefind-modal {
-        --pf-text: var(--search-text);
-        --pf-text-secondary: var(--search-text-muted);
-        --pf-text-muted: var(--search-text-subtle);
-        --pf-background: var(--search-modal-bg);
-        --pf-border: var(--search-border);
-        --pf-border-focus: var(--search-primary);
-        --pf-hover: var(--search-primary-light);
-        --pf-mark: var(--search-highlight-color);
-        --pf-mark-background: var(--search-highlight-bg);
-        --pf-skeleton: var(--search-bg-stripe);
-        --pf-skeleton-shine: var(--search-border-light);
-
-        --pf-shadow-lg: var(--search-modal-shadow);
-        --pf-modal-backdrop: var(--search-backdrop);
-        --pf-modal-max-width: 40rem;
-        --pf-modal-max-height: min(80dvh, 800px);
-        --pf-modal-top: 10dvh;
-
-        --pf-border-radius: var(--search-modal-radius);
-        --pf-input-height: 44px;
-        --pf-input-font-size: 16px;
-        --pf-summary-font-size: 12px;
-        --pf-result-title-font-size: 14px;
-        --pf-result-excerpt-font-size: 13px;
-
-        --pf-outline-focus: var(--search-primary);
-        --pf-font: var(---sl-font);
-    }
-
-    /* ============================================
-       Dark mode
-       ============================================ */
-    html[data-theme="dark"] pagefind-modal-trigger {
-        --pf-background: var(--search-modal-bg);
-        --pf-border: var(--search-border);
-        --pf-text-secondary: var(--search-text-subtle);
-    }
-
-    html[data-theme="dark"] pagefind-modal {
-        --pf-text: var(--search-text);
-        --pf-text-secondary: var(--search-text-muted);
-        --pf-text-muted: var(--search-text-subtle);
-        --pf-background: var(--search-modal-bg);
-        --pf-border: var(--search-border);
-        --pf-border-focus: var(--search-primary);
-        --pf-hover: var(--search-primary-light);
-        --pf-mark: var(--search-highlight-color);
-        --pf-mark-background: var(--search-highlight-bg);
-        --pf-skeleton: var(--search-bg-stripe);
-        --pf-skeleton-shine: var(--search-border-light);
-        --pf-shadow-lg: var(--search-modal-shadow);
-        --pf-modal-backdrop: var(--search-backdrop);
-    }
-
-    /* ============================================
-       Footer branding
-       ============================================ */
-    .search-footer-brand {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 11px;
-        color: var(--search-text-subtle);
-    }
-
-    .search-footer-brand strong {
-        color: var(--search-primary);
-        font-weight: 700;
-    }
-</style>
+<script>
+    import "../../scripts/search-template.js";
+</script>
