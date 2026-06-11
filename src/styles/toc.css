@@ -1,5 +1,6 @@
 /* =========================================
    TOC — 文章目录（灵感来自 sspai 目录组件）
+   交互：默认只显示当前激活标题，hover 全部展开
    使用项目 design tokens，与 editorial 风格协调
    ========================================= */
 
@@ -27,17 +28,18 @@
 /* ---- Content container ---- */
 .toc-content {
     overflow: hidden;
-    overflow-y: auto;
     max-height: 400px;
     padding-right: 8px;
 
     /* 自定义滚动条 */
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
+}
 
-    &:hover {
-        scrollbar-color: var(--color-border) transparent;
-    }
+/* Hover 时可滚动目录内容，不滚动页面 */
+.toc:hover .toc-content {
+    overflow-y: auto;
+    scrollbar-color: var(--color-border) transparent;
 }
 
 /* ---- Reset lists ---- */
@@ -47,13 +49,72 @@
     padding: 0;
 }
 
-/* ---- 一级项 (对应文章 h2) ---- */
-.toc-content > .toc-list > .toc-list-item {
-    margin-bottom: 8px;
-    line-height: var(--leading-snug);
-    display: block;
+/* ────────────────────────────────────────
+   默认态：鼠标不在 TOC 上 → 只显示激活路径
+   ──────────────────────────────────────── */
+
+/* 所有一级项默认隐藏 */
+.toc:not(:hover) .toc-content > .toc-list > .toc-list-item {
+    max-height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition:
+        max-height var(--duration-slow) var(--ease-out),
+        opacity var(--duration-normal) var(--ease-out),
+        margin-bottom var(--duration-slow) var(--ease-out);
 }
 
+/* 激活路径上的一级项可见 */
+.toc:not(:hover) .toc-content > .toc-list > .toc-list-item.is-active-path {
+    max-height: 400px;
+    margin-bottom: 8px;
+    opacity: 1;
+    overflow: visible;
+}
+
+/* 所有二级嵌套列表默认折叠 */
+.toc:not(:hover) .toc-list-item > .toc-list {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    overflow: hidden;
+    transition:
+        max-height var(--duration-slow) var(--ease-out),
+        opacity var(--duration-normal) var(--ease-out),
+        margin-top var(--duration-slow) var(--ease-out);
+}
+
+/* 激活路径下的二级列表展开 */
+.toc:not(:hover) .toc-list-item.is-active-path > .toc-list {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 4px;
+}
+
+/* ────────────────────────────────────────
+   Hover 态：鼠标在 TOC 上 → 全部显示
+   ──────────────────────────────────────── */
+
+.toc:hover .toc-content > .toc-list > .toc-list-item {
+    max-height: 400px;
+    margin-bottom: 8px;
+    opacity: 1;
+    overflow: visible;
+}
+
+.toc:hover .toc-list-item > .toc-list {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 4px;
+    overflow: visible;
+}
+
+/* ────────────────────────────────────────
+   通用项样式（一级 / 二级共享）
+   ──────────────────────────────────────── */
+
+/* 一级项链接 */
 .toc-content > .toc-list > .toc-list-item > .toc-link {
     display: flex;
     align-items: flex-start;
@@ -69,7 +130,7 @@
     word-break: break-word;
 }
 
-/* ---- Prefix dot (一级项前的装饰点) ---- */
+/* 一级项前缀圆点 */
 .toc-content > .toc-list > .toc-list-item > .toc-link::before {
     content: "";
     flex-shrink: 0;
@@ -82,7 +143,6 @@
     transition: background-color var(--duration-fast), opacity var(--duration-fast);
 }
 
-/* ---- 一级项 hover ---- */
 .toc-content > .toc-list > .toc-list-item > .toc-link:hover {
     color: var(--color-body);
 }
@@ -91,7 +151,7 @@
     opacity: 0.8;
 }
 
-/* ---- 一级项 active ---- */
+/* 一级项激活态 */
 .toc-content > .toc-list > .toc-list-item > .toc-link.is-active-link {
     color: var(--primary-color);
     font-weight: 600;
@@ -102,10 +162,9 @@
     opacity: 1;
 }
 
-/* ---- 二级嵌套列表 (对应文章 h3) ---- */
+/* 二级嵌套列表 */
 .toc-content > .toc-list > .toc-list-item > .toc-list {
     padding-left: 16px;
-    margin-top: 4px;
 }
 
 .toc-content > .toc-list > .toc-list-item > .toc-list > .toc-list-item {
@@ -113,6 +172,7 @@
     display: block;
 }
 
+/* 二级项链接 */
 .toc-content > .toc-list > .toc-list-item > .toc-list > .toc-list-item > .toc-link {
     display: block;
     font-size: var(--text-xs);
@@ -126,18 +186,20 @@
     word-break: break-word;
 }
 
-/* ---- 二级项 hover ---- */
 .toc-content > .toc-list > .toc-list-item > .toc-list > .toc-list-item > .toc-link:hover {
     color: var(--color-body);
 }
 
-/* ---- 二级项 active ---- */
+/* 二级项激活态 */
 .toc-content > .toc-list > .toc-list-item > .toc-list > .toc-list-item > .toc-link.is-active-link {
     color: var(--primary-color);
     font-weight: 500;
 }
 
-/* ---- Dark mode adjustments ---- */
+/* ────────────────────────────────────────
+   Dark mode
+   ──────────────────────────────────────── */
+
 html[data-theme="dark"] {
     .toc-content > .toc-list > .toc-list-item > .toc-link {
         color: var(--color-text-dimmed);

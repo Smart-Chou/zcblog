@@ -45,6 +45,7 @@ import "~/styles/toc.css";
 
             // ---- Init scroll positioning ----
             const tocWrapper = document.querySelector(".toc") as HTMLElement;
+            const tocContent = tocWrapper.querySelector(".toc-content") as HTMLElement;
             const post = document.querySelector("#post-content") as HTMLElement;
             const footer = document.querySelector(".post-nav") as HTMLElement;
             if (!tocWrapper || !post || !footer) return;
@@ -58,6 +59,51 @@ import "~/styles/toc.css";
             // 初始化时读取 CSS 的 fixed top，之后不再变动
             const tocFixedTop = parseFloat(getComputedStyle(tocWrapper).top) || 400;
 
+            // ---- 激活路径管理：只高亮当前激活标题及其祖先 ----
+            function updateActivePath() {
+                const activeLink = tocWrapper.querySelector(".is-active-link") as HTMLElement | null;
+
+                // 清除所有旧路径
+                tocWrapper.querySelectorAll(".is-active-path").forEach((el) => el.classList.remove("is-active-path"));
+
+                if (!activeLink) return;
+
+                // 从激活链接向上遍历，标记所有祖先 .toc-list-item
+                let el: HTMLElement | null = activeLink;
+                while (el && el !== tocWrapper) {
+                    if (el.classList.contains("toc-list-item")) {
+                        el.classList.add("is-active-path");
+                    }
+                    el = el.parentElement;
+                }
+            }
+
+            // 首次加载：强制 tocbot 检测当前滚动位置的激活标题
+            tocbot.refresh();
+            // 等 tocbot 刷新完 DOM 后再更新路径
+            requestAnimationFrame(() => {
+                updateActivePath();
+            });
+
+            // ---- Hover 时阻止页面滚动，只滚目录 ----
+            tocContent.addEventListener(
+                "wheel",
+                (e) => {
+                    if (!tocWrapper.matches(":hover")) return;
+                    const { scrollTop, scrollHeight, clientHeight } = tocContent;
+                    const atTop = scrollTop === 0;
+                    const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+
+                    if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
+                        // 已经到边界，让页面接管滚动
+                        return;
+                    }
+                    e.preventDefault();
+                    tocContent.scrollTop += e.deltaY;
+                },
+                { passive: false, signal: tocAbortController.signal },
+            );
+
             let ticking = false;
             const handler = function () {
                 if (ticking) return;
@@ -65,11 +111,9 @@ import "~/styles/toc.css";
                 requestAnimationFrame(() => {
                     const postBottom = post.getBoundingClientRect().bottom + footer.offsetHeight;
 
-                    // 当 TOC 底部（fixedTop + 自身高度）超出文章区域底部时，
-                    // 切换为 absolute 贴底，避免 TOC 超出内容区
+                    // 当 TOC 底部超出文章区域时，切换为 absolute 贴底
                     if (postBottom < tocFixedTop + tocWrapper.offsetHeight) {
                         tocWrapper.style.position = "absolute";
-                        // 文档坐标：让 TOC 底部对齐 postBottom
                         tocWrapper.style.top = `${window.scrollY + postBottom - tocWrapper.offsetHeight}px`;
                         tocWrapper.style.transform = "none";
                     } else {
@@ -77,6 +121,10 @@ import "~/styles/toc.css";
                         tocWrapper.style.top = `${tocFixedTop}px`;
                         tocWrapper.style.transform = "none";
                     }
+
+                    // 更新激活路径
+                    updateActivePath();
+
                     ticking = false;
                 });
             };
