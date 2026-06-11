@@ -140,7 +140,9 @@
     border-radius: var(--radius-full);
     background-color: var(--color-muted);
     opacity: 0.4;
-    transition: background-color var(--duration-fast), opacity var(--duration-fast);
+    transition:
+        background-color var(--duration-fast),
+        opacity var(--duration-fast);
 }
 
 .toc-content > .toc-list > .toc-list-item > .toc-link:hover {
@@ -221,12 +223,7 @@ html[data-theme="dark"] {
         background-color: var(--primary-color);
     }
 
-    .toc-content
-        > .toc-list
-        > .toc-list-item
-        > .toc-list
-        > .toc-list-item
-        > .toc-link {
+    .toc-content > .toc-list > .toc-list-item > .toc-list > .toc-list-item > .toc-link {
         color: var(--color-muted);
 
         &:hover {

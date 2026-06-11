@@ -64,7 +64,10 @@ const {
     <div class="post-tags post-card-tags">
         {
             tags?.map((tag: string) => (
-                <PostTag tag={tag.toUpperCase().replace(/\s+/g, '-')} url={`/tags/${tag.toUpperCase().replace(/\s+/g, '-')}/`} />
+                <PostTag
+                    tag={tag.toUpperCase().replace(/\s+/g, "-")}
+                    url={`/tags/${tag.toUpperCase().replace(/\s+/g, "-")}/`}
+                />
             ))
         }
     </div>

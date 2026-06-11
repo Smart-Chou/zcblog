@@ -13,7 +13,10 @@ const { tags } = Astro.props;
     <div class="post-tags post-card-tags post-card-tags-lists">
         {
             tags?.map((tag: string) => (
-                <PostTag tag={tag.toUpperCase().replace(/\s+/g, '-')} url={`/tags/${tag.toUpperCase().replace(/\s+/g, '-')}/`} />
+                <PostTag
+                    tag={tag.toUpperCase().replace(/\s+/g, "-")}
+                    url={`/tags/${tag.toUpperCase().replace(/\s+/g, "-")}/`}
+                />
             ))
         }
     </div>
