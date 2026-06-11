@@ -17,13 +17,13 @@ import "~/styles/toc.css";
             tocbot.init({
                 tocSelector: ".toc-content",
                 contentSelector: "#post-content",
-                headingSelector: "h2, h3, h4",
+                headingSelector: "h2, h3",
                 headingsOffset: 100,
                 scrollSmoothOffset: -100,
                 scrollSmooth: false,
                 enableUrlHashUpdateOnScroll: false,
-                collapseDepth: 0,
-                includeTitleTags: true,
+                collapseDepth: 2,
+                includeTitleTags: false,
                 ignoreSelector: ".toc-ignore",
             });
 
@@ -44,10 +44,10 @@ import "~/styles/toc.css";
             });
 
             // ---- Init scroll positioning ----
-            const tocContent = document.querySelector(".toc-content") as HTMLElement;
+            const tocWrapper = document.querySelector(".toc") as HTMLElement;
             const post = document.querySelector("#post-content") as HTMLElement;
-            const footer = document.querySelector(".post-footer") as HTMLElement;
-            if (!tocContent || !post || !footer) return;
+            const footer = document.querySelector(".post-nav") as HTMLElement;
+            if (!tocWrapper || !post || !footer) return;
 
             // Cancel previous scroll listener to prevent leaks across SPA navigations
             if (tocAbortController) {
@@ -55,21 +55,27 @@ import "~/styles/toc.css";
             }
             tocAbortController = new AbortController();
 
+            // 初始化时读取 CSS 的 fixed top，之后不再变动
+            const tocFixedTop = parseFloat(getComputedStyle(tocWrapper).top) || 400;
+
             let ticking = false;
             const handler = function () {
                 if (ticking) return;
                 ticking = true;
                 requestAnimationFrame(() => {
                     const postBottom = post.getBoundingClientRect().bottom + footer.offsetHeight;
-                    const viewportHeight = window.innerHeight;
-                    const postScrollHeight = viewportHeight / 2 + tocContent.offsetHeight;
-                    if (postBottom <= postScrollHeight) {
-                        tocContent.style.position = "absolute";
-                        tocContent.style.top = `${((window.scrollY + postBottom - tocContent.offsetHeight) / viewportHeight) * 100}dvh`;
+
+                    // 当 TOC 底部（fixedTop + 自身高度）超出文章区域底部时，
+                    // 切换为 absolute 贴底，避免 TOC 超出内容区
+                    if (postBottom < tocFixedTop + tocWrapper.offsetHeight) {
+                        tocWrapper.style.position = "absolute";
+                        // 文档坐标：让 TOC 底部对齐 postBottom
+                        tocWrapper.style.top = `${window.scrollY + postBottom - tocWrapper.offsetHeight}px`;
+                        tocWrapper.style.transform = "none";
                     } else {
-                        tocContent.style.position = "fixed";
-                        tocContent.style.top = "50%";
-                        tocContent.style.transform = "translateY(-50%)";
+                        tocWrapper.style.position = "fixed";
+                        tocWrapper.style.top = `${tocFixedTop}px`;
+                        tocWrapper.style.transform = "none";
                     }
                     ticking = false;
                 });
