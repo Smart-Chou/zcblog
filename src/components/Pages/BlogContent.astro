@@ -68,7 +68,7 @@ const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : 
                     imagePath={
                         post.data.image?.url || `${imageService.baseUrl}${imageService.randomPath}`
                     }
-                    description={post.excerpt}
+                    description={post.data.description || post.excerpt}
                     tags={post.data.tags}
                     wordCount={post.wordCount}
                     readTime={post.readTime}

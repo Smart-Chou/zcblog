@@ -40,7 +40,7 @@ const latestModified = postsWithMeta[0]?.modifiedTime || new Date();
             postsWithMeta.map((post) => (
                 <TagsPostCard
                     title={post.data.title}
-                    description={post.excerpt}
+                    description={post.data.description || post.excerpt}
                     tags={post.data.tags || []}
                     postUrl={`/article/${post.slug}/`}
                     publishedTime={post.data.pubDate}
