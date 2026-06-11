@@ -17,7 +17,7 @@ const allPosts = await getAllArticles();
 const allTags = getAllTags(allPosts, 1);
 const tagCounts = allTags.reduce(
     (acc, tag) => {
-        const key = tag.toUpperCase();
+        const key = tag.toUpperCase().replace(/\s+/g, '-');
         acc[key] = (acc[key] || 0) + 1;
         return acc;
     },

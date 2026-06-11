@@ -31,10 +31,21 @@ const dataAttributes: DOMStringMap = {
             <button data-close-modal class="sl-flex md:sl-hidden">取消</button>
             <div class="search-container">
                 <div
-                    id="starlight__search"
-                    data-dev-mode={import.meta.env.DEV ? "true" : undefined}
+                    id="search-panel"
                 >
                 </div>
+            </div>
+        </div>
+        <div class="search-footer">
+            <div class="search-footer-hints">
+                <kbd>↑</kbd><kbd>↓</kbd><span>导航</span>
+                <span>·</span>
+                <kbd>↵</kbd><span>打开</span>
+                <span>·</span>
+                <kbd>ESC</kbd><span>关闭</span>
+            </div>
+            <div class="search-footer-brand">
+                Search by <strong>Pagefind</strong>
             </div>
         </div>
     </dialog>
@@ -158,69 +169,6 @@ const dataAttributes: DOMStringMap = {
             const stripTrailingSlash = (path: string) => path.replace(/(.)\/$/, "$1");
             const formatURL = shouldStrip ? stripTrailingSlash : (path: string) => path;
 
-            // Check if we're in development mode — use mock search
-            if (import.meta.env.DEV) {
-                this.addEventListener("connectedCallback", async () => {
-                    const searchElement = this.querySelector("#starlight__search");
-                    if (!searchElement) return;
-
-                    const input = document.createElement("input");
-                    input.type = "search";
-                    input.placeholder = translations.placeholder || "搜索 (Mock)";
-                    input.className = "pagefind-ui__search-input";
-                    input.id = "starlight__search-input";
-                    input.setAttribute("name", "q");
-
-                    const results = document.createElement("div");
-                    results.className = "pagefind-ui__results";
-                    results.style.padding = "1rem";
-
-                    searchElement.appendChild(input);
-                    searchElement.appendChild(results);
-
-                    // 从当前页面收集可搜索的链接（文章链接）
-                    const allLinks = Array.from(
-                        document.querySelectorAll<HTMLAnchorElement>(
-                            'a[href*="/article/"], a[href*="/blog/"], a[href*="/archives/"]',
-                        ),
-                    );
-                    const seen = new Set<string>();
-                    const items: Array<{ title: string; url: string }> = [];
-                    for (const a of allLinks) {
-                        const title = a.textContent?.trim() || "";
-                        const url = a.getAttribute("href") || "";
-                        if (title && !seen.has(url)) {
-                            seen.add(url);
-                            items.push({ title, url });
-                        }
-                    }
-
-                    input.addEventListener("input", () => {
-                        const q = input.value.toLowerCase().trim();
-                        if (!q) {
-                            results.innerHTML =
-                                '<p style="color:var(--color-text-dimmed);font-size:0.9rem">Mock 模式 — 输入关键词搜索当前页面文章</p>';
-                            return;
-                        }
-                        const matches = items
-                            .filter((i) => i.title.toLowerCase().includes(q))
-                            .slice(0, 10);
-                        if (matches.length === 0) {
-                            results.innerHTML =
-                                '<p style="color:var(--color-text-dimmed);font-size:0.9rem">未找到匹配结果（Mock 模式）</p>';
-                        } else {
-                            results.innerHTML = matches
-                                .map(
-                                    (m) =>
-                                        `<div style="padding:0.5rem 0;border-bottom:1px solid var(--color-border)"><a href="${m.url}" style="color:var(--color-accent);text-decoration:none">${m.title}</a></div>`,
-                                )
-                                .join("");
-                        }
-                    });
-                });
-                return;
-            }
-
             // Initialize PagefindUI when the element is connected to the DOM
             this.addEventListener("connectedCallback", async () => {
                 try {
@@ -228,10 +176,10 @@ const dataAttributes: DOMStringMap = {
                     // @ts-expect-error — Missing types for @pagefind/default-ui package.
                     const { PagefindUI } = await import("@pagefind/default-ui");
 
-                    // Ensure the starlight__search element exists before initializing
-                    const searchElement = this.querySelector("#starlight__search");
+                    // Ensure the search-panel element exists before initializing
+                    const searchElement = this.querySelector("#search-panel");
                     if (!searchElement) {
-                        console.error("Search element #starlight__search not found");
+                        console.error("Search element #search-panel not found");
                         return;
                     }
 
@@ -264,7 +212,7 @@ const dataAttributes: DOMStringMap = {
                         ) ||
                         (searchElement as Element).querySelector<HTMLInputElement>("input");
                     if (searchInput) {
-                        searchInput.id = "starlight__search-input";
+                        searchInput.id = "search-panel-input";
                         (searchInput as HTMLInputElement).name = "q";
                     }
                 } catch (error) {
@@ -352,8 +300,8 @@ const dataAttributes: DOMStringMap = {
         border-radius: 3px;
         border: 0px;
         padding: 3px;
-        background: var(--docsearch-key-gradient);
-        box-shadow: var(--docsearch-key-shadow);
-        color: var(--docsearch-muted-color);
+        background: var(--search-kbd-gradient);
+        box-shadow: var(--search-kbd-shadow);
+        color: var(--search-kbd-text);
     }
 </style>

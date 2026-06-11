@@ -56,3 +56,8 @@ playwright-report/
 test-results/
 .codegraph/
 src/content/article/
+.superpowers/
+docs/
+
+# Pagefind dev index
+public/pagefind/

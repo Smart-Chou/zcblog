@@ -1,5 +1,7 @@
 import type { HookParameters } from "astro";
 import { fileURLToPath } from "node:url";
+import { cpSync, mkdirSync, existsSync } from "node:fs";
+import path from "node:path";
 import * as pagefind from "pagefind";
 import type { PagefindConfig } from "../schemas/pagefind";
 
@@ -42,10 +44,22 @@ export async function starlightPagefind({
 
         logger.info(`Found ${page_count} HTML files.`);
 
-        const writeFilesResponse = await index.writeFiles({
-            outputPath: fileURLToPath(new URL("./pagefind/", dir)),
-        });
+        const outputPath = fileURLToPath(new URL("./pagefind/", dir));
+        const writeFilesResponse = await index.writeFiles({ outputPath });
         assertPagefindResponse<pagefind.WriteFilesResponse>(writeFilesResponse, logger);
+
+        // Also write to public/pagefind/ so dev server can serve search index
+        try {
+            const projectRoot = fileURLToPath(new URL("..", dir));
+            const destPath = path.join(projectRoot, "public", "pagefind");
+            if (!existsSync(destPath)) {
+                mkdirSync(destPath, { recursive: true });
+            }
+            cpSync(outputPath, destPath, { recursive: true });
+            logger.info("Search index also written to public/pagefind/ for dev server.");
+        } catch (err) {
+            logger.warn(`Could not copy pagefind to public/: ${err}`);
+        }
 
         const pagefindTime = performance.now() - now;
         logger.info(

@@ -4,7 +4,7 @@ import { getAllTags, getAllArticles } from "./article-stats";
 export async function tagPostsGetStaticPaths() {
     const allArticles = await getAllArticles();
     const allTags = getAllTags(allArticles);
-    const uniqueTags = [...new Set(allTags.map((tag) => tag.toUpperCase()))];
+    const uniqueTags = [...new Set(allTags.map((tag) => tag.toUpperCase().replace(/\s+/g, '-')))];
     return uniqueTags.map((tag) => ({
         params: { tag },
         props: {
