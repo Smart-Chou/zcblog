@@ -5,16 +5,16 @@ import path from "node:path";
 import * as pagefind from "pagefind";
 import type { PagefindConfig } from "../schemas/pagefind";
 
-export async function starlightPagefind({
+export async function searchPagefind({
     dir,
-    logger: starlightLogger,
+    logger: searchLogger,
     pagefindConfig,
 }: {
     dir: HookParameters<"astro:build:done">["dir"];
     logger: HookParameters<"astro:build:done">["logger"];
     pagefindConfig: PagefindConfig;
 }) {
-    const logger = starlightLogger.fork("pagefind");
+    const logger = searchLogger.fork("pagefind");
 
     try {
         const now = performance.now();

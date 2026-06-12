@@ -25,7 +25,7 @@ import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import partytown from "@astrojs/partytown";
 import redirectAttributeByLink from "./src/integrations/redirect.ts";
-import { starlightPagefind } from "./src/integrations/pagefind.ts";
+import { searchPagefind } from "./src/integrations/pagefind.ts";
 import ogImage from "./src/integrations/og-image.ts";
 import { pagefindConfig } from "./src/schemas/pagefind";
 import rehypeKatex from "rehype-katex";
@@ -122,7 +122,7 @@ export default defineConfig({
             name: "pagefind-integration",
             hooks: {
                 "astro:build:done": async ({ dir, logger }) => {
-                    await starlightPagefind({ dir, logger, pagefindConfig });
+                    await searchPagefind({ dir, logger, pagefindConfig });
                 },
             },
         },
