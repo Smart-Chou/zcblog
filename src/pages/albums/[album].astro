@@ -115,8 +115,10 @@ if (!foundAlbum) {
         transition: color var(--duration-slow) var(--ease-out);
     }
 
-    .back-link:hover {
-        color: var(--color-link);
+    @media (hover: hover) {
+        .back-link:hover {
+            color: var(--color-link);
+        }
     }
 
     .album-title {
@@ -159,8 +161,10 @@ if (!foundAlbum) {
         cursor: zoom-in;
     }
 
-    .photo-item:hover {
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    @media (hover: hover) {
+        .photo-item:hover {
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
     }
 
     .photo-wrapper {
@@ -173,8 +177,10 @@ if (!foundAlbum) {
         transition: transform var(--duration-slower) var(--ease-out);
     }
 
-    .photo-item:hover .photo-image {
-        transform: scale(1.05);
+    @media (hover: hover) {
+        .photo-item:hover .photo-image {
+            transform: scale(1.05);
+        }
     }
 
     .photo-overlay {
@@ -185,8 +191,10 @@ if (!foundAlbum) {
         transition: opacity var(--duration-slow) var(--ease-out);
     }
 
-    .photo-item:hover .photo-overlay {
-        opacity: 1;
+    @media (hover: hover) {
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+        }
     }
 
     .photo-description {

@@ -75,9 +75,11 @@ const localeLabels: Record<string, string> = {
             border-color 0.2s;
     }
 
-    .language-switcher-button:hover {
-        background-color: var(--color-hover);
-        border-color: var(--color-accent);
+    @media (hover: hover) {
+        .language-switcher-button:hover {
+            background-color: var(--color-hover);
+            border-color: var(--color-accent);
+        }
     }
 
     .language-icon {
@@ -107,7 +109,13 @@ const localeLabels: Record<string, string> = {
         z-index: 100;
     }
 
-    .language-switcher:hover .language-switcher-dropdown,
+    @media (hover: hover) {
+        .language-switcher:hover .language-switcher-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    }
     .language-switcher:focus-within .language-switcher-dropdown,
     .language-switcher-button[aria-expanded="true"] + .language-switcher-dropdown {
         opacity: 1;
@@ -124,8 +132,10 @@ const localeLabels: Record<string, string> = {
         transition: background-color 0.2s;
     }
 
-    .language-switcher-link:hover {
-        background-color: var(--color-hover);
+    @media (hover: hover) {
+        .language-switcher-link:hover {
+            background-color: var(--color-hover);
+        }
     }
 
     .language-switcher-link.active {
