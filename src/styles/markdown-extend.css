@@ -15,9 +15,11 @@
     cursor: pointer;
     transition: background 0.2s ease;
 }
-.spoiler:hover,
-.spoiler.revealed {
-    background: transparent;
+@media (hover: hover) {
+    .spoiler:hover,
+    .spoiler.revealed {
+        background: transparent;
+    }
 }
 
 /* ---- 上标 / 下标 ---- */
@@ -120,8 +122,10 @@ a.card-github {
     border: 1px solid var(--color-border);
     transition: all 0.15s ease;
 }
-a.card-github:hover {
-    background: var(--color-surface-hover);
+@media (hover: hover) {
+    a.card-github:hover {
+        background: var(--color-surface-hover);
+    }
 }
 a.card-github:active {
     scale: 0.98;

@@ -89,9 +89,11 @@ const { filters, activeFilter, sectionId } = Astro.props;
         box-shadow: var(--shadow-sm);
     }
 
-    .filter-btn:hover {
-        background: var(--color-link);
-        color: white;
+    @media (hover: hover) {
+        .filter-btn:hover {
+            background: var(--color-link);
+            color: white;
+        }
     }
 
     .filter-btn.active {

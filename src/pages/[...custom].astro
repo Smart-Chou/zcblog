@@ -56,8 +56,10 @@ const { Content } = await render(page);
         text-decoration: none;
     }
 
-    .legal-container :global(a:hover) {
-        text-decoration: underline;
+    @media (hover: hover) {
+        .legal-container :global(a:hover) {
+            text-decoration: underline;
+        }
     }
 
     .legal-container :global(ul),

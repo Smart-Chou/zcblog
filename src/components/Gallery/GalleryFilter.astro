@@ -60,9 +60,11 @@ const { tags, allLabel } = Astro.props;
         box-shadow: var(--shadow-sm);
     }
 
-    .filter-tag:hover {
-        background: var(--color-link);
-        color: white;
+    @media (hover: hover) {
+        .filter-tag:hover {
+            background: var(--color-link);
+            color: white;
+        }
     }
 
     .filter-tag.active {

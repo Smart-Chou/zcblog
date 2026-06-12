@@ -167,8 +167,10 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
         transition: opacity var(--duration-fast);
     }
 
-    .notice-btn:hover {
-        opacity: 0.8;
+    @media (hover: hover) {
+        .notice-btn:hover {
+            opacity: 0.8;
+        }
     }
 
     .notice-btn--close {
@@ -178,8 +180,10 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
         opacity: 0.7;
     }
 
-    .notice-btn--close:hover {
-        opacity: 1;
+    @media (hover: hover) {
+        .notice-btn--close:hover {
+            opacity: 1;
+        }
     }
 
     .notice-btn--primary {
@@ -189,7 +193,9 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
         border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
-    .notice-btn--primary:hover {
-        background: rgba(255, 255, 255, 0.3);
+    @media (hover: hover) {
+        .notice-btn--primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
     }
 </style>

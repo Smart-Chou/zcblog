@@ -254,9 +254,11 @@ const siteInfo = {
             border-color var(--duration-normal) var(--ease-out);
     }
 
-    .apply-card:hover {
-        box-shadow: var(--shadow-md);
-        border-color: rgba(194, 65, 59, 0.15);
+    @media (hover: hover) {
+        .apply-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: rgba(194, 65, 59, 0.15);
+        }
     }
 
     .card-body {
@@ -346,9 +348,11 @@ const siteInfo = {
             border-color var(--duration-fast) var(--ease-out);
     }
 
-    .info-field:hover {
-        background: var(--color-selection);
-        border-color: rgba(194, 65, 59, 0.12);
+    @media (hover: hover) {
+        .info-field:hover {
+            background: var(--color-selection);
+            border-color: rgba(194, 65, 59, 0.12);
+        }
     }
 
     .field-text {
@@ -392,10 +396,12 @@ const siteInfo = {
         transition: all var(--duration-fast) var(--ease-out);
     }
 
-    .copy-btn:hover {
-        color: var(--color-link);
-        border-color: var(--color-link);
-        background: rgba(194, 65, 59, 0.04);
+    @media (hover: hover) {
+        .copy-btn:hover {
+            color: var(--color-link);
+            border-color: var(--color-link);
+            background: rgba(194, 65, 59, 0.04);
+        }
     }
 
     .copy-btn:active {
@@ -540,8 +546,10 @@ const siteInfo = {
         transition: border-color var(--duration-fast) var(--ease-out);
     }
 
-    .template-box:hover {
-        border-color: rgba(194, 65, 59, 0.2);
+    @media (hover: hover) {
+        .template-box:hover {
+            border-color: rgba(194, 65, 59, 0.2);
+        }
     }
 
     .template-box pre {
@@ -576,9 +584,11 @@ const siteInfo = {
         transition: all var(--duration-fast) var(--ease-out);
     }
 
-    .template-copy:hover {
-        color: var(--color-link);
-        background: rgba(194, 65, 59, 0.06);
+    @media (hover: hover) {
+        .template-copy:hover {
+            color: var(--color-link);
+            background: rgba(194, 65, 59, 0.06);
+        }
     }
 
     .template-copy:active {
@@ -647,8 +657,10 @@ const siteInfo = {
         transition: background var(--duration-fast) var(--ease-out);
     }
 
-    .note-item:hover {
-        background: var(--color-hover);
+    @media (hover: hover) {
+        .note-item:hover {
+            background: var(--color-hover);
+        }
     }
 
     .note-dot {

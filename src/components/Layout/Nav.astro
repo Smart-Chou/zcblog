@@ -119,8 +119,10 @@ function isActive(href: string) {
         transition: background-color var(--duration-fast);
     }
 
-    .nav-menu-btn:hover {
-        background: var(--color-hover);
+    @media (hover: hover) {
+        .nav-menu-btn:hover {
+            background: var(--color-hover);
+        }
     }
 
     .nav-menu-btn-icon {
@@ -222,9 +224,11 @@ function isActive(href: string) {
             background-color var(--duration-fast);
     }
 
-    .nav-dropdown-link:hover {
-        color: var(--color-accent);
-        background: var(--color-hover);
+    @media (hover: hover) {
+        .nav-dropdown-link:hover {
+            color: var(--color-accent);
+            background: var(--color-hover);
+        }
     }
 
     .nav-dropdown-link.active {

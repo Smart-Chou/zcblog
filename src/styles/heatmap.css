@@ -77,8 +77,10 @@
     background-color: var(--heatmap-level-4);
 }
 
-.heatmap-day:hover {
-    outline: 1px solid var(--heatmap-hover-outline);
+@media (hover: hover) {
+    .heatmap-day:hover {
+        outline: 1px solid var(--heatmap-hover-outline);
+    }
 }
 
 .heatmap-tooltip {

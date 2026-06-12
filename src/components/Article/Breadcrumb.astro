@@ -76,8 +76,10 @@ const tagUrl = firstTag ? `/tags/${firstTag}/` : "";
         white-space: nowrap;
     }
 
-    .breadcrumb-link:hover {
-        color: var(--color-accent);
+    @media (hover: hover) {
+        .breadcrumb-link:hover {
+            color: var(--color-accent);
+        }
     }
 
     .breadcrumb-current {

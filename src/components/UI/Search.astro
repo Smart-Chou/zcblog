@@ -63,7 +63,7 @@
 
         // 获取 light DOM 子元素，排除 Pagefind 内部创建的 <dialog>（morph 后已损坏）
         const children = Array.from(oldModal.childNodes).filter(
-            (node) => !(node instanceof HTMLElement) || node.tagName !== "DIALOG"
+            (node) => !(node instanceof HTMLElement) || node.tagName !== "DIALOG",
         );
 
         // 创建新 modal，先移入子元素

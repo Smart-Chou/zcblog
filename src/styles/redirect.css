@@ -78,8 +78,10 @@ main {
     cursor: pointer;
 }
 
-.redirect #jump-button:hover {
-    background-color: var(--color-bg);
+@media (hover: hover) {
+    .redirect #jump-button:hover {
+        background-color: var(--color-bg);
+    }
 }
 
 .redirect-icon {

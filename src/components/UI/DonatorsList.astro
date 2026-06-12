@@ -68,9 +68,11 @@ const { donators } = Astro.props;
             box-shadow 0.2s ease;
     }
 
-    .donator-item:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    @media (hover: hover) {
+        .donator-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
     }
 
     .donator-avatar {
@@ -129,8 +131,10 @@ const { donators } = Astro.props;
         display: none;
     }
 
-    .donator-item:hover .donator-time {
-        display: block;
+    @media (hover: hover) {
+        .donator-item:hover .donator-time {
+            display: block;
+        }
     }
 
     .donator-message {
@@ -148,9 +152,11 @@ const { donators } = Astro.props;
         border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    html[data-theme="dark"] .donator-item:hover {
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-        background-color: rgba(255, 255, 255, 0.05);
+    @media (hover: hover) {
+        html[data-theme="dark"] .donator-item:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
     }
 
     html[data-theme="dark"] .donator-name {

@@ -106,8 +106,10 @@ const { tabs, activeTab } = Astro.props;
         white-space: nowrap;
     }
 
-    .tab-btn:hover {
-        color: var(--color-link);
+    @media (hover: hover) {
+        .tab-btn:hover {
+            color: var(--color-link);
+        }
     }
 
     .tab-btn.active {

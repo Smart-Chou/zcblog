@@ -70,9 +70,11 @@ const {
             box-shadow var(--duration-slow) var(--ease-out);
     }
 
-    .media-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-xl);
+    @media (hover: hover) {
+        .media-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
     }
 
     .media-cover {
@@ -87,8 +89,10 @@ const {
         transition: transform var(--duration-slow) var(--ease-out);
     }
 
-    .media-card:hover .cover-img {
-        transform: scale(1.05);
+    @media (hover: hover) {
+        .media-card:hover .cover-img {
+            transform: scale(1.05);
+        }
     }
 
     .cover-placeholder {

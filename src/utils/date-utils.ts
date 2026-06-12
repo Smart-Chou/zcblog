@@ -4,9 +4,18 @@ export function sortByPubDate<T extends { data: { pubDate: Date | string } }>(po
 }
 
 /** pubDate 降序比较器，用于自定义排序中作为回退。支持 Date 和 string 类型。 */
-export function compareByPubDate<T extends { data: { pubDate: Date | string } }>(a: T, b: T): number {
-    const aTime = typeof a.data.pubDate === "string" ? new Date(a.data.pubDate).getTime() : a.data.pubDate.getTime();
-    const bTime = typeof b.data.pubDate === "string" ? new Date(b.data.pubDate).getTime() : b.data.pubDate.getTime();
+export function compareByPubDate<T extends { data: { pubDate: Date | string } }>(
+    a: T,
+    b: T,
+): number {
+    const aTime =
+        typeof a.data.pubDate === "string"
+            ? new Date(a.data.pubDate).getTime()
+            : a.data.pubDate.getTime();
+    const bTime =
+        typeof b.data.pubDate === "string"
+            ? new Date(b.data.pubDate).getTime()
+            : b.data.pubDate.getTime();
     return bTime - aTime;
 }
 

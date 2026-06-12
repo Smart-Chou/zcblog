@@ -49,12 +49,16 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.fancybox__button--arrow:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+@media (hover: hover) {
+    .fancybox__button--arrow:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 }
 
-[data-theme="dark"] .fancybox__button--arrow:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+@media (hover: hover) {
+    [data-theme="dark"] .fancybox__button--arrow:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
 }
 
 /* 移动端适配 */

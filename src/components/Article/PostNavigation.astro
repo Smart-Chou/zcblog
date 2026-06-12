@@ -13,8 +13,8 @@ const { prev: prevSlug, next: nextSlug } = await getAdjacentPosts(slug);
 
 // getAllArticles 由 Astro 内容层缓存，无额外开销
 const allPosts = await getAllArticles();
-const prevPost = prevSlug ? allPosts.find((p) => p.id === prevSlug) ?? null : null;
-const nextPost = nextSlug ? allPosts.find((p) => p.id === nextSlug) ?? null : null;
+const prevPost = prevSlug ? (allPosts.find((p) => p.id === prevSlug) ?? null) : null;
+const nextPost = nextSlug ? (allPosts.find((p) => p.id === nextSlug) ?? null) : null;
 ---
 
 {
@@ -49,8 +49,10 @@ const nextPost = nextSlug ? allPosts.find((p) => p.id === nextSlug) ?? null : nu
         transition: color var(--duration-fast);
     }
 
-    .post-nav-link:hover {
-        color: var(--color-accent);
+    @media (hover: hover) {
+        .post-nav-link:hover {
+            color: var(--color-accent);
+        }
     }
 
     .post-nav-link.prev {

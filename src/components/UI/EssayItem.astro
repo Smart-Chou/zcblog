@@ -195,8 +195,10 @@ const avatarImage = getLocalImage(item.avatar_url);
         transition: transform var(--duration-normal) var(--ease-out);
     }
 
-    .essay-img:hover {
-        transform: scale(1.03);
+    @media (hover: hover) {
+        .essay-img:hover {
+            transform: scale(1.03);
+        }
     }
 
     .essay-comment {
@@ -220,7 +222,9 @@ const avatarImage = getLocalImage(item.avatar_url);
         text-decoration: none;
     }
 
-    .essay-source a:hover {
-        text-decoration: underline;
+    @media (hover: hover) {
+        .essay-source a:hover {
+            text-decoration: underline;
+        }
     }
 </style>

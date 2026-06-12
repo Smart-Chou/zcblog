@@ -59,12 +59,7 @@ function createResultTemplate(r) {
 
             h += '<div class="custom-sub">';
             h += '  <span class="custom-branch"></span>';
-            h +=
-                '  <a class="custom-sub-link" href="' +
-                esc(s.url) +
-                '">' +
-                esc(s.title) +
-                "</a>";
+            h += '  <a class="custom-sub-link" href="' + esc(s.url) + '">' + esc(s.title) + "</a>";
             if (s.excerpt) {
                 h += '  <p class="custom-sub-excerpt">' + s.excerpt + "</p>";
             }

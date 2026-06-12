@@ -48,9 +48,11 @@
     user-select: none;
 }
 
-.tabs-nav-btn:hover {
-    color: var(--color-text);
-    background: var(--color-border);
+@media (hover: hover) {
+    .tabs-nav-btn:hover {
+        color: var(--color-text);
+        background: var(--color-border);
+    }
 }
 
 .tabs-nav-btn.active {

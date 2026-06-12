@@ -123,9 +123,11 @@ const stats = [
             background var(--duration-fast) var(--ease-out);
     }
 
-    .stat-item:hover {
-        color: var(--color-accent);
-        background: var(--color-hover);
+    @media (hover: hover) {
+        .stat-item:hover {
+            color: var(--color-accent);
+            background: var(--color-hover);
+        }
     }
 
     .stat-value {
@@ -162,8 +164,10 @@ const stats = [
         transition: opacity var(--duration-fast) var(--ease-out);
     }
 
-    .stat-item:hover .stat-svg {
-        opacity: 1;
+    @media (hover: hover) {
+        .stat-item:hover .stat-svg {
+            opacity: 1;
+        }
     }
 
     /* ---- Tech badges row ---- */
@@ -182,8 +186,10 @@ const stats = [
         transition: opacity var(--duration-fast) var(--ease-out);
     }
 
-    .tech-badge:hover {
-        opacity: 1;
+    @media (hover: hover) {
+        .tech-badge:hover {
+            opacity: 1;
+        }
     }
 
     .tech-badge img {
@@ -212,8 +218,10 @@ const stats = [
         transition: color var(--duration-fast) var(--ease-out);
     }
 
-    .footer-beian:hover {
-        color: var(--color-accent);
+    @media (hover: hover) {
+        .footer-beian:hover {
+            color: var(--color-accent);
+        }
     }
 
     /* ---- Mobile ---- */

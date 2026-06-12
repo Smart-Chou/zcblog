@@ -70,9 +70,11 @@ const stars = item.rating > 0 ? "★".repeat(item.rating) + "☆".repeat(5 - ite
             box-shadow var(--duration-slow) var(--ease-out);
     }
 
-    .douban-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-xl);
+    @media (hover: hover) {
+        .douban-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
     }
 
     .cover-wrap {
@@ -89,8 +91,10 @@ const stars = item.rating > 0 ? "★".repeat(item.rating) + "☆".repeat(5 - ite
         transition: transform var(--duration-slow) var(--ease-out);
     }
 
-    .douban-card:hover .cover-img {
-        transform: scale(1.05);
+    @media (hover: hover) {
+        .douban-card:hover .cover-img {
+            transform: scale(1.05);
+        }
     }
 
     .cover-placeholder {

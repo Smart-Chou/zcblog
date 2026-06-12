@@ -122,7 +122,13 @@ html[data-theme="dark"] pagefind-modal {
 }
 
 /* 标题行 hover / 键盘选中 */
-.custom-header:hover,
+@media (hover: hover) {
+    .custom-header:hover,
+    .custom-header:focus-within {
+        background: var(--search-primary-light);
+        box-shadow: inset 3px 0 0 var(--search-primary);
+    }
+}
 .custom-header:focus-within {
     background: var(--search-primary-light);
     box-shadow: inset 3px 0 0 var(--search-primary);
@@ -160,7 +166,14 @@ html[data-theme="dark"] pagefind-modal {
 }
 
 /* 标题行 hover/focus 时图标放大变色 */
-.custom-header:hover .custom-icon,
+@media (hover: hover) {
+    .custom-header:hover .custom-icon,
+    .custom-header:focus-within .custom-icon {
+        transform: scale(1.05);
+        background: var(--search-primary);
+        color: #fff;
+    }
+}
 .custom-header:focus-within .custom-icon {
     transform: scale(1.05);
     background: var(--search-primary);
@@ -168,7 +181,12 @@ html[data-theme="dark"] pagefind-modal {
 }
 
 /* 标题行 hover/focus 时图标连接线变色 */
-.custom-header:hover .custom-icon::after,
+@media (hover: hover) {
+    .custom-header:hover .custom-icon::after,
+    .custom-header:focus-within .custom-icon::after {
+        background: var(--search-primary);
+    }
+}
 .custom-header:focus-within .custom-icon::after {
     background: var(--search-primary);
 }
@@ -184,10 +202,12 @@ html[data-theme="dark"] pagefind-modal {
     white-space: nowrap;
 }
 
-.custom-link:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1.5px;
-    text-underline-offset: 3px;
+@media (hover: hover) {
+    .custom-link:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 1.5px;
+        text-underline-offset: 3px;
+    }
 }
 
 .custom-link:focus-visible {
@@ -234,7 +254,13 @@ html[data-theme="dark"] pagefind-modal {
 }
 
 /* 子结果 hover / 键盘选中 */
-.custom-sub:hover,
+@media (hover: hover) {
+    .custom-sub:hover,
+    .custom-sub:focus-within {
+        background: var(--search-primary-light);
+        box-shadow: inset 3px 0 0 var(--search-primary);
+    }
+}
 .custom-sub:focus-within {
     background: var(--search-primary-light);
     box-shadow: inset 3px 0 0 var(--search-primary);
@@ -253,7 +279,12 @@ html[data-theme="dark"] pagefind-modal {
 }
 
 /* 子结果 hover/focus 时树枝变色 */
-.custom-sub:hover .custom-branch,
+@media (hover: hover) {
+    .custom-sub:hover .custom-branch,
+    .custom-sub:focus-within .custom-branch {
+        background: var(--search-primary);
+    }
+}
 .custom-sub:focus-within .custom-branch {
     background: var(--search-primary);
 }
@@ -275,10 +306,12 @@ html[data-theme="dark"] pagefind-modal {
     white-space: nowrap;
 }
 
-.custom-sub-link:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1.5px;
-    text-underline-offset: 3px;
+@media (hover: hover) {
+    .custom-sub-link:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 1.5px;
+        text-underline-offset: 3px;
+    }
 }
 
 .custom-sub-link:focus-visible {
