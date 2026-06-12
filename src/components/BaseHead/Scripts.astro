@@ -1,14 +1,15 @@
 ---
 interface Props {
     mathjax?: boolean;
+    katex?: boolean;
     mermaid?: boolean;
 }
 
-const { mathjax, mermaid } = Astro.props;
+const { mathjax, katex, mermaid } = Astro.props;
 ---
 
 <!-- Style / Scripts -->{
-    mathjax && (
+    (mathjax || katex) && (
         <script
             is:inline
             src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"

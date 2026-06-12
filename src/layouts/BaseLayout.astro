@@ -16,6 +16,7 @@ interface Props {
     publishedTime?: Date | string;
     modifiedTime?: Date | string;
     mathjax?: boolean;
+    katex?: boolean;
     mermaid?: boolean;
     fullWidth?: boolean;
     locale?: string;
@@ -34,6 +35,7 @@ const {
     publishedTime,
     modifiedTime,
     mathjax = false,
+    katex = false,
     mermaid = false,
     fullWidth = false,
     locale = "zh",
@@ -57,6 +59,7 @@ const lang = locale === "en" ? "en" : "zh-CN";
         publishedTime={publishedTime}
         modifiedTime={modifiedTime}
         mathjax={mathjax}
+        katex={katex}
         mermaid={mermaid}
         prevUrl={prevUrl}
         nextUrl={nextUrl}

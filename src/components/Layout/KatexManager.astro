@@ -1,13 +1,14 @@
 ---
 interface Props {
     mathjax?: boolean;
+    katex?: boolean;
 }
 
-const { mathjax = false } = Astro.props;
+const { mathjax = false, katex = false } = Astro.props;
 ---
 
 {
-    mathjax && (
+    (mathjax || katex) && (
         <link
             rel="stylesheet"
             href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"

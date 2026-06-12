@@ -37,6 +37,7 @@ const {
         donate: false,
         toc: false,
         mathjax: false,
+        katex: false,
         mermaid: false,
     },
     slug,
@@ -94,6 +95,7 @@ const firstTag = currentTags[0] || "";
     publishedTime={publishedTime}
     modifiedTime={modifiedTime}
     mathjax={frontmatter.mathjax}
+    katex={frontmatter.katex}
     mermaid={frontmatter.mermaid}
     prevUrl={prevUrl}
     nextUrl={nextUrl}

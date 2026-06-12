@@ -73,7 +73,10 @@ function wrapSvg(svgContent: string, isFallback: boolean): string {
 }
 
 export function remarkCodeBlocks() {
-    return async (tree: any) => {
+    return async (tree: any, vfile: any) => {
+        const frontmatter = vfile?.data?.astro?.frontmatter ?? {};
+        const plantumlEnabled = frontmatter.plantuml === true;
+
         const plantumlNodes: { node: any; encoded: string }[] = [];
 
         visit(tree, "code", (node: any) => {
@@ -152,9 +155,9 @@ export function remarkCodeBlocks() {
                 return;
             }
 
-            // PlantUML — 收集后异步处理
+            // PlantUML — 仅当 frontmatter.plantuml 为 true 时处理
             if (lang === "plantuml") {
-                if (node.value && node.value.trim()) {
+                if (plantumlEnabled && node.value && node.value.trim()) {
                     plantumlNodes.push({ node, encoded: encodePlantUML(node.value) });
                 }
                 return;

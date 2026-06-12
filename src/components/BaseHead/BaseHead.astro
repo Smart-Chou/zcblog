@@ -21,6 +21,7 @@ interface Props {
     image?: string;
     imageAlt?: string;
     mathjax?: boolean;
+    katex?: boolean;
     mermaid?: boolean;
     keywords?: string | string[];
     publishedTime?: Date | string;
@@ -37,6 +38,7 @@ const {
     image = "",
     imageAlt = "",
     mathjax,
+    katex,
     mermaid,
     keywords = [],
     publishedTime,
@@ -134,8 +136,8 @@ const {
     <Favicon />
     <JsonLd title={title} description={description} image={image} modifiedTime={modifiedTime} />
     <Analytics />
-    <KatexManager mathjax={mathjax} />
-    <Scripts mathjax={mathjax} mermaid={mermaid} />
+    <KatexManager mathjax={mathjax} katex={katex} />
+    <Scripts mathjax={mathjax} katex={katex} mermaid={mermaid} />
     <ClientRouter fallback="none" />
 
     <SeoLinks prevUrl={prevUrl} nextUrl={nextUrl} noEnAlternate={noEnAlternate} />
