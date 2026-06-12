@@ -1,0 +1,12 @@
+---
+import { imageService } from "~/config";
+---
+
+<!-- 预连接到外部资源 -->
+<link rel="preconnect" href={imageService.baseUrl} crossorigin />
+<link rel="dns-prefetch" href={imageService.baseUrl} />
+<link rel="dns-prefetch" href="https://cdn.bootcdn.net" />
+<link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin />
+
+<!-- Pagefind 搜索 CSS（静态声明，确保 SPA 导航后样式不丢失） -->
+<link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />

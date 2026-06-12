@@ -1,0 +1,35 @@
+---
+interface Props {
+    prevUrl?: string | null;
+    nextUrl?: string | null;
+    noEnAlternate?: boolean;
+}
+
+const { prevUrl, nextUrl, noEnAlternate = false } = Astro.props;
+
+const siteUrl = (Astro.site?.toString() || "").replace(/\/$/, "");
+const currentPath = Astro.url.pathname;
+const isEnglish = currentPath.startsWith("/en/");
+const zhPath = isEnglish ? currentPath.replace(/^\/en/, "") : currentPath;
+const enPath = isEnglish ? currentPath : "/en" + currentPath;
+---
+
+<!-- canonical -->
+<link rel="canonical" href={Astro.url.href} />
+
+<!-- RSS -->
+<link
+    rel="alternate"
+    type="application/rss+xml"
+    title="RSS Feed"
+    href={isEnglish ? "/en/rss.xml" : "/rss.xml"}
+/>
+
+<!-- 分页导航 -->
+{prevUrl && <link rel="prev" href={prevUrl} />}
+{nextUrl && <link rel="next" href={nextUrl} />}
+
+<!-- hreflang 多语言标注 -->
+<link rel="alternate" hreflang="zh" href={siteUrl + zhPath} />
+{!noEnAlternate && <link rel="alternate" hreflang="en" href={siteUrl + enPath} />}
+<link rel="alternate" hreflang="x-default" href={siteUrl + zhPath} />
