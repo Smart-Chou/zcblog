@@ -89,50 +89,28 @@ const enPath = isEnglish ? currentPath : "/en" + currentPath;
 
     <script is:inline>
         (function () {
-            var savedTheme = null;
-            try {
-                savedTheme = localStorage.getItem("preferredTheme");
-            } catch (e) {
-                // localStorage 不可用（iOS Safari 隐私模式 / ITP 限制等），回退到系统主题
-            }
-
-            var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            var isDark = savedTheme === "dark" || (savedTheme === null && systemDark);
-
-            if (isDark) {
-                document.documentElement.classList.add("dark");
-                document.documentElement.setAttribute("data-theme", "dark");
-                document.documentElement.style.colorScheme = "dark";
-            } else {
-                document.documentElement.classList.remove("dark");
-                document.documentElement.setAttribute("data-theme", "light");
-                document.documentElement.style.colorScheme = "light";
-            }
-
-            // 在 View Transitions 开始前就设置主题，避免过渡过程中出现白底闪烁
-            function applyTheme() {
-                var savedTheme = null;
+            function getTheme() {
                 try {
-                    savedTheme = localStorage.getItem("preferredTheme");
-                } catch (e) {}
-
-                var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-                var isDark = savedTheme === "dark" || (savedTheme === null && systemDark);
-
-                if (isDark) {
-                    document.documentElement.classList.add("dark");
-                    document.documentElement.setAttribute("data-theme", "dark");
-                    document.documentElement.style.colorScheme = "dark";
-                } else {
-                    document.documentElement.classList.remove("dark");
-                    document.documentElement.setAttribute("data-theme", "light");
-                    document.documentElement.style.colorScheme = "light";
+                    return localStorage.getItem("preferredTheme");
+                } catch (e) {
+                    return null;
                 }
             }
 
-            // astro:before-swap 在过渡动画之前触发，提前设置主题避免闪烁
+            function applyTheme() {
+                const saved = getTheme();
+                const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                const isDark = saved === "dark" || (saved === null && systemDark);
+                document.documentElement.classList.toggle("dark", isDark);
+                document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+                document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+            }
+
+            // 首屏：立即应用主题，避免闪烁
+            applyTheme();
+
+            // View Transitions 切换前/后重新应用主题
             document.addEventListener("astro:before-swap", applyTheme);
-            // astro:after-swap 作为备用，确保新页面加载后主题正确
             document.addEventListener("astro:after-swap", applyTheme);
 
             // 过渡期间冻结页面 CSS 动画/过渡，防止视图抖动
