@@ -7,7 +7,7 @@
 @import url(./base.css) layer(base);
 @import url(./typography.css) layer(typography);
 @import url(./components.css) layer(components);
-@import url("@pagefind/default-ui/css/ui.css");
+@import url("@pagefind/component-ui/css");
 @import url(./pagefind-props.css);
 @import url(./search-global.css);
 @import url(./transitions.css);

@@ -42,7 +42,7 @@
         "@expressive-code/plugin-collapsible-sections": "^0.41.7",
         "@expressive-code/plugin-line-numbers": "^0.41.7",
         "@fancyapps/ui": "^6.1.14",
-        "@pagefind/default-ui": "^1.5.2",
+        "@pagefind/component-ui": "^1.5.2",
         "@tailwindcss/vite": "^4.3.0",
         "@waline/client": "^3.15.2",
         "astro": "^6.4.5",

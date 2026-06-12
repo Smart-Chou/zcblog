@@ -26,6 +26,9 @@ export async function searchPagefind({
             keepIndexUrl: pagefindConfig.keepIndexUrl,
             writePlayground: pagefindConfig.writePlayground,
             includeCharacters: pagefindConfig.includeCharacters,
+            rootSelector: pagefindConfig.rootSelector,
+            verbose: pagefindConfig.verbose,
+            logfile: pagefindConfig.logfile,
         });
 
         const { index } = assertPagefindResponse<pagefind.NewIndexResponse>(
