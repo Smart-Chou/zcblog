@@ -73,7 +73,7 @@ function wrapSvg(svgContent: string, isFallback: boolean): string {
 }
 
 export function remarkCodeBlocks() {
-    return async (tree: any, vfile: any) => {
+    return async (tree: any, vfile?: any) => {
         const frontmatter = vfile?.data?.astro?.frontmatter ?? {};
         const plantumlEnabled = frontmatter.plantuml === true;
 

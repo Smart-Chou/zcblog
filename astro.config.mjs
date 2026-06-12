@@ -52,7 +52,7 @@ export default defineConfig({
     markdown: {
         processor: unified({
             remarkPlugins: [
-                remarkMath,
+                [remarkMath, { singleDollarTextMath: false }],
                 remarkInlineSyntax,
                 remarkCodeBlocks,
                 remarkDirective,
