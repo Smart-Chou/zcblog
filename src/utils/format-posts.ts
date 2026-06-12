@@ -1,3 +1,5 @@
+import { sortByPubDate } from "./date-utils";
+
 interface FormatPostInput {
     id?: string;
     body?: string;
@@ -36,11 +38,7 @@ export function formatPosts<T extends FormatPostInput>(
 
     // sortByDate or randomize
     if (sortByDate) {
-        filteredPosts.sort((a, b) => {
-            const dateA = new Date(a.data.pubDate).getTime();
-            const dateB = new Date(b.data.pubDate).getTime();
-            return dateB - dateA;
-        });
+        return sortByPubDate(filteredPosts);
     } else {
         filteredPosts.sort(() => Math.random() - 0.5);
     }

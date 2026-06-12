@@ -1,6 +1,7 @@
 ---
 import { getAllArticles } from "~/utils/article-stats";
 import { sortByPubDate } from "~/utils/date-utils";
+import { getAdjacentPosts } from "~/utils/adjacent-posts";
 import "~/styles/remark-aside.css";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
@@ -46,13 +47,13 @@ const {
     noEnAlternate = false,
 } = Astro.props;
 
-const allPosts = await getAllArticles();
-const sorted = sortByPubDate(allPosts);
-const currentIndex = sorted.findIndex((post) => post.id === slug);
-const prevSlug = currentIndex > 0 ? sorted[currentIndex - 1]?.id : null;
-const nextSlug = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1]?.id : null;
+const { prev: prevSlug, next: nextSlug } = await getAdjacentPosts(slug);
 const prevUrl = prevSlug ? `/article/${prevSlug}/` : null;
 const nextUrl = nextSlug ? `/article/${nextSlug}/` : null;
+
+// 相关文章计算需要排序后的完整文章列表
+const allPosts = await getAllArticles();
+const sorted = sortByPubDate(allPosts);
 
 const today = new Date();
 const publishedTime = frontmatter.pubDate;

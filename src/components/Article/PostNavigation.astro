@@ -1,6 +1,6 @@
 ---
+import { getAdjacentPosts } from "~/utils/adjacent-posts";
 import { getAllArticles } from "~/utils/article-stats";
-import { sortByPubDate } from "~/utils/date-utils";
 
 interface Props {
     slug: string;
@@ -8,11 +8,13 @@ interface Props {
 
 const { slug } = Astro.props;
 
+// 用 getAdjacentPosts 获取 slug（模块级缓存，O(1) 索引查找）
+const { prev: prevSlug, next: nextSlug } = await getAdjacentPosts(slug);
+
+// getAllArticles 由 Astro 内容层缓存，无额外开销
 const allPosts = await getAllArticles();
-const sorted = sortByPubDate(allPosts);
-const currentIndex = sorted.findIndex((post) => post.id === slug);
-const prevPost = currentIndex > 0 ? sorted[currentIndex - 1] : null;
-const nextPost = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
+const prevPost = prevSlug ? allPosts.find((p) => p.id === prevSlug) ?? null : null;
+const nextPost = nextSlug ? allPosts.find((p) => p.id === nextSlug) ?? null : null;
 ---
 
 {

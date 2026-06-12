@@ -1,11 +1,13 @@
-/** 按 pubDate 降序排列（最新在前） */
-export function sortByPubDate<T extends { data: { pubDate: Date } }>(posts: T[]): T[] {
+/** 按 pubDate 降序排列（最新在前）。支持 Date 和 string 类型的 pubDate。 */
+export function sortByPubDate<T extends { data: { pubDate: Date | string } }>(posts: T[]): T[] {
     return [...posts].sort(compareByPubDate);
 }
 
-/** pubDate 降序比较器，用于自定义排序中作为回退 */
-export function compareByPubDate<T extends { data: { pubDate: Date } }>(a: T, b: T): number {
-    return b.data.pubDate.getTime() - a.data.pubDate.getTime();
+/** pubDate 降序比较器，用于自定义排序中作为回退。支持 Date 和 string 类型。 */
+export function compareByPubDate<T extends { data: { pubDate: Date | string } }>(a: T, b: T): number {
+    const aTime = typeof a.data.pubDate === "string" ? new Date(a.data.pubDate).getTime() : a.data.pubDate.getTime();
+    const bTime = typeof b.data.pubDate === "string" ? new Date(b.data.pubDate).getTime() : b.data.pubDate.getTime();
+    return bTime - aTime;
 }
 
 export function formatDateToYYYYMMDD(date: Date): string {

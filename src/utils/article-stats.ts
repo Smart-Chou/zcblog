@@ -6,21 +6,33 @@ export function getAllArticles(): Promise<CollectionEntry<"article">[]> {
     return getCollection("article");
 }
 
+// ── 模块级缓存：全站统计只计算一次 ──
+let _statsCache: ArticleStats | null = null;
+
+/** 使缓存失效（内容更新后调用）。 */
+export function invalidateStatsCache(): void {
+    _statsCache = null;
+}
+
 export interface ArticleStats {
     totalPosts: number;
     totalTags: number;
-    totalWordCount: number;
+    /** 去除空格后的总字符数（中文博客中"字数"以字符计） */
+    totalCharCount: number;
 }
 
 export async function getArticleStats(): Promise<ArticleStats> {
+    if (_statsCache) return _statsCache;
+
     const allPosts = await getAllArticles();
     const totalPosts = allPosts.length;
     const totalTags = new Set(getAllTags(allPosts)).size;
-    const totalWordCount = allPosts.reduce((sum: number, post: CollectionEntry<"article">) => {
+    const totalCharCount = allPosts.reduce((sum: number, post: CollectionEntry<"article">) => {
         const body = post.body || "";
         return sum + body.replace(/\s+/g, "").length;
     }, 0);
-    return { totalPosts, totalTags, totalWordCount };
+    _statsCache = { totalPosts, totalTags, totalCharCount };
+    return _statsCache;
 }
 
 /**
