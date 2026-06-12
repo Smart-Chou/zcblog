@@ -35,8 +35,25 @@ const alipayQR = getQRImage(donate.alipayQRCode);
     }
 
     @media screen and (max-width: 450px) {
-        .donate {
-            display: none;
+        .donate .reward-btn {
+            width: 100%;
+            font-size: 0.85em;
+            height: 36px;
+        }
+
+        .donate .modal {
+            width: calc(100% - 32px);
+            max-height: 90vh;
+            margin: auto;
+        }
+
+        .donate .modal .modal-main .modal-content {
+            max-height: calc(80vh - 64px);
+            padding: 16px;
+        }
+
+        .donate .reward-card .qr {
+            grid-template-columns: 1fr;
         }
     }
 
@@ -75,6 +92,8 @@ const alipayQR = getQRImage(donate.alipayQRCode);
         animation: fade-up 0.5s forwards;
         width: calc(100% - 40px);
         max-width: 430px;
+        /* 确保在移动端居中（显式声明，避免浏览器默认行为不一致） */
+        margin: auto;
     }
 
     .donate .modal::backdrop {
