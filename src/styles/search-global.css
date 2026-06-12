@@ -109,18 +109,23 @@ html[data-theme="dark"] pagefind-modal {
     background: var(--search-bg-stripe);
 }
 
-.custom-result-item:hover,
-.custom-result-item:focus-within {
-    background: var(--search-primary-light);
-    box-shadow: inset 3px 0 0 var(--search-primary);
-}
-
 /* ---- 标题行（文件图标 + 标题链接）---- */
 .custom-header {
     display: flex;
     align-items: center;
     gap: 10px;
     position: relative;
+    padding: 8px 12px;
+    margin: -8px -12px;
+    border-radius: 8px;
+    transition: background-color 0.15s ease;
+}
+
+/* 标题行 hover / 键盘选中 */
+.custom-header:hover,
+.custom-header:focus-within {
+    background: var(--search-primary-light);
+    box-shadow: inset 3px 0 0 var(--search-primary);
 }
 
 .custom-icon {
@@ -151,15 +156,20 @@ html[data-theme="dark"] pagefind-modal {
     height: 8px;
     background: var(--search-border);
     border-radius: 1px;
+    transition: background 0.2s ease;
 }
 
-.custom-result-item:hover .custom-icon {
+/* 标题行 hover/focus 时图标放大变色 */
+.custom-header:hover .custom-icon,
+.custom-header:focus-within .custom-icon {
     transform: scale(1.05);
     background: var(--search-primary);
     color: #fff;
 }
 
-.custom-result-item:hover .custom-icon::after {
+/* 标题行 hover/focus 时图标连接线变色 */
+.custom-header:hover .custom-icon::after,
+.custom-header:focus-within .custom-icon::after {
     background: var(--search-primary);
 }
 
@@ -178,6 +188,10 @@ html[data-theme="dark"] pagefind-modal {
     text-decoration: underline;
     text-decoration-thickness: 1.5px;
     text-underline-offset: 3px;
+}
+
+.custom-link:focus-visible {
+    outline: none;
 }
 
 /* ---- 树形主体（摘要 + 子结果，含主干竖线）---- */
@@ -212,18 +226,36 @@ html[data-theme="dark"] pagefind-modal {
 .custom-sub {
     position: relative;
     margin-top: 5px;
-    padding-left: 14px;
+    padding: 0 10px 6px 30px;
+    margin-right: -10px;
+    margin-left: -10px;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+}
+
+/* 子结果 hover / 键盘选中 */
+.custom-sub:hover,
+.custom-sub:focus-within {
+    background: var(--search-primary-light);
+    box-shadow: inset 3px 0 0 var(--search-primary);
 }
 
 /* 树枝：从主干向右延伸的横线，left:0 = sub 左边缘 = body 左边缘 = 主干 */
 .custom-branch {
     position: absolute;
-    left: 0;
+    left: 10px;
     top: 10px;
     width: 14px;
     height: 2px;
     background: var(--search-border);
     border-radius: 1px;
+    transition: background 0.15s ease;
+}
+
+/* 子结果 hover/focus 时树枝变色 */
+.custom-sub:hover .custom-branch,
+.custom-sub:focus-within .custom-branch {
+    background: var(--search-primary);
 }
 
 /* 无子结果时，隐藏图标连接线 */
@@ -247,6 +279,10 @@ html[data-theme="dark"] pagefind-modal {
     text-decoration: underline;
     text-decoration-thickness: 1.5px;
     text-underline-offset: 3px;
+}
+
+.custom-sub-link:focus-visible {
+    outline: none;
 }
 
 .custom-sub-excerpt {
