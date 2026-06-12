@@ -38,9 +38,9 @@
         }
 
         const KEY = "loading-intro-shown";
-        let spinMs = 400;
+        let spinMs = 4000;
         try {
-            if (localStorage.getItem(KEY)) spinMs = 200;
+            if (localStorage.getItem(KEY)) spinMs = 2000;
             localStorage.setItem(KEY, "1");
         } catch (e) {}
 
@@ -48,12 +48,12 @@
             el.classList.add("loading-intro--done");
             setTimeout(() => {
                 if (el.parentNode) el.remove();
-            }, 350);
+            }, 3500);
         }, spinMs);
 
         setTimeout(() => {
             if (el.parentNode) el.remove();
-        }, 3500);
+        }, 35000);
     }
 
     if (!_loadingBound) {
