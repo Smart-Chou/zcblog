@@ -3,10 +3,11 @@ import { site, footerList } from "~/config";
 import { Image } from "astro:assets";
 import DynamicIcon from "../Icons/DynamicIcon.astro";
 import { getArticleStats } from "~/utils/article-stats";
+import { canHaveModifiers } from "typescript";
 
 const currentYear = new Date().getFullYear();
 
-const { totalPosts, totalTags, totalWordCount } = await getArticleStats();
+const { totalPosts, totalTags, totalCharCount } = await getArticleStats();
 
 function formatNumber(num: number): string {
     if (num >= 1000000) return `${(num / 1000000).toFixed(1)}m`;
@@ -15,9 +16,9 @@ function formatNumber(num: number): string {
 }
 
 const stats = [
-    { label: "文章", value: formatNumber(totalPosts) },
-    { label: "标签", value: formatNumber(totalTags) },
-    { label: "字数", value: formatNumber(totalWordCount) },
+    { label: "文章", value: formatNumber(totalPosts), url: "/archives/" },
+    { label: "标签", value: formatNumber(totalTags), url: "/tags/" },
+    { label: "字数", value: formatNumber(totalCharCount), url: "/archives/" },
 ];
 ---
 
@@ -26,7 +27,7 @@ const stats = [
     <div class="footer-stats" aria-label="站点统计">
         {
             stats.map((stat) => (
-                <a href="/article/" class="stat-item">
+                <a href={stat.url} class="stat-item">
                     <span class="stat-value">{stat.value}</span>
                     <span class="stat-label">{stat.label}</span>
                 </a>
