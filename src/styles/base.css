@@ -22,13 +22,20 @@
 
 html {
     font-size: var(--base-font-size);
-    scrollbar-gutter: stable;
     scroll-padding-top: 100px;
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     touch-action: manipulation;
+}
+
+/* 仅桌面端预留滚动条空间，防止内容宽度抖动 */
+/* 移动端（触摸设备）滚动条为半透明覆盖层，预留空间反而产生右侧空白 */
+@media (hover: hover) and (pointer: fine) {
+    html {
+        scrollbar-gutter: stable;
+    }
 }
 
 * {

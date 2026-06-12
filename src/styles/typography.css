@@ -268,8 +268,10 @@ sup {
 
     pre {
         padding: calc(var(--space) * 0.5);
-        margin: 1em 0;
+        margin: 1em calc(-0.5 * var(--space));
         font-size: 0.85em;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     table {

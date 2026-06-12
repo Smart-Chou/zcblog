@@ -13,6 +13,13 @@
     contain-intrinsic-size: auto 280px;
 }
 
+/* 移动端卡片更矮，缩小首次渲染占位避免 CLS */
+@media (max-width: 768px) {
+    .post-card:nth-child(n + 4) {
+        contain-intrinsic-size: auto 220px;
+    }
+}
+
 .page-container {
     min-height: 100vh;
     display: flex;
@@ -162,6 +169,7 @@
 .hero-typewriter {
     text-align: center;
     margin: -1rem auto -6rem;
+    padding-bottom: 1.5rem;
     font-size: 1.05em;
     color: var(--color-muted);
     min-height: 1.8em;
@@ -544,6 +552,8 @@
    7. Friends — Floating Pills
    ======================================== */
 .friends-section {
+    /* 全宽突破父容器：100vw 撑满视口 + 负 margin 居中 */
+    /* scrollbar-gutter 已限制为桌面端，移动端不会因此溢出 */
     width: 100vw;
     max-width: none;
     margin: 0 calc(-50vw + 50%) 3rem;
@@ -733,12 +743,16 @@
     .photos-grid {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
-        grid-auto-rows: 160px;
+        grid-auto-rows: auto;
 
         &:is(.photos-grid--large) {
             grid-template-columns: 1fr 1fr;
             grid-template-rows: auto;
         }
+    }
+
+    .photo-item {
+        aspect-ratio: 4 / 3;
     }
 
     .photo-item:first-child {
@@ -785,6 +799,12 @@
         }
     }
 
+    .hero-typewriter {
+        margin-top: 0;
+        font-size: 0.95em;
+        padding-bottom: 1rem;
+    }
+
     .hero-stats {
         gap: 1rem;
         flex-wrap: wrap;
@@ -802,7 +822,7 @@
     .photos-grid--large {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
-        grid-auto-rows: 140px;
+        grid-auto-rows: auto;
         gap: 0.5rem;
     }
 
