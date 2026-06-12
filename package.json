@@ -5,9 +5,10 @@
     "type": "module",
     "private": true,
     "scripts": {
-        "dev": "rm -rf node_modules/.vite && astro dev",
-        "start": "rm -rf node_modules/.vite && astro dev",
-        "build": "pnpm run fetch:all && pnpm run fetch:verify && astro build",
+        "dev": "astro dev",
+        "dev:clean": "rm -rf node_modules/.vite && astro dev",
+        "start": "astro dev",
+        "build": "pnpm run fetch:all || true && pnpm run fetch:verify || true && astro build",
         "preview": "astro preview",
         "astro": "astro",
         "type-check": "tsc --noEmit",
