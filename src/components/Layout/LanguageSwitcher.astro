@@ -108,7 +108,8 @@ const localeLabels: Record<string, string> = {
     }
 
     .language-switcher:hover .language-switcher-dropdown,
-    .language-switcher:focus-within .language-switcher-dropdown {
+    .language-switcher:focus-within .language-switcher-dropdown,
+    .language-switcher-button[aria-expanded="true"] + .language-switcher-dropdown {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
@@ -142,3 +143,27 @@ const localeLabels: Record<string, string> = {
         }
     }
 </style>
+
+<script>
+    // 移动端 click 切换下拉菜单（触摸设备不支持 hover）
+    (function () {
+        const btn = document.querySelector<HTMLButtonElement>(".language-switcher-button");
+        if (!btn) return;
+
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const expanded = btn.getAttribute("aria-expanded") === "true";
+            btn.setAttribute("aria-expanded", String(!expanded));
+        });
+
+        // 点击外部关闭
+        document.addEventListener("click", () => {
+            btn.setAttribute("aria-expanded", "false");
+        });
+
+        // SPA 导航后重置
+        document.addEventListener("astro:after-swap", () => {
+            btn.setAttribute("aria-expanded", "false");
+        });
+    })();
+</script>
