@@ -6,15 +6,18 @@
 ---
 
 <script is:inline>
-    var pfBase = "/pagefind/";
-    var link = document.createElement("link");
-    link.href = pfBase + "pagefind-component-ui.css";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
-    var s = document.createElement("script");
-    s.src = pfBase + "pagefind-component-ui.js";
-    s.type = "module";
-    document.head.appendChild(s);
+    (function () {
+        const pfBase = "/pagefind/";
+        const jsSrc = pfBase + "pagefind-component-ui.js";
+
+        // 只加载一次 JS 模块（浏览器不会重复执行同 src 的 module）
+        if (!document.querySelector(`script[src="${jsSrc}"]`)) {
+            const s = document.createElement("script");
+            s.src = jsSrc;
+            s.type = "module";
+            document.head.appendChild(s);
+        }
+    })();
 </script>
 
 <pagefind-modal-trigger placeholder="搜索" shortcut="mod+k"></pagefind-modal-trigger>
@@ -37,4 +40,45 @@
 
 <script>
     import "../../scripts/search-template.js";
+
+    // View Transition 的 DOM morphing 会破坏 Pagefind 内部创建的 <dialog> 元素。
+    // 导航后完全销毁旧实例并创建新实例，确保 clean state。
+    //
+    // 两个关键修复：
+    // 1. 过滤掉旧的 <dialog> 子元素 — morph 后 render() 会把旧 dialog 塞进新 dialog
+    //    导致嵌套 dialog（外层空壳 → 只有遮罩无内容）
+    // 2. 清除 Pagefind instance 中的旧 utility 注册 — cleanup() 不会自动注销，
+    //    导致 getUtilities("modal")[0] 返回已脱离文档的旧 modal → showModal() 报错
+    document.addEventListener("astro:after-swap", () => {
+        const oldTrigger = document.querySelector("pagefind-modal-trigger");
+        const oldModal = document.querySelector("pagefind-modal");
+        if (!oldTrigger || !oldModal) return;
+
+        // 清除旧 utility 注册，防止 getUtilities("modal")[0] 返回已脱离文档的旧 modal
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((oldModal as any).instance?.componentsByType) {
+            (oldModal as any).instance.componentsByType.utility = [];
+        }
+
+        // 获取 light DOM 子元素，排除 Pagefind 内部创建的 <dialog>（morph 后已损坏）
+        const children = Array.from(oldModal.childNodes).filter(
+            (node) => !(node instanceof HTMLElement) || node.tagName !== "DIALOG"
+        );
+
+        // 创建新 modal，先移入子元素
+        const newModal = document.createElement("pagefind-modal");
+        newModal.setAttribute("reset-on-close", "");
+        for (const child of children) {
+            newModal.appendChild(child);
+        }
+
+        // 创建新 trigger
+        const newTrigger = document.createElement("pagefind-modal-trigger");
+        newTrigger.setAttribute("placeholder", "搜索");
+        newTrigger.setAttribute("shortcut", "mod+k");
+
+        // 先替换 modal（connectedCallback 创建 dialog），再替换 trigger（找到 modal）
+        oldModal.replaceWith(newModal);
+        oldTrigger.replaceWith(newTrigger);
+    });
 </script>

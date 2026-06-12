@@ -303,19 +303,23 @@ html[data-theme="dark"] pagefind-modal {
 
 /* ---- 移动端：只显示搜索图标 ---- */
 @media (max-width: 640px) {
-    /* 隐藏文字和快捷键（Pagefind 有 display:revert 覆盖，必须 !important） */
+    /* 隐藏文字和快捷键 */
     pagefind-modal-trigger .pf-trigger-text,
     pagefind-modal-trigger .pf-trigger-shortcut {
         display: none !important;
     }
 
-    /* 按钮变正方形 + 圆形 */
+    /* 按钮变正方形 + 圆形，不依赖 .pf-trigger-btn 类名 */
     pagefind-modal-trigger {
         --pf-input-height: 36px;
         --pf-border-radius: 50%;
+        max-width: 36px;
+        overflow: hidden;
     }
 
-    .pf-trigger-btn {
+    /* 回退选择器：兼容 Pagefind 不同版本的内部结构 */
+    .pf-trigger-btn,
+    pagefind-modal-trigger::part(button) {
         width: 36px !important;
         padding: 0 !important;
         display: inline-flex !important;
