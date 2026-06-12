@@ -191,7 +191,7 @@ html[data-theme="dark"] pagefind-modal {
 .custom-tree-body::before {
     content: "";
     position: absolute;
-    left: 0;
+    left: -1px;
     top: 0;
     bottom: 0;
     width: 2px;
@@ -224,27 +224,6 @@ html[data-theme="dark"] pagefind-modal {
     height: 2px;
     background: var(--search-border);
     border-radius: 1px;
-}
-
-/* 节点圆点（位于主干与树枝交汇处）*/
-.custom-dot {
-    position: absolute;
-    left: -4px;
-    top: 7px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--search-text-subtle);
-    border: 2px solid var(--search-modal-bg);
-    z-index: 1;
-    transition:
-        background 0.15s ease,
-        border-color 0.15s ease;
-}
-
-.custom-result-item:hover .custom-dot {
-    background: var(--search-primary);
-    border-color: var(--search-primary-light);
 }
 
 /* 无子结果时，隐藏图标连接线 */
