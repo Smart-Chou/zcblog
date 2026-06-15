@@ -92,7 +92,8 @@ html[data-theme="dark"] pagefind-modal {
     --pf-modal-backdrop: var(--search-backdrop);
 }
 
-:is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-footer, :is(*, #\#):is(*, #\#):is(*, #\#) .pf-modal-footer {
+:is(*, #\#):is(*, #\#):is(*, #\#) pagefind-modal-footer,
+:is(*, #\#):is(*, #\#):is(*, #\#) .pf-modal-footer {
     justify-content: space-between;
 }
 

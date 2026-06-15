@@ -30,14 +30,10 @@ function createResultTemplate(r, resultsEl) {
 
     var meta = (data && data.meta) || r.meta || {};
     // 部分 fragment meta 为空，兜底从 anchors[0].text 取标题
-    var title =
-        meta.title ||
-        (r.anchors && r.anchors[0] && r.anchors[0].text) ||
-        "";
+    var title = meta.title || (r.anchors && r.anchors[0] && r.anchors[0].text) || "";
     var url = (data && data.url) || r.url || meta.url || "";
     // 子结果：优先用官方过滤后的，回退到原始
-    var subs =
-        (data && data.sub_results) || (r.sub_results || []).slice(0, 6);
+    var subs = (data && data.sub_results) || (r.sub_results || []).slice(0, 6);
 
     var h = "";
 
@@ -55,12 +51,7 @@ function createResultTemplate(r, resultsEl) {
         '      <path d="M16 13H8M16 17H8M10 9H8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
     h += "    </svg>";
     h += "  </span>";
-    h +=
-        '  <a class="custom-link" href="' +
-        esc(url) +
-        '">' +
-        esc(title) +
-        "</a>";
+    h += '  <a class="custom-link" href="' + esc(url) + '">' + esc(title) + "</a>";
     h += "</div>";
 
     // ── 主摘要 + 子结果树（wrapper 保证竖线不断）──
@@ -70,10 +61,7 @@ function createResultTemplate(r, resultsEl) {
 
         // 主摘要
         if (hasExcerpt) {
-            h +=
-                '<p class="custom-excerpt">' +
-                ((data && data.excerpt) || r.excerpt) +
-                "</p>";
+            h += '<p class="custom-excerpt">' + ((data && data.excerpt) || r.excerpt) + "</p>";
         }
 
         // 子结果树
@@ -81,10 +69,7 @@ function createResultTemplate(r, resultsEl) {
             h += '<div class="custom-tree">';
             for (var i = 0; i < subs.length; i++) {
                 var s = subs[i];
-                h +=
-                    '<div class="custom-sub" data-url="' +
-                    esc(s.url) +
-                    '">';
+                h += '<div class="custom-sub" data-url="' + esc(s.url) + '">';
                 h += '  <span class="custom-branch"></span>';
                 h +=
                     '  <a class="custom-sub-link" href="' +
@@ -93,10 +78,7 @@ function createResultTemplate(r, resultsEl) {
                     esc(s.title) +
                     "</a>";
                 if (s.excerpt) {
-                    h +=
-                        '<p class="custom-sub-excerpt">' +
-                        s.excerpt +
-                        "</p>";
+                    h += '<p class="custom-sub-excerpt">' + s.excerpt + "</p>";
                 }
                 h += "</div>";
             }
@@ -146,9 +128,7 @@ function handleResultAuxClick(e) {
 
     var sub = e.target.closest(".custom-sub");
     var item = e.target.closest(".custom-result-item");
-    var url =
-        (sub && sub.getAttribute("data-url")) ||
-        (item && item.getAttribute("data-url"));
+    var url = (sub && sub.getAttribute("data-url")) || (item && item.getAttribute("data-url"));
     if (url) {
         e.preventDefault();
         window.open(url, "_blank");
