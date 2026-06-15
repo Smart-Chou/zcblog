@@ -729,17 +729,17 @@
         "tags": [
           {
             "name": "EVA",
-            "count": 5877,
+            "count": 5878,
             "total_cont": 0
           },
           {
             "name": "庵野秀明",
-            "count": 4797,
+            "count": 4798,
             "total_cont": 0
           },
           {
             "name": "剧场版",
-            "count": 4534,
+            "count": 4536,
             "total_cont": 0
           },
           {
@@ -769,7 +769,7 @@
           },
           {
             "name": "原创",
-            "count": 1541,
+            "count": 1542,
             "total_cont": 0
           },
           {
@@ -783,7 +783,7 @@
         "id": 6049,
         "eps": 2,
         "volumes": 0,
-        "collection_total": 39230,
+        "collection_total": 39232,
         "rank": 7
       },
       "subject_id": 6049,

@@ -1,20 +1,12 @@
 /**
- * Pagefind Component UI — 自定义结果模板
+ * Pagefind 搜索结果 — 自定义模板 + 点击增强
  *
- * 结构：文章主标题 + 树形子结果（每个子结果含自有摘要）
+ * 模板走官方 buildTemplateData() 数据流（保证 meta/url 结构一致），
+ * 同时兜底处理部分 fragment 缺少 meta.title 的情况。
  *
- *   📄 文章主标题          ← 点击跳转
- *     │
- *     ├─ 🌿 子标题 1       ← 点击跳转到锚点
- *     │     摘要文本
- *     └─ 🌿 子标题 2       ← 点击跳转到锚点
- *           摘要文本
- *
- * 样式定义在 src/styles/search-global.css（全局样式），
- * 因为模板 HTML 由 JS 动态生成，Astro scoped style 无法匹配。
+ * 点击：整行可点（包括空白区域），中键新标签页打开。
  */
 
-/** 避免 XSS：转义标题和 URL */
 function esc(str) {
     if (!str) return "";
     return str
@@ -24,15 +16,28 @@ function esc(str) {
         .replace(/>/g, "&gt;");
 }
 
-function createResultTemplate(r) {
-    var meta = r.meta || {};
-    // Pagefind 部分 fragment 的 meta 为空，兜底从 anchors[0] 取标题
+function createResultTemplate(r, resultsEl) {
+    // 走官方 buildTemplateData 获取一致的数据结构 + 子结果过滤
+    var opts = {
+        showSubResults: !resultsEl.hideSubResults,
+        maxSubResults: resultsEl.maxSubResults || 3,
+        linkTarget: resultsEl.linkTarget,
+        showImages: resultsEl.showImages,
+    };
+    var data = resultsEl.buildTemplateData
+        ? resultsEl.buildTemplateData.call(resultsEl, r, opts)
+        : null;
+
+    var meta = (data && data.meta) || r.meta || {};
+    // 部分 fragment meta 为空，兜底从 anchors[0].text 取标题
     var title =
         meta.title ||
         (r.anchors && r.anchors[0] && r.anchors[0].text) ||
         "";
-    var url = r.url || meta.url || "";
-    var subs = (r.sub_results || []).slice(0, 6);
+    var url = (data && data.url) || r.url || meta.url || "";
+    // 子结果：优先用官方过滤后的，回退到原始
+    var subs =
+        (data && data.sub_results) || (r.sub_results || []).slice(0, 6);
 
     var h = "";
 
@@ -58,13 +63,17 @@ function createResultTemplate(r) {
         "</a>";
     h += "</div>";
 
+    // ── 主摘要 ──
+    var mainExcerpt = (data && data.excerpt) || r.excerpt || "";
+    if (mainExcerpt) {
+        h += '<p class="custom-excerpt">' + mainExcerpt + "</p>";
+    }
+
     // ── 子结果树 ──
     if (subs.length > 0) {
         h += '<div class="custom-tree">';
         for (var i = 0; i < subs.length; i++) {
             var s = subs[i];
-            var isLast = i === subs.length - 1;
-
             h += '<div class="custom-sub" data-url="' + esc(s.url) + '">';
             h += '  <span class="custom-branch"></span>';
             h +=
@@ -88,19 +97,23 @@ function createResultTemplate(r) {
     return h;
 }
 
-/** 将自定义结果模板应用到当前的 <pagefind-results> 元素 */
-export function applyResultTemplate() {
+/** 将模板应用到当前的 <pagefind-results> 元素 */
+function applyResultTemplate() {
     var resultsEl = document.querySelector("pagefind-results");
     if (!resultsEl) return;
-    resultsEl.resultTemplate = createResultTemplate;
+    resultsEl.resultTemplate = function (r) {
+        return createResultTemplate(r, resultsEl);
+    };
 }
 
-// 点击事件委托：点击结果项的任意位置都可以跳转
+// 首次加载时应用
+customElements.whenDefined("pagefind-modal").then(applyResultTemplate);
+
+// ── 点击事件委托 ──
+
 function handleResultClick(e) {
-    // 如果点击的是 <a>，交给浏览器默认行为
     if (e.target.closest("a")) return;
 
-    // 优先检查是否点在子结果行上 → 跳转到锚点 URL
     var sub = e.target.closest(".custom-sub");
     if (sub) {
         var subUrl = sub.getAttribute("data-url");
@@ -108,21 +121,21 @@ function handleResultClick(e) {
         return;
     }
 
-    // 否则用主结果 URL
     var item = e.target.closest(".custom-result-item");
     if (!item) return;
     var url = item.getAttribute("data-url");
     if (url) window.location.href = url;
 }
 
-// 鼠标中键 / Ctrl+点击 → 新标签页打开
 function handleResultAuxClick(e) {
     if (e.button !== 1) return;
     if (e.target.closest("a")) return;
 
     var sub = e.target.closest(".custom-sub");
     var item = e.target.closest(".custom-result-item");
-    var url = (sub && sub.getAttribute("data-url")) || (item && item.getAttribute("data-url"));
+    var url =
+        (sub && sub.getAttribute("data-url")) ||
+        (item && item.getAttribute("data-url"));
     if (url) {
         e.preventDefault();
         window.open(url, "_blank");
@@ -132,5 +145,4 @@ function handleResultAuxClick(e) {
 document.addEventListener("click", handleResultClick);
 document.addEventListener("auxclick", handleResultAuxClick);
 
-// 首次加载时自动应用（等待 Pagefind 自定义元素注册完成）
-customElements.whenDefined("pagefind-modal").then(applyResultTemplate);
+export { applyResultTemplate };

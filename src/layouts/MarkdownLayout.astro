@@ -132,7 +132,7 @@ const firstTag = currentTags[0] || "";
                 </div>
             )
         }
-        <div id="post-content" class="post-content" data-pagefind-body>
+        <div id="post-content" class="post-content" data-pagefind-body data-pagefind-meta={`title:${frontmatter.title}`}>
             <h2 id="post-content-title" class="toc-ignore sr-only">
                 {frontmatter.title}
             </h2>

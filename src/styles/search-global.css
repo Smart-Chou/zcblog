@@ -227,6 +227,24 @@ html[data-theme="dark"] pagefind-modal {
     outline: none;
 }
 
+/* ---- 主摘要（标题下方，子结果上方）---- */
+.custom-excerpt {
+    margin: 6px 0 0 40px;
+    font-size: 13px;
+    color: var(--search-text-muted);
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}
+
+/* ---- 高亮 ---- */
+.custom-excerpt mark {
+    color: var(--search-highlight-color);
+    background: var(--search-highlight-bg);
+    font-weight: 600;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
 /* ---- 子结果树容器 ---- */
 .custom-tree {
     position: relative;

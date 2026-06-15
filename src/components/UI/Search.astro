@@ -112,13 +112,6 @@
 
     // View Transition 的 DOM morphing 会破坏 Pagefind 内部创建的 <dialog> 元素。
     // 导航后完全销毁旧实例并创建新实例，确保 clean state。
-    //
-    // 三个关键修复：
-    // 1. 过滤掉旧的 <dialog> 子元素 — morph 后 render() 会把旧 dialog 塞进新 dialog
-    //    导致嵌套 dialog（外层空壳 → 只有遮罩无内容）
-    // 2. 清除 Pagefind instance 中的旧 utility 注册 — cleanup() 不会自动注销，
-    //    导致 getUtilities("modal")[0] 返回已脱离文档的旧 modal → showModal() 报错
-    // 3. 重建后重新应用 resultTemplate — 元素 disconnect/connect 后内部状态可能丢失
     document.addEventListener("astro:after-swap", () => {
         const oldTrigger = document.querySelector("pagefind-modal-trigger");
         const oldModal = document.querySelector("pagefind-modal");
@@ -134,7 +127,7 @@
             (node) => !(node instanceof HTMLElement) || node.tagName !== "DIALOG",
         );
 
-        // 创建新 modal，先移入子元素
+        // 创建新 modal，移入子元素
         const newModal = document.createElement("pagefind-modal");
         newModal.setAttribute("reset-on-close", "");
         for (const child of children) {
@@ -146,11 +139,11 @@
         newTrigger.setAttribute("placeholder", "搜索");
         newTrigger.setAttribute("shortcut", "mod+k");
 
-        // 先替换 modal（connectedCallback 创建 dialog），再替换 trigger（找到 modal）
+        // 替换 DOM
         oldModal.replaceWith(newModal);
         oldTrigger.replaceWith(newTrigger);
 
-        // 重新应用自定义结果模板（Pagefind 内部 reconnect 后可能丢失）
+        // 重新应用模板
         applyResultTemplate();
     });
 </script>
