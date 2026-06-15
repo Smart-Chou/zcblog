@@ -170,7 +170,7 @@ html[data-theme="dark"] pagefind-modal {
     color: #fff;
 }
 
-/* 图标向下连接线 */
+/* 图标向下连接线（连通到 tree-body 主干） */
 .custom-icon::after {
     content: "";
     position: absolute;
@@ -178,14 +178,14 @@ html[data-theme="dark"] pagefind-modal {
     top: 100%;
     transform: translateX(-50%);
     width: 2px;
-    height: 8px;
+    height: 14px;
     background: var(--search-border);
     border-radius: 1px;
     transition: background 0.2s ease;
 }
 
-/* 无子结果时，隐藏图标连接线 */
-.custom-result-item:not(:has(.custom-tree)) .custom-icon::after {
+/* 无 tree-body 时隐藏图标连接线 */
+.custom-result-item:not(:has(.custom-tree-body)) .custom-icon::after {
     display: none;
 }
 
@@ -227,9 +227,27 @@ html[data-theme="dark"] pagefind-modal {
     outline: none;
 }
 
-/* ---- 主摘要（标题下方，子结果上方）---- */
+/* ---- 摘要 + 子结果树容器（wrapper 保证竖线连续）---- */
+.custom-tree-body {
+    position: relative;
+    margin-left: 15px; /* 对齐图标中心 */
+}
+
+/* 主干竖线：贯穿摘要 + 子结果树，对齐图标中心 */
+.custom-tree-body::before {
+    content: "";
+    position: absolute;
+    left: -1px; /* 对齐图标中心 */
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--search-border);
+    border-radius: 1px;
+}
+
+/* ---- 主摘要 ---- */
 .custom-excerpt {
-    margin: 6px 0 0 40px;
+    margin: 6px 0 0 14px;
     font-size: 13px;
     color: var(--search-text-muted);
     overflow-wrap: anywhere;
@@ -245,23 +263,9 @@ html[data-theme="dark"] pagefind-modal {
     padding: 0 2px;
 }
 
-/* ---- 子结果树容器 ---- */
+/* ---- 子结果树 ---- */
 .custom-tree {
     position: relative;
-    /* margin-left 对齐图标中心：14px(item padding) + 15px(icon half width) - 14px(item padding) = 15px */
-    margin-left: 15px;
-}
-
-/* 主干竖线：从顶贯穿到底，left:0 = body 左边缘 = 图标中心 */
-.custom-tree::before {
-    content: "";
-    position: absolute;
-    left: -1px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--search-border);
-    border-radius: 1px;
 }
 
 /* ---- 子结果（树枝 + 节点）---- */

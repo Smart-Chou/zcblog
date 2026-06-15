@@ -63,33 +63,46 @@ function createResultTemplate(r, resultsEl) {
         "</a>";
     h += "</div>";
 
-    // ── 主摘要 ──
-    var mainExcerpt = (data && data.excerpt) || r.excerpt || "";
-    if (mainExcerpt) {
-        h += '<p class="custom-excerpt">' + mainExcerpt + "</p>";
-    }
+    // ── 主摘要 + 子结果树（wrapper 保证竖线不断）──
+    var hasExcerpt = !!((data && data.excerpt) || r.excerpt);
+    if (hasExcerpt || subs.length > 0) {
+        h += '<div class="custom-tree-body">';
 
-    // ── 子结果树 ──
-    if (subs.length > 0) {
-        h += '<div class="custom-tree">';
-        for (var i = 0; i < subs.length; i++) {
-            var s = subs[i];
-            h += '<div class="custom-sub" data-url="' + esc(s.url) + '">';
-            h += '  <span class="custom-branch"></span>';
+        // 主摘要
+        if (hasExcerpt) {
             h +=
-                '  <a class="custom-sub-link" href="' +
-                esc(s.url) +
-                '">' +
-                esc(s.title) +
-                "</a>";
-            if (s.excerpt) {
+                '<p class="custom-excerpt">' +
+                ((data && data.excerpt) || r.excerpt) +
+                "</p>";
+        }
+
+        // 子结果树
+        if (subs.length > 0) {
+            h += '<div class="custom-tree">';
+            for (var i = 0; i < subs.length; i++) {
+                var s = subs[i];
                 h +=
-                    '<p class="custom-sub-excerpt">' +
-                    s.excerpt +
-                    "</p>";
+                    '<div class="custom-sub" data-url="' +
+                    esc(s.url) +
+                    '">';
+                h += '  <span class="custom-branch"></span>';
+                h +=
+                    '  <a class="custom-sub-link" href="' +
+                    esc(s.url) +
+                    '">' +
+                    esc(s.title) +
+                    "</a>";
+                if (s.excerpt) {
+                    h +=
+                        '<p class="custom-sub-excerpt">' +
+                        s.excerpt +
+                        "</p>";
+                }
+                h += "</div>";
             }
             h += "</div>";
         }
+
         h += "</div>";
     }
 
