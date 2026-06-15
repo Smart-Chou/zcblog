@@ -201,9 +201,9 @@ html[data-theme="dark"] pagefind-modal {
 }
 
 .custom-link {
-    font-weight: 600;
-    font-size: 15px;
-    color: var(--search-text);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--search-primary);
     text-decoration: none;
     line-height: 1.5;
     overflow: hidden;
@@ -211,6 +211,7 @@ html[data-theme="dark"] pagefind-modal {
     white-space: nowrap;
     flex: 1;
     min-width: 0;
+    transition: color 0.15s ease;
 }
 
 @media (hover: hover) {
@@ -218,6 +219,7 @@ html[data-theme="dark"] pagefind-modal {
         text-decoration: underline;
         text-decoration-thickness: 1.5px;
         text-underline-offset: 3px;
+        color: var(--search-text);
     }
 }
 

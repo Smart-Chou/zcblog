@@ -65,7 +65,7 @@ function createResultTemplate(r) {
             var s = subs[i];
             var isLast = i === subs.length - 1;
 
-            h += '<div class="custom-sub">';
+            h += '<div class="custom-sub" data-url="' + esc(s.url) + '">';
             h += '  <span class="custom-branch"></span>';
             h +=
                 '  <a class="custom-sub-link" href="' +
@@ -97,30 +97,36 @@ export function applyResultTemplate() {
 
 // 点击事件委托：点击结果项的任意位置都可以跳转
 function handleResultClick(e) {
-    // 找到最近的 .custom-result-item
-    var item = e.target.closest(".custom-result-item");
-    if (!item) return;
-
-    var url = item.getAttribute("data-url");
-    if (!url) return;
-
-    // 如果点击的是 <a> 标签，交给浏览器默认行为，不做额外处理
+    // 如果点击的是 <a>，交给浏览器默认行为
     if (e.target.closest("a")) return;
 
-    // 否则用 data-url 导航
-    window.location.href = url;
+    // 优先检查是否点在子结果行上 → 跳转到锚点 URL
+    var sub = e.target.closest(".custom-sub");
+    if (sub) {
+        var subUrl = sub.getAttribute("data-url");
+        if (subUrl) window.location.href = subUrl;
+        return;
+    }
+
+    // 否则用主结果 URL
+    var item = e.target.closest(".custom-result-item");
+    if (!item) return;
+    var url = item.getAttribute("data-url");
+    if (url) window.location.href = url;
 }
 
 // 鼠标中键 / Ctrl+点击 → 新标签页打开
 function handleResultAuxClick(e) {
-    if (e.button !== 1) return; // 只处理中键
-    var item = e.target.closest(".custom-result-item");
-    if (!item) return;
-    var url = item.getAttribute("data-url");
-    if (!url) return;
+    if (e.button !== 1) return;
     if (e.target.closest("a")) return;
-    e.preventDefault();
-    window.open(url, "_blank");
+
+    var sub = e.target.closest(".custom-sub");
+    var item = e.target.closest(".custom-result-item");
+    var url = (sub && sub.getAttribute("data-url")) || (item && item.getAttribute("data-url"));
+    if (url) {
+        e.preventDefault();
+        window.open(url, "_blank");
+    }
 }
 
 document.addEventListener("click", handleResultClick);
