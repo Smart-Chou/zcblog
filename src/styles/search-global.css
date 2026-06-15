@@ -97,7 +97,7 @@ html[data-theme="dark"] pagefind-modal {
 }
 
 /* ============================================
-   Custom result — 文件图标 + 树形连线
+   Custom result — 主标题 + 树形子结果
    必须放在全局样式表中，因为模板由 JS 动态生成
    ============================================ */
 
@@ -155,7 +155,22 @@ html[data-theme="dark"] pagefind-modal {
         background 0.2s ease;
 }
 
-/* 图标向下的连接线 */
+/* 标题行 hover/focus 时图标放大变色 */
+@media (hover: hover) {
+    .custom-header:hover .custom-icon,
+    .custom-header:focus-within .custom-icon {
+        transform: scale(1.05);
+        background: var(--search-primary);
+        color: #fff;
+    }
+}
+.custom-header:focus-within .custom-icon {
+    transform: scale(1.05);
+    background: var(--search-primary);
+    color: #fff;
+}
+
+/* 图标向下连接线 */
 .custom-icon::after {
     content: "";
     position: absolute;
@@ -169,19 +184,9 @@ html[data-theme="dark"] pagefind-modal {
     transition: background 0.2s ease;
 }
 
-/* 标题行 hover/focus 时图标放大变色 */
-@media (hover: hover) {
-    .custom-header:hover .custom-icon,
-    .custom-header:focus-within .custom-icon {
-        transform: scale(1.05);
-        background: var(--search-primary);
-        color: #fff;
-    }
-}
-.custom-header:focus-within .custom-icon {
-   transform: scale(1.05);
-    background: var(--search-primary);
-    color: #fff;
+/* 无子结果时，隐藏图标连接线 */
+.custom-result-item:not(:has(.custom-tree)) .custom-icon::after {
+    display: none;
 }
 
 /* 标题行 hover/focus 时图标连接线变色 */
@@ -204,6 +209,8 @@ html[data-theme="dark"] pagefind-modal {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    flex: 1;
+    min-width: 0;
 }
 
 @media (hover: hover) {
@@ -218,15 +225,15 @@ html[data-theme="dark"] pagefind-modal {
     outline: none;
 }
 
-/* ---- 树形主体（摘要 + 子结果，含主干竖线）---- */
-.custom-tree-body {
+/* ---- 子结果树容器 ---- */
+.custom-tree {
     position: relative;
     /* margin-left 对齐图标中心：14px(item padding) + 15px(icon half width) - 14px(item padding) = 15px */
     margin-left: 15px;
 }
 
-/* 主干竖线：从摘要顶贯穿到底，left:0 = body 左边缘 = 图标中心 */
-.custom-tree-body::before {
+/* 主干竖线：从顶贯穿到底，left:0 = body 左边缘 = 图标中心 */
+.custom-tree::before {
     content: "";
     position: absolute;
     left: -1px;
@@ -235,15 +242,6 @@ html[data-theme="dark"] pagefind-modal {
     width: 2px;
     background: var(--search-border);
     border-radius: 1px;
-}
-
-/* ---- 摘要 ---- */
-.custom-excerpt {
-    margin: 6px 0 0 14px;
-    font-size: 14px;
-    color: var(--search-text-muted);
-    overflow-wrap: anywhere;
-    line-height: 1.6;
 }
 
 /* ---- 子结果（树枝 + 节点）---- */
@@ -270,7 +268,7 @@ html[data-theme="dark"] pagefind-modal {
     box-shadow: inset 3px 0 0 var(--search-primary);
 }
 
-/* 树枝：从主干向右延伸的横线，left:0 = sub 左边缘 = body 左边缘 = 主干 */
+/* 树枝：从主干向右延伸的横线 */
 .custom-branch {
     position: absolute;
     left: 10px;
@@ -291,11 +289,6 @@ html[data-theme="dark"] pagefind-modal {
 }
 .custom-sub:focus-within .custom-branch {
     background: var(--search-primary);
-}
-
-/* 无子结果时，隐藏图标连接线 */
-.custom-result-item:not(:has(.custom-tree-body)) .custom-icon::after {
-    display: none;
 }
 
 .custom-sub-link {
@@ -330,7 +323,6 @@ html[data-theme="dark"] pagefind-modal {
 }
 
 /* ---- 高亮 ---- */
-.custom-excerpt mark,
 .custom-sub-excerpt mark {
     color: var(--search-highlight-color);
     background: var(--search-highlight-bg);
