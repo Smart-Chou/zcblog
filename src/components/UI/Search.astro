@@ -6,14 +6,82 @@
 ---
 
 <script is:inline>
+    // ============================================================
+    // 修复 Pagefind 中文 (CJK) 搜索分词不一致问题
+    //
+    // 背景：
+    //   Pagefind 构建时用 Rust 索引器分词，搜索时用浏览器的 Intl.Segmenter
+    //   分词。二者结果可能不一致，"好家伙" 索引时被拆成 "好家"+"伙"，搜索时
+    //   Intl.Segmenter 拆成 "好"+"家伙"，导致 "好家伙" 搜不到但 "好" 可以。
+    //
+    // 修复策略：
+    //   覆写 Intl.Segmenter，对 CJK 语言的 word 分词结果后处理：将包含
+    //   中日韩文字的单词拆为单字，非 CJK 单词（英文等）保持原样。
+    //   效果："好家伙" → "好 家 伙"，"LobeChat 导出" → "LobeChat 导 出"
+    //
+    // 注意：此修复仅在 Pagefind 修复索引/搜索分词对齐之前需要。
+    // ============================================================
     (function () {
-        const pfBase = "/pagefind/";
-        const jsSrc = pfBase + "pagefind-component-ui.js";
+        var O = typeof Intl !== "undefined" && Intl.Segmenter;
+        if (!O) return;
 
-        // 只加载一次 JS 模块（浏览器不会重复执行同 src 的 module）
-        if (!document.querySelector(`script[src="${jsSrc}"]`)) {
-            const s = document.createElement("script");
-            s.src = jsSrc;
+        var _Orig = O;
+        var cjkPrefixes = ["zh", "ja", "ko", "th"];
+        var cjkRe =
+            /\p{Script=Han}|\p{Script=Katakana}|\p{Script=Hiragana}|\p{Script=Hangul}|\p{Script=Thai}/u;
+
+        Intl.Segmenter = function (locales, options) {
+            var opts = options || {};
+            if (opts.granularity !== "word") {
+                return new _Orig(locales, opts);
+            }
+
+            var locale =
+                typeof locales === "string"
+                    ? locales
+                    : Array.isArray(locales) && locales.length > 0
+                      ? locales[0]
+                      : "";
+            var lang = locale.split("-")[0].toLowerCase();
+
+            if (!cjkPrefixes.includes(lang)) {
+                return new _Orig(locales, opts);
+            }
+
+            // CJK 语言：后处理 word 分词结果，将 CJK 单词拆为单字
+            var wordSeg = new _Orig(locales, { granularity: "word" });
+            var charSeg = new _Orig(locales, { granularity: "grapheme" });
+
+            return {
+                segment: function* (input) {
+                    for (var seg of wordSeg.segment(input)) {
+                        if (seg.isWordLike && cjkRe.test(seg.segment)) {
+                            var idx = seg.index;
+                            for (var g of charSeg.segment(seg.segment)) {
+                                yield {
+                                    segment: g.segment,
+                                    index: idx,
+                                    input: input,
+                                    isWordLike: true,
+                                };
+                                idx += g.segment.length;
+                            }
+                        } else {
+                            yield seg;
+                        }
+                    }
+                },
+            };
+        };
+
+        Intl.Segmenter.prototype = _Orig.prototype;
+
+        // 加载 Pagefind Component UI 模块
+        var base = "/pagefind/";
+        var src = base + "pagefind-component-ui.js";
+        if (!document.querySelector('script[src="' + src + '"]')) {
+            var s = document.createElement("script");
+            s.src = src;
             s.type = "module";
             document.head.appendChild(s);
         }

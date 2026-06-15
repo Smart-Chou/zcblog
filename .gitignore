@@ -61,3 +61,5 @@ docs/
 
 # Pagefind dev index
 public/pagefind/
+.impeccable/design.json
+.impeccable/live/config.json

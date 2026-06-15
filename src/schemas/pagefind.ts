@@ -36,4 +36,5 @@ export const pagefindConfig = pagefindConfigSchema.parse({
     excludeSelectors: ["nav", "footer", ".post-copyright", ".donate", ".toc", "script", "style"],
     includeCharacters: `，。！？；：""''（）【】[]`,
     glob: "article/**/*.{html}",
+    rootSelector: "[data-pagefind-body]",
 });
