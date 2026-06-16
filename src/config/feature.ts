@@ -147,13 +147,13 @@ export interface NoticeConfig {
 }
 
 export const notice: NoticeConfig = {
-    enable: false,
-    title: "",
-    content: "",
+    enable: true,
+    title: "AI 辅助写作声明",
+    content: "本博客部分内容采用 AI 辅助写作，请自行决定是否继续阅读。",
     path: "",
-    key: "",
-    showOnce: false,
-    confirm: false,
+    key: "notice-ai-writing",
+    showOnce: true,
+    confirm: true,
     confirmText: "知道了",
 };
 

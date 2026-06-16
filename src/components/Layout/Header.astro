@@ -43,7 +43,7 @@ const { searchEnable = search.enable } = Astro.props;
 <style>
     #progress-container {
         position: fixed;
-        top: 16px;
+        top: calc(16px + var(--notice-height, 0px));
         left: 0;
         right: 0;
         z-index: 100;
@@ -52,6 +52,7 @@ const { searchEnable = search.enable } = Astro.props;
         padding: 0 24px;
         view-transition-name: none;
         transform: translateZ(0);
+        transition: top 0.3s ease;
     }
 
     .nav-shell {
@@ -106,7 +107,7 @@ const { searchEnable = search.enable } = Astro.props;
 
     @media screen and (max-width: 768px) {
         #progress-container {
-            top: 0;
+            top: var(--notice-height, 0px);
             padding: 8px 12px;
         }
 
@@ -140,6 +141,14 @@ const { searchEnable = search.enable } = Astro.props;
 
         .header-left :global(.logo) {
             font-size: 0.8em;
+        }
+
+        .header-right :global(.language-switcher-button) {
+        padding: 6px 0;
+        }
+
+        .header-right :global(.toggle-theme) {
+            padding: 0;
         }
     }
 </style>

@@ -161,7 +161,7 @@ function isActive(href: string) {
         }
 
         .nav-menu-btn {
-            padding: 8px;
+            padding: 6px 8px;
             min-width: 40px;
             min-height: 40px;
             justify-content: center;
@@ -176,7 +176,7 @@ function isActive(href: string) {
         transform: translateX(-50%) translateY(-8px);
         z-index: 10;
         width: calc(100% - 48px);
-        max-width: var(--content-width);
+        max-width: var(--content-width-medium);
         padding: 0 32px;
         background: var(--color-surface);
         background: color-mix(in srgb, var(--color-surface) 90%, transparent);
@@ -237,10 +237,10 @@ function isActive(href: string) {
 
     @media screen and (max-width: 768px) {
         .nav-dropdown {
-            top: 60px;
-            width: calc(100% - 24px);
-            padding: 12px 16px;
-            border-radius: 20px;
+            top: 72px;
+            width: calc(100% - 144px);
+            padding: 0 16px;
+            border-radius: 32px;
         }
 
         .nav-dropdown-link {
@@ -251,8 +251,23 @@ function isActive(href: string) {
 
     @media screen and (max-width: 450px) {
         .nav-dropdown {
-            top: 56px;
+            top: 64px;
             border-radius: 16px;
+            padding: 6px 8px;
+        }
+
+        .nav-menu-btn {
+            padding: 0;
+            min-width: 16px;
+        }
+
+        .nav-dropdown-list {
+        gap: 4px;
+        }
+
+        .nav-dropdown-link {
+            padding: 0 0.2em;
+            margin: 0;
         }
     }
 </style>

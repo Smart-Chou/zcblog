@@ -29,28 +29,39 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
     (function () {
         const banner = document.getElementById("global-notice");
         if (!banner) return;
+        const el = banner;
 
-        const key = banner.dataset.storageKey || "";
+        const key = el.dataset.storageKey || "";
         const storage =
-            banner.dataset.storageType === "localStorage" ? localStorage : sessionStorage;
+            el.dataset.storageType === "localStorage" ? localStorage : sessionStorage;
 
         if (storage.getItem(key)) return;
-        banner.style.display = "";
+        el.style.display = "";
 
-        const closeBtn = banner.querySelector("[data-notice-close]");
-        if (closeBtn) {
-            closeBtn.addEventListener("click", () => {
-                banner.style.display = "none";
-                storage.setItem(key, "1");
-            });
+        const root = document.documentElement;
+        const updateNoticeHeight = () => {
+            root.style.setProperty("--notice-height", `${el.offsetHeight}px`);
+        };
+        updateNoticeHeight();
+
+        const ro = new ResizeObserver(updateNoticeHeight);
+        ro.observe(el);
+
+        function dismiss() {
+            el.style.display = "none";
+            root.style.setProperty("--notice-height", "0px");
+            storage.setItem(key, "1");
+            ro.disconnect();
         }
 
-        const confirmBtn = banner.querySelector("[data-notice-confirm]");
+        const closeBtn = el.querySelector("[data-notice-close]");
+        if (closeBtn) {
+            closeBtn.addEventListener("click", dismiss);
+        }
+
+        const confirmBtn = el.querySelector("[data-notice-confirm]");
         if (confirmBtn) {
-            confirmBtn.addEventListener("click", () => {
-                banner.style.display = "none";
-                storage.setItem(key, "1");
-            });
+            confirmBtn.addEventListener("click", dismiss);
         }
     })();
 </script>
@@ -105,7 +116,7 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
     .notice-banner {
         position: sticky;
         top: 0;
-        z-index: 100;
+        z-index: 101;
         width: 100%;
         background: var(--color-accent);
         color: #fff;
@@ -120,20 +131,20 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
     .notice-banner-inner {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: var(--space-sm);
-        max-width: var(--content-width);
+        max-width: 100%;
         margin: 0 auto;
-        padding: var(--space-xs) var(--space);
+        padding: var(--space-xs) 0 var(--space-xs) var(--space);
     }
 
     .notice-banner-body {
         display: flex;
         align-items: baseline;
+        justify-content: center;
         gap: var(--space-xs);
         flex-wrap: wrap;
         flex: 1;
         min-width: 0;
+        padding-right: -8px;
     }
 
     .notice-banner-title {
@@ -154,6 +165,7 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
         align-items: center;
         gap: var(--space-xs);
         flex-shrink: 0;
+        padding-right: 8px;
     }
 
     .notice-btn {
