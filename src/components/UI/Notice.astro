@@ -32,8 +32,7 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
         const el = banner;
 
         const key = el.dataset.storageKey || "";
-        const storage =
-            el.dataset.storageType === "localStorage" ? localStorage : sessionStorage;
+        const storage = el.dataset.storageType === "localStorage" ? localStorage : sessionStorage;
 
         if (storage.getItem(key)) return;
         el.style.display = "";
