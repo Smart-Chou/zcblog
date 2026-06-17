@@ -62,7 +62,8 @@ export const site: SiteConfig = {
     subtitle: "这里没有答案，但有同路人。",
     description:
         "MarxChou 的个人博客。深圳非科班独立开发者，兼职探索欧美 SaaS。用 AI 辅助编程从零搭建产品，记录工具调研、踩坑解法、想法验证与收入数据。",
-    keywords: "Marx's Blog, MarxChou, 独立开发者, indie developer, SaaS, 工具调研, 踩坑, 编程, AI 编程",
+    keywords:
+        "Marx's Blog, MarxChou, 独立开发者, indie developer, SaaS, 工具调研, 踩坑, 编程, AI 编程",
     favicon: "favicon.svg",
     logo: "logo.webp",
     coverImage: "cover.png",
