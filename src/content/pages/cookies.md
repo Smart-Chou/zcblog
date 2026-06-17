@@ -7,7 +7,7 @@ description: 本政策的最近更新日期为：2024-10-25
 
 本政策应与我的 [隐私政策](/privacy-policy) 一起阅读，该隐私政策解释了我如何使用个人信息。
 
-如果你对我使用你的个人信息或 Cookies 的方式有任何疑问，请通过 qlad_adgk@163.com 与我联系。
+如果你对我使用你的个人信息或 Cookies 的方式有任何疑问，请通过 marx@mifsh.com 与我联系。
 
 如果你想管理你的 Cookies，请按照下面"如何管理 Cookies"部分中的说明进行操作。
 
@@ -65,7 +65,7 @@ Cookies 提供许多功能。例如，他们可以帮助我记住你喜欢深色
 
 ## 更多信息
 
-有关我数据处理的更多信息，请参阅我的 [隐私政策](/privacy-policy)。如果你对此 Cookie 政策有任何疑问，请通过 qlad_adgk@163.com 与我联系。
+有关我数据处理的更多信息，请参阅我的 [隐私政策](/privacy-policy)。如果你对此 Cookie 政策有任何疑问，请通过 marx@mifsh.com 与我联系。
 
 ## 对此 Cookie 政策的更改
 
