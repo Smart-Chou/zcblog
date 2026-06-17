@@ -59,10 +59,10 @@ export interface PageConfig {
  */
 export const site: SiteConfig = {
     title: "Marx's Blog",
-    subtitle: "Marx Chou - A Noob Developer",
+    subtitle: "这里没有答案，但有同路人。",
     description:
-        "Welcome to Marx's Blog, where I share my journey as a noob developer. Here, you'll find insights, tutorials, and musings on programming, technology, and the challenges of learning to code. Join me as I navigate the world of software development and share my experiences along the way.",
-    keywords: "Marx's Blog, Marx Chou, noob developer, programming, technology, coding journey",
+        "MarxChou 的个人博客。深圳非科班独立开发者，兼职探索欧美 SaaS。用 AI 辅助编程从零搭建产品，记录工具调研、踩坑解法、想法验证与收入数据。",
+    keywords: "Marx's Blog, MarxChou, 独立开发者, indie developer, SaaS, 工具调研, 踩坑, 编程, AI 编程",
     favicon: "favicon.svg",
     logo: "logo.webp",
     coverImage: "cover.png",
@@ -95,9 +95,9 @@ export const twitter: TwitterConfig = {
  * 作者信息
  */
 export const author: AuthorConfig = {
-    type: "Marx Chou",
+    type: "MarxChou",
     url: "https://marxchou.com",
-    motto: "阿巴阿巴 o((>ω< ))o",
+    motto: "这里没有答案，但有同路人。",
     avatar: "logo.webp",
 };
 

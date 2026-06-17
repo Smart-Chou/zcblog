@@ -1,10 +1,10 @@
 {
     "site": {
-        "title": "Zc Blog",
-        "subtitle": "A personal space for tech enthusiasts",
-        "description": "Sharing technology, life and thoughts through a personal blog",
+        "title": "Marx's Blog",
+        "subtitle": "No answers here, just fellow travelers.",
+        "description": "Personal blog of MarxChou — a non-CS indie developer in Shenzhen, building SaaS products from scratch with AI-assisted coding. Documenting tool explorations, pitfalls, idea validation, and revenue data.",
         "coverImage": "avatar.png",
-        "coverImageAlt": "Zc Blog Cover"
+        "coverImageAlt": "Marx's Blog Cover"
     },
     "nav": {
         "home": "Home",

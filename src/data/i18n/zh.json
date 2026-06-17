@@ -1,10 +1,10 @@
 {
     "site": {
-        "title": "Zc Blog",
-        "subtitle": "一个技术人的自留地",
-        "description": "分享技术、生活与思考的个人博客",
+        "title": "Marx's Blog",
+        "subtitle": "这里没有答案，但有同路人。",
+        "description": "MarxChou 的个人博客。非科班独立开发者，记录工具调研、踩坑解法、想法验证与收入数据。",
         "coverImage": "avatar.png",
-        "coverImageAlt": "Zc Blog Cover"
+        "coverImageAlt": "Marx's Blog Cover"
     },
     "nav": {
         "home": "首页",
