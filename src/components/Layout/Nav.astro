@@ -1,6 +1,6 @@
 ---
 import { navLinks } from "~/config";
-import { t, getLocale, type Locale } from "~/utils/i18n";
+import { t, getLocale } from "~/utils/i18n";
 
 const loc = getLocale(Astro.currentLocale || "zh");
 
@@ -41,13 +41,16 @@ function isActive(href: string) {
     </span>
 </button>
 
-<nav id="nav-dropdown" class="nav-dropdown" aria-label={loc === "en" ? "Main navigation" : "主导航"} aria-hidden="true">
+<nav
+    id="nav-dropdown"
+    class="nav-dropdown"
+    aria-label={loc === "en" ? "Main navigation" : "主导航"}
+    aria-hidden="true"
+>
     <ul class="nav-dropdown-list" role="list">
         {
             navLinks.map((link) => {
-                const label = navKeyMap[link.href]
-                    ? t(loc, navKeyMap[link.href])
-                    : link.label;
+                const label = navKeyMap[link.href] ? t(loc, navKeyMap[link.href]) : link.label;
                 return (
                     <li>
                         <a

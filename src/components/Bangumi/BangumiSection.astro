@@ -33,11 +33,19 @@ const statusCounts = items.reduce(
 
 const filters = [
     { value: "all", label: t(loc, "bangumi.filters.all"), count: items.length },
-    { value: "collect", label: t(loc, "bangumi.filters.collect"), count: statusCounts.collect || 0 },
+    {
+        value: "collect",
+        label: t(loc, "bangumi.filters.collect"),
+        count: statusCounts.collect || 0,
+    },
     { value: "doing", label: t(loc, "bangumi.filters.doing"), count: statusCounts.doing || 0 },
     { value: "wish", label: t(loc, "bangumi.filters.wish"), count: statusCounts.wish || 0 },
     { value: "on_hold", label: t(loc, "bangumi.filters.onHold"), count: statusCounts.on_hold || 0 },
-    { value: "dropped", label: t(loc, "bangumi.filters.dropped"), count: statusCounts.dropped || 0 },
+    {
+        value: "dropped",
+        label: t(loc, "bangumi.filters.dropped"),
+        count: statusCounts.dropped || 0,
+    },
 ].filter((f) => f.value === "all" || f.count > 0);
 ---
 

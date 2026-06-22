@@ -20,8 +20,8 @@ const loc = getLocale(Astro.currentLocale || "zh");
         <h1 class="not-found-title text-center space-bottom">404</h1>
         <div class="not-found-container">
             <p class="description">
-                🍌 Oh, no, not here.
-                <a href="/" class="active">Take me back home. ↩</a>
+                🍌 {t(loc, "common.404.heading")}
+                <a href="/" class="active">{t(loc, "common.404.backHome")} ↩</a>
             </p>
             <img
                 src={notFound.src}

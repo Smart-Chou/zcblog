@@ -51,9 +51,7 @@ const hasData = tabs.some((t) => t.count > 0);
             ))}
         </>
     ) : (
-        <p class="empty-notice">
-            {t(loc, "bangumi.emptyMessageNoData")}
-        </p>
+        <p class="empty-notice">{t(loc, "bangumi.emptyMessageNoData")}</p>
     )
 }
 

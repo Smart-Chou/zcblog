@@ -61,7 +61,11 @@ const postsData = postsWithMeta.map((post) => ({
 
 <SectionPage
     title={t(loc, "archives.title")}
-    subtitle={t(loc, "archives.subtitle", { startYear: String(startYear), totalPosts: String(totalPosts), totalWords: totalWordsInThousands })}
+    subtitle={t(loc, "archives.subtitle", {
+        startYear: String(startYear),
+        totalPosts: String(totalPosts),
+        totalWords: totalWordsInThousands,
+    })}
     description={`${t(loc, "archives.description")} - ${site.title}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={t(loc, "archives.description")}

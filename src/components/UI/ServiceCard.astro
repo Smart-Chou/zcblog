@@ -16,12 +16,14 @@ const { service } = Astro.props;
         </div>
         <div class="card-badges">
             <span class="badge badge-delivery">{service.deliveryLabel}</span>
-            <span class:list={[
-                "badge",
-                "badge-price",
-                { "badge-price--fixed": service.pricing === "fixed" },
-                { "badge-price--negotiable": service.pricing === "negotiable" },
-            ]}>
+            <span
+                class:list={[
+                    "badge",
+                    "badge-price",
+                    { "badge-price--fixed": service.pricing === "fixed" },
+                    { "badge-price--negotiable": service.pricing === "negotiable" },
+                ]}
+            >
                 {service.priceLabel}
             </span>
         </div>

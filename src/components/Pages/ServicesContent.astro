@@ -17,11 +17,7 @@ const t = locale === "zh" ? zhI18n.services : enI18n.services;
 
 <div class="services-page">
     <div class="services-grid">
-        {
-            services.map((service) => (
-                <ServiceCard service={service} />
-            ))
-        }
+        {services.map((service) => <ServiceCard service={service} />)}
     </div>
 
     <div class="contact-section">

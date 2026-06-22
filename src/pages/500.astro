@@ -21,7 +21,9 @@ const loc = getLocale(Astro.currentLocale || "zh");
             <p class="error-description">{t(loc, "common.500.description")}</p>
             <div class="error-actions">
                 <Button href="/" variant="primary">{t(loc, "common.500.backHome")}</Button>
-                <Button href="/archives/" variant="secondary">{t(loc, "common.500.browseArchives")}</Button>
+                <Button href="/archives/" variant="secondary"
+                    >{t(loc, "common.500.browseArchives")}</Button
+                >
             </div>
         </div>
     </div>

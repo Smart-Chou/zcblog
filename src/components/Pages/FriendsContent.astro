@@ -110,7 +110,11 @@ ${fieldLabels.avatarLink}：<你的站点头像>`;
                                     <span class="field-label">{label}</span>
                                     <span class="field-value">{value}</span>
                                 </div>
-                                <button class="copy-btn" data-copy={value} title={t(loc, "friends.copy")}>
+                                <button
+                                    class="copy-btn"
+                                    data-copy={value}
+                                    title={t(loc, "friends.copy")}
+                                >
                                     <DynamicIcon name="tabler:copy" class="copy-icon" />
                                     <DynamicIcon name="tabler:check" class="check-icon" />
                                 </button>
@@ -189,25 +193,33 @@ ${fieldLabels.avatarLink}：<你的站点头像>`;
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>{t(loc, "friends.notes.exchangeTitle")}</strong>：{t(loc, "friends.notes.exchangeDesc")}
+                    <strong>{t(loc, "friends.notes.exchangeTitle")}</strong>：{
+                        t(loc, "friends.notes.exchangeDesc")
+                    }
                 </p>
             </div>
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>{t(loc, "friends.notes.maintenanceTitle")}</strong>：{t(loc, "friends.notes.maintenanceDesc")}
+                    <strong>{t(loc, "friends.notes.maintenanceTitle")}</strong>：{
+                        t(loc, "friends.notes.maintenanceDesc")
+                    }
                 </p>
             </div>
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>{t(loc, "friends.notes.contentTitle")}</strong>：{t(loc, "friends.notes.contentDesc")}
+                    <strong>{t(loc, "friends.notes.contentTitle")}</strong>：{
+                        t(loc, "friends.notes.contentDesc")
+                    }
                 </p>
             </div>
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>{t(loc, "friends.notes.siteTitle")}</strong>：{t(loc, "friends.notes.siteDesc")}
+                    <strong>{t(loc, "friends.notes.siteTitle")}</strong>：{
+                        t(loc, "friends.notes.siteDesc")
+                    }
                 </p>
             </div>
         </div>
