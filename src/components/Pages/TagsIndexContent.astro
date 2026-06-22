@@ -3,14 +3,15 @@ import { getAllTags, getAllArticles } from "~/utils/article-stats";
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import Author from "~/components/UI/Author.astro";
-import { site, tagsPage } from "~/config";
+import { site } from "~/config";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 
 interface Props {
     locale?: string;
 }
 
 const { locale = "zh" } = Astro.props;
-const isEn = locale === "en";
+const loc: Locale = getLocale(locale);
 
 const allPosts = await getAllArticles();
 
@@ -41,11 +42,11 @@ function getTagLevel(count: number): number {
 ---
 
 <SectionPage
-    title={tagsPage.title}
-    subtitle={isEn ? "" : "快来看看有没有你感兴趣的标签吧！"}
-    description={`${tagsPage.description} - ${site.description}`}
+    title={t(loc, "tags.title")}
+    subtitle={t(loc, "tags.subtitle")}
+    description={`${t(loc, "tags.description")} - ${site.title}`}
     image={`${Astro.site + site.coverImage}`}
-    imageAlt={tagsPage.title}
+    imageAlt={t(loc, "tags.title")}
     keywords={["Tags"]}
     publishedTime={new Date()}
     modifiedTime={new Date()}

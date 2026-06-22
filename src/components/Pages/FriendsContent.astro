@@ -4,30 +4,59 @@ import WalineComment from "~/components/UI/WalineComment.astro";
 import FriendPill from "~/components/UI/FriendPill.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import friendsList from "~/data/friends.json";
-import { site, author, friendsPage } from "~/config";
+import { site, author } from "~/config";
 import siteAvatar from "~/assets/logo.svg";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 
 interface Props {
     locale?: string;
 }
 
+const { locale = "zh" } = Astro.props;
+const loc: Locale = getLocale(locale);
+
 const siteInfo = {
     name: site.title,
-    description: site.subtitle,
+    description: t(loc, "site.subtitle"),
     link: site.url,
     avatar: `${site.url}/${author.avatar}`,
 };
+
+const fieldLabels: Record<string, string> = {
+    siteName: t(loc, "friends.fieldLabels.siteName"),
+    siteDescription: t(loc, "friends.fieldLabels.siteDescription"),
+    siteLink: t(loc, "friends.fieldLabels.siteLink"),
+    avatarLink: t(loc, "friends.fieldLabels.avatarLink"),
+};
+
+const siteInfoFields: Record<string, string> = {
+    [fieldLabels.siteName]: siteInfo.name,
+    [fieldLabels.siteDescription]: siteInfo.description,
+    [fieldLabels.siteLink]: siteInfo.link,
+    [fieldLabels.avatarLink]: siteInfo.avatar,
+};
+
+const templateText = `${fieldLabels.siteName}：${t(loc, "friends.fieldLabels.siteName")}
+${fieldLabels.siteDescription}：${t(loc, "friends.fieldLabels.siteDescription")}
+${fieldLabels.siteLink}：${t(loc, "friends.fieldLabels.siteLink")}
+${fieldLabels.avatarLink}：${t(loc, "friends.fieldLabels.avatarLink")}`;
+
+const templatePlaceholder = `${fieldLabels.siteName}：<你的站点名称>
+${fieldLabels.siteDescription}：<你的站点描述>
+${fieldLabels.siteLink}：<你的站点链接>
+${fieldLabels.avatarLink}：<你的站点头像>`;
 ---
 
 <SectionPage
-    title={friendsPage.title}
-    subtitle=""
-    description={`${friendsPage.title} - ${friendsPage.note}`}
+    title={t(loc, "friends.title")}
+    subtitle={t(loc, "friends.subtitle")}
+    description={`${t(loc, "friends.title")} - ${t(loc, "friends.note")}`}
     image={`${Astro.site + site.coverImage}`}
-    imageAlt={friendsPage.title}
+    imageAlt={t(loc, "friends.title")}
     keywords={["Friends"]}
     publishedTime={new Date()}
     modifiedTime={new Date()}
+    locale={locale}
 >
     <DynamicIcon name="tabler:user-circle" slot="icon" />
 
@@ -45,7 +74,7 @@ const siteInfo = {
     </div>
 
     <p class="friends-note">
-        {friendsPage.note}
+        {t(loc, "friends.note")}
     </p>
 
     <div class="friends-apply-grid">
@@ -75,18 +104,13 @@ const siteInfo = {
 
                 <div class="info-fields">
                     {
-                        Object.entries({
-                            站点名称: siteInfo.name,
-                            站点描述: siteInfo.description,
-                            站点链接: siteInfo.link,
-                            头像链接: siteInfo.avatar,
-                        }).map(([label, value]) => (
+                        Object.entries(siteInfoFields).map(([label, value]) => (
                             <div class="info-field">
                                 <div class="field-text">
                                     <span class="field-label">{label}</span>
                                     <span class="field-value">{value}</span>
                                 </div>
-                                <button class="copy-btn" data-copy={value} title="复制">
+                                <button class="copy-btn" data-copy={value} title={t(loc, "friends.copy")}>
                                     <DynamicIcon name="tabler:copy" class="copy-icon" />
                                     <DynamicIcon name="tabler:check" class="check-icon" />
                                 </button>
@@ -104,7 +128,7 @@ const siteInfo = {
                     <span class="steps-icon">
                         <DynamicIcon name="tabler:checklist" width="14" height="14" />
                     </span>
-                    申请友链
+                    {t(loc, "friends.steps.title")}
                 </h3>
 
                 <div class="steps-list">
@@ -114,10 +138,8 @@ const siteInfo = {
                             <div class="step-line"></div>
                         </div>
                         <div class="step-content">
-                            <p class="step-heading">添加本站友链</p>
-                            <p class="step-desc">
-                                请先在您的网站友链页面添加本站信息，可直接复制左侧各字段
-                            </p>
+                            <p class="step-heading">{t(loc, "friends.steps.step1Title")}</p>
+                            <p class="step-desc">{t(loc, "friends.steps.step1Desc")}</p>
                         </div>
                     </div>
 
@@ -127,24 +149,18 @@ const siteInfo = {
                             <div class="step-line"></div>
                         </div>
                         <div class="step-content">
-                            <p class="step-heading">评论区提交申请</p>
-                            <p class="step-desc">复制下方模板，修改后粘贴到评论区</p>
+                            <p class="step-heading">{t(loc, "friends.steps.step2Title")}</p>
+                            <p class="step-desc">{t(loc, "friends.steps.step2Desc")}</p>
                             <div class="template-box">
                                 <button
                                     class="copy-btn template-copy"
-                                    data-copy="站点名称：您的站点名称
-站点描述：您的站点描述
-站点链接：您的站点链接
-头像链接：您的站点头像"
-                                    title="复制模板"
+                                    data-copy={templatePlaceholder}
+                                    title={t(loc, "friends.copyTemplate")}
                                 >
                                     <DynamicIcon name="tabler:copy" class="copy-icon" />
                                     <DynamicIcon name="tabler:check" class="check-icon" />
                                 </button>
-                                <pre><code>站点名称：您的站点名称
-站点描述：您的站点描述
-站点链接：您的站点链接
-头像链接：您的站点头像</code></pre>
+                                <pre><code>{templateText}</code></pre>
                             </div>
                         </div>
                     </div>
@@ -154,8 +170,8 @@ const siteInfo = {
                             <span class="step-num">3</span>
                         </div>
                         <div class="step-content">
-                            <p class="step-heading">等待审核</p>
-                            <p class="step-desc">确认信息无误后会尽快添加您的友链</p>
+                            <p class="step-heading">{t(loc, "friends.steps.step3Title")}</p>
+                            <p class="step-desc">{t(loc, "friends.steps.step3Desc")}</p>
                         </div>
                     </div>
                 </div>
@@ -167,37 +183,37 @@ const siteInfo = {
     <div class="notes-card">
         <h3 class="notes-title">
             <DynamicIcon name="tabler:alert-triangle" width="16" height="16" />
-            注意事项
+            {t(loc, "friends.notes.title")}
         </h3>
         <div class="notes-list">
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>互换原则</strong>：请先将本站添加到您的友链页面，确认后会添加您的友链
+                    <strong>{t(loc, "friends.notes.exchangeTitle")}</strong>：{t(loc, "friends.notes.exchangeDesc")}
                 </p>
             </div>
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>链接维护</strong>：友链网站长期无法访问或内容违规，将会被移除
+                    <strong>{t(loc, "friends.notes.maintenanceTitle")}</strong>：{t(loc, "friends.notes.maintenanceDesc")}
                 </p>
             </div>
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>内容要求</strong>：内容积极向上，不含有任何色情/反动/暴力等违法违规内容
+                    <strong>{t(loc, "friends.notes.contentTitle")}</strong>：{t(loc, "friends.notes.contentDesc")}
                 </p>
             </div>
             <div class="note-item">
                 <span class="note-dot"></span>
                 <p>
-                    <strong>站点要求</strong>：支持 HTTPS，以原创内容为主，能够正常访问且有持续更新
+                    <strong>{t(loc, "friends.notes.siteTitle")}</strong>：{t(loc, "friends.notes.siteDesc")}
                 </p>
             </div>
         </div>
     </div>
 
-    <WalineComment />
+    <WalineComment locale={locale} />
 </SectionPage>
 
 <style is:global>

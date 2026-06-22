@@ -3,6 +3,14 @@ import { Image } from "astro:assets";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import { donate } from "~/config";
 import type { ImageMetadata } from "astro";
+import { t, getLocale, type Locale } from "~/utils/i18n";
+
+interface Props {
+    locale?: string;
+}
+
+const { locale = "zh" } = Astro.props;
+const loc: Locale = getLocale(locale);
 
 const qrModules = import.meta.glob<{ default: ImageMetadata }>("~/assets/qr/*", { eager: true });
 
@@ -214,7 +222,7 @@ const alipayQR = getQRImage(donate.alipayQRCode);
     <div class="reward">
         <button id="donateTrigger" class="reward-btn">
             <DynamicIcon name="mingcute:hand-heart-line" />
-            <span class="text">&nbsp;赞赏博主</span>
+            <span class="text">&nbsp;{t(loc, "donate.buttonText")}</span>
         </button>
     </div>
     <dialog id="donateDialog" class="modal">
@@ -222,27 +230,27 @@ const alipayQR = getQRImage(donate.alipayQRCode);
             <div class="header-title">
                 <div class="title-left">
                     <DynamicIcon name="mingcute:hand-heart-line" />
-                    <span class="title-text">&nbsp;赞赏博主</span>
+                    <span class="title-text">&nbsp;{t(loc, "donate.buttonText")}</span>
                 </div>
                 <button id="donateClose" class="close" aria-label="Close"> &times; </button>
             </div>
             <div class="modal-content">
                 <div class="reward-card">
-                    <span class="thank">🙏 感谢您赐予我前进的力量</span>
+                    <span class="thank">{t(loc, "donate.thankNote")}</span>
                     <div class="qr">
                         {
                             wechatQR && (
                                 <div class="qr-img">
                                     <Image
                                         src={wechatQR}
-                                        alt="微信支付"
+                                        alt={t(loc, "donate.wechatPay")}
                                         width={200}
                                         format="avif"
                                         quality={80}
                                     />
                                     <span class="tip">
                                         <DynamicIcon name="mingcute:wechat-pay-line" />
-                                        &nbsp;微信
+                                        &nbsp;{t(loc, "donate.wechat")}
                                     </span>
                                 </div>
                             )
@@ -252,22 +260,22 @@ const alipayQR = getQRImage(donate.alipayQRCode);
                                 <div class="qr-img">
                                     <Image
                                         src={alipayQR}
-                                        alt="支付宝支付"
+                                        alt={t(loc, "donate.alipay")}
                                         width={200}
                                         format="avif"
                                         quality={80}
                                     />
                                     <span class="tip">
                                         <DynamicIcon name="mingcute:alipay-line" />
-                                        &nbsp;支付宝
+                                        &nbsp;{t(loc, "donate.alipayShort")}
                                     </span>
                                 </div>
                             )
                         }
                     </div>
-                    <a href="/donate/" class="all-list-btn">
+                    <a href={loc === "en" ? "/en/donate/" : "/donate/"} class="all-list-btn">
                         <div class="all-list s-card hover">
-                            <span class="title">全部赞赏者名单</span>
+                            <span class="title">{t(loc, "donate.viewAllDonators")}</span>
                             <span class="tip">{donate.tip}</span>
                         </div>
                     </a>

@@ -1,0 +1,168 @@
+---
+import SectionPage from "~/components/Layout/SectionPage.astro";
+import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
+import QrCard from "~/components/UI/QrCard.astro";
+import DonatorsList from "~/components/UI/DonatorsList.astro";
+import WalineComment from "~/components/UI/WalineComment.astro";
+import { donate } from "~/config";
+import donateData from "~/data/donators.json";
+import wechatQR from "~/assets/qr/wechat-pay.png";
+import alipayQR from "~/assets/qr/alipay.jpg";
+import paypalQR from "~/assets/qr/paypal.png";
+import { t, getLocale, type Locale } from "~/utils/i18n";
+
+interface Props {
+    locale?: string;
+}
+
+const { locale = "zh" } = Astro.props;
+const loc: Locale = getLocale(locale);
+const { donators } = donateData;
+---
+
+<SectionPage
+    title={t(loc, "donate.title")}
+    subtitle={t(loc, "donate.description")}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+    locale={locale}
+>
+    <DynamicIcon name="tabler:heart-handshake" slot="icon" />
+
+    <div class="donate-sections">
+        <div class="donate-section s-card">
+            <div class="donate-header">
+                <h2 class="section-title">{t(loc, "donate.paymentMethods")}</h2>
+            </div>
+            <div class="donate-methods">
+                <QrCard
+                    qrImage={wechatQR}
+                    alt={t(loc, "donate.wechatPay")}
+                    platformName={t(loc, "donate.wechatPay")}
+                    iconName="mingcute:wechat-pay-line"
+                />
+                <QrCard
+                    qrImage={alipayQR}
+                    alt={t(loc, "donate.alipay")}
+                    platformName={t(loc, "donate.alipay")}
+                    iconName="mingcute:alipay-line"
+                />
+                {
+                    donate.paypalUrl && (
+                        <QrCard
+                            qrImage={paypalQR}
+                            alt="PayPal"
+                            platformName="PayPal"
+                            iconName="mingcute:paypal-fill"
+                            paypalUrl={donate.paypalUrl}
+                        />
+                    )
+                }
+            </div>
+        </div>
+
+        <div class="donators-section s-card">
+            <div class="donators-header">
+                <h2 class="section-title">{t(loc, "donate.donorList")}</h2>
+                <p class="section-desc">{t(loc, "donate.donorListDesc")}</p>
+            </div>
+            <DonatorsList donators={donators} />
+        </div>
+
+        <div class="thank-section s-card">
+            <div class="thank-content">
+                <DynamicIcon name="tabler:heart-handshake" class="thank-icon" />
+                <h2 class="thank-title">{t(loc, "donate.thankAgain")}</h2>
+                <p class="thank-text">{t(loc, "donate.thankText")}</p>
+            </div>
+        </div>
+    </div>
+
+    <WalineComment locale={locale} />
+</SectionPage>
+
+<style>
+    .donate-sections {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .donate-section,
+    .donators-section,
+    .thank-section {
+        margin-bottom: 2rem;
+        padding: 2rem;
+    }
+
+    .donate-header,
+    .donators-header {
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .section-desc {
+        color: var(--color-muted);
+        margin: 0;
+    }
+
+    .donate-methods {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .thank-section {
+        text-align: center;
+    }
+
+    .thank-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .thank-content :global(.thank-icon) {
+        font-size: 2.5rem;
+        color: #e74c3c;
+    }
+
+    .thank-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .thank-text {
+        color: var(--color-muted);
+        line-height: 1.6;
+        margin: 0;
+        max-width: 600px;
+    }
+
+    @media (max-width: 768px) {
+        .donate-section,
+        .donators-section,
+        .thank-section {
+            padding: 1.5rem;
+        }
+
+        .donate-methods {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    html[data-theme="dark"] .section-desc,
+    html[data-theme="dark"] .thank-text {
+        color: rgba(255, 255, 255, 0.65);
+    }
+
+    html[data-theme="dark"] .thank-content :global(.thank-icon) {
+        color: #f2a19a;
+    }
+</style>

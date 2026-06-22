@@ -8,16 +8,17 @@ import { search } from "~/config";
 
 interface Props {
     searchEnable?: boolean;
+    locale?: string;
 }
 
-const { searchEnable = search.enable } = Astro.props;
+const { searchEnable = search.enable, locale = "zh" } = Astro.props;
 ---
 
 <header id="progress-container" role="banner">
     <div class="nav-shell">
         <div class="header-left">
             <Logo />
-            {searchEnable && <Search />}
+            {searchEnable && <Search locale={locale} />}
         </div>
         <div class="header-right">
             <LanguageSwitcher />

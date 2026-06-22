@@ -4,6 +4,7 @@ import SectionPage from "~/components/Layout/SectionPage.astro";
 import TagsPostCard from "~/components/Article/TagsPostCard.astro";
 import { site } from "~/config";
 import { enrichPost } from "~/utils/get-posts-with-meta";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 
 interface Props {
     locale?: string;
@@ -11,7 +12,7 @@ interface Props {
 }
 
 const { locale = "zh", articles } = Astro.props;
-const isEn = locale === "en";
+const loc: Locale = getLocale(locale);
 
 const tag = (Astro.params.tag as string) || "";
 
@@ -21,9 +22,7 @@ const latestModified = postsWithMeta[0]?.modifiedTime || new Date();
 
 <SectionPage
     title={`# ${tag}`}
-    subtitle={isEn
-        ? `${postsWithMeta.length} posts tagged "${tag}"`
-        : `${postsWithMeta.length} 篇文章标签为 "${tag}"`}
+    subtitle={t(loc, "tags.taggedCount", { count: String(postsWithMeta.length), tag })}
     description={`${tag} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={tag}
@@ -32,8 +31,8 @@ const latestModified = postsWithMeta[0]?.modifiedTime || new Date();
     modifiedTime={latestModified}
     noindex={true}
     empty={postsWithMeta.length === 0}
-    emptyTitle={isEn ? "No posts found" : "暂无文章"}
-    emptyMessage={isEn ? `No posts tagged with "${tag}"` : `没有标签为 "${tag}" 的文章`}
+    emptyTitle={t(loc, "tags.emptyTitle")}
+    emptyMessage={t(loc, "tags.emptyMessage", { tag })}
 >
     <div class="posts">
         {

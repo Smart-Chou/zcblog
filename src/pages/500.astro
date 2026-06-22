@@ -1,11 +1,15 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import Button from "~/components/UI/Button.astro";
+import { t, getLocale, type Locale } from "~/utils/i18n";
+
+const locale = (Astro.url?.pathname.startsWith("/en/") ? "en" : "zh") as string;
+const loc: Locale = getLocale(locale);
 ---
 
 <BaseLayout
-    title="500 - 服务器错误"
-    description="页面加载时出现了问题"
+    title={t(loc, "common.500.pageTitle")}
+    description={t(loc, "common.500.pageDescription")}
     image="/cover.png"
     imageAlt="Error"
     publishedTime={new Date()}
@@ -14,11 +18,11 @@ import Button from "~/components/UI/Button.astro";
     <div class="error-page">
         <div class="error-content">
             <h1 class="error-code">500</h1>
-            <h2 class="error-title">服务器错误</h2>
-            <p class="error-description">抱歉，页面加载时出现了问题。我们正在努力修复。</p>
+            <h2 class="error-title">{t(loc, "common.500.heading")}</h2>
+            <p class="error-description">{t(loc, "common.500.description")}</p>
             <div class="error-actions">
-                <Button href="/" variant="primary">返回首页</Button>
-                <Button href="/archives/" variant="secondary">浏览归档</Button>
+                <Button href="/" variant="primary">{t(loc, "common.500.backHome")}</Button>
+                <Button href="/archives/" variant="secondary">{t(loc, "common.500.browseArchives")}</Button>
             </div>
         </div>
     </div>

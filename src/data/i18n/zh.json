@@ -39,7 +39,13 @@
         },
         "500": {
             "title": "服务器错误",
-            "message": "抱歉，服务器遇到了问题，请稍后再试。"
+            "message": "抱歉，服务器遇到了问题，请稍后再试。",
+            "pageTitle": "500 - 服务器错误",
+            "pageDescription": "页面加载时出现了问题",
+            "heading": "服务器错误",
+            "description": "抱歉，页面加载时出现了问题。我们正在努力修复。",
+            "backHome": "返回首页",
+            "browseArchives": "浏览归档"
         }
     },
     "footer": {
@@ -73,18 +79,53 @@
         "title": "归档",
         "description": "文章归档",
         "allPosts": "全部文章",
-        "postCount": "共 {count} 篇文章"
+        "postCount": "共 {count} 篇文章",
+        "subtitle": "(｡･∀･)ﾉﾞ 自 {startYear} 以来, 我共发布了 {totalPosts} 篇文章，共计 {totalWords} 字。"
     },
     "tags": {
         "title": "标签",
         "description": "所有标签",
-        "postCount": "共 {count} 篇文章"
+        "postCount": "共 {count} 篇文章",
+        "subtitle": "快来看看有没有你感兴趣的标签吧！",
+        "taggedCount": "{count} 篇文章标签为 \"{tag}\"",
+        "emptyTitle": "暂无文章",
+        "emptyMessage": "没有标签为 \"{tag}\" 的文章"
     },
     "friends": {
         "title": "友人帐",
         "description": "朋友们的小站",
+        "subtitle": "",
         "addFriend": "添加友链",
-        "contactMe": "联系我"
+        "contactMe": "联系我",
+        "note": "欢迎申请友链，在评论区留下你的博客信息即可。",
+        "copy": "复制",
+        "copyTemplate": "复制模板",
+        "fieldLabels": {
+            "siteName": "站点名称",
+            "siteDescription": "站点描述",
+            "siteLink": "站点链接",
+            "avatarLink": "头像链接"
+        },
+        "steps": {
+            "title": "申请友链",
+            "step1Title": "添加本站友链",
+            "step1Desc": "请先在您的网站友链页面添加本站信息，可直接复制左侧各字段",
+            "step2Title": "评论区提交申请",
+            "step2Desc": "复制下方模板，修改后粘贴到评论区",
+            "step3Title": "等待审核",
+            "step3Desc": "确认信息无误后会尽快添加您的友链"
+        },
+        "notes": {
+            "title": "注意事项",
+            "exchangeTitle": "互换原则",
+            "exchangeDesc": "请先将本站添加到您的友链页面，确认后会添加您的友链",
+            "maintenanceTitle": "链接维护",
+            "maintenanceDesc": "友链网站长期无法访问或内容违规，将会被移除",
+            "contentTitle": "内容要求",
+            "contentDesc": "内容积极向上，不含有任何色情/反动/暴力等违法违规内容",
+            "siteTitle": "站点要求",
+            "siteDesc": "支持 HTTPS，以原创内容为主，能够正常访问且有持续更新"
+        }
     },
     "about": {
         "title": "关于",
@@ -102,8 +143,20 @@
         "recentPosts": "最近文章"
     },
     "donate": {
-        "title": "赞赏",
-        "description": "请我喝杯咖啡"
+        "title": "赞赏者名单",
+        "description": "感谢所有支持和鼓励我的朋友们",
+        "buttonText": "赞赏博主",
+        "paymentMethods": "支持方式",
+        "wechatPay": "微信支付",
+        "alipay": "支付宝",
+        "wechat": "微信",
+        "alipayShort": "支付宝",
+        "thankNote": "🙏 感谢您赐予我前进的力量",
+        "viewAllDonators": "全部赞赏者名单",
+        "donorList": "赞赏者名单",
+        "donorListDesc": "感谢这些朋友的支持，让我能持续写下去（排名不分先后）",
+        "thankAgain": "再次感谢",
+        "thankText": "每一份支持都是对我最大的鼓励，我会继续努力创作更多有价值的内容。您的支持将帮助我持续维护这个博客，提供更好的内容和服务。"
     },
     "cookie": {
         "title": "Cookie 声明",
@@ -119,7 +172,10 @@
     },
     "albums": {
         "title": "相册",
-        "description": "照片集"
+        "description": "照片集",
+        "subtitle": "记录生活中的美好瞬间",
+        "emptyTitle": "暂无相册",
+        "allLabel": "全部"
     },
     "gallery": {
         "title": "画廊",
@@ -127,7 +183,9 @@
     },
     "talks": {
         "title": "随笔",
-        "description": "说说与随笔"
+        "description": "说说与随笔",
+        "subtitle": "我的碎碎念",
+        "emptyTitle": "暂无说说"
     },
     "home": {
         "friendsTitle": "朋友连接",
@@ -164,6 +222,15 @@
         "emptyMessageNoUser": "请在页面代码中配置你的 Bangumi 用户ID",
         "emptyTitleNoData": "暂无数据",
         "emptyMessageNoData": "你的收藏列表是空的",
+        "emptySection": "暂无数据",
+        "filters": {
+            "all": "全部",
+            "collect": "已收藏",
+            "doing": "在用/在看",
+            "wish": "想用/想看",
+            "onHold": "搁置",
+            "dropped": "抛弃"
+        },
         "categories": {
             "anime": "动画",
             "book": "书籍",

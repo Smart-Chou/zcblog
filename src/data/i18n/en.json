@@ -39,7 +39,13 @@
         },
         "500": {
             "title": "Server Error",
-            "message": "Sorry, the server encountered a problem. Please try again later."
+            "message": "Sorry, the server encountered a problem. Please try again later.",
+            "pageTitle": "500 - Server Error",
+            "pageDescription": "Something went wrong while loading the page",
+            "heading": "Server Error",
+            "description": "Sorry, something went wrong while loading the page. We're working on fixing it.",
+            "backHome": "Back to Home",
+            "browseArchives": "Browse Archives"
         }
     },
     "footer": {
@@ -73,18 +79,53 @@
         "title": "Archives",
         "description": "Post archives",
         "allPosts": "All posts",
-        "postCount": "{count} posts in total"
+        "postCount": "{count} posts in total",
+        "subtitle": "(｡･∀･)ﾉﾞ Since {startYear}, I've published {totalPosts} posts with a total of {totalWords} words."
     },
     "tags": {
         "title": "Tags",
         "description": "All tags",
-        "postCount": "{count} posts in total"
+        "postCount": "{count} posts in total",
+        "subtitle": "Check out the tags you might be interested in!",
+        "taggedCount": "{count} posts tagged \"{tag}\"",
+        "emptyTitle": "No posts found",
+        "emptyMessage": "No posts tagged with \"{tag}\""
     },
     "friends": {
         "title": "Friends",
         "description": "Friends' sites",
+        "subtitle": "",
         "addFriend": "Add friend",
-        "contactMe": "Contact me"
+        "contactMe": "Contact me",
+        "note": "Feel free to apply for a friend link — just leave your blog info in the comments.",
+        "copy": "Copy",
+        "copyTemplate": "Copy template",
+        "fieldLabels": {
+            "siteName": "Site Name",
+            "siteDescription": "Site Description",
+            "siteLink": "Site URL",
+            "avatarLink": "Avatar URL"
+        },
+        "steps": {
+            "title": "Apply for Friend Link",
+            "step1Title": "Add this site to your friends page",
+            "step1Desc": "Please add this site to your friends page first. You can copy the fields on the left.",
+            "step2Title": "Submit application in comments",
+            "step2Desc": "Copy the template below, fill in your info, and paste it in the comments.",
+            "step3Title": "Wait for approval",
+            "step3Desc": "Your friend link will be added as soon as possible after verification."
+        },
+        "notes": {
+            "title": "Notes",
+            "exchangeTitle": "Reciprocal Linking",
+            "exchangeDesc": "Please add this site to your friends page first. Your link will be added after confirmation.",
+            "maintenanceTitle": "Link Maintenance",
+            "maintenanceDesc": "Friend links that are inaccessible for a long time or contain inappropriate content will be removed.",
+            "contentTitle": "Content Requirements",
+            "contentDesc": "Content should be positive and uplifting. No pornographic, reactionary, violent, or otherwise illegal content.",
+            "siteTitle": "Site Requirements",
+            "siteDesc": "Must support HTTPS, feature original content, be accessible, and have regular updates."
+        }
     },
     "about": {
         "title": "About",
@@ -102,8 +143,20 @@
         "recentPosts": "Recent posts"
     },
     "donate": {
-        "title": "Donate",
-        "description": "Buy me a coffee"
+        "title": "Donor List",
+        "description": "Thanks to all the friends who support and encourage me",
+        "buttonText": "Donate",
+        "paymentMethods": "Payment Methods",
+        "wechatPay": "WeChat Pay",
+        "alipay": "Alipay",
+        "wechat": "WeChat",
+        "alipayShort": "Alipay",
+        "thankNote": "🙏 Thank you for your support",
+        "viewAllDonators": "View all donors",
+        "donorList": "Donor List",
+        "donorListDesc": "Thanks to these friends for their support (in no particular order)",
+        "thankAgain": "Thank You Again",
+        "thankText": "Every contribution is the greatest encouragement for me. I will continue to work hard to create more valuable content. Your support helps me maintain this blog and provide better content and services."
     },
     "cookie": {
         "title": "Cookie Policy",
@@ -119,7 +172,10 @@
     },
     "albums": {
         "title": "Albums",
-        "description": "Photo collections"
+        "description": "Photo collections",
+        "subtitle": "Capturing beautiful moments in life",
+        "emptyTitle": "No albums yet",
+        "allLabel": "All"
     },
     "gallery": {
         "title": "Gallery",
@@ -127,7 +183,9 @@
     },
     "talks": {
         "title": "Talks",
-        "description": "Talks and essays"
+        "description": "Talks and essays",
+        "subtitle": "My casual thoughts",
+        "emptyTitle": "No talks yet"
     },
     "bangumi": {
         "title": "Bangumi",
@@ -138,6 +196,15 @@
         "emptyMessageNoUser": "Please configure your Bangumi user ID in the code",
         "emptyTitleNoData": "No data available",
         "emptyMessageNoData": "Your collection is empty",
+        "emptySection": "No data",
+        "filters": {
+            "all": "All",
+            "collect": "Collected",
+            "doing": "In Progress",
+            "wish": "Wishlist",
+            "onHold": "On Hold",
+            "dropped": "Dropped"
+        },
         "categories": {
             "anime": "Anime",
             "book": "Book",

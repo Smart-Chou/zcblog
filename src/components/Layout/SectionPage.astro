@@ -47,14 +47,16 @@ const {
     noindex = false,
 } = Astro.props;
 
-const pageDescription = description || `${site.title} 的${title}页面`;
+const pageTitle = `${title} - ${site.title}`;
+const pageDescription = description || pageTitle;
+const defaultEmptyTitle = locale === "en" ? "No data" : "暂无数据";
 const showEmpty = empty !== undefined ? empty : false;
 const hasIcon = Astro.slots.has("icon");
 const hasEmptyIcon = Astro.slots.has("empty-icon");
 ---
 
 <BaseLayout
-    title={title}
+    title={pageTitle}
     description={pageDescription}
     image={image}
     imageAlt={imageAlt}
@@ -73,7 +75,7 @@ const hasEmptyIcon = Astro.slots.has("empty-icon");
         {
             showEmpty ? (
                 <EmptyState
-                    title={emptyTitle || "暂无数据"}
+                    title={emptyTitle || defaultEmptyTitle}
                     message={emptyMessage}
                     emoji={emptyEmoji || "📭"}
                 >

@@ -72,7 +72,7 @@ const lang = locale === "en" ? "en" : "zh-CN";
         >
         <Notice />
         <div id="app" class="full-width">
-            <Header />
+            <Header locale={locale} />
             <main id="main-content" class="main">
                 <div class:list={["content", { "content--full": fullWidth }]}>
                     <slot />

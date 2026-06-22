@@ -3,6 +3,15 @@
  * Search component using Pagefind Component UI (v1.5.0+).
  * Requires `pnpm build` once to generate public/pagefind/ for dev server.
  */
+import { t, getLocale, type Locale } from "~/utils/i18n";
+
+interface Props {
+    locale?: string;
+}
+
+const { locale = "zh" } = Astro.props;
+const loc: Locale = getLocale(locale);
+const searchPlaceholder = t(loc, "common.searchPlaceholder");
 ---
 
 <script is:inline>
@@ -88,7 +97,7 @@
     })();
 </script>
 
-<pagefind-modal-trigger placeholder="搜索" shortcut="mod+k"></pagefind-modal-trigger>
+<pagefind-modal-trigger placeholder={searchPlaceholder} shortcut="mod+k"></pagefind-modal-trigger>
 
 <pagefind-modal reset-on-close>
     <pagefind-modal-header>
@@ -134,9 +143,10 @@
             newModal.appendChild(child);
         }
 
-        // 创建新 trigger
+        // 创建新 trigger — 从已有 DOM 读取 locale 相关的 placeholder
+        const placeholder = oldTrigger.getAttribute("placeholder") || "Search";
         const newTrigger = document.createElement("pagefind-modal-trigger");
-        newTrigger.setAttribute("placeholder", "搜索");
+        newTrigger.setAttribute("placeholder", placeholder);
         newTrigger.setAttribute("shortcut", "mod+k");
 
         // 替换 DOM

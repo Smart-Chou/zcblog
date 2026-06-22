@@ -1,0 +1,103 @@
+---
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import SectionPage from "~/components/Layout/SectionPage.astro";
+import EssayItem from "~/components/UI/EssayItem.astro";
+import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
+import { site, author } from "~/config";
+import talksData from "~/data/talks.json";
+import logo from "~/assets/logo.svg";
+import { t, getLocale, type Locale } from "~/utils/i18n";
+
+interface Props {
+    locale?: string;
+}
+
+const { locale = "zh" } = Astro.props;
+const loc: Locale = getLocale(locale);
+
+function extractTags(content: string): string[] {
+    const matches = content.match(/#[^\s#]+/g);
+    return matches || [];
+}
+
+function stripTags(content: string): string {
+    return content.replace(/#[^\s#]+\s*/g, "").trim();
+}
+
+const talkItems = talksData.map((t) => ({
+    username: author.type,
+    time: t.datetime,
+    content: stripTags(t.content),
+    images: (t as { images?: string[] }).images ?? null,
+    comment: null as string | null,
+    avatar_url: loc === "en" ? "/logo.svg" : logo.src,
+    tags: extractTags(t.content),
+    url: t.url,
+}));
+
+const merged = [...talkItems].sort(
+    (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime(),
+);
+---
+
+<SectionPage
+    title={t(loc, "talks.title")}
+    subtitle={t(loc, "talks.subtitle")}
+    description={`${site.title} - ${t(loc, "talks.description")}`}
+    empty={merged.length === 0}
+    emptyEmoji="💬"
+    emptyTitle={t(loc, "talks.emptyTitle")}
+    locale={locale}
+>
+    <DynamicIcon name="tabler:message-chatbot-filled" slot="icon" />
+    <div class="talk-timeline">
+        {
+            merged.map((item) => (
+                <div class="talk-item">
+                    <div class="talk-marker" />
+                    <EssayItem item={item} />
+                </div>
+            ))
+        }
+    </div>
+</SectionPage>
+
+<style>
+    .talk-timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .talk-timeline::before {
+        content: "";
+        position: absolute;
+        left: 1rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--color-border);
+    }
+
+    .talk-item {
+        position: relative;
+        padding-left: 3.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .talk-marker {
+        position: absolute;
+        left: calc(1rem - 5px);
+        top: 2rem;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--color-link);
+        border: 2px solid var(--color-bg);
+        z-index: 1;
+    }
+</style>
+
+<script>
+    import "~/scripts/fancybox-essay.ts";
+</script>

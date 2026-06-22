@@ -4,21 +4,22 @@ import BangumiLoader from "~/components/Bangumi/BangumiLoader.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import Author from "~/components/UI/Author.astro";
 import { formatDateI18nWithTime } from "~/utils";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 
 interface Props {
     locale?: "zh" | "en";
 }
 
 const { locale = "zh" } = Astro.props;
-const isEn = locale === "en";
+const loc: Locale = getLocale(locale);
 
 const buildTime = formatDateI18nWithTime(new Date());
 ---
 
 <SectionPage
-    title="Bangumi"
-    subtitle={isEn ? "My anime, book, music and game collection" : "我的动漫、书籍、音乐和游戏收藏"}
-    buildTime={`${isEn ? "Last updated" : "最后更新"}: ${buildTime}`}
+    title={t(loc, "bangumi.title")}
+    subtitle={t(loc, "bangumi.subtitle")}
+    buildTime={`${t(loc, "bangumi.buildTimePrefix")}${buildTime}`}
 >
     <DynamicIcon name="tabler:movie" slot="icon" />
     <BangumiLoader locale={locale} />

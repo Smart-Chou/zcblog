@@ -4,13 +4,14 @@ import AlbumCard from "~/components/Gallery/AlbumCard.astro";
 import GalleryFilter from "~/components/Gallery/GalleryFilter.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import { site, imageService } from "~/config";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 
 interface Props {
     locale?: string;
 }
 
 const { locale = "zh" } = Astro.props;
-const isEn = locale === "en";
+const loc: Locale = getLocale(locale);
 
 interface AlbumPhoto {
     id: string;
@@ -45,23 +46,23 @@ const allTags = [...new Set(albums.map((a) => a.name).filter(Boolean))].sort();
 ---
 
 <SectionPage
-    title="Albums"
-    subtitle={isEn ? "Capturing beautiful moments in life" : "记录生活中的美好瞬间"}
-    description={site.title + " - Photo Albums"}
+    title={t(loc, "albums.title")}
+    subtitle={t(loc, "albums.subtitle")}
+    description={`${t(loc, "albums.title")} - ${site.title}`}
     image={`${Astro.site + site.coverImage}`}
-    imageAlt="Albums"
+    imageAlt={t(loc, "albums.title")}
     keywords={["Albums", "Photos", "Gallery"]}
     publishedTime={new Date()}
     modifiedTime={new Date()}
     empty={albums.length === 0}
     emptyEmoji="📷"
-    emptyTitle={isEn ? "No albums yet" : "暂无相册"}
+    emptyTitle={t(loc, "albums.emptyTitle")}
 >
     <DynamicIcon name="tabler:library-photo" slot="icon" />
 
     {
         albums.length > 0 && allTags.length > 0 && (
-            <GalleryFilter tags={allTags} allLabel={isEn ? "All" : "全部"} />
+            <GalleryFilter tags={allTags} allLabel={t(loc, "albums.allLabel")} />
         )
     }
 

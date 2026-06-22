@@ -5,9 +5,10 @@ import Archive from "~/components/UI/Archive.astro";
 import Author from "~/components/UI/Author.astro";
 import Heatmap from "~/components/UI/Heatmap.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
-import { site, archivesPage } from "~/config";
+import { site } from "~/config";
 import { enrichPost } from "~/utils/get-posts-with-meta";
 import { sortByPubDate, formatDateToYYYYMMDD } from "~/utils";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
 }
 
 const { locale = "zh" } = Astro.props;
-const isEn = locale === "en";
+const loc: Locale = getLocale(locale);
 
 interface PostWithMeta extends CollectionEntry<"article"> {
     wordCount: number;
@@ -59,13 +60,11 @@ const postsData = postsWithMeta.map((post) => ({
 ---
 
 <SectionPage
-    title={archivesPage.title}
-    subtitle={isEn
-        ? `(｡･∀･)ﾉﾞ Since ${startYear}, I've published ${totalPosts} posts with a total of ${totalWordsInThousands} words.`
-        : `(｡･∀･)ﾉﾞ 自 ${startYear} 以来, 我共发布了 ${totalPosts} 篇文章，共计 ${totalWordsInThousands} 字。`}
-    description={`${archivesPage.description} - ${site.description}`}
+    title={t(loc, "archives.title")}
+    subtitle={t(loc, "archives.subtitle", { startYear: String(startYear), totalPosts: String(totalPosts), totalWords: totalWordsInThousands })}
+    description={`${t(loc, "archives.description")} - ${site.title}`}
     image={`${Astro.site + site.coverImage}`}
-    imageAlt={archivesPage.description}
+    imageAlt={t(loc, "archives.description")}
     keywords={["Archives"]}
     publishedTime={latestModified}
     modifiedTime={latestModified}
