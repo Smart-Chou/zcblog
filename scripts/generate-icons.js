@@ -72,6 +72,8 @@ function extractIconNames(content) {
         /(?:iconName|svg)=["']([a-z0-9-]+:[a-z0-9-]+)["']/gi,
         // svg: "xxx:yyy" (TypeScript 配置中的图标引用)
         /svg:\s*["']([a-z0-9-]+:[a-z0-9-]+)["']/gi,
+        // icon: "xxx:yyy" (TypeScript 配置中的图标引用),
+        /icon:\s*["']([a-z0-9-]+:[a-z0-9-]+)["']/gi,
     ];
 
     for (const pattern of patterns) {

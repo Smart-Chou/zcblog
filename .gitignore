@@ -63,3 +63,7 @@ docs/
 public/pagefind/
 .impeccable/design.json
 .impeccable/live/config.json
+src/assets/coverimage/
+prd.json
+progress.txt
+src/assets/note/
