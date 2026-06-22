@@ -172,6 +172,14 @@
             "listened": "Listened"
         }
     },
+    "services": {
+        "title": "Services",
+        "description": "Blog Setup · Service Deployment · Tech Consulting",
+        "contactCTA": "Interested? Contact me",
+        "wechat": "WeChat",
+        "telegram": "Telegram",
+        "email": "Email"
+    },
     "redirect": {
         "leavingMessage": "You are leaving {{site}}, heading to",
         "safetyWarning": "The safety of this URL is unknown. Please protect your account and property.",

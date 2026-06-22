@@ -1,0 +1,127 @@
+---
+import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
+import type { ServiceItem } from "~/config/services";
+
+interface Props {
+    service: ServiceItem;
+}
+
+const { service } = Astro.props;
+---
+
+<div class="service-card">
+    <div class="card-header">
+        <div class="card-icon">
+            <DynamicIcon name={service.icon} />
+        </div>
+        <div class="card-badges">
+            <span class="badge badge-delivery">{service.deliveryLabel}</span>
+            <span class:list={[
+                "badge",
+                "badge-price",
+                { "badge-price--fixed": service.pricing === "fixed" },
+                { "badge-price--negotiable": service.pricing === "negotiable" },
+            ]}>
+                {service.priceLabel}
+            </span>
+        </div>
+    </div>
+    <h3 class="card-title">{service.title}</h3>
+    <p class="card-desc">{service.description}</p>
+</div>
+
+<style>
+    .service-card {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        padding: var(--space-xl);
+        border-radius: var(--radius-xl);
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        box-shadow: var(--shadow-sm);
+        transition:
+            transform var(--duration-slow) var(--ease-out),
+            box-shadow var(--duration-slow) var(--ease-out),
+            border-color var(--duration-slow) var(--ease-out);
+    }
+
+    .service-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--color-accent);
+    }
+
+    .card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: var(--space-sm);
+    }
+
+    .card-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-lg);
+        background-color: var(--color-surface-secondary);
+        flex-shrink: 0;
+    }
+
+    .card-icon :global(svg) {
+        width: 24px;
+        height: 24px;
+        color: var(--color-accent);
+    }
+
+    .card-badges {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: var(--radius-full);
+        font-size: var(--text-xs);
+        font-weight: 500;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+
+    .badge-delivery {
+        background-color: var(--color-surface-secondary);
+        color: var(--color-muted);
+    }
+
+    .badge-price--fixed {
+        background-color: var(--color-selection);
+        color: var(--color-accent);
+    }
+
+    .badge-price--negotiable {
+        background-color: var(--color-surface-secondary);
+        color: var(--color-muted);
+        font-style: italic;
+    }
+
+    .card-title {
+        margin: 0;
+        font-size: var(--text-xl);
+        font-weight: 600;
+        color: var(--color-heading);
+    }
+
+    .card-desc {
+        margin: 0;
+        font-size: var(--text-sm);
+        line-height: var(--leading-relaxed);
+        color: var(--color-muted);
+    }
+</style>

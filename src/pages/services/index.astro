@@ -1,0 +1,17 @@
+---
+import SectionPage from "~/components/Layout/SectionPage.astro";
+import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
+import ServicesContent from "~/components/Pages/ServicesContent.astro";
+import zhI18n from "~/data/i18n/zh.json";
+---
+
+<SectionPage
+    title={zhI18n.services.title}
+    subtitle={zhI18n.services.description}
+    publishedTime={new Date()}
+    modifiedTime={new Date()}
+>
+    <DynamicIcon name="tabler:tools" slot="icon" />
+
+    <ServicesContent locale="zh" />
+</SectionPage>

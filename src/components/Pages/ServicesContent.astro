@@ -1,0 +1,174 @@
+---
+import ServiceCard from "~/components/UI/ServiceCard.astro";
+import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
+import { servicesZh, servicesEn, contactZh, contactEn } from "~/config/services";
+import zhI18n from "~/data/i18n/zh.json";
+import enI18n from "~/data/i18n/en.json";
+
+interface Props {
+    locale: "zh" | "en";
+}
+
+const { locale } = Astro.props;
+const services = locale === "zh" ? servicesZh : servicesEn;
+const contact = locale === "zh" ? contactZh : contactEn;
+const t = locale === "zh" ? zhI18n.services : enI18n.services;
+---
+
+<div class="services-page">
+    <div class="services-grid">
+        {
+            services.map((service) => (
+                <ServiceCard service={service} />
+            ))
+        }
+    </div>
+
+    <div class="contact-section">
+        <div class="contact-card">
+            <h2 class="contact-cta">{t.contactCTA}</h2>
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <DynamicIcon name="mingcute:wechat-line" />
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-label">{t.wechat}</span>
+                        <span class="contact-value">{contact.wechat}</span>
+                    </div>
+                </div>
+
+                <a
+                    href={contact.telegramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="contact-method contact-method--link"
+                >
+                    <div class="contact-icon">
+                        <DynamicIcon name="logos:telegram" />
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-label">{t.telegram}</span>
+                        <span class="contact-value">{contact.telegram}</span>
+                    </div>
+                </a>
+
+                <a href={`mailto:${contact.email}`} class="contact-method contact-method--link">
+                    <div class="contact-icon">
+                        <DynamicIcon name="tabler:mail" />
+                    </div>
+                    <div class="contact-info">
+                        <span class="contact-label">{t.email}</span>
+                        <span class="contact-value">{contact.email}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .services-page {
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-lg);
+        margin-bottom: var(--space-3xl);
+    }
+
+    @media (max-width: 1024px) {
+        .services-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 640px) {
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* ---- Contact Section ---- */
+    .contact-section {
+        margin-top: var(--space-2xl);
+    }
+
+    .contact-card {
+        padding: var(--space-xl);
+        border-radius: var(--radius-xl);
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .contact-cta {
+        margin: 0 0 var(--space-lg);
+        font-size: var(--text-xl);
+        font-weight: 600;
+        color: var(--color-heading);
+        text-align: center;
+    }
+
+    .contact-methods {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .contact-method {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+        padding: var(--space-md);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-surface-secondary);
+        transition: background-color var(--duration-fast) var(--ease-out);
+    }
+
+    .contact-method--link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .contact-method--link:hover {
+        background-color: var(--color-surface-hover);
+    }
+
+    .contact-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-lg);
+        background-color: var(--color-bg);
+        flex-shrink: 0;
+    }
+
+    .contact-icon :global(svg) {
+        width: 20px;
+        height: 20px;
+        color: var(--color-accent);
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .contact-label {
+        font-size: var(--text-xs);
+        color: var(--color-muted);
+    }
+
+    .contact-value {
+        font-size: var(--text-base);
+        font-weight: 500;
+        color: var(--color-body);
+    }
+</style>

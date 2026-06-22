@@ -172,6 +172,14 @@
             "tv": "影视"
         }
     },
+    "services": {
+        "title": "服务",
+        "description": "博客搭建 · 服务部署 · 技术咨询",
+        "contactCTA": "感兴趣？联系我",
+        "wechat": "微信",
+        "telegram": "Telegram",
+        "email": "邮箱"
+    },
     "redirect": {
         "leavingMessage": "您即将离开{{site}}，前往",
         "safetyWarning": "该网址安全性未知，请注意您的帐号和财产安全",

@@ -56,12 +56,13 @@ export interface FooterItem {
 export const navLinks: NavLink[] = [
     { label: "首页", href: "/" },
     { label: "博客", href: "/blog/1/" },
+    { label: "随笔", href: "/talks/" },
+    { label: "相册", href: "/albums/" },
+    { label: "番剧", href: "/bangumi/" },
     { label: "友人", href: "/friends/" },
     { label: "归档", href: "/archives/" },
     { label: "标签", href: "/tags/" },
-    { label: "番剧", href: "/bangumi/" },
-    { label: "相册", href: "/albums/" },
-    { label: "随笔", href: "/talks/" },
+    { label: "服务", href: "/services/" },
 ];
 
 /**
