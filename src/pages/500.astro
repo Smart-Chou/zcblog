@@ -1,10 +1,9 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import Button from "~/components/UI/Button.astro";
-import { t, getLocale, type Locale } from "~/utils/i18n";
+import { t, getLocale } from "~/utils/i18n";
 
-const locale = (Astro.url?.pathname.startsWith("/en/") ? "en" : "zh") as string;
-const loc: Locale = getLocale(locale);
+const loc = getLocale(Astro.currentLocale || "zh");
 ---
 
 <BaseLayout

@@ -1,9 +1,9 @@
 ---
 import { notice } from "~/config";
-import { t, getLocale, type Locale } from "~/utils/i18n";
+import { t, getLocale } from "~/utils/i18n";
 
 const { pathname = "" } = Astro.url;
-const loc: Locale = getLocale(pathname.startsWith("/en/") ? "en" : "zh");
+const loc = getLocale(Astro.currentLocale || "zh");
 
 if (!notice.enable) {
     return;

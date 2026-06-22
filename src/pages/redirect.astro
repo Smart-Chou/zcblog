@@ -5,7 +5,7 @@ import { site } from "~/config";
 import { t, getLocale, type Locale } from "~/utils/i18n";
 import "~/styles/redirect.css";
 
-const loc: Locale = getLocale(Astro.url.pathname.startsWith("/en") ? "en" : "zh");
+const loc = getLocale(Astro.currentLocale || "zh");
 
 const domainsJson = JSON.stringify(site.domains);
 

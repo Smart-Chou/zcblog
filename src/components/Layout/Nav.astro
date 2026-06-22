@@ -2,12 +2,7 @@
 import { navLinks } from "~/config";
 import { t, getLocale, type Locale } from "~/utils/i18n";
 
-interface Props {
-    locale?: string;
-}
-
-const { locale = "zh" } = Astro.props;
-const loc: Locale = getLocale(locale);
+const loc = getLocale(Astro.currentLocale || "zh");
 
 const currentPath = Astro.url.pathname;
 
