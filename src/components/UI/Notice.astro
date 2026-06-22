@@ -74,7 +74,6 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
 <aside
     id="global-notice"
     class="notice-banner"
-    style="display: none;"
     role="status"
     aria-live="polite"
     data-storage-key={storageKey}
@@ -119,6 +118,7 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
 
 <style>
     .notice-banner {
+        display: none;
         position: sticky;
         top: 0;
         z-index: 101;

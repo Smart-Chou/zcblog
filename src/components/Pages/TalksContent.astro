@@ -96,6 +96,19 @@ const merged = [...talkItems].sort(
         border: 2px solid var(--color-bg);
         z-index: 1;
     }
+    @media (max-width: 450px) {
+        .talk-timeline::before {
+            display: none;
+        }
+
+        .talk-item {
+            padding-left: 0;
+        }
+
+        .talk-marker {
+            display: none;
+        }
+    }
 </style>
 
 <script>

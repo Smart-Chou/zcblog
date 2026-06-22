@@ -16,6 +16,7 @@
 .heatmap-container {
     content-visibility: auto;
     contain-intrinsic-size: auto 180px;
+    margin-left: -8px;
 }
 
 .heatmap-months {

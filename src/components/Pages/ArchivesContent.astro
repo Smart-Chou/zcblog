@@ -73,7 +73,7 @@ const postsData = postsWithMeta.map((post) => ({
     <section class="stats-section">
         <Heatmap postsData={postsData} />
     </section>
-    <div style="padding: 0 2rem;">
+    <div>
         {
             Object.keys(postsByYear)
                 .map((year) => Number(year))

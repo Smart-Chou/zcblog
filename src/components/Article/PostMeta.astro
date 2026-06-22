@@ -28,12 +28,24 @@ const showUpdated =
     Posted {formatDateToYYYYMMDD(publishedTime)}.<slot name="after-posted" />
     {
         showUpdated && safeModified && (
-            <span>&nbsp;Updated {formatDateToYYYYMMDD(safeModified)}.</span>
+            <span>Updated {formatDateToYYYYMMDD(safeModified)}.</span>
         )
     }
-    &nbsp;
-    <span id="word-count">{wordCount} words.</span>&nbsp;
-    <span id="read-time">{readTime}.</span>&nbsp;
+    <br class="meta-break" />
+    <span id="word-count">{wordCount} words.</span>
+    <span id="read-time">{readTime}.</span>
     <span class="waline-pageview-count" data-path={`/article/${currentSlug}/`}>0</span>
-    <span> views.&nbsp;</span>
+    <span> views.</span>
 </div>
+
+<style>
+    .meta-break {
+        display: none;
+    }
+
+    @media (max-width: 450px) {
+        .meta-break {
+            display: inline;
+        }
+    }
+</style>

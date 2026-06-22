@@ -218,6 +218,16 @@ sup {
         margin-top: 0;
     }
 
+    & h2::before {
+        content: "##";
+        color: var(--color-muted);
+        font-weight: 900;
+        font-size: 1.05em;
+        font-family: var(--font-mono);
+        vertical-align: middle;
+        margin-right: 8px;
+    }
+
     & p {
         line-height: 1.8;
     }
