@@ -22,7 +22,7 @@ const { searchEnable = search.enable, locale = "zh" } = Astro.props;
         </div>
         <div class="header-right">
             <LanguageSwitcher />
-            <Nav />
+            <Nav locale={locale} />
             <ToggleTheme />
         </div>
     </div>

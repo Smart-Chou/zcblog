@@ -3,6 +3,10 @@ import { Image } from "astro:assets";
 import authorImg from "~/assets/logo.svg";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import { author, categories, socialLinks } from "~/config";
+import { t, getLocale, type Locale } from "~/utils/i18n";
+
+const pathname = Astro.url?.pathname || "";
+const loc: Locale = getLocale(pathname.startsWith("/en/") ? "en" : "zh");
 ---
 
 <div class="author">
@@ -16,7 +20,7 @@ import { author, categories, socialLinks } from "~/config";
         decoding="async"
     />
     <h1 class="author-site-title">{author.type}</h1>
-    <p class="author-intro">{author.motto}</p>
+    <p class="author-intro">{t(loc, "site.subtitle")}</p>
     <p class="author-links">
         {
             categories.map((categorie) => (

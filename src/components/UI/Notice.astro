@@ -1,15 +1,21 @@
 ---
 import { notice } from "~/config";
+import { t, getLocale, type Locale } from "~/utils/i18n";
 
 const { pathname = "" } = Astro.url;
+const loc: Locale = getLocale(pathname.startsWith("/en/") ? "en" : "zh");
 
-if (!notice.enable || !notice.content) {
+if (!notice.enable) {
     return;
 }
 
 if (notice.path && !pathname.startsWith(notice.path)) {
     return;
 }
+
+const noticeTitle = t(loc, "notice.title");
+const noticeContent = t(loc, "notice.content");
+const noticeConfirmText = t(loc, "notice.confirmText");
 
 function simpleHash(str: string): string {
     let hash = 0;
@@ -21,7 +27,7 @@ function simpleHash(str: string): string {
     return Math.abs(hash).toString(36);
 }
 
-const storageKey = notice.key || `notice-${simpleHash(notice.title + notice.content)}`;
+const storageKey = notice.key || `notice-${simpleHash(noticeTitle + noticeContent)}`;
 const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
 ---
 
@@ -76,16 +82,16 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
 >
     <div class="notice-banner-inner">
         <div class="notice-banner-body">
-            {notice.title && <strong class="notice-banner-title">{notice.title}</strong>}
+            {notice.title && <strong class="notice-banner-title">{noticeTitle}</strong>}
             <span class="notice-banner-content">
-                {notice.content}
+                {noticeContent}
             </span>
         </div>
         <div class="notice-banner-actions">
             {
                 notice.confirm ? (
                     <button data-notice-confirm class="notice-btn notice-btn--primary">
-                        {notice.confirmText || "知道了"}
+                        {noticeConfirmText}
                     </button>
                 ) : (
                     <button

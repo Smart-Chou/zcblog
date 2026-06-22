@@ -1,7 +1,28 @@
 ---
 import { navLinks } from "~/config";
+import { t, getLocale, type Locale } from "~/utils/i18n";
+
+interface Props {
+    locale?: string;
+}
+
+const { locale = "zh" } = Astro.props;
+const loc: Locale = getLocale(locale);
 
 const currentPath = Astro.url.pathname;
+
+// href → i18n key 映射
+const navKeyMap: Record<string, string> = {
+    "/": "nav.home",
+    "/blog/1/": "nav.blog",
+    "/talks/": "nav.talks",
+    "/albums/": "nav.albums",
+    "/bangumi/": "nav.bangumi",
+    "/friends/": "nav.friends",
+    "/archives/": "nav.archives",
+    "/tags/": "nav.tags",
+    "/services/": "nav.services",
+};
 
 // 分页路由匹配：/blog/1/ → base=/blog/，匹配 /blog/2/、/blog/3/ 等
 function isActive(href: string) {
@@ -14,7 +35,7 @@ function isActive(href: string) {
 <button
     id="nav-menu-btn"
     class="nav-menu-btn"
-    aria-label="打开菜单"
+    aria-label={loc === "en" ? "Open menu" : "打开菜单"}
     aria-expanded="false"
     type="button"
 >
@@ -25,19 +46,24 @@ function isActive(href: string) {
     </span>
 </button>
 
-<nav id="nav-dropdown" class="nav-dropdown" aria-label="主导航" aria-hidden="true">
+<nav id="nav-dropdown" class="nav-dropdown" aria-label={loc === "en" ? "Main navigation" : "主导航"} aria-hidden="true">
     <ul class="nav-dropdown-list" role="list">
         {
-            navLinks.map((link) => (
-                <li>
-                    <a
-                        href={link.href}
-                        class:list={["nav-dropdown-link", { active: isActive(link.href) }]}
-                    >
-                        {link.label}
-                    </a>
-                </li>
-            ))
+            navLinks.map((link) => {
+                const label = navKeyMap[link.href]
+                    ? t(loc, navKeyMap[link.href])
+                    : link.label;
+                return (
+                    <li>
+                        <a
+                            href={link.href}
+                            class:list={["nav-dropdown-link", { active: isActive(link.href) }]}
+                        >
+                            {label}
+                        </a>
+                    </li>
+                );
+            })
         }
     </ul>
 </nav>

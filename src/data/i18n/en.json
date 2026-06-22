@@ -17,7 +17,8 @@
         "bangumi": "Bangumi",
         "stats": "Stats",
         "talks": "Talks",
-        "gallery": "Gallery"
+        "gallery": "Gallery",
+        "services": "Services"
     },
     "common": {
         "search": "Search",
@@ -142,6 +143,11 @@
         "topTags": "Popular tags",
         "recentPosts": "Recent posts"
     },
+    "notice": {
+        "title": "AI-Assisted Writing Disclosure",
+        "content": "Some content on this blog is AI-assisted. Please decide for yourself whether to continue reading.",
+        "confirmText": "Got it"
+    },
     "donate": {
         "title": "Donor List",
         "description": "Thanks to all the friends who support and encourage me",
@@ -153,6 +159,7 @@
         "alipayShort": "Alipay",
         "thankNote": "🙏 Thank you for your support",
         "viewAllDonators": "View all donors",
+        "tipText": "All donations will be used for open-source project maintenance, servers, domains, and cloud services.",
         "donorList": "Donor List",
         "donorListDesc": "Thanks to these friends for their support (in no particular order)",
         "thankAgain": "Thank You Again",
@@ -248,6 +255,8 @@
         "email": "Email"
     },
     "redirect": {
+        "pageTitle": "Redirect",
+        "pageDescription": "External link redirect notice",
         "leavingMessage": "You are leaving {{site}}, heading to",
         "safetyWarning": "The safety of this URL is unknown. Please protect your account and property.",
         "continueButton": "Continue",

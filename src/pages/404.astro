@@ -1,14 +1,18 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import notFound from "~/assets/404.svg";
-import { site, notFoundPage } from "~/config";
+import { site } from "~/config";
+import { t, getLocale, type Locale } from "~/utils/i18n";
+
+const pathname = Astro.url?.pathname || "";
+const loc: Locale = getLocale(pathname.startsWith("/en/") ? "en" : "zh");
 ---
 
 <BaseLayout
-    title={notFoundPage.title}
-    description={site.title + ` - ` + notFoundPage.description}
+    title={t(loc, "common.404.title")}
+    description={`${site.title} - ${t(loc, "common.404.message")}`}
     image={Astro.site + site.coverImage}
-    imageAlt={notFoundPage.title}
+    imageAlt="404"
     keywords="404"
     publishedTime={new Date()}
     modifiedTime={new Date()}

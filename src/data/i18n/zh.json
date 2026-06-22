@@ -14,10 +14,11 @@
         "albums": "相册",
         "friends": "友人帐",
         "about": "关于",
-        "bangumi": "Bangumi",
+        "bangumi": "番剧",
         "stats": "统计",
         "talks": "随笔",
-        "gallery": "画廊"
+        "gallery": "画廊",
+        "services": "服务"
     },
     "common": {
         "search": "搜索",
@@ -142,6 +143,11 @@
         "topTags": "热门标签",
         "recentPosts": "最近文章"
     },
+    "notice": {
+        "title": "AI 辅助写作声明",
+        "content": "本博客部分内容采用 AI 辅助写作，请自行决定是否继续阅读。",
+        "confirmText": "知道了"
+    },
     "donate": {
         "title": "赞赏者名单",
         "description": "感谢所有支持和鼓励我的朋友们",
@@ -153,6 +159,7 @@
         "alipayShort": "支付宝",
         "thankNote": "🙏 感谢您赐予我前进的力量",
         "viewAllDonators": "全部赞赏者名单",
+        "tipText": "赞赏金额将全部用于开源项目维护，以及服务器、域名及各类云服务的开销",
         "donorList": "赞赏者名单",
         "donorListDesc": "感谢这些朋友的支持，让我能持续写下去（排名不分先后）",
         "thankAgain": "再次感谢",
@@ -248,6 +255,8 @@
         "email": "邮箱"
     },
     "redirect": {
+        "pageTitle": "链接跳转",
+        "pageDescription": "外部链接跳转提示",
         "leavingMessage": "您即将离开{{site}}，前往",
         "safetyWarning": "该网址安全性未知，请注意您的帐号和财产安全",
         "continueButton": "继续前往",
