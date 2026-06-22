@@ -134,7 +134,7 @@ async function main() {
     }
 
     const items = publicNotes.map((n) => {
-        const iso = n.updatedAt || n.createdAt;
+        const iso = n.createdAt || n.updatedAt;
         const images = extractImages(n);
 
         return {
