@@ -42,7 +42,7 @@
 .post-meta {
     font-size: 0.8em;
     color: var(--color-text-muted);
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
 }
 
 .post-tags {

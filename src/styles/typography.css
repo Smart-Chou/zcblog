@@ -4,7 +4,7 @@
 
 body,
 p {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
 }
 
 p {
@@ -23,7 +23,7 @@ li,
 ol,
 table,
 ul {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
 }
 
 /* ---- Headings — Serif editorial ---- */

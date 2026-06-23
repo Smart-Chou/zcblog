@@ -106,7 +106,7 @@
 }
 
 .hero-subtitle {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-size: var(--text-lg);
     color: var(--color-text-muted);
     font-weight: 400;
@@ -563,7 +563,7 @@
 .photo-caption {
     color: #fff;
     font-size: var(--text-sm);
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
 }
 
 /* ========================================

@@ -27,7 +27,7 @@
         --pf-outline-offset: 2px;
 
         /* ── 字体 ── */
-        --pf-font: var(--font-sans);
+        --pf-font: var(--font-body);
 
         /* ── 圆角 ── */
         --pf-border-radius: var(--radius-lg);
