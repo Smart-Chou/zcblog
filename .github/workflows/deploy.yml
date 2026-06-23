@@ -41,9 +41,9 @@ jobs:
                   cp _articles/*.mdx src/content/article/ 2>/dev/null || true
                   echo "📄 $(ls src/content/article/*.md src/content/article/*.mdx 2>/dev/null | wc -l) 篇文章"
 
-                  mkdir -p public/assets
-                  cp -r _articles/assets/* public/assets/ 2>/dev/null || true
-                  echo "🖼  $(find public/assets -type f 2>/dev/null | wc -l) 张图片"
+                  mkdir -p src/assets
+                  cp -r _articles/assets/* src/assets/ 2>/dev/null || true
+                  echo "🖼  $(find src/assets -type f 2>/dev/null | wc -l) 张图片"
 
             - name: Install system dependencies
               run: sudo apt-get update && sudo apt-get install -y libvips-dev
