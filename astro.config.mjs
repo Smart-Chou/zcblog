@@ -127,7 +127,7 @@ export default defineConfig({
             },
         },
         astroVtBot({
-            viewTransitionsFallback: "none",
+            viewTransitionsFallback: "animate",
         }),
     ],
     image: {
