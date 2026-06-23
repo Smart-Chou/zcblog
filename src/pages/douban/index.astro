@@ -1,5 +1,7 @@
 ---
+import { getLocale } from "~/utils/i18n";
 import DoubanContent from "~/components/Pages/DoubanContent.astro";
+const locale = getLocale(Astro.currentLocale || "zh");
 ---
 
-<DoubanContent locale="zh" />
+<DoubanContent locale={locale} />

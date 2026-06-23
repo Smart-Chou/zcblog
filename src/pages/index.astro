@@ -1,5 +1,7 @@
 ---
+import { getLocale } from "~/utils/i18n";
 import HomeContent from "~/components/Pages/HomeContent.astro";
+const locale = getLocale(Astro.currentLocale || "zh");
 ---
 
-<HomeContent locale="zh" />
+<HomeContent locale={locale} />

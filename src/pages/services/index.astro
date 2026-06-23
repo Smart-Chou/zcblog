@@ -1,18 +1,20 @@
 ---
+import { getLocale, t } from "~/utils/i18n";
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import ServicesContent from "~/components/Pages/ServicesContent.astro";
-import zhI18n from "~/data/i18n/zh.json";
+
+const locale = getLocale(Astro.currentLocale || "zh");
 ---
 
 <SectionPage
-    title={zhI18n.services.title}
-    subtitle={zhI18n.services.description}
+    title={t(locale, "services.title")}
+    subtitle={t(locale, "services.description")}
     publishedTime={new Date()}
     modifiedTime={new Date()}
-    locale="zh"
+    locale={locale}
 >
     <DynamicIcon name="tabler:tools" slot="icon" />
 
-    <ServicesContent locale="zh" />
+    <ServicesContent locale={locale} />
 </SectionPage>
