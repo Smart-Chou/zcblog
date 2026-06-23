@@ -35,8 +35,8 @@ export function t(locale: Locale, key: string, params?: Record<string, string | 
 
     if (params) {
         return value.replace(
-            /\{\{(\w+)\}\}/g,
-            (_, paramKey) => params[paramKey]?.toString() ?? `{{${paramKey}}}`,
+            /\{\{?(\w+)\}\}?/g,
+            (_, paramKey) => params[paramKey]?.toString() ?? `{${paramKey}}`,
         );
     }
 
