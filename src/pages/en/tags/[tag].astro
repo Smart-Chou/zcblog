@@ -1,0 +1,10 @@
+---
+import TagPostsContent from "~/components/Pages/TagPostsContent.astro";
+import { tagPostsGetStaticPaths } from "~/utils/tag-paths";
+
+export const getStaticPaths = tagPostsGetStaticPaths;
+
+const { articles } = Astro.props;
+---
+
+<TagPostsContent articles={articles} locale="en" />
