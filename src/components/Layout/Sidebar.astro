@@ -22,10 +22,7 @@ function isActive(item: SidebarItem): boolean {
                 if ("items" in entry && entry.items) {
                     return (
                         <li class="sidebar-group">
-                            <button
-                                class="sidebar-group-label"
-                                aria-expanded={!entry.collapsed}
-                            >
+                            <button class="sidebar-group-label" aria-expanded={!entry.collapsed}>
                                 {entry.label}
                             </button>
                             {!entry.collapsed && (
@@ -124,7 +121,9 @@ function isActive(item: SidebarItem): boolean {
         font-size: var(--text-body-sm);
         color: var(--color-text-muted);
         text-decoration: none;
-        transition: background var(--duration-fast), color var(--duration-fast);
+        transition:
+            background var(--duration-fast),
+            color var(--duration-fast);
     }
 
     .sidebar-link:hover {

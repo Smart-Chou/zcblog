@@ -9,18 +9,20 @@ const { headings, minLevel = 2, maxLevel = 3 } = Astro.props;
 const filtered = headings.filter((h) => h.depth >= minLevel && h.depth <= maxLevel);
 ---
 
-{filtered.length > 0 && (
-    <nav class="toc-native" aria-label="目录">
-        <h2 class="toc-native-title">目录</h2>
-        <ul class="toc-native-list">
-            {filtered.map((h) => (
-                <li class={`toc-native-item toc-native-item--h${h.depth}`}>
-                    <a href={`#${h.slug}`}>{h.text}</a>
-                </li>
-            ))}
-        </ul>
-    </nav>
-)}
+{
+    filtered.length > 0 && (
+        <nav class="toc-native" aria-label="目录">
+            <h2 class="toc-native-title">目录</h2>
+            <ul class="toc-native-list">
+                {filtered.map((h) => (
+                    <li class={`toc-native-item toc-native-item--h${h.depth}`}>
+                        <a href={`#${h.slug}`}>{h.text}</a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    )
+}
 
 <script>
     // IntersectionObserver-based active state (optional enhancement)
@@ -86,7 +88,9 @@ const filtered = headings.filter((h) => h.depth >= minLevel && h.depth <= maxLev
         color: var(--color-text-muted);
         text-decoration: none;
         border-left: 2px solid transparent;
-        transition: color var(--duration-fast), border-color var(--duration-fast);
+        transition:
+            color var(--duration-fast),
+            border-color var(--duration-fast);
     }
 
     .toc-native-item a:hover,

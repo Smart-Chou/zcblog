@@ -6,7 +6,7 @@ import { getArticleStats } from "~/utils/article-stats";
 
 const currentYear = new Date().getFullYear();
 
-const { totalPosts, totalTags, totalCharCount } = await getArticleStats();
+const { totalPosts, totalTags, totalWords } = await getArticleStats();
 
 function formatNumber(num: number): string {
     if (num >= 1000000) return `${(num / 1000000).toFixed(1)}m`;
@@ -17,7 +17,7 @@ function formatNumber(num: number): string {
 const stats = [
     { label: "文章", value: formatNumber(totalPosts), url: "/archives/" },
     { label: "标签", value: formatNumber(totalTags), url: "/tags/" },
-    { label: "字数", value: formatNumber(totalCharCount), url: "/archives/" },
+    { label: "字数", value: formatNumber(totalWords), url: "/archives/" },
 ];
 ---
 

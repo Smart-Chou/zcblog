@@ -28,7 +28,8 @@ const tagCounts = allTags.reduce(
 
 const sortedTags = Object.entries(tagCounts)
     .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));---
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+---
 
 <SectionPage
     title={t(loc, "tags.title")}

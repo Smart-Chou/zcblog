@@ -1,5 +1,6 @@
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import getReadingTime from "reading-time";
 
 /** 获取所有文章（Astro 内部已缓存，多次调用不会重复读取）。 */
 export function getAllArticles(): Promise<CollectionEntry<"article">[]> {
@@ -17,8 +18,8 @@ export function invalidateStatsCache(): void {
 export interface ArticleStats {
     totalPosts: number;
     totalTags: number;
-    /** 去除空格后的总字符数（中文博客中"字数"以字符计） */
-    totalCharCount: number;
+    /** 总字数 — 使用 reading-time 库（与文章页 wordCount 统计口径一致） */
+    totalWords: number;
 }
 
 export async function getArticleStats(): Promise<ArticleStats> {
@@ -27,11 +28,11 @@ export async function getArticleStats(): Promise<ArticleStats> {
     const allPosts = await getAllArticles();
     const totalPosts = allPosts.length;
     const totalTags = new Set(getAllTags(allPosts)).size;
-    const totalCharCount = allPosts.reduce((sum: number, post: CollectionEntry<"article">) => {
+    const totalWords = allPosts.reduce((sum: number, post: CollectionEntry<"article">) => {
         const body = post.body || "";
-        return sum + body.replace(/\s+/g, "").length;
+        return sum + getReadingTime(body).words;
     }, 0);
-    _statsCache = { totalPosts, totalTags, totalCharCount };
+    _statsCache = { totalPosts, totalTags, totalWords };
     return _statsCache;
 }
 

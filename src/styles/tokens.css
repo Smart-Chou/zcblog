@@ -12,91 +12,91 @@
    1. Gray Scale Palette (net-new — not in variables.css)
    ========================================= */
 :root {
-  --color-gray-50:  hsl(30, 10%, 98%);
-  --color-gray-100: hsl(30, 8%, 94%);
-  --color-gray-200: hsl(30, 6%, 80%);
-  --color-gray-300: hsl(30, 5%, 60%);
-  --color-gray-400: hsl(30, 5%, 44%);
-  --color-gray-500: hsl(30, 6%, 30%);
-  --color-gray-600: hsl(30, 8%, 18%);
-  --color-gray-700: hsl(30, 8%, 12%);
-  --color-gray-800: hsl(30, 8%, 8%);
-  --color-gray-900: hsl(30, 8%, 4%);
+    --color-gray-50: hsl(30, 10%, 98%);
+    --color-gray-100: hsl(30, 8%, 94%);
+    --color-gray-200: hsl(30, 6%, 80%);
+    --color-gray-300: hsl(30, 5%, 60%);
+    --color-gray-400: hsl(30, 5%, 44%);
+    --color-gray-500: hsl(30, 6%, 30%);
+    --color-gray-600: hsl(30, 8%, 18%);
+    --color-gray-700: hsl(30, 8%, 12%);
+    --color-gray-800: hsl(30, 8%, 8%);
+    --color-gray-900: hsl(30, 8%, 4%);
 }
 
 /* =========================================
    2. Semantic Colors — referencing variables.css values
    ========================================= */
 :root {
-  /* Surface & Background */
-  --color-bg-surface:    var(--color-surface);
-  --color-bg-elevated:   var(--color-surface-secondary);
-  --color-bg-accent:     var(--color-accent);
+    /* Surface & Background */
+    --color-bg-surface: var(--color-surface);
+    --color-bg-elevated: var(--color-surface-secondary);
+    --color-bg-accent: var(--color-accent);
 
-  /* Text */
-  --color-text:          var(--color-body);
-  --color-text-muted:    var(--color-muted);
-  --color-text-heading:  var(--color-heading);
-  --color-text-accent:   var(--color-link);
-  --color-text-invert:   #fbf8f4;
+    /* Text */
+    --color-text: var(--color-body);
+    --color-text-muted: var(--color-muted);
+    --color-text-heading: var(--color-heading);
+    --color-text-accent: var(--color-link);
+    --color-text-invert: #fbf8f4;
 
-  /* Interactive */
-  --color-hover-accent:  var(--color-hover);
+    /* Interactive */
+    --color-hover-accent: var(--color-hover);
 
-  /* Code */
-  --color-code-bg:       var(--color-code-bg);
+    /* Code */
+    --color-code-bg: var(--color-code-bg);
 
-  /* Overlay / Backdrop */
-  --color-backdrop:      rgba(0, 0, 0, 0.5);
+    /* Overlay / Backdrop */
+    --color-backdrop: rgba(0, 0, 0, 0.5);
 }
 
 /* ---- Dark mode overrides for new tokens only ---- */
 [data-theme="dark"] {
-  --color-text-invert:   #1c1917;
-  --color-backdrop:      rgba(0, 0, 0, 0.7);
+    --color-text-invert: #1c1917;
+    --color-backdrop: rgba(0, 0, 0, 0.7);
 }
 
 /* =========================================
    3. Typography — aliases + extensions
    ========================================= */
 :root {
-  /* Font families — --font-body / --font-heading / --font-mono retained from variables.css.
+    /* Font families — --font-body / --font-heading / --font-mono retained from variables.css.
      NOTE: Do NOT alias --font-body to --font-sans — Tailwind v4 @theme outputs
      --font-sans as unlayered CSS, which overrides any layered definition. */
-  /* --font-mono is already in variables.css — pass-through */
+    /* --font-mono is already in variables.css — pass-through */
 
-  /* Semantic type scale — maps numbered scale to semantic roles */
-  --text-body:    var(--base-font-size);
-  --text-body-sm: var(--text-sm);
-  --text-h1:      var(--text-4xl);
-  --text-h2:      var(--text-3xl);
-  --text-h3:      var(--text-2xl);
-  --text-h4:      var(--text-xl);
-  --text-h5:      var(--text-lg);
-  --text-h6:      var(--text-base);
+    /* Semantic type scale — maps numbered scale to semantic roles */
+    --text-body: var(--base-font-size);
+    --text-body-sm: var(--text-sm);
+    --text-h1: var(--text-4xl);
+    --text-h2: var(--text-3xl);
+    --text-h3: var(--text-2xl);
+    --text-h4: var(--text-xl);
+    --text-h5: var(--text-lg);
+    --text-h6: var(--text-base);
 
-  /* Leading */
-  --leading:          var(--leading-relaxed);
-  --leading-headings: var(--leading-snug);
-  --leading-code:     var(--leading-code);
+    /* Leading */
+    --leading: var(--leading-relaxed);
+    --leading-headings: var(--leading-snug);
+    --leading-code: var(--leading-code);
 
-  /* Font weights (net-new) */
-  --font-weight-normal:   400;
-  --font-weight-medium:   500;
-  --font-weight-semibold: 600;
-  --font-weight-bold:     700;
+    /* Font weights (net-new) */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
 }
 
 /* =========================================
    4. Layout — extensions beyond variables.css
    ========================================= */
 :root {
-  /* --content-width, --content-width-max, --header-height
+    /* --content-width, --content-width-max, --header-height
      already in variables.css — pass-through */
 
-  --content-width-wide: var(--content-width-max);
-  --sidebar-width:      260px;
-  --toc-width:          200px;
+    --content-width-wide: var(--content-width-max);
+    --sidebar-width: 260px;
+    --toc-width: 200px;
 }
 
 /* =========================================
@@ -109,8 +109,8 @@
    6. Radii — consolidated
    ========================================= */
 :root {
-  --radius-xs:   var(--radius-sm);
-  /* --radius-sm, --radius, --radius-lg, --radius-xl, --radius-full
+    --radius-xs: var(--radius-sm);
+    /* --radius-sm, --radius, --radius-lg, --radius-xl, --radius-full
      already in variables.css — pass-through */
 }
 
@@ -128,10 +128,10 @@
    9. Z-Index Scale (net-new)
    ========================================= */
 :root {
-  --z-base:      1;
-  --z-dropdown:  10;
-  --z-sticky:    20;
-  --z-overlay:   30;
-  --z-modal:     50;
-  --z-toast:     100;
+    --z-base: 1;
+    --z-dropdown: 10;
+    --z-sticky: 20;
+    --z-overlay: 30;
+    --z-modal: 50;
+    --z-toast: 100;
 }
