@@ -99,7 +99,7 @@ const { tabs, activeTab } = Astro.props;
         background: transparent;
         font-size: 0.9rem;
         font-weight: 500;
-        color: var(--color-body);
+        color: var(--color-text);
         cursor: pointer;
         border-bottom: 2px solid transparent;
         transition: all var(--duration-normal) var(--ease-out);
@@ -108,13 +108,13 @@ const { tabs, activeTab } = Astro.props;
 
     @media (hover: hover) {
         .tab-btn:hover {
-            color: var(--color-link);
+            color: var(--color-accent);
         }
     }
 
     .tab-btn.active {
-        color: var(--color-link);
-        border-bottom-color: var(--color-link);
+        color: var(--color-accent);
+        border-bottom-color: var(--color-accent);
     }
 
     .count {

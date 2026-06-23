@@ -93,7 +93,7 @@ export const categories: CategoryItem[] = [
     {
         url: "/archives/",
         title: "📂 Archives",
-        style: "color: var(--color-body)",
+        style: "color: var(--color-text)",
         target: "_self",
         svg: "tabler:archive-filled",
     },
@@ -113,7 +113,7 @@ export const socialLinks: SocialLinkItem[] = [
     {
         url: "//mcc.im",
         title: "🚀 Portfolio",
-        style: "color: var(--color-body)",
+        style: "color: var(--color-text)",
         svg: "mingcute:world-2-fill",
     },
     {
@@ -131,7 +131,7 @@ export const socialLinks: SocialLinkItem[] = [
     {
         url: "//github.com/Smart-Chou",
         title: "🔗 @Smart-Chou",
-        style: "color: var(--color-body)",
+        style: "color: var(--color-text)",
         svg: "mingcute:github-line",
     },
 ];

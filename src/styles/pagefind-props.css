@@ -7,10 +7,10 @@
 @layer pagefind.base {
     :root {
         /* ── 颜色 ── */
-        --pf-text: var(--color-body);
-        --pf-text-secondary: var(--color-muted);
+        --pf-text: var(--color-text);
+        --pf-text-secondary: var(--color-text-muted);
         --pf-text-muted: var(--color-text-dimmed);
-        --pf-background: var(--color-surface);
+        --pf-background: var(--color-bg-surface);
         --pf-border: var(--color-border);
         --pf-border-focus: var(--color-accent);
         --pf-hover: var(--color-hover);
@@ -27,7 +27,7 @@
         --pf-outline-offset: 2px;
 
         /* ── 字体 ── */
-        --pf-font: var(--font-body);
+        --pf-font: var(--font-sans);
 
         /* ── 圆角 ── */
         --pf-border-radius: var(--radius-lg);
@@ -76,10 +76,10 @@
 
     /* ── 暗色模式 ── */
     [data-theme="dark"] {
-        --pf-text: var(--color-body);
-        --pf-text-secondary: var(--color-muted);
+        --pf-text: var(--color-text);
+        --pf-text-secondary: var(--color-text-muted);
         --pf-text-muted: var(--color-text-dimmed);
-        --pf-background: var(--color-surface);
+        --pf-background: var(--color-bg-surface);
         --pf-border: var(--color-border);
         --pf-border-focus: var(--color-accent);
         --pf-hover: var(--color-hover);

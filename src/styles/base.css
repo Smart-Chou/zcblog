@@ -44,8 +44,8 @@ html {
 
 body {
     background-color: var(--color-bg);
-    color: var(--color-body);
-    font-family: var(--font-body);
+    color: var(--color-text);
+    font-family: var(--font-sans);
     font-weight: 400;
     margin: 0;
     padding: 0;
@@ -75,7 +75,7 @@ hr {
     text-align: center;
     border: none;
     margin: calc(var(--space) / 2) 0;
-    color: var(--color-muted);
+    color: var(--color-text-muted);
 }
 
 hr:before {

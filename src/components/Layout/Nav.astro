@@ -135,10 +135,10 @@ function isActive(href: string) {
         border: none;
         border-radius: 8px;
         background: transparent;
-        color: var(--color-body);
+        color: var(--color-text);
         font-size: 0.95em;
         font-weight: 600;
-        font-family: var(--font-body);
+        font-family: var(--font-sans);
         cursor: pointer;
         transition: background-color var(--duration-fast);
     }
@@ -161,7 +161,7 @@ function isActive(href: string) {
         width: 18px;
         height: 2px;
         border-radius: 2px;
-        background: var(--color-body);
+        background: var(--color-text);
         transition:
             transform 0.3s,
             opacity 0.3s;
@@ -202,8 +202,8 @@ function isActive(href: string) {
         width: calc(100% - 48px);
         max-width: var(--content-width-medium);
         padding: 0 32px;
-        background: var(--color-surface);
-        background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+        background: var(--color-bg-surface);
+        background: color-mix(in srgb, var(--color-bg-surface) 90%, transparent);
         -webkit-backdrop-filter: blur(24px);
         backdrop-filter: blur(24px);
         border: 1px solid var(--color-border);
@@ -240,7 +240,7 @@ function isActive(href: string) {
         border-radius: 10px;
         font-size: 1.05em;
         font-weight: 600;
-        color: var(--color-body);
+        color: var(--color-text);
         text-decoration: none;
         white-space: nowrap;
         transition:

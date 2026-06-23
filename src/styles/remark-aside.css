@@ -66,7 +66,7 @@
 }
 
 .remark-aside .remark-aside-content {
-    color: var(--color-body) !important;
+    color: var(--color-text) !important;
 }
 
 .remark-aside .remark-aside-content > :last-child {

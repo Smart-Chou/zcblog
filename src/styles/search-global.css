@@ -47,7 +47,7 @@ pagefind-modal-trigger {
     --pf-background: var(--search-modal-bg);
     --pf-border: var(--search-border);
     --pf-text-secondary: var(--search-text-subtle);
-    --pf-font: var(--font-body);
+    --pf-font: var(--font-sans);
 }
 
 pagefind-modal {
@@ -67,7 +67,7 @@ pagefind-modal {
     --pf-border-radius: var(--search-modal-radius);
     --pf-input-height: 44px;
     --pf-input-font-size: 16px;
-    --pf-font: var(--font-body);
+    --pf-font: var(--font-sans);
     --pf-outline-focus: var(--search-primary);
 }
 

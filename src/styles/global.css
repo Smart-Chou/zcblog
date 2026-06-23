@@ -4,6 +4,7 @@
 /* All @import rules must precede other statements */
 @import url(./reset.css) layer(reset);
 @import url(./variables.css) layer(variables);
+@import url(./tokens.css) layer(variables);
 @import url(./base.css) layer(base);
 @import url(./typography.css) layer(typography);
 @import url(./components.css) layer(components);
@@ -29,7 +30,7 @@
 
 /* ---- Link Styles (unlayered — overrides Tailwind preflight) ---- */
 a {
-    color: var(--color-link);
+    color: var(--color-accent);
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
     transition: opacity var(--duration-fast);

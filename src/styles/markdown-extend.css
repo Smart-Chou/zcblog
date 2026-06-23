@@ -112,11 +112,11 @@ mark {
 /* ---- GitHub 仓库卡片 ---- */
 a.card-github {
     display: block;
-    background: var(--color-surface);
+    background: var(--color-bg-surface);
     position: relative;
     margin: 0.5rem 0;
     padding: 1.1rem 1.5rem;
-    color: var(--color-body);
+    color: var(--color-text);
     border-radius: 0.75rem;
     text-decoration: none;
     border: 1px solid var(--color-border);
@@ -136,7 +136,7 @@ a.card-github .gc-titlebar {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 0.5rem;
-    color: var(--color-heading);
+    color: var(--color-text-heading);
     font-size: 1.25rem;
     font-weight: 500;
 }
@@ -174,7 +174,7 @@ a.card-github .gc-description {
     font-size: 1rem;
     font-weight: 300;
     line-height: 1.5rem;
-    color: var(--color-body);
+    color: var(--color-text);
 }
 
 a.card-github .gc-infobar {
@@ -286,7 +286,7 @@ pre.mermaid {
     margin: 1.5rem 0;
     overflow-x: auto;
     padding: 1rem;
-    background: var(--color-surface);
+    background: var(--color-bg-surface);
     border-radius: 8px;
     border: 1px solid var(--color-border, #e5e7eb);
 }

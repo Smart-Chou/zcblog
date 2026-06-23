@@ -27,7 +27,7 @@
     margin-bottom: 8px;
     min-width: max-content;
     font-size: 0.7rem;
-    color: var(--color-body);
+    color: var(--color-text);
 }
 
 .heatmap-y-labels {
@@ -35,7 +35,7 @@
     grid-template-rows: repeat(7, var(--heatmap-cell-size));
     gap: var(--heatmap-gap);
     font-size: 0.65rem;
-    color: var(--color-body);
+    color: var(--color-text);
     width: 1rem;
     flex-shrink: 0;
 }
@@ -111,7 +111,7 @@
     justify-content: flex-end;
     gap: 4px;
     font-size: 0.65rem;
-    color: var(--color-body);
+    color: var(--color-text);
     margin-top: 0.75rem;
 }
 

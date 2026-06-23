@@ -3,7 +3,7 @@
    ========================================= */
 
 .content-box {
-    background-color: var(--color-surface);
+    background-color: var(--color-bg-surface);
     max-width: var(--content-width);
     margin: 0 auto;
     padding: var(--space);
@@ -41,8 +41,8 @@
 
 .post-meta {
     font-size: 0.8em;
-    color: var(--color-muted);
-    font-family: var(--font-body);
+    color: var(--color-text-muted);
+    font-family: var(--font-sans);
 }
 
 .post-tags {
@@ -52,7 +52,7 @@
 .post-tags-link {
     margin: var(--space-2xs) var(--space-xs) var(--space-2xs) 0;
     font-size: 0.8em;
-    color: var(--color-muted);
+    color: var(--color-text-muted);
     text-decoration: none;
     background-color: var(--color-bg);
     padding: var(--space-2xs) var(--space-sm);
@@ -93,7 +93,7 @@
     position: relative;
     content-visibility: auto;
     contain-intrinsic-size: auto 320px;
-    background: var(--color-surface);
+    background: var(--color-bg-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
     transition:

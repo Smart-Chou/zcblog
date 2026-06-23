@@ -39,7 +39,7 @@ const { service } = Astro.props;
         gap: var(--space-md);
         padding: var(--space-xl);
         border-radius: var(--radius-xl);
-        background-color: var(--color-surface);
+        background-color: var(--color-bg-surface);
         border: 1px solid var(--color-border);
         box-shadow: var(--shadow-sm);
         transition:
@@ -99,7 +99,7 @@ const { service } = Astro.props;
 
     .badge-delivery {
         background-color: var(--color-surface-secondary);
-        color: var(--color-muted);
+        color: var(--color-text-muted);
     }
 
     .badge-price--fixed {
@@ -109,7 +109,7 @@ const { service } = Astro.props;
 
     .badge-price--negotiable {
         background-color: var(--color-surface-secondary);
-        color: var(--color-muted);
+        color: var(--color-text-muted);
         font-style: italic;
     }
 
@@ -117,13 +117,13 @@ const { service } = Astro.props;
         margin: 0;
         font-size: var(--text-xl);
         font-weight: 600;
-        color: var(--color-heading);
+        color: var(--color-text-heading);
     }
 
     .card-desc {
         margin: 0;
         font-size: var(--text-sm);
         line-height: var(--leading-relaxed);
-        color: var(--color-muted);
+        color: var(--color-text-muted);
     }
 </style>

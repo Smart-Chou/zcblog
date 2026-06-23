@@ -28,7 +28,7 @@ const { href, variant = "primary", target, rel, class: className } = Astro.props
     }
 
     .btn-primary {
-        background: var(--btn-primary-bg, var(--color-link));
+        background: var(--btn-primary-bg, var(--color-accent));
         color: var(--btn-primary-color, #fff);
     }
 
@@ -41,13 +41,13 @@ const { href, variant = "primary", target, rel, class: className } = Astro.props
 
     .btn-secondary {
         background: transparent;
-        color: var(--btn-secondary-color, var(--color-link));
-        border-color: var(--btn-secondary-border, var(--color-link));
+        color: var(--btn-secondary-color, var(--color-accent));
+        border-color: var(--btn-secondary-border, var(--color-accent));
     }
 
     @media (hover: hover) {
         .btn-secondary:hover {
-            background: var(--btn-secondary-hover-bg, var(--color-link));
+            background: var(--btn-secondary-hover-bg, var(--color-accent));
             color: var(--btn-secondary-hover-color, #fff);
             transform: translateY(-2px);
         }
