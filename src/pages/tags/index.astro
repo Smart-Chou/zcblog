@@ -1,6 +1,7 @@
 ---
+import { getLocale } from "~/utils/i18n";
 import TagsIndexContent from "~/components/Pages/TagsIndexContent.astro";
-const locale = Astro.currentLocale || "zh";
+const locale = getLocale(Astro.currentLocale || "zh");
 ---
 
 <TagsIndexContent locale={locale} />

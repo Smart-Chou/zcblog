@@ -1,10 +1,12 @@
 ---
+import { getLocale } from "~/utils/i18n";
 import TagPostsContent from "~/components/Pages/TagPostsContent.astro";
 import { tagPostsGetStaticPaths } from "~/utils/tag-paths";
 
 export const getStaticPaths = tagPostsGetStaticPaths;
 
 const { articles } = Astro.props;
+const locale = getLocale(Astro.currentLocale || "zh");
 ---
 
-<TagPostsContent articles={articles} locale="zh" />
+<TagPostsContent articles={articles} locale={locale} />

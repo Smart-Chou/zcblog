@@ -1,5 +1,7 @@
 ---
+import { getLocale } from "~/utils/i18n";
 import AlbumsContent from "~/components/Pages/AlbumsContent.astro";
+const locale = getLocale(Astro.currentLocale || "zh");
 ---
 
-<AlbumsContent locale="zh" />
+<AlbumsContent locale={locale} />

@@ -1,5 +1,7 @@
 ---
+import { getLocale } from "~/utils/i18n";
 import BangumiContent from "~/components/Pages/BangumiContent.astro";
+const locale = getLocale(Astro.currentLocale || "zh");
 ---
 
-<BangumiContent locale="zh" />
+<BangumiContent locale={locale} />

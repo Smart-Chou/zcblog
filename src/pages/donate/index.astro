@@ -1,6 +1,7 @@
 ---
+import { getLocale } from "~/utils/i18n";
 import DonateContent from "~/components/Pages/DonateContent.astro";
-const locale = Astro.currentLocale || "zh";
+const locale = getLocale(Astro.currentLocale || "zh");
 ---
 
 <DonateContent locale={locale} />
