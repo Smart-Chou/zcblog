@@ -5,7 +5,9 @@ import Header from "~/components/Layout/Header.astro";
 import Footer from "~/components/Layout/Footer.astro";
 import Notice from "~/components/UI/Notice.astro";
 import Watermark from "~/components/UI/Watermark.astro";
+import Sidebar from "~/components/Layout/Sidebar.astro";
 import { config } from "~/config";
+import { sidebarConfig } from "~/config/ui";
 
 interface Props {
     title: string;
@@ -24,6 +26,7 @@ interface Props {
     nextUrl?: string | null;
     noindex?: boolean;
     noEnAlternate?: boolean;
+    showSidebar?: boolean;
 }
 
 const {
@@ -43,6 +46,7 @@ const {
     nextUrl,
     noindex = false,
     noEnAlternate = false,
+    showSidebar = false,
 } = Astro.props;
 
 const lang = locale === "en" ? "en" : "zh-CN";
@@ -71,16 +75,48 @@ const lang = locale === "en" ? "en" : "zh-CN";
             >{locale === "en" ? "Skip to content" : "跳至内容"}</a
         >
         <Notice />
-        <div id="app" class="full-width">
+        <div
+            id="app"
+            class:list={["full-width", { "with-sidebar": showSidebar }]}
+        >
             <Header locale={locale} />
-            <main id="main-content" class="main">
+            <div class="page-wrapper">
+                {showSidebar && <Sidebar items={sidebarConfig} currentPath={Astro.url.pathname} />}
+                <main id="main-content" class="main">
                 <div class:list={["content", { "content--full": fullWidth }]}>
                     <slot />
                 </div>
             </main>
+            </div>
             <Footer />
         </div>
         <Watermark />
         {config.redirect && <script>import "~/scripts/redirect-handler";</script>}
     </body>
 </html>
+
+<style is:global>
+    .page-wrapper {
+        display: flex;
+        max-width: var(--content-width-max);
+        margin: 0 auto;
+        padding: var(--space-md);
+    }
+
+    .with-sidebar .page-wrapper {
+        display: grid;
+        grid-template-columns: var(--sidebar-width) 1fr;
+        gap: var(--space-xl);
+        align-items: start;
+    }
+
+    .with-sidebar .main {
+        min-width: 0;
+    }
+
+    @media (max-width: 768px) {
+        .with-sidebar .page-wrapper {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

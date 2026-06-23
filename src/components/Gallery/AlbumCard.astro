@@ -1,5 +1,5 @@
 ---
-import MediaCard from "~/components/UI/MediaCard.astro";
+import Card from "~/components/UI/Card.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 const { id, name, cover, description, date, location, tags, photoCount } = Astro.props;
 ---
 
-<MediaCard
+<Card
     href={`/albums/${id}/`}
     image={cover}
     alt={name}
@@ -50,7 +50,7 @@ const { id, name, cover, description, date, location, tags, photoCount } = Astro
             )
         }
     </div>
-</MediaCard>
+</Card>
 
 <style>
     .photo-count {

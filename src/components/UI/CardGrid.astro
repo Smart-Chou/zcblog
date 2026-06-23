@@ -1,5 +1,5 @@
 ---
-import MediaCard from "~/components/UI/MediaCard.astro";
+import Card from "~/components/UI/Card.astro";
 import { getLocalImage } from "~/utils/image-map";
 
 interface MediaItem {
@@ -25,7 +25,7 @@ const { items, imageBaseUrl = "" } = Astro.props;
             const localImage = getLocalImage(imagePath);
             return (
                 <div class="media-grid-item">
-                    <MediaCard
+                    <Card
                         href={item.link || "#"}
                         image={localImage ?? imagePath}
                         alt={item.title}
@@ -39,7 +39,7 @@ const { items, imageBaseUrl = "" } = Astro.props;
                         <div slot="overlay">
                             <span class="media-item-title">{item.title}</span>
                         </div>
-                    </MediaCard>
+                    </Card>
                 </div>
             );
         })

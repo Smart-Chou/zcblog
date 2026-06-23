@@ -167,3 +167,47 @@ export const footerList: FooterItem[] = [
         url: "//vercel.com",
     },
 ];
+
+/**
+ * 侧边栏导航配置项
+ */
+export interface SidebarItem {
+    label: string;
+    link?: string;
+    slug?: string;
+    badge?: string | { text: string; variant?: "note" | "tip" | "danger" | "success" };
+    collapsed?: boolean;
+    items?: SidebarItem[];
+}
+
+/**
+ * 侧边栏导航配置
+ */
+export const sidebarConfig: SidebarItem[] = [
+    {
+        label: "导航",
+        items: [
+            { label: "首页", link: "/" },
+            { label: "博客", slug: "blog/1" },
+            { label: "归档", slug: "archives" },
+            { label: "标签", slug: "tags" },
+        ],
+    },
+    {
+        label: "项目",
+        items: [
+            { label: "随笔", slug: "talks" },
+            { label: "相册", slug: "albums" },
+            { label: "番剧", slug: "bangumi" },
+        ],
+    },
+    {
+        label: "更多",
+        items: [
+            { label: "友人", slug: "friends" },
+            { label: "服务", slug: "services" },
+            { label: "豆瓣", slug: "douban" },
+            { label: "捐赠", slug: "donate" },
+        ],
+    },
+];

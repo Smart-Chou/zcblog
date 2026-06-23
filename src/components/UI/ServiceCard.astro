@@ -1,5 +1,6 @@
 ---
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
+import Badge from "~/components/UI/Badge.astro";
 import type { ServiceItem } from "~/config/services";
 
 interface Props {
@@ -15,17 +16,10 @@ const { service } = Astro.props;
             <DynamicIcon name={service.icon} />
         </div>
         <div class="card-badges">
-            <span class="badge badge-delivery">{service.deliveryLabel}</span>
-            <span
-                class:list={[
-                    "badge",
-                    "badge-price",
-                    { "badge-price--fixed": service.pricing === "fixed" },
-                    { "badge-price--negotiable": service.pricing === "negotiable" },
-                ]}
-            >
+            <Badge size="sm">{service.deliveryLabel}</Badge>
+            <Badge size="sm" variant={service.pricing === "fixed" ? "success" : "note"}>
                 {service.priceLabel}
-            </span>
+            </Badge>
         </div>
     </div>
     <h3 class="card-title">{service.title}</h3>

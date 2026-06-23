@@ -2,6 +2,7 @@
 import { getAllTags, getAllArticles } from "~/utils/article-stats";
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
+import Badge from "~/components/UI/Badge.astro";
 import Author from "~/components/UI/Author.astro";
 import { site } from "~/config";
 import { t, getLocale, type Locale } from "~/utils/i18n";
@@ -59,9 +60,7 @@ function getTagLevel(count: number): number {
             sortedTags.map(({ name, count }) => (
                 <span class="tag-item">
                     <a href={`/tags/${name}/`}>{name}</a>
-                    <span class="tag-count" data-level={getTagLevel(count)}>
-                        {count}
-                    </span>
+                    <Badge size="sm">{count}</Badge>
                 </span>
             ))
         }

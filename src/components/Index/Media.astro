@@ -1,5 +1,5 @@
 ---
-import MediaCardGrid from "~/components/UI/MediaCardGrid.astro";
+import CardGrid from "~/components/UI/CardGrid.astro";
 import { t, type Locale } from "~/utils/i18n";
 
 interface Media {
@@ -27,5 +27,5 @@ const displayItems = limit ? items.slice(0, limit) : items;
         <h2 class="section-label">{title}</h2>
         <a class="section-link" href={href}>{t(locale, "common.viewAll")} →</a>
     </div>
-    <MediaCardGrid items={displayItems} />
+    <CardGrid items={displayItems} />
 </div>
