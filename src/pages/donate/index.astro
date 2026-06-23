@@ -1,5 +1,6 @@
 ---
 import DonateContent from "~/components/Pages/DonateContent.astro";
+const locale = Astro.currentLocale || "zh";
 ---
 
-<DonateContent locale="zh" />
+<DonateContent locale={locale} />

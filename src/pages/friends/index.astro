@@ -1,5 +1,6 @@
 ---
 import FriendsContent from "~/components/Pages/FriendsContent.astro";
+const locale = Astro.currentLocale || "zh";
 ---
 
-<FriendsContent locale="zh" />
+<FriendsContent locale={locale} />
