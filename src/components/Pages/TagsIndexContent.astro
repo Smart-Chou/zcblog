@@ -1,5 +1,5 @@
 ---
-import { getAllTags, getAllArticles } from "~/utils/article-stats";
+import { getAllTags, getAllArticles, normalizeTag } from "~/utils/article-stats";
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import Badge from "~/components/UI/Badge.astro";
@@ -16,10 +16,10 @@ const loc: Locale = getLocale(locale);
 
 const allPosts = await getAllArticles();
 
-const allTags = getAllTags(allPosts, 1);
+const allTags = getAllTags(allPosts);
 const tagCounts = allTags.reduce(
     (acc, tag) => {
-        const key = tag.toUpperCase().replace(/\s+/g, "-");
+        const key = normalizeTag(tag);
         acc[key] = (acc[key] || 0) + 1;
         return acc;
     },

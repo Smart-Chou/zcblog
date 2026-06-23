@@ -22,12 +22,17 @@ export interface ArticleStats {
     totalWords: number;
 }
 
+/** 标准化标签名（大小写合并 + 空格转连字符），保证标签统计口径一致 */
+export function normalizeTag(tag: string): string {
+    return tag.toUpperCase().replace(/\s+/g, "-");
+}
+
 export async function getArticleStats(): Promise<ArticleStats> {
     if (_statsCache) return _statsCache;
 
     const allPosts = await getAllArticles();
     const totalPosts = allPosts.length;
-    const totalTags = new Set(getAllTags(allPosts)).size;
+    const totalTags = new Set(getAllTags(allPosts).map(normalizeTag)).size;
     const totalWords = allPosts.reduce((sum: number, post: CollectionEntry<"article">) => {
         const body = post.body || "";
         return sum + getReadingTime(body).words;
@@ -38,7 +43,7 @@ export async function getArticleStats(): Promise<ArticleStats> {
 
 /**
  * Extract tags from posts.
- * Use `new Set(getAllTags(posts))` for unique.
+ * Use `new Set(getAllTags(posts).map(normalizeTag))` for unique, normalized count.
  * @param maxPerPost - Max tags to take from each post (default: all).
  */
 export function getAllTags(posts: CollectionEntry<"article">[], maxPerPost?: number): string[] {
