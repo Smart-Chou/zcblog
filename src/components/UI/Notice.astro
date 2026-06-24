@@ -31,25 +31,6 @@ const storageKey = notice.key || `notice-${simpleHash(noticeTitle + noticeConten
 const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
 ---
 
-<!-- 阻塞式内联脚本：在 Notice 元素渲染前，检查是否已被用户关闭 -->
-<script
-    is:inline
-    data-notice-storage-key={storageKey}
-    data-notice-storage-type={storageType}
->
-    (function () {
-        var s = document.currentScript;
-        if (!s) return;
-        var key = s.dataset.noticeStorageKey || "";
-        var type = s.dataset.noticeStorageType;
-        var storage = type === "localStorage" ? localStorage : sessionStorage;
-        if (storage.getItem(key)) {
-            document.documentElement.classList.add("notice-dismissed");
-            document.documentElement.style.setProperty("--notice-height", "0px");
-        }
-    })();
-</script>
-
 <script>
     (function () {
         const banner = document.getElementById("global-notice");
@@ -59,8 +40,8 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
         const key = el.dataset.storageKey || "";
         const storage = el.dataset.storageType === "localStorage" ? localStorage : sessionStorage;
 
-        // 已被 is:inline 脚本标记为关闭，无需初始化
-        if (document.documentElement.classList.contains("notice-dismissed")) return;
+        if (storage.getItem(key)) return;
+        el.style.display = "";
 
         const root = document.documentElement;
         const updateNoticeHeight = () => {
@@ -73,7 +54,6 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
 
         function dismiss() {
             el.style.display = "none";
-            document.documentElement.classList.add("notice-dismissed");
             root.style.setProperty("--notice-height", "0px");
             storage.setItem(key, "1");
             ro.disconnect();
@@ -138,8 +118,7 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
 
 <style>
     .notice-banner {
-        display: flex;
-        align-items: center;
+        display: none;
         position: sticky;
         top: 0;
         z-index: 101;
@@ -234,27 +213,6 @@ const storageType = notice.showOnce ? "localStorage" : "sessionStorage";
     @media (hover: hover) {
         .notice-btn--primary:hover {
             background: rgba(255, 255, 255, 0.3);
-        }
-    }
-</style>
-
-<style is:global>
-    /* 默认无通知条高度；首访时 Notice 组件可见，由估算值预留空间，JS 加载后精确修正 */
-    :root {
-        --notice-height: 0px;
-    }
-
-    html:not(.notice-dismissed) {
-        --notice-height: 44px;
-    }
-
-    html.notice-dismissed .notice-banner {
-        display: none;
-    }
-
-    @media screen and (max-width: 768px) {
-        html:not(.notice-dismissed) {
-            --notice-height: 40px;
         }
     }
 </style>
