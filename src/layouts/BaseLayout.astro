@@ -89,18 +89,24 @@ const lang = locale === "en" ? "en" : "zh-CN";
             ]}
         >
             {!isSplash && <Header locale={locale} />}
-            <div class="page-wrapper">
-                {
-                    (showSidebar || isDoc) && (
+            {
+                showSidebar || isDoc ? (
+                    <div class="page-wrapper">
                         <Sidebar items={sidebarConfig} currentPath={Astro.url.pathname} />
-                    )
-                }
-                <main id="main-content" class="main">
-                    <div class:list={["content", { "content--full": fullWidth }]}>
-                        <slot />
+                        <main id="main-content" class="main">
+                            <div class:list={["content", { "content--full": fullWidth }]}>
+                                <slot />
+                            </div>
+                        </main>
                     </div>
-                </main>
-            </div>
+                ) : (
+                    <main id="main-content" class="main">
+                        <div class:list={["content", { "content--full": fullWidth }]}>
+                            <slot />
+                        </div>
+                    </main>
+                )
+            }
             {!isSplash && <Footer />}
         </div>
         <Watermark />
