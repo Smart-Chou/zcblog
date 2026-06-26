@@ -140,7 +140,11 @@ const firstTag = currentTags[0] || "";
             data-pagefind-body
             data-pagefind-meta={`title:${frontmatter.title}`}
         >
-            <h2 id="post-content-title" class="toc-ignore sr-only">
+            <h2
+                id="post-content-title"
+                class="toc-ignore sr-only"
+                data-pagefind-ignore
+            >
                 {frontmatter.title}
             </h2>
             <div class="article-content">

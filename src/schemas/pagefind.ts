@@ -32,6 +32,7 @@ export const pagefindConfigSchema = z.object({
 
 export type PagefindConfig = z.infer<typeof pagefindConfigSchema>;
 
+// ⚠️ 修改此配置时，请同步更新 scripts/pagefind.mjs 中的 CONFIG
 export const pagefindConfig = pagefindConfigSchema.parse({
     excludeSelectors: ["nav", "footer", ".post-copyright", ".donate", ".toc", "script", "style"],
     includeCharacters: `，。！？；：""''（）【】[]`,
