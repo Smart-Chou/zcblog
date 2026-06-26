@@ -1,4 +1,6 @@
 ---
+import { normalizeTag } from "~/utils/article-stats";
+
 interface Props {
     title: string;
     firstTag?: string;
@@ -7,10 +9,11 @@ interface Props {
 
 const { title, firstTag, isEn = false } = Astro.props;
 
-const homeLabel = isEn ? "Home" : "首页";
-const homeUrl = isEn ? "/en/" : "/";
-const tagLabel = firstTag || "";
-const tagUrl = firstTag ? `/tags/${firstTag}/` : "";
+const homeLabel = isEn ? "BLog" : "博客";
+const homeUrl = isEn ? "/en/blog/1/" : "/blog/1/";
+const normalizedTag = firstTag ? normalizeTag(firstTag) : "";
+const tagLabel = normalizedTag;
+const tagUrl = normalizedTag ? `/tags/${normalizedTag}/` : "";
 ---
 
 <nav class="breadcrumb" aria-label="Breadcrumb">
