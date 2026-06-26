@@ -14,16 +14,8 @@ import { fileURLToPath } from "node:url";
 
 // ── 配置（与 src/schemas/pagefind.ts 保持同步）──────────────────────────
 const CONFIG = {
-    forceLanguage: undefined,           // ISO 639-1，不设置则自动检测
-    excludeSelectors: [
-        "nav",
-        "footer",
-        ".post-copyright",
-        ".donate",
-        ".toc",
-        "script",
-        "style",
-    ],
+    forceLanguage: undefined, // ISO 639-1，不设置则自动检测
+    excludeSelectors: ["nav", "footer", ".post-copyright", ".donate", ".toc", "script", "style"],
     keepIndexUrl: false,
     writePlayground: false,
     includeCharacters: `，。！？；：""''（）【】[]`,
@@ -86,10 +78,7 @@ async function main() {
 
     // 3. 写入 dist/pagefind/
     const outputPath = path.join(distDir, "pagefind");
-    const writeResult = assertResponse(
-        await index.writeFiles({ outputPath }),
-        "writeFiles",
-    );
+    const writeResult = assertResponse(await index.writeFiles({ outputPath }), "writeFiles");
     console.log(`   Written to ${outputPath}`);
 
     // 4. 复制到 public/pagefind/（dev server 需要）

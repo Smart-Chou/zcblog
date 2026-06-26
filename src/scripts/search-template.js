@@ -1,14 +1,8 @@
 /**
  * Pagefind 搜索结果 — 自定义模板 + 点击增强
  *
- * 主结果（meta/excerpt/url）沿用官方 buildTemplateData，保证
- * 大标题和第一个二级标题之间的 excerpt 行为与官方一致。
- *
- * 子结果：取原始 r.sub_results，仅做最小修复：
- *   1. 过滤 root（URL === pageUrl，官方 getDisplaySubResults 已做）
- *   2. 按 anchor 文档位置排序（替代 thinSubResults 的 locations.length）
- *   3. 去重 URL（防御 thinSubResults filter+includes 非唯一 bug）
- *   4. maxSubResults 截断
+ * 模板走官方 buildTemplateData() 数据流（保证 meta/url 结构一致），
+ * 同时兜底处理部分 fragment 缺少 meta.title 的情况。
  *
  * 点击：整行可点（包括空白区域），中键新标签页打开。
  */
@@ -23,10 +17,10 @@ function esc(str) {
 }
 
 function createResultTemplate(r, resultsEl) {
-    // ── 主结果：走官方 buildTemplateData ──
+    // 走官方 buildTemplateData 获取一致的数据结构 + 子结果过滤
     var opts = {
-        showSubResults: false, // 主结果 excerpt 走官方逻辑
-        maxSubResults: 0,
+        showSubResults: !resultsEl.hideSubResults,
+        maxSubResults: resultsEl.maxSubResults || 3,
         linkTarget: resultsEl.linkTarget,
         showImages: resultsEl.showImages,
     };
@@ -35,52 +29,30 @@ function createResultTemplate(r, resultsEl) {
         : null;
 
     var meta = (data && data.meta) || r.meta || {};
+    // 部分 fragment meta 为空，兜底从 anchors[0].text 取标题
     var title = meta.title || (r.anchors && r.anchors[0] && r.anchors[0].text) || "";
     var url = (data && data.url) || r.url || meta.url || "";
-    var mainExcerpt = (data && data.excerpt) || r.excerpt || "";
+    // 子结果：优先用官方过滤后的，回退到原始
+    var subs = (data && data.sub_results) || (r.sub_results || []).slice(0, 6);
 
-    // ── 子结果：用原始 r.sub_results，不做 thinSubResults ──
-    // thinSubResults 按 locations.length 排序对中文不稳定；
-    // 其 filter+includes 实现可能导致同一 URL 出现多次。
-    // 这里直接取原始数据，按文档顺序排、去重、截断。
-    var pageUrl = url;
-    var rawSubs = Array.isArray(r.sub_results) ? r.sub_results.filter(function (s) {
-        return s.url !== pageUrl;
-    }) : [];
-
-    // anchor → byte offset，用于文档顺序排序
-    var anchorPos = {};
-    if (Array.isArray(r.anchors)) {
-        for (var ai = 0; ai < r.anchors.length; ai++) {
-            var a = r.anchors[ai];
-            anchorPos[a.id] = a.location || ai;
+    // 按文档位置排序：thinSubResults 按 locations.length 排序对中文不稳定，
+    // 改用 anchor 的 byte offset 保证子结果顺序与文章结构一致。
+    if (subs.length > 1 && Array.isArray(r.anchors)) {
+        var _anchorPos = {};
+        for (var _ai = 0; _ai < r.anchors.length; _ai++) {
+            var _a = r.anchors[_ai];
+            _anchorPos[_a.id] = _a.location || _ai;
         }
+        subs.sort(function (a, b) {
+            function _id(u) {
+                var h = u.lastIndexOf("#");
+                return h >= 0 ? u.slice(h + 1) : "";
+            }
+            var aPos = _anchorPos[_id(a.url)] != null ? _anchorPos[_id(a.url)] : 1e9;
+            var bPos = _anchorPos[_id(b.url)] != null ? _anchorPos[_id(b.url)] : 1e9;
+            return aPos - bPos;
+        });
     }
-    function getAnchorId(subUrl) {
-        var hash = subUrl.lastIndexOf("#");
-        return hash >= 0 ? subUrl.slice(hash + 1) : "";
-    }
-    rawSubs.sort(function (a, b) {
-        var aId = getAnchorId(a.url);
-        var bId = getAnchorId(b.url);
-        var aPos = anchorPos[aId] != null ? anchorPos[aId] : Infinity;
-        var bPos = anchorPos[bId] != null ? anchorPos[bId] : Infinity;
-        return aPos - bPos;
-    });
-
-    // 去重 URL
-    var seenUrls = {};
-    var deduped = [];
-    for (var di = 0; di < rawSubs.length; di++) {
-        var s = rawSubs[di];
-        if (!seenUrls[s.url]) {
-            seenUrls[s.url] = true;
-            deduped.push(s);
-        }
-    }
-
-    var maxSubs = resultsEl.maxSubResults || 5;
-    var subs = deduped.slice(0, maxSubs);
 
     var h = "";
 
@@ -102,13 +74,13 @@ function createResultTemplate(r, resultsEl) {
     h += "</div>";
 
     // ── 主摘要 + 子结果树（wrapper 保证竖线不断）──
-    var hasExcerpt = !!mainExcerpt;
+    var hasExcerpt = !!((data && data.excerpt) || r.excerpt);
     if (hasExcerpt || subs.length > 0) {
         h += '<div class="custom-tree-body">';
 
-        // 主摘要（来自官方 buildTemplateData）
+        // 主摘要
         if (hasExcerpt) {
-            h += '<p class="custom-excerpt">' + mainExcerpt + "</p>";
+            h += '<p class="custom-excerpt">' + ((data && data.excerpt) || r.excerpt) + "</p>";
         }
 
         // 子结果树
