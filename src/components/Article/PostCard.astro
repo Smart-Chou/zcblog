@@ -1,4 +1,5 @@
 ---
+import { normalizeTag } from "~/utils/article-stats";
 import PostLayout from "~/layouts/PostLayout.astro";
 import PostTag from "~/components/Article/PostTag.astro";
 import PostMeta from "~/components/Article/PostMeta.astro";
@@ -63,12 +64,15 @@ const {
     />
     <div class="post-tags post-card-tags">
         {
-            tags?.map((tag: string) => (
-                <PostTag
-                    tag={tag.toUpperCase().replace(/\s+/g, "-")}
-                    url={`/tags/${tag.toUpperCase().replace(/\s+/g, "-")}/`}
-                />
-            ))
+            tags?.map((tag: string) => {
+                const normalized = normalizeTag(tag);
+                return (
+                    <PostTag
+                        tag={normalized}
+                        url={`/tags/${normalized}/`}
+                    />
+                );
+            })
         }
     </div>
     <a href={postUrl} class="post-card-link" aria-label={`Read article: ${title}`}>Read More</a>

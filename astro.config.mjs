@@ -101,6 +101,27 @@ export default defineConfig({
                 if (page.includes("/en/article/")) {
                     return false;
                 }
+                // 排除标签页（已设置 noindex）
+                if (page.includes("/tags/")) {
+                    return false;
+                }
+                // 排除博客分页
+                if (/\/blog\/\d+\/$/.test(page)) {
+                    return false;
+                }
+                // 排除薄内容页
+                const thinPages = [
+                    "/albums/", "/en/albums/",
+                    "/bangumi/", "/en/bangumi/",
+                    "/talks/", "/en/talks/",
+                    "/donate/", "/en/donate/",
+                    "/cookies/", "/en/cookies/",
+                    "/copyright/", "/en/copyright/",
+                    "/friends/", "/en/friends/",
+                ];
+                if (thinPages.some(p => page.includes(p))) {
+                    return false;
+                }
                 return true;
             },
         }),

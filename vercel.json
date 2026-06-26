@@ -3,5 +3,27 @@
         "env": {
             "NODE_OPTIONS": "--max-old-space-size=4096"
         }
-    }
+    },
+    "redirects": [
+        {
+            "source": "/tag/:tag",
+            "destination": "/tags/:tag/",
+            "statusCode": 301
+        },
+        {
+            "source": "/tag/:tag/",
+            "destination": "/tags/:tag/",
+            "statusCode": 301
+        },
+        {
+            "source": "/en/tag/:tag",
+            "destination": "/en/tags/:tag/",
+            "statusCode": 301
+        },
+        {
+            "source": "/en/tag/:tag/",
+            "destination": "/en/tags/:tag/",
+            "statusCode": 301
+        }
+    ]
 }

@@ -1,4 +1,5 @@
 ---
+import { normalizeTag } from "~/utils/article-stats";
 import PostTag from "~/components/Article/PostTag.astro";
 import PostCopyright from "~/components/Article/PostCopyright.astro";
 
@@ -12,12 +13,15 @@ const { tags } = Astro.props;
 <div class="post-footer">
     <div class="post-tags post-card-tags post-card-tags-lists">
         {
-            tags?.map((tag: string) => (
-                <PostTag
-                    tag={tag.toUpperCase().replace(/\s+/g, "-")}
-                    url={`/tags/${tag.toUpperCase().replace(/\s+/g, "-")}/`}
-                />
-            ))
+            tags?.map((tag: string) => {
+                const normalized = normalizeTag(tag);
+                return (
+                    <PostTag
+                        tag={normalized}
+                        url={`/tags/${normalized}/`}
+                    />
+                );
+            })
         }
     </div>
     <div class="post-tags post-card-tags post-card-tags-copyright">
