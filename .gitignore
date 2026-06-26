@@ -51,7 +51,6 @@ codeFather/
 design-system/
 src/components/icons.ts
 .env
-public/images/douban/
 playwright-report/
 test-results/
 .codegraph/
