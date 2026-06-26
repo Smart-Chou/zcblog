@@ -1,9 +1,6 @@
 # build output
 dist/
 
-# fonts (downloaded at build time)
-src/assets/fonts/
-
 # dependencies
 node_modules/
 
@@ -13,56 +10,43 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# macOS-specific files
+# env
+.env
+
+# macOS
 .DS_Store
 
-# camera picture
-camera-picture/
-
-# compress and upload r2
-compress-and-upload-r2.sh
-scripts/parse_r2_files.py
-
-# Astro cache
-.astro/
-
-# Trae
+# Editor / IDE
+.vscode/
 .trae/
 
-# Vercel
-.vercel/
+# Astro
+.astro/
 
-# VSCode
-.vscode/
-
-# Vite cache
+# Vite
 .vite-cache/
 
-# Claude
-.claude/
-
-# pageinsight
-.pageinsight
-
-tasks/
-
-codeFather/
-
-design-system/
-src/components/icons.ts
-.env
+# Playwright
 playwright-report/
 test-results/
-.codegraph/
-src/content/article/
-.superpowers/
-docs/
 
-# Pagefind dev index
+# AI / Claude
+.claude/
+.superpowers/
+.codegraph/
+
+# impeccable
+.impeccable/
+
+# pagefind dev index
 public/pagefind/
-.impeccable/design.json
-.impeccable/live/config.json
+
+# Auto-generated files
+src/assets/fonts/
 src/assets/coverimage/
-prd.json
-progress.txt
-src/assets/
+
+# Articles (private submodule, checked out in CI)
+src/content/article/
+
+# Temp / tasks
+tasks/
