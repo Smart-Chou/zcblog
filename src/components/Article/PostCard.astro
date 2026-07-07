@@ -66,12 +66,7 @@ const {
         {
             tags?.map((tag: string) => {
                 const normalized = normalizeTag(tag);
-                return (
-                    <PostTag
-                        tag={normalized}
-                        url={`/tags/${normalized}/`}
-                    />
-                );
+                return <PostTag tag={normalized} url={`/tags/${normalized}/`} />;
             })
         }
     </div>

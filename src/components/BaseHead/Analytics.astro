@@ -26,15 +26,13 @@ import { config, umami, site } from "~/config";
                 type="text/partytown"
                 src={`https://www.googletagmanager.com/gtag/js?id=${config.ga}`}
             />
-            <script type="text/partytown">
-                {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "${config.ga}");
-            `}
+            <script type="text/partytown" define:vars={{ gaId: config.ga }}>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+                gtag("js", new Date());
+                gtag("config", gaId);
             </script>
         </>
     )

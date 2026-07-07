@@ -111,15 +111,22 @@ export default defineConfig({
                 }
                 // 排除薄内容页
                 const thinPages = [
-                    "/albums/", "/en/albums/",
-                    "/bangumi/", "/en/bangumi/",
-                    "/talks/", "/en/talks/",
-                    "/donate/", "/en/donate/",
-                    "/cookies/", "/en/cookies/",
-                    "/copyright/", "/en/copyright/",
-                    "/friends/", "/en/friends/",
+                    "/albums/",
+                    "/en/albums/",
+                    "/bangumi/",
+                    "/en/bangumi/",
+                    "/talks/",
+                    "/en/talks/",
+                    "/donate/",
+                    "/en/donate/",
+                    "/cookies/",
+                    "/en/cookies/",
+                    "/copyright/",
+                    "/en/copyright/",
+                    "/friends/",
+                    "/en/friends/",
                 ];
-                if (thinPages.some(p => page.includes(p))) {
+                if (thinPages.some((p) => page.includes(p))) {
                     return false;
                 }
                 return true;
