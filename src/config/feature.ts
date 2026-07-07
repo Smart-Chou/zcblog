@@ -97,7 +97,7 @@ export const config: FeaturesConfig = {
     lang: "zh-CN",
     PageSize: 9,
     codeFoldingStartLines: 16,
-    ga: false,
+    ga: "G-NNFT48RCHH",
     redirect: true,
     redirectIncludeClass: ["post-content"],
     redirectExcludeClass: ["modal-mask", "friends-container", "author"],
