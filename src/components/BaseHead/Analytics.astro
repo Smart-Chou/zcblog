@@ -1,5 +1,16 @@
 ---
 import { config, umami, site } from "~/config";
+
+const gaId = config.ga ?? null;
+
+const gtagScript = gaId
+    ? `window.dataLayer = window.dataLayer || [];
+function gtag() {
+    dataLayer.push(arguments);
+}
+gtag("js", new Date());
+gtag("config", "${gaId}");`
+    : null;
 ---
 
 <!-- Analytics --><!-- Umami -->{
@@ -19,21 +30,14 @@ import { config, umami, site } from "~/config";
 
 <!-- Google Analytics -->
 {
-    config.ga && (
+    gaId && (
         <>
             <script
                 is:inline
                 type="text/partytown"
-                src={`https://www.googletagmanager.com/gtag/js?id=${config.ga}`}
+                src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
             />
-            <script type="text/partytown" define:vars={{ gaId: config.ga }}>
-                window.dataLayer = window.dataLayer || [];
-                function gtag() {
-                    dataLayer.push(arguments);
-                }
-                gtag("js", new Date());
-                gtag("config", gaId);
-            </script>
+            <script is:inline type="text/partytown" set:html={gtagScript}></script>
         </>
     )
 }
