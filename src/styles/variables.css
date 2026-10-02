@@ -74,32 +74,32 @@ html {
     --color-accent: #c2413b;
     --color-code-accent: #8b3a36;
     --color-code-fg: #2d2822;
-    --color-border: rgba(45, 40, 34, 0.1);
+    --color-border: rgba(45, 40, 34, 0.12);
     --color-selection: #fde8e5;
     --color-muted: #635d59;
     --color-hover: rgba(45, 40, 34, 0.04);
-    --color-text-dimmed: #948f8a;
+    --color-text-dimmed: #736d67;
     --color-surface-hover: #f5f1ea;
     --color-heading: #1a1714;
 
     /* ---- Colors — Dark Mode (Warm Charcoal) ---- */
     &[data-theme="dark"] {
         --color-bg: #1c1917;
-        --color-surface: #24211e;
-        --color-surface-translucent: #24211eee;
-        --color-surface-secondary: #2a2724;
-        --color-code-bg: #2a2724;
+        --color-surface: #262220;
+        --color-surface-translucent: #262220ee;
+        --color-surface-secondary: #302b28;
+        --color-code-bg: #302b28;
         --color-body: #e8e3de;
         --color-title: #faf7f2;
         --color-link: #e8736a;
         --color-accent: #e8736a;
         --color-code-accent: #f0a8a2;
         --color-code-fg: #e8e3de;
-        --color-border: rgba(232, 227, 222, 0.1);
+        --color-border: rgba(232, 227, 222, 0.14);
         --color-selection: #3d1815;
         --color-muted: #a8a19b;
         --color-hover: rgba(232, 227, 222, 0.04);
-        --color-text-dimmed: #7a7570;
+        --color-text-dimmed: #938c85;
         --color-surface-hover: #2d2a27;
         --color-heading: #faf7f2;
     }
@@ -198,17 +198,17 @@ html {
     --color-text-secondary: #78716c;
     --color-title: #1a1714;
     --color-link: #c2413b;
-    --color-border: rgba(45, 40, 34, 0.1);
+    --color-border: rgba(45, 40, 34, 0.12);
     --color-accent: #c2413b;
 
     --color-bg-dark: #1c1917;
-    --color-bg-content-dark: #24211e;
-    --color-bg-code-dark: #2a2724;
+    --color-bg-content-dark: #262220;
+    --color-bg-code-dark: #302b28;
     --color-text-dark: #e8e3de;
     --color-text-secondary-dark: #a8a19b;
     --color-title-dark: #faf7f2;
     --color-link-dark: #e8736a;
-    --color-border-dark: rgba(232, 227, 222, 0.1);
+    --color-border-dark: rgba(232, 227, 222, 0.14);
     --color-accent-dark: #e8736a;
 
     --color-success: #4d7c4d;

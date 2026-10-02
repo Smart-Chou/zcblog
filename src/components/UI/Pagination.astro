@@ -17,42 +17,58 @@ const { page, blogPath = "/blog" } = Astro.props;
 
 <style>
     #pagination {
-        margin: var(--space) auto;
+        margin: calc(var(--space) * 1.25) auto var(--space);
         text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
     }
 
     #pagination a {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        margin: 0 10px;
-        padding: 3px 10px;
-        border: 2px var(--color-accent);
-        border-style: dashed;
-        width: 40px;
-        height: 40px;
-        line-height: 1;
+        width: 36px;
+        height: 36px;
         box-sizing: border-box;
-        vertical-align: middle;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        color: var(--color-text-muted);
+        font-size: 0.9em;
+        text-decoration: none;
+        line-height: 1;
+        transition:
+            color var(--duration-fast) var(--ease-out),
+            border-color var(--duration-fast) var(--ease-out),
+            background-color var(--duration-fast) var(--ease-out);
+    }
+
+    @media (hover: hover) {
+        #pagination a:not(.disabled):not(.active):hover {
+            color: var(--color-accent);
+            border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+        }
     }
 
     #pagination a.active {
-        font-weight: bold;
-        border: 2.5px solid var(--color-accent);
+        font-weight: 600;
+        color: var(--color-accent);
+        border-color: var(--color-accent);
+        background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
     }
 
     #pagination a.disabled {
         pointer-events: none;
-        color: gray;
-        border: 1px dashed gray;
-        display: none;
+        color: var(--color-text-dimmed);
+        border-color: var(--color-border);
+        opacity: 0.45;
     }
 
     #pagination a.square-class {
-        border-radius: 50%;
+        width: 36px;
+        height: 36px;
         padding: unset;
-        width: 30px;
-        height: 30px;
     }
 
     @media screen and (max-width: 450px) {
@@ -61,11 +77,6 @@ const { page, blogPath = "/blog" } = Astro.props;
         }
 
         #pagination a.active {
-            font-weight: bold;
-            border: 2.5px solid var(--color-accent);
-        }
-
-        #pagination a.disabled {
             display: inline-flex;
         }
     }

@@ -38,6 +38,7 @@ h5 {
     font-weight: 600;
     line-height: var(--leading-snug);
     letter-spacing: -0.02em;
+    text-wrap: balance;
 }
 
 h1 {
@@ -220,30 +221,103 @@ sup {
 
     & h2::before {
         content: "##";
-        color: var(--color-text-muted);
-        font-weight: 900;
-        font-size: 1.05em;
+        color: var(--color-text-dimmed);
+        font-weight: 500;
+        font-size: 0.85em;
         font-family: var(--font-mono);
-        vertical-align: middle;
-        margin-right: 8px;
+        vertical-align: 0.08em;
+        letter-spacing: -0.08em;
+        margin-right: 10px;
+        opacity: 0.75;
     }
 
     & p {
         line-height: 1.8;
+        text-wrap: pretty;
     }
 
     & a {
-        display: inline-flex;
-        align-items: center;
+        /* 保持行内流，避免长链接无法换行；下划线用低饱和 accent，hover 时加深 */
+        display: inline;
+        text-decoration-color: color-mix(in srgb, var(--color-accent) 50%, transparent);
+        transition: text-decoration-color var(--duration-fast) var(--ease-out);
+
+        @media (hover: hover) {
+            &:hover {
+                text-decoration-color: var(--color-accent);
+            }
+        }
     }
 
     & img {
         display: block;
         max-width: 100%;
         height: auto;
+        /* 长图限高：超过 60vh（约 3/5 屏高）的图片折叠显示，点击（fancybox）查看完整版 */
+        max-height: 60vh;
         margin: 0 auto;
         border-radius: var(--radius);
         object-fit: cover;
+        object-position: top center;
+    }
+
+    /* 暗色模式下轻微柔化高亮图片，降低眩光 */
+    html[data-theme="dark"] & img {
+        filter: brightness(0.93);
+    }
+
+    /* 长图折叠：块级容器 + 底部渐隐 + "点击查看完整图片"提示（fancybox 打开全图） */
+    & a.img-link {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        margin: 0 auto;
+        position: relative;
+        cursor: zoom-in;
+    }
+
+    & a.img-collapse::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 130px;
+        background: linear-gradient(to bottom, transparent, var(--color-surface));
+        border-bottom-left-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+        pointer-events: none;
+    }
+
+    & a.img-collapse::before {
+        content: "点击查看完整图片";
+        position: absolute;
+        bottom: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        padding: 4px 14px;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        letter-spacing: 0.05em;
+        color: var(--color-text-muted);
+        background: var(--color-surface-translucent);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        pointer-events: none;
+        white-space: nowrap;
+        transition:
+            color var(--duration-fast) var(--ease-out),
+            border-color var(--duration-fast) var(--ease-out);
+    }
+
+    @media (hover: hover) {
+        & a.img-collapse:hover::before {
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
     }
 }
 

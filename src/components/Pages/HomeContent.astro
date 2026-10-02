@@ -16,7 +16,7 @@ import typewriterTexts from "~/data/typewriter.json";
 import { site } from "~/config";
 import { sortByPubDate } from "~/utils";
 import { enrichPost } from "~/utils/get-posts-with-meta";
-import { getAllTags } from "~/utils/article-stats";
+import { getAllTags, normalizeTag } from "~/utils/article-stats";
 import { t, getLocale, type Locale } from "~/utils/i18n";
 
 const toMediaItem = (item: (typeof doubanData)[number]) => ({
@@ -45,7 +45,7 @@ const latestModified =
 const recentPosts = sortedArticles.slice(0, 5);
 const totalArticles = allArticles.length;
 
-const tagsCount = new Set(getAllTags(allArticles)).size;
+const tagsCount = new Set(getAllTags(allArticles).map(normalizeTag)).size;
 ---
 
 <BaseLayout

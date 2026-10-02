@@ -33,18 +33,23 @@ const formattedDate = publishedTime
         display: flex;
         margin-left: 1rem;
         min-width: 3rem;
-        color: gray;
+        color: var(--color-text-muted);
         justify-content: flex-end;
+        font-variant-numeric: tabular-nums;
     }
 
     .archive-title {
         margin-left: 0.5rem;
         text-decoration: none;
+        transition: color var(--duration-fast) var(--ease-out);
     }
 
     @media (hover: hover) {
         .archive-title:hover {
             text-decoration: underline;
+            text-decoration-color: var(--color-accent);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 0.2em;
         }
     }
 </style>

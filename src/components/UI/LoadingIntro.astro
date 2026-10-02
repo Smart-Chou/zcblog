@@ -2,6 +2,7 @@
 // Loading intro — ring + red rule spin together as one unit,
 // positioned to match the hero's ::before / ::after ornaments.
 // Fades out to reveal the real hero underneath.
+// Only plays once for first-time visitors; repeat visits skip it entirely.
 ---
 
 <div id="loading-intro" class="loading-intro" aria-hidden="true">
@@ -37,10 +38,22 @@
             return;
         }
 
+        // 双重调用防抖：同一次加载中 handleLoading 可能被调用两次
+        // （脚本直调 + astro:page-load 事件），第二次不应立即移除正在播放的动画
+        if (el.dataset.introState === "playing") return;
+
+        // 只对首次访客播放一次开场动画；回访直接跳过
         const KEY = "loading-intro-shown";
-        let spinMs = 4000;
+        let seen = false;
         try {
-            if (localStorage.getItem(KEY)) spinMs = 2000;
+            seen = !!localStorage.getItem(KEY);
+        } catch (e) {}
+        if (seen) {
+            el.remove();
+            return;
+        }
+        el.dataset.introState = "playing";
+        try {
             localStorage.setItem(KEY, "1");
         } catch (e) {}
 
@@ -48,12 +61,12 @@
             el.classList.add("loading-intro--done");
             setTimeout(() => {
                 if (el.parentNode) el.remove();
-            }, 3500);
-        }, spinMs);
+            }, 1200);
+        }, 1600);
 
         setTimeout(() => {
             if (el.parentNode) el.remove();
-        }, 35000);
+        }, 15000);
     }
 
     if (!_loadingBound) {

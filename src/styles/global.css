@@ -33,13 +33,13 @@ a {
     color: var(--color-accent);
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
-    transition: opacity var(--duration-fast);
 }
 
-@media (hover: hover) {
-    a:hover {
-        opacity: 0.75;
-    }
+/* ---- Focus ring ---- */
+:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
 }
 
 /* Do not style button-like links as text links */
@@ -47,7 +47,36 @@ a.button,
 a.btn,
 button {
     color: inherit;
-    opacity: 1;
+}
+
+/* ---- Unlayered overrides for layered component link styles ----
+   未分层的全局 a{} 会压过 @layer components 里的样式；
+   这里把需要"静音文字色"的链接组件在未分层处恢复。 */
+.post-tags-link {
+    color: var(--color-text-muted);
+}
+
+@media (hover: hover) {
+    .post-tags-link:hover {
+        color: var(--color-accent);
+    }
+}
+
+/* ---- 文章正文图片：顶部对齐裁切 ----
+   Astro 图片组件会输出未分层的 [data-astro-image-pos="center"] { object-position: center }，
+   会覆盖 @layer typography 里的同属性声明（未分层永远胜过分层）。
+   长图折叠（超过 60vh 时）需要从顶部开始裁切，所以在未分层区显式声明。 */
+.post-content img {
+    object-position: top center;
+}
+
+/* ---- 文章页：赞赏按钮下方的作者区加大间距 ----
+   Author.astro 是作用域样式，跨组件的 .donate 无法用 ~ 命中；
+   默认 2rem、有赞赏按钮时 3.5rem（与 Donate 的 margin-bottom:0 配合，净间距 56px）。
+   注意：Astro 作用域样式编译为 .cls[data-astro-cid-x]（specificity 0,2,0），
+   所以这里用 div.donate ~ .author（0,2,1）确保胜出。 */
+div.donate ~ .author {
+    margin-top: 3.5rem;
 }
 
 /* =========================================

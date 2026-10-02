@@ -104,10 +104,10 @@ export const config: FeaturesConfig = {
 };
 
 /**
- * 首页视图配置
+ * 博客视图配置
  */
 export const pageView: ViewConfig = {
-    backtotop: false,
+    backtotop: true,
     author: true,
 };
 

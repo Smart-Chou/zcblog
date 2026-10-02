@@ -1,6 +1,5 @@
 ---
 import { site, footerList } from "~/config";
-import { Image } from "astro:assets";
 import DynamicIcon from "../Icons/DynamicIcon.astro";
 import { getArticleStats } from "~/utils/article-stats";
 
@@ -43,7 +42,7 @@ const stats = [
         </a>
     </div>
 
-    <!-- Tech badges row -->
+    <!-- Tech badges row — text chips matching the editorial palette -->
     <div class="footer-tech">
         {
             footerList.map((meta) => (
@@ -55,13 +54,10 @@ const stats = [
                     class="tech-badge"
                     aria-label={`${meta.title}: ${meta.text}`}
                 >
-                    <Image
-                        src={`https://img.shields.io/badge/${meta.title}-${meta.text}-${meta.color}?logo=${meta.logo}&logoColor=${meta.logoColor}&labelColor=${meta.labelColor}`}
-                        alt={`${meta.title} badge`}
-                        loading="lazy"
-                        width={120}
-                        height={20}
-                    />
+                    <span class="tech-badge__dot" aria-hidden="true" />
+                    <span class="tech-badge__text">
+                        {meta.title} · {meta.text}
+                    </span>
                 </a>
             ))
         }
@@ -170,32 +166,47 @@ const stats = [
         }
     }
 
-    /* ---- Tech badges row ---- */
+    /* ---- Tech badges row — text chips ---- */
     .footer-tech {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
     }
 
     .tech-badge {
-        display: inline-block;
-        line-height: 0;
-        opacity: 0.55;
-        transition: opacity var(--duration-fast) var(--ease-out);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        font-family: var(--font-mono);
+        font-size: 0.72em;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--color-text-dimmed);
+        text-decoration: none;
+        transition:
+            color var(--duration-fast) var(--ease-out),
+            border-color var(--duration-fast) var(--ease-out);
+    }
+
+    .tech-badge__dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--color-accent);
+        opacity: 0.85;
+        flex-shrink: 0;
     }
 
     @media (hover: hover) {
         .tech-badge:hover {
-            opacity: 1;
+            color: var(--color-text);
+            border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
         }
-    }
-
-    .tech-badge img {
-        height: 20px;
-        width: auto;
-        display: block;
     }
 
     /* ---- Meta row ---- */
@@ -240,10 +251,6 @@ const stats = [
             height: 12px;
             margin: 0 1px;
         }
-
-        .tech-badge img {
-            height: 18px;
-        }
     }
 
     @media screen and (max-width: 480px) {
@@ -273,10 +280,6 @@ const stats = [
 
         .stat-divider {
             display: none;
-        }
-
-        .tech-badge img {
-            height: 16px;
         }
     }
 

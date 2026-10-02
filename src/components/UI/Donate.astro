@@ -39,7 +39,9 @@ const alipayQR = getQRImage(donate.alipayQRCode);
 
     .donate {
         margin-top: 3.5rem;
-        margin-bottom: -3.5rem;
+        /* 原为 -3.5rem（与 Author 的 8rem 顶部间距配对使用）；
+           2026-10-02 对 Author 间距重构后负边距会造成头像与按钮重叠 40px，改为 0 */
+        margin-bottom: 0;
     }
 
     @media screen and (max-width: 450px) {

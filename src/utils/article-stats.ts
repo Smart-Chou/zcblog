@@ -30,7 +30,8 @@ export function normalizeTag(tag: string): string {
 export async function getArticleStats(): Promise<ArticleStats> {
     if (_statsCache) return _statsCache;
 
-    const allPosts = await getAllArticles();
+    // 与首页/列表口径保持一致：草稿不计入站点统计
+    const allPosts = (await getAllArticles()).filter((post) => !(post.data.draft ?? false));
     const totalPosts = allPosts.length;
     const totalTags = new Set(getAllTags(allPosts).map(normalizeTag)).size;
     const totalWords = allPosts.reduce((sum: number, post: CollectionEntry<"article">) => {

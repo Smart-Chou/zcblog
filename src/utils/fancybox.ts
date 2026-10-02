@@ -47,12 +47,58 @@ const DEFAULT_OPTIONS: FancyboxOptions = {
     transitionDuration: 300,
 };
 
+interface DynamicInitOptions extends Partial<FancyboxOptions> {
+    /**
+     * 文章模式：图片容器改为块级（可承载渐隐遮罩/提示徽章），
+     * 并检测被 max-height 截断的长图，标记 img-collapse 以便显示"点击查看完整图片"。
+     */
+    articleMode?: boolean;
+}
+
+/** 判断图片是否被 CSS max-height 截断，是则给容器加 img-collapse 类 */
+function markIfCropped(img: HTMLImageElement, link: HTMLAnchorElement): void {
+    const evaluate = () => {
+        if (!img.naturalWidth || !img.naturalHeight) return;
+        const box = img.getBoundingClientRect();
+        if (box.width <= 0 || box.height <= 0) return;
+        const uncappedHeight = (box.width / img.naturalWidth) * img.naturalHeight;
+        const tolerance = Math.max(12, box.height * 0.05); // 微小截断（<5%）不提示
+        const cropped = uncappedHeight - box.height > tolerance;
+        link.classList.toggle("img-collapse", cropped);
+    };
+
+    if (img.complete && img.naturalWidth) {
+        evaluate();
+    } else {
+        img.addEventListener("load", evaluate, { once: true });
+    }
+}
+
+/** 窗口尺寸变化时重新评估折叠状态（视口高度变化会影响 60vh 截断） */
+let _collapseResizeBound = false;
+function bindCollapseResizeHandler(): void {
+    if (_collapseResizeBound || typeof window === "undefined") return;
+    _collapseResizeBound = true;
+    let timer: number | undefined;
+    window.addEventListener("resize", () => {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+            document
+                .querySelectorAll<HTMLImageElement>(".post-content a.img-link > img")
+                .forEach((img) => {
+                    const link = img.closest("a.img-link");
+                    if (link) markIfCropped(img, link as HTMLAnchorElement);
+                });
+        }, 150);
+    });
+}
+
 /**
  * 初始化动态扫描模式的 Fancybox
  */
 async function initDynamicFancybox(
     contentSelector: string = ".post-content",
-    options: Partial<FancyboxOptions> = {},
+    options: DynamicInitOptions = {},
 ): Promise<void> {
     const debug = options.debug ?? !isProduction();
 
@@ -77,11 +123,19 @@ async function initDynamicFancybox(
             link.href = img.src;
             link.setAttribute("data-fancybox", "gallery");
             link.setAttribute("data-caption", img.alt || "");
-            link.style.display = "contents";
+            if (options.articleMode) {
+                link.classList.add("img-link");
+            } else {
+                link.style.display = "contents";
+            }
 
             img.parentNode?.insertBefore(link, img);
             link.appendChild(img);
+
+            if (options.articleMode) markIfCropped(img, link);
         });
+
+        if (options.articleMode) bindCollapseResizeHandler();
 
         const { Fancybox } = await import("@fancyapps/ui");
         Fancybox.bind(contentSelector + " img[src]", {
@@ -164,7 +218,9 @@ export const initEssayFancybox = () =>
     registerFancybox(".essay-images", () => initDynamicFancybox(".essay-images", { debug: false }));
 
 export const initArticleFancybox = () =>
-    registerFancybox(".post-content", () => initDynamicFancybox(".post-content", { debug: false }));
+    registerFancybox(".post-content", () =>
+        initDynamicFancybox(".post-content", { debug: false, articleMode: true }),
+    );
 
 export const initAlbumFancybox = () =>
     registerFancybox(".album-images", () => initStaticFancybox({ debug: false }));

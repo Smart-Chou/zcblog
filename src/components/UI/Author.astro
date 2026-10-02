@@ -2,10 +2,14 @@
 import { Image } from "astro:assets";
 import authorImg from "~/assets/logo.svg";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
-import { author, categories, socialLinks } from "~/config";
-import { t, getLocale } from "~/utils/i18n";
+import { author, categories, socialLinks, site } from "~/config";
 
-const loc = getLocale(Astro.currentLocale || "zh");
+// 作者一句话简介：取站点描述的第二句，避免与 hero slogan 重复
+const bioParts = site.description
+    .split("。")
+    .map((s) => s.trim())
+    .filter(Boolean);
+const authorBio = bioParts[1] ? `${bioParts[1]}。` : site.subtitle;
 ---
 
 <div class="author">
@@ -19,8 +23,8 @@ const loc = getLocale(Astro.currentLocale || "zh");
         fetchpriority="high"
         decoding="async"
     />
-    <h1 class="author-site-title">{author.type}</h1>
-    <p class="author-intro">{t(loc, "site.subtitle")}</p>
+    <p class="author-site-title">{author.type}</p>
+    <p class="author-intro">{authorBio}</p>
     <p class="author-links">
         {
             categories.map((categorie) => (
@@ -59,9 +63,9 @@ const loc = getLocale(Astro.currentLocale || "zh");
 
 <style>
     .author {
-        margin-top: 8rem;
+        margin-top: 2rem;
         text-align: center;
-        padding: calc(var(--space) / 2) 0;
+        padding: 0 0 2.5rem;
     }
 
     .author-image {
@@ -72,24 +76,48 @@ const loc = getLocale(Astro.currentLocale || "zh");
         display: inline;
     }
 
-    .author-intro {
-        opacity: 0.8;
+    .author-site-title {
+        font-family: var(--font-heading);
+        font-size: 1.6em;
+        font-weight: 400;
+        margin: 0 0 0.35em;
+        color: var(--color-title);
     }
 
-    .author-site-title {
-        font-size: 1.5em;
+    .author-intro {
+        color: var(--color-text-muted);
+        font-size: var(--text-sm);
+        max-width: 36em;
+        margin: 0 auto;
     }
 
     .author-links {
-        margin-top: -0.5em;
-        font-size: 1em;
+        margin: 6px 0 0;
+        font-size: 1.1em;
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
     }
 
     .author-links a {
         color: var(--color-accent);
-        margin: 0 0.5em;
+        margin: 0;
+        min-width: 40px;
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
         text-decoration: none;
+        transition:
+            background-color var(--duration-fast) var(--ease-out),
+            transform var(--duration-fast) var(--ease-out);
+    }
+
+    @media (hover: hover) {
+        .author-links a:hover {
+            background-color: var(--color-hover);
+            transform: translateY(-1px);
+        }
     }
 </style>

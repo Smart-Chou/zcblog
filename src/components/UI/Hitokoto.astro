@@ -33,7 +33,9 @@ if (!hitokoto) return;
     .hitokoto {
         text-align: center;
         max-width: 640px;
-        margin: 2rem auto -8rem;
+        /* 原为 -8rem（与 Author 旧 8rem 顶部间距配对）；Author 间距重构后会造成
+           与作者区重叠 96px，2026-10-02 改为 0，与全站 32px 节奏一致 */
+        margin: 2rem auto 0;
         padding: 1.5rem 1rem;
     }
 
