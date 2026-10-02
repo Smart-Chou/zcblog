@@ -15,7 +15,8 @@ const loc = getLocale(Astro.currentLocale || "zh");
         class="author-image"
         width={90}
         height={90}
-        loading="lazy"
+        loading="eager"
+        fetchpriority="high"
         decoding="async"
     />
     <h1 class="author-site-title">{author.type}</h1>
