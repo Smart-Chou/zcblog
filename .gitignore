@@ -53,3 +53,4 @@ src/content/article/
 
 # Temp / tasks
 tasks/
+scripts/check-content-sync.py
