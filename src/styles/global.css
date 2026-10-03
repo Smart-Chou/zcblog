@@ -18,6 +18,7 @@
 @import url(./markmap.css);
 @import url(./tabs.css);
 @import url(./align.css);
+@import url(./fonts.css);
 
 /* ---- Tailwind CSS v4 ---- */
 @import "tailwindcss";

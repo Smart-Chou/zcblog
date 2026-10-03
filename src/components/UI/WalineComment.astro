@@ -1,7 +1,4 @@
 ---
-import "@waline/client/waline.css";
-import "@waline/client/waline-meta.css";
-
 interface Props {
     locale?: string;
 }
@@ -68,10 +65,29 @@ const isEn = locale === "en";
 </div>
 
 <script>
-    import { init } from "@waline/client";
     import { waline } from "~/config";
+    import walineCssUrl from "@waline/client/waline.css?url";
+    import walineMetaCssUrl from "@waline/client/waline-meta.css?url";
 
-    let walineInstance: ReturnType<typeof init> | null = null;
+    // 评论实例懒加载（2026-10-03）：只用到 destroy()，用结构化最小接口
+    let walineInstance: { destroy: () => void } | null = null;
+    let walineInitializing = false;
+
+    // Waline 样式改为点击展开时注入（Astro 会把脚本里 import 的 CSS 静态挂到页面，
+    // 用 ?url 拿资源地址、运行时按需插入 <link>，避免文章页白载 36KB 评论样式）
+    const injectedStyles = new Set<string>();
+    function ensureStylesheet(href: string): Promise<void> {
+        if (!href || injectedStyles.has(href)) return Promise.resolve();
+        injectedStyles.add(href);
+        return new Promise((resolve) => {
+            const link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = href;
+            link.onload = () => resolve();
+            link.onerror = () => resolve();
+            document.head.appendChild(link);
+        });
+    }
 
     const walineLocales: Record<string, Record<string, string>> = {
         zh: {
@@ -178,64 +194,76 @@ const isEn = locale === "en";
         return wrapper?.dataset.walineLocale || "zh";
     }
 
-    function doInitWaline() {
+    async function doInitWaline() {
+        if (walineInitializing || walineInstance) return;
         const walineElement = document.getElementById("waline");
         if (!waline.enable || !walineElement) {
             console.error("Required elements or configuration are missing.");
             return;
         }
 
-        const loc = getWalineLocale();
-        const locale = walineLocales[loc] || walineLocales.zh;
+        walineInitializing = true;
+        try {
+            // 懒加载：客户端 JS + 样式均在首次展开评论时才加载
+            const [{ init }] = await Promise.all([
+                import("@waline/client"),
+                ensureStylesheet(walineCssUrl),
+                ensureStylesheet(walineMetaCssUrl),
+            ]);
+            const loc = getWalineLocale();
+            const locale = walineLocales[loc] || walineLocales.zh;
 
-        const origin = waline.serverUrl;
-        const walineConfig = {
-            el: "#waline",
-            serverURL: origin,
-            comment: true,
-            locale,
-            path: walineElement.dataset.walinePath!,
-            lang: waline.lang,
-            pageSize: waline.pageSize,
-            pageview: true,
-            meta: ["nick", "mail", "link"],
-            requiredMeta: ["nick", "mail"],
-            login: "disable",
-            search: waline.search,
-            dark: 'html[data-theme="dark"]',
-            emoji: [
-                "https://unpkg.com/@waline/emojis@1.2.0/qq",
-                "https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili",
-                "https://unpkg.com/@waline/emojis@1.2.0/tieba",
-                "https://unpkg.com/@waline/emojis@1.2.0/weibo",
-            ],
-            wordLimit: [0, 1000],
-            reaction: true as boolean | string[],
-            codeSyntaxHighlight: true,
-            imageUploader: () => {
-                console.warn("Waline 图片上传功能暂未开放");
-                return Promise.reject(new Error("图片上传功能暂未开放"));
-            },
-        };
+            const origin = waline.serverUrl;
+            const walineConfig = {
+                el: "#waline",
+                serverURL: origin,
+                comment: true,
+                locale,
+                path: walineElement.dataset.walinePath!,
+                lang: waline.lang,
+                pageSize: waline.pageSize,
+                // 浏览量由 ~/utils/waline-pageview 单独上报（避免懒初始化丢计数/双计数）
+                meta: ["nick", "mail", "link"],
+                requiredMeta: ["nick", "mail"],
+                login: "disable",
+                search: waline.search,
+                dark: 'html[data-theme="dark"]',
+                emoji: [
+                    "https://cdn.jsdelivr.net/npm/@waline/emojis@1.4.0/qq",
+                    "https://cdn.jsdelivr.net/npm/@waline/emojis@1.4.0/bilibili",
+                    "https://cdn.jsdelivr.net/npm/@waline/emojis@1.4.0/tieba",
+                    "https://cdn.jsdelivr.net/npm/@waline/emojis@1.4.0/weibo",
+                ],
+                wordLimit: [0, 1000],
+                reaction: true as boolean | string[],
+                codeSyntaxHighlight: true,
+                imageUploader: () => {
+                    console.warn("Waline 图片上传功能暂未开放");
+                    return Promise.reject(new Error("图片上传功能暂未开放"));
+                },
+            };
 
-        if (waline.whiteList.includes(location.pathname)) {
-            walineConfig.reaction =
-                typeof waline.reaction === "boolean" && waline.reaction === true
-                    ? []
-                    : (waline.reaction as string[]);
-        }
-
-        // 销毁旧实例，避免重复挂载
-        if (walineInstance) {
-            try {
-                walineInstance.destroy();
-            } catch {
-                // 忽略 View Transitions 切换时的 AbortError
+            if (waline.whiteList.includes(location.pathname)) {
+                walineConfig.reaction =
+                    typeof waline.reaction === "boolean" && waline.reaction === true
+                        ? []
+                        : (waline.reaction as string[]);
             }
-            walineInstance = null;
-        }
 
-        walineInstance = init(walineConfig);
+            // 销毁旧实例，避免重复挂载
+            if (walineInstance) {
+                try {
+                    walineInstance.destroy();
+                } catch {
+                    // 忽略 View Transitions 切换时的 AbortError
+                }
+                walineInstance = null;
+            }
+
+            walineInstance = init(walineConfig);
+        } finally {
+            walineInitializing = false;
+        }
     }
 
     function destroyWaline() {
@@ -274,7 +302,7 @@ const isEn = locale === "en";
         });
     }
 
-    // SPA 导航：销毁旧实例并重新初始化
+    // SPA 导航：重置评论 UI（评论区改为点击“展开评论”后才初始化）
     document.addEventListener("astro:page-load", () => {
         const toggle = document.getElementById("waline-toggle");
         const walineEl = document.getElementById("waline");
@@ -285,10 +313,6 @@ const isEn = locale === "en";
         toggle.classList.remove("active");
         toggle.textContent = (toggleLabels[getWalineLocale()] || toggleLabels.zh).show;
         toggle.style.display = "";
-
-        requestAnimationFrame(() => {
-            doInitWaline();
-        });
 
         setupWalineToggle();
     });
@@ -303,9 +327,6 @@ const isEn = locale === "en";
         destroyWaline();
     });
 
-    // 首次加载
+    // 首次加载：仅挂载按钮；评论实例在首次点击“展开评论”时懒加载
     setupWalineToggle();
-    requestAnimationFrame(() => {
-        doInitWaline();
-    });
 </script>

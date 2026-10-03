@@ -4,3 +4,7 @@ declare module "html-minifier-terser";
 declare module "@waline/client";
 declare module "sanitize-html";
 declare module "@fancyapps/ui";
+declare module "*?url" {
+    const url: string;
+    export default url;
+}

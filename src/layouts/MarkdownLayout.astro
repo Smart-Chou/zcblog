@@ -230,6 +230,10 @@ const firstTag = currentTags[0] || "";
 {frontmatter.chart && <script>import "~/scripts/chart-renderer.ts";</script>}
 {frontmatter.reveal && <script>import "~/scripts/reveal-renderer.ts";</script>}
 {frontmatter.tabs !== false && <script>import "~/scripts/tabs";</script>}
+{/* 文章浏览量：与列表页共用 util（懒初始化评论后，计数不再依赖 Waline init） */}
+<script>
+    import "~/utils/waline-pageview";
+</script>
 
 <script>
     // reading-progress JS fallback：Firefox 等不支持 scroll-driven animation 的浏览器

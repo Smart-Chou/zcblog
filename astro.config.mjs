@@ -35,6 +35,79 @@ import astroVtBot from "astro-vtbot";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 
+// ── PWA ──────────────────────────────────────────────────────────────────────
+// Astro 7（Vite 7 环境模型）下，vite-plugin-pwa 自身的 closeBundle 不会在 client
+// 构建中执行，导致 sw.js 从不生成（而 registerSW.js 仍被注入注册 → 线上 404）。
+// 这里在 astro:build:done 阶段显式调用插件的 api.generateSW() 补上生成步骤；
+// 该 integration 放在 integrations 末尾，确保 precache 清单收录 pagefind/og 等
+// 构建收尾产物。2026-10-03 修复。
+const pwaPlugins = VitePWA({
+    registerType: "autoUpdate",
+    workbox: {
+        // 预缓存收敛为核心资源（HTML/JS/CSS/字体/图标）：约 31MB。
+        // 图片不再预缓存（原 globPatterns 会让 SW 安装时拉 70MB+），
+        // 改由下方 runtimeCaching 的 images-cache 在浏览时按需缓存。
+        globPatterns: ["**/*.{html,js,css,woff2,woff,svg,ico}"],
+        runtimeCaching: [
+            {
+                urlPattern: /^https:\/\/marxchou\.com\/.*/,
+                handler: "StaleWhileRevalidate",
+                options: {
+                    cacheName: "pages-cache",
+                    expiration: { maxEntries: 100, maxAgeSeconds: 86400 },
+                },
+            },
+            {
+                urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/,
+                handler: "CacheFirst",
+                options: {
+                    cacheName: "images-cache",
+                    expiration: { maxEntries: 200, maxAgeSeconds: 2592000 },
+                },
+            },
+            {
+                urlPattern: /\.(?:woff2?|ttf|otf|eot)$/,
+                handler: "CacheFirst",
+                options: {
+                    cacheName: "fonts-cache",
+                    expiration: { maxEntries: 50, maxAgeSeconds: 2592000 },
+                },
+            },
+        ],
+    },
+    manifest: {
+        name: "Marx's Blog",
+        short_name: "MarxBlog",
+        description: "Marx Chou's personal blog",
+        theme_color: "#c2413b",
+        background_color: "#ffffff",
+        display: "standalone",
+        icons: [
+            {
+                src: "/favicon.svg",
+                sizes: "any",
+                type: "image/svg+xml",
+            },
+        ],
+    },
+});
+
+const pwaServiceWorker = {
+    name: "pwa-service-worker",
+    hooks: {
+        "astro:build:done": async ({ logger }) => {
+            const main = pwaPlugins.find((p) => p && p.name === "vite-plugin-pwa");
+            const api = main?.api;
+            if (!api) {
+                logger.warn("PWA: vite-plugin-pwa api 未找到，sw.js 未生成");
+                return;
+            }
+            await api.generateSW();
+            logger.info("PWA: service worker (sw.js) generated");
+        },
+    },
+};
+
 // https://astro.build/config
 export default defineConfig({
     site: "https://marxchou.com",
@@ -157,6 +230,7 @@ export default defineConfig({
         astroVtBot({
             viewTransitionsFallback: "animate",
         }),
+        pwaServiceWorker,
     ],
     image: {
         layout: "constrained",
@@ -184,53 +258,7 @@ export default defineConfig({
     vite: {
         plugins: [
             tailwindcss(),
-            VitePWA({
-                registerType: "autoUpdate",
-                workbox: {
-                    globPatterns: ["**/*.{html,js,css,svg,png,jpg,webp,woff2}"],
-                    runtimeCaching: [
-                        {
-                            urlPattern: /^https:\/\/marxchou\.com\/.*/,
-                            handler: "StaleWhileRevalidate",
-                            options: {
-                                cacheName: "pages-cache",
-                                expiration: { maxEntries: 100, maxAgeSeconds: 86400 },
-                            },
-                        },
-                        {
-                            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/,
-                            handler: "CacheFirst",
-                            options: {
-                                cacheName: "images-cache",
-                                expiration: { maxEntries: 200, maxAgeSeconds: 2592000 },
-                            },
-                        },
-                        {
-                            urlPattern: /\.(?:woff2?|ttf|otf|eot)$/,
-                            handler: "CacheFirst",
-                            options: {
-                                cacheName: "fonts-cache",
-                                expiration: { maxEntries: 50, maxAgeSeconds: 2592000 },
-                            },
-                        },
-                    ],
-                },
-                manifest: {
-                    name: "Marx's Blog",
-                    short_name: "MarxBlog",
-                    description: "Marx Chou's personal blog",
-                    theme_color: "#c2413b",
-                    background_color: "#ffffff",
-                    display: "standalone",
-                    icons: [
-                        {
-                            src: "/favicon.svg",
-                            sizes: "any",
-                            type: "image/svg+xml",
-                        },
-                    ],
-                },
-            }),
+            ...pwaPlugins,
         ],
         build: {
             // esbuild 比 terser 内存占用更低，避免 Vercel OOM
@@ -245,7 +273,16 @@ export default defineConfig({
                     // 代码分割：按模块拆分JS
                     manualChunks(id) {
                         if (id.includes("node_modules")) {
-                            if (id.includes("@waline")) return "waline";
+                            // pageview 单独成 chunk（文章/列表页浏览计数会静态引入，
+                            // 避免把整个 @waline/client 主包连带提前加载；主包仅在
+                            // 用户首次展开评论时按需加载）2026-10-03
+                            if (id.includes("@waline")) {
+                                // ?url 资源模块（waline.css?url）不能并入懒加载主包，
+                                // 否则按需 import 的 URL 字符串会把整个主包拖成同步依赖
+                                if (id.includes("?") || id.endsWith(".css")) return undefined;
+                                if (id.includes("pageview")) return "waline-pv";
+                                return "waline";
+                            }
                             if (id.includes("astro-icon")) return "icons";
                             return "vendor";
                         }
