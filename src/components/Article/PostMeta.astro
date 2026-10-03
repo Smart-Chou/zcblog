@@ -27,21 +27,23 @@ const showUpdated =
 <div class="post-meta post-card-meta">
     Posted {formatDateToYYYYMMDD(publishedTime)}.<slot name="after-posted" />
     {showUpdated && safeModified && <span>Updated {formatDateToYYYYMMDD(safeModified)}.</span>}
-    <br class="meta-break" />
-    <span id="word-count">{wordCount} words.</span>
-    <span id="read-time">{readTime}.</span>
+    <span class="meta-break"></span>
+    <span id="word-count">{wordCount} words.</span>&nbsp;
+    <span id="read-time">{readTime}.</span>&nbsp;
     <span class="waline-pageview-count" data-path={`/article/${currentSlug}/`}>0</span>
     <span> views.</span>
 </div>
 
 <style>
-    .meta-break {
-        display: none;
+    /* PC 端显示为一个空格（不换行）；≤450px 移动端换行 */
+    .meta-break::before {
+        content: "\00a0";
     }
 
     @media (max-width: 450px) {
-        .meta-break {
-            display: inline;
+        .meta-break::before {
+            content: "\A";
+            white-space: pre;
         }
     }
 </style>
