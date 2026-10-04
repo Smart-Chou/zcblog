@@ -44,7 +44,9 @@
     --color-hover-accent: var(--color-hover);
 
     /* Code */
-    --color-code-bg: var(--color-code-bg);
+    /* NOTE: --color-code-bg is defined in variables.css (light + dark). Do NOT re-declare
+       it here as an alias — a same-name alias (--x: var(--x)) is a CSS cycle and nukes the
+       token to empty (2026-10 regression: light-mode inline code lost its background). */
 
     /* Overlay / Backdrop */
     --color-backdrop: rgba(0, 0, 0, 0.5);
@@ -78,7 +80,8 @@
     /* Leading */
     --leading: var(--leading-relaxed);
     --leading-headings: var(--leading-snug);
-    --leading-code: var(--leading-code);
+    /* NOTE: --leading-code is defined in variables.css. Same-name alias = CSS cycle → empty
+       (same regression as --color-code-bg above); do NOT re-declare. */
 
     /* Font weights (net-new) */
     --font-weight-normal: 400;

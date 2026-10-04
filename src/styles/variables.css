@@ -67,7 +67,8 @@ html {
     --color-surface: #fffcf8;
     --color-surface-translucent: #fffcf8ee;
     --color-surface-secondary: #f3eee7;
-    --color-code-bg: #f2eee9;
+    /* 芯片底色须明显区别于 --color-surface (#fffcf8)：原 #f2eee9 对比仅 1.13，肉眼几乎无感（2026-10-04 加深至 1.23） */
+    --color-code-bg: #ece4d9;
     --color-body: #2d2822;
     --color-title: #1a1714;
     --color-link: #c2413b;
@@ -88,7 +89,8 @@ html {
         --color-surface: #262220;
         --color-surface-translucent: #262220ee;
         --color-surface-secondary: #302b28;
-        --color-code-bg: #302b28;
+        /* 原 #302b28 与 surface 对比仅 1.13；暗色下读感更弱，需更大步长（2026-10-04 → #403930 ≈1.38） */
+        --color-code-bg: #403930;
         --color-body: #e8e3de;
         --color-title: #faf7f2;
         --color-link: #e8736a;
@@ -193,7 +195,7 @@ html {
 @theme {
     --color-bg: #fbf8f4;
     --color-bg-content: #fffcf8;
-    --color-bg-code: #f2eee9;
+    --color-bg-code: #ece4d9;
     --color-text: #2d2822;
     --color-text-secondary: #78716c;
     --color-title: #1a1714;
@@ -203,7 +205,7 @@ html {
 
     --color-bg-dark: #1c1917;
     --color-bg-content-dark: #262220;
-    --color-bg-code-dark: #302b28;
+    --color-bg-code-dark: #403930;
     --color-text-dark: #e8e3de;
     --color-text-secondary-dark: #a8a19b;
     --color-title-dark: #faf7f2;
