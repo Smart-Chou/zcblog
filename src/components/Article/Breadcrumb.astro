@@ -73,10 +73,8 @@ const tagUrl = normalizedTag ? `/tags/${normalizedTag}/` : "";
         color: var(--color-text-dimmed);
         text-decoration: none;
         transition: color var(--duration-fast);
-        max-width: 12ch;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        white-space: normal;
+        overflow-wrap: anywhere;
     }
 
     @media (hover: hover) {

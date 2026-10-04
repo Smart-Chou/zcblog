@@ -62,6 +62,9 @@ const redirectIntegration = (): AstroIntegration => ({
                         for (const link of links) {
                             if (hasClassInTree(link, excludeClass)) continue;
                             if (!hasClassInTree(link, includeClass)) continue;
+                            // 图片链接（fancybox 灯箱 / 图链）：不做外链重定向、不加图标，
+                            // 保持 href 指向原图，避免灯箱拿到 /redirect/ 页面
+                            if (link.querySelector("img")) continue;
 
                             const href = link.getAttribute("href");
                             if (!href || href.includes(REDIRECT_PAGE)) continue;

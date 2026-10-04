@@ -38,6 +38,9 @@ function initRedirectHandler() {
             if (isExcluded(link)) continue;
             if (!hasClassInTree(link)) continue;
 
+            // 图片链接（fancybox 灯箱 / 图链）：不做外链重定向、不加图标
+            if (link.querySelector("img")) continue;
+
             const href = link.getAttribute("href");
             if (!href || href.includes(REDIRECT_PAGE)) continue;
             if (!isExternalUrl(href, currentHost)) continue;

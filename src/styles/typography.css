@@ -249,6 +249,21 @@ sup {
         }
     }
 
+    /* 外链（redirect 处理过的链接）：整体作为原子单元换行——文字和图标不拆行，
+       行尾放不下时整体移到下一行；超长链接仍可在 max-width 内折行 */
+    & a[target="_blank"] {
+        display: inline-block;
+        max-width: 100%;
+    }
+
+    /* 外链图标：默认被 Tailwind preflight 设为 display:block（会另起一行），
+       这里改回 inline 与文字同行；垂直基线微调，左侧留一字距 */
+    & a[target="_blank"] > svg {
+        display: inline;
+        vertical-align: -0.125em;
+        margin-left: 0.15em;
+    }
+
     & img {
         display: block;
         max-width: 100%;
