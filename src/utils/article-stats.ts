@@ -7,7 +7,10 @@ import getReadingTime from "reading-time";
  * 默认排除草稿：列表 / 归档 / 标签 / 相邻文章导航 / 统计 / OG 图等入口共享此函数。
  */
 export function getAllArticles(): Promise<CollectionEntry<"article">[]> {
-    return getCollection("article", ({ data }: CollectionEntry<"article">) => !(data.draft ?? false));
+    return getCollection(
+        "article",
+        ({ data }: CollectionEntry<"article">) => !(data.draft ?? false),
+    );
 }
 
 // ── 模块级缓存：全站统计只计算一次 ──
