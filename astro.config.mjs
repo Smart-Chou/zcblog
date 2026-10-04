@@ -256,10 +256,7 @@ export default defineConfig({
         concurrency: Number(process.env.BUILD_CONCURRENCY) || os.cpus().length,
     },
     vite: {
-        plugins: [
-            tailwindcss(),
-            ...pwaPlugins,
-        ],
+        plugins: [tailwindcss(), ...pwaPlugins],
         build: {
             // esbuild 比 terser 内存占用更低，避免 Vercel OOM
             minify: "esbuild",
