@@ -33,7 +33,7 @@ const tagUrl = normalizedTag ? `/tags/${normalizedTag}/` : "";
                 </li>
             )
         }
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item breadcrumb-item-current">
             <span class="breadcrumb-sep" aria-hidden="true">/</span>
             <span class="breadcrumb-current" aria-current="page">{title}</span>
         </li>
@@ -88,10 +88,13 @@ const tagUrl = normalizedTag ? `/tags/${normalizedTag}/` : "";
     .breadcrumb-current {
         color: var(--color-text);
         font-weight: 500;
-        max-width: 24ch;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    /* 标题多行换行时，分隔符与第一行基线对齐（而不是垂直居中悬浮在两行之间） */
+    .breadcrumb-item-current {
+        align-items: baseline;
     }
 
     @media screen and (max-width: 640px) {
@@ -101,10 +104,6 @@ const tagUrl = normalizedTag ? `/tags/${normalizedTag}/` : "";
 
         .breadcrumb-list {
             font-size: 0.8rem;
-        }
-
-        .breadcrumb-current {
-            max-width: 16ch;
         }
     }
 </style>
