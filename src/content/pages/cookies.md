@@ -53,12 +53,12 @@ Cookies 提供许多功能。例如，他们可以帮助我记住你喜欢深色
 
 以下链接提供了有关如何在所有主流浏览器中控制 Cookie 的说明：
 
-- [Google Chrome](https://support.google.com/chrome/answer=95647?hl=en)
+- [Google Chrome](https://support.google.com/chrome/answer/95647?hl=en)
 - [IE](https://support.microsoft.com/en-us/help/260971/description-of-cookies)
 - [Safari（桌面版）](https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac)
 - [Safari（移动版）](https://support.apple.com/en-us/HT201265)
 - [火狐浏览器](https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer)
-- [Android 浏览器](http://support.google.com/ics/nexus/bin/answer.py?hl=en&answer=2425067)
+- [Android 浏览器](https://support.google.com/accounts/answer/32050)
 
 如你使用其他浏览器，请参阅浏览器制造商提供的文档。
 有关 Cookies 以及如何管理 Cookies 的更多信息，请访问：[wikipedia.org](https://zh.wikipedia.org/wiki/Cookie)、[allaboutCookies.org](https://www.allaboutcookies.org/) 或 [aboutCookies.org](https://www.aboutcookies.org/)。

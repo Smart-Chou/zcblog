@@ -6,17 +6,17 @@
     --cb-admonition-color: #fff;
     --cb-admonition-padding-vertical: 1rem;
     --cb-admonition-padding-horizontal: 1rem;
-    --cb-color-info: var(--color-muted, #5c5c5c);
+    --cb-color-info: #55514d;
     --cb-color-info-lighten: #5c5c5c33;
-    --cb-color-note: #0070f3;
+    --cb-color-note: #0050b8;
     --cb-color-note-lighten: #0071f333;
-    --cb-color-tip: #19cc96;
+    --cb-color-tip: #0a6e4f;
     --cb-color-tip-lighten: #19cc9633;
-    --cb-color-important: #d400ff;
+    --cb-color-important: #8f00b3;
     --cb-color-important-lighten: #d400ff33;
-    --cb-color-warning: var(--color-warning, #f5a623);
+    --cb-color-warning: #8a5f1e;
     --cb-color-warning-lighten: #f5a62333;
-    --cb-color-danger: var(--color-error, #e00);
+    --cb-color-danger: #9e2721;
     --cb-color-danger-lighten: #e0000033;
     --cb-color-text-dark: var(--color-title, #000);
 }
@@ -108,4 +108,14 @@
 .remark-aside--danger {
     --cb-admonition-color: var(--cb-color-danger);
     --cb-admonition-color-lighten: var(--cb-color-danger-lighten);
+}
+
+/* ── 暗色模式：标题/图标色提亮（原色在暗色 tint 上对比仅 1.7~3.0，2026-10 审计提至 ≥4.9）── */
+html[data-theme="dark"] {
+    --cb-color-info: #b8b1aa;
+    --cb-color-note: #6cb2ff;
+    --cb-color-important: #e77dff;
+    --cb-color-warning: #dba95c;
+    --cb-color-danger: #ef8b83;
+    --cb-color-tip: #2fd39b;
 }

@@ -8,6 +8,7 @@ const loc = getLocale(Astro.currentLocale || "zh");
 ---
 
 <BaseLayout
+    noEnAlternate
     title={t(loc, "common.404.title")}
     description={`${site.title} - ${t(loc, "common.404.message")}`}
     image={Astro.site + site.coverImage}

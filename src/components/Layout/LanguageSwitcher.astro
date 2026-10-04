@@ -5,12 +5,31 @@ import { getLocale, defaultLocale, locales } from "~/utils/i18n";
 const currentLocale = getLocale(Astro.currentLocale || defaultLocale);
 const currentPath = Astro.url.pathname;
 
+/**
+ * 解析语言切换目标路径。
+ * 注意：部分页面没有英文版（文章详情 / 相册详情 / 仅中文静态页 / 错误页），
+ * 直接拼 `/en + path` 会指向 404 —— 这些情况回退到最近的英文页面（2026-10 审计修复）。
+ */
 function getLocalePath(locale: string, path: string): string {
-    const pathWithoutLocale = path.replace(/^\/(zh|en)/, "");
+    const stripped = path.replace(/^\/(zh|en)/, "") || "/";
     if (locale === defaultLocale) {
-        return pathWithoutLocale || "/";
+        // 英文错误页切回中文：错误页无对应页面，回中文首页
+        if (/^\/(404|500)\//.test(stripped)) return "/";
+        return stripped;
     }
-    return `/${locale}${pathWithoutLocale || "/"}`;
+    // 以下页面没有英文版 → 回退
+    if (/^\/(404|500)\//.test(stripped)) return "/en/";
+    if (
+        stripped === "/cookies/" ||
+        stripped === "/copyright/" ||
+        stripped === "/privacy-policy/" ||
+        stripped === "/redirect/"
+    ) {
+        return "/en/";
+    }
+    if (stripped.startsWith("/article/")) return "/en/blog/1/";
+    if (/^\/albums\/[^/]+\//.test(stripped)) return "/en/albums/";
+    return "/en" + stripped;
 }
 
 const localeLabels: Record<string, string> = {

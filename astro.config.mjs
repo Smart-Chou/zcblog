@@ -111,6 +111,11 @@ const pwaServiceWorker = {
 // https://astro.build/config
 export default defineConfig({
     site: "https://marxchou.com",
+    // /blog 与 /en/blog 本身无页面（规范入口为 /blog/1/）：加跳转兜底，避免历史外链 404（2026-10 审计）
+    redirects: {
+        "/blog": "/blog/1/",
+        "/en/blog": "/en/blog/1/",
+    },
     prefetch: {
         defaultStrategy: "hover",
     },

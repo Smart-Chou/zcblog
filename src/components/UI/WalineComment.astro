@@ -250,16 +250,8 @@ const isEn = locale === "en";
                         : (waline.reaction as string[]);
             }
 
-            // 销毁旧实例，避免重复挂载
-            if (walineInstance) {
-                try {
-                    walineInstance.destroy();
-                } catch {
-                    // 忽略 View Transitions 切换时的 AbortError
-                }
-                walineInstance = null;
-            }
-
+            // 注：入口守卫（上方 walineInitializing || walineInstance 判断）已保证此处实例必为空，
+            // 旧的「销毁旧实例」防御分支为死代码（TS 亦报 never），2026-10 审计中移除。
             walineInstance = init(walineConfig);
         } finally {
             walineInitializing = false;

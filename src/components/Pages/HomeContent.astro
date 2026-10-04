@@ -49,7 +49,7 @@ const tagsCount = new Set(getAllTags(allArticles).map(normalizeTag)).size;
 ---
 
 <BaseLayout
-    title={`${site.subtitle} -  ${site.title}`}
+    title={`${t(loc, "site.subtitle")} - ${site.title}`}
     description={`${site.title} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={site.coverImageAlt}
@@ -63,7 +63,7 @@ const tagsCount = new Set(getAllTags(allArticles).map(normalizeTag)).size;
         <div class="hero-background"></div>
         <div class="main-content">
             <HeroMasthead
-                subtitle={site.subtitle}
+                subtitle={t(loc, "site.subtitle")}
                 totalArticles={totalArticles}
                 tagsCount={tagsCount}
             />

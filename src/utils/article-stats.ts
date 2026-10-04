@@ -2,9 +2,12 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import getReadingTime from "reading-time";
 
-/** 获取所有文章（Astro 内部已缓存，多次调用不会重复读取）。 */
+/**
+ * 获取所有「已发布」文章（Astro 内部已缓存，多次调用不会重复读取）。
+ * 默认排除草稿：列表 / 归档 / 标签 / 相邻文章导航 / 统计 / OG 图等入口共享此函数。
+ */
 export function getAllArticles(): Promise<CollectionEntry<"article">[]> {
-    return getCollection("article");
+    return getCollection("article", ({ data }) => !(data.draft ?? false));
 }
 
 // ── 模块级缓存：全站统计只计算一次 ──

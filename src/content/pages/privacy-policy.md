@@ -82,7 +82,7 @@ description: 协议最新更新时间为：2025-06-17
 
 关于如何使用你的 Cookies，请访问 [Cookies 政策](/cookies)。
 
-关于如何在 [Chrome 中清除、启用和管理 Cookie](https://support.google.com/chrome/answer=95647?co=GENIE.Platform=Desktop&hl=zh-Hans)
+关于如何在 [Chrome 中清除、启用和管理 Cookie](https://support.google.com/chrome/answer/95647?co=GENIE.Platform=Desktop&hl=zh-Hans)
 
 ## 四、如何共享、转让你的个人信息
 
