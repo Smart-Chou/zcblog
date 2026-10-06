@@ -23,6 +23,7 @@
         "bangumi": "node scripts/fetch-bangumi.mjs",
         "fetch:verify": "node scripts/verify-data.mjs",
         "links": "node scripts/link-check.mjs",
+        "check:personal": "node scripts/check-personalization.mjs",
         "release": "standard-version",
         "release:dry": "standard-version --dry-run",
         "format": "prettier -w .",

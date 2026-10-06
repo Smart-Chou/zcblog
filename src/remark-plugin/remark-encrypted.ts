@@ -12,14 +12,16 @@
  * 要加密的 Markdown 内容...
  * :::
  *
- * 密码优先级: 显式 {password="x"} 属性 > 站点默认密码
+ * 密码优先级: 显式 {password="x"} 属性 > 环境变量 ENCRYPTION_PASSWORD（两者都缺失时构建报错）
  */
 import { h as _h } from "hastscript";
 import { remove } from "unist-util-remove";
 import { visit } from "unist-util-visit";
 
-const DEFAULT_PASSWORD =
-    (typeof process !== "undefined" && process.env?.ENCRYPTION_PASSWORD) || "marxchou-default";
+// 延迟读取环境变量（须等 .env 加载完成后再取值）
+function resolveDefaultPassword(): string {
+    return (typeof process !== "undefined" && process.env?.ENCRYPTION_PASSWORD) || "";
+}
 
 function h(el: any, attrs: any = {}, children: any = []) {
     const { tagName, properties }: any = _h(el, attrs);
@@ -78,8 +80,13 @@ export function remarkEncrypted() {
                 return false;
             });
 
-            // Fall back to default password if none provided
-            if (!password) password = DEFAULT_PASSWORD;
+            // 无显式密码时回退到站点默认密码；两者都缺失则构建报错
+            if (!password) password = resolveDefaultPassword();
+            if (!password) {
+                throw new Error(
+                    '[remark-encrypted] 存在 :::encrypted 加密内容但未提供密码：请设置 ENCRYPTION_PASSWORD 环境变量，或在指令中使用 {password="..."}',
+                );
+            }
 
             const wrapper = h(
                 "div",

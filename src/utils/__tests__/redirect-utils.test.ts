@@ -29,7 +29,7 @@ describe("toUrlSafeBase64", () => {
 });
 
 describe("isExternalUrl", () => {
-    const host = "marxchou.com";
+    const host = "myblog.example";
 
     it("returns false for relative paths", () => {
         expect(isExternalUrl("/blog/", host)).toBe(false);
@@ -37,7 +37,7 @@ describe("isExternalUrl", () => {
     });
 
     it("returns false for same-host URLs", () => {
-        expect(isExternalUrl("https://marxchou.com/blog", host)).toBe(false);
+        expect(isExternalUrl("https://myblog.example/blog", host)).toBe(false);
     });
 
     it("returns true for different-host URLs", () => {

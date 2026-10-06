@@ -277,14 +277,16 @@ pnpm run preview
 
 ## 环境变量
 
-复制 `.env.example` 为 `.env` 并填入对应值：
+复制 `.env.example` 为 `.env` 并填入对应值（数据源变量均为可选，未配置的源在构建时自动跳过）：
 
 | 变量 | 必需 | 说明 |
 | ---- | ---- | ---- |
-| `BLINKO_API_TOKEN` | 是 | Blinko API Token，用于拉取随笔数据 |
-| `DOUBAN_USER_ID` | 是 | 豆瓣用户 ID，用于拉取书影音数据 |
+| `BLINKO_API_URL` | 否 | Blinko 服务地址（配合 `BLINKO_API_TOKEN`；不设则跳过随笔拉取） |
+| `BLINKO_API_TOKEN` | 否 | Blinko API Token（不设则跳过随笔拉取） |
+| `DOUBAN_USER_ID` | 否 | 豆瓣用户 ID（不设则跳过书影音拉取） |
+| `BANGUMI_USER_ID` | 否 | Bangumi 用户 ID（不设则跳过追番拉取） |
 | `FOREVERBLOG_RSS_URL` | 否 | Foreverblog RSS 源地址（默认使用 rsshub.rssforever.com） |
-| `ENCRYPTION_PASSWORD` | 否 | 文章加密密码（用于加密文章内容） |
+| `ENCRYPTION_PASSWORD` | 否 | 文章加密密码（未设置且存在加密内容时构建报错） |
 | `BUILD_CONCURRENCY` | 否 | Astro 构建并发数（默认 = CPU 核心数；CI 部署时固定为 1） |
 
 > 注：《博客 SEO 实战》文章中提到的 IndexNow 主动推送目前未内置在构建流程中；如需启用请参照该文章方案集成（届时恢复 `INDEXNOW_API_KEY` 环境变量）。
