@@ -1,0 +1,137 @@
+// 网站基本信息配置（模板占位值——请全部替换为你自己的信息）
+
+/**
+ * 网站基本信息配置
+ */
+export interface SiteConfig {
+    title: string; // 网站标题
+    subtitle: string; // 网站副标题
+    description: string; // 网站描述
+    keywords: string; // 网站关键字
+    favicon: string; // 网站图标URL
+    logo: string; // 网站logo
+    coverImage: string; // 网站封面
+    coverImageAlt: string; // 网站封面Alt
+    url: string; // 网站链接（部署后替换为真实域名）
+    domains: string[]; // 网站域名列表，用于重定向白名单和统计
+    startYear: string; // 网站开始年份
+    beian: string; // 中国政策 / 萌 ICP（留空则不显示）
+    beianURL: string; // ICP备案链接
+    shortName?: string; // PWA 短名（可选，默认回退 title）
+    pwaDescription?: string; // PWA 描述（可选，默认回退 description）
+}
+
+/**
+ * 图床服务配置
+ */
+export interface ImageServiceConfig {
+    baseUrl: string; // 图床基础URL（留空 = 封面使用本地占位图 /cover.png）
+    randomPath: string; // 随机图片路径
+    picPath: string; // 指定图片路径
+}
+
+/**
+ * 作者信息配置
+ */
+export interface AuthorConfig {
+    type: string; // 个人资料中使用的名字
+    url: string; // 作者个性独立页面,如果有的话
+    motto: string; // 个人资料中使用的口头禅
+    avatar: string; // 个人资料中使用的头像
+}
+
+/**
+ * Meta Twitter配置
+ */
+export interface TwitterConfig {
+    type: string; // twitter 账号
+    link: string; // twitter 名称
+}
+
+/**
+ * 页面配置
+ */
+export interface PageConfig {
+    title: string; // 页面标题
+    description: string; // 页面描述
+}
+
+/**
+ * 网站基本信息
+ */
+export const site: SiteConfig = {
+    title: "Dogeared",
+    subtitle: "写下你的想法，折起这一角。",
+    description: "Dogeared 主题的演示站点：记录工具、教程与想法。",
+    keywords: "Dogeared, Astro, 博客, blog, theme",
+    favicon: "favicon.svg",
+    logo: "logo.webp",
+    coverImage: "cover.png",
+    coverImageAlt: "Dogeared Cover",
+    url: "https://your-domain.com",
+    domains: ["your-domain.com"],
+    startYear: "2024",
+    beian: "",
+    beianURL: "",
+    shortName: "Dogeared",
+    pwaDescription: "A warm editorial blog theme built with Astro.",
+};
+
+/**
+ * 图床服务
+ */
+export const imageService: ImageServiceConfig = {
+    baseUrl: "", // 例如 "https://img.example.com"；留空 = 封面/相册使用本地占位
+    randomPath: "/api/random",
+    picPath: "/api/pic",
+};
+
+/**
+ * Meta Twitter配置
+ */
+export const twitter: TwitterConfig = {
+    type: "@yourname",
+    link: "@yourname",
+};
+
+/**
+ * 作者信息
+ */
+export const author: AuthorConfig = {
+    type: "Your Name",
+    url: "https://your-domain.com",
+    motto: "写下你的想法，折起这一角。",
+    avatar: "logo.webp",
+};
+
+/**
+ * 404页面配置
+ */
+export const notFoundPage: PageConfig = {
+    title: "404 - Page Not Found",
+    description: "The page you are looking for does not exist.",
+};
+
+/**
+ * 标签页面配置
+ */
+export const tagsPage: PageConfig = {
+    title: "Tags",
+    description: "All Tags",
+};
+
+/**
+ * 归档页面配置
+ */
+export const archivesPage: PageConfig = {
+    title: "Archives",
+    description: "All Archives",
+};
+
+/**
+ * 重定向页面配置
+ */
+export const redirectPage: PageConfig = {
+    title: "Redirect",
+    description: "Redirect Website",
+};

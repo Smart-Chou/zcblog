@@ -1,13 +1,15 @@
 import { execSync } from "child_process";
 import { existsSync, statSync } from "fs";
+import os from "os";
 import path from "path";
 
 /** 缓存 git 提交日期查询结果，避免重复执行 shell 命令 */
 const cache = new Map<string, Date | null>();
 
-/** 文章私有仓库本地路径：CI 通过 ARTICLE_REPO_PATH 设置，本地用默认路径 */
+/** 文章独立仓库本地路径：CI 通过 ARTICLE_REPO_PATH 设置；本地默认 ~/Documents/WebSiteCode/zcblog-articles（目录存在时才生效） */
 const ARTICLE_REPO =
-    process.env.ARTICLE_REPO_PATH || "/Users/chowcong/Documents/WebSiteCode/zcblog-articles";
+    process.env.ARTICLE_REPO_PATH ||
+    path.join(os.homedir(), "Documents", "WebSiteCode", "zcblog-articles");
 
 /** 确认目录是一个 git 仓库（存在 .git 子目录） */
 const isGitRepo = (dir: string) => existsSync(path.join(dir, ".git"));

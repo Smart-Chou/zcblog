@@ -1,0 +1,8 @@
+[
+    {
+        "datetime": "2026/01/01 10:00:00",
+        "display": "示例",
+        "url": "https://example.com",
+        "content": "这是一条示例随笔。可以手动编辑此文件，或配置 BLINKO_API_URL 后运行 pnpm talks 自动抓取。"
+    }
+]

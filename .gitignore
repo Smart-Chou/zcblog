@@ -54,3 +54,6 @@ src/content/article/
 # Temp / tasks
 tasks/
 scripts/check-content-sync.py
+
+# 主题快照输出（若生成到仓库内）
+theme-snapshot/

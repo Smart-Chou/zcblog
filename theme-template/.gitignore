@@ -1,0 +1,34 @@
+# build output
+dist/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# env
+.env
+
+# macOS
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.trae/
+
+# Astro
+.astro/
+
+# Vite
+.vite-cache/
+
+# Playwright
+playwright-report/
+test-results/
+
+# pagefind dev index
+public/pagefind/

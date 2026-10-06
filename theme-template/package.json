@@ -1,9 +1,21 @@
 {
-    "name": "@marxchou/zcblog",
-    "version": "2.0.0",
-    "description": "个人博客网站，使用Astro框架构建，包含文章、标签、归档、捐赠等功能",
+    "name": "dogeared",
+    "version": "1.0.0",
+    "description": "Dogeared — a warm editorial blog theme for Astro: Pagefind search, optional Waline comments, PWA, zh-CN/en i18n.",
     "type": "module",
     "private": true,
+    "author": "MarxChou",
+    "license": "MIT",
+    "homepage": "https://github.com/Smart-Chou/dogeared",
+    "keywords": [
+        "astro",
+        "astro-theme",
+        "blog",
+        "blog-theme",
+        "editorial",
+        "tailwindcss",
+        "pwa"
+    ],
     "scripts": {
         "dev": "astro dev",
         "dev:clean": "rm -rf node_modules/.vite && astro dev",
@@ -23,8 +35,6 @@
         "bangumi": "node scripts/fetch-bangumi.mjs",
         "fetch:verify": "node scripts/verify-data.mjs",
         "links": "node scripts/link-check.mjs",
-        "check:personal": "node scripts/check-personalization.mjs",
-        "snapshot:theme": "node scripts/snapshot-theme.mjs",
         "release": "standard-version",
         "release:dry": "standard-version --dry-run",
         "format": "prettier -w .",
