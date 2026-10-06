@@ -5,7 +5,8 @@ import PostCard from "~/components/Article/PostCard.astro";
 import Pagination from "~/components/UI/Pagination.astro";
 import BackToTop from "~/components/Layout/BackToTop.astro";
 import Hitokoto from "~/components/UI/Hitokoto.astro";
-import { site, pageView, imageService } from "~/config";
+import { site, pageView } from "~/config";
+import { getRandomImageUrl } from "~/utils";
 
 interface PostData {
     slug: string;
@@ -65,9 +66,7 @@ const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : 
                     publishedTime={post.data.pubDate}
                     modifiedTime={post.modifiedTime}
                     postUrl={`/article/${post.slug}/`}
-                    imagePath={
-                        post.data.image?.url || `${imageService.baseUrl}${imageService.randomPath}`
-                    }
+                    imagePath={post.data.image?.url || getRandomImageUrl()}
                     description={post.data.description || post.excerpt}
                     tags={post.data.tags}
                     wordCount={post.wordCount}

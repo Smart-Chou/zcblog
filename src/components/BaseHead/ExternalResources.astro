@@ -2,9 +2,14 @@
 import { imageService } from "~/config";
 ---
 
-<!-- 预连接到外部资源 -->
-<link rel="preconnect" href={imageService.baseUrl} crossorigin />
-<link rel="dns-prefetch" href={imageService.baseUrl} />
+<!-- 预连接到外部资源（配置图床时才输出，避免空 href） -->{
+    imageService.baseUrl && (
+        <>
+            <link rel="preconnect" href={imageService.baseUrl} crossorigin />
+            <link rel="dns-prefetch" href={imageService.baseUrl} />
+        </>
+    )
+}
 <link rel="dns-prefetch" href="https://cdn.bootcdn.net" />
 <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin />
 

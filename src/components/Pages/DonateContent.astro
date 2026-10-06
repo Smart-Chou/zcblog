@@ -4,7 +4,7 @@ import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import QrCard from "~/components/UI/QrCard.astro";
 import DonatorsList from "~/components/UI/DonatorsList.astro";
 import WalineComment from "~/components/UI/WalineComment.astro";
-import { donate } from "~/config";
+import { donate, waline } from "~/config";
 import donateData from "~/data/donators.json";
 import wechatQR from "~/assets/qr/wechat-pay.png";
 import alipayQR from "~/assets/qr/alipay.jpg";
@@ -26,6 +26,11 @@ const { donators } = donateData;
     publishedTime={new Date()}
     modifiedTime={new Date()}
     locale={locale}
+    empty={!donate.enable}
+    emptyTitle={loc === "en" ? "Donations are not open" : "赞赏暂未开放"}
+    emptyMessage={loc === "en"
+        ? "The site owner has not enabled donations yet."
+        : "站主暂未开启赞赏功能。"}
 >
     <DynamicIcon name="tabler:heart-handshake" slot="icon" />
 
@@ -78,7 +83,7 @@ const { donators } = donateData;
         </div>
     </div>
 
-    <WalineComment locale={locale} />
+    {waline.enable && <WalineComment locale={locale} />}
 </SectionPage>
 
 <style>

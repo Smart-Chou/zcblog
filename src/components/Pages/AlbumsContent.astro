@@ -3,7 +3,8 @@ import SectionPage from "~/components/Layout/SectionPage.astro";
 import AlbumCard from "~/components/Gallery/AlbumCard.astro";
 import GalleryFilter from "~/components/Gallery/GalleryFilter.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
-import { site, imageService } from "~/config";
+import { site } from "~/config";
+import { getPicImageUrl } from "~/utils";
 import { t, getLocale, type Locale } from "~/utils/i18n";
 
 interface Props {
@@ -34,11 +35,9 @@ interface Album {
 
 import albumsData from "~/data/albums.json";
 
-const picBase = `${imageService.baseUrl}${imageService.picPath}`;
-
 const albums: Album[] = (albumsData as Album[]).map((album) => ({
     ...album,
-    cover: album.cover ? `${picBase}${album.cover}` : "",
+    cover: album.cover ? getPicImageUrl(album.cover) : "",
     photoCount: album.photos?.length || 0,
 }));
 

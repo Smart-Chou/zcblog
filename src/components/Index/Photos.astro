@@ -1,6 +1,6 @@
 ---
 import albums from "~/data/albums.json";
-import { imageService } from "~/config";
+import { getPicImageUrl } from "~/utils";
 import { t, type Locale } from "~/utils/i18n";
 
 interface Props {
@@ -20,7 +20,7 @@ function extractDate(alt: string): Date | null {
 const MAX_PHOTOS = 5;
 const allPhotos = albums.flatMap((album) =>
     album.photos.map((p) => ({
-        url: `${imageService.baseUrl}${imageService.picPath}${p.url}`,
+        url: getPicImageUrl(p.url),
         title: p.alt || p.description || "",
     })),
 );
@@ -33,31 +33,35 @@ const photos = sortedPhotos.slice(0, MAX_PHOTOS);
 const isLargeGrid = photos.length >= 9;
 ---
 
-<section class="photos-section">
-    <div class="section-header">
-        <h2 class="section-label">{title}</h2>
-        <a class="section-link" href="/albums/"
-            >{t(locale, "common.viewAll")}
-            <span class="section-link-arrow" aria-hidden="true">→</span>
-        </a>
-    </div>
-    <div class:list={["photos-grid", { "photos-grid--large": isLargeGrid }]}>
-        {
-            photos.map((photo) => (
-                <div class="photo-item">
-                    <img
-                        src={photo.url}
-                        alt={photo.title}
-                        width={400}
-                        height={300}
-                        loading="lazy"
-                        decoding="async"
-                    />
-                    <div class="photo-overlay">
-                        <span class="photo-caption">{photo.title}</span>
+{
+    photos.length > 0 && (
+        <section class="photos-section">
+            <div class="section-header">
+                <h2 class="section-label">{title}</h2>
+                <a class="section-link" href="/albums/">
+                    {t(locale, "common.viewAll")}
+                    <span class="section-link-arrow" aria-hidden="true">
+                        →
+                    </span>
+                </a>
+            </div>
+            <div class:list={["photos-grid", { "photos-grid--large": isLargeGrid }]}>
+                {photos.map((photo) => (
+                    <div class="photo-item">
+                        <img
+                            src={photo.url}
+                            alt={photo.title}
+                            width={400}
+                            height={300}
+                            loading="lazy"
+                            decoding="async"
+                        />
+                        <div class="photo-overlay">
+                            <span class="photo-caption">{photo.title}</span>
+                        </div>
                     </div>
-                </div>
-            ))
-        }
-    </div>
-</section>
+                ))}
+            </div>
+        </section>
+    )
+}

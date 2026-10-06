@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { getRandomImageUrl } from "~/utils";
+import { getRandomImageUrl, hasImageService } from "~/utils";
 import { imageService } from "~/config";
 
 interface Props {
@@ -12,9 +12,11 @@ interface Props {
 const { imagePath, altText, loading = "lazy" } = Astro.props;
 
 const defaultImageUrl = `${imageService.baseUrl}${imageService.randomPath}`;
-const isDefaultImage = typeof imagePath === "string" && imagePath.startsWith(defaultImageUrl);
+const isDefaultImage =
+    hasImageService && typeof imagePath === "string" && imagePath.startsWith(defaultImageUrl);
 
-const src = isDefaultImage ? getRandomImageUrl() : imagePath;
+// 未配置图床时回退到本地占位图
+const src = isDefaultImage ? getRandomImageUrl() : imagePath || getRandomImageUrl();
 ---
 
 <Image
