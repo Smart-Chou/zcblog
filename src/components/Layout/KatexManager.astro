@@ -8,10 +8,13 @@ const { mathjax = false, katex = false } = Astro.props;
 ---
 
 {
+    /* KaTeX CSS 版本需与 package.json 的 katex 主版本保持一致（渲染由构建期 rehype-katex + npm katex 完成） */
+}
+{
     (mathjax || katex) && (
         <link
             rel="stylesheet"
-            href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"
+            href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.19.0/katex.min.css"
         />
     )
 }
