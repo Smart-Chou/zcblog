@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 840">
+    <!-- Dogeared 占位 404 插画：从笔记本上撕下的一页 -->
+    <path d="M330 130 h420 l120 120 v460 H330 Z" fill="#f5f0e8" stroke="#2d2822" stroke-width="14" stroke-linejoin="round" />
+    <path d="M750 130 l120 120 h-120 Z" fill="#c2413b" stroke="#2d2822" stroke-width="14" stroke-linejoin="round" />
+    <text x="600" y="525" font-family="'DM Serif Display', Georgia, 'Times New Roman', serif" font-size="150" font-weight="700" fill="#2d2822" text-anchor="middle">404</text>
+    <text x="600" y="605" font-family="Georgia, 'Songti SC', 'Times New Roman', serif" font-size="34" fill="#736d67" text-anchor="middle">This page was torn out.</text>
+    <path d="M480 662 h240" stroke="#c2413b" stroke-width="8" stroke-linecap="round" />
+</svg>

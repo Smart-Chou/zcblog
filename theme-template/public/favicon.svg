@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+    <!-- Dogeared 占位图标：折角纸页（亮暗双色自适应） -->
+    <path class="page" d="M30 18 h50 l20 20 v72 H30 Z" />
+    <path class="fold" d="M80 18 l20 20 h-20 Z" />
+    <path class="lines" d="M44 62 h40 M44 78 h40 M44 94 h26" fill="none" stroke-width="7" stroke-linecap="round" />
+    <style>
+        .page {
+            fill: #2d2822;
+        }
+        .fold {
+            fill: #c2413b;
+        }
+        .lines {
+            stroke: #fbf8f4;
+        }
+        @media (prefers-color-scheme: dark) {
+            .page {
+                fill: #e8e3de;
+            }
+            .fold {
+                fill: #e8736a;
+            }
+            .lines {
+                stroke: #1c1917;
+            }
+        }
+    </style>
+</svg>
