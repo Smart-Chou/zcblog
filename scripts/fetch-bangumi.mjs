@@ -2,13 +2,13 @@
  * fetch-bangumi.mjs
  * 从 Bangumi API 抓取用户收藏数据，生成本地 JSON 缓存。
  *
+ * 环境变量: BANGUMI_USER_ID (Bangumi 用户 ID；未设置时跳过获取)
  * 用法: node scripts/fetch-bangumi.mjs
  */
 
 import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { loadEnvFile } from "./lib/env.mjs";
 
-const BANGUMI_USER_ID = "1246668";
 const API_BASE = "https://api.bgm.tv";
 const OUTPUT = "src/data/bangumi.json";
 const FETCH_TIMEOUT = 15000;
@@ -48,7 +48,7 @@ async function fetchWithRetry(url, retries, retryDelayMs) {
     throw lastError;
 }
 
-async function fetchCategory(subjectType) {
+async function fetchCategory(subjectType, userId) {
     const limit = 50;
     let offset = 0;
     let allData = [];
@@ -56,10 +56,14 @@ async function fetchCategory(subjectType) {
     while (true) {
         if (allData.length >= 1000) break;
 
-        const url = `${API_BASE}/v0/users/${BANGUMI_USER_ID}/collections?subject_type=${subjectType}&limit=${limit}&offset=${offset}`;
+        const url = `${API_BASE}/v0/users/${userId}/collections?subject_type=${subjectType}&limit=${limit}&offset=${offset}`;
 
         const res = await fetchWithRetry(url, RETRIES, RETRY_DELAY_MS);
-        if (!res.ok) break;
+        if (!res.ok) {
+            // 首个请求即失败视为整体失败（交给上层保留旧数据）；分页中途失败保留已取数据
+            if (allData.length === 0) throw new Error(`HTTP ${res.status}`);
+            break;
+        }
 
         const data = await res.json();
         const batch = data.data || [];
@@ -83,6 +87,12 @@ async function fetchCategory(subjectType) {
 async function main() {
     loadEnvFile();
 
+    const BANGUMI_USER_ID = process.env.BANGUMI_USER_ID;
+    if (!BANGUMI_USER_ID) {
+        console.warn("⚠ 未设置 BANGUMI_USER_ID 环境变量，跳过获取");
+        process.exit(0);
+    }
+
     // 读旧缓存，用于部分失败时合并
     let oldCache = {};
     try {
@@ -98,7 +108,7 @@ async function main() {
 
     for (const cat of CATEGORIES) {
         try {
-            const data = await fetchCategory(cat.subjectType);
+            const data = await fetchCategory(cat.subjectType, BANGUMI_USER_ID);
             bangumiData[cat.key] = data;
             freshCount++;
             console.log(`  ${cat.name}: ${data.length} 条`);

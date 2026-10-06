@@ -2,15 +2,18 @@
  * fetch-talks.mjs
  * 从 Blinko REST API 抓取公开笔记，生成 talks.json
  *
- * 环境变量: BLINKO_API_TOKEN  (Blinko 设置 → API Token)
+ * 环境变量: BLINKO_API_URL   (Blinko 服务地址，如 https://memos.example.com)
+ *            BLINKO_API_TOKEN (Blinko 设置 → API Token)
  * 用法:      node scripts/fetch-talks.mjs
  */
 
 import { writeFile } from "node:fs/promises";
 import { loadEnvFile } from "./lib/env.mjs";
 
-const BLINKO_API = "https://memos.marxchou.com/api/v1/note/list";
-const BLINKO_BASE = "https://memos.marxchou.com";
+// Blinko 服务地址在 main() 中根据 BLINKO_API_URL 初始化
+// （模块顶层先于 .env 加载执行，不能在此直接读取环境变量）
+let BLINKO_BASE = "";
+let BLINKO_API = "";
 const OUTPUT = "src/data/talks.json";
 
 // ── 工具函数 ──
@@ -71,9 +74,12 @@ function extractImages(note) {
 async function main() {
     loadEnvFile();
 
+    BLINKO_BASE = (process.env.BLINKO_API_URL ?? "").replace(/\/+$/, "");
+    BLINKO_API = `${BLINKO_BASE}/api/v1/note/list`;
+
     const TOKEN = process.env.BLINKO_API_TOKEN;
-    if (!TOKEN) {
-        console.warn("⚠ 未设置 BLINKO_API_TOKEN 环境变量，跳过获取");
+    if (!TOKEN || !BLINKO_BASE) {
+        console.warn("⚠ 未设置 BLINKO_API_URL 或 BLINKO_API_TOKEN 环境变量，跳过获取");
         process.exit(0);
     }
 

@@ -18,6 +18,11 @@ import { GithubCardComponent } from "./src/rehype-plugin/rehype-github-card.ts";
 import { remarkTabs } from "./src/remark-plugin/remark-tabs.ts";
 import { remarkAlign } from "./src/remark-plugin/remark-align.ts";
 import { remarkInclude } from "./src/remark-plugin/remark-include.ts";
+import { site as siteCfg } from "./src/config/site.ts";
+import { loadEnvFile } from "./scripts/lib/env.mjs";
+
+// 将 .env 载入 process.env（本地开发/构建供 remark-encrypted 等读取；CI 无 .env 时静默跳过）
+loadEnvFile();
 import { remarkEncrypted } from "./src/remark-plugin/remark-encrypted.ts";
 import { rehypeEncrypted } from "./src/remark-plugin/rehype-encrypted.ts";
 import expressiveCode from "astro-expressive-code";
@@ -50,7 +55,10 @@ const pwaPlugins = VitePWA({
         globPatterns: ["**/*.{html,js,css,woff2,woff,svg,ico}"],
         runtimeCaching: [
             {
-                urlPattern: /^https:\/\/marxchou\.com\/.*/,
+                // 与站点同源的页面请求（由 site.url 派生，避免硬编码域名）
+                urlPattern: new RegExp(
+                    `^${siteCfg.url.replace(/\/+$/, "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/.*`,
+                ),
                 handler: "StaleWhileRevalidate",
                 options: {
                     cacheName: "pages-cache",
@@ -76,9 +84,9 @@ const pwaPlugins = VitePWA({
         ],
     },
     manifest: {
-        name: "Marx's Blog",
-        short_name: "MarxBlog",
-        description: "Marx Chou's personal blog",
+        name: siteCfg.title,
+        short_name: siteCfg.shortName ?? siteCfg.title,
+        description: siteCfg.pwaDescription ?? siteCfg.description,
         theme_color: "#c2413b",
         background_color: "#ffffff",
         display: "standalone",
@@ -110,7 +118,7 @@ const pwaServiceWorker = {
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://marxchou.com",
+    site: siteCfg.url,
     // /blog 与 /en/blog 本身无页面（规范入口为 /blog/1/）：加跳转兜底，避免历史外链 404（2026-10 审计）
     redirects: {
         "/blog": "/blog/1/",
@@ -168,10 +176,7 @@ export default defineConfig({
             // 过滤不需要收录的页面
             filter: (page) => {
                 // 排除跳转中转页
-                if (
-                    page === "https://marxchou.com/redirect/" ||
-                    page === "https://marxchou.com/en/redirect/"
-                ) {
+                if (page === `${siteCfg.url}/redirect/` || page === `${siteCfg.url}/en/redirect/`) {
                     return false;
                 }
                 // 排除英文文章页（防御性）：当前不生成 /en/article/ 路由（仓库无 lang: en 文章）；

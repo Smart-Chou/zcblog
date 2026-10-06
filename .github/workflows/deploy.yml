@@ -64,7 +64,9 @@ jobs:
               env:
                   CI: true
                   ARTICLE_REPO_PATH: _articles
+                  BLINKO_API_URL: https://memos.marxchou.com
                   BLINKO_API_TOKEN: ${{ secrets.BLINKO_API_TOKEN }}
+                  BANGUMI_USER_ID: "1246668"
                   DOUBAN_USER_ID: ${{ secrets.DOUBAN_USER_ID }}
                   ENCRYPTION_PASSWORD: ${{ secrets.ENCRYPTION_PASSWORD }}
                   FOREVERBLOG_RSS_URL: ${{ secrets.FOREVERBLOG_RSS_URL }}

@@ -17,6 +17,8 @@ export interface SiteConfig {
     startYear: string; // 网站开始年份
     beian: string; // 中国政策 / 萌 ICP
     beianURL: string; // ICP备案链接
+    shortName?: string; // PWA 短名（可选，默认回退 title）
+    pwaDescription?: string; // PWA 描述（可选，默认回退 description）
 }
 
 /**
@@ -73,6 +75,8 @@ export const site: SiteConfig = {
     startYear: "2020",
     beian: "萌ICP备20249889号",
     beianURL: "https://icp.gov.moe/?keyword=20249889",
+    shortName: "MarxBlog",
+    pwaDescription: "Marx Chou's personal blog",
 };
 
 /**
