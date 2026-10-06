@@ -31,13 +31,15 @@
 - **阅读进度条** — 粘性顶部进度条，CSS 滚动驱动动画
 - **返回顶部** — 文章页返回顶部按钮
 - **中日韩文字排版优化** — Pangu 自动在中英文之间添加空格
+- **自托管字体** — DM Sans / DM Serif Display 本地托管，无第三方字体请求
+- **图片 CDN** — 正文图片托管于 Cloudflare R2（s3.marxchou.com），边缘缓存加速
 - **View Transitions** — Astro 视图过渡动画
 
 ## 技术栈
 
 | 类别 | 技术 |
 | ---- | ---- |
-| **框架** | Astro 6.x（静态站点生成） |
+| **框架** | Astro 7.x（静态站点生成，Vite 7） |
 | **CSS** | Tailwind CSS 4.x + 自定义 CSS 变量系统 |
 | **语言** | TypeScript（严格模式） |
 | **内容** | MDX + Remark/Rehype 插件流水线 |
@@ -53,7 +55,7 @@
 | **灯箱** | Fancybox UI |
 | **性能** | Partytown（第三方脚本卸载到 Web Worker） |
 | **视图过渡** | astro-vtbot |
-| **部署** | GitHub Pages + Vercel |
+| **部署** | GitHub Pages（生产）· Vercel（可选备用） |
 | **CI/CD** | GitHub Actions |
 | **单元测试** | Vitest |
 | **E2E 测试** | Playwright |
@@ -66,8 +68,7 @@
 ```text
 /
 ├── .github/workflows/         # CI 与部署工作流
-├── .claude/                   # Claude AI 辅助配置
-├── .vercel/                   # Vercel 部署元数据
+├── .claude/                   # AI 辅助配置与设计规范（DESIGN.md、PRODUCT.md）
 ├── public/                    # 静态资源（favicon、logo、文章图片、字体等）
 ├── scripts/                   # 构建/数据获取脚本
 │   ├── fetch-talks.mjs        # 从 Blinko API 拉取随笔
@@ -85,6 +86,7 @@
 │   │   ├── Article/           # 文章组件（PostCard、Toc、Breadcrumb、PostMeta 等）
 │   │   ├── Bangumi/           # 番剧追踪 UI
 │   │   ├── BaseHead/          # SEO Head 组件
+│   │   ├── Content/           # 目录组件（TableOfContents）
 │   │   ├── Douban/            # 豆瓣书影音
 │   │   ├── Gallery/           # 相册组件（Fancybox 灯箱）
 │   │   ├── Icons/             # 自定义图标
@@ -98,7 +100,7 @@
 │   │   ├── feature.ts         # 功能开关（评论、搜索、分析、捐赠、水印、公告栏）
 │   │   └── ui.ts              # 导航、社交链接、页脚配置
 │   ├── content/               # Astro 内容集合
-│   │   ├── article/           # 文章 Markdown/MDX（67 篇）
+│   │   ├── article/           # 文章 Markdown/MDX（本地开发副本，当前 85 篇）
 │   │   └── pages/             # 独立页面（cookies、copyright、privacy-policy）
 │   ├── content.config.ts      # 内容集合 Zod Schema 定义
 │   ├── data/                  # JSON 数据源
@@ -143,13 +145,13 @@
 │   │   ├── remark-align.ts    # 内容对齐
 │   │   ├── remark-asides.ts   # 自定义提示框
 │   │   ├── remark-code-blocks.ts # 代码块增强
-│   │   ├── remark-encrypted.ts / rehype-encrypted.ts # 内容加密
+│   │   ├── remark-encrypted.ts # 内容加密（remark 阶段）
 │   │   ├── remark-github-card.ts # GitHub 仓库卡片
 │   │   ├── remark-image-grid.ts  # 图片网格布局
 │   │   ├── remark-include.ts  # 文件引入
 │   │   ├── remark-inline-syntax.ts # 行内语法扩展
 │   │   ├── remark-tabs.ts     # 标签页组件
-│   │   └── rehype-plugin/     # Rehype 插件（GitHub Card 等）
+│   │   └── rehype-encrypted.ts # 内容加密（rehype 阶段，AES-256-GCM）
 │   ├── schemas/               # Zod 数据校验 Schema
 │   ├── scripts/               # 客户端 TypeScript/JavaScript
 │   │   ├── chart-renderer.ts  # Chart.js 渲染
@@ -162,6 +164,7 @@
 │   │   └── redirect-handler.ts # 重定向处理
 │   ├── styles/                # CSS 样式（~22 个文件）
 │   │   ├── variables.css      # 设计变量（字体、颜色、间距、阴影）
+│   │   ├── fonts.css          # 自托管字体（DM Sans / DM Serif Display）
 │   │   ├── global.css         # 全局样式入口
 │   │   ├── base.css           # 基础样式
 │   │   ├── reset.css          # CSS Reset
@@ -169,10 +172,11 @@
 │   │   ├── components.css     # 组件样式
 │   │   ├── home.css           # 首页样式
 │   │   ├── toc.css            # 目录样式
-│   │   ├── markdown-extend.css # 文章内容样式
+│   │   ├── markdown-extend.css # 文章扩展样式（mermaid/plantuml/chart 等）
+│   │   ├── remark-aside.css   # 提示框（callout）双主题样式
 │   │   └── ...                # 其他覆盖/扩展样式
 │   ├── types/                 # TypeScript 类型定义
-│   └── utils/                 # 工具函数（~18 个文件）
+│   └── utils/                 # 工具函数（16 个文件）
 │       ├── article-stats.ts   # 文章统计
 │       ├── adjacent-posts.ts  # 相邻文章
 │       ├── date-utils.ts      # 日期处理
@@ -217,6 +221,8 @@ pnpm run build
 # 预览构建产物
 pnpm run preview
 ```
+
+> 环境要求：Node.js 22+（CI 使用 22.x）、pnpm（`packageManager` 字段锁定 `pnpm@11`）。
 
 ## 可用脚本
 
@@ -279,8 +285,9 @@ pnpm run preview
 | `DOUBAN_USER_ID` | 是 | 豆瓣用户 ID，用于拉取书影音数据 |
 | `FOREVERBLOG_RSS_URL` | 否 | Foreverblog RSS 源地址（默认使用 rsshub.rssforever.com） |
 | `ENCRYPTION_PASSWORD` | 否 | 文章加密密码（用于加密文章内容） |
-| `BUILD_CONCURRENCY` | 否 | Astro 构建并发数（默认为 CPU 核心数） |
-| `INDEXNOW_API_KEY` | 否 | IndexNow API Key，用于通知搜索引擎更新 |
+| `BUILD_CONCURRENCY` | 否 | Astro 构建并发数（默认 = CPU 核心数；CI 部署时固定为 1） |
+
+> 注：《博客 SEO 实战》文章中提到的 IndexNow 主动推送目前未内置在构建流程中；如需启用请参照该文章方案集成（届时恢复 `INDEXNOW_API_KEY` 环境变量）。
 
 ## 配置
 
@@ -298,13 +305,15 @@ pnpm run preview
 | ---- | ---- |
 | [astro.config.mjs](astro.config.mjs) | Astro 框架配置（i18n、Markdown 插件、集成、PWA、构建优化） |
 | [src/content.config.ts](src/content.config.ts) | 内容集合 Zod Schema 定义 |
-| [vercel.json](vercel.json) | Vercel 部署配置 |
+| [vercel.json](vercel.json) | Vercel 备用部署配置（重定向 / 构建内存） |
 
 ## 内容管理
 
 ### 文章
 
 文章存储在 `src/content/article/` 目录中，使用 Markdown（`.md`）或 MDX（`.mdx`）格式编写。
+
+> ⚠️ 该目录是**本地开发副本**：CI 构建时会用私有仓库 `zcblog-articles` 的内容覆盖它（`cp _articles/*.md src/content/article/`）。线上文章的发布与修改请以 `zcblog-articles` 仓库为准。
 
 文章 Frontmatter：
 
@@ -376,7 +385,7 @@ description: 页面描述（可选）
 
 ### GitHub Pages（主要部署方式）
 
-推送至 `main` 或 `theme` 分支时自动触发，也可通过 `repository_dispatch`（文章更新时）或手动触发：
+推送至 `main` 或 `theme` 分支时自动触发；`zcblog-articles` 推送后由其 `notify.yml` 触发 `repository_dispatch (articles-updated)`；亦支持手动触发：
 
 1. 从私有仓库 `Smart-Chou/zcblog-articles` 拉取文章与图片
 2. 安装系统依赖（libvips）
@@ -384,9 +393,9 @@ description: 页面描述（可选）
 4. 安装依赖并构建
 5. 部署到 GitHub Pages
 
-### Vercel
+### Vercel（可选备用）
 
-项目也支持 Vercel 部署，配置见 `vercel.json`。通过 `.vercel/` 目录中的项目元数据关联。
+项目保留 `vercel.json`（含 `tag → tags` 等重定向与构建内存配置）作为备用部署方案；当前生产部署为 GitHub Pages。
 
 ### 构建流程
 
@@ -411,7 +420,16 @@ pnpm build
 
 ## 内容加密
 
-部分文章支持密码加密。在需要加密的文章中添加对应 frontmatter 标记，并设置环境变量 `ENCRYPTION_PASSWORD`，构建时 `remark-encrypted` 插件会使用 AES 加密文章内容，客户端通过 `rehype-encrypted` 解密。
+部分内容支持密码加密。在文章正文中使用容器指令标记：
+
+```md
+:::encrypted[提示语（如：我的生日）]
+需要加密的内容
+:::
+```
+
+- 密码优先级：指令属性 `:::encrypted{password="xxx"}` > 环境变量 `ENCRYPTION_PASSWORD`（站点默认密码）；`hint` 属性用于展示提示语。
+- 构建时 `remark-encrypted` + `rehype-encrypted` 使用 Node crypto（AES-256-GCM，密钥由密码 + 文章 slug 经 PBKDF2 派生）加密为 Base64；访问者输入密码后由客户端解密渲染。
 
 ## 多语言 (i18n)
 
@@ -419,6 +437,15 @@ pnpm build
 - **英文**：URL 前缀 `/en/`（如 `/en/blog/1/`）
 - 翻译文本存储在 `src/data/i18n/` 中
 - RSS 订阅源分别提供中文和英文两个版本
+
+## 相关仓库与服务
+
+| 名称 | 作用 |
+| ---- | ---- |
+| `Smart-Chou/zcblog`（本仓库） | 站点源码与构建配置 |
+| `Smart-Chou/zcblog-articles`（私有） | 文章与图片的唯一部署来源；推送后触发本站重建 |
+| `Smart-Chou/marxchou-waline` | 评论服务端（Vercel Serverless） |
+| Cloudflare R2 `blog-all` + `s3.marxchou.com` | 文章图片 CDN（发布时上传，边缘缓存） |
 
 ## 许可证
 

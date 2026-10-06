@@ -174,8 +174,8 @@ export default defineConfig({
                 ) {
                     return false;
                 }
-                // 排除英文文章页：当前没有任何文章有 lang: en，所有 /en/article/ 页面
-                // 渲染的是中文内容，不应被索引。等有英文翻译后移除此规则
+                // 排除英文文章页（防御性）：当前不生成 /en/article/ 路由（仓库无 lang: en 文章）；
+                // 若未来启用英文文章路由，重新评估此规则
                 if (page.includes("/en/article/")) {
                     return false;
                 }
@@ -263,7 +263,7 @@ export default defineConfig({
     vite: {
         plugins: [tailwindcss(), ...pwaPlugins],
         build: {
-            // esbuild 比 terser 内存占用更低，避免 Vercel OOM
+            // esbuild 比 terser 内存占用更低，适合内存受限的 CI 构建环境
             minify: "esbuild",
             // 静态资源哈希，用于缓存失效
             assetsDir: "assets",

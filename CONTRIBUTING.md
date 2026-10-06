@@ -16,4 +16,8 @@ Before submitting code, please run the appropriate commands to check for errors 
 
 ```bash
 pnpm format
+pnpm type-check
+pnpm test:unit
 ```
+
+提交前请确保以上检查全部通过（CI 亦会运行同样的检查，见 `.github/workflows/ci.yml`）。

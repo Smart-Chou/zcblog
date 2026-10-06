@@ -12,7 +12,7 @@ export * from "./feature";
 export * from "./ui";
 export * from "./services";
 
-// 保持与原self.config.ts相同的导出结构
+// 导出结构与旧版 self.config.ts 保持一致（向后兼容）
 export const { site, author, notFoundPage, tagsPage, archivesPage, redirectPage, imageService } =
     siteConfig;
 
