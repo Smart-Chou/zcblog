@@ -1,36 +1,43 @@
 /**
  * verify-data.mjs
  * 在所有 fetch 脚本完成后验证数据文件内容。
- * 检查: (1) 文件存在且非空 (2) 至少 1 条记录 (3) 数据时效性。
+ *
+ * 规则（按数据源配置感知）：
+ *   - 数据源已配置（对应环境变量齐全）且需要校验时：文件缺失/为空/JSON 损坏 → 报错（退出码 1）
+ *   - 数据源未配置（或无需配置，如友链）：跳过检查（构建不依赖该数据源，适合主题用户/空配置场景）
+ *   - 时效性检查为警告级（不阻断构建）
  *
  * 用法: node scripts/verify-data.mjs
  */
 
 import { readFile, stat } from "node:fs/promises";
+import { loadEnvFile } from "./lib/env.mjs";
+
+loadEnvFile();
 
 const DATA_FILES = [
     {
         path: "src/data/douban.json",
         label: "豆瓣",
-        checkFreshness: true,
+        requires: ["DOUBAN_USER_ID"],
         maxAgeDays: 30,
     },
     {
         path: "src/data/talks.json",
         label: "Talks (Blinko)",
-        checkFreshness: true,
+        requires: ["BLINKO_API_URL", "BLINKO_API_TOKEN"],
         maxAgeDays: 7,
     },
     {
         path: "src/data/friends-articles.json",
         label: "友链文章",
-        checkFreshness: true,
+        requires: [],
         maxAgeDays: 7,
     },
     {
         path: "src/data/bangumi.json",
         label: "Bangumi",
-        checkFreshness: true,
+        requires: ["BANGUMI_USER_ID"],
         maxAgeDays: 7,
     },
 ];
@@ -73,69 +80,92 @@ function getRecordCount(data) {
     return 0;
 }
 
+const isConfigured = (requires) => requires.every((key) => Boolean(process.env[key]));
+
 let hasError = false;
 
-for (const { path, label, checkFreshness, maxAgeDays = 7 } of DATA_FILES) {
+for (const { path, label, requires, maxAgeDays = 7 } of DATA_FILES) {
+    const configured = isConfigured(requires);
+    // 仅「有必填环境变量 且 已配置」的数据源才做硬性校验；无约束的源（如友链）空数据只提示
+    const strict = configured && requires.length > 0;
+    const skip = (reason) => {
+        if (strict) {
+            console.warn(`❌ [fetch:verify] ${label} ${reason}（数据源已配置）: ${path}`);
+            hasError = true;
+        } else {
+            console.log(
+                `⏭️  [fetch:verify] ${label} ${reason}（未配置数据源或无需配置，跳过）: ${path}`,
+            );
+        }
+    };
+
+    let s;
     try {
-        // 1. Check file exists and is non-empty
-        const s = await stat(path);
-        if (s.size === 0) {
-            console.warn(`⚠️  [fetch:verify] ${label} 数据文件为空: ${path}`);
-            hasError = true;
-            continue;
-        }
-
-        // 2. Read and parse JSON
-        const raw = await readFile(path, "utf-8");
-        let data;
-        try {
-            data = JSON.parse(raw);
-        } catch {
-            console.warn(`⚠️  [fetch:verify] ${label} JSON 解析失败: ${path}`);
-            hasError = true;
-            continue;
-        }
-
-        // 3. Check at least 1 record
-        const count = getRecordCount(data);
-        if (count === 0) {
-            console.warn(`⚠️  [fetch:verify] ${label} 数据为空数组/对象: ${path}`);
-            hasError = true;
-            continue;
-        }
-
-        // 4. Freshness check (optional per data source)
-        let ageInfo = "";
-        if (checkFreshness) {
-            const latest = getLatestTimestamp(data);
-            if (latest) {
-                const ageDays = (Date.now() - latest.getTime()) / (1000 * 60 * 60 * 24);
-                ageInfo = `，最新数据: ${latest.toISOString().slice(0, 10)} (${ageDays.toFixed(1)} 天前)`;
-                if (ageDays > maxAgeDays) {
-                    console.warn(
-                        `⚠️  [fetch:verify] ${label} 数据过期 (>${maxAgeDays} 天)${ageInfo}: ${path}`,
-                    );
-                    hasError = true;
-                    continue;
-                }
-            } else {
-                ageInfo = "，无时间戳字段（跳过时效检查）";
-            }
-        }
-
-        console.log(
-            `✅ [fetch:verify] ${label} 数据正常: ${count} 条记录 (${(s.size / 1024).toFixed(1)} KB)${ageInfo}`,
-        );
+        s = await stat(path);
     } catch {
-        console.warn(`⚠️  [fetch:verify] ${label} 数据文件缺失: ${path}`);
-        hasError = true;
+        skip("数据文件缺失");
+        continue;
     }
+
+    if (s.size === 0) {
+        skip("数据文件为空");
+        continue;
+    }
+
+    let raw;
+    try {
+        raw = await readFile(path, "utf-8");
+    } catch {
+        skip("数据文件读取失败");
+        continue;
+    }
+
+    let data;
+    try {
+        data = JSON.parse(raw);
+    } catch {
+        console.warn(`❌ [fetch:verify] ${label} JSON 解析失败: ${path}`);
+        hasError = true;
+        continue;
+    }
+
+    const count = getRecordCount(data);
+    if (count === 0) {
+        if (strict) {
+            console.warn(`❌ [fetch:verify] ${label} 数据为空数组/对象（数据源已配置）: ${path}`);
+            hasError = true;
+        } else {
+            console.log(
+                `⏭️  [fetch:verify] ${label} 数据为空（未配置数据源或无需配置，跳过）: ${path}`,
+            );
+        }
+        continue;
+    }
+
+    // 时效性检查：仅警告，不阻断
+    let ageInfo = "";
+    const latest = getLatestTimestamp(data);
+    if (latest) {
+        const ageDays = (Date.now() - latest.getTime()) / (1000 * 60 * 60 * 24);
+        ageInfo = `，最新数据: ${latest.toISOString().slice(0, 10)} (${ageDays.toFixed(1)} 天前)`;
+        if (ageDays > maxAgeDays) {
+            console.warn(
+                `⚠️  [fetch:verify] ${label} 数据过期 (>${maxAgeDays} 天)${ageInfo}: ${path}`,
+            );
+        }
+    } else {
+        ageInfo = "，无时间戳字段（跳过时效检查）";
+    }
+
+    console.log(
+        `✅ [fetch:verify] ${label} 数据正常: ${count} 条记录 (${(s.size / 1024).toFixed(1)} KB)${ageInfo}`,
+    );
 }
 
 if (hasError) {
-    console.warn("⚠️  [fetch:verify] 部分数据异常，请检查 fetch 脚本运行状态。");
+    console.warn("⚠️  [fetch:verify] 存在「已配置数据源但未产出数据」的情况，请检查 fetch 脚本。");
     process.exit(1);
 }
 
-console.log("✅ [fetch:verify] 所有数据验证通过。");
+console.log("✅ [fetch:verify] 数据验证通过。");
 process.exit(0);

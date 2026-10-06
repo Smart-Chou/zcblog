@@ -69,7 +69,7 @@ const tagsCount = new Set(getAllTags(allArticles).map(normalizeTag)).size;
             />
 
             {
-                !isEn && (
+                !isEn && typewriterTexts.length > 0 && (
                     <div class="hero-typewriter">
                         <TypewriterText text={typewriterTexts} speed={80} pauseTime={2500} />
                     </div>
@@ -82,22 +82,26 @@ const tagsCount = new Set(getAllTags(allArticles).map(normalizeTag)).size;
             <Posts posts={recentPosts} />
             <Friends title={t(loc, "home.friendsTitle")} locale={loc} />
             <Photos title={t(loc, "home.photosTitle")} locale={loc} />
-            <div class="media-duo">
-                <Media
-                    title={t(loc, "home.moviesTitle")}
-                    items={moviesItems}
-                    href="/douban/"
-                    limit={4}
-                    locale={loc}
-                />
-                <Media
-                    title={t(loc, "home.booksTitle")}
-                    items={booksItems}
-                    href="/douban/"
-                    limit={4}
-                    locale={loc}
-                />
-            </div>
+            {
+                (moviesItems.length > 0 || booksItems.length > 0) && (
+                    <div class="media-duo">
+                        <Media
+                            title={t(loc, "home.moviesTitle")}
+                            items={moviesItems}
+                            href="/douban/"
+                            limit={4}
+                            locale={loc}
+                        />
+                        <Media
+                            title={t(loc, "home.booksTitle")}
+                            items={booksItems}
+                            href="/douban/"
+                            limit={4}
+                            locale={loc}
+                        />
+                    </div>
+                )
+            }
 
             {isEn && <Author />}
         </div>

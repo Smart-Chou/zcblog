@@ -1,4 +1,6 @@
 ---
+import { waline } from "~/config";
+
 interface Props {
     locale?: string;
 }
@@ -59,10 +61,16 @@ const isEn = locale === "en";
     }
 </style>
 
-<div id="comment-wrapper" data-waline-locale={locale}>
-    <button id="waline-toggle" type="button">{isEn ? "Show Comments" : "展开评论"}</button>
-    <div id="waline"></div>
-</div>
+{
+    waline.enable && (
+        <div id="comment-wrapper" data-waline-locale={locale}>
+            <button id="waline-toggle" type="button">
+                {isEn ? "Show Comments" : "展开评论"}
+            </button>
+            <div id="waline" />
+        </div>
+    )
+}
 
 <script>
     import { waline } from "~/config";

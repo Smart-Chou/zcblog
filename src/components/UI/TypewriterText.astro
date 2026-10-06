@@ -15,14 +15,20 @@ const {
     class: className = "",
 } = Astro.props;
 const textData = Array.isArray(text) ? JSON.stringify(text) : text;
+const isEmpty = Array.isArray(text) && text.length === 0;
 ---
 
-<span
-    class={`typewriter ${className}`}
-    data-text={textData}
-    data-speed={speed}
-    data-delete-speed={deleteSpeed}
-    data-pause-time={pauseTime}></span>
+{
+    !isEmpty && (
+        <span
+            class={`typewriter ${className}`}
+            data-text={textData}
+            data-speed={speed}
+            data-delete-speed={deleteSpeed}
+            data-pause-time={pauseTime}
+        />
+    )
+}
 
 <script>
     class TypewriterEffect {

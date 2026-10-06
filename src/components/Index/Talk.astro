@@ -4,13 +4,17 @@ import items from "~/data/talks.json";
 const itemsJson = JSON.stringify(items);
 ---
 
-<div class="talk-container">
-    <div id="bber-talk">
-        <div class="talk-wrap">
-            <ul class="talk-list" data-items={itemsJson}></ul>
+{
+    items.length > 0 && (
+        <div class="talk-container">
+            <div id="bber-talk">
+                <div class="talk-wrap">
+                    <ul class="talk-list" data-items={itemsJson} />
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    )
+}
 
 <style>
     .talk-list {

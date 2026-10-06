@@ -1,5 +1,6 @@
 ---
 import { formatDateToYYYYMMDD } from "~/utils";
+import { waline } from "~/config";
 
 interface Props {
     publishedTime: Date;
@@ -33,9 +34,18 @@ const showUpdated =
     }
     <span class="meta-break"></span>
     <span class="word-count">{wordCount} words.</span>&nbsp;
-    <span class="read-time">{readTime}.</span>&nbsp;
-    <span class="waline-pageview-count" data-path={`/article/${currentSlug}/`}>0</span>
-    <span> views.</span>
+    <span class="read-time">{readTime}.</span>
+    {
+        waline.enable && (
+            <>
+                &nbsp;
+                <span class="waline-pageview-count" data-path={`/article/${currentSlug}/`}>
+                    0
+                </span>
+                <span> views.</span>
+            </>
+        )
+    }
 </div>
 
 <style>

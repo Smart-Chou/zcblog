@@ -4,7 +4,7 @@ import WalineComment from "~/components/UI/WalineComment.astro";
 import FriendPill from "~/components/UI/FriendPill.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import friendsList from "~/data/friends.json";
-import { site, author } from "~/config";
+import { site, author, waline } from "~/config";
 import siteAvatar from "~/assets/logo.svg";
 import { t, getLocale, type Locale } from "~/utils/i18n";
 
@@ -225,7 +225,7 @@ ${fieldLabels.avatarLink}：<你的站点头像>`;
         </div>
     </div>
 
-    <WalineComment locale={locale} />
+    {waline.enable && <WalineComment locale={locale} />}
 </SectionPage>
 
 <style is:global>
