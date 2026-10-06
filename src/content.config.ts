@@ -3,6 +3,11 @@ import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 import { imageService } from "~/config";
 
+/** 封面回退：未配置图床时用本地占位图（避免生成 "/api/random" 这类坏引用） */
+const defaultCoverUrl = imageService.baseUrl
+    ? `${imageService.baseUrl}${imageService.randomPath}`
+    : "/cover.png";
+
 const article = defineCollection({
     loader: glob({
         pattern: "**/*.{md,mdx}",
@@ -21,9 +26,7 @@ const article = defineCollection({
                 .object({
                     url: z.preprocess(
                         (val) => (val === "" ? undefined : val),
-                        z
-                            .union([image(), z.string()])
-                            .default(`${imageService.baseUrl}${imageService.randomPath}`),
+                        z.union([image(), z.string()]).default(defaultCoverUrl),
                     ),
                     alt: z.preprocess(
                         (val) => (val === "" ? undefined : val),

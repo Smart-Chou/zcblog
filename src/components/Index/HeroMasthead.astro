@@ -8,12 +8,24 @@ interface Props {
 }
 
 const { subtitle, totalArticles, tagsCount } = Astro.props;
-const [titleAccent, titleRest] = site.title.split("'s ");
+
+// 标题为 "X's Y" 结构时拆分为 强调词 + 's + 其余（如 Marx's Blog → Marx / Blog）；
+// 无该结构的标题（如 "Dogeared"）整体作为强调词显示，不再补 "'s"
+const hasPossessive = site.title.includes("'s ");
+const [titleAccent, titleRest] = hasPossessive ? site.title.split("'s ") : [site.title, null];
 ---
 
 <header class="hero-masthead animate-in">
     <h1 class="hero-title">
-        <span class="hero-title-accent">{titleAccent}</span>&#8202;'s {titleRest}
+        {
+            titleRest ? (
+                <>
+                    <span class="hero-title-accent">{titleAccent}</span>&#8202;'s {titleRest}
+                </>
+            ) : (
+                <span class="hero-title-accent">{titleAccent}</span>
+            )
+        }
     </h1>
     <p class="hero-subtitle">{subtitle}</p>
     <div class="hero-divider">
