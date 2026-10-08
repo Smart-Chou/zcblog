@@ -64,23 +64,11 @@ const PLATFORMS: Record<string, Platform> = {
         icon: "tabler:brand-telegram",
         href: `https://t.me/share/url?url=${enc(canonicalUrl)}&text=${enc(title)}`,
     },
-    bluesky: {
-        zh: "Bluesky",
-        en: "Bluesky",
-        icon: "tabler:brand-bluesky",
-        href: `https://bsky.app/intent/compose?text=${enc(`${title} ${canonicalUrl}`)}`,
-    },
     facebook: {
         zh: "Facebook",
         en: "Facebook",
         icon: "tabler:brand-facebook",
         href: `https://www.facebook.com/sharer/sharer.php?u=${enc(canonicalUrl)}`,
-    },
-    linkedin: {
-        zh: "LinkedIn",
-        en: "LinkedIn",
-        icon: "tabler:brand-linkedin",
-        href: `https://www.linkedin.com/shareArticle?mini=true&url=${enc(canonicalUrl)}`,
     },
     reddit: {
         zh: "Reddit",
