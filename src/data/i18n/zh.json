@@ -68,7 +68,13 @@
         "author": "作者",
         "toc": "目录",
         "shareTo": "分享到",
-        "qrcode": "扫码阅读"
+        "qrcode": "扫码阅读",
+        "share": {
+            "copy": "复制链接",
+            "native": "系统分享",
+            "wechatHelper": "微信里打开后，点右上角 ··· 分享",
+            "inWechatHint": "点右上角 ··· 分享给朋友或朋友圈"
+        }
     },
     "blog": {
         "title": "博客",

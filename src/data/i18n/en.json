@@ -68,7 +68,13 @@
         "author": "Author",
         "toc": "Table of Contents",
         "shareTo": "Share to",
-        "qrcode": "Scan to read"
+        "qrcode": "Scan to read",
+        "share": {
+            "copy": "Copy link",
+            "native": "Share…",
+            "wechatHelper": "Open in WeChat, tap ··· to share",
+            "inWechatHint": "Tap ··· at the top right to share"
+        }
     },
     "blog": {
         "title": "Blog",

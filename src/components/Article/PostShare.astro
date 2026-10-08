@@ -1,0 +1,396 @@
+---
+/**
+ * 文章分享（构建期静态化 + 少量客户端增强）
+ * - 站外分享链接在构建期拼接渲染为 <a>，无 JS 也可用
+ * - 微信二维码在构建期用 uqr 内联生成（无网络请求）
+ * - 交互增强见 ~/scripts/share.ts（弹层 / 复制 / 系统分享 / 微信内提示 / Umami）
+ */
+import { share } from "~/config";
+import { getIconSvg } from "~/components/Icons";
+import { t, getLocale } from "~/utils/i18n";
+import { renderSVG } from "uqr";
+
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+    slug?: string;
+    locale?: string;
+}
+
+const { title, description = "", image = "", slug = "", locale: rawLocale = "zh" } = Astro.props;
+const locale = getLocale(rawLocale);
+
+interface Platform {
+    zh: string;
+    en: string;
+    icon: string;
+    href?: string;
+    action?: "wechat" | "copy" | "native";
+}
+
+const enc = encodeURIComponent;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+
+const PLATFORMS: Record<string, Platform> = {
+    wechat: { zh: "微信", en: "WeChat", icon: "tabler:brand-wechat", action: "wechat" },
+    weibo: {
+        zh: "微博",
+        en: "Weibo",
+        icon: "tabler:brand-weibo",
+        href: `https://service.weibo.com/share/share.php?url=${enc(canonicalUrl)}&title=${enc(title)}${image ? `&pic=${enc(image)}` : ""}`,
+    },
+    qzone: {
+        zh: "QQ空间",
+        en: "Qzone",
+        icon: "tabler:brand-qq",
+        href: `https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${enc(canonicalUrl)}&title=${enc(title)}&desc=${enc(description)}&summary=${enc(description)}`,
+    },
+    douban: {
+        zh: "豆瓣",
+        en: "Douban",
+        icon: "tabler:brand-douban",
+        href: `https://www.douban.com/share/service?href=${enc(canonicalUrl)}&name=${enc(title)}&comment=${enc(description)}${image ? `&image=${enc(image)}` : ""}`,
+    },
+    x: {
+        zh: "X",
+        en: "X",
+        icon: "tabler:brand-x",
+        href: `https://x.com/intent/post?url=${enc(canonicalUrl)}&text=${enc(title)}`,
+    },
+    telegram: {
+        zh: "Telegram",
+        en: "Telegram",
+        icon: "tabler:brand-telegram",
+        href: `https://t.me/share/url?url=${enc(canonicalUrl)}&text=${enc(title)}`,
+    },
+    bluesky: {
+        zh: "Bluesky",
+        en: "Bluesky",
+        icon: "tabler:brand-bluesky",
+        href: `https://bsky.app/intent/compose?text=${enc(`${title} ${canonicalUrl}`)}`,
+    },
+    facebook: {
+        zh: "Facebook",
+        en: "Facebook",
+        icon: "tabler:brand-facebook",
+        href: `https://www.facebook.com/sharer/sharer.php?u=${enc(canonicalUrl)}`,
+    },
+    linkedin: {
+        zh: "LinkedIn",
+        en: "LinkedIn",
+        icon: "tabler:brand-linkedin",
+        href: `https://www.linkedin.com/shareArticle?mini=true&url=${enc(canonicalUrl)}`,
+    },
+    reddit: {
+        zh: "Reddit",
+        en: "Reddit",
+        icon: "tabler:brand-reddit",
+        href: `https://www.reddit.com/submit?url=${enc(canonicalUrl)}&title=${enc(title)}`,
+    },
+    copy: { zh: "复制链接", en: "Copy link", icon: "tabler:copy", action: "copy" },
+    native: { zh: "系统分享", en: "Share…", icon: "tabler:share-2", action: "native" },
+};
+
+const items = (share.enable ? share.sites : []).flatMap((id) => {
+    const platform = PLATFORMS[id];
+    return platform ? [{ id, ...platform }] : [];
+});
+
+const shareToLabel = t(locale, "article.shareTo");
+const qrSvg = items.some((item) => item.action === "wechat")
+    ? renderSVG(canonicalUrl, { ecc: "M", border: 4 })
+    : "";
+---
+
+{
+    items.length > 0 && (
+        <div
+            class="share-bar"
+            data-post-share
+            data-share-url={canonicalUrl}
+            data-share-title={title}
+            data-share-slug={slug}
+        >
+            <span class="share-label">{shareToLabel}</span>
+            <div class="share-icons">
+                {items.map((item) => {
+                    const label = item[locale] ?? item.zh;
+                    const aria = `${shareToLabel} ${label}`;
+                    const icon = getIconSvg(item.icon);
+                    if (item.action === "wechat") {
+                        return (
+                            <span class="share-wechat-wrap">
+                                <button
+                                    type="button"
+                                    class="share-icon"
+                                    data-share-action="wechat"
+                                    aria-label={aria}
+                                    aria-expanded="false"
+                                    title={label}
+                                >
+                                    <Fragment set:html={icon} />
+                                </button>
+                                <div class="share-pop" aria-hidden="true">
+                                    <div class="share-card">
+                                        <div class="share-qr">
+                                            <div class="share-qr-img">
+                                                <Fragment set:html={qrSvg} />
+                                            </div>
+                                            <p class="share-qr-title">
+                                                {t(locale, "article.qrcode")}
+                                            </p>
+                                            <p class="share-qr-help">
+                                                {t(locale, "article.share.wechatHelper")}
+                                            </p>
+                                        </div>
+                                        <p class="share-in-wechat">
+                                            {t(locale, "article.share.inWechatHint")}
+                                        </p>
+                                    </div>
+                                </div>
+                            </span>
+                        );
+                    }
+                    if (item.action) {
+                        return (
+                            <button
+                                type="button"
+                                class:list={["share-icon", `share-icon--${item.action}`]}
+                                data-share-action={item.action}
+                                aria-label={aria}
+                                title={label}
+                            >
+                                <Fragment set:html={icon} />
+                                {item.action === "copy" && (
+                                    <span class="share-copied-chip">
+                                        {t(locale, "common.copied")}
+                                    </span>
+                                )}
+                            </button>
+                        );
+                    }
+                    return (
+                        <a
+                            class="share-icon"
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener"
+                            data-share-platform={item.id}
+                            aria-label={aria}
+                            title={label}
+                        >
+                            <Fragment set:html={icon} />
+                        </a>
+                    );
+                })}
+            </div>
+        </div>
+    )
+}
+
+<style>
+    .share-bar {
+        margin-top: calc(var(--space) / 2);
+        border-top: 1px solid var(--color-border);
+        padding-top: calc(var(--space) / 2 - 8px);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .share-label {
+        font-size: var(--text-sm);
+        color: var(--color-muted);
+        flex: none;
+    }
+
+    .share-icons {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+
+    .share-icon {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        border: none;
+        border-radius: var(--radius-full);
+        background: transparent;
+        color: var(--color-muted);
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+            color var(--duration-fast) ease,
+            background-color var(--duration-fast) ease;
+    }
+
+    .share-icon :global(svg) {
+        width: 19px;
+        height: 19px;
+        display: inline-block;
+    }
+
+    .share-icon:hover,
+    .share-icon:focus-visible {
+        color: var(--color-accent);
+        background: var(--color-hover);
+    }
+
+    .share-icon:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 1px;
+    }
+
+    /* 微信：二维码弹层 */
+    .share-wechat-wrap {
+        position: relative;
+        display: inline-flex;
+    }
+
+    .share-wechat-wrap.share-hidden {
+        display: none;
+    }
+
+    .share-pop {
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 12px);
+        transform: translateX(-50%) translateY(4px);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+            opacity var(--duration-fast) ease,
+            transform var(--duration-fast) ease;
+        z-index: 50;
+    }
+
+    .share-wechat-wrap.open .share-pop {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .share-card {
+        position: relative;
+        width: 212px;
+        padding: 14px;
+        text-align: center;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .share-card::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -6px;
+        width: 10px;
+        height: 10px;
+        background: var(--color-surface);
+        border-right: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+        transform: translateX(-50%) rotate(45deg);
+    }
+
+    .share-qr-img {
+        display: flex;
+        justify-content: center;
+        padding: 8px;
+        background: #fff;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+    }
+
+    .share-qr-img :global(svg) {
+        width: 158px;
+        height: 158px;
+        display: block;
+    }
+
+    .share-qr-title {
+        margin: 10px 0 2px;
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: var(--color-body);
+    }
+
+    .share-qr-help {
+        margin: 0;
+        font-size: var(--text-xs);
+        line-height: 1.6;
+        color: var(--color-muted);
+    }
+
+    .share-in-wechat {
+        display: none;
+        margin: 0;
+        padding: 6px 2px;
+        font-size: var(--text-sm);
+        color: var(--color-body);
+    }
+
+    .share-wechat-wrap[data-in-wechat] .share-qr {
+        display: none;
+    }
+
+    .share-wechat-wrap[data-in-wechat] .share-in-wechat {
+        display: block;
+    }
+
+    /* 复制链接反馈 */
+    .share-copied-chip {
+        position: absolute;
+        bottom: calc(100% + 7px);
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px 9px;
+        font-size: var(--text-xs);
+        line-height: 1;
+        color: var(--color-bg);
+        background: var(--color-title);
+        border-radius: var(--radius);
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--duration-fast) ease;
+    }
+
+    .share-icon.copied {
+        color: var(--color-accent);
+    }
+
+    .share-icon.copied .share-copied-chip {
+        opacity: 0.96;
+    }
+
+    /* 系统分享：仅移动端显示（由脚本添加 share-visible） */
+    .share-icon--native {
+        display: none;
+    }
+
+    .share-icon--native.share-visible {
+        display: inline-flex;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .share-icon,
+        .share-pop,
+        .share-copied-chip {
+            transition: none;
+        }
+    }
+</style>
+
+<script>
+    import "~/scripts/share";
+</script>

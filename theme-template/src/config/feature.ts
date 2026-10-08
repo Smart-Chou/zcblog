@@ -91,6 +91,14 @@ export interface WatermarkConfig {
 }
 
 /**
+ * 文章分享配置
+ */
+export interface ShareConfig {
+    enable: boolean; // 是否启用文章分享
+    sites: string[]; // 显示的平台与顺序：wechat/weibo/qzone/douban/x/telegram/bluesky/facebook/linkedin/reddit/copy/native
+}
+
+/**
  * 网站功能配置
  */
 export const config: FeaturesConfig = {
@@ -183,4 +191,25 @@ export const watermark: WatermarkConfig = {
     color: "#000000",
     gapX: 200,
     gapY: 150,
+};
+
+/**
+ * 文章分享配置
+ */
+export const share: ShareConfig = {
+    enable: true,
+    sites: [
+        "wechat",
+        "weibo",
+        "qzone",
+        "douban",
+        "x",
+        "telegram",
+        "bluesky",
+        "facebook",
+        "linkedin",
+        "reddit",
+        "copy",
+        "native",
+    ],
 };

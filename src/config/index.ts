@@ -16,8 +16,18 @@ export * from "./services";
 export const { site, author, notFoundPage, tagsPage, archivesPage, redirectPage, imageService } =
     siteConfig;
 
-export const { config, pageView, postView, donate, waline, search, umami, notice, watermark } =
-    featureConfig;
+export const {
+    config,
+    pageView,
+    postView,
+    donate,
+    waline,
+    search,
+    umami,
+    notice,
+    watermark,
+    share,
+} = featureConfig;
 
 export const { categories, socialLinks, friendsPage, footerList } = uiConfig;
 

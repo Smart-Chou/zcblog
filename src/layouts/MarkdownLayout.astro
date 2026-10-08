@@ -10,6 +10,7 @@ import PostMeta from "~/components/Article/PostMeta.astro";
 import PostCardImage from "~/components/Article/PostCardImage.astro";
 import PostFooter from "~/components/Article/PostFooter.astro";
 import PostNavigation from "~/components/Article/PostNavigation.astro";
+import PostShare from "~/components/Article/PostShare.astro";
 import Toc from "~/components/Article/Toc.astro";
 import BackToTop from "~/components/Layout/BackToTop.astro";
 import Donate from "~/components/UI/Donate.astro";
@@ -148,6 +149,13 @@ const firstTag = currentTags[0] || "";
             </div>
         </div>
         <PostFooter tags={frontmatter.tags} />
+        <PostShare
+            title={frontmatter.title}
+            description={frontmatter.description}
+            image={ogImage}
+            slug={slug}
+            locale={isEn ? "en" : "zh"}
+        />
         <PostNavigation slug={slug} />
         <RelatedPosts relatedPosts={relatedPosts} />
     </div>
