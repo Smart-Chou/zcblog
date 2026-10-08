@@ -18,6 +18,7 @@
 - **多语言** — 支持中文（默认）和英文，Astro i18n 路由
 - **评论系统** — Waline 自托管评论，支持表情反应与搜索
 - **网站分析** — Umami 自托管统计分析
+- **文章分享** — 一键分享到微信（扫码）/ 微博 / QQ空间 / 豆瓣 / X / Telegram / Bluesky / Facebook / LinkedIn / Reddit；移动端支持系统分享；无第三方脚本，二维码构建时生成
 - **PWA** — Service Worker 离线缓存，自动更新，可安装为桌面应用
 - **相册功能** — Fancybox 灯箱相册展示
 - **番剧追踪** — 追番记录展示（Bangumi 数据源）
@@ -83,7 +84,7 @@
 ├── src/
 │   ├── assets/                # 源码资源（字体、二维码、封面图）
 │   ├── components/            # Astro 组件
-│   │   ├── Article/           # 文章组件（PostCard、Toc、Breadcrumb、PostMeta 等）
+│   │   ├── Article/           # 文章组件（PostCard、Toc、Breadcrumb、PostMeta、PostShare 等）
 │   │   ├── Bangumi/           # 番剧追踪 UI
 │   │   ├── BaseHead/          # SEO Head 组件
 │   │   ├── Content/           # 目录组件（TableOfContents）
@@ -97,7 +98,7 @@
 │   ├── config/                # 集中配置
 │   │   ├── index.ts           # 统一导出
 │   │   ├── site.ts            # 站点元数据、作者、图床、页面配置
-│   │   ├── feature.ts         # 功能开关（评论、搜索、分析、捐赠、水印、公告栏）
+│   │   ├── feature.ts         # 功能开关（评论、搜索、分析、捐赠、水印、公告栏、分享）
 │   │   └── ui.ts              # 导航、社交链接、页脚配置
 │   ├── content/               # Astro 内容集合
 │   │   ├── article/           # 文章 Markdown/MDX（本地开发副本，当前 85 篇）
@@ -160,6 +161,7 @@
 │   │   ├── fancybox-*.ts      # Fancybox 灯箱处理
 │   │   ├── search-template.js # Pagefind 搜索模板
 │   │   ├── tabs.ts            # 标签页交互
+│   │   ├── share.ts           # 分享交互（微信弹层 / 复制链接 / 系统分享）
 │   │   ├── heatmap.ts         # 热力图
 │   │   └── redirect-handler.ts # 重定向处理
 │   ├── styles/                # CSS 样式（~22 个文件）
@@ -222,7 +224,7 @@ pnpm run build
 pnpm run preview
 ```
 
-> 环境要求：Node.js 22+（CI 使用 22.x）、pnpm（`packageManager` 字段锁定 `pnpm@11`）。
+> 环境要求：Node.js 22+（CI 使用 22.x）、pnpm（`packageManager` 字段锁定 `pnpm@12`）。
 
 ## 可用脚本
 
@@ -298,7 +300,7 @@ pnpm run preview
 | 文件 | 说明 |
 | ---- | ---- |
 | [src/config/site.ts](src/config/site.ts) | 网站标题、描述、URL、域名、作者信息、图床服务、页面配置 |
-| [src/config/feature.ts](src/config/feature.ts) | 功能开关：评论（Waline）、搜索（Pagefind）、分析（Umami）、捐赠、公告栏、水印 |
+| [src/config/feature.ts](src/config/feature.ts) | 功能开关：评论（Waline）、搜索（Pagefind）、分析（Umami）、捐赠、公告栏、水印、文章分享 |
 | [src/config/ui.ts](src/config/ui.ts) | 导航链接、社交链接、页脚信息、友链页面文案 |
 
 其他重要配置文件：
