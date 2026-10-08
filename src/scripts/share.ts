@@ -12,9 +12,44 @@ const isWeChatBrowser = /MicroMessenger/i.test(navigator.userAgent);
 
 type UmamiTracker = { track: (name: string, data?: Record<string, unknown>) => void };
 
+/**
+ * 上报 share 事件（Umami）。
+ * 坑：全站 umami 以 Partytown 方式加载（type="text/partytown"），脚本运行在 Web Worker 中，
+ * 主线程不存在 window.umami。因此优先用 tracker；缺失时按官方 tracker 同款 payload 直接 POST /api/send。
+ * 域名守卫与 tracker 的 data-domains 行为一致（dev/localhost 静默跳过）。
+ */
 function track(platform: string) {
     const umami = (window as unknown as { umami?: UmamiTracker }).umami;
-    umami?.track("share", { platform });
+    if (umami?.track) {
+        umami.track("share", { platform });
+        return;
+    }
+    const el = document.querySelector<HTMLScriptElement>("script[data-website-id]");
+    const website = el?.dataset.websiteId;
+    if (!el || !website) return;
+    const domains = (el.dataset.domains ?? "")
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+    if (domains.length > 0 && !domains.includes(location.hostname)) return;
+    const payload = {
+        website,
+        screen: `${screen.width}x${screen.height}`,
+        language: navigator.language,
+        title: document.title,
+        hostname: location.hostname,
+        url: location.href,
+        referrer: document.referrer.startsWith(location.origin) ? "" : document.referrer,
+        name: "share",
+        data: { platform },
+    };
+    void fetch(`${new URL(el.src).origin}/api/send`, {
+        keepalive: true,
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "event", payload }),
+        credentials: "omit",
+    }).catch(() => {});
 }
 
 function closeWrap(wrap: Element) {
@@ -68,7 +103,7 @@ function handleAction(actionEl: Element, root: HTMLElement) {
         const open = wrap.classList.toggle("open");
         actionEl.setAttribute("aria-expanded", String(open));
         wrap.querySelector(".share-pop")?.setAttribute("aria-hidden", String(!open));
-        track("wechat");
+        if (open) track("wechat");
         return;
     }
     if (action === "copy") {
