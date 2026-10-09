@@ -35,6 +35,7 @@ export interface SocialLinkItem {
 export interface FriendsPageConfig {
     title: string; // 标题
     note: string; // 描述
+    friendLinkApplyUrl?: string; // 友链申请入口（如 GitHub Issue 表单链接；留空则不显示按钮）
 }
 
 /**
@@ -129,6 +130,8 @@ export const socialLinks: SocialLinkItem[] = [
 export const friendsPage: FriendsPageConfig = {
     title: "Friends",
     note: "欢迎申请友链，在评论区留下你的博客信息即可。",
+    // 可选：GitHub Issue 表单形式的友链申请入口（配套 .github/ISSUE_TEMPLATE/friend-link.yml）
+    friendLinkApplyUrl: "",
 };
 
 /**

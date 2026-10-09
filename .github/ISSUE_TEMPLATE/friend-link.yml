@@ -1,0 +1,53 @@
+name: 友链申请
+description: 申请添加友情链接（站长审核通过后自动合并并重建站点）
+title: "[友链申请] "
+labels: ["friend-link"]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              感谢申请友链！提交前请确认：
+
+              - 站点支持 HTTPS、可正常访问，以原创内容为主且有持续更新
+              - 已先在本方站点友链页面添加本站链接（互换原则）
+              - 内容不含任何违法违规信息
+
+    - type: input
+      id: site-name
+      attributes:
+          label: 站点名称
+          description: 展示在友链页的名称（无需加 @ 前缀）
+          placeholder: 例如：某某的小站
+      validations:
+          required: true
+
+    - type: input
+      id: site-url
+      attributes:
+          label: 站点链接
+          description: 必须以 https:// 或 http:// 开头
+          placeholder: https://example.com
+      validations:
+          required: true
+
+    - type: input
+      id: site-description
+      attributes:
+          label: 站点描述
+          description: 一句话介绍（可选）
+          placeholder: 例如：记录折腾与生活
+
+    - type: input
+      id: site-avatar
+      attributes:
+          label: 头像链接
+          description: 头像或 Logo 的图片地址（可选；留空则使用站点名首字占位）
+          placeholder: https://example.com/avatar.png
+
+    - type: checkboxes
+      id: confirm-exchange
+      attributes:
+          label: 确认
+          options:
+              - label: 我已将本站添加到我的友链页面
+                required: true

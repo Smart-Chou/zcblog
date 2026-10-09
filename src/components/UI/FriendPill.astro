@@ -9,18 +9,28 @@ interface Props {
 }
 
 const { name, avatar, url, style } = Astro.props;
+
+const fallbackInitial = name.replace(/^@/, "").charAt(0).toUpperCase();
 ---
 
 <a class="fri-pill" href={url} target="_blank" rel="noopener" style={style}>
-    <Image
-        class="fri-pill-avatar"
-        src={avatar}
-        alt={name}
-        width={48}
-        height={48}
-        loading="lazy"
-        decoding="async"
-    />
+    {
+        avatar ? (
+            <Image
+                class="fri-pill-avatar"
+                src={avatar}
+                alt={name}
+                width={48}
+                height={48}
+                loading="lazy"
+                decoding="async"
+            />
+        ) : (
+            <span class="fri-pill-avatar fri-pill-avatar--fallback" aria-hidden="true">
+                {fallbackInitial}
+            </span>
+        )
+    }
     <span class="fri-pill-label">{name}</span>
 </a>
 
@@ -49,5 +59,15 @@ const { name, avatar, url, style } = Astro.props;
 
     .fri-pill-label {
         margin-left: 2.6em;
+    }
+
+    .fri-pill-avatar--fallback {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-heading);
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #55504a;
     }
 </style>

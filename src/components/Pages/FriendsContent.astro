@@ -4,7 +4,7 @@ import WalineComment from "~/components/UI/WalineComment.astro";
 import FriendPill from "~/components/UI/FriendPill.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import friendsList from "~/data/friends.json";
-import { site, author, waline } from "~/config";
+import { site, author, waline, friendsPage } from "~/config";
 import siteAvatar from "~/assets/logo.svg";
 import { t, getLocale, type Locale } from "~/utils/i18n";
 
@@ -166,6 +166,23 @@ ${fieldLabels.avatarLink}：<你的站点头像>`;
                                 </button>
                                 <pre><code>{templateText}</code></pre>
                             </div>
+                            {
+                                friendsPage.friendLinkApplyUrl && (
+                                    <a
+                                        class="github-apply-link"
+                                        href={friendsPage.friendLinkApplyUrl}
+                                        target="_blank"
+                                        rel="noopener"
+                                    >
+                                        <DynamicIcon
+                                            name="tabler:brand-github"
+                                            width="15"
+                                            height="15"
+                                        />
+                                        {t(loc, "friends.steps.viaGithub")}
+                                    </a>
+                                )
+                            }
                         </div>
                     </div>
 
@@ -242,6 +259,29 @@ ${fieldLabels.avatarLink}：<你的站点头像>`;
         text-align: center;
         font-style: italic;
         letter-spacing: 0.02em;
+    }
+
+    .github-apply-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+        margin-top: var(--space-sm);
+        padding: 0.45em 0.9em;
+        border: 1px solid var(--color-border);
+        border-radius: 999px;
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
+        text-decoration: none;
+        transition:
+            color var(--duration-fast) var(--ease-out),
+            border-color var(--duration-fast) var(--ease-out);
+    }
+
+    @media (hover: hover) {
+        .github-apply-link:hover {
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
     }
 
     /* =========================================
