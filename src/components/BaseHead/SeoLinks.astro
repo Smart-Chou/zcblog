@@ -25,6 +25,22 @@ const enPath = isEnglish ? currentPath : "/en" + currentPath;
     href={isEnglish ? "/en/rss.xml" : "/rss.xml"}
 />
 
+<!-- Atom -->
+<link
+    rel="alternate"
+    type="application/atom+xml"
+    title="Atom Feed"
+    href={isEnglish ? "/en/atom.xml" : "/atom.xml"}
+/>
+
+<!-- JSON Feed -->
+<link
+    rel="alternate"
+    type="application/feed+json"
+    title="JSON Feed"
+    href={isEnglish ? "/en/feed.json" : "/feed.json"}
+/>
+
 <!-- 分页导航 -->
 {prevUrl && <link rel="prev" href={prevUrl} />}
 {nextUrl && <link rel="next" href={nextUrl} />}
