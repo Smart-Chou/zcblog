@@ -47,6 +47,10 @@ jobs:
                   # DOUBAN_USER_ID: ${{ secrets.DOUBAN_USER_ID }}
                   # BANGUMI_USER_ID: ${{ secrets.BANGUMI_USER_ID }}
                   # ENCRYPTION_PASSWORD: ${{ secrets.ENCRYPTION_PASSWORD }}
+                  # UMAMI_API_URL: ${{ secrets.UMAMI_API_URL }}
+                  # UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
+                  # UMAMI_USERNAME: ${{ secrets.UMAMI_USERNAME }}
+                  # UMAMI_PASSWORD: ${{ secrets.UMAMI_PASSWORD }}
               run: pnpm build
 
             - name: Upload Pages artifact

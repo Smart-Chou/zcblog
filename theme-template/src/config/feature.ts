@@ -63,6 +63,14 @@ export interface UmamiConfig {
 }
 
 /**
+ * 热门文章配置（数据由 scripts/fetch-popular.mjs 从 Umami 拉取，构建期同步）
+ */
+export interface PopularConfig {
+    enable: boolean; // 是否启用（数据缺失或为空时区块自动隐藏）
+    limit: number; // 首页展示条数
+}
+
+/**
  * 公告栏配置
  */
 export interface NoticeConfig {
@@ -166,6 +174,15 @@ export const umami: UmamiConfig = {
     enable: false,
     umamiBaseUrl: "",
     umamiId: "",
+};
+
+/**
+ * 热门文章配置（可选：配置 UMAMI_* 环境变量后由 fetch 脚本生成数据，
+ * 并把 enable 改为 true 即可在首页显示「近期热门」区块）
+ */
+export const popular: PopularConfig = {
+    enable: false,
+    limit: 5,
 };
 
 /**

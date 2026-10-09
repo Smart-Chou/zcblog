@@ -1,0 +1,142 @@
+---
+import { getCollection } from "astro:content";
+import { popular as popularConfig } from "~/config";
+import { t, type Locale } from "~/utils/i18n";
+import popularData from "~/data/popular.json";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+interface PopularEntry {
+    slug: string;
+    pv: number;
+}
+
+const items: PopularEntry[] = Array.isArray((popularData as { items?: PopularEntry[] }).items)
+    ? (popularData as { items: PopularEntry[] }).items
+    : [];
+
+// 仅保留仍存在的文章（已删除/草稿的条目跳过），并按配置截取展示数量
+let entries: { id: string; title: string; pubDate: Date }[] = [];
+if (popularConfig.enable && items.length > 0) {
+    const all = await getCollection("article", ({ data }) => !data.draft);
+    const byId = new Map(all.map((post) => [post.id, post]));
+    entries = items
+        .map((item) => byId.get(item.slug))
+        .filter((post): post is NonNullable<typeof post> => Boolean(post))
+        .slice(0, popularConfig.limit)
+        .map((post) => ({ id: post.id, title: post.data.title, pubDate: post.data.pubDate }));
+}
+
+const viewAllUrl = locale === "en" ? "/en/blog/1/" : "/blog/1/";
+
+function formatDate(date: Date): string {
+    return date.toLocaleDateString(locale === "en" ? "en-US" : "zh-CN", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+    });
+}
+---
+
+{
+    entries.length > 0 && (
+        <section class="popular-section">
+            <div class="section-header">
+                <h2 class="section-label">{t(locale, "home.popularTitle")}</h2>
+                <a class="section-link" href={viewAllUrl}>
+                    {t(locale, "common.viewAll")}
+                    <span class="section-link-arrow" aria-hidden="true">
+                        →
+                    </span>
+                </a>
+            </div>
+            <ol class="popular-list">
+                {entries.map((post, index) => (
+                    <li class="popular-item">
+                        <a class="popular-link" href={`/article/${post.id}/`}>
+                            <span class="popular-rank">{String(index + 1).padStart(2, "0")}</span>
+                            <span class="popular-title">{post.title}</span>
+                            <time class="popular-date" datetime={post.pubDate.toISOString()}>
+                                {formatDate(post.pubDate)}
+                            </time>
+                        </a>
+                    </li>
+                ))}
+            </ol>
+        </section>
+    )
+}
+
+<style>
+    .popular-section {
+        margin-bottom: 4rem;
+    }
+
+    .popular-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .popular-item {
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .popular-link {
+        display: flex;
+        align-items: baseline;
+        gap: 1.25rem;
+        padding: 0.85rem 0.25rem;
+        text-decoration: none;
+        color: inherit;
+        transition: background-color var(--duration-fast) var(--ease-out);
+    }
+
+    @media (hover: hover) {
+        .popular-link:hover {
+            background-color: var(--color-hover);
+        }
+
+        .popular-link:hover .popular-title,
+        .popular-link:hover .popular-rank {
+            color: var(--color-accent);
+        }
+    }
+
+    .popular-rank {
+        flex: none;
+        min-width: 2.1em;
+        font-family: var(--font-heading);
+        font-style: italic;
+        font-size: var(--text-lg);
+        line-height: 1;
+        color: var(--color-text-dimmed);
+        transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .popular-title {
+        flex: 1;
+        font-size: var(--text-base);
+        line-height: var(--leading-snug);
+        color: var(--color-title);
+        transition: color var(--duration-fast) var(--ease-out);
+    }
+
+    .popular-date {
+        flex: none;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-text-dimmed);
+    }
+
+    @media (max-width: 640px) {
+        .popular-date {
+            display: none;
+        }
+    }
+</style>

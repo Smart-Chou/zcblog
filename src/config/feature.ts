@@ -63,6 +63,14 @@ export interface UmamiConfig {
 }
 
 /**
+ * 热门文章配置（数据由 scripts/fetch-popular.mjs 从 Umami 拉取，构建期同步）
+ */
+export interface PopularConfig {
+    enable: boolean; // 是否启用（数据缺失或为空时区块自动隐藏）
+    limit: number; // 首页展示条数
+}
+
+/**
  * 公告栏配置
  */
 export interface NoticeConfig {
@@ -166,6 +174,14 @@ export const umami: UmamiConfig = {
     enable: true,
     umamiBaseUrl: "https://umami.marxchou.com",
     umamiId: "73b29141-fccf-4d54-9c2f-f7d0d146f86b",
+};
+
+/**
+ * 热门文章配置
+ */
+export const popular: PopularConfig = {
+    enable: true,
+    limit: 5,
 };
 
 export const notice: NoticeConfig = {

@@ -121,6 +121,7 @@
             "step1Desc": "请先在您的网站友链页面添加本站信息，可直接复制左侧各字段",
             "step2Title": "评论区提交申请",
             "step2Desc": "复制下方模板，修改后粘贴到评论区",
+            "viaGithub": "或通过 GitHub 提交申请",
             "step3Title": "等待审核",
             "step3Desc": "确认信息无误后会尽快添加您的友链"
         },
@@ -204,6 +205,7 @@
     },
     "home": {
         "friendsTitle": "朋友连接",
+        "popularTitle": "近期热门",
         "photosTitle": "近期光影",
         "moviesTitle": "近期观影",
         "booksTitle": "近期阅读"

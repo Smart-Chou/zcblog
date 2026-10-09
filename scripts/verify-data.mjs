@@ -40,6 +40,12 @@ const DATA_FILES = [
         requires: ["BANGUMI_USER_ID"],
         maxAgeDays: 7,
     },
+    {
+        path: "src/data/popular.json",
+        label: "热门文章 (Umami)",
+        requires: ["UMAMI_API_URL", "UMAMI_WEBSITE_ID", "UMAMI_USERNAME", "UMAMI_PASSWORD"],
+        maxAgeDays: 7,
+    },
 ];
 
 /**
@@ -47,6 +53,16 @@ const DATA_FILES = [
  * Supports common patterns: `date`, `pubDate`, `created`, `updated`, `time_stamp`, `timestamp`.
  */
 function getLatestTimestamp(data) {
+    // 对象形态数据文件：支持顶层同步时间戳（如 popular.json 的 syncedAt）
+    if (data && !Array.isArray(data) && typeof data === "object") {
+        for (const key of ["syncedAt", "updatedAt"]) {
+            const raw = data[key];
+            if (typeof raw === "string" || typeof raw === "number") {
+                const d = new Date(raw);
+                if (!isNaN(d.getTime())) return d;
+            }
+        }
+    }
     const records = Array.isArray(data) ? data : data.data || data.items || [];
     if (records.length === 0) return null;
 

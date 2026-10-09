@@ -121,6 +121,7 @@
             "step1Desc": "Please add this site to your friends page first. You can copy the fields on the left.",
             "step2Title": "Submit application in comments",
             "step2Desc": "Copy the template below, fill in your info, and paste it in the comments.",
+            "viaGithub": "Or submit via GitHub",
             "step3Title": "Wait for approval",
             "step3Desc": "Your friend link will be added as soon as possible after verification."
         },
@@ -230,6 +231,7 @@
     },
     "home": {
         "friendsTitle": "Friend Connections",
+        "popularTitle": "Trending",
         "photosTitle": "Recent Photos",
         "moviesTitle": "Recent Movies",
         "booksTitle": "Recent Books"

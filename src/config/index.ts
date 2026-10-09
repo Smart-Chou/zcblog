@@ -24,6 +24,7 @@ export const {
     waline,
     search,
     umami,
+    popular,
     notice,
     watermark,
     share,

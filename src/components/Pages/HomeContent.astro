@@ -7,6 +7,7 @@ import TypewriterText from "~/components/UI/TypewriterText.astro";
 import LoadingIntro from "~/components/UI/LoadingIntro.astro";
 import Talk from "~/components/Index/Talk.astro";
 import Posts from "~/components/Index/Posts.astro";
+import Popular from "~/components/Index/Popular.astro";
 import Friends from "~/components/Index/Friends.astro";
 import Photos from "~/components/Index/Photos.astro";
 import Media from "~/components/Index/Media.astro";
@@ -80,6 +81,7 @@ const tagsCount = new Set(getAllTags(allArticles).map(normalizeTag)).size;
 
             <Talk />
             <Posts posts={recentPosts} />
+            <Popular locale={loc} />
             <Friends title={t(loc, "home.friendsTitle")} locale={loc} />
             <Photos title={t(loc, "home.photosTitle")} locale={loc} />
             {

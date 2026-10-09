@@ -6,6 +6,10 @@ on:
     repository_dispatch:
         types: [articles-updated]
     workflow_dispatch:
+    # 每日自动重建（cron 为 UTC：21:30 = 北京时间 05:30），刷新热门文章等构建期抓取的数据。
+    # 注意：GitHub 会在仓库连续 60 天无活动后自动暂停 schedule，发生一次 push 即恢复。
+    schedule:
+        - cron: "30 21 * * *"
 
 permissions:
     contents: read
@@ -66,6 +70,10 @@ jobs:
                   ARTICLE_REPO_PATH: _articles
                   BLINKO_API_URL: https://memos.marxchou.com
                   BLINKO_API_TOKEN: ${{ secrets.BLINKO_API_TOKEN }}
+                  UMAMI_API_URL: https://umami.marxchou.com
+                  UMAMI_WEBSITE_ID: 73b29141-fccf-4d54-9c2f-f7d0d146f86b
+                  UMAMI_USERNAME: ${{ secrets.UMAMI_USERNAME }}
+                  UMAMI_PASSWORD: ${{ secrets.UMAMI_PASSWORD }}
                   BANGUMI_USER_ID: "1246668"
                   DOUBAN_USER_ID: ${{ secrets.DOUBAN_USER_ID }}
                   ENCRYPTION_PASSWORD: ${{ secrets.ENCRYPTION_PASSWORD }}
