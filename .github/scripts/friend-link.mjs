@@ -73,10 +73,13 @@ const LABELS = {
 
 function readSubmission() {
     const fields = parseIssueBody(BODY);
-    const firstLine = (v) =>
-        String(v || "")
+    // GitHub 表单空字段会渲染为 "_No response_"，统一视作空值
+    const firstLine = (v) => {
+        const line = String(v || "")
             .split("\n")[0]
             .trim();
+        return line === "_No response_" ? "" : line;
+    };
     return {
         name: firstLine(fields[LABELS.name]),
         url: firstLine(fields[LABELS.url]),
