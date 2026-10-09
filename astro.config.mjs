@@ -179,11 +179,8 @@ export default defineConfig({
                 if (page === `${siteCfg.url}/redirect/` || page === `${siteCfg.url}/en/redirect/`) {
                     return false;
                 }
-                // 排除英文文章页（防御性）：当前不生成 /en/article/ 路由（仓库无 lang: en 文章）；
-                // 若未来启用英文文章路由，重新评估此规则
-                if (page.includes("/en/article/")) {
-                    return false;
-                }
+                // 英文文章页（/en/article/）：仅当文章确实为 lang: en 时才会生成该路由，
+                // 故不再排除；hreflang 配对由页面内 SeoLinks 显式计算（2026-10 双语完整化）
                 // 排除标签页（已设置 noindex）
                 if (page.includes("/tags/")) {
                     return false;

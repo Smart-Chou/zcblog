@@ -12,7 +12,7 @@
  * 用法: node scripts/fetch-popular.mjs
  */
 
-import { readdir, writeFile } from "node:fs/promises";
+import { readdir, readFile, writeFile } from "node:fs/promises";
 import { loadEnvFile } from "./lib/env.mjs";
 
 const OUTPUT = "src/data/popular.json";
@@ -83,26 +83,44 @@ async function main() {
             if (batch.length < PAGE_LIMIT) break;
         }
 
-        // 4) 映射到当前已发布文章（以内容目录中的文件名为准）
+        // 4) 映射到当前已发布文章（按真实 URL 路径匹配；中英文分开，URL 规则见 src/utils/article-url.ts）
         const files = await readdir(ARTICLE_DIR);
-        const slugs = new Set(
-            files.filter((f) => /\.(md|mdx)$/.test(f)).map((f) => f.replace(/\.(md|mdx)$/, "")),
-        );
+        const pathToItem = new Map(); // "/article/foo/" | "/en/article/foo/" → { slug, lang }
+        for (const f of files) {
+            if (!/\.(md|mdx)$/.test(f)) continue;
+            const id = f.replace(/\.(md|mdx)$/, "");
+            // 语言以 frontmatter 的 lang 字段为准（缺省 zh）；文件名 -en 后缀仅用于裁剪 base slug
+            let isEn = false;
+            try {
+                const text = await readFile(`${ARTICLE_DIR}/${f}`, "utf8");
+                const langMatch = text.slice(0, 2000).match(/^lang:\s*([A-Za-z-]+)/m);
+                isEn = langMatch ? langMatch[1] === "en" : false;
+            } catch {
+                /* 读取失败按中文处理 */
+            }
+            const base = isEn ? id.replace(/-en$/, "") : id;
+            pathToItem.set(`${isEn ? "/en" : ""}/article/${base}/`, {
+                slug: id,
+                lang: isEn ? "en" : "zh",
+            });
+        }
 
-        const bySlug = new Map();
+        const bySlug = new Map(); // slug → { pv, lang }
         for (const row of rows) {
             const name = typeof row?.name === "string" ? row.name : "";
-            const match = name.match(/^\/article\/([^/]+)\/?$/);
+            const match = name.match(/^((?:\/en)?\/article\/[^/]+)\/?$/);
             if (!match) continue;
-            let slug = match[1];
+            let pathKey = `${match[1]}/`;
             try {
-                slug = decodeURIComponent(slug);
+                pathKey = `${decodeURIComponent(match[1])}/`;
             } catch {
                 /* 解码失败时保留原始值 */
             }
-            if (!slugs.has(slug)) continue;
+            const item = pathToItem.get(pathKey);
+            if (!item) continue;
             const pv = Number(row.pageviews) || 0;
-            bySlug.set(slug, (bySlug.get(slug) ?? 0) + pv);
+            const prev = bySlug.get(item.slug);
+            bySlug.set(item.slug, { pv: (prev?.pv ?? 0) + pv, lang: item.lang });
         }
 
         if (bySlug.size === 0) {
@@ -111,7 +129,7 @@ async function main() {
         }
 
         const items = [...bySlug.entries()]
-            .map(([slug, pv]) => ({ slug, pv }))
+            .map(([slug, value]) => ({ slug, pv: value.pv, lang: value.lang }))
             .sort((a, b) => b.pv - a.pv)
             .slice(0, TOP_N);
 

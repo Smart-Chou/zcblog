@@ -20,7 +20,14 @@ if (relatedPosts.length === 0) {
         {
             relatedPosts.map((post) => (
                 <li class="related-posts-item">
-                    <a href={`/article/${post.id}/`} class="related-posts-link">
+                    <a
+                        href={`${Astro.url.pathname.startsWith("/en/") ? "/en" : ""}/article/${
+                            Astro.url.pathname.startsWith("/en/")
+                                ? post.id.replace(/-en$/, "")
+                                : post.id
+                        }/`}
+                        class="related-posts-link"
+                    >
                         <span class="related-posts-post-title">{post.data.title}</span>
                         <span class="related-posts-meta">
                             {formatDateI18n(post.data.pubDate)}

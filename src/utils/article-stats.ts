@@ -1,6 +1,7 @@
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import getReadingTime from "reading-time";
+import { articleLang, type ArticleLang } from "./article-url";
 
 /**
  * 获取所有「已发布」文章（Astro 内部已缓存，多次调用不会重复读取）。
@@ -11,6 +12,11 @@ export function getAllArticles(): Promise<CollectionEntry<"article">[]> {
         "article",
         ({ data }: CollectionEntry<"article">) => !(data.draft ?? false),
     );
+}
+
+/** 获取指定语言的已发布文章（zh 含无 lang 字段的文章；en 仅 lang: en） */
+export async function getArticlesByLang(lang: ArticleLang): Promise<CollectionEntry<"article">[]> {
+    return (await getAllArticles()).filter((post) => articleLang(post) === lang);
 }
 
 // ── 模块级缓存：全站统计只计算一次 ──

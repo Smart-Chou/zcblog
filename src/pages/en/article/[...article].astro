@@ -2,20 +2,21 @@
 import { getCollection, render } from "astro:content";
 import MarkdownLayout from "~/layouts/MarkdownLayout.astro";
 import { enrichPost } from "~/utils/get-posts-with-meta";
+import { articleSlug } from "~/utils/article-url";
 
 export async function getStaticPaths() {
     try {
-        // 中文文章路由：仅生成非英文文章（英文文章走 /en/article/）
+        // 英文文章路由：仅生成 lang: en 的文章 → /en/article/<slug>/（-en 后缀会被裁掉）
         const article = await getCollection(
             "article",
-            ({ data }) => !(data.draft ?? false) && data.lang !== "en",
+            ({ data }) => data.lang === "en" && !(data.draft ?? false),
         );
         return article.map((entry) => ({
-            params: { article: entry.id },
+            params: { article: articleSlug(entry) },
             props: { entry },
         }));
     } catch (e) {
-        console.error("获取文章集合失败：", e);
+        console.error("获取英文文章集合失败：", e);
         return [];
     }
 }
@@ -32,6 +33,7 @@ const { modifiedTime, readTime, wordCount } = enrichPost(entry);
     modifiedTime={modifiedTime}
     readTime={readTime}
     wordCount={wordCount}
+    locale="en"
 >
     <Content />
 </MarkdownLayout>

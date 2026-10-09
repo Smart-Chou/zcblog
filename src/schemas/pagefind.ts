@@ -36,6 +36,8 @@ export type PagefindConfig = z.infer<typeof pagefindConfigSchema>;
 export const pagefindConfig = pagefindConfigSchema.parse({
     excludeSelectors: ["nav", "footer", ".post-copyright", ".donate", ".toc", "script", "style"],
     includeCharacters: `，。！？；：""''（）【】[]`,
-    glob: "article/**/*.{html}",
+    // 全站扫描，由 rootSelector（[data-pagefind-body]）把关——只有文章页会真正入索引，
+    // 且中英文文章（/article/ 与 /en/article/）都会收录
+    glob: "**/*.{html}",
     rootSelector: "[data-pagefind-body]",
 });

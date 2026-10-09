@@ -36,7 +36,7 @@ export async function GET(context: { site: URL }) {
         .map((post) => {
             const pubDate =
                 post.data.pubDate instanceof Date ? post.data.pubDate : new Date(post.data.pubDate);
-            const url = `${siteUrl}/article/${post.id}/`;
+            const url = `${siteUrl}/en/article/${post.id.replace(/-en$/, "")}/`;
             const summaryHtml = sanitizeHtml(
                 marked.parse((post.data.description as string) || (post.data.title as string)),
             );

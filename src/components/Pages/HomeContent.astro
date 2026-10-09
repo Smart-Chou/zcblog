@@ -18,6 +18,7 @@ import { site } from "~/config";
 import { sortByPubDate } from "~/utils";
 import { enrichPost } from "~/utils/get-posts-with-meta";
 import { getAllTags, normalizeTag } from "~/utils/article-stats";
+import { filterByLang } from "~/utils/article-url";
 import { t, getLocale, type Locale } from "~/utils/i18n";
 
 const toMediaItem = (item: (typeof doubanData)[number]) => ({
@@ -39,7 +40,8 @@ const { locale = "zh" } = Astro.props;
 const loc: Locale = getLocale(locale);
 const isEn = loc === "en";
 
-const allArticles = await getCollection("article", ({ data }) => !data.draft);
+// 仅统计/展示当前语言的文章（双语完整化，2026-10）
+const allArticles = filterByLang(await getCollection("article", ({ data }) => !data.draft), loc);
 const sortedArticles = sortByPubDate(allArticles);
 const latestModified =
     sortedArticles.length > 0 ? enrichPost(sortedArticles[0]).modifiedTime : new Date();

@@ -3,10 +3,11 @@ import { navLinks } from "~/config";
 import { t, getLocale } from "~/utils/i18n";
 
 const loc = getLocale(Astro.currentLocale || "zh");
+const isEn = loc === "en";
 
 const currentPath = Astro.url.pathname;
 
-// href → i18n key 映射
+// href → i18n key 映射（href 以中文路径为准，en 页面统一加 /en 前缀）
 const navKeyMap: Record<string, string> = {
     "/": "nav.home",
     "/blog/1/": "nav.blog",
@@ -19,9 +20,12 @@ const navKeyMap: Record<string, string> = {
     "/services/": "nav.services",
 };
 
+/** 按当前语言解析导航链接（en 页面 → /en...） */
+const navHref = (href: string) => (isEn ? (href === "/" ? "/en/" : `/en${href}`) : href);
+
 // 分页路由匹配：/blog/1/ → base=/blog/，匹配 /blog/2/、/blog/3/ 等
 function isActive(href: string) {
-    if (href === "/") return currentPath === "/";
+    if (href === "/" || href === "/en/") return currentPath === href;
     const base = href.replace(/\/\d+\/$/, "/");
     return currentPath.startsWith(base);
 }
@@ -54,8 +58,11 @@ function isActive(href: string) {
                 return (
                     <li>
                         <a
-                            href={link.href}
-                            class:list={["nav-dropdown-link", { active: isActive(link.href) }]}
+                            href={navHref(link.href)}
+                            class:list={[
+                                "nav-dropdown-link",
+                                { active: isActive(navHref(link.href)) },
+                            ]}
                         >
                             {label}
                         </a>

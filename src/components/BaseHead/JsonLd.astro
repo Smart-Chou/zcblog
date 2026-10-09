@@ -10,7 +10,7 @@ interface Props {
 
 const currentPath = Astro.url.pathname;
 let ldJson = "website";
-if (currentPath.startsWith("/article/") && currentPath.split("/").length > 3) {
+if (/^\/(en\/)?article\//.test(currentPath) && currentPath.split("/").length > 3) {
     ldJson = "article";
 }
 

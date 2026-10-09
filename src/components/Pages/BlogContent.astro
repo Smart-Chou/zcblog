@@ -7,9 +7,11 @@ import BackToTop from "~/components/Layout/BackToTop.astro";
 import Hitokoto from "~/components/UI/Hitokoto.astro";
 import { site, pageView } from "~/config";
 import { getRandomImageUrl } from "~/utils";
+import { getLocale, t } from "~/utils/i18n";
 
 interface PostData {
     slug: string;
+    url: string;
     data: {
         title: string;
         pubDate: Date;
@@ -35,15 +37,16 @@ interface Props {
 }
 
 const { locale = "zh", page } = Astro.props;
+const loc = getLocale(locale);
 const postsWithMeta = page.data;
 const latestModified = postsWithMeta[0]?.modifiedTime || new Date();
-const blogPath = locale === "en" ? "/en/blog" : "/blog";
+const blogPath = loc === "en" ? "/en/blog" : "/blog";
 const prevUrl = page.url.prev ? new URL(page.url.prev, Astro.site).toString() : undefined;
 const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : undefined;
 ---
 
 <BaseLayout
-    title={`${site.subtitle} -  ${site.title}`}
+    title={`${t(loc, "site.subtitle")} - ${site.title}`}
     description={`${site.title} - ${site.description}`}
     image={`${Astro.site + site.coverImage}`}
     imageAlt={site.coverImageAlt}
@@ -58,6 +61,7 @@ const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : 
     <Hitokoto />
     {pageView.author && <Author />}
     <div class="post">
+        {postsWithMeta.length === 0 && <p class="blog-empty">{t(loc, "blog.empty")}</p>}
         {
             postsWithMeta.map((post, index: number) => (
                 <PostCard
@@ -65,7 +69,7 @@ const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : 
                     title={post.data.title}
                     publishedTime={post.data.pubDate}
                     modifiedTime={post.modifiedTime}
-                    postUrl={`/article/${post.slug}/`}
+                    postUrl={post.url}
                     imagePath={post.data.image?.url || getRandomImageUrl()}
                     description={post.data.description || post.excerpt}
                     tags={post.data.tags}
@@ -79,9 +83,17 @@ const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : 
             ))
         }
     </div>
-    <Pagination page={page} blogPath={blogPath} />
+    {page.lastPage > 1 && <Pagination page={page} blogPath={blogPath} />}
     {pageView.backtotop && <BackToTop />}
 </BaseLayout>
+
+<style>
+    .blog-empty {
+        text-align: center;
+        color: var(--color-text-muted);
+        padding: 3rem 0;
+    }
+</style>
 
 <script>
     import "~/utils/waline-pageview";

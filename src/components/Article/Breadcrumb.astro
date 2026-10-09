@@ -13,7 +13,7 @@ const homeLabel = isEn ? "BLog" : "博客";
 const homeUrl = isEn ? "/en/blog/1/" : "/blog/1/";
 const normalizedTag = firstTag ? normalizeTag(firstTag) : "";
 const tagLabel = normalizedTag;
-const tagUrl = normalizedTag ? `/tags/${normalizedTag}/` : "";
+const tagUrl = normalizedTag ? `${isEn ? "/en" : ""}/tags/${normalizedTag}/` : "";
 ---
 
 <nav class="breadcrumb" aria-label="Breadcrumb">

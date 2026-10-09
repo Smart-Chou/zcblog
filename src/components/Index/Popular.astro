@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { popular as popularConfig } from "~/config";
 import { t, type Locale } from "~/utils/i18n";
+import { articleUrl } from "~/utils/article-url";
 import popularData from "~/data/popular.json";
 
 interface Props {
@@ -13,22 +14,28 @@ const { locale } = Astro.props;
 interface PopularEntry {
     slug: string;
     pv: number;
+    lang?: string;
 }
 
 const items: PopularEntry[] = Array.isArray((popularData as { items?: PopularEntry[] }).items)
     ? (popularData as { items: PopularEntry[] }).items
     : [];
 
-// 仅保留仍存在的文章（已删除/草稿的条目跳过），并按配置截取展示数量
-let entries: { id: string; title: string; pubDate: Date }[] = [];
+// 仅保留仍存在的文章（已删除/草稿的条目跳过），按语言归类，并按配置截取展示数量
+let entries: { url: string; title: string; pubDate: Date }[] = [];
 if (popularConfig.enable && items.length > 0) {
     const all = await getCollection("article", ({ data }) => !data.draft);
     const byId = new Map(all.map((post) => [post.id, post]));
     entries = items
+        .filter((item) => (item.lang === "en") === (locale === "en"))
         .map((item) => byId.get(item.slug))
         .filter((post): post is NonNullable<typeof post> => Boolean(post))
         .slice(0, popularConfig.limit)
-        .map((post) => ({ id: post.id, title: post.data.title, pubDate: post.data.pubDate }));
+        .map((post) => ({
+            url: articleUrl(post),
+            title: post.data.title,
+            pubDate: post.data.pubDate,
+        }));
 }
 
 const viewAllUrl = locale === "en" ? "/en/blog/1/" : "/blog/1/";
@@ -57,7 +64,7 @@ function formatDate(date: Date): string {
             <ol class="popular-list">
                 {entries.map((post, index) => (
                     <li class="popular-item">
-                        <a class="popular-link" href={`/article/${post.id}/`}>
+                        <a class="popular-link" href={post.url}>
                             <span class="popular-rank">{String(index + 1).padStart(2, "0")}</span>
                             <span class="popular-title">{post.title}</span>
                             <time class="popular-date" datetime={post.pubDate.toISOString()}>

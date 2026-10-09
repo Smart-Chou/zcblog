@@ -1,5 +1,6 @@
 ---
 import { getAllTags, getAllArticles, normalizeTag } from "~/utils/article-stats";
+import { filterByLang } from "~/utils/article-url";
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 import Badge from "~/components/UI/Badge.astro";
@@ -14,7 +15,8 @@ interface Props {
 const { locale = "zh" } = Astro.props;
 const loc: Locale = getLocale(locale);
 
-const allPosts = await getAllArticles();
+// 仅统计当前语言文章的标签（双语完整化，2026-10）
+const allPosts = filterByLang(await getAllArticles(), loc);
 
 const allTags = getAllTags(allPosts);
 const tagCounts = allTags.reduce(
@@ -29,6 +31,8 @@ const tagCounts = allTags.reduce(
 const sortedTags = Object.entries(tagCounts)
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+
+const tagPrefix = loc === "en" ? "/en/tags" : "/tags";
 ---
 
 <SectionPage
@@ -48,7 +52,7 @@ const sortedTags = Object.entries(tagCounts)
         {
             sortedTags.map(({ name, count }) => (
                 <span class="tag-item">
-                    <a href={`/tags/${name}/`}>{name}</a>
+                    <a href={`${tagPrefix}/${name}/`}>{name}</a>
                     <Badge size="sm">{count}</Badge>
                 </span>
             ))

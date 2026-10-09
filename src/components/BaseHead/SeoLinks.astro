@@ -1,4 +1,7 @@
 ---
+import { getCollection } from "astro:content";
+import { articleLang, articleSlug } from "~/utils/article-url";
+
 interface Props {
     prevUrl?: string | null;
     nextUrl?: string | null;
@@ -12,6 +15,23 @@ const currentPath = Astro.url.pathname;
 const isEnglish = currentPath.startsWith("/en/");
 const zhPath = isEnglish ? currentPath.replace(/^\/en/, "") : currentPath;
 const enPath = isEnglish ? currentPath : "/en" + currentPath;
+
+// 默认（非文章页）：结构页在两种语言下都存在，按路径互推即可
+let zhHref: string | null = siteUrl + zhPath;
+let enHref: string | null = noEnAlternate ? null : siteUrl + enPath;
+let xDefaultHref: string = siteUrl + zhPath;
+
+// 文章页：hreflang 按「翻译对」显式计算——有对照才互相标注；仅英文时 x-default 指向英文
+const articleMatch = currentPath.match(/^\/(?:en\/)?article\/([^/]+)\/?$/);
+if (articleMatch) {
+    const urlSlug = decodeURIComponent(articleMatch[1]);
+    const all = await getCollection("article", ({ data }) => !(data.draft ?? false));
+    const hasZh = all.some((p) => articleLang(p) === "zh" && articleSlug(p) === urlSlug);
+    const hasEn = all.some((p) => articleLang(p) === "en" && articleSlug(p) === urlSlug);
+    zhHref = hasZh ? `${siteUrl}/article/${urlSlug}/` : null;
+    enHref = hasEn ? `${siteUrl}/en/article/${urlSlug}/` : null;
+    xDefaultHref = zhHref ?? enHref ?? siteUrl + currentPath;
+}
 ---
 
 <!-- canonical -->
@@ -46,6 +66,6 @@ const enPath = isEnglish ? currentPath : "/en" + currentPath;
 {nextUrl && <link rel="next" href={nextUrl} />}
 
 <!-- hreflang 多语言标注 -->
-<link rel="alternate" hreflang="zh" href={siteUrl + zhPath} />
-{!noEnAlternate && <link rel="alternate" hreflang="en" href={siteUrl + enPath} />}
-<link rel="alternate" hreflang="x-default" href={siteUrl + zhPath} />
+{zhHref && <link rel="alternate" hreflang="zh" href={zhHref} />}
+{enHref && <link rel="alternate" hreflang="en" href={enHref} />}
+<link rel="alternate" hreflang="x-default" href={xDefaultHref} />

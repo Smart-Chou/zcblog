@@ -8,8 +8,13 @@ interface Props {
 
 const { slug } = Astro.props;
 
-// 用 getAdjacentPosts 获取 slug（模块级缓存，O(1) 索引查找）
-const { prev: prevSlug, next: nextSlug } = await getAdjacentPosts(slug);
+// 语言由当前 URL 推导（英文文章页在 /en/article/ 下）
+const isEn = Astro.url.pathname.startsWith("/en/");
+const articlePrefix = isEn ? "/en/article" : "/article";
+const toArticleUrl = (id: string) => `${articlePrefix}/${isEn ? id.replace(/-en$/, "") : id}/`;
+
+// 用 getAdjacentPosts 获取同语言相邻文章 slug（模块级缓存，O(1) 索引查找）
+const { prev: prevSlug, next: nextSlug } = await getAdjacentPosts(slug, isEn ? "en" : "zh");
 
 // getAllArticles 由 Astro 内容层缓存，无额外开销
 const allPosts = await getAllArticles();
@@ -21,12 +26,12 @@ const nextPost = nextSlug ? (allPosts.find((p) => p.id === nextSlug) ?? null) : 
     (prevPost || nextPost) && (
         <nav class="post-nav">
             {prevPost && (
-                <a href={`/article/${prevPost.id}/`} class="post-nav-link prev">
+                <a href={toArticleUrl(prevPost.id)} class="post-nav-link prev">
                     ◀ {prevPost.data.title}
                 </a>
             )}
             {nextPost && (
-                <a href={`/article/${nextPost.id}/`} class="post-nav-link next">
+                <a href={toArticleUrl(nextPost.id)} class="post-nav-link next">
                     {nextPost.data.title} ▶
                 </a>
             )}

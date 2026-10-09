@@ -29,7 +29,11 @@ const authorBio = bioParts[1] ? `${bioParts[1]}。` : site.subtitle;
         {
             categories.map((categorie) => (
                 <a
-                    href={categorie.url}
+                    href={
+                        /^(https?:)?\/\//.test(categorie.url)
+                            ? categorie.url
+                            : `${Astro.url.pathname.startsWith("/en/") ? "/en" : ""}${categorie.url}`
+                    }
                     title={categorie.title}
                     rel="noopener noreferrer"
                     class="has-tooltip"

@@ -51,12 +51,16 @@ const {
     locale = "zh",
 } = Astro.props;
 
-const { prev: prevSlug, next: nextSlug } = await getAdjacentPosts(slug);
-const prevUrl = prevSlug ? `/article/${prevSlug}/` : null;
-const nextUrl = nextSlug ? `/article/${nextSlug}/` : null;
+const isEnPage = Astro.url.pathname.startsWith("/en/");
+const articlePrefix = isEnPage ? "/en/article" : "/article";
 
-// 相关文章计算需要排序后的完整文章列表
-const allPosts = await getAllArticles();
+const { prev: prevSlug, next: nextSlug } = await getAdjacentPosts(slug, isEnPage ? "en" : "zh");
+const toArticleUrl = (id: string) => `${articlePrefix}/${isEnPage ? id.replace(/-en$/, "") : id}/`;
+const prevUrl = prevSlug ? toArticleUrl(prevSlug) : null;
+const nextUrl = nextSlug ? toArticleUrl(nextSlug) : null;
+
+// 相关文章计算需要排序后的完整文章列表（仅同语言文章参与）
+const allPosts = (await getAllArticles()).filter((post) => (post.data.lang === "en") === isEnPage);
 const sorted = sortByPubDate(allPosts);
 
 const today = new Date();

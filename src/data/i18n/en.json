@@ -80,6 +80,7 @@
         "title": "Blog",
         "description": "All posts",
         "noMorePosts": "No more posts",
+        "empty": "No posts yet — stay tuned.",
         "sortBy": "Sort by",
         "newest": "Latest",
         "hottest": "Hot"

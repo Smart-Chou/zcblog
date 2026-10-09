@@ -1,20 +1,36 @@
 ---
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
+import { getCollection } from "astro:content";
 import { getLocale, defaultLocale, locales } from "~/utils/i18n";
+import { articleLang, articleSlug } from "~/utils/article-url";
 
 const currentLocale = getLocale(Astro.currentLocale || defaultLocale);
 const currentPath = Astro.url.pathname;
 
+/** 文章页翻译对照查询（构建期一次；非文章页为 null） */
+const articleMatch = currentPath.match(/^\/(?:en\/)?article\/([^/]+)\/?$/);
+const articleUrlSlug = articleMatch ? decodeURIComponent(articleMatch[1]) : null;
+let articleHasZh = false;
+let articleHasEn = false;
+if (articleUrlSlug) {
+    const all = await getCollection("article", ({ data }) => !(data.draft ?? false));
+    articleHasZh = all.some((p) => articleLang(p) === "zh" && articleSlug(p) === articleUrlSlug);
+    articleHasEn = all.some((p) => articleLang(p) === "en" && articleSlug(p) === articleUrlSlug);
+}
+
 /**
  * 解析语言切换目标路径。
- * 注意：部分页面没有英文版（文章详情 / 相册详情 / 仅中文静态页 / 错误页），
- * 直接拼 `/en + path` 会指向 404 —— 这些情况回退到最近的英文页面（2026-10 审计修复）。
+ * - 文章页：有翻译对照则直达对照版（zh ↔ /en/article/<slug>/）；
+ * - 其余无英文版页面（相册详情 / 仅中文静态页 / 错误页）回退到最近的英文页面（2026-10 审计修复）。
  */
 function getLocalePath(locale: string, path: string): string {
     const stripped = path.replace(/^\/(zh|en)/, "") || "/";
     if (locale === defaultLocale) {
         // 英文错误页切回中文：错误页无对应页面，回中文首页
         if (/^\/(404|500)\//.test(stripped)) return "/";
+        if (stripped.startsWith("/article/")) {
+            return articleHasZh && articleUrlSlug ? `/article/${articleUrlSlug}/` : "/blog/1/";
+        }
         return stripped;
     }
     // 以下页面没有英文版 → 回退
@@ -27,7 +43,9 @@ function getLocalePath(locale: string, path: string): string {
     ) {
         return "/en/";
     }
-    if (stripped.startsWith("/article/")) return "/en/blog/1/";
+    if (stripped.startsWith("/article/")) {
+        return articleHasEn && articleUrlSlug ? `/en/article/${articleUrlSlug}/` : "/en/blog/1/";
+    }
     if (/^\/albums\/[^/]+\//.test(stripped)) return "/en/albums/";
     return "/en" + stripped;
 }

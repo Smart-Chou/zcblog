@@ -5,6 +5,11 @@ import { getArticleStats } from "~/utils/article-stats";
 
 const currentYear = new Date().getFullYear();
 
+// 英文页面：统计/RSS 链接指向英文版
+const isEn = Astro.url.pathname.startsWith("/en/");
+const prefix = isEn ? "/en" : "";
+const rssUrl = isEn ? "/en/rss.xml" : "/rss.xml";
+
 const { totalPosts, totalTags, totalWords } = await getArticleStats();
 
 function formatNumber(num: number): string {
@@ -14,9 +19,9 @@ function formatNumber(num: number): string {
 }
 
 const stats = [
-    { label: "文章", value: formatNumber(totalPosts), url: "/archives/" },
-    { label: "标签", value: formatNumber(totalTags), url: "/tags/" },
-    { label: "字数", value: formatNumber(totalWords), url: "/archives/" },
+    { label: "文章", value: formatNumber(totalPosts), url: `${prefix}/archives/` },
+    { label: "标签", value: formatNumber(totalTags), url: `${prefix}/tags/` },
+    { label: "字数", value: formatNumber(totalWords), url: `${prefix}/archives/` },
 ];
 ---
 
@@ -32,7 +37,7 @@ const stats = [
             ))
         }
         <span class="stat-divider" aria-hidden="true"></span>
-        <a href="/rss.xml" class="stat-item stat-item--icon" aria-label="RSS 订阅">
+        <a href={rssUrl} class="stat-item stat-item--icon" aria-label="RSS 订阅">
             <DynamicIcon name="tabler:rss" />
             <span class="stat-label">RSS</span>
         </a>

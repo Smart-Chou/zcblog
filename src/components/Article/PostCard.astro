@@ -66,7 +66,8 @@ const {
         {
             tags?.map((tag: string) => {
                 const normalized = normalizeTag(tag);
-                return <PostTag tag={normalized} url={`/tags/${normalized}/`} />;
+                const tagPrefix = Astro.url.pathname.startsWith("/en/") ? "/en" : "";
+                return <PostTag tag={normalized} url={`${tagPrefix}/tags/${normalized}/`} />;
             })
         }
     </div>

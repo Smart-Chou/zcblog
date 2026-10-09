@@ -1,9 +1,10 @@
 ---
 import { getLocale } from "~/utils/i18n";
 import TagPostsContent from "~/components/Pages/TagPostsContent.astro";
-import { tagPostsGetStaticPaths } from "~/utils/tag-paths";
+import { makeTagPostsGetStaticPaths } from "~/utils/tag-paths";
 
-export const getStaticPaths = tagPostsGetStaticPaths;
+// 中文标签页（英文标签走 /en/tags/）
+export const getStaticPaths = makeTagPostsGetStaticPaths("zh");
 
 const { articles } = Astro.props;
 const locale = getLocale(Astro.currentLocale || "zh");

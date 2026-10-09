@@ -12,6 +12,12 @@ interface Props {
 
 const { publishedTime, modifiedTime, wordCount, readTime, currentSlug } = Astro.props;
 
+// 浏览计数路径：跟随当前语言前缀；英文页去掉 -en 后缀（中文页不裁剪）
+const isEnPage = Astro.url.pathname.startsWith("/en");
+const pathPrefix = isEnPage ? "/en/article" : "/article";
+const cleanSlug = isEnPage ? currentSlug.replace(/-en$/, "") : currentSlug;
+const viewPath = `${pathPrefix}/${cleanSlug}/`;
+
 /** 安全转换为 Date，用于后续比较和格式化 */
 const safeModified: Date | null = (() => {
     if (!modifiedTime) return null;
@@ -39,7 +45,7 @@ const showUpdated =
         waline.enable && (
             <>
                 &nbsp;
-                <span class="waline-pageview-count" data-path={`/article/${currentSlug}/`}>
+                <span class="waline-pageview-count" data-path={viewPath}>
                     0
                 </span>
                 <span> views.</span>

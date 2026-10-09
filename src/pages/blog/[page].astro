@@ -1,12 +1,14 @@
 ---
 import { getLocale } from "~/utils/i18n";
 import BlogContent from "~/components/Pages/BlogContent.astro";
-import { blogGetStaticPaths } from "~/utils/blog-paths";
+import { makeBlogGetStaticPaths } from "~/utils/blog-paths";
 
-export const getStaticPaths = blogGetStaticPaths;
+// 中文列表（英文文章走 /en/blog/）
+export const getStaticPaths = makeBlogGetStaticPaths("zh");
 
 interface PostData {
     slug: string;
+    url: string;
     data: {
         title: string;
         pubDate: Date;

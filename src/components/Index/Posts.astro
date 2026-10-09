@@ -23,6 +23,11 @@ const { posts } = Astro.props;
 const pathname = Astro.url.pathname;
 const locale: Locale = pathname.startsWith("/en") ? "en" : defaultLocale;
 
+// 文章链接按语言加前缀；英文页去掉 -en 后缀（中文页不裁剪，避免误伤 -en 结尾的中文 slug）
+const articlePrefix = locale === "en" ? "/en/article" : "/article";
+const toArticleUrl = (id: string) =>
+    `${articlePrefix}/${locale === "en" ? id.replace(/-en$/, "") : id}/`;
+
 function getImageUrl(image: Post["data"]["image"]): string {
     if (!image) return "";
     if (typeof image.url === "string") return image.url;
@@ -74,7 +79,7 @@ function formatDateFull(date: Date): string {
                         </span>
                     </div>
                     <a
-                        href={`/article/${posts[0].id}/`}
+                        href={toArticleUrl(posts[0].id)}
                         class="post-card-link"
                         aria-label={`${locale === "en" ? "Read" : "阅读"} ${posts[0].data.title}`}
                     />
@@ -86,7 +91,7 @@ function formatDateFull(date: Date): string {
                         <h2 class="post-card-title">{post.data.title}</h2>
                         <span class="post-card-meta">{formatDateFull(post.data.pubDate)}</span>
                         <a
-                            href={`/article/${post.id}/`}
+                            href={toArticleUrl(post.id)}
                             class="post-card-link"
                             aria-label={`${locale === "en" ? "Read" : "阅读"} ${post.data.title}`}
                         />

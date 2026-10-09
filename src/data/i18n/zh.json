@@ -80,6 +80,7 @@
         "title": "博客",
         "description": "所有文章",
         "noMorePosts": "没有更多文章了",
+        "empty": "还没有文章，敬请期待。",
         "sortBy": "排序",
         "newest": "最新",
         "hottest": "最热"

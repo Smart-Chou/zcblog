@@ -32,7 +32,7 @@ export async function GET(context: { site: URL }) {
                 title: post.data.title as string,
                 pubDate,
                 description: (post.data.description as string) || (post.data.title as string),
-                link: `/article/${post.id}/`,
+                link: `/en/article/${post.id.replace(/-en$/, "")}/`,
                 content: descriptionHtml,
                 customData: `<wordCount>${wordCount}</wordCount><readTime>${readTime}</readTime>`,
             };

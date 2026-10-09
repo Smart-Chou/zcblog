@@ -1,39 +1,47 @@
 {
-    "syncedAt": "2026-10-09T13:32:15.917Z",
+    "syncedAt": "2026-10-09T15:04:56.850Z",
     "windowStart": "2026-09-08T16:00:00.000Z",
     "windowEnd": "2026-10-08T16:00:00.000Z",
     "items": [
         {
             "slug": "moonlight-sunshine-game-streaming-guide",
-            "pv": 493
+            "pv": 493,
+            "lang": "zh"
         },
         {
             "slug": "sing-box-docker-deploy",
-            "pv": 109
+            "pv": 109,
+            "lang": "zh"
         },
         {
             "slug": "deskflow-software-kvm-guide",
-            "pv": 80
+            "pv": 80,
+            "lang": "zh"
         },
         {
             "slug": "debian-sing-box-proxy-pitfalls",
-            "pv": 74
+            "pv": 74,
+            "lang": "zh"
         },
         {
             "slug": "vscode-ai-coding-plugins-comparison",
-            "pv": 71
+            "pv": 71,
+            "lang": "zh"
         },
         {
             "slug": "searxng-google-ban-solution-guide",
-            "pv": 70
+            "pv": 70,
+            "lang": "zh"
         },
         {
             "slug": "hermes-agent-memory-optimization",
-            "pv": 67
+            "pv": 67,
+            "lang": "zh"
         },
         {
             "slug": "rustdesk-self-hosted-guide",
-            "pv": 63
+            "pv": 63,
+            "lang": "zh"
         }
     ]
 }

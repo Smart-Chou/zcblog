@@ -1,11 +1,13 @@
 ---
 import BlogContent from "~/components/Pages/BlogContent.astro";
-import { blogGetStaticPaths } from "~/utils/blog-paths";
+import { makeBlogGetStaticPaths } from "~/utils/blog-paths";
 
-export const getStaticPaths = blogGetStaticPaths;
+// 英文列表（仅 lang: en 的文章）
+export const getStaticPaths = makeBlogGetStaticPaths("en");
 
 interface PostData {
     slug: string;
+    url: string;
     data: {
         title: string;
         pubDate: Date;

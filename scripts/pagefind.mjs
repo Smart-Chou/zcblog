@@ -21,7 +21,7 @@ const CONFIG = {
     includeCharacters: `，。！？；：""''（）【】[]`,
     verbose: false,
     logfile: undefined,
-    glob: "article/**/*.{html}",
+    glob: "**/*.{html}", // 全站扫描，由 rootSelector 把关（中英文文章都会入索引）
     rootSelector: "[data-pagefind-body]",
 };
 

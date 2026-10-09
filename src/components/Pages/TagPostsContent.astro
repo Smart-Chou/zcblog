@@ -41,7 +41,7 @@ const latestModified = postsWithMeta[0]?.modifiedTime || new Date();
                     title={post.data.title}
                     description={post.data.description || post.excerpt}
                     tags={post.data.tags || []}
-                    postUrl={`/article/${post.slug}/`}
+                    postUrl={`${loc === "en" ? "/en/article" : "/article"}/${loc === "en" ? (post.slug || post.id).replace(/-en$/, "") : post.slug || post.id}/`}
                     publishedTime={post.data.pubDate}
                     modifiedTime={post.modifiedTime}
                     wordCount={post.wordCount}

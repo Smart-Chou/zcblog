@@ -1,8 +1,9 @@
 ---
 import TagPostsContent from "~/components/Pages/TagPostsContent.astro";
-import { tagPostsGetStaticPaths } from "~/utils/tag-paths";
+import { makeTagPostsGetStaticPaths } from "~/utils/tag-paths";
 
-export const getStaticPaths = tagPostsGetStaticPaths;
+// 英文标签页（仅英文文章）
+export const getStaticPaths = makeTagPostsGetStaticPaths("en");
 
 const { articles } = Astro.props;
 ---

@@ -1,5 +1,6 @@
 ---
 import { getAllArticles } from "~/utils/article-stats";
+import { filterByLang, articleUrl } from "~/utils/article-url";
 import SectionPage from "~/components/Layout/SectionPage.astro";
 import Archive from "~/components/UI/Archive.astro";
 import Author from "~/components/UI/Author.astro";
@@ -30,7 +31,8 @@ interface PostsByYear {
     [year: number]: PostWithMeta[];
 }
 
-const allPosts = await getAllArticles();
+// 仅统计/展示当前语言的文章（双语完整化，2026-10）
+const allPosts = filterByLang(await getAllArticles(), loc);
 
 const postsWithMeta = sortByPubDate(allPosts.map((post) => enrichPost(post))) as PostWithMeta[];
 const latestModified = postsWithMeta[0]?.modifiedTime || new Date();
@@ -48,9 +50,10 @@ const totalPosts = postsWithMeta.length;
 const totalWords = postsWithMeta.reduce((sum, post) => sum + post.wordCount, 0);
 const totalWordsInThousands = (totalWords / 1000).toFixed(1) + "k";
 
-const startYear = Math.min(
-    ...postsWithMeta.map((post) => new Date(post.data.pubDate).getFullYear()),
-);
+const startYear =
+    postsWithMeta.length > 0
+        ? Math.min(...postsWithMeta.map((post) => new Date(post.data.pubDate).getFullYear()))
+        : new Date().getFullYear();
 
 const postsData = postsWithMeta.map((post) => ({
     date: post.data.pubDate ? formatDateToYYYYMMDD(new Date(post.data.pubDate)) : "",
@@ -88,7 +91,7 @@ const postsData = postsWithMeta.map((post) => ({
                         {sortByPubDate(postsByYear[year]).map((post) => (
                             <Archive
                                 key={post.slug}
-                                url={`/article/${post.slug}/`}
+                                url={articleUrl(post)}
                                 title={post.data.title}
                                 publishedTime={post.data.pubDate}
                             />

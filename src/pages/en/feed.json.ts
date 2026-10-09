@@ -22,7 +22,7 @@ export async function GET(context: { site: URL }) {
         items: formattedBlogs.map((post) => {
             const pubDate =
                 post.data.pubDate instanceof Date ? post.data.pubDate : new Date(post.data.pubDate);
-            const url = `${siteUrl}/article/${post.id}/`;
+            const url = `${siteUrl}/en/article/${post.id.replace(/-en$/, "")}/`;
             return {
                 id: url,
                 url,
