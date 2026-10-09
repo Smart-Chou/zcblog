@@ -22,6 +22,7 @@
         "friends": "node scripts/fetch-friends.mjs",
         "bangumi": "node scripts/fetch-bangumi.mjs",
         "popular": "node scripts/fetch-popular.mjs",
+        "seo:indexnow": "node scripts/indexnow-submit.mjs",
         "fetch:verify": "node scripts/verify-data.mjs",
         "links": "node scripts/link-check.mjs",
         "check:personal": "node scripts/check-personalization.mjs",

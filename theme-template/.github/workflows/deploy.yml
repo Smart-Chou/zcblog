@@ -61,3 +61,11 @@ jobs:
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v4
+
+            # 可选：SEO 主动推送（IndexNow）——在仓库 Secrets 配置 INDEXNOW_KEY 后生效；
+            # 未配置时脚本自动跳过，失败不影响部署
+            - name: Submit to IndexNow
+              env:
+                  INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+                  BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+              run: node scripts/indexnow-submit.mjs || echo "⚠️ IndexNow 提交失败（不影响部署）"

@@ -77,6 +77,13 @@ const ARTICLE_KEEP = new Set(["blog-feature-demo.md"]);
 const isExcluded = (rel, isDir) => {
     const base = path.posix.basename(rel);
     if (base === ".DS_Store") return true;
+    // 站点验证文件（IndexNow key / Bing / Google / Baidu 验证等）：站主专属，主题用户需自建
+    if (
+        rel.startsWith("public/") &&
+        (/\.txt$/i.test(base) ||
+            /^(BingSiteAuth\.xml|google[0-9a-z]+\.html|baidu_verify_.+\.html)$/i.test(base))
+    )
+        return true;
     if (!isDir) {
         if (rel === ".env" || (rel.startsWith(".env.") && rel !== ".env.example")) return true;
         if (rel.startsWith("src/content/article/")) return !ARTICLE_KEEP.has(base);
