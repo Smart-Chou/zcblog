@@ -28,6 +28,11 @@ export interface ImageServiceConfig {
     baseUrl: string; // 图床基础URL（留空 = 封面使用本地占位图 /cover.png）
     randomPath: string; // 随机图片路径
     picPath: string; // 指定图片路径
+    /** 可选：Cloudflare Image Transformations 边缘缩略图（需站点域名所在 zone 已开启该功能） */
+    transform?: {
+        enable: boolean; // 是否启用（关闭或 zone 未开启时保持原图）
+        quality?: number; // 输出质量（1-100，默认 78）
+    };
 }
 
 /**
@@ -84,6 +89,11 @@ export const imageService: ImageServiceConfig = {
     baseUrl: "", // 例如 "https://img.example.com"；留空 = 封面/相册使用本地占位
     randomPath: "/api/random",
     picPath: "/api/pic",
+    // 可选：图床缩略图（Cloudflare Image Transformations；开启后按显示宽度套用 /cdn-cgi/image/）
+    transform: {
+        enable: false,
+        quality: 78,
+    },
 };
 
 /**

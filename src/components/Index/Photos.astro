@@ -20,7 +20,7 @@ function extractDate(alt: string): Date | null {
 const MAX_PHOTOS = 5;
 const allPhotos = albums.flatMap((album) =>
     album.photos.map((p) => ({
-        url: getPicImageUrl(p.url),
+        url: getPicImageUrl(p.url, 480),
         title: p.alt || p.description || "",
     })),
 );

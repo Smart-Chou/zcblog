@@ -1,22 +1,25 @@
 ---
 import { Image } from "astro:assets";
-import { getRandomImageUrl, hasImageService } from "~/utils";
+import { getRandomImageUrl, hasImageService, getDisplayImageUrl } from "~/utils";
 import { imageService } from "~/config";
 
 interface Props {
     imagePath: string;
     altText: string;
     loading?: "eager" | "lazy";
+    /** 边缘缩略图目标宽度（默认 800；文章页大图可传更大值） */
+    transformWidth?: number;
 }
 
-const { imagePath, altText, loading = "lazy" } = Astro.props;
+const { imagePath, altText, loading = "lazy", transformWidth = 800 } = Astro.props;
 
 const defaultImageUrl = `${imageService.baseUrl}${imageService.randomPath}`;
 const isDefaultImage =
     hasImageService && typeof imagePath === "string" && imagePath.startsWith(defaultImageUrl);
 
-// 未配置图床时回退到本地占位图
-const src = isDefaultImage ? getRandomImageUrl() : imagePath || getRandomImageUrl();
+// 未配置图床时回退到本地占位图；启用图床缩略图时按展示宽度套用 /cdn-cgi/image/
+const rawSrc = isDefaultImage ? getRandomImageUrl() : imagePath || getRandomImageUrl();
+const src = getDisplayImageUrl(rawSrc, transformWidth);
 ---
 
 <Image

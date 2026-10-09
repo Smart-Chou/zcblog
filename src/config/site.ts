@@ -28,6 +28,11 @@ export interface ImageServiceConfig {
     baseUrl: string; // 图床基础URL
     randomPath: string; // 随机图片路径
     picPath: string; // 指定图片路径
+    /** 可选：Cloudflare Image Transformations 边缘缩略图（需站点域名所在 zone 已开启该功能） */
+    transform?: {
+        enable: boolean; // 是否启用（关闭或 zone 未开启时保持原图）
+        quality?: number; // 输出质量（1-100，默认 78）
+    };
 }
 
 /**
@@ -86,6 +91,10 @@ export const imageService: ImageServiceConfig = {
     baseUrl: "https://pic-api.marxchou.com",
     randomPath: "/api/random",
     picPath: "/api/pic",
+    transform: {
+        enable: true,
+        quality: 78,
+    },
 };
 
 /**

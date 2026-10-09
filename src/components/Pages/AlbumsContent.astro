@@ -37,7 +37,7 @@ import albumsData from "~/data/albums.json";
 
 const albums: Album[] = (albumsData as Album[]).map((album) => ({
     ...album,
-    cover: album.cover ? getPicImageUrl(album.cover) : "",
+    cover: album.cover ? getPicImageUrl(album.cover, 640) : "",
     photoCount: album.photos?.length || 0,
 }));
 
