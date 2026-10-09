@@ -13,7 +13,8 @@
 - **代码高亮** — Expressive Code，支持行号、代码折叠、复制按钮、语言标识
 - **搜索功能** — Pagefind 构建时索引，客户端全文搜索
 - **SEO 优化** — 自动生成 Sitemap（多语言）、OG/Twitter/JSON-LD Meta 标签、robots.txt
-- **RSS 订阅** — 中文和英文独立订阅源，含阅读时间和字数
+- **RSS 订阅** — 中文和英文独立订阅源（另提供 Atom 与 JSON Feed），含阅读时间和字数
+- **热门文章** — 首页「近期热门」榜：基于 Umami 近 30 天访问数据，构建期每日自动同步
 - **OG 图片** — 使用 Satori + Sharp 在构建时自动生成社交分享卡片
 - **多语言** — 支持中文（默认）和英文，Astro i18n 路由
 - **评论系统** — Waline 自托管评论，支持表情反应与搜索
@@ -24,7 +25,7 @@
 - **番剧追踪** — 追番记录展示（Bangumi 数据源）
 - **豆瓣书影音** — 豆瓣在读/看过/想看展示
 - **随笔** — Blinko 随笔展示
-- **友链** — 友情链接与友链文章聚合（Foreverblog RSS）
+- **友链** — 友情链接与友链文章聚合（Foreverblog RSS）；支持 GitHub Issue 表单自助申请与自动审核合并
 - **捐赠功能** — 支付宝 / 微信支付 / PayPal
 - **外链重定向** — 外部链接经确认页面中转，防止用户无感知离开
 - **公告栏** — 可配置顶部公告（支持 localStorage 持久关闭）
@@ -33,7 +34,7 @@
 - **返回顶部** — 文章页返回顶部按钮
 - **中日韩文字排版优化** — Pangu 自动在中英文之间添加空格
 - **自托管字体** — DM Sans / DM Serif Display 本地托管，无第三方字体请求
-- **图片 CDN** — 正文图片托管于 Cloudflare R2（s3.marxchou.com），边缘缓存加速
+- **图片 CDN** — 正文图片托管于 Cloudflare R2（s3.marxchou.com），边缘缓存加速；图床/相册图片经 Cloudflare Image Transformations 输出按需缩略图
 - **View Transitions** — Astro 视图过渡动画
 
 ## 技术栈

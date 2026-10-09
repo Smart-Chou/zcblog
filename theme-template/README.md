@@ -32,7 +32,7 @@
 - 🌍 **双语**：zh-CN / en 完整 i18n，语言切换器与 hreflang
 - 📝 **Markdown 增强**：Callout 容器、Tabs、图片网格、Mermaid / PlantUML / KaTeX / MathJax / Chart.js / Markmap、expressive-code 代码块（行号 / 折叠 / 复制）
 - 🖼 **图片**：本地资源或图床（可选），未配置时自动回退占位图
-- 💬 **可选能力**：Waline 评论、Umami 统计、捐赠页、公告栏、水印、外链重定向（默认关闭，零侵入）
+- 💬 **可选能力**：Waline 评论、Umami 统计（含首页热门榜）、图床缩略图（Cloudflare Transformations）、友链申请自动化（GitHub Issue）、捐赠页、公告栏、水印、外链重定向（默认关闭，零侵入）
 - 📱 **PWA**：可安装、离线可读（Workbox 缓存）
 - 🧩 **数据页面**（全部可选）：随笔（Blinko）、豆瓣、Bangumi、相册、友链、服务页
 - 📐 **自带设计系统**：完整的设计规范文档（Design Tokens / 组件规则）→ [`docs/design-guide.md`](docs/design-guide.md)
@@ -103,6 +103,7 @@ degit yourname/dogeared my-blog && cd my-blog && pnpm install
 | `waline.*`                          | 评论：`enable`、`serverUrl`、语言、分页、表情、搜索、白名单 |
 | `search.enable`                     | Pagefind 站内搜索开关                                      |
 | `umami.*`                           | 统计：`enable`、服务地址、站点 ID                          |
+| `popular.*`                         | 热门文章：`enable`、展示条数 `limit`（数据由 Umami 抓取）  |
 | `notice.*`                          | 公告栏：`enable`、内容、路径、记住关闭、确认按钮           |
 | `watermark.*`                       | 全站水印：`enable`、文案、字号、透明度、旋转、颜色、间距   |
 
@@ -115,7 +116,7 @@ degit yourname/dogeared my-blog && cd my-blog && pnpm install
 | `navLinks`      | 主导航链接              |
 | `categories`    | 汉堡菜单中的分类入口    |
 | `socialLinks`   | 社交链接（图标 + 颜色） |
-| `friendsPage`   | 友链页标题与说明        |
+| `friendsPage`   | 友链页标题与说明；可选 `friendLinkApplyUrl` 申请入口（Issue 表单链接） |
 | `footerList`    | 页脚徽标链接            |
 | `sidebarConfig` | 文章页侧边栏目录        |
 
@@ -196,6 +197,9 @@ Callout 六种变体：tip / note / info / important / warning / danger
 | ----------- | ------------------------------------------------------------------------------------- |
 | Waline 评论 | `feature.ts` 中 `waline.enable=true` + 填 `serverUrl`（自建服务参考 Waline 官方文档） |
 | Umami 统计  | `feature.ts` 中 `umami.enable=true` + 服务地址与站点 ID                               |
+| 热门文章    | `feature.ts` 中 `popular.enable=true`（需配置 `UMAMI_*` 环境变量抓取数据）             |
+| 图床缩略图  | `site.ts` 中 `imageService.transform.enable=true`（需在域名所在 zone 开启 Cloudflare Image Transformations） |
+| 友链申请    | `ui.ts` 中 `friendsPage.friendLinkApplyUrl` 填仓库 Issue 表单链接（配套 `.github/ISSUE_TEMPLATE/friend-link.yml` 与 `friend-link.yml` 工作流） |
 | GA 统计     | `feature.ts` 中 `ga` 填 GA-ID                                                          |
 | 图床        | `site.ts` 中 `imageService.baseUrl`（留空则封面回退本地占位图 `/cover.png`）          |
 | 捐赠页      | `feature.ts` 中 `donate.enable=true`（二维码图片置于 `src/assets/qr/`）               |
@@ -211,6 +215,10 @@ Callout 六种变体：tip / note / info / important / warning / danger
 | `DOUBAN_USER_ID`      | 豆瓣用户 ID                        |
 | `BANGUMI_USER_ID`     | Bangumi 用户 ID                    |
 | `FOREVERBLOG_RSS_URL` | Foreverblog RSS（友链）            |
+| `UMAMI_API_URL`       | Umami 服务地址（热门文章）         |
+| `UMAMI_WEBSITE_ID`    | Umami 站点 ID（热门文章）          |
+| `UMAMI_USERNAME`      | Umami 只读账号用户名（热门文章）   |
+| `UMAMI_PASSWORD`      | Umami 只读账号密码（热门文章）     |
 | `ENCRYPTION_PASSWORD` | 加密文章密码（存在加密内容时必填） |
 | `BUILD_CONCURRENCY`   | 构建并发数（默认 CPU 核数；低内存机器可设 1） |
 
