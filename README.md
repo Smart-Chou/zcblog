@@ -12,11 +12,11 @@
 - **Markdown 扩展** — Mermaid 图表、PlantUML、KaTeX 数学公式、Chart.js、Markmap 思维导图、Reveal.js 幻灯片、GitHub 卡片、自定义提示（Asides）、标签页（Tabs）、图片网格、内容加密
 - **代码高亮** — Expressive Code，支持行号、代码折叠、复制按钮、语言标识
 - **搜索功能** — Pagefind 构建时索引，客户端全文搜索
-- **SEO 优化** — 自动生成 Sitemap（多语言）、OG/Twitter/JSON-LD Meta 标签、robots.txt
+- **SEO 优化** — 自动生成 Sitemap（多语言）、OG/Twitter/JSON-LD Meta 标签、robots.txt；部署完成后自动向搜索引擎推送新/更新文章（IndexNow：Bing / Yandex / Seznam / Naver / Yep）
 - **RSS 订阅** — 中文和英文独立订阅源（另提供 Atom 与 JSON Feed），含阅读时间和字数
 - **热门文章** — 首页「近期热门」榜：基于 Umami 近 30 天访问数据，构建期每日自动同步
 - **OG 图片** — 使用 Satori + Sharp 在构建时自动生成社交分享卡片
-- **多语言** — 支持中文（默认）和英文，Astro i18n 路由
+- **多语言** — 中英文双语：界面与内容双层隔离；英文文章以 `<slug>-en.md`（`lang: en`）发布，自动路由 `/en/article/<slug>/`，翻译对互标 hreflang、语言切换器直达对照版，中英列表/归档/标签/相关文章/订阅源完全隔离
 - **评论系统** — Waline 自托管评论，支持表情反应与搜索
 - **网站分析** — Umami 自托管统计分析
 - **文章分享** — 一键分享到微信（扫码）/ 微博 / QQ空间 / 豆瓣 / X / Telegram / Facebook / Reddit；移动端支持系统分享；无第三方脚本，二维码构建时生成
@@ -277,6 +277,7 @@ pnpm run preview
 | ---- | ---- |
 | `pnpm release` | 使用 standard-version 生成 changelog 并 bump 版本 |
 | `pnpm release:dry` | 预览版本 bump（不实际执行） |
+| `pnpm seo:indexnow` | 向 IndexNow 网络手动提交 URL（默认近 26 小时窗口内发布的文章；`--all` 全量、`--dry-run` 预览，见「部署」） |
 
 ## 环境变量
 
@@ -289,10 +290,12 @@ pnpm run preview
 | `DOUBAN_USER_ID` | 否 | 豆瓣用户 ID（不设则跳过书影音拉取） |
 | `BANGUMI_USER_ID` | 否 | Bangumi 用户 ID（不设则跳过追番拉取） |
 | `FOREVERBLOG_RSS_URL` | 否 | Foreverblog RSS 源地址（默认使用 rsshub.rssforever.com） |
+| `INDEXNOW_KEY` | 否 | IndexNow 密钥（36 位 hex；本地/CI 推送用；不设则本地脚本静默跳过） |
+| `BAIDU_TOKEN` | 否 | 百度普通收录 API Token（可选，用于同步提交百度） |
 | `ENCRYPTION_PASSWORD` | 否 | 文章加密密码（未设置且存在加密内容时构建报错） |
 | `BUILD_CONCURRENCY` | 否 | Astro 构建并发数（默认 = CPU 核心数；CI 部署时固定为 1） |
 
-> 注：《博客 SEO 实战》文章中提到的 IndexNow 主动推送目前未内置在构建流程中；如需启用请参照该文章方案集成（届时恢复 `INDEXNOW_API_KEY` 环境变量）。
+> 注：IndexNow 主动推送已内置（部署完成后自动提交新/更新文章到 IndexNow 网络：Bing / Yandex / Seznam / Naver / Yep）。仓库 Secrets 配置 `INDEXNOW_KEY` 即启用；验证文件位于 `public/<key>.txt`（内容 = key）。手工推送：`pnpm seo:indexnow`。
 
 ## 配置
 
@@ -320,6 +323,13 @@ pnpm run preview
 
 > ⚠️ 该目录是**本地开发副本**：CI 构建时会用私有仓库 `zcblog-articles` 的内容覆盖它（`cp _articles/*.md src/content/article/`）。线上文章的发布与修改请以 `zcblog-articles` 仓库为准。
 
+**中英文双语约定**：
+
+- 中文文章：`<slug>.md`（`lang` 缺省即 zh）→ `/article/<slug>/`
+- 英文文章：`<slug>-en.md` + frontmatter `lang: en` → `/en/article/<slug>/`；与中文版同 base slug 时自动互为**翻译对**（hreflang 互标、语言切换器直达、sitemap 配对）
+- ⚠️ 不要用 `<slug>.en.md` 命名：Astro 内容层会吞掉文件名中的英文句点，导致 URL 变成 `xxxen`
+- 中英文内容**完全隔离**：列表 / 归档 / 标签 / 相关文章 / 相邻导航 / 订阅源 / 站内搜索均按语言区分
+
 文章 Frontmatter：
 
 ```yaml
@@ -330,7 +340,7 @@ summary: 文章摘要              # 可选，用于列表展示
 pubDate: 2024-01-01           # 必填，发布日期
 upDate: 2024-06-01            # 可选，更新日期
 tags: [标签1, 标签2]           # 标签列表
-lang: zh                      # 语言：zh（默认）或 en
+lang: zh                      # 语言：zh（默认）或 en（英文文章文件名用 <slug>-en.md）
 image:                        # 可选，封面图（默认随机图床图片）
   url: cover.jpg
   alt: 封面描述
@@ -397,6 +407,7 @@ description: 页面描述（可选）
 3. 安装 pnpm + Node.js 22
 4. 安装依赖并构建
 5. 部署到 GitHub Pages
+6. IndexNow 主动推送（近 26h 窗口内新/更新文章，失败不阻断部署）
 
 ### Vercel（可选备用）
 
@@ -421,7 +432,7 @@ pnpm build
 | 工作流 | 触发条件 | 内容 |
 | ---- | ---- | ---- |
 | **CI** | 推送/PR 到 `main` 或 `theme` | Lint → TypeScript 类型检查 → 单元测试 |
-| **Deploy** | 推送到 `main`/`theme` / 文章更新 / 手动触发 | 拉取文章 → 安装依赖 → 构建 → 部署到 GitHub Pages |
+| **Deploy** | 推送到 `main`/`theme` / 文章更新 / 手动触发 | 拉取文章 → 安装依赖 → 构建 → 部署到 GitHub Pages → **IndexNow 主动推送**（窗口内新/更新文章，非阻塞） |
 
 ## 内容加密
 
@@ -438,10 +449,19 @@ pnpm build
 
 ## 多语言 (i18n)
 
+**界面层**：
+
 - **中文**：默认语言，URL 无前缀（如 `/blog/1/`）
 - **英文**：URL 前缀 `/en/`（如 `/en/blog/1/`）
 - 翻译文本存储在 `src/data/i18n/` 中
-- RSS 订阅源分别提供中文和英文两个版本
+- 订阅源按语言拆分：RSS / Atom / JSON Feed 均各有中英两版
+
+**内容层（中英文完全隔离）**：
+
+- **中文文章**：`<slug>.md` → `/article/<slug>/`；**英文文章**：`<slug>-en.md` + `lang: en` → `/en/article/<slug>/`
+- 同 base slug 的中英两篇自动互为**翻译对**：互相标注 `hreflang`（`x-default` → 中文）、语言切换器直达对照版、sitemap `xhtml:link` 配对；独立英文文章（无中文对照）切换器回退英文列表页，`hreflang` 仅含 en 与 x-default
+- 列表 / 归档 / 标签 / 相关文章 / 上下篇导航 / 订阅源 / 站内搜索（Pagefind 按 `lang` 分语言索引）均按语言隔离
+- 无英文文章时 en 列表显示空态（`/en/blog/1/` 页面保留，供切换器回退，勿令其 404）
 
 ## 相关仓库与服务
 

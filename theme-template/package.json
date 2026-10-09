@@ -38,6 +38,7 @@
         "links": "node scripts/link-check.mjs",
         "release": "standard-version",
         "release:dry": "standard-version --dry-run",
+        "seo:indexnow": "node scripts/indexnow-submit.mjs",
         "format": "prettier -w .",
         "format:check": "prettier --check .",
         "lint": "pnpm run format:check",

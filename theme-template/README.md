@@ -28,11 +28,11 @@
 ## 特性
 
 - 🖋 **编辑风视觉**：暖纸配色、衬线标题、克制的装饰；亮 / 暗双主题均为第一等公民
-- 🔍 **静态搜索**：Pagefind 构建期索引（⌘K 唤起），零后端
-- 🌍 **双语**：zh-CN / en 完整 i18n，语言切换器与 hreflang
+- 🔍 **静态搜索**：Pagefind 构建期索引（⌘K 唤起），零后端；中英文文章统一收录
+- 🌍 **双语（内容级）**：zh-CN / en 完整 i18n；英文文章以 `<slug>-en.md`（`lang: en`）发布，自动路由 `/en/article/<slug>/`，翻译对互标 hreflang、语言切换器直达对照版，列表 / 归档 / 标签 / 相关文章 / 订阅源按语言隔离
 - 📝 **Markdown 增强**：Callout 容器、Tabs、图片网格、Mermaid / PlantUML / KaTeX / MathJax / Chart.js / Markmap、expressive-code 代码块（行号 / 折叠 / 复制）
 - 🖼 **图片**：本地资源或图床（可选），未配置时自动回退占位图
-- 💬 **可选能力**：Waline 评论、Umami 统计（含首页热门榜）、图床缩略图（Cloudflare Transformations）、友链申请自动化（GitHub Issue）、捐赠页、公告栏、水印、外链重定向（默认关闭，零侵入）
+- 💬 **可选能力**：Waline 评论、Umami 统计（含首页热门榜）、图床缩略图（Cloudflare Transformations）、友链申请自动化（GitHub Issue）、SEO 主动推送（IndexNow，部署后自动提交新/更新文章）、捐赠页、公告栏、水印、外链重定向（默认关闭，零侵入）
 - 📱 **PWA**：可安装、离线可读（Workbox 缓存）
 - 🧩 **数据页面**（全部可选）：随笔（Blinko）、豆瓣、Bangumi、相册、友链、服务页
 - 📐 **自带设计系统**：完整的设计规范文档（Design Tokens / 组件规则）→ [`docs/design-guide.md`](docs/design-guide.md)
@@ -132,13 +132,22 @@ degit yourname/dogeared my-blog && cd my-blog && pnpm install
 
 在 `src/content/article/` 下新建 `.md` 文件即可；`pnpm new-post` 提供交互式脚手架。
 
+### 中英文双语约定
+
+- **中文文章**：`<slug>.md`（`lang` 缺省即 zh）→ `/article/<slug>/`
+- **英文文章**：`<slug>-en.md` + frontmatter `lang: en` → `/en/article/<slug>/`
+  - 与中文版**同 base slug** 时自动互为翻译对：互相标注 `hreflang`、语言切换器直达对照版、sitemap 配对
+  - 独立英文文章（无中文对照）也可以：切换器会回退到英文列表页，`hreflang` 仅含 en 与 x-default
+  - ⚠️ 不要用 `<slug>.en.md` 命名：Astro 内容层会吞掉文件名中的英文句点，导致 URL 变成 `xxxen`
+- 中英文内容**完全隔离**：各自独立的列表 / 归档 / 标签 / 相关文章 / 订阅源（`/en/rss.xml`、`/en/atom.xml`、`/en/feed.json`）
+
 ### Frontmatter 字段
 
 | 字段                                                      | 类型     | 默认  | 说明                                       |
 | --------------------------------------------------------- | -------- | ----- | ------------------------------------------ |
 | `title`                                                   | string   | 必填  | 文章标题                                   |
 | `pubDate`                                                 | date     | 必填  | 发布日期                                   |
-| `lang`                                                    | zh / en  | zh    | 文章语言                                   |
+| `lang`                                                    | zh / en  | zh    | 文章语言（英文文章建议配 `<slug>-en.md` 命名） |
 | `description`                                             | string   | —     | 描述（SEO）                                |
 | `summary`                                                 | string   | —     | 摘要（卡片 / RSS）                         |
 | `upDate`                                                  | date     | —     | 更新日期                                   |
@@ -200,6 +209,7 @@ Callout 六种变体：tip / note / info / important / warning / danger
 | 热门文章    | `feature.ts` 中 `popular.enable=true`（需配置 `UMAMI_*` 环境变量抓取数据）             |
 | 图床缩略图  | `site.ts` 中 `imageService.transform.enable=true`（需在域名所在 zone 开启 Cloudflare Image Transformations） |
 | 友链申请    | `ui.ts` 中 `friendsPage.friendLinkApplyUrl` 填仓库 Issue 表单链接（配套 `.github/ISSUE_TEMPLATE/friend-link.yml` 与 `friend-link.yml` 工作流） |
+| IndexNow 推送 | 仓库 Secrets 配 `INDEXNOW_KEY`，并在 `public/<key>.txt` 放置同名验证文件（内容 = key，文件名 = key）即启用：部署完成后自动提交新/更新文章到 IndexNow 网络（Bing / Yandex / Seznam / Naver / Yep）。可选配 `BAIDU_TOKEN` 同步百度普通收录；本地可 `pnpm seo:indexnow --all` 手工全量推送、`--dry-run` 预览 |
 | GA 统计     | `feature.ts` 中 `ga` 填 GA-ID                                                          |
 | 图床        | `site.ts` 中 `imageService.baseUrl`（留空则封面回退本地占位图 `/cover.png`）          |
 | 捐赠页      | `feature.ts` 中 `donate.enable=true`（二维码图片置于 `src/assets/qr/`）               |
