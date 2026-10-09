@@ -167,9 +167,12 @@ function initShareUi() {
             nativeBtn?.classList.remove("share-visible");
             return;
         }
-        if (canNativeShare && coarsePointer) {
+        if (coarsePointer) {
+            // 触摸设备（手机/平板）：隐藏微信入口——同一部手机无法方便地"扫码"。
+            // 系统分享面板可用时显示系统分享按钮；不可用（部分安卓浏览器/WebView）时
+            // 同样不再把微信放在第一位，避免"移动端第一个还是微信"。
             wechatWrap?.classList.add("share-hidden");
-            nativeBtn?.classList.add("share-visible");
+            nativeBtn?.classList.toggle("share-visible", canNativeShare);
         } else {
             wechatWrap?.classList.remove("share-hidden");
             nativeBtn?.classList.remove("share-visible");
