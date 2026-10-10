@@ -36,9 +36,10 @@ export async function GET(context: { site: URL }) {
                 title: post.data.title as string,
                 pubDate,
                 description: (post.data.description as string) || (post.data.title as string),
+                categories: Array.isArray(post.data.tags) ? post.data.tags : [],
                 link: `/article/${post.id}/`,
                 content: descriptionHtml,
-                customData: `<wordCount>${wordCount}</wordCount><readTime>${readTime}</readTime><humanDate>${pubDate.toISOString().slice(0, 10)}</humanDate>`,
+                customData: `<humanDate>${pubDate.toISOString().slice(0, 10)}</humanDate><wordCount>${wordCount}</wordCount><readTime>${readTime}</readTime>`,
             };
         }),
     });

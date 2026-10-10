@@ -1,5 +1,3 @@
-import sanitizeHtml from "sanitize-html";
-import { marked } from "marked";
 import { getCollection } from "astro:content";
 import { formatPosts } from "~/utils/format-posts";
 import { site } from "~/config";
@@ -37,9 +35,7 @@ export async function GET(context: { site: URL }) {
             const pubDate =
                 post.data.pubDate instanceof Date ? post.data.pubDate : new Date(post.data.pubDate);
             const url = `${siteUrl}/en/article/${(post.id ?? "").replace(/-en$/, "")}/`;
-            const summaryHtml = sanitizeHtml(
-                marked.parse((post.data.description as string) || (post.data.title as string)),
-            );
+            const description = (post.data.description as string) || (post.data.title as string);
             return [
                 "  <entry>",
                 `    <title>${escapeXml(post.data.title as string)}</title>`,
@@ -47,7 +43,8 @@ export async function GET(context: { site: URL }) {
                 `    <id>${escapeXml(url)}</id>`,
                 `    <published>${pubDate.toISOString()}</published>`,
                 `    <updated>${pubDate.toISOString()}</updated>`,
-                `    <summary type="html">${escapeXml(summaryHtml)}</summary>`,
+                `    <preview:humanDate>${pubDate.toISOString().slice(0, 10)}</preview:humanDate>`,
+                `    <summary type="text">${escapeXml(description)}</summary>`,
                 "  </entry>",
             ].join("\n");
         })
@@ -55,7 +52,7 @@ export async function GET(context: { site: URL }) {
 
     const xml = [
         '<?xml version="1.0" encoding="utf-8"?>',
-        '<feed xmlns="http://www.w3.org/2005/Atom">',
+        '<feed xmlns="http://www.w3.org/2005/Atom" xmlns:preview="urn:feed-preview">',
         `  <title>${escapeXml(`${site.title} (English)`)}</title>`,
         `  <subtitle>${escapeXml(site.description)}</subtitle>`,
         `  <link href="${siteUrl}/en/" />`,
@@ -68,7 +65,13 @@ export async function GET(context: { site: URL }) {
         "",
     ].join("\n");
 
-    return new Response(xml, {
+    // 手动注入显式 type="text/css" 的预览样式表处理指令（XSLT 已被浏览器弃用；缺省 type 时部分浏览器不加载）
+    const xmlWithStylesheet = xml.replace(
+        "<feed",
+        `<?xml-stylesheet href="/assets/rss/styles.css" type="text/css"?><feed`,
+    );
+
+    return new Response(xmlWithStylesheet, {
         headers: { "Content-Type": "application/atom+xml; charset=utf-8" },
     });
 }

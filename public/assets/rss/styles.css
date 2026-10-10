@@ -1,12 +1,18 @@
 /* ==========================================================================
-   RSS Feed Preview — XML + CSS 样式表
+   Feed Preview — XML + CSS 样式表（RSS 2.0 / Atom 通用）
    --------------------------------------------------------------------------
    替代原 styles.xsl：XSLT 已被各浏览器弃用（Chrome 158 起停用，Firefox /
    WebKit 跟进），而 XML + CSS 处理指令继续受支持。
-   仅用于「在浏览器里直接打开 feed」时的预览渲染，RSS 阅读器完全不受影响。
-   配套：src/pages/rss.xml.ts 与 src/pages/en/rss.xml.ts 手动注入
-   <?xml-stylesheet href="/assets/rss/styles.css" type="text/css"?>
+   仅用于「在浏览器里直接打开 feed」时的预览渲染，订阅阅读器完全不受影响。
+   配套（手动注入显式 type="text/css" 的处理指令）：
+   - RSS ：src/pages/rss.xml.ts、src/pages/en/rss.xml.ts
+   - Atom：src/pages/atom.xml.ts、src/pages/en/atom.xml.ts
    ========================================================================== */
+
+/* Atom 扩展元素的命名空间（预览用日期字段；RFC 4287 允许的外来命名空间扩展元素） */
+@namespace preview "urn:feed-preview";
+
+/* ---------- 画布与容器 ---------- */
 
 rss {
     display: block;
@@ -15,50 +21,86 @@ rss {
     color: #2d2822;
 }
 
+/* Atom 的根元素即容器；根元素背景会传播到整个画布 */
+feed {
+    display: block;
+    box-sizing: border-box;
+    max-width: 768px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    background: #fbf8f4;
+    color: #2d2822;
+}
+
 channel {
     display: block;
-    max-width: 720px;
+    max-width: 768px;
     margin: 0 auto;
-    padding: 56px 20px 80px;
+    padding: 64px 24px 96px;
+}
+
+channel,
+feed {
     font-family:
         -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
         "Microsoft YaHei", Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.7;
+    counter-reset: feed-item;
 }
 
-/* 顶部标识 */
-channel::before {
-    display: block;
-    content: "RSS Feed Preview";
-    font-size: 12px;
-    letter-spacing: 0.14em;
+/* ---------- 顶部标识（pill 徽章） ---------- */
+
+channel::before,
+feed::before {
+    display: inline-block;
+    padding: 3px 12px;
+    border: 1px solid rgba(194, 65, 59, 0.35);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #635d59;
-    margin-bottom: 12px;
+    color: #c2413b;
+    margin: 0 0 20px;
 }
 
-/* 频道头部 */
-channel > title {
+channel::before {
+    content: "● RSS FEED";
+}
+
+feed::before {
+    content: "● ATOM FEED";
+}
+
+/* ---------- 频道头部（RSS） ---------- */
+
+channel > title,
+feed > title {
     display: block;
-    font-size: 30px;
+    font-size: 31px;
     font-weight: 700;
-    line-height: 1.35;
+    line-height: 1.32;
+    letter-spacing: -0.01em;
     color: #1a1714;
-    margin: 0 0 8px;
+    margin: 0 0 10px;
 }
 
-channel > description {
+channel > description,
+feed > subtitle {
     display: block;
+    max-width: 62ch;
+    font-size: 15.5px;
     color: #635d59;
-    margin: 0 0 12px;
+    margin: 0 0 10px;
 }
 
 channel > link {
     display: block;
-    font-size: 14px;
+    font-size: 13.5px;
     color: #c2413b;
-    margin: 0 0 40px;
+    margin: 0 0 44px;
     overflow-wrap: anywhere;
 }
 
@@ -66,125 +108,266 @@ channel > link::before {
     content: "→ ";
 }
 
-/* atom:link（无文本）不显示 */
+/* atom:link（无文本内容）不显示 */
 channel > link:empty {
     display: none;
 }
 
-/* 隐藏非展示用元素 */
-channel > item > guid {
+/* ---------- 头部（Atom） ---------- */
+
+feed > link {
+    display: block;
+    font-size: 13.5px;
+    color: #c2413b;
+    margin: 0 0 44px;
+    overflow-wrap: anywhere;
+}
+
+feed > link[rel="self"] {
     display: none;
 }
 
-/* content:encoded —— 阅读器专用（转义 HTML），预览不展示 */
-channel > item > encoded {
+feed > link::before {
+    content: "→ " attr(href);
+}
+
+feed > id,
+feed > updated,
+feed > generator {
     display: none;
 }
 
-/* 条目列表 */
-channel > item {
-    display: block;
-    padding: 22px 0 26px;
-    border-top: 1px solid rgba(45, 40, 34, 0.12);
+/* ---------- 条目（RSS item / Atom entry 通用） ---------- */
+
+channel > item,
+feed > entry {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 22px 16px 24px;
+    margin: 0 -16px;
+    border-top: 1px solid rgba(45, 40, 34, 0.13);
+    border-radius: 12px;
+    counter-increment: feed-item;
 }
 
-channel > item > title {
-    display: block;
-    font-size: 19px;
+channel > item:hover,
+feed > entry:hover {
+    background: rgba(194, 65, 59, 0.035);
+}
+
+channel > item > title,
+feed > entry > title {
+    flex: 1 1 100%;
+    order: 1;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1.5;
     color: #1a1714;
-    margin: 0 0 10px;
+    margin: 0 0 8px;
 }
 
-/* 条目链接：CSS 无法生成可点击链接，展示可复制 URL（accent 色提示这是目标地址） */
-channel > item > link {
-    display: block;
+channel > item > title::before,
+feed > entry > title::before {
+    content: counter(feed-item, decimal-leading-zero);
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 12.5px;
-    color: #c2413b;
-    overflow-wrap: anywhere;
-    margin: 0 0 10px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: rgba(194, 65, 59, 0.78);
+    margin-right: 10px;
 }
 
-channel > item > description {
-    display: block;
-    margin: 0 0 12px;
-}
-
-/* 日期 / 阅读信息行 */
-channel > item > pubDate {
-    display: none;
-}
-
-channel > item > humanDate {
-    display: inline;
-    font-size: 13px;
+/* 日期 / 阅读时长芯片 */
+channel > item > humanDate,
+channel > item > readTime,
+feed > entry > preview|humanDate {
+    flex: 0 0 auto;
+    order: 2;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: rgba(45, 40, 34, 0.055);
     color: #635d59;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 0 8px 8px 0;
 }
 
 channel > item > humanDate::before {
     content: "📅 ";
 }
 
-channel > item > wordCount {
-    display: inline;
-    font-size: 13px;
-    color: #635d59;
-}
-
-channel > item > wordCount::before {
-    content: " • 🔤 ";
-}
-
-channel > item > readTime {
-    display: inline;
-    font-size: 13px;
-    color: #635d59;
-}
-
 channel > item > readTime::before {
-    content: " • ⏱ ";
+    content: "⏱ ";
 }
 
-/* 暗色主题 */
+feed > entry > preview|humanDate::before {
+    content: "📅 ";
+}
+
+channel > item > description,
+feed > entry > summary {
+    flex: 1 1 100%;
+    order: 3;
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: #4a443f;
+    margin: 0 0 10px;
+}
+
+/* 标签芯片（RSS 的 <category>） */
+channel > item > category {
+    flex: 0 0 auto;
+    order: 4;
+    padding: 1px 9px;
+    border: 1px solid rgba(45, 40, 34, 0.16);
+    border-radius: 999px;
+    font-size: 11.5px;
+    color: #86807a;
+    margin: 0 6px 8px 0;
+}
+
+/* 条目 URL：CSS 无法生成可点击链接，展示可复制的地址 */
+channel > item > link,
+feed > entry > link {
+    flex: 1 1 100%;
+    order: 5;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    color: #b23a34;
+    overflow-wrap: anywhere;
+    user-select: all;
+    margin: 0;
+}
+
+channel > item > link::before {
+    content: "🔗 ";
+}
+
+feed > entry > link::before {
+    content: "🔗 " attr(href);
+}
+
+/* ---------- 隐藏的机器字段 ---------- */
+
+channel > item > guid,
+channel > item > pubDate,
+channel > item > encoded,
+channel > item > wordCount,
+feed > entry > id,
+feed > entry > published,
+feed > entry > updated {
+    display: none;
+}
+
+/* ---------- 页脚 ---------- */
+
+channel::after,
+feed::after {
+    display: block;
+    content: "END OF FEED";
+    text-align: center;
+    font-size: 10.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #b3aca5;
+    border-top: 1px solid rgba(45, 40, 34, 0.13);
+    margin-top: 48px;
+    padding-top: 26px;
+}
+
+/* ---------- 暗色主题 ---------- */
+
 @media (prefers-color-scheme: dark) {
-    rss {
+    rss,
+    feed {
         background: #1c1917;
         color: #e8e3de;
     }
 
-    channel::before {
-        color: #a8a19b;
+    channel::before,
+    feed::before {
+        color: #e8736a;
+        border-color: rgba(232, 115, 106, 0.4);
     }
 
-    channel > title {
+    channel > title,
+    feed > title,
+    channel > item > title,
+    feed > entry > title {
         color: #faf7f2;
     }
 
-    channel > description {
+    channel > description,
+    feed > subtitle {
         color: #a8a19b;
     }
 
-    channel > link {
+    channel > link,
+    feed > link,
+    channel > item > link,
+    feed > entry > link {
         color: #e8736a;
     }
 
-    channel > item {
-        border-color: rgba(232, 227, 222, 0.14);
+    channel > item,
+    feed > entry {
+        border-color: rgba(232, 227, 222, 0.16);
     }
 
-    channel > item > title {
-        color: #faf7f2;
+    channel > item:hover,
+    feed > entry:hover {
+        background: rgba(232, 115, 106, 0.05);
     }
 
-    channel > item > link {
-        color: #e8736a;
+    channel > item > title::before,
+    feed > entry > title::before {
+        color: rgba(232, 115, 106, 0.85);
     }
 
     channel > item > humanDate,
-    channel > item > wordCount,
-    channel > item > readTime {
+    channel > item > readTime,
+    feed > entry > preview|humanDate {
+        background: rgba(232, 227, 222, 0.1);
         color: #a8a19b;
+    }
+
+    channel > item > description,
+    feed > entry > summary {
+        color: #d3ccc5;
+    }
+
+    channel > item > category {
+        border-color: rgba(232, 227, 222, 0.22);
+        color: #a8a19b;
+    }
+
+    channel::after,
+    feed::after {
+        color: #6b645e;
+        border-color: rgba(232, 227, 222, 0.14);
+    }
+}
+
+/* ---------- 窄屏 ---------- */
+
+@media (max-width: 600px) {
+    channel,
+    feed {
+        padding: 40px 16px 64px;
+    }
+
+    channel > title,
+    feed > title {
+        font-size: 26px;
+    }
+
+    channel > item > title,
+    feed > entry > title {
+        font-size: 18px;
+    }
+
+    channel > link,
+    feed > link {
+        margin-bottom: 32px;
     }
 }
