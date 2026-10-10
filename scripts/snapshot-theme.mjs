@@ -65,7 +65,6 @@ const EXCLUDED_PATHS = [
     "scripts/check-personalization.mjs", // 个人仓门禁工具（快照无需携带）
     "scripts/snapshot-theme.mjs", // 本脚本自身
     "public/pagefind", // 构建期生成
-    "public/assets", // 个人内容图片
     "public/images", // 个人内容图片
     "public/qr", // 个人二维码目录
     "src/assets/coverimage", // 文章封面（个人资产）
@@ -84,8 +83,9 @@ const isExcluded = (rel, isDir) => {
             /^(BingSiteAuth\.xml|google[0-9a-z]+\.html|baidu_verify_.+\.html)$/i.test(base))
     )
         return true;
-    // 例外：RSS 预览样式表随主题分发（public/assets 其余部分为个人内容图片，继续排除）
-    if (rel.startsWith("public/assets/rss")) return false;
+    // public/assets：仅收 rss/（预览样式表，随主题分发）；其余（如 note/ 个人内容图片）排除。
+    // 注意：不能把 public/assets 整体放进 EXCLUDED_PATHS —— 父目录被排除后不会下钻，子目录例外无法生效。
+    if (rel.startsWith("public/assets/") && !rel.startsWith("public/assets/rss")) return true;
     if (!isDir) {
         if (rel === ".env" || (rel.startsWith(".env.") && rel !== ".env.example")) return true;
         if (rel.startsWith("src/content/article/")) return !ARTICLE_KEEP.has(base);
