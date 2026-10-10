@@ -74,6 +74,7 @@ jobs:
                   UMAMI_WEBSITE_ID: 73b29141-fccf-4d54-9c2f-f7d0d146f86b
                   UMAMI_USERNAME: ${{ secrets.UMAMI_USERNAME }}
                   UMAMI_PASSWORD: ${{ secrets.UMAMI_PASSWORD }}
+                  UMAMI_SHARE_SLUG: EIlCDPZqKiANCpuO
                   BANGUMI_USER_ID: "1246668"
                   DOUBAN_USER_ID: ${{ secrets.DOUBAN_USER_ID }}
                   ENCRYPTION_PASSWORD: ${{ secrets.ENCRYPTION_PASSWORD }}

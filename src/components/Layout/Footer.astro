@@ -1,7 +1,8 @@
 ---
-import { site, footerList } from "~/config";
+import { site, footerList, umami } from "~/config";
 import DynamicIcon from "../Icons/DynamicIcon.astro";
 import { getArticleStats } from "~/utils/article-stats";
+import siteStats from "~/data/site-stats.json";
 
 const currentYear = new Date().getFullYear();
 
@@ -23,6 +24,16 @@ const stats = [
     { label: "标签", value: formatNumber(totalTags), url: `${prefix}/tags/` },
     { label: "字数", value: formatNumber(totalWords), url: `${prefix}/archives/` },
 ];
+
+// 页脚 Umami 计数：构建期静态数字（site-stats.json）+ 访问时实时追平（scripts/umami-counter.ts）
+const showUmami = umami.enable && umami.umamiBaseUrl !== "" && umami.shareSlug !== "";
+const umamiSuffix = isEn ? "views" : "浏览";
+const umamiText =
+    typeof siteStats?.pageviews === "number" && siteStats.pageviews > 0
+        ? `${formatNumber(siteStats.pageviews)} ${umamiSuffix}`
+        : isEn
+          ? "analytics"
+          : "统计";
 ---
 
 <footer class="footer" role="contentinfo">
@@ -66,6 +77,31 @@ const stats = [
                 </a>
             ))
         }
+        {
+            showUmami && (
+                <a
+                    href={`${umami.umamiBaseUrl}/share/${umami.shareSlug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="tech-badge"
+                    aria-label={isEn ? "Umami site statistics" : "Umami 站点统计"}
+                >
+                    <span class="tech-badge__dot" aria-hidden="true" />
+                    <span class="tech-badge__text">
+                        Umami ·{" "}
+                        <span
+                            data-umami-counter
+                            data-umami-base={umami.umamiBaseUrl}
+                            data-umami-share={umami.shareSlug}
+                            data-umami-website={umami.umamiId}
+                            data-umami-suffix={umamiSuffix}
+                        >
+                            {umamiText}
+                        </span>
+                    </span>
+                </a>
+            )
+        }
     </div>
 
     <!-- Meta row -->
@@ -87,6 +123,10 @@ const stats = [
         }
     </div>
 </footer>
+
+<script>
+    import "~/scripts/umami-counter";
+</script>
 
 <style>
     .footer {
@@ -205,6 +245,11 @@ const stats = [
         background: var(--color-accent);
         opacity: 0.85;
         flex-shrink: 0;
+    }
+
+    /* Umami 计数：保持小写 k（与上方统计行一致），不参与徽章 uppercase 转换 */
+    .tech-badge [data-umami-counter] {
+        text-transform: none;
     }
 
     @media (hover: hover) {

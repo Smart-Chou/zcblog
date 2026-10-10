@@ -32,7 +32,7 @@
 - 🌍 **双语（内容级）**：zh-CN / en 完整 i18n；英文文章以 `<slug>-en.md`（`lang: en`）发布，自动路由 `/en/article/<slug>/`，翻译对互标 hreflang、语言切换器直达对照版，列表 / 归档 / 标签 / 相关文章 / 订阅源按语言隔离
 - 📝 **Markdown 增强**：Callout 容器、Tabs、图片网格、Mermaid / PlantUML / KaTeX / MathJax / Chart.js / Markmap、expressive-code 代码块（行号 / 折叠 / 复制）
 - 🖼 **图片**：本地资源或图床（可选），未配置时自动回退占位图
-- 💬 **可选能力**：Waline 评论、Umami 统计（含首页热门榜）、图床缩略图（Cloudflare Transformations）、友链申请自动化（GitHub Issue）、SEO 主动推送（IndexNow，部署后自动提交新/更新文章）、捐赠页、公告栏、水印、外链重定向（默认关闭，零侵入）
+- 💬 **可选能力**：Waline 评论、Umami 统计（含首页热门榜、可选页脚计数）、图床缩略图（Cloudflare Transformations）、友链申请自动化（GitHub Issue）、SEO 主动推送（IndexNow，部署后自动提交新/更新文章）、捐赠页、公告栏、水印、外链重定向（默认关闭，零侵入）
 - 📱 **PWA**：可安装、离线可读（Workbox 缓存）
 - 🧩 **数据页面**（全部可选）：随笔（Blinko）、豆瓣、Bangumi、相册、友链、服务页
 - 📐 **自带设计系统**：完整的设计规范文档（Design Tokens / 组件规则）→ [`docs/design-guide.md`](docs/design-guide.md)
@@ -207,6 +207,7 @@ Callout 六种变体：tip / note / info / important / warning / danger
 | Waline 评论 | `feature.ts` 中 `waline.enable=true` + 填 `serverUrl`（自建服务参考 Waline 官方文档） |
 | Umami 统计  | `feature.ts` 中 `umami.enable=true` + 服务地址与站点 ID                               |
 | 热门文章    | `feature.ts` 中 `popular.enable=true`（需配置 `UMAMI_*` 环境变量抓取数据）             |
+| 页脚计数 | `feature.ts` 中 `umami.shareSlug` 填网站公开 Share 链接的 slug（并 `umami.enable=true`）；页脚显示全站浏览量并链接统计页（构建期抓取 + 访问时实时追平） |
 | 图床缩略图  | `site.ts` 中 `imageService.transform.enable=true`（需在域名所在 zone 开启 Cloudflare Image Transformations） |
 | 友链申请    | `ui.ts` 中 `friendsPage.friendLinkApplyUrl` 填仓库 Issue 表单链接（配套 `.github/ISSUE_TEMPLATE/friend-link.yml` 与 `friend-link.yml` 工作流） |
 | IndexNow 推送 | 仓库 Secrets 配 `INDEXNOW_KEY`，并在 `public/<key>.txt` 放置同名验证文件（内容 = key，文件名 = key）即启用：部署完成后自动提交新/更新文章到 IndexNow 网络（Bing / Yandex / Seznam / Naver / Yep）。可选配 `BAIDU_TOKEN` 同步百度普通收录；本地可 `pnpm seo:indexnow --all` 手工全量推送、`--dry-run` 预览 |
@@ -229,6 +230,7 @@ Callout 六种变体：tip / note / info / important / warning / danger
 | `UMAMI_WEBSITE_ID`    | Umami 站点 ID（热门文章）          |
 | `UMAMI_USERNAME`      | Umami 只读账号用户名（热门文章）   |
 | `UMAMI_PASSWORD`      | Umami 只读账号密码（热门文章）     |
+| `UMAMI_SHARE_SLUG`    | 公开 Share 链接的 slug（页脚计数；无需账号） |
 | `ENCRYPTION_PASSWORD` | 加密文章密码（存在加密内容时必填） |
 | `BUILD_CONCURRENCY`   | 构建并发数（默认 CPU 核数；低内存机器可设 1） |
 

@@ -60,6 +60,7 @@ export interface UmamiConfig {
     enable: boolean; // 是否启用
     umamiBaseUrl: string; // Umami服务器地址
     umamiId: string; // Umami网站ID
+    shareSlug: string; // 公开 Share 链接 slug（页脚计数与统计入口；留空则页脚不显示）
 }
 
 /**
@@ -174,6 +175,7 @@ export const umami: UmamiConfig = {
     enable: false,
     umamiBaseUrl: "",
     umamiId: "",
+    shareSlug: "",
 };
 
 /**
