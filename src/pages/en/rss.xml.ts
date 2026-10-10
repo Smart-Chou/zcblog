@@ -12,7 +12,9 @@ export async function GET(context: { site: URL }) {
         ({ data }: { data: { lang?: string } }) => data.lang === "en",
     );
     const formattedBlogs = formatPosts(article);
-    return rss({
+    // 不通过 rss() 的 stylesheet 选项 —— 手动注入显式 type="text/css" 的处理指令：
+    // XSLT 已被各浏览器弃用（Chrome 158 起停用）；缺省 type 的 PI 各浏览器行为不一致，显式最稳。
+    const response = await rss({
         xmlns: { atom: "http://www.w3.org/2005/Atom" },
         title: `${site.title} (English)`,
         description: site.description,
@@ -34,9 +36,16 @@ export async function GET(context: { site: URL }) {
                 description: (post.data.description as string) || (post.data.title as string),
                 link: `/en/article/${(post.id ?? "").replace(/-en$/, "")}/`,
                 content: descriptionHtml,
-                customData: `<wordCount>${wordCount}</wordCount><readTime>${readTime}</readTime>`,
+                customData: `<wordCount>${wordCount}</wordCount><readTime>${readTime}</readTime><humanDate>${pubDate.toISOString().slice(0, 10)}</humanDate>`,
             };
         }),
-        stylesheet: "/assets/rss/styles.xsl",
     });
+    const xml = await response.text();
+    return new Response(
+        xml.replace(
+            /<rss\b/,
+            `<?xml-stylesheet href="/assets/rss/styles.css" type="text/css"?><rss`,
+        ),
+        { status: 200, headers: response.headers },
+    );
 }

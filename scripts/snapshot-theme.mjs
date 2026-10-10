@@ -84,6 +84,8 @@ const isExcluded = (rel, isDir) => {
             /^(BingSiteAuth\.xml|google[0-9a-z]+\.html|baidu_verify_.+\.html)$/i.test(base))
     )
         return true;
+    // 例外：RSS 预览样式表随主题分发（public/assets 其余部分为个人内容图片，继续排除）
+    if (rel.startsWith("public/assets/rss")) return false;
     if (!isDir) {
         if (rel === ".env" || (rel.startsWith(".env.") && rel !== ".env.example")) return true;
         if (rel.startsWith("src/content/article/")) return !ARTICLE_KEEP.has(base);

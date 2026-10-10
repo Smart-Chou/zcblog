@@ -1,0 +1,190 @@
+/* ==========================================================================
+   RSS Feed Preview — XML + CSS 样式表（marxchou.com）
+   --------------------------------------------------------------------------
+   替代原 styles.xsl：XSLT 已被各浏览器弃用（Chrome 158 起停用，Firefox /
+   WebKit 跟进），而 XML + CSS 处理指令继续受支持。
+   仅用于「在浏览器里直接打开 feed」时的预览渲染，RSS 阅读器完全不受影响。
+   配套：src/pages/rss.xml.ts 与 src/pages/en/rss.xml.ts 手动注入
+   <?xml-stylesheet href="/assets/rss/styles.css" type="text/css"?>
+   ========================================================================== */
+
+rss {
+    display: block;
+    min-height: 100vh;
+    background: #fbf8f4;
+    color: #2d2822;
+}
+
+channel {
+    display: block;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 20px 80px;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* 顶部标识 */
+channel::before {
+    display: block;
+    content: "RSS Feed Preview";
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #635d59;
+    margin-bottom: 12px;
+}
+
+/* 频道头部 */
+channel > title {
+    display: block;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #1a1714;
+    margin: 0 0 8px;
+}
+
+channel > description {
+    display: block;
+    color: #635d59;
+    margin: 0 0 12px;
+}
+
+channel > link {
+    display: block;
+    font-size: 14px;
+    color: #c2413b;
+    margin: 0 0 40px;
+    overflow-wrap: anywhere;
+}
+
+channel > link::before {
+    content: "→ ";
+}
+
+/* atom:link（无文本）不显示 */
+channel > link:empty {
+    display: none;
+}
+
+/* 隐藏非展示用元素 */
+channel > item > guid {
+    display: none;
+}
+
+/* content:encoded —— 阅读器专用（转义 HTML），预览不展示 */
+channel > item > encoded {
+    display: none;
+}
+
+/* 条目列表 */
+channel > item {
+    display: block;
+    padding: 22px 0 26px;
+    border-top: 1px solid rgba(45, 40, 34, 0.12);
+}
+
+channel > item > title {
+    display: block;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #1a1714;
+    margin: 0 0 10px;
+}
+
+/* 条目链接：CSS 无法生成可点击链接，展示可复制 URL（accent 色提示这是目标地址） */
+channel > item > link {
+    display: block;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    color: #c2413b;
+    overflow-wrap: anywhere;
+    margin: 0 0 10px;
+}
+
+channel > item > description {
+    display: block;
+    margin: 0 0 12px;
+}
+
+/* 日期 / 阅读信息行 */
+channel > item > pubDate {
+    display: none;
+}
+
+channel > item > humanDate {
+    display: inline;
+    font-size: 13px;
+    color: #635d59;
+}
+
+channel > item > humanDate::before {
+    content: "📅 ";
+}
+
+channel > item > wordCount {
+    display: inline;
+    font-size: 13px;
+    color: #635d59;
+}
+
+channel > item > wordCount::before {
+    content: " • 🔤 ";
+}
+
+channel > item > readTime {
+    display: inline;
+    font-size: 13px;
+    color: #635d59;
+}
+
+channel > item > readTime::before {
+    content: " • ⏱ ";
+}
+
+/* 暗色主题 */
+@media (prefers-color-scheme: dark) {
+    rss {
+        background: #1c1917;
+        color: #e8e3de;
+    }
+
+    channel::before {
+        color: #a8a19b;
+    }
+
+    channel > title {
+        color: #faf7f2;
+    }
+
+    channel > description {
+        color: #a8a19b;
+    }
+
+    channel > link {
+        color: #e8736a;
+    }
+
+    channel > item {
+        border-color: rgba(232, 227, 222, 0.14);
+    }
+
+    channel > item > title {
+        color: #faf7f2;
+    }
+
+    channel > item > link {
+        color: #e8736a;
+    }
+
+    channel > item > humanDate,
+    channel > item > wordCount,
+    channel > item > readTime {
+        color: #a8a19b;
+    }
+}
