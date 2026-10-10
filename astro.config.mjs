@@ -1,5 +1,8 @@
 import { defineConfig } from "astro/config";
 import os from "node:os";
+import { readdir, readFile, writeFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import { unified } from "@astrojs/markdown-remark";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
@@ -112,6 +115,30 @@ const pwaServiceWorker = {
             }
             await api.generateSW();
             logger.info("PWA: service worker (sw.js) generated");
+        },
+    },
+};
+
+// ── Sitemap 预览样式 ──────────────────────────────────────────────────────────
+// @astrojs/sitemap 的 xslURL 只会输出 text/xsl（XSLT 已被各浏览器弃用），
+// 这里在构建收尾统一注入显式 type="text/css" 的预览样式处理指令（与 feed 预览同款方案）。
+// 必须排在 integrations 中 sitemap() 之后：其写盘发生在 astro:build:done。
+const sitemapPreviewStylesheet = {
+    name: "sitemap-preview-stylesheet",
+    hooks: {
+        "astro:build:done": async ({ dir, logger }) => {
+            const distDir = fileURLToPath(dir);
+            const pi = '<?xml-stylesheet href="/assets/rss/styles.css" type="text/css"?>';
+            let patched = 0;
+            for (const name of await readdir(distDir)) {
+                if (!/^sitemap(-\d+)?\.xml$/.test(name) && name !== "sitemap-index.xml") continue;
+                const file = join(distDir, name);
+                const xml = await readFile(file, "utf8");
+                if (xml.includes("xml-stylesheet")) continue;
+                await writeFile(file, xml.replace(/(<\?xml[^>]*\?>)/, `$1${pi}`));
+                patched += 1;
+            }
+            if (patched > 0) logger.info(`sitemap 预览样式：已注入 ${patched} 个文件`);
         },
     },
 };
@@ -238,6 +265,7 @@ export default defineConfig({
             viewTransitionsFallback: "animate",
         }),
         pwaServiceWorker,
+        sitemapPreviewStylesheet,
     ],
     image: {
         layout: "constrained",

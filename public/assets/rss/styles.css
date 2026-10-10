@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Feed Preview — XML + CSS 样式表（RSS 2.0 / Atom 通用）
+   Feed Preview — XML + CSS 样式表（RSS 2.0 / Atom / Sitemap 通用）
    --------------------------------------------------------------------------
    替代原 styles.xsl：XSLT 已被各浏览器弃用（Chrome 158 起停用，Firefox /
    WebKit 跟进），而 XML + CSS 处理指令继续受支持。
@@ -7,6 +7,7 @@
    配套（手动注入显式 type="text/css" 的处理指令）：
    - RSS ：src/pages/rss.xml.ts、src/pages/en/rss.xml.ts
    - Atom：src/pages/atom.xml.ts、src/pages/en/atom.xml.ts
+   - Sitemap：构建收尾由 astro.config 的 sitemapPreviewStylesheet 注入
    ========================================================================== */
 
 /* Atom 扩展元素的命名空间（预览用日期字段；RFC 4287 允许的外来命名空间扩展元素） */
@@ -369,5 +370,154 @@ feed::after {
     channel > link,
     feed > link {
         margin-bottom: 32px;
+    }
+}
+
+/* ---------- Sitemap 预览（sitemap-0.xml / sitemap-index.xml） ---------- */
+
+urlset,
+sitemapindex {
+    display: block;
+    box-sizing: border-box;
+    max-width: 768px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    background: #fbf8f4;
+    color: #2d2822;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    counter-reset: feed-item;
+}
+
+urlset::before,
+sitemapindex::before {
+    display: inline-block;
+    padding: 3px 12px;
+    border: 1px solid rgba(194, 65, 59, 0.35);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c2413b;
+    margin: 0 0 20px;
+}
+
+urlset::before {
+    content: "● SITEMAP";
+}
+
+sitemapindex::before {
+    content: "● SITEMAP INDEX";
+}
+
+urlset > url,
+sitemapindex > sitemap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 18px 16px 20px;
+    margin: 0 -16px;
+    border-top: 1px solid rgba(45, 40, 34, 0.13);
+    border-radius: 12px;
+    counter-increment: feed-item;
+}
+
+urlset > url:hover,
+sitemapindex > sitemap:hover {
+    background: rgba(194, 65, 59, 0.035);
+}
+
+urlset > url > loc,
+sitemapindex > sitemap > loc {
+    flex: 1 1 100%;
+    order: 1;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+    color: #b23a34;
+    overflow-wrap: anywhere;
+    user-select: all;
+    margin: 0;
+}
+
+urlset > url > loc::before,
+sitemapindex > sitemap > loc::before {
+    content: counter(feed-item, decimal-leading-zero);
+    font-size: 12px;
+    color: rgba(194, 65, 59, 0.78);
+    margin-right: 10px;
+    letter-spacing: 0.04em;
+}
+
+/* hreflang 交替链接等机器字段不展示 */
+urlset > url > link,
+urlset > url > lastmod,
+urlset > url > changefreq,
+urlset > url > priority {
+    display: none;
+}
+
+urlset::after,
+sitemapindex::after {
+    display: block;
+    content: "END OF SITEMAP";
+    text-align: center;
+    font-size: 10.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #b3aca5;
+    border-top: 1px solid rgba(45, 40, 34, 0.13);
+    margin-top: 48px;
+    padding-top: 26px;
+}
+
+@media (prefers-color-scheme: dark) {
+    urlset,
+    sitemapindex {
+        background: #1c1917;
+        color: #e8e3de;
+    }
+
+    urlset::before,
+    sitemapindex::before {
+        color: #e8736a;
+        border-color: rgba(232, 115, 106, 0.4);
+    }
+
+    urlset > url,
+    sitemapindex > sitemap {
+        border-color: rgba(232, 227, 222, 0.16);
+    }
+
+    urlset > url:hover,
+    sitemapindex > sitemap:hover {
+        background: rgba(232, 115, 106, 0.05);
+    }
+
+    urlset > url > loc,
+    sitemapindex > sitemap > loc {
+        color: #e8736a;
+    }
+
+    urlset > url > loc::before,
+    sitemapindex > sitemap > loc::before {
+        color: rgba(232, 115, 106, 0.85);
+    }
+
+    urlset::after,
+    sitemapindex::after {
+        color: #6b645e;
+        border-color: rgba(232, 227, 222, 0.14);
+    }
+}
+
+@media (max-width: 600px) {
+    urlset,
+    sitemapindex {
+        padding: 40px 16px 64px;
     }
 }

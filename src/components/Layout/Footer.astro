@@ -27,13 +27,10 @@ const stats = [
 
 // 页脚 Umami 计数：构建期静态数字（site-stats.json）+ 访问时实时追平（scripts/umami-counter.ts）
 const showUmami = umami.enable && umami.umamiBaseUrl !== "" && umami.shareSlug !== "";
-const umamiSuffix = isEn ? "views" : "浏览";
-const umamiText =
+const umamiViews =
     typeof siteStats?.pageviews === "number" && siteStats.pageviews > 0
-        ? `${formatNumber(siteStats.pageviews)} ${umamiSuffix}`
-        : isEn
-          ? "analytics"
-          : "统计";
+        ? formatNumber(siteStats.pageviews)
+        : null;
 ---
 
 <footer class="footer" role="contentinfo">
@@ -88,16 +85,20 @@ const umamiText =
                 >
                     <span class="tech-badge__dot" aria-hidden="true" />
                     <span class="tech-badge__text">
-                        Umami ·{" "}
-                        <span
-                            data-umami-counter
-                            data-umami-base={umami.umamiBaseUrl}
-                            data-umami-share={umami.shareSlug}
-                            data-umami-website={umami.umamiId}
-                            data-umami-suffix={umamiSuffix}
-                        >
-                            {umamiText}
-                        </span>
+                        {"Umami · Analytics"}
+                        {umamiViews && (
+                            <>
+                                {" · "}
+                                <span
+                                    data-umami-counter
+                                    data-umami-base={umami.umamiBaseUrl}
+                                    data-umami-share={umami.shareSlug}
+                                    data-umami-website={umami.umamiId}
+                                >
+                                    {umamiViews}
+                                </span>
+                            </>
+                        )}
                     </span>
                 </a>
             )

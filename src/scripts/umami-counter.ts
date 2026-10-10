@@ -22,14 +22,13 @@ async function refresh(): Promise<void> {
     const base = el.dataset.umamiBase?.replace(/\/+$/, "");
     const slug = el.dataset.umamiShare;
     const website = el.dataset.umamiWebsite;
-    const suffix = el.dataset.umamiSuffix || "views";
     if (!base || !slug || !website) return;
 
     // 会话缓存：成功后本会话内直接复用，避免每次导航重复请求
     const cacheKey = `zcblog:umami-views:${slug}`;
     const cached = sessionStorage.getItem(cacheKey);
     if (cached) {
-        el.textContent = `${cached} ${suffix}`;
+        el.textContent = cached;
         return;
     }
     if (inflight) return;
@@ -54,9 +53,9 @@ async function refresh(): Promise<void> {
         const stats = (await statsRes.json()) as { pageviews?: number };
         if (typeof stats.pageviews !== "number" || stats.pageviews <= 0) return;
 
-        sessionStorage.setItem(cacheKey, String(stats.pageviews));
+        sessionStorage.setItem(cacheKey, formatNumber(stats.pageviews));
         const el2 = document.querySelector<HTMLElement>("[data-umami-counter]");
-        if (el2) el2.textContent = `${formatNumber(stats.pageviews)} ${suffix}`;
+        if (el2) el2.textContent = formatNumber(stats.pageviews);
     } catch {
         /* 静默：保留构建期数字 */
     } finally {
