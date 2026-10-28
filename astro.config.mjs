@@ -28,6 +28,8 @@ import { loadEnvFile } from "./scripts/lib/env.mjs";
 loadEnvFile();
 import { remarkEncrypted } from "./src/remark-plugin/remark-encrypted.ts";
 import { rehypeEncrypted } from "./src/remark-plugin/rehype-encrypted.ts";
+import { remarkPaid } from "./src/remark-plugin/remark-paid.ts";
+import { rehypePaid } from "./src/remark-plugin/rehype-paid.ts";
 import expressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
@@ -49,6 +51,8 @@ import { VitePWA } from "vite-plugin-pwa";
 // 这里在 astro:build:done 阶段显式调用插件的 api.generateSW() 补上生成步骤；
 // 该 integration 放在 integrations 末尾，确保 precache 清单收录 pagefind/og 等
 // 构建收尾产物。2026-10-03 修复。
+const siteUrlEscaped = siteCfg.url.replace(/\/+$/, "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 const pwaPlugins = VitePWA({
     registerType: "autoUpdate",
     workbox: {
@@ -58,10 +62,13 @@ const pwaPlugins = VitePWA({
         globPatterns: ["**/*.{html,js,css,woff2,woff,svg,ico}"],
         runtimeCaching: [
             {
-                // 与站点同源的页面请求（由 site.url 派生，避免硬编码域名）
-                urlPattern: new RegExp(
-                    `^${siteCfg.url.replace(/\/+$/, "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/.*`,
-                ),
+                // 付费接口绝不能进 SW 缓存：这里返回文章密钥与会话
+                urlPattern: new RegExp(`^${siteUrlEscaped}/api/`),
+                handler: "NetworkOnly",
+            },
+            {
+                // 与站点同源的页面请求（由 site.url 派生，避免硬编码域名）；排除 /api/
+                urlPattern: new RegExp(`^${siteUrlEscaped}/(?!api/).*`),
                 handler: "StaleWhileRevalidate",
                 options: {
                     cacheName: "pages-cache",
@@ -177,6 +184,7 @@ export default defineConfig({
                 remarkGithubCard,
                 remarkTabs,
                 remarkEncrypted,
+                remarkPaid,
             ],
             rehypePlugins: [
                 rehypeKatex,
@@ -185,6 +193,7 @@ export default defineConfig({
                 [rehypeAutolinkHeadings, { behavior: "append" }], // 标题添加锚点
                 [rehypeComponents, { components: { github: GithubCardComponent } }],
                 rehypeEncrypted,
+                rehypePaid,
             ],
         }),
     },

@@ -6,6 +6,7 @@ interface Props {
     description: string;
     image: string;
     modifiedTime?: Date | string;
+    paid?: boolean;
 }
 
 const currentPath = Astro.url.pathname;
@@ -14,7 +15,7 @@ if (/^\/(en\/)?article\//.test(currentPath) && currentPath.split("/").length > 3
     ldJson = "article";
 }
 
-const { title, description, image, modifiedTime } = Astro.props;
+const { title, description, image, modifiedTime, paid = false } = Astro.props;
 
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 
@@ -47,6 +48,16 @@ const ldJsonSchema = {
     image: image,
     url: pageUrl,
     ...(safeDateModified ? { dateModified: safeDateModified } : {}),
+    ...(paid && ldJson === "article"
+        ? {
+              isAccessibleForFree: false,
+              hasPart: {
+                  "@type": "WebPageElement",
+                  isAccessibleForFree: false,
+                  cssSelector: ".paid-gate",
+              },
+          }
+        : {}),
     author: {
         "@type": "Person",
         name: author.type,

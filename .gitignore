@@ -55,5 +55,10 @@ src/content/article/
 tasks/
 scripts/check-content-sync.py
 
+# 付费阅读（本地）
+paid-keys/
+workers/paid-gateway/dev-kv.json
+workers/paid-gateway/.wrangler/
+
 # 主题快照输出（若生成到仓库内）
 theme-snapshot/

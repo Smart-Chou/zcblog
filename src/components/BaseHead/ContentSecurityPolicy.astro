@@ -10,6 +10,8 @@ const extraOrigins = [
 const connectSrc = [
     "'self'",
     ...extraOrigins,
+    // 本地联调：付费 Worker dev server（生产构建不会包含）
+    ...(import.meta.env.DEV ? ["http://127.0.0.1:8788", "http://localhost:8788"] : []),
     "https://v1.hitokoto.cn",
     "https://api.github.com",
     "https://cdn.jsdelivr.net",

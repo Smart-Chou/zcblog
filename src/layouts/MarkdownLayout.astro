@@ -3,6 +3,7 @@ import { getAllArticles } from "~/utils/article-stats";
 import { sortByPubDate } from "~/utils/date-utils";
 import { getAdjacentPosts } from "~/utils/adjacent-posts";
 import "~/styles/remark-aside.css";
+import "~/styles/paid.css";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 import BaseLayout from "~/layouts/BaseLayout.astro";
@@ -109,6 +110,7 @@ const firstTag = currentTags[0] || "";
     noindex={noindex}
     noEnAlternate={noEnAlternate}
     locale={isEn ? "en" : "zh"}
+    paid={Boolean(frontmatter.paid)}
 >
     <div class="reading-progress"></div>
     <div class="post-title">
@@ -122,6 +124,7 @@ const firstTag = currentTags[0] || "";
             readTime={readTime}
             currentSlug={slug}
         />
+        {frontmatter.paid && <div class="paid-badge">🔒 付费阅读 · ¥{frontmatter.paid.price}</div>}
     </div>
     <div class="post-card content-box">
         <div class="post-header">
@@ -238,6 +241,7 @@ const firstTag = currentTags[0] || "";
 </style>
 
 {frontmatter.fancybox !== false && <script>import "~/scripts/fancybox-handler.ts";</script>}
+{frontmatter.paid && <script>import "~/scripts/paid-client";</script>}
 {frontmatter.markmap && <script>import "~/scripts/markmap-renderer.ts";</script>}
 {frontmatter.chart && <script>import "~/scripts/chart-renderer.ts";</script>}
 {frontmatter.reveal && <script>import "~/scripts/reveal-renderer.ts";</script>}

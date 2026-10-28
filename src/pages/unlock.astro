@@ -1,0 +1,50 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { site } from "~/config";
+import "~/styles/paid.css";
+
+const next = Astro.url.searchParams.get("next") || "";
+const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "";
+---
+
+<BaseLayout
+    title={`解锁付费内容 - ${site.title}`}
+    description="输入爱发电订单私信中的激活码，解锁付费文章。"
+    noindex={true}
+    showSidebar={false}
+>
+    <div class="paid-unlock-card" data-paid-unlock-page>
+        <h1>解锁付费内容</h1>
+        <p>
+            在爱发电购买后，激活码会发送到你的爱发电私信。一码最多 3 台设备，解锁后 90 天内免输码。
+        </p>
+        <form class="paid-unlock-form" data-paid-unlock-form>
+            <input
+                class="paid-input"
+                type="text"
+                inputmode="text"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="输入激活码，如 Z7K4-9QMX-3TWP-8R2N"
+                data-paid-unlock-input
+                aria-label="激活码"
+            />
+            <button class="paid-submit" type="submit" data-paid-unlock-submit>解锁</button>
+        </form>
+        <p class="paid-unlock-status" data-paid-unlock-status role="status"></p>
+        <p class="paid-note">
+            找不到激活码？到爱发电「我的订单 / 私信」查看；仍未收到可在博客留言或邮件联系我。
+        </p>
+        {
+            safeNext && (
+                <p class="paid-note">
+                    解锁后将返回：<code>{safeNext}</code>
+                </p>
+            )
+        }
+    </div>
+</BaseLayout>
+
+<script>
+    import "~/scripts/paid-client";
+</script>

@@ -1,0 +1,13 @@
+{
+    "name": "zcblog-paid-gateway",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "node dev-server.mjs",
+        "test": "node --test test/",
+        "deploy": "wrangler deploy"
+    },
+    "devDependencies": {
+        "wrangler": "^4.0.0"
+    }
+}

@@ -28,6 +28,7 @@ interface Props {
     noEnAlternate?: boolean;
     showSidebar?: boolean;
     template?: "default" | "splash" | "doc";
+    paid?: boolean;
 }
 
 const {
@@ -49,6 +50,7 @@ const {
     noEnAlternate = false,
     showSidebar = false,
     template = "default",
+    paid = false,
 } = Astro.props;
 
 const isSplash = template === "splash";
@@ -74,6 +76,7 @@ const lang = locale === "en" ? "en" : "zh-CN";
         nextUrl={nextUrl}
         noindex={noindex}
         noEnAlternate={noEnAlternate}
+        paid={paid}
     />
     <body>
         <a href="#main-content" class="skip-link"

@@ -31,6 +31,7 @@ const postMetaCache = new Map<string, PostMeta>();
 export function getPostsWithMeta(post: Post): PostMeta {
     const postId = post.slug || post.id;
     const frontmatterDescription = post.data?.description || "";
+    const isPaid = Boolean(post.data?.paid);
 
     // 检查缓存
     if (postMetaCache.has(postId)) {
@@ -51,12 +52,14 @@ export function getPostsWithMeta(post: Post): PostMeta {
     // 优先使用 post.body（如果可用），避免文件系统读取
     let content: string | null = null;
 
-    if (post.body) {
-        content = post.body;
-    } else {
-        // 回退到文件系统读取
-        const fileData = readMetadata(postId);
-        content = fileData.content;
+    if (!isPaid) {
+        if (post.body) {
+            content = post.body;
+        } else {
+            // 回退到文件系统读取
+            const fileData = readMetadata(postId);
+            content = fileData.content;
+        }
     }
 
     // 确定 modifiedTime，优先级：frontmatter upDate > git 提交时间 > 文件系统 mtime > 当前时间
@@ -65,6 +68,21 @@ export function getPostsWithMeta(post: Post): PostMeta {
     const gitDate = getGitCommitDate(filePath);
     const fallbackMtime = gitDate ?? new Date();
     const mtime: Date | string = frontmatterUpDate ?? gitDate ?? fallbackMtime;
+
+    // 付费文章：摘要只用 frontmatter description，绝不从正文截取（防止列表页泄漏开头）；
+    // 字数/阅读时长仍按全文统计
+    if (isPaid) {
+        const paidBody = post.body || readMetadata(postId).content || frontmatterDescription;
+        const stats = calculateStats(paidBody);
+        const paidResult: PostMeta = {
+            wordCount: stats.wordCount,
+            readTime: stats.readTime,
+            modifiedTime: mtime,
+            excerpt: frontmatterDescription || "N/A",
+        };
+        postMetaCache.set(postId, paidResult);
+        return paidResult;
+    }
 
     if (!content) {
         console.error(`Error accessing content for post: ${post.id}`);

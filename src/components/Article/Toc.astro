@@ -24,7 +24,7 @@ import "~/styles/toc.css";
                 enableUrlHashUpdateOnScroll: false,
                 collapseDepth: 2,
                 includeTitleTags: false,
-                ignoreSelector: ".toc-ignore",
+                ignoreSelector: ".toc-ignore, .paid-gate h3",
             });
 
             // tocbot 点击 TOC 链接时用 pushState 更新 hash，会产生历史记录
@@ -88,6 +88,18 @@ import "~/styles/toc.css";
             requestAnimationFrame(() => {
                 updateActivePath();
             });
+
+            // 付费内容解锁后，正文标题才进 DOM：重新扫描目录（paid-client 会派发此事件）
+            document.addEventListener(
+                "paid:unlocked",
+                () => {
+                    requestAnimationFrame(() => {
+                        tocbot.refresh();
+                        requestAnimationFrame(updateActivePath);
+                    });
+                },
+                { signal: tocAbortController.signal },
+            );
 
             // ---- Hover 时阻止页面滚动，只滚目录 ----
             tocContent.addEventListener(

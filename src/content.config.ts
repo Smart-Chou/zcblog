@@ -49,6 +49,15 @@ const article = defineCollection({
             reveal: z.boolean().default(false).optional(),
             fancybox: z.boolean().default(true).optional(),
             tabs: z.boolean().default(true).optional(),
+            paid: z
+                .object({
+                    price: z.number().positive(),
+                    productUrl: z.string().url(),
+                    productName: z.string().optional(),
+                    slug: z.string().optional(),
+                })
+                .nullable()
+                .optional(),
         }),
 });
 

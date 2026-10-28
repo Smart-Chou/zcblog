@@ -30,6 +30,7 @@ interface Props {
     nextUrl?: string | null;
     noindex?: boolean;
     noEnAlternate?: boolean;
+    paid?: boolean;
 }
 
 const {
@@ -47,6 +48,7 @@ const {
     nextUrl,
     noindex = false,
     noEnAlternate = false,
+    paid = false,
 } = Astro.props;
 ---
 
@@ -134,7 +136,13 @@ const {
     <Twitter title={title} description={description} image={image} imageAlt={imageAlt} />
     <Robots noindex={noindex} />
     <Favicon />
-    <JsonLd title={title} description={description} image={image} modifiedTime={modifiedTime} />
+    <JsonLd
+        title={title}
+        description={description}
+        image={image}
+        modifiedTime={modifiedTime}
+        paid={paid}
+    />
     <Analytics />
     <KatexManager mathjax={mathjax} katex={katex} />
     <Scripts mathjax={mathjax} katex={katex} mermaid={mermaid} />

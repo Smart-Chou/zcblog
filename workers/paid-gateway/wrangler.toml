@@ -1,0 +1,20 @@
+# zcblog-paid Worker（本地部署用，不经过 GitHub Actions）
+name = "zcblog-paid"
+main = "src/index.js"
+compatibility_date = "2026-10-27"
+
+# 部署前把 id 换成 `npx wrangler kv namespace create PAID_KV` 返回的 id
+[[kv_namespaces]]
+binding = "PAID_KV"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# 只拦截 /api/pay/*，其余请求继续回源 GitHub Pages
+routes = [
+  { pattern = "marxchou.com/api/pay/*", zone_name = "marxchou.com" }
+]
+
+[vars]
+ALLOWED_ORIGIN = "https://marxchou.com"
+
+# Secret（不要写在这里）：
+#   npx wrangler secret put PAID_MASTER_KEY
