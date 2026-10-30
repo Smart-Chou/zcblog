@@ -54,6 +54,16 @@ const {
 const isEnPage = Astro.url.pathname.startsWith("/en/");
 const articlePrefix = isEnPage ? "/en/article" : "/article";
 
+/**
+ * features[] → 渲染开关（G4 / A13）
+ * v4 契约把 6 个 render 布尔键合并成 features[]，模板这里做一次映射。
+ * 89 篇已全部迁移，故不再回退旧的 mathjax/mermaid 布尔键（D-0045）。
+ */
+const features: string[] = frontmatter.features ?? [];
+const hasMathjax = features.includes("mathjax");
+const hasKatex = features.includes("katex");
+const hasMermaid = features.includes("mermaid");
+
 const { prev: prevSlug, next: nextSlug } = await getAdjacentPosts(slug, isEnPage ? "en" : "zh");
 const toArticleUrl = (id: string) => `${articlePrefix}/${isEnPage ? id.replace(/-en$/, "") : id}/`;
 const prevUrl = prevSlug ? toArticleUrl(prevSlug) : null;
@@ -101,9 +111,9 @@ const firstTag = currentTags[0] || "";
     keywords={frontmatter.tags}
     publishedTime={publishedTime}
     modifiedTime={modifiedTime}
-    mathjax={frontmatter.mathjax}
-    katex={frontmatter.katex}
-    mermaid={frontmatter.mermaid}
+    mathjax={hasMathjax}
+    katex={hasKatex}
+    mermaid={hasMermaid}
     prevUrl={prevUrl}
     nextUrl={nextUrl}
     noindex={noindex}
@@ -168,7 +178,7 @@ const firstTag = currentTags[0] || "";
     {frontmatter.donate && donate.enable && <Donate locale={locale} />}
     {frontmatter.author && postView.author && <Author />}
     {frontmatter.waline && waline.enable && <WalineComment locale={locale} />}
-    {frontmatter.mermaid && <MermaidRenderer />}
+    {hasMermaid && <MermaidRenderer />}
 </BaseLayout>
 
 <style>
