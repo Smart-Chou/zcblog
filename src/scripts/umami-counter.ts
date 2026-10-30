@@ -15,6 +15,22 @@ function formatNumber(num: number): string {
 
 let inflight = false;
 
+/**
+ * 延迟到浏览器空闲再拉计数（G4 / S3）
+ * 之前是模块加载即发请求，PSI 关键路径里这两个请求占了 8.2s——一个页脚数字不该挡首屏。
+ * 构建期已渲染静态值，用户看到的数字不会空。
+ */
+function schedule(fn: () => void): void {
+    const w = window as unknown as {
+        requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+    };
+    if (typeof w.requestIdleCallback === "function") {
+        w.requestIdleCallback(fn, { timeout: 6000 });
+    } else {
+        setTimeout(fn, 3000);
+    }
+}
+
 async function refresh(): Promise<void> {
     const el = document.querySelector<HTMLElement>("[data-umami-counter]");
     if (!el) return;
@@ -67,10 +83,10 @@ async function refresh(): Promise<void> {
 const umamiGlobal = window as unknown as { __zcblogUmamiCounterBound?: boolean };
 if (!umamiGlobal.__zcblogUmamiCounterBound) {
     umamiGlobal.__zcblogUmamiCounterBound = true;
-    document.addEventListener("astro:page-load", () => void refresh());
+    document.addEventListener("astro:page-load", () => schedule(() => void refresh()));
 }
 if (document.readyState !== "loading") {
-    void refresh();
+    schedule(() => void refresh());
 } else {
-    document.addEventListener("DOMContentLoaded", () => void refresh());
+    document.addEventListener("DOMContentLoaded", () => schedule(() => void refresh()));
 }
