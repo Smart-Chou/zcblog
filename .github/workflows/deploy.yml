@@ -102,3 +102,25 @@ jobs:
                   INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
                   BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
               run: node scripts/indexnow-submit.mjs || echo "⚠️ IndexNow 提交失败（不影响部署）"
+
+            # 清 Cloudflare 边缘缓存（D-0047）：HTML 现为 edge 300s，不发 purge 的话
+            # 发版后最多 5 分钟读者仍看到旧页。未配置 CF_ZONE_ID / CF_PURGE_TOKEN 时跳过。
+            - name: Purge Cloudflare cache
+              if: github.ref == 'refs/heads/main'
+              env:
+                  CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+                  CF_PURGE_TOKEN: ${{ secrets.CF_PURGE_TOKEN }}
+              run: |
+                  if [ -z "$CF_ZONE_ID" ] || [ -z "$CF_PURGE_TOKEN" ]; then
+                    echo "⚠️ 未配置 CF_ZONE_ID / CF_PURGE_TOKEN，跳过 purge"
+                    exit 0
+                  fi
+                  code=$(curl -s -o /tmp/purge.json -w '%{http_code}' -X POST \
+                    "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
+                    -H "Authorization: Bearer $CF_PURGE_TOKEN" \
+                    -H "Content-Type: application/json" \
+                    -d '{"purge_everything":true}')
+                  cat /tmp/purge.json
+                  if [ "$code" != "200" ]; then
+                    echo "⚠️ purge 失败 HTTP $code（不影响部署，最坏 5 分钟后自动过期）"
+                  fi
