@@ -47,6 +47,7 @@ src/assets/coverimage/
 src/assets/pagefind-search-practice-illustrations/
 src/assets/chrome-zoom-bug-git-bisect-illustrations/
 src/assets/blog-seo-practice-illustrations/
+src/assets/note/
 
 # Articles (private submodule, checked out in CI)
 src/content/article/
