@@ -49,6 +49,7 @@
         "@expressive-code/plugin-line-numbers": "^0.41.7",
         "@fancyapps/ui": "^6.1.15",
         "@pagefind/component-ui": "^1.5.2",
+        "@swup/astro": "^1.8.0",
         "@tailwindcss/vite": "^4.3.3",
         "@waline/client": "^3.16.0",
         "astro": "^7.3.6",

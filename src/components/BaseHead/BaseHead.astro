@@ -13,7 +13,6 @@ import SeoLinks from "~/components/BaseHead/SeoLinks.astro";
 import FontPreload from "~/components/BaseHead/FontPreload.astro";
 import ExternalResources from "~/components/BaseHead/ExternalResources.astro";
 import ContentSecurityPolicy from "~/components/BaseHead/ContentSecurityPolicy.astro";
-import { ClientRouter } from "astro:transitions";
 
 interface Props {
     title: string;
@@ -138,7 +137,6 @@ const {
     <Analytics />
     <KatexManager mathjax={mathjax} katex={katex} />
     <Scripts mathjax={mathjax} katex={katex} mermaid={mermaid} />
-    <ClientRouter fallback="none" />
 
     <SeoLinks prevUrl={prevUrl} nextUrl={nextUrl} noEnAlternate={noEnAlternate} />
     <FontPreload />

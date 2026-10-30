@@ -42,6 +42,7 @@ import rehypeCallouts from "rehype-callouts";
 import astroVtBot from "astro-vtbot";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
+import swup from "@swup/astro";
 
 // ── PWA ──────────────────────────────────────────────────────────────────────
 // Astro 7（Vite 7 环境模型）下，vite-plugin-pwa 自身的 closeBundle 不会在 client
@@ -190,6 +191,20 @@ export default defineConfig({
     },
     integrations: [
         redirectAttributeByLink(),
+        // 站内导航过渡（D-0049）：swup core 9.0KB gz + scroll-plugin 3.8KB gz，
+        // 替代已移除的 ClientRouter（98.5KB gz）。容器取 <main>，导航/页脚不动。
+        swup({
+            theme: "fade",
+            containers: ["main"],
+            cache: true,
+            preload: true,
+            accessibility: true,
+            smoothScrolling: true,
+            updateHead: true,
+            reloadScripts: true,
+            loadOnIdle: false,
+            globalInstance: true,
+        }),
         ogImage(),
         sitemap({
             // 多语言站点地图配置
