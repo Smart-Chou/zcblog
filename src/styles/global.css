@@ -1,9 +1,3 @@
-/* Expressive Code 行号：主题默认 #727980 在 #24292e 上只有 3.3:1（A8）
-   必须 !important：EC 在 .expressive-code 上声明了同名变量，:root 的普通声明会被就近作用域压掉 */
-:root {
-    --ec-lineNumbers-fg: #8b949e !important;
-}
-
 /* ---- Cascade Layers ---- */
 @layer tailwind, reset, variables, base, typography, components, custom;
 
@@ -28,6 +22,12 @@
 
 /* ---- Tailwind CSS v4 ---- */
 @import "tailwindcss";
+
+/* Expressive Code 行号：主题默认 #727980 在 #24292e 上只有 3.3:1（A8）
+   必须 !important：EC 在 .expressive-code 上声明了同名变量，:root 的普通声明会被就近作用域压掉 */
+:root {
+    --ec-lineNumbers-fg: #8b949e !important;
+}
 
 /* =========================================
    Unlayered Critical Styles

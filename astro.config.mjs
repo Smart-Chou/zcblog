@@ -60,20 +60,29 @@ const pwaPlugins = isPreviewBuild
     : VitePWA({
           registerType: "autoUpdate",
           workbox: {
-              // 预缓存收敛为核心资源（HTML/JS/CSS/字体/图标）：约 31MB。
-              // 图片不再预缓存（原 globPatterns 会让 SW 安装时拉 70MB+），
-              // 改由下方 runtimeCaching 的 images-cache 在浏览时按需缓存。
-              globPatterns: ["**/*.{html,js,css,woff2,woff,svg,ico}"],
+              // ⚠️ HTML 不进预缓存（R-26 / D-0062）：
+              // 每次部署 hashed 资源全换，预缓存里的旧 HTML 会引用已删除的 CSS，
+              // 已装 SW 的访客看到的是「页面没有任何样式」。
+              // 现在 HTML 一律走网络（见下方 navigate 规则 NetworkFirst），
+              // 预缓存只保留构建产物里 hash 稳定的静态资源。
+              globPatterns: ["**/*.{js,css,woff2,woff,svg,ico}"],
+              // 必须显式关掉：插件默认会注册
+              // NavigationRoute(createHandlerBoundToURL("index.html"))，
+              // 而 index.html 已不在预缓存清单里 → Workbox 在 SW 启动时抛
+              // non-precached-url，整个 SW 装不上（比样式丢失更难查）。
+              navigateFallback: null,
+              cleanupOutdatedCaches: true,
               runtimeCaching: [
                   {
-                      // 与站点同源的页面请求（由 site.url 派生，避免硬编码域名）
-                      urlPattern: new RegExp(
-                          `^${siteCfg.url.replace(/\/+$/, "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/.*`,
-                      ),
-                      handler: "StaleWhileRevalidate",
+                      // 页面导航：先走网络，4s 超时才回退缓存（离线可读最近访问的页面）。
+                      // 原规则是 StaleWhileRevalidate 且匹配全站同源请求，
+                      // 等于所有 HTML 先返回缓存——部署换 hash 后就露馅。
+                      urlPattern: ({ request }) => request.mode === "navigate",
+                      handler: "NetworkFirst",
                       options: {
                           cacheName: "pages-cache",
-                          expiration: { maxEntries: 100, maxAgeSeconds: 86400 },
+                          networkTimeoutSeconds: 4,
+                          expiration: { maxEntries: 50, maxAgeSeconds: 86400 },
                       },
                   },
                   {
