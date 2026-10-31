@@ -135,7 +135,15 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
         );
         // 2) 快捷键：⌘K / Ctrl+K
         document.addEventListener("keydown", function (e) {
-            if ((e.metaKey || e.ctrlKey) && String(e.key).toLowerCase() === "k") loadPagefind();
+            if (!(e.metaKey || e.ctrlKey) || String(e.key).toLowerCase() !== "k") return;
+            // 模块还没升级：这次按键只有我们能接住（pagefind 自己的快捷键监听还没绑），
+            // 所以先拦下浏览器默认行为（⌘K 会抢焦到地址栏），加载完再手动开一次。
+            if (customElements.get("pagefind-modal-trigger")) return;
+            e.preventDefault();
+            var trigger = document.querySelector("pagefind-modal-trigger");
+            loadPagefind().then(function () {
+                if (trigger && typeof trigger.openModal === "function") trigger.openModal();
+            });
         });
         // 3) 点击：模块还没升级时，拦下这次点击，等加载完再补一次，
         //    否则第一次点搜索会「没反应」。已升级则原样放行。
@@ -149,7 +157,10 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
                 e.stopPropagation();
                 loadPagefind().then(function () {
                     requestAnimationFrame(function () {
-                        trigger.click();
+                        // 触发器的点击处理绑在它内部的按钮上，宿主元素的 click() 不会冒泡进去，
+                        // 实测 trigger.click() 打不开模态框；有 openModal 就直接调。
+                        if (typeof trigger.openModal === "function") trigger.openModal();
+                        else trigger.click();
                     });
                 });
             },
@@ -167,7 +178,7 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
         /* D-0066：组件 JS 按需加载，升级前 <pagefind-modal-trigger> 是空元素（0×0），
         首屏就是「搜索框不见了」。这里给一份同尺寸的静态占位，升级后由 :defined 隐藏。 */
     }
-    <span class="pf-trigger-fallback" aria-hidden="true">
+    <span class="search-trigger-fallback" aria-hidden="true">
         <svg
             viewBox="0 0 24 24"
             width="16"
@@ -181,8 +192,8 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
             <circle cx="11" cy="11" r="7"></circle>
             <path d="m20 20-3.5-3.5"></path>
         </svg>
-        <span class="pf-trigger-fallback-text">{searchPlaceholder}</span>
-        <kbd class="pf-trigger-fallback-kbd">⌘K</kbd>
+        <span class="search-trigger-fallback-text">{searchPlaceholder}</span>
+        <kbd class="search-trigger-fallback-kbd">⌘K</kbd>
     </span>
 </pagefind-modal-trigger>
 

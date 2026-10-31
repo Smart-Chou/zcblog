@@ -405,11 +405,21 @@ html[data-theme="dark"] pagefind-modal {
    这里用 :not(:defined) 渲染一个同款胶囊占位，元素升级后由 :defined 规则隐藏。
    注意：占位只负责「看起来对」，点击行为仍由 Search.astro 的捕获监听处理
    （未升级时点击会先拦下、加载模块、再补一次 click）。 */
+/* ⚠️ 类名刻意不用 pf- 前缀：@pagefind/component-ui 自带一条
+   `:is(*, #\#):is(*, #\#) [class^="pf-"]{all:revert}` 的 reset，
+   特异性是 (2,1,0)，任何 .pf-* 自定义类都会被整体重置成裸元素。 */
+/* 模态框在组件升级前同样会把 light DOM（含页脚「Search by Pagefind」）内联渲染出来，
+   实测直接压在导航条中间，所以未升级时整块藏掉。 */
+pagefind-modal:not(:defined),
+pagefind-modal-footer:not(:defined) {
+    display: none;
+}
+
 pagefind-modal-trigger:not(:defined) {
     display: inline-flex;
 }
 
-.pf-trigger-fallback {
+.search-trigger-fallback {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -431,16 +441,16 @@ pagefind-modal-trigger:not(:defined) {
         background-color var(--duration-fast, 0.15s) ease;
 }
 
-.pf-trigger-fallback:hover {
+.search-trigger-fallback:hover {
     border-color: var(--search-primary);
 }
 
-.pf-trigger-fallback-text {
+.search-trigger-fallback-text {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.pf-trigger-fallback-kbd {
+.search-trigger-fallback-kbd {
     margin-left: auto;
     padding: 2px 6px;
     border: 1px solid var(--search-border);
@@ -453,15 +463,15 @@ pagefind-modal-trigger:not(:defined) {
 }
 
 /* 元素一升级就撤掉占位：无论 pagefind 是清空子节点还是保留，都不会重复显示 */
-pagefind-modal-trigger:defined .pf-trigger-fallback {
+pagefind-modal-trigger:defined .search-trigger-fallback {
     display: none;
 }
 
 @media (max-width: 640px) {
-    .pf-trigger-fallback-kbd {
+    .search-trigger-fallback-kbd {
         display: none;
     }
-    .pf-trigger-fallback {
+    .search-trigger-fallback {
         min-width: 0;
         padding: 0 10px;
     }
