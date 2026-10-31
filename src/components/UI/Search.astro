@@ -85,15 +85,73 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
 
         Intl.Segmenter.prototype = _Orig.prototype;
 
-        // 加载 Pagefind Component UI 模块
+        // 加载 Pagefind Component UI 模块 —— 按需（S3 / D-0053）
+        // 这个模块 38.3KB gz，比整站首屏 JS 还大。原来在解析期无条件 append，
+        // 等于每个访客为「从没点过的搜索」付一次全量下载。改为首次交互才加载：
+        //   鼠标/手指悬停在搜索按钮、按下 ⌘K/Ctrl+K、点击按钮
         var base = "/pagefind/";
         var src = base + "pagefind-component-ui.js";
-        if (!document.querySelector('script[src="' + src + '"]')) {
-            var s = document.createElement("script");
-            s.src = src;
-            s.type = "module";
-            document.head.appendChild(s);
+
+        var pfPromise = null;
+        var pfCssHref = base + "pagefind-component-ui.css";
+        function ensurePagefindCss() {
+            if (document.querySelector('link[href="' + pfCssHref + '"]')) return;
+            var l = document.createElement("link");
+            l.rel = "stylesheet";
+            l.href = pfCssHref;
+            document.head.appendChild(l);
         }
+        function loadPagefind() {
+            if (pfPromise) return pfPromise;
+            ensurePagefindCss();
+            pfPromise = new Promise(function (resolve) {
+                var existing = document.querySelector('script[src="' + src + '"]');
+                if (existing) return resolve();
+                var s = document.createElement("script");
+                s.src = src;
+                s.type = "module";
+                s.addEventListener("load", function () { resolve(); });
+                s.addEventListener("error", function () { pfPromise = null; resolve(); });
+                document.head.appendChild(s);
+            });
+            return pfPromise;
+        }
+        // 暴露给其它脚本（如首页搜索框）按需触发
+        window.__loadPagefindUI = loadPagefind;
+
+        // 1) 悬停/聚焦意图：抢在点击之前把模块拉下来（用户几乎感觉不到）
+        document.addEventListener(
+            "pointerenter",
+            function (e) {
+                var t = e.target;
+                if (t && t.closest && t.closest("pagefind-modal-trigger")) loadPagefind();
+            },
+            true,
+        );
+        // 2) 快捷键：⌘K / Ctrl+K
+        document.addEventListener("keydown", function (e) {
+            if ((e.metaKey || e.ctrlKey) && String(e.key).toLowerCase() === "k") loadPagefind();
+        });
+        // 3) 点击：模块还没升级时，拦下这次点击，等加载完再补一次，
+        //    否则第一次点搜索会「没反应」。已升级则原样放行。
+        document.addEventListener(
+            "click",
+            function (e) {
+                var t = e.target;
+                var trigger = t && t.closest && t.closest("pagefind-modal-trigger");
+                if (!trigger || customElements.get("pagefind-modal-trigger")) return;
+                e.preventDefault();
+                e.stopPropagation();
+                loadPagefind().then(function () {
+                    requestAnimationFrame(function () { trigger.click(); });
+                });
+            },
+            true,
+        );
+        // 4) SPA 换页后 head 会被 swup 的 head 插件重写，已注入的 CSS 可能被移除
+        document.addEventListener("astro:page-load", function () {
+            if (pfPromise) ensurePagefindCss();
+        });
     })();
 </script>
 
