@@ -133,11 +133,12 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
             },
             true,
         );
-        // 2) 快捷键：⌘K / Ctrl+K
+        // 2) 快捷键：Ctrl+K（与 pagefind 触发器的 shortcut="ctrl+k" 保持一致；
+        //    之前是 mod+k，Mac 上显示并绑定 ⌘K，跨平台不统一）
         document.addEventListener("keydown", function (e) {
-            if (!(e.metaKey || e.ctrlKey) || String(e.key).toLowerCase() !== "k") return;
+            if (!e.ctrlKey || String(e.key).toLowerCase() !== "k") return;
             // 模块还没升级：这次按键只有我们能接住（pagefind 自己的快捷键监听还没绑），
-            // 所以先拦下浏览器默认行为（⌘K 会抢焦到地址栏），加载完再手动开一次。
+            // 所以先拦下浏览器默认行为，加载完再手动开一次。
             if (customElements.get("pagefind-modal-trigger")) return;
             e.preventDefault();
             var trigger = document.querySelector("pagefind-modal-trigger");
@@ -183,7 +184,7 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
     })();
 </script>
 
-<pagefind-modal-trigger placeholder={searchPlaceholder} shortcut="mod+k">
+<pagefind-modal-trigger placeholder={searchPlaceholder} shortcut="ctrl+k">
     {
         /*
         首屏静态占位（D-0066 / D-0071）。
@@ -203,7 +204,7 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
         <span class="pf-trigger-icon" aria-hidden="true"></span>
         <span class="pf-trigger-text">{searchPlaceholder}</span>
         <span class="pf-trigger-shortcut" aria-hidden="true">
-            <span class="pf-trigger-key">⌘</span>
+            <span class="pf-trigger-key">Ctrl</span>
             <span class="pf-trigger-key">K</span>
         </span>
     </button>
