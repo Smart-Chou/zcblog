@@ -50,64 +50,95 @@ import swup from "@swup/astro";
 // 这里在 astro:build:done 阶段显式调用插件的 api.generateSW() 补上生成步骤；
 // 该 integration 放在 integrations 末尾，确保 precache 清单收录 pagefind/og 等
 // 构建收尾产物。2026-10-03 修复。
-const pwaPlugins = VitePWA({
-    registerType: "autoUpdate",
-    workbox: {
-        // 预缓存收敛为核心资源（HTML/JS/CSS/字体/图标）：约 31MB。
-        // 图片不再预缓存（原 globPatterns 会让 SW 安装时拉 70MB+），
-        // 改由下方 runtimeCaching 的 images-cache 在浏览时按需缓存。
-        globPatterns: ["**/*.{html,js,css,woff2,woff,svg,ico}"],
-        runtimeCaching: [
-            {
-                // 与站点同源的页面请求（由 site.url 派生，避免硬编码域名）
-                urlPattern: new RegExp(
-                    `^${siteCfg.url.replace(/\/+$/, "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/.*`,
-                ),
-                handler: "StaleWhileRevalidate",
-                options: {
-                    cacheName: "pages-cache",
-                    expiration: { maxEntries: 100, maxAgeSeconds: 86400 },
-                },
-            },
-            {
-                urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/,
-                handler: "CacheFirst",
-                options: {
-                    cacheName: "images-cache",
-                    expiration: { maxEntries: 200, maxAgeSeconds: 2592000 },
-                },
-            },
-            {
-                urlPattern: /\.(?:woff2?|ttf|otf|eot)$/,
-                handler: "CacheFirst",
-                options: {
-                    cacheName: "fonts-cache",
-                    expiration: { maxEntries: 50, maxAgeSeconds: 2592000 },
-                },
-            },
-        ],
-    },
-    manifest: {
-        name: siteCfg.title,
-        short_name: siteCfg.shortName ?? siteCfg.title,
-        description: siteCfg.pwaDescription ?? siteCfg.description,
-        theme_color: "#c2413b",
-        background_color: "#ffffff",
-        display: "standalone",
-        icons: [
-            {
-                src: "/favicon.svg",
-                sizes: "any",
-                type: "image/svg+xml",
-            },
-        ],
-    },
-});
+// 预览构建（PREVIEW_BUILD=1）不装 Service Worker：
+// SW 会预缓存全部 HTML（400+ 页），一旦重新部署换了资源 hash，
+// 旧 HTML 引用的 CSS 已不在新部署里 → 页面白屏无样式（实测踩到）。
+const isPreviewBuild = process.env.PREVIEW_BUILD === "1";
+
+const pwaPlugins = isPreviewBuild
+    ? []
+    : VitePWA({
+          registerType: "autoUpdate",
+          workbox: {
+              // 预缓存收敛为核心资源（HTML/JS/CSS/字体/图标）：约 31MB。
+              // 图片不再预缓存（原 globPatterns 会让 SW 安装时拉 70MB+），
+              // 改由下方 runtimeCaching 的 images-cache 在浏览时按需缓存。
+              globPatterns: ["**/*.{html,js,css,woff2,woff,svg,ico}"],
+              runtimeCaching: [
+                  {
+                      // 与站点同源的页面请求（由 site.url 派生，避免硬编码域名）
+                      urlPattern: new RegExp(
+                          `^${siteCfg.url.replace(/\/+$/, "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/.*`,
+                      ),
+                      handler: "StaleWhileRevalidate",
+                      options: {
+                          cacheName: "pages-cache",
+                          expiration: { maxEntries: 100, maxAgeSeconds: 86400 },
+                      },
+                  },
+                  {
+                      urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/,
+                      handler: "CacheFirst",
+                      options: {
+                          cacheName: "images-cache",
+                          expiration: { maxEntries: 200, maxAgeSeconds: 2592000 },
+                      },
+                  },
+                  {
+                      urlPattern: /\.(?:woff2?|ttf|otf|eot)$/,
+                      handler: "CacheFirst",
+                      options: {
+                          cacheName: "fonts-cache",
+                          expiration: { maxEntries: 50, maxAgeSeconds: 2592000 },
+                      },
+                  },
+              ],
+          },
+          manifest: {
+              name: siteCfg.title,
+              short_name: siteCfg.shortName ?? siteCfg.title,
+              description: siteCfg.pwaDescription ?? siteCfg.description,
+              theme_color: "#c2413b",
+              background_color: "#ffffff",
+              display: "standalone",
+              icons: [
+                  {
+                      src: "/favicon.svg",
+                      sizes: "any",
+                      type: "image/svg+xml",
+                  },
+              ],
+          },
+      });
 
 const pwaServiceWorker = {
     name: "pwa-service-worker",
     hooks: {
-        "astro:build:done": async ({ logger }) => {
+        "astro:build:done": async ({ dir, logger }) => {
+            if (isPreviewBuild) {
+                // 预览构建写一个「自毁 SW」：浏览器每次导航都会取一次 sw.js，
+                // 拿到新脚本就会安装→激活→清空所有 cache→自我注销→重载窗口。
+                // 不写这个文件的话，已装旧 SW 的浏览器会一直拿缓存里的旧 HTML
+                // （旧 CSS hash 已随新部署消失 = 页面没样式），且永远等不到更新。
+                await writeFile(
+                    new URL("sw.js", dir),
+                    `self.addEventListener("install", () => self.skipWaiting());
+self.addEventListener("activate", (event) => {
+    event.waitUntil(
+        (async () => {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((k) => caches.delete(k)));
+            await self.registration.unregister();
+            const clients = await self.clients.matchAll({ type: "window" });
+            clients.forEach((c) => c.navigate(c.url));
+        })(),
+    );
+});
+`,
+                );
+                logger.info("PWA: 预览构建，已写入自毁 sw.js");
+                return;
+            }
             const main = pwaPlugins.find((p) => p && p.name === "vite-plugin-pwa");
             const api = main?.api;
             if (!api) {
