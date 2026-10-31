@@ -82,6 +82,21 @@ jobs:
                   BUILD_CONCURRENCY: 1
               run: pnpm run build
 
+            # ---- S4 门禁：把验收标准变成机器（失败即中断部署）----
+            - name: Verify build (A1 / A11 / A13 + pagefind)
+              run: node scripts/verify-build.mjs
+
+            - name: Content checks (A2 遗留字段 / A3 相对图)
+              run: |
+                  python3 scripts/gates/check-legacy-keys.py src/content/article
+                  python3 scripts/gates/check-relative-assets.py src/content/article --verify . --expect 22
+
+            - name: Performance budget (A6)
+              run: python3 scripts/gates/perf-budget.py dist
+
+            - name: Lint (prettier --check)
+              run: pnpm run lint
+
             # main 分支 → GitHub Pages 原生部署
             - name: Upload Pages artifact
               if: github.ref == 'refs/heads/main'

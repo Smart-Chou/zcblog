@@ -110,8 +110,13 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
                 var s = document.createElement("script");
                 s.src = src;
                 s.type = "module";
-                s.addEventListener("load", function () { resolve(); });
-                s.addEventListener("error", function () { pfPromise = null; resolve(); });
+                s.addEventListener("load", function () {
+                    resolve();
+                });
+                s.addEventListener("error", function () {
+                    pfPromise = null;
+                    resolve();
+                });
                 document.head.appendChild(s);
             });
             return pfPromise;
@@ -143,7 +148,9 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
                 e.preventDefault();
                 e.stopPropagation();
                 loadPagefind().then(function () {
-                    requestAnimationFrame(function () { trigger.click(); });
+                    requestAnimationFrame(function () {
+                        trigger.click();
+                    });
                 });
             },
             true,
