@@ -55,6 +55,7 @@ const isSplash = template === "splash";
 const isDoc = template === "doc";
 
 const lang = locale === "en" ? "en" : "zh-CN";
+// 预览构建（PUBLIC_PREVIEW=1）才打包这段清理脚本，正式站不引入
 ---
 
 <!doctype html>
@@ -114,23 +115,6 @@ const lang = locale === "en" ? "en" : "zh-CN";
         <script>
             import "~/scripts/a11y-scroll";
         </script>
-        {
-            import.meta.env.PUBLIC_PREVIEW === "1" && (
-                <script is:inline>
-                    /* 预览构建：清掉历史 Service Worker 与缓存。
-                       旧 SW 会预缓存全部 HTML，重新部署换 hash 后旧 HTML 引用的 CSS 已不存在，
-                       表现为「页面没有样式」——首次访问执行一次即可自愈。 */
-                    if ("serviceWorker" in navigator) {
-                        navigator.serviceWorker.getRegistrations().then((rs) => {
-                            rs.forEach((r) => r.unregister());
-                        });
-                    }
-                    if (typeof caches !== "undefined") {
-                        caches.keys().then((ks) => ks.forEach((k) => caches.delete(k)));
-                    }
-                </script>
-            )
-        }
     </body>
 </html>
 
