@@ -1,16 +1,15 @@
 ---
+import { onPageReady } from "~/utils/page-lifecycle";
 interface Filter {
     value: string;
     label: string;
     count?: number;
 }
-
 interface Props {
     filters: Filter[];
     activeFilter: string;
     sectionId: string;
 }
-
 const { filters, activeFilter, sectionId } = Astro.props;
 ---
 
@@ -31,7 +30,7 @@ const { filters, activeFilter, sectionId } = Astro.props;
 </div>
 
 <script is:inline define:vars={{ sectionId }}>
-    document.addEventListener("astro:page-load", () => {
+    onPageReady(() => {
         const filterButtons = document.querySelectorAll(
             `[data-section="${sectionId}"][data-filter]`,
         );

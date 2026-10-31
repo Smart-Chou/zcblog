@@ -1,3 +1,4 @@
+import { onPageReady } from "./page-lifecycle";
 import { pageviewCount } from "@waline/client/pageview";
 import { waline } from "~/config";
 
@@ -22,5 +23,5 @@ function initWalinePageview() {
 }
 
 if (typeof document !== "undefined") {
-    document.addEventListener("astro:page-load", initWalinePageview);
+    onPageReady(initWalinePageview);
 }

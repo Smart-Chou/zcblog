@@ -1,6 +1,7 @@
 /**
  * 初始化页面中的 Chart.js 图表
  */
+import { onPageReady } from "../utils/page-lifecycle";
 import { b64ToUtf8 } from "~/scripts/b64-utf8";
 import { ensureScript } from "~/scripts/ensure-script";
 
@@ -47,6 +48,6 @@ function initCharts() {
 // 确保 View Transitions 跨页面导航时只注册一次监听器
 let _chartRegistered = false;
 if (!_chartRegistered) {
-    document.addEventListener("astro:page-load", initCharts);
+    onPageReady(initCharts);
     _chartRegistered = true;
 }

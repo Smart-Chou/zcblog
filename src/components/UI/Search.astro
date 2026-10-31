@@ -167,7 +167,7 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
             true,
         );
         // 4) SPA 换页后 head 会被 swup 的 head 插件重写，已注入的 CSS 可能被移除
-        document.addEventListener("astro:page-load", function () {
+        onPageReady(function () {
             if (pfPromise) ensurePagefindCss();
         });
     })();
@@ -175,26 +175,28 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
 
 <pagefind-modal-trigger placeholder={searchPlaceholder} shortcut="mod+k">
     {
-        /* D-0066：组件 JS 按需加载，升级前 <pagefind-modal-trigger> 是空元素（0×0），
-        首屏就是「搜索框不见了」。这里给一份同尺寸的静态占位，升级后由 :defined 隐藏。 */
+        /*
+        首屏静态占位（D-0066 / D-0071）。
+        pagefind 的组件 JS 按需加载，升级前 <pagefind-modal-trigger> 是空元素（0×0），
+        首屏等于「搜索框不见了」。这里直接复用 pagefind 自己的类名结构，
+        样式由它自带的 CSS 提供，所以和升级后的真实按钮像素级一致——
+        之前那版自定义类名做出来的占位，宽高、颜色、快捷键角标都和真实 UI 有小差别。
+        元素升级后由 `pagefind-modal-trigger:defined .search-trigger-fallback{display:none}` 撤掉。
+    */
     }
-    <span class="search-trigger-fallback" aria-hidden="true">
-        <svg
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        >
-            <circle cx="11" cy="11" r="7"></circle>
-            <path d="m20 20-3.5-3.5"></path>
-        </svg>
-        <span class="search-trigger-fallback-text">{searchPlaceholder}</span>
-        <kbd class="search-trigger-fallback-kbd">⌘K</kbd>
-    </span>
+    <button
+        class="pf-trigger-btn search-trigger-fallback"
+        type="button"
+        tabindex="-1"
+        aria-hidden="true"
+    >
+        <span class="pf-trigger-icon" aria-hidden="true"></span>
+        <span class="pf-trigger-text">{searchPlaceholder}</span>
+        <span class="pf-trigger-shortcut" aria-hidden="true">
+            <span class="pf-trigger-key">⌘</span>
+            <span class="pf-trigger-key">K</span>
+        </span>
+    </button>
 </pagefind-modal-trigger>
 
 <pagefind-modal reset-on-close>
@@ -214,6 +216,7 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
 </pagefind-modal>
 
 <script>
+    import { onPageReady } from "~/utils/page-lifecycle";
     import "../../scripts/search-template.js";
     import { applyResultTemplate } from "../../scripts/search-template.js";
 
@@ -246,6 +249,11 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
         const newTrigger = document.createElement("pagefind-modal-trigger");
         newTrigger.setAttribute("placeholder", placeholder);
         newTrigger.setAttribute("shortcut", "mod+k");
+        // ⚠️ 必须把首屏静态占位一起搬过来（D-0071）：这个 handler 每次换页都会
+        // 新建一个空的 <pagefind-modal-trigger>，而 pagefind 模块是按需加载的，
+        // 新建后没人升级它 → 搜索框在换页后整个消失（实测 0×0、innerHTML 为空）。
+        const fallback = oldTrigger.querySelector(".search-trigger-fallback");
+        if (fallback) newTrigger.appendChild(fallback.cloneNode(true));
 
         // 替换 DOM
         oldModal.replaceWith(newModal);

@@ -1,3 +1,4 @@
+import { onPageReady } from "../utils/page-lifecycle";
 import { config } from "~/config";
 import {
     REDIRECT_PAGE,
@@ -61,5 +62,5 @@ function initRedirectHandler() {
 let _redirectBound = false;
 if (!_redirectBound) {
     _redirectBound = true;
-    document.addEventListener("astro:page-load", initRedirectHandler);
+    onPageReady(initRedirectHandler);
 }

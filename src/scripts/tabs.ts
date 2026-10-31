@@ -1,3 +1,4 @@
+import { onPageReady } from "../utils/page-lifecycle";
 function initTabs() {
     const containers = document.querySelectorAll<HTMLElement>(".tabs-container");
     if (containers.length === 0) return;
@@ -75,5 +76,5 @@ function initTabs() {
 let _tabsBound = false;
 if (!_tabsBound) {
     _tabsBound = true;
-    document.addEventListener("astro:page-load", initTabs);
+    onPageReady(initTabs);
 }

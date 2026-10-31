@@ -73,6 +73,7 @@ const isEn = locale === "en";
 }
 
 <script>
+    import { onPageReady } from "~/utils/page-lifecycle";
     import { waline } from "~/config";
     import walineCssUrl from "@waline/client/waline.css?url";
     import walineMetaCssUrl from "@waline/client/waline-meta.css?url";
@@ -303,7 +304,7 @@ const isEn = locale === "en";
     }
 
     // SPA 导航：重置评论 UI（评论区改为点击“展开评论”后才初始化）
-    document.addEventListener("astro:page-load", () => {
+    onPageReady(() => {
         const toggle = document.getElementById("waline-toggle");
         const walineEl = document.getElementById("waline");
         if (!toggle || !walineEl) return;

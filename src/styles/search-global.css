@@ -419,60 +419,9 @@ pagefind-modal-trigger:not(:defined) {
     display: inline-flex;
 }
 
-.search-trigger-fallback {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    height: var(--pf-input-height, 38px);
-    min-width: 150px;
-    max-width: 260px;
-    padding: 0 12px;
-    border: 1px solid var(--pf-border, var(--search-border));
-    border-radius: var(--pf-border-radius, 40px);
-    background: var(--pf-background, var(--search-modal-bg));
-    color: var(--search-text-subtle);
-    font-family: var(--font-body);
-    font-size: 14px;
-    line-height: 1;
-    white-space: nowrap;
-    cursor: pointer;
-    transition:
-        border-color var(--duration-fast, 0.15s) ease,
-        background-color var(--duration-fast, 0.15s) ease;
-}
-
-.search-trigger-fallback:hover {
-    border-color: var(--search-primary);
-}
-
-.search-trigger-fallback-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.search-trigger-fallback-kbd {
-    margin-left: auto;
-    padding: 2px 6px;
-    border: 1px solid var(--search-border);
-    border-radius: 6px;
-    background: var(--search-border-light);
-    font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: 11px;
-    line-height: 1.4;
-    color: var(--search-text-subtle);
-}
-
-/* 元素一升级就撤掉占位：无论 pagefind 是清空子节点还是保留，都不会重复显示 */
+/* 占位按钮复用 pagefind 自己的类名（.pf-trigger-btn / .pf-trigger-icon / .pf-trigger-text /
+   .pf-trigger-key），样式全部由它自带的 CSS 提供，所以首屏看到的和升级后像素级一致。
+   这里只负责「升级后撤掉」，不再维护第二套尺寸/配色。 */
 pagefind-modal-trigger:defined .search-trigger-fallback {
     display: none;
-}
-
-@media (max-width: 640px) {
-    .search-trigger-fallback-kbd {
-        display: none;
-    }
-    .search-trigger-fallback {
-        min-width: 0;
-        padding: 0 10px;
-    }
 }

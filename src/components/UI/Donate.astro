@@ -330,6 +330,14 @@ const alipayQR = getQRImage(donate.alipayQRCode);
                 unlockScrollFn?.();
             }
         });
+
+        // SPA 换页前必须收尾（D-0072）：<dialog> 在 <main> 里，换页时元素被替换，
+        // 不会再派发 toggle，滚动锁（body position:fixed + top:-scrollY）会留在原地，
+        // 新页面被锁住且错位——表现成「从文章页捐赠弹窗跳到 /donate/ 后必须刷新」。
+        document.addEventListener("astro:before-swap", () => {
+            if (dialog.open) dialog.close();
+            unlockScrollFn?.();
+        });
     }
 
     document.addEventListener("astro:page-load", setupDonate);

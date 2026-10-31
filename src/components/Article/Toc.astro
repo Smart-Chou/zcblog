@@ -7,11 +7,12 @@ import "~/styles/toc.css";
 </div>
 
 <script>
+    import { onPageReady } from "~/utils/page-lifecycle";
     import tocbot from "tocbot";
 
     let tocAbortController: AbortController | null = null;
 
-    document.addEventListener("astro:page-load", () => {
+    onPageReady(() => {
         requestAnimationFrame(() => {
             // ---- Init tocbot ----
             tocbot.init({

@@ -1,3 +1,4 @@
+import { onPageReady } from "../utils/page-lifecycle";
 /**
  * 可滚动区域可聚焦（axe 规则 scrollable-region-focusable）
  *
@@ -23,5 +24,5 @@ function markScrollable(): void {
 }
 
 markScrollable();
-document.addEventListener("astro:page-load", markScrollable);
+onPageReady(markScrollable);
 window.addEventListener("resize", markScrollable, { passive: true });

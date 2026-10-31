@@ -4,6 +4,7 @@
  * 按需从 CDN 加载依赖：d3 → markmap-lib（含 Transformer） → markmap-view（含 Markmap）
  * markmap-view 的 UMD 构建依赖 window.d3，remark 端已将容器生成为 <svg> 元素。
  */
+import { onPageReady } from "../utils/page-lifecycle";
 import { b64ToUtf8 } from "~/scripts/b64-utf8";
 import { ensureScript } from "~/scripts/ensure-script";
 
@@ -56,6 +57,6 @@ function initMarkmap() {
 // 确保 View Transitions 跨页面导航时只注册一次监听器
 let _markmapRegistered = false;
 if (!_markmapRegistered) {
-    document.addEventListener("astro:page-load", initMarkmap);
+    onPageReady(initMarkmap);
     _markmapRegistered = true;
 }

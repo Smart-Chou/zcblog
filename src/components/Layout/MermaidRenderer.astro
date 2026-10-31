@@ -6,6 +6,7 @@
 ---
 
 <script>
+    import { onPageReady } from "~/utils/page-lifecycle";
     const MERMAID_CDN = "https://cdn.bootcdn.net/ajax/libs/mermaid/10.9.0/mermaid.min.js";
     let loading: Promise<any> | null = null;
 
@@ -47,5 +48,5 @@
     }
 
     renderMermaid();
-    document.addEventListener("astro:page-load", renderMermaid);
+    onPageReady(renderMermaid);
 </script>

@@ -1,4 +1,5 @@
 ---
+import { onPageReady } from "~/utils/page-lifecycle";
 import DynamicIcon from "~/components/Icons/DynamicIcon.astro";
 
 interface Props {
@@ -13,7 +14,7 @@ const { threshold = 300 } = Astro.props;
 </div>
 
 <script is:inline define:vars={{ threshold }}>
-    document.addEventListener("astro:page-load", () => {
+    onPageReady(() => {
         const backToTopButton = document.getElementById("back-to-top");
 
         if (backToTopButton) {
