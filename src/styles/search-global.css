@@ -398,3 +398,71 @@ html[data-theme="dark"] pagefind-modal {
         justify-content: center !important;
     }
 }
+
+/* --- 首屏占位（D-0066） -------------------------------------------------
+   pagefind 的组件 JS 是按需加载的（悬停/⌘K/点击才拉），升级前
+   <pagefind-modal-trigger> 是空元素、宽高都是 0，首屏等于「搜索框消失了」。
+   这里用 :not(:defined) 渲染一个同款胶囊占位，元素升级后由 :defined 规则隐藏。
+   注意：占位只负责「看起来对」，点击行为仍由 Search.astro 的捕获监听处理
+   （未升级时点击会先拦下、加载模块、再补一次 click）。 */
+pagefind-modal-trigger:not(:defined) {
+    display: inline-flex;
+}
+
+.pf-trigger-fallback {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: var(--pf-input-height, 38px);
+    min-width: 150px;
+    max-width: 260px;
+    padding: 0 12px;
+    border: 1px solid var(--pf-border, var(--search-border));
+    border-radius: var(--pf-border-radius, 40px);
+    background: var(--pf-background, var(--search-modal-bg));
+    color: var(--search-text-subtle);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        border-color var(--duration-fast, 0.15s) ease,
+        background-color var(--duration-fast, 0.15s) ease;
+}
+
+.pf-trigger-fallback:hover {
+    border-color: var(--search-primary);
+}
+
+.pf-trigger-fallback-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pf-trigger-fallback-kbd {
+    margin-left: auto;
+    padding: 2px 6px;
+    border: 1px solid var(--search-border);
+    border-radius: 6px;
+    background: var(--search-border-light);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--search-text-subtle);
+}
+
+/* 元素一升级就撤掉占位：无论 pagefind 是清空子节点还是保留，都不会重复显示 */
+pagefind-modal-trigger:defined .pf-trigger-fallback {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .pf-trigger-fallback-kbd {
+        display: none;
+    }
+    .pf-trigger-fallback {
+        min-width: 0;
+        padding: 0 10px;
+    }
+}

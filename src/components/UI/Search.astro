@@ -162,7 +162,29 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
     })();
 </script>
 
-<pagefind-modal-trigger placeholder={searchPlaceholder} shortcut="mod+k"></pagefind-modal-trigger>
+<pagefind-modal-trigger placeholder={searchPlaceholder} shortcut="mod+k">
+    {
+        /* D-0066：组件 JS 按需加载，升级前 <pagefind-modal-trigger> 是空元素（0×0），
+        首屏就是「搜索框不见了」。这里给一份同尺寸的静态占位，升级后由 :defined 隐藏。 */
+    }
+    <span class="pf-trigger-fallback" aria-hidden="true">
+        <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <span class="pf-trigger-fallback-text">{searchPlaceholder}</span>
+        <kbd class="pf-trigger-fallback-kbd">⌘K</kbd>
+    </span>
+</pagefind-modal-trigger>
 
 <pagefind-modal reset-on-close>
     <pagefind-modal-header>
