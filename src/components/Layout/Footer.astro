@@ -45,11 +45,11 @@ const umamiViews =
             ))
         }
         <span class="stat-divider" aria-hidden="true"></span>
-        <a href={rssUrl} class="stat-item stat-item--icon" aria-label="RSS 订阅">
+        <a href={rssUrl} class="stat-item stat-item--icon">
             <DynamicIcon name="tabler:rss" />
             <span class="stat-label">RSS</span>
         </a>
-        <a href="/sitemap-0.xml" class="stat-item stat-item--icon" aria-label="站点地图">
+        <a href="/sitemap-0.xml" class="stat-item stat-item--icon">
             <DynamicIcon name="tabler:focus-centered" />
             <span class="stat-label">Sitemap</span>
         </a>
@@ -81,7 +81,6 @@ const umamiViews =
                     target="_blank"
                     rel="noopener noreferrer"
                     class="tech-badge"
-                    aria-label={isEn ? "Umami site statistics" : "Umami 站点统计"}
                 >
                     <span class="tech-badge__dot" aria-hidden="true" />
                     <span class="tech-badge__text">

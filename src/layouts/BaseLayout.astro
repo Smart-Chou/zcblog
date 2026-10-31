@@ -111,6 +111,9 @@ const lang = locale === "en" ? "en" : "zh-CN";
         </div>
         <Watermark />
         {config.redirect && <script>import "~/scripts/redirect-handler";</script>}
+        <script>
+            import "~/scripts/a11y-scroll";
+        </script>
     </body>
 </html>
 

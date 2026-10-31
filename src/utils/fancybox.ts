@@ -5,6 +5,22 @@
  * 提供统一的图片画廊初始化功能，支持动态扫描和静态画廊两种模式
  */
 
+import fancyboxCssUrl from "@fancyapps/ui/dist/fancybox/fancybox.css?url";
+
+/**
+ * 灯箱样式按需注入（D-0057）
+ * 原来在 MarkdownLayout / 相册 / Talks 里静态 import，导致 85 篇文章页
+ * 都背着一个 1.35s 的阻塞样式表——而它只在用户真正点开图片时才有用。
+ */
+function ensureFancyboxCss(): void {
+    if (typeof document === "undefined") return;
+    if (document.querySelector(`link[href="${fancyboxCssUrl}"]`)) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = fancyboxCssUrl;
+    document.head.appendChild(link);
+}
+
 /**
  * 检测当前是否为生产环境
  */
@@ -137,6 +153,7 @@ async function initDynamicFancybox(
 
         if (options.articleMode) bindCollapseResizeHandler();
 
+        ensureFancyboxCss();
         const { Fancybox } = await import("@fancyapps/ui");
         Fancybox.bind(contentSelector + " img[src]", {
             groupAll: true,
@@ -162,6 +179,7 @@ async function initStaticFancybox(options: Partial<FancyboxOptions> = {}): Promi
         const gallery = document.querySelector(config.gallerySelector);
         if (!gallery) return;
 
+        ensureFancyboxCss();
         const { Fancybox } = await import("@fancyapps/ui");
 
         Fancybox.bind(`${config.gallerySelector} a[href]`, {

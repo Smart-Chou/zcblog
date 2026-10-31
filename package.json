@@ -91,6 +91,7 @@
         "@types/hast": "^3.0.5",
         "@types/mdast": "^4.0.4",
         "@types/sanitize-html": "^2.16.2",
+        "axe-core": "^4.14.0",
         "jsdom": "^28.1.0",
         "prettier": "^3.9.9",
         "prettier-plugin-astro": "^0.14.1",

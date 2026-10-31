@@ -88,7 +88,8 @@ const alipayQR = getQRImage(donate.alipayQRCode);
         border: none;
         border-radius: 8px;
         color: #fff;
-        background-color: #ff3842;
+        /* A8：原 #ff3842 上白字只有 3.56:1，压深到 5.25:1 */
+        background-color: #d31f2a;
         transition: box-shadow 0.5s;
         cursor: pointer;
     }

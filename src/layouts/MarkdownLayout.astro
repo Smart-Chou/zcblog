@@ -3,7 +3,7 @@ import { getAllArticles } from "~/utils/article-stats";
 import { sortByPubDate } from "~/utils/date-utils";
 import { getAdjacentPosts } from "~/utils/adjacent-posts";
 import "~/styles/remark-aside.css";
-import "@fancyapps/ui/dist/fancybox/fancybox.css";
+// 灯箱样式按需注入（见 src/utils/fancybox.ts / D-0057）
 
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import PostMeta from "~/components/Article/PostMeta.astro";

@@ -11,7 +11,8 @@
     --search-border-light: #f1f5f9;
     --search-text: #1a202c;
     --search-text-muted: #64748b;
-    --search-text-subtle: #94a3b8;
+    /* A8：原 #94a3b8 在 #fbf8f4 上只有 2.42:1，改为 5.15:1 */
+    --search-text-subtle: #5b6b7f;
     --search-bg-stripe: #f8fafc;
     --search-footer-bg: #fafbfc;
     --search-modal-radius: 12px;
@@ -366,7 +367,8 @@ html[data-theme="dark"] pagefind-modal {
 }
 
 .footer-brand strong {
-    color: var(--search-primary);
+    /* A8：--search-primary(#5468ff) 在浅底上 4.13:1，这里单独压深到 6.7:1 */
+    color: #3b47cc;
     font-weight: 700;
 }
 

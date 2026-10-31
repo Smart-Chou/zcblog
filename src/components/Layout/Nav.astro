@@ -50,6 +50,7 @@ function isActive(href: string) {
     class="nav-dropdown"
     aria-label={loc === "en" ? "Main navigation" : "主导航"}
     aria-hidden="true"
+    inert
 >
     <ul class="nav-dropdown-list" role="list">
         {
@@ -89,6 +90,8 @@ function isActive(href: string) {
         }
         if (dropdown) {
             dropdown.setAttribute("aria-hidden", String(!v));
+            // inert：关闭时连键盘焦点一起移出（只靠 aria-hidden 会让里面的链接仍可 Tab 到）
+            dropdown.toggleAttribute("inert", !v);
             dropdown.classList.toggle("nav-dropdown--open", v);
         }
     };
