@@ -331,7 +331,9 @@ export default defineConfig({
                                 return "waline";
                             }
                             if (id.includes("astro-icon")) return "icons";
-                            return "vendor";
+                            // 不再兜底塞 "vendor"：懒加载专用包（fancybox / vue / marked /
+                            // recaptcha）与首屏包被并进同一 chunk 后，Rollup 只能让首屏
+                            // 整块加载，动态 import 等于白做（D-0052）。交给 Rollup 自动切分。
                         }
                     },
                 },
