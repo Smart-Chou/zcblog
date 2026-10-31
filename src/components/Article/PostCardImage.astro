@@ -22,6 +22,7 @@ const rawSrc = isDefaultImage ? getRandomImageUrl() : imagePath || getRandomImag
 const src = getDisplayImageUrl(rawSrc, transformWidth);
 ---
 
+{/* 首屏大图（loading=eager）优先取 + 同步解码，避免 LCP 被排队 */}
 <Image
     src={src}
     alt={altText}
@@ -31,6 +32,7 @@ const src = getDisplayImageUrl(rawSrc, transformWidth);
     height={450}
     format="avif"
     quality={80}
-    decoding="async"
+    fetchpriority={loading === "eager" ? "high" : "auto"}
+    decoding={loading === "eager" ? "sync" : "async"}
     sizes="(max-width: 768px) 100vw, 860px"
 />
