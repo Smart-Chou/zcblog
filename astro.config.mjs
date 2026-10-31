@@ -347,6 +347,10 @@ export default defineConfig({
     },
     vite: {
         plugins: [tailwindcss(), ...pwaPlugins],
+        // 预览构建整段编译掉 SW 注册（预览写的是自毁 sw.js，注册会无限重载）
+        define: {
+            __PWA_ENABLED__: JSON.stringify(!isPreviewBuild),
+        },
         build: {
             // esbuild 比 terser 内存占用更低，适合内存受限的 CI 构建环境
             minify: "esbuild",
