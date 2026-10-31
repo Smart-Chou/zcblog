@@ -1,15 +1,10 @@
 name: Deploy
 
 on:
-    push:
-        branches: [main, theme]
-    repository_dispatch:
-        types: [articles-updated]
+    # S6：本仓不再直接发生产（生产仍是 Smart-Chou/zcblog 的 GitHub Pages）。
+    # 本仓的用途是预览环境：本地 `pnpm preview:deploy` 用 wrangler 推到 Cloudflare Pages。
+    # 保住 workflow_dispatch 是为了 G5 切流时能手动跑一次完整流水线。
     workflow_dispatch:
-    # 每日自动重建（cron 为 UTC：21:30 = 北京时间 05:30），刷新热门文章等构建期抓取的数据。
-    # 注意：GitHub 会在仓库连续 60 天无活动后自动暂停 schedule，发生一次 push 即恢复。
-    schedule:
-        - cron: "30 21 * * *"
 
 permissions:
     contents: read

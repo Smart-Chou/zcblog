@@ -36,7 +36,8 @@
         "test:unit": "vitest run",
         "test:unit:watch": "vitest",
         "test:e2e": "playwright test",
-        "test:e2e:ui": "playwright test --ui"
+        "test:e2e:ui": "playwright test --ui",
+        "preview:deploy": "wrangler pages deploy dist --project-name=zcblog-v2 --branch=${BRANCH:-local} --commit-dirty=true"
     },
     "dependencies": {
         "@astrojs/check": "^0.9.10",
