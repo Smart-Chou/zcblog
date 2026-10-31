@@ -75,6 +75,28 @@ function isActive(href: string) {
 </nav>
 
 <script>
+    /**
+     * 导航高亮：`active` 类原本只在构建期算（isActive(currentPath)），
+     * 换成 swup 后导航不参与替换，SPA 跳转时高亮永远停在首屏那一项。
+     * 这里按 location.pathname 重算一次，并在每次 astro:page-load 后刷新。
+     * 分页路由（/blog/1/）按 base（/blog/）匹配，与构建期口径保持一致。
+     */
+    function markActiveNav(): void {
+        const path = location.pathname;
+        document.querySelectorAll<HTMLAnchorElement>(".nav-dropdown-link").forEach((link) => {
+            const href = link.getAttribute("href") || "";
+            if (!href) return;
+            const base = href.replace(/\/\d+\/$/, "/");
+            const active = href === "/" || href === "/en/" ? path === href : path.startsWith(base);
+            link.classList.toggle("active", active);
+            if (active) link.setAttribute("aria-current", "page");
+            else link.removeAttribute("aria-current");
+        });
+    }
+
+    markActiveNav();
+    document.addEventListener("astro:page-load", markActiveNav);
+
     let open = false;
 
     const getBtn = () => document.getElementById("nav-menu-btn") as HTMLButtonElement | null;
