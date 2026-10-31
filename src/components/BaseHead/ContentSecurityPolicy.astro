@@ -1,5 +1,5 @@
 ---
-import { waline, umami } from "~/config";
+import { config, waline, umami } from "~/config";
 
 // 仅把已启用且配置了地址的服务加进放行清单（避免空串/未启用域名污染 CSP）
 const extraOrigins = [
@@ -7,17 +7,37 @@ const extraOrigins = [
     umami.enable && umami.umamiBaseUrl ? umami.umamiBaseUrl : null,
 ].filter(Boolean);
 
+// 统计脚本是 type="text/partytown"，但 partytown 仍会在主线程发起请求，
+// 所以来源必须写进 script-src —— 之前只放进了 connect-src，
+// 结果 umami 与 gtag 在每个页面都被 CSP 拦下（生产站同样）。
+const gaEnabled = Boolean(config.ga);
+
+const scriptSrc = [
+    "'self'",
+    "'unsafe-inline'",
+    "data:",
+    "https://cdn.jsdelivr.net",
+    "https://cdn.bootcdn.net",
+    umami.enable && umami.umamiBaseUrl ? umami.umamiBaseUrl : null,
+    gaEnabled ? "https://www.googletagmanager.com" : null,
+]
+    .filter(Boolean)
+    .join(" ");
+
 const connectSrc = [
     "'self'",
     ...extraOrigins,
     "https://v1.hitokoto.cn",
     "https://api.github.com",
     "https://cdn.jsdelivr.net",
-].join(" ");
+    gaEnabled ? "https://www.googletagmanager.com https://www.google-analytics.com" : null,
+]
+    .filter(Boolean)
+    .join(" ");
 ---
 
 <!-- Content Security Policy -->
 <meta
     http-equiv="Content-Security-Policy"
-    content={`default-src 'self'; script-src 'self' 'unsafe-inline' data: https://cdn.jsdelivr.net https://cdn.bootcdn.net; style-src 'self' 'unsafe-inline' https://cdn.bootcdn.net; font-src 'self' https://cdn.bootcdn.net; img-src 'self' data: https:; connect-src ${connectSrc}; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`}
+    content={`default-src 'self'; script-src ${scriptSrc}; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://cdn.bootcdn.net; font-src 'self' https://cdn.bootcdn.net; img-src 'self' data: https:; connect-src ${connectSrc}; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`}
 />
