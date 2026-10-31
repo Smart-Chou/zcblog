@@ -149,8 +149,12 @@ function isActive(href: string) {
         { passive: true },
     );
 
+    // 换页后把菜单真正收起来。之前这里只写了 `open = false`（只改局部变量），
+    // 没走 setOpen：class / aria-expanded / inert 全都留在「打开」状态，
+    // 菜单视觉上不消失；而 open 已经变 false，下一次点按钮等于「再打开一次」，
+    // 于是表现为点两次才收得回去。导航栏在 <main> 外、不参与替换，所以必须显式收。
     document.addEventListener("astro:after-swap", () => {
-        open = false;
+        setOpen(false);
     });
 </script>
 

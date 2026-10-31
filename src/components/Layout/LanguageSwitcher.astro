@@ -195,9 +195,76 @@ const localeLabels: Record<string, string> = {
 </style>
 
 <script>
-    // 移动端 click 切换下拉菜单（触摸设备不支持 hover）
+    /**
+     * 语言切换器的 href 是构建期按「当前这一页」算的，而 header 在 <main> 外、
+     * 换页不替换 —— SPA 跳转后链接还指着首屏那一页（实测：/en/ → /en/blog/1/
+     * 之后，「中文」仍指向 /，直接把人扔回首页）。
+     *
+     * 换页后从 head 的 hreflang 里取真值（SeoLinks 每页都输出，swup 的 updateHead
+     * 会跟着换），取不到再按同样的回退规则现算，并同步按钮文案。
+     */
+    const localeLabels: Record<string, string> = { zh: "中文", en: "EN" };
+
+    function altPath(hreflang: string): string | null {
+        const link = document.querySelector<HTMLLinkElement>(
+            `link[rel="alternate"][hreflang="${hreflang}"]`,
+        );
+        const href = link?.getAttribute("href");
+        if (!href) return null;
+        try {
+            const url = new URL(href, location.origin);
+            return url.pathname + url.search + url.hash;
+        } catch {
+            return href;
+        }
+    }
+
+    function fallbackZh(path: string): string {
+        if (/^\/(404|500)\//.test(path)) return "/";
+        if (path.startsWith("/article/")) return "/blog/1/";
+        return path.replace(/^\/en/, "") || "/";
+    }
+
+    function fallbackEn(path: string): string {
+        if (/^\/(404|500)\//.test(path)) return "/en/";
+        if (/^\/(cookies|copyright|privacy-policy|redirect)\//.test(path)) return "/en/";
+        if (path.startsWith("/article/")) return "/en/blog/1/";
+        if (/^\/albums\/[^/]+\//.test(path)) return "/en/albums/";
+        return "/en" + path;
+    }
+
+    function syncLanguageSwitcher(): void {
+        const root = document.querySelector(".language-switcher");
+        if (!root) return;
+
+        const path = location.pathname;
+        const isEn = path === "/en" || path.startsWith("/en/");
+        const current = isEn ? "en" : "zh";
+
+        const targets: Record<string, string> = {
+            zh: altPath("zh") ?? fallbackZh(path),
+            en: altPath("en") ?? fallbackEn(path),
+        };
+
+        root.querySelectorAll<HTMLAnchorElement>(".language-switcher-link").forEach((link) => {
+            const lang = link.getAttribute("hreflang");
+            if (!lang || !targets[lang]) return;
+            link.setAttribute("href", targets[lang]);
+            link.classList.toggle("active", lang === current);
+        });
+
+        const btn = root.querySelector<HTMLButtonElement>(".language-switcher-button");
+        const label = root.querySelector<HTMLElement>(".language-label");
+        if (label) label.textContent = localeLabels[current];
+        if (btn) btn.setAttribute("aria-label", `切换语言，当前：${localeLabels[current]}`);
+    }
+
     (function () {
         const btn = document.querySelector<HTMLButtonElement>(".language-switcher-button");
+
+        syncLanguageSwitcher();
+        document.addEventListener("astro:page-load", syncLanguageSwitcher);
+
         if (!btn) return;
 
         btn.addEventListener("click", (e) => {
