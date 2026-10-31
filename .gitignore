@@ -58,3 +58,7 @@ scripts/check-content-sync.py
 
 # 主题快照输出（若生成到仓库内）
 theme-snapshot/
+
+# Python 门禁脚本的字节码缓存
+__pycache__/
+*.pyc
