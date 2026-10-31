@@ -1,26 +1,49 @@
 ---
 // Mermaid 图表客户端渲染器
-// 依赖 Scripts.astro 已加载的 window.mermaid
 // remarkCodeBlocks 已将 ```mermaid 代码块转为 <pre class="mermaid">
+// D-0055：不再依赖 Scripts.astro 同步加载 CDN（3.3MB 阻塞解析），改为按需动态加载：
+// 只有当前页确实存在未渲染的 pre.mermaid 才去下载，正文先出来、图表随后补。
 ---
 
 <script>
-    function renderMermaid() {
-        const allNodes = document.querySelectorAll<HTMLElement>("pre.mermaid");
-        if (allNodes.length === 0) return;
+    const MERMAID_CDN = "https://cdn.bootcdn.net/ajax/libs/mermaid/10.9.0/mermaid.min.js";
+    let loading: Promise<any> | null = null;
 
-        const newNodes: HTMLElement[] = [];
-        allNodes.forEach((el) => {
-            if (!el.querySelector("svg")) {
-                newNodes.push(el);
-            }
+    function loadMermaid(): Promise<any> {
+        const w = window as any;
+        if (w.mermaid) return Promise.resolve(w.mermaid);
+        if (loading) return loading;
+        loading = new Promise((resolve, reject) => {
+            const s = document.createElement("script");
+            s.src = MERMAID_CDN;
+            s.async = true;
+            s.addEventListener("load", () => resolve(w.mermaid));
+            s.addEventListener("error", () => {
+                loading = null;
+                reject(new Error("mermaid CDN 加载失败"));
+            });
+            document.head.appendChild(s);
         });
-        if (newNodes.length === 0) return;
+        return loading;
+    }
 
-        const m = (window as any).mermaid;
-        if (!m) return;
+    async function renderMermaid() {
+        const allNodes = Array.from(document.querySelectorAll<HTMLElement>("pre.mermaid")).filter(
+            (el) => !el.querySelector("svg"),
+        );
+        if (allNodes.length === 0) return; // 没有图表的页面，绝不下载 3.3MB
 
-        m.run({ nodes: newNodes });
+        try {
+            const m = await loadMermaid();
+            if (!m) return;
+            if (!m.__zcInited) {
+                m.initialize({ startOnLoad: false });
+                m.__zcInited = true;
+            }
+            m.run({ nodes: allNodes });
+        } catch (error) {
+            console.error("[mermaid] 渲染失败:", error);
+        }
     }
 
     renderMermaid();

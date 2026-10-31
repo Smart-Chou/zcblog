@@ -17,7 +17,7 @@ const { mathjax, katex, mermaid } = Astro.props;
     )
 }
 {
-    mermaid && (
-        <script is:inline src="https://cdn.bootcdn.net/ajax/libs/mermaid/10.9.0/mermaid.min.js" />
-    )
+    // mermaid 不再在这里同步加载（S3 / D-0055）：3.3MB 的 CDN 脚本会阻塞解析，
+    // 本机实测单个资源 26s。改由 MermaidRenderer 在「页面确实有 ```mermaid 块」时
+    // 动态加载，正文先渲染、图表后补。
 }
