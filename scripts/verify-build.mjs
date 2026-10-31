@@ -109,6 +109,32 @@ if (frags > 0) {
     fail("fragment 目录为空（索引未生成）");
 }
 
+// -------------------------------------------------- A17 全局样式链完整
+// 2026-10-30：`:root` 块被写到 global.css 的 @import 之前，导致其后 8 个样式文件
+// 整份没进构建（BaseLayout CSS 从 106KB 掉到 34KB），构建不报错、请求不 404，
+// 表现成「组件样式没了」。用三条最朴素的特征守住这个静默失败。
+console.log("A17 全局样式链完整");
+const cssDir = join(DIST, "assets");
+const cssFiles = existsSync(cssDir) ? readdirSync(cssDir).filter((f) => f.endsWith(".css")) : [];
+const cssBlob = cssFiles.map((f) => readFileSync(join(cssDir, f), "utf-8")).join("");
+const cssTotal = cssBlob.length;
+if (cssTotal > 60_000) {
+    pass(`CSS 合计 ${(cssTotal / 1024).toFixed(1)}KB（阈值 60KB）`);
+} else {
+    fail(`CSS 合计只有 ${(cssTotal / 1024).toFixed(1)}KB，global.css 的 @import 链可能整段失效`);
+}
+for (const [marker, label] of [
+    ["--color-bg:", "主题变量（variables.css）"],
+    ["--pf-", "pagefind 变量（@pagefind/component-ui/css）"],
+    ["--search-text-subtle", "搜索样式（search-global.css）"],
+]) {
+    if (cssBlob.includes(marker)) {
+        pass(`${label} 已进入构建`);
+    } else {
+        fail(`${label} 缺失 —— 检查 global.css 里 @import 是否被普通规则挡在后面`);
+    }
+}
+
 // ---------------------------------------------------------------- 汇总
 if (failed > 0) {
     console.log(`\n❌ 构建断言失败 ${failed} 项`);
