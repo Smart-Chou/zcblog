@@ -69,6 +69,8 @@ if (!hitokoto) return;
 </style>
 
 <script>
+    import { onPageReady } from "~/utils/page-lifecycle";
+
     function formatSource(from: string, fromWho: string): string {
         if (!fromWho && !from) return "";
         let result = "—— ";
@@ -78,10 +80,16 @@ if (!hitokoto) return;
         return result;
     }
 
-    const textEl = document.getElementById("hitokoto-text")!;
-    const sourceEl = document.getElementById("hitokoto-source")!;
-
     function getHitokoto() {
+        const textEl = document.getElementById("hitokoto-text");
+        const sourceEl = document.getElementById("hitokoto-source");
+        if (!textEl || !sourceEl) {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+            return;
+        }
         fetch("https://v1.hitokoto.cn/?c=d&c=i&c=k")
             .then((res) => res.json())
             .then((data) => {
@@ -99,5 +107,19 @@ if (!hitokoto) return;
             });
     }
 
-    setInterval(getHitokoto, 60000);
+    // 元素在 <main> 里，换页会被整体替换；定时器和旧节点都必须跟着换，
+    // 否则 ① 新页面的一言不发请求（它只会在 60s 后打给已被移除的旧节点）
+    // ② 每次换页都多一个 setInterval，越攒越多。
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    onPageReady(() => {
+        if (timer) {
+            clearInterval(timer);
+            timer = null;
+        }
+        if (!document.getElementById("hitokoto-text")) return;
+
+        getHitokoto();
+        timer = setInterval(getHitokoto, 60000);
+    });
 </script>

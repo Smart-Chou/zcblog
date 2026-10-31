@@ -45,11 +45,14 @@ import "~/styles/toc.css";
             });
 
             // ---- Init scroll positioning ----
-            const tocWrapper = document.querySelector(".toc") as HTMLElement;
-            const tocContent = tocWrapper.querySelector(".toc-content") as HTMLElement;
-            const post = document.querySelector("#post-content") as HTMLElement;
-            const footer = document.querySelector(".post-nav") as HTMLElement;
+            const tocWrapper = document.querySelector(".toc") as HTMLElement | null;
+            const post = document.querySelector("#post-content") as HTMLElement | null;
+            const footer = document.querySelector(".post-nav") as HTMLElement | null;
+            // 先判空再取子元素：没有 TOC 的页面上直接解引用 tocWrapper 会抛 TypeError，
+            // 把整个初始化（含 tocbot）一起打断。
             if (!tocWrapper || !post || !footer) return;
+            const tocContent = tocWrapper.querySelector(".toc-content") as HTMLElement | null;
+            if (!tocContent) return;
 
             // Cancel previous scroll listener to prevent leaks across SPA navigations
             if (tocAbortController) {

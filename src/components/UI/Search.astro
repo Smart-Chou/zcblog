@@ -167,7 +167,17 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
             true,
         );
         // 4) SPA 换页后 head 会被 swup 的 head 插件重写，已注入的 CSS 可能被移除
-        onPageReady(function () {
+        //    注意：本段是 is:inline，拿不到 import，不能调 utils 里的 onPageReady
+        //    （之前那一版在这里抛 ReferenceError，换页后 CSS 就再没补回来）。
+        var pageReady = function (fn) {
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", fn, { once: true });
+            } else {
+                fn();
+            }
+            document.addEventListener("astro:page-load", fn);
+        };
+        pageReady(function () {
             if (pfPromise) ensurePagefindCss();
         });
     })();

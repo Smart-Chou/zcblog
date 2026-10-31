@@ -1,5 +1,4 @@
 ---
-import { onPageReady } from "~/utils/page-lifecycle";
 interface Filter {
     value: string;
     label: string;
@@ -29,27 +28,39 @@ const { filters, activeFilter, sectionId } = Astro.props;
     }
 </div>
 
-<script is:inline define:vars={{ sectionId }}>
+<script>
+    import { onPageReady } from "~/utils/page-lifecycle";
+
+    // `define:vars` 会把脚本内联掉，内联脚本里调 onPageReady 是 ReferenceError，
+    // 筛选按钮此前一直是死的。按钮本身带 data-section，改事件委托即可，不需要注入变量。
+    let controller: AbortController | null = null;
+
     onPageReady(() => {
-        const filterButtons = document.querySelectorAll(
-            `[data-section="${sectionId}"][data-filter]`,
-        );
+        controller?.abort();
+        controller = new AbortController();
 
-        filterButtons.forEach((button) => {
-            button.addEventListener("click", function () {
-                const filter = this.getAttribute("data-filter");
+        document.addEventListener(
+            "click",
+            (event) => {
+                const target = event.target as HTMLElement | null;
+                const button = target?.closest("[data-section][data-filter]") as HTMLElement | null;
+                if (!button) return;
 
-                filterButtons.forEach((btn) => {
-                    btn.classList.remove("active");
-                });
-                this.classList.add("active");
+                const sectionId = button.dataset.section;
+                const filter = button.dataset.filter;
+                if (!sectionId || !filter) return;
 
-                const items = document.querySelectorAll(`[data-item-section="${sectionId}"]`);
-                items.forEach((item) => {
-                    const itemStatus = item.getAttribute("data-item-status");
-                    if (filter === "all" || itemStatus === filter) {
+                button
+                    .closest(".filter-controls")
+                    ?.querySelectorAll(".filter-btn")
+                    .forEach((btn) => btn.classList.remove("active"));
+                button.classList.add("active");
+
+                document.querySelectorAll(`[data-item-section="${sectionId}"]`).forEach((item) => {
+                    const status = item.getAttribute("data-item-status");
+                    if (filter === "all" || status === filter) {
                         item.classList.remove("hidden");
-                        item.style.display = "";
+                        (item as HTMLElement).style.display = "";
                         item.querySelectorAll("img[data-src]").forEach((img) => {
                             const src = img.getAttribute("data-src");
                             if (src) {
@@ -59,11 +70,12 @@ const { filters, activeFilter, sectionId } = Astro.props;
                         });
                     } else {
                         item.classList.add("hidden");
-                        item.style.display = "none";
+                        (item as HTMLElement).style.display = "none";
                     }
                 });
-            });
-        });
+            },
+            { signal: controller.signal },
+        );
     });
 </script>
 

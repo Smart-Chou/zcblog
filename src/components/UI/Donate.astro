@@ -289,6 +289,21 @@ const alipayQR = getQRImage(donate.alipayQRCode);
 </div>
 
 <script>
+    // 弹窗可能是文章页里唯一"浮在 top layer"的东西，SPA 换页时必须主动收尾：
+    // 元素会随 <main> 一起被替换，dialog 的 toggle 事件不会再派发，滚动锁会留下；
+    // 而且 swup 的 before-swap 要等新页面 HTML 抓回来才派发（实测 ~450ms），
+    // 这段时间弹窗还浮在新页面上，看起来就是"一闪而过"。
+    // 所以：点击弹窗内的链接立刻收，换页事件再兜一层。
+    function closeDonateDialog() {
+        const dialog = document.querySelector<HTMLDialogElement>("#donateDialog");
+        if (!dialog?.open) return;
+        dialog.close();
+        import("~/scripts/scroll-lock").then((mod) => mod.unlockScroll());
+    }
+
+    document.addEventListener("swup:visit:start", closeDonateDialog);
+    document.addEventListener("astro:before-swap", closeDonateDialog);
+
     function setupDonate() {
         const dialog = document.getElementById("donateDialog") as HTMLDialogElement | null;
         const trigger = document.getElementById("donateTrigger");
@@ -316,10 +331,17 @@ const alipayQR = getQRImage(donate.alipayQRCode);
             dialog.close();
         });
 
-        // Close on backdrop click
         dialog.addEventListener("click", (e) => {
+            // Close on backdrop click
             if (e.target === dialog) {
                 dialog.close();
+                return;
+            }
+            // 弹窗里的链接（如"全部赞赏者名单"）：按下即收，不等 swup 抓完 HTML
+            const link = (e.target as HTMLElement | null)?.closest("a[href]");
+            if (link) {
+                dialog.close();
+                unlockScrollFn?.();
             }
         });
 
@@ -329,14 +351,6 @@ const alipayQR = getQRImage(donate.alipayQRCode);
             } else {
                 unlockScrollFn?.();
             }
-        });
-
-        // SPA 换页前必须收尾（D-0072）：<dialog> 在 <main> 里，换页时元素被替换，
-        // 不会再派发 toggle，滚动锁（body position:fixed + top:-scrollY）会留在原地，
-        // 新页面被锁住且错位——表现成「从文章页捐赠弹窗跳到 /donate/ 后必须刷新」。
-        document.addEventListener("astro:before-swap", () => {
-            if (dialog.open) dialog.close();
-            unlockScrollFn?.();
         });
     }
 
