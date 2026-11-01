@@ -124,19 +124,22 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
         // 暴露给其它脚本（如首页搜索框）按需触发
         window.__loadPagefindUI = loadPagefind;
 
-        // 1) 悬停/聚焦意图：抢在点击之前把模块拉下来（用户几乎感觉不到）
+        // 1) 悬停意图：抢在点击之前把模块拉下来（用户几乎感觉不到）
+        //    只对鼠标生效——触摸设备没有 hover，pointerenter 会和手指的 pointerdown 同时到达，
+        //    模块在「按下去」和「松开」之间升级，pagefind 会替换掉内部按钮，click 落在被摘掉的节点上
+        //    → 第一次点按没有反应，要再点一次（这就是移动端「点两次」的根因）。
         document.addEventListener(
             "pointerenter",
             function (e) {
+                if (e.pointerType === "touch") return;
                 var t = e.target;
                 if (t && t.closest && t.closest("pagefind-modal-trigger")) loadPagefind();
             },
             true,
         );
-        // 2) 快捷键：Ctrl+K（与 pagefind 触发器的 shortcut="ctrl+k" 保持一致；
-        //    之前是 mod+k，Mac 上显示并绑定 ⌘K，跨平台不统一）
+        // 2) 快捷键：mod+k（pagefind 按平台渲染角标并绑定：Mac=⌘K，其它=Ctrl+K）
         document.addEventListener("keydown", function (e) {
-            if (!e.ctrlKey || String(e.key).toLowerCase() !== "k") return;
+            if (!(e.metaKey || e.ctrlKey) || String(e.key).toLowerCase() !== "k") return;
             // 模块还没升级：这次按键只有我们能接住（pagefind 自己的快捷键监听还没绑），
             // 所以先拦下浏览器默认行为，加载完再手动开一次。
             if (customElements.get("pagefind-modal-trigger")) return;
@@ -146,24 +149,46 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
                 if (trigger && typeof trigger.openModal === "function") trigger.openModal();
             });
         });
-        // 3) 点击：模块还没升级时，拦下这次点击，等加载完再补一次，
-        //    否则第一次点搜索会「没反应」。已升级则原样放行。
+        // 3) 打开搜索：自己接管，不依赖 pagefind 内部的按钮
+        //    · 已经打开 → 直接放行，避免重复 showModal
+        //    · 未打开 → 拦下，等模块就绪后调宿主元素上的 openModal()
+        function modalIsOpen() {
+            var m = document.querySelector("pagefind-modal");
+            if (!m) return false;
+            var d = m.querySelector("dialog");
+            return !!(d && d.open);
+        }
+        function openSearch() {
+            return loadPagefind().then(function () {
+                var t = document.querySelector("pagefind-modal-trigger");
+                // 触发器的点击处理绑在内部按钮上，宿主元素的 click() 不会冒泡进去，
+                // 实测 trigger.click() 打不开模态框；有 openModal 就直接调。
+                if (t && typeof t.openModal === "function") t.openModal();
+            });
+        }
+        // 3a) 按下即接管：触摸时 pointerdown 的目标一定还连着 DOM，
+        //     不会像 click 那样随组件升级一起被摘掉 —— 这是「点一次就开」的关键。
+        document.addEventListener(
+            "pointerdown",
+            function (e) {
+                var t = e.target;
+                var trigger = t && t.closest && t.closest("pagefind-modal-trigger");
+                if (!trigger || e.button !== 0 || modalIsOpen()) return;
+                e.preventDefault();
+                openSearch();
+            },
+            true,
+        );
+        // 3b) click 兜底（键盘回车、辅助技术触发，或不产生 pointerdown 的场景）
         document.addEventListener(
             "click",
             function (e) {
                 var t = e.target;
                 var trigger = t && t.closest && t.closest("pagefind-modal-trigger");
-                if (!trigger || customElements.get("pagefind-modal-trigger")) return;
+                if (!trigger || modalIsOpen()) return;
                 e.preventDefault();
                 e.stopPropagation();
-                loadPagefind().then(function () {
-                    requestAnimationFrame(function () {
-                        // 触发器的点击处理绑在它内部的按钮上，宿主元素的 click() 不会冒泡进去，
-                        // 实测 trigger.click() 打不开模态框；有 openModal 就直接调。
-                        if (typeof trigger.openModal === "function") trigger.openModal();
-                        else trigger.click();
-                    });
-                });
+                openSearch();
             },
             true,
         );
@@ -178,13 +203,22 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
             }
             document.addEventListener("astro:page-load", fn);
         };
+        // 4) 首屏静态占位的平台键：Mac 显示 ⌘，其它显示 Ctrl（与 pagefind 的渲染规则一致）
+        var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
+        function syncModKey() {
+            var keys = document.querySelectorAll(
+                "pagefind-modal-trigger .pf-trigger-key[data-mod-key]",
+            );
+            for (var i = 0; i < keys.length; i++) keys[i].textContent = isMac ? "⌘" : "Ctrl";
+        }
         pageReady(function () {
+            syncModKey();
             if (pfPromise) ensurePagefindCss();
         });
     })();
 </script>
 
-<pagefind-modal-trigger placeholder={searchPlaceholder} shortcut="ctrl+k">
+<pagefind-modal-trigger placeholder={searchPlaceholder} shortcut="mod+k">
     {
         /*
         首屏静态占位（D-0066 / D-0071）。
@@ -204,7 +238,7 @@ const searchPlaceholder = t(loc, "common.searchPlaceholder");
         <span class="pf-trigger-icon" aria-hidden="true"></span>
         <span class="pf-trigger-text">{searchPlaceholder}</span>
         <span class="pf-trigger-shortcut" aria-hidden="true">
-            <span class="pf-trigger-key">Ctrl</span>
+            <span class="pf-trigger-key" data-mod-key>⌘</span>
             <span class="pf-trigger-key">K</span>
         </span>
     </button>
