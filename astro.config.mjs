@@ -241,9 +241,12 @@ export default defineConfig({
             preload: { hover: true, visible: true },
             accessibility: true,
             smoothScrolling: true,
-            // awaitAssets=false：不为了「等新页 CSS 到位」把内容替换卡住（慢网下这是最大的一段等待）；
-            // persistAssets=true：旧样式表先留着，新样式到位再替换，避免等待期间闪成裸页
-            updateHead: { awaitAssets: false, persistAssets: true },
+            // awaitAssets:true —— 等新页样式表加载完再替换内容：宁可多等几十毫秒，也不要「裸样式一闪」；
+            // persistAssets:false —— **必须**在换页时移除旧页面的样式表。曾经为了「不闪裸页」设成 true，
+            //   结果首页的 HomeContent.css 一直留在 head 里，它的
+            //   `.post-card-title{font-size:var(--text-lg);font-weight:400}` 会命中文档页的同名元素，
+            //   把列表页标题从 30px/600 压成 18px/400 —— 也就是「文章卡片样式不对，刷新之后才正常」。
+            updateHead: { awaitAssets: true, persistAssets: false },
             // 顶栏进度条：慢链路下有反馈，不至于「点了没反应」
             progress: true,
             reloadScripts: true,
