@@ -66,6 +66,17 @@ jobs:
                   echo "📄 $(ls src/content/article/*.md src/content/article/*.mdx 2>/dev/null | wc -l) 篇文章"
                   echo "🖼  $(find src/assets -type f 2>/dev/null | wc -l) 张图片"
 
+            - name: Normalize frontmatter (v1 布尔键 → v2 features)
+              run: node scripts/normalize-frontmatter.mjs src/content/article
+
+            - name: Set expected counts from content
+              run: |
+                  content=$(ls src/content/article/*.md src/content/article/*.mdx 2>/dev/null | wc -l | tr -d ' ')
+                  drafts=$(grep -l '^draft: *true' src/content/article/*.md 2>/dev/null | wc -l | tr -d ' ')
+                  echo "内容 ${content} 篇，draft ${drafts} 篇 → 期望产出 $((content - drafts)) 篇"
+                  echo "EXPECT_CONTENT=$content" >> "$GITHUB_ENV"
+                  echo "EXPECT_ARTICLES=$((content - drafts))" >> "$GITHUB_ENV"
+
             - name: Install system dependencies
               run: sudo apt-get update && sudo apt-get install -y libvips-dev
 

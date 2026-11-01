@@ -17,7 +17,8 @@ from content_inventory import parse_frontmatter  # noqa: E402
 
 # 新 schema 里不存在的键。features 承载的是「值」，键名本身不该出现。
 LEGACY = {
-    "sticky", "mermaid", "mathjax", "katex", "plantuml", "chart", "markmap",
+    # sticky 已收进 v2 的 content schema（置顶排序用），不再算遗留键
+    "mermaid", "mathjax", "katex", "plantuml", "chart", "markmap",
     "tabs", "fancybox", "reveal", "category", "paid", "series",
     "type", "palette", "rendering", "references",
 }

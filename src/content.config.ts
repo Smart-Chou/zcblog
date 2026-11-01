@@ -64,6 +64,9 @@ export const article = defineCollection({
                 features: z.array(z.enum(FEATURE)).default([]),
 
                 draft: z.boolean().default(false),
+                // 置顶权重（v1 遗留字段，内容仓 77 篇带着 sticky: 0）。blog-paths 用它排序，
+                // 所以收进 schema 而不是在归一化时删掉（见 scripts/normalize-frontmatter.mjs）。
+                sticky: z.number().int().min(0).default(0),
 
                 /** 现状：72 篇显式 `true`、1 篇显式 `false`（expressive-code），共 73 篇含键；默认 true，保留为单篇覆盖开关。 */
                 waline: z.boolean().default(true),
