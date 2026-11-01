@@ -99,33 +99,7 @@ const hasData = tabs.length > 0;
     <Author />
 </SectionPage>
 
-<script>
-    function initDoubanTabs() {
-        const buttons = document.querySelectorAll("[data-tab]");
-        const sections = document.querySelectorAll("[data-section]");
-
-        buttons.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                const target = btn.getAttribute("data-tab");
-                buttons.forEach((b) =>
-                    b.classList.toggle("active", b.getAttribute("data-tab") === target),
-                );
-                sections.forEach((s) => {
-                    const el = s as HTMLElement;
-                    const match = el.getAttribute("data-section") === target;
-                    el.classList.toggle("hidden", !match);
-                });
-            });
-        });
-    }
-
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initDoubanTabs);
-    } else {
-        initDoubanTabs();
-    }
-    document.addEventListener("astro:page-load", initDoubanTabs);
-</script>
+<!-- tab 逻辑见 src/scripts/tab-nav.ts（D-0080：内联 module 在 SPA 换页时不会被执行） -->
 
 <style>
     .tab-nav {

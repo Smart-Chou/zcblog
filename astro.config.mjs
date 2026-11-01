@@ -237,10 +237,16 @@ export default defineConfig({
             theme: "fade",
             containers: ["main"],
             cache: true,
-            preload: true,
+            // 预取：悬停 + 进入视口的链接（默认只开 hover，visible 要显式开）
+            // visible 会在链接进视口 500ms 后抓 HTML 进 swup cache，点导航就命中缓存、不再等网络
+            preload: { hover: true, visible: true },
             accessibility: true,
             smoothScrolling: true,
-            updateHead: true,
+            // awaitAssets=false：不为了「等新页 CSS 到位」把内容替换卡住（慢网下这是最大的一段等待）；
+            // persistAssets=true：旧样式表先留着，新样式到位再替换，避免等待期间闪成裸页
+            updateHead: { awaitAssets: false, persistAssets: true },
+            // 顶栏进度条：慢链路下有反馈，不至于「点了没反应」
+            progress: true,
             reloadScripts: true,
             loadOnIdle: false,
             globalInstance: true,

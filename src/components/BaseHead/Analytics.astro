@@ -18,6 +18,7 @@ gtag("config", "${gaId}");`
         <>
             <script
                 is:inline
+                data-swup-ignore-script
                 type="text/partytown"
                 src={`${umami.umamiBaseUrl}/script.js`}
                 defer
@@ -34,10 +35,11 @@ gtag("config", "${gaId}");`
         <>
             <script
                 is:inline
+                data-swup-ignore-script
                 type="text/partytown"
                 src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
             />
-            <script is:inline type="text/partytown" set:html={gtagScript} />
+            <script is:inline data-swup-ignore-script type="text/partytown" set:html={gtagScript} />
         </>
     )
 }
