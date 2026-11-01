@@ -45,8 +45,10 @@ const showUpdated =
         waline.enable && (
             <>
                 &nbsp;
+                {/* 占位符用 —：真实数字要等 Waline /article 接口回填（SPA 进入时约 1–3s），
+                    写 0 会让人以为「这篇没人看过」 */}
                 <span class="waline-pageview-count" data-path={viewPath}>
-                    0
+                    —
                 </span>
                 <span> views.</span>
             </>
