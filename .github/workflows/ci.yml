@@ -5,6 +5,12 @@ on:
         branches: [main, theme]
     pull_request:
         branches: [main, theme]
+    # S4：允许手动跑一次完整门禁（不部署），用于验收留证
+    workflow_dispatch:
+
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
     test:
@@ -34,3 +40,72 @@ jobs:
 
             - name: Run unit tests
               run: pnpm test:unit
+
+    # ---- S4 门禁：构建断言 + 内容检查 + 性能预算 ----
+    # 和 deploy.yml 的 Build 段保持同一套 env；这里**不部署**，只验门槛。
+    gates:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout zcblog
+              uses: actions/checkout@v5
+
+            - name: Checkout articles (private)
+              uses: actions/checkout@v5
+              with:
+                  repository: Smart-Chou/zcblog-articles
+                  path: _articles
+                  token: ${{ secrets.ARTICLES_PAT }}
+
+            - name: Copy articles and images
+              run: |
+                  mkdir -p src/content/article src/assets
+                  cp _articles/*.md src/content/article/ 2>/dev/null || true
+                  cp _articles/*.mdx src/content/article/ 2>/dev/null || true
+                  cp -r _articles/assets/* src/assets/ 2>/dev/null || true
+                  echo "📄 $(ls src/content/article/*.md src/content/article/*.mdx 2>/dev/null | wc -l) 篇文章"
+                  echo "🖼  $(find src/assets -type f 2>/dev/null | wc -l) 张图片"
+
+            - name: Install system dependencies
+              run: sudo apt-get update && sudo apt-get install -y libvips-dev
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v6
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v5
+              with:
+                  node-version: 22
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build
+              env:
+                  CI: true
+                  ARTICLE_REPO_PATH: _articles
+                  BLINKO_API_URL: https://memos.marxchou.com
+                  BLINKO_API_TOKEN: ${{ secrets.BLINKO_API_TOKEN }}
+                  UMAMI_API_URL: https://umami.marxchou.com
+                  UMAMI_WEBSITE_ID: 73b29141-fccf-4d54-9c2f-f7d0d146f86b
+                  UMAMI_USERNAME: ${{ secrets.UMAMI_USERNAME }}
+                  UMAMI_PASSWORD: ${{ secrets.UMAMI_PASSWORD }}
+                  UMAMI_SHARE_SLUG: EIlCDPZqKiANCpuO
+                  BANGUMI_USER_ID: "1246668"
+                  DOUBAN_USER_ID: ${{ secrets.DOUBAN_USER_ID }}
+                  ENCRYPTION_PASSWORD: ${{ secrets.ENCRYPTION_PASSWORD }}
+                  FOREVERBLOG_RSS_URL: ${{ secrets.FOREVERBLOG_RSS_URL }}
+                  BUILD_CONCURRENCY: 1
+              run: pnpm run build
+
+            - name: Verify build (A1 / A11 / A13 + pagefind)
+              run: node scripts/verify-build.mjs
+
+            - name: Content checks (A2 遗留字段 / A3 相对图)
+              run: |
+                  python3 scripts/gates/check-legacy-keys.py src/content/article
+                  python3 scripts/gates/check-relative-assets.py src/content/article --verify . --expect 22
+
+            - name: Performance budget (A6)
+              run: python3 scripts/gates/perf-budget.py dist
