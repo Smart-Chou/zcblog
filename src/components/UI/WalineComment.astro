@@ -9,59 +9,7 @@ const { locale = "zh" } = Astro.props;
 const isEn = locale === "en";
 ---
 
-<style>
-    #comment-wrapper {
-        margin: 1rem auto;
-        text-align: center;
-    }
-
-    #waline-toggle {
-        display: inline-block;
-        min-width: 180px;
-        padding: 0.5rem 1rem;
-        background-color: var(--color-bg-surface);
-        color: var(--color-accent);
-        border: 1px var(--color-accent);
-        border-style: dashed;
-        cursor: pointer;
-        border-radius: 5px;
-        text-align: center;
-        font: inherit;
-    }
-
-    #waline-toggle.active {
-        font-weight: bold;
-        border: 1.5px solid var(--color-accent);
-    }
-
-    #waline {
-        display: none;
-        content-visibility: auto;
-        contain-intrinsic-size: auto 38rem;
-        min-height: 38rem;
-        max-width: var(--content-width);
-        position: relative;
-        overflow: hidden;
-        margin: 0 auto;
-        padding: 0 var(--space);
-    }
-
-    #waline.visible {
-        display: block;
-    }
-
-    @media screen and (max-width: 768px) {
-        #waline {
-            padding: unset;
-        }
-    }
-
-    html[data-theme="dark"] {
-        --waline-color: #e8e3de !important;
-    }
-</style>
-
-{
+<!-- 样式已移到 src/styles/article.css（D-0085：并入全局样式链，避免文章页单独拉一份 CSS） -->{
     waline.enable && (
         <div id="comment-wrapper" data-waline-locale={locale}>
             <button id="waline-toggle" type="button">

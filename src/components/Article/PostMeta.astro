@@ -54,16 +54,4 @@ const showUpdated =
     }
 </div>
 
-<style>
-    /* PC 端显示为一个空格（不换行）；≤450px 移动端换行 */
-    .meta-break::before {
-        content: "\00a0";
-    }
-
-    @media (max-width: 450px) {
-        .meta-break::before {
-            content: "\A";
-            white-space: pre;
-        }
-    }
-</style>
+<!-- 样式已移到 src/styles/article.css（D-0085：并入全局样式链，避免文章页单独拉一份 CSS） -->

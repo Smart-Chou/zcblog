@@ -2,7 +2,6 @@
 import { getAllArticles } from "~/utils/article-stats";
 import { sortByPubDate } from "~/utils/date-utils";
 import { getAdjacentPosts } from "~/utils/adjacent-posts";
-import "~/styles/remark-aside.css";
 // 灯箱样式按需注入（见 src/utils/fancybox.ts / D-0057）
 
 import BaseLayout from "~/layouts/BaseLayout.astro";
@@ -195,71 +194,7 @@ const firstTag = currentTags[0] || "";
     {hasMermaid && <MermaidRenderer />}
 </BaseLayout>
 
-<style>
-    /* 文章页内容区统一宽度，不再全局污染 .content */
-    .article-content {
-        max-width: 860px;
-        margin: 0 auto;
-        box-sizing: border-box;
-    }
-
-    .post-title {
-        max-width: 860px;
-        margin-inline: auto;
-        text-align: center;
-        width: 100%;
-        box-sizing: border-box;
-        display: block;
-        padding: 3.5rem 0 3.5rem;
-        position: relative;
-        contain: layout style;
-        flex-shrink: 0;
-        align-self: center;
-        transform: translateZ(0);
-        backface-visibility: hidden;
-    }
-
-    .reading-progress {
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 1000;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(to right, var(--color-accent), #d98a5f);
-        transform-origin: left;
-        animation: reading-progress linear;
-        animation-timeline: scroll(root);
-        will-change: transform;
-        contain: strict;
-    }
-
-    @keyframes reading-progress {
-        from {
-            transform: scaleX(0);
-        }
-        to {
-            transform: scaleX(1);
-        }
-    }
-
-    .post-header {
-        width: calc(100% + var(--space) * 2);
-        margin-left: calc(var(--space) * -1);
-        margin-top: calc(var(--space) * -1);
-        margin-bottom: calc(var(--space) / 2);
-        overflow: hidden;
-        border-radius: var(--radius) var(--radius) 0 0;
-    }
-
-    .post-header img {
-        width: 100%;
-    }
-
-    .post-header:empty {
-        display: none;
-    }
-</style>
+<!-- 样式已移到 src/styles/article.css（D-0085：并入全局样式链，避免文章页单独拉一份 CSS） -->
 
 {frontmatter.fancybox !== false && <script>import "~/scripts/fancybox-handler.ts";</script>}
 {frontmatter.markmap && <script>import "~/scripts/markmap-renderer.ts";</script>}

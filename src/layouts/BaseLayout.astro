@@ -1,5 +1,12 @@
 ---
 import "~/styles/global.css";
+// 页面级样式统一进全局样式链（D-0083 / D-0085）：
+// 换页时不再新拉一份 CSS —— 慢链路上那一次请求就是「内容出来了、样式还没到」的根因。
+// home.css 的规则已全部收进 .home-page 作用域；article.css 放最后，组件规则仍排在基础样式之后。
+import "~/styles/home.css";
+import "~/styles/article.css";
+import "~/styles/remark-aside.css";
+import "~/styles/toc.css";
 import BaseHead from "~/components/BaseHead/BaseHead.astro";
 import Header from "~/components/Layout/Header.astro";
 import Footer from "~/components/Layout/Footer.astro";
@@ -115,9 +122,6 @@ const lang = locale === "en" ? "en" : "zh-CN";
         <script>
             import "~/scripts/a11y-scroll";
             import "~/scripts/anchor-scroll";
-            // 页面级样式提到全局（D-0083）：换页时不再新拉一份 CSS —— 慢链路上那一次请求
-            // 就是「内容出来了、样式还没到」的根因。home.css 的规则已全部收进 .home-page 作用域。
-            import "~/styles/home.css";
             import "~/scripts/tab-nav";
             import "~/scripts/pwa-register";
         </script>

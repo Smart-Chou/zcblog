@@ -3,13 +3,42 @@ import { config, umami, site } from "~/config";
 
 const gaId = config.ga ?? null;
 
-const gtagScript = gaId
-    ? `window.dataLayer = window.dataLayer || [];
-function gtag() {
-    dataLayer.push(arguments);
-}
-gtag("js", new Date());
-gtag("config", "${gaId}");`
+/**
+ * gtag 延迟到「空闲或首次交互」再加载（D-0086）。
+ *
+ * gtag.js 单文件 ~178KB，之前用 async 从 head 里直接拉：它和首屏资源抢带宽，
+ * 还会在主线程上跑出 200–400ms 的阻塞时间（Lighthouse 移动端 TBT 从 ~50ms 升到 ~300ms）。
+ * 埋点晚几百毫秒没有意义损失，但首屏是实打实的。这里改成：
+ *   · 首次交互（pointerdown / keydown / scroll / touchstart）立刻加载；
+ *   · 否则 requestIdleCallback 之后加载（带 5s 超时保底，纯浏览的会话也会被统计）。
+ */
+const gtagLoader = gaId
+    ? `(function () {
+    var loaded = false;
+    function load() {
+        if (loaded) return;
+        loaded = true;
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+        gtag("js", new Date());
+        gtag("config", ${JSON.stringify(gaId)});
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=" + ${JSON.stringify(gaId)};
+        document.head.appendChild(s);
+    }
+    ["pointerdown", "keydown", "scroll", "touchstart"].forEach(function (type) {
+        window.addEventListener(type, load, { once: true, passive: true });
+    });
+    if ("requestIdleCallback" in window) {
+        requestIdleCallback(load, { timeout: 5000 });
+    } else {
+        setTimeout(load, 3500);
+    }
+})();`
     : null;
 ---
 
@@ -32,13 +61,7 @@ gtag("config", "${gaId}");`
 {
     gaId && (
         <>
-            <script
-                is:inline
-                data-swup-ignore-script
-                src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-                async
-            />
-            <script is:inline data-swup-ignore-script set:html={gtagScript} />
+            <script is:inline data-swup-ignore-script set:html={gtagLoader} />
         </>
     )
 }

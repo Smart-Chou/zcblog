@@ -39,36 +39,4 @@ const nextPost = nextSlug ? (allPosts.find((p) => p.id === nextSlug) ?? null) : 
     )
 }
 
-<style>
-    .post-nav {
-        border-top: 1px solid var(--color-border);
-        margin-top: calc(var(--space) / 2);
-        padding: calc(var(--space) / 2) 0 0 0;
-        overflow: auto;
-    }
-
-    .post-nav-link {
-        border: none;
-        text-decoration: none;
-        color: var(--color-text);
-        transition: color var(--duration-fast);
-    }
-
-    @media (hover: hover) {
-        .post-nav-link:hover {
-            color: var(--color-accent);
-        }
-    }
-
-    .post-nav-link.prev {
-        float: left;
-    }
-
-    .post-nav-link.next {
-        float: right;
-    }
-
-    .post-nav-link:first-of-type {
-        margin-bottom: calc(var(--space) / 4);
-    }
-</style>
+<!-- 样式已移到 src/styles/article.css（D-0085：并入全局样式链，避免文章页单独拉一份 CSS） -->
