@@ -1,10 +1,20 @@
 name: Deploy
 
 on:
-    # S6：本仓不再直接发生产（生产仍是 Smart-Chou/zcblog 的 GitHub Pages）。
-    # 本仓的用途是预览环境：本地 `pnpm preview:deploy` 用 wrangler 推到 Cloudflare Pages。
-    # 保住 workflow_dispatch 是为了 G5 切流时能手动跑一次完整流水线。
+    # 2026-11-01：v2 代码合并回 zcblog 主仓，生产走 GitHub Pages（Pages build_type=workflow，
+    # custom domain marxchou.com），所以触发条件按生产口径配：
+    #   - push main/theme：代码变更即发版
+    #   - repository_dispatch(articles-updated)：文章仓更新后由它触发重建
+    #   - schedule：每日 rebuilt，刷新构建期抓取的热门文章等数据
+    #   - workflow_dispatch：手动补发
+    push:
+        branches: [main, theme]
+    repository_dispatch:
+        types: [articles-updated]
     workflow_dispatch:
+    schedule:
+        # cron 是 UTC：21:30 UTC = 北京时间 05:30
+        - cron: "30 21 * * *"
 
 permissions:
     contents: read
