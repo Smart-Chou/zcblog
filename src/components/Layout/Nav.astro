@@ -49,7 +49,6 @@ function isActive(href: string) {
     id="nav-dropdown"
     class="nav-dropdown"
     aria-label={loc === "en" ? "Main navigation" : "主导航"}
-    aria-hidden="true"
     inert
 >
     <ul class="nav-dropdown-list" role="list">
@@ -98,6 +97,7 @@ function isActive(href: string) {
     document.addEventListener("astro:page-load", markActiveNav);
 
     let open = false;
+    const supportsInert = "inert" in HTMLElement.prototype;
 
     const getBtn = () => document.getElementById("nav-menu-btn") as HTMLButtonElement | null;
     const getDropdown = () => document.getElementById("nav-dropdown") as HTMLElement | null;
@@ -111,9 +111,18 @@ function isActive(href: string) {
             btn.classList.toggle("nav-menu-btn--open", v);
         }
         if (dropdown) {
-            dropdown.setAttribute("aria-hidden", String(!v));
-            // inert：关闭时连键盘焦点一起移出（只靠 aria-hidden 会让里面的链接仍可 Tab 到）
+            /* 关闭时只用 inert，不再叠 aria-hidden。
+             *
+             * inert 本身就等于「整棵子树从无障碍树移出 + 禁止聚焦 + 不可点击」，
+             * 而 aria-hidden 只管「不让读屏读到」，两者叠在一起时 Chrome 会拦下来警告：
+             *   Blocked aria-hidden on an element because its descendant retained focus
+             * —— 换页时焦点还停在 .nav-dropdown-link 上（用户就是点它跳走的），
+             * 而这里恰恰是在 astro:after-swap 里跑，于是每次从下拉菜单换页都报一条。
+             * 只留 inert 后浏览器会自己把焦点移走，不再有「藏起带焦点的元素」这回事。
+             * 不支持 inert 的老浏览器才退回 aria-hidden（此时没有 inert，也就不存在上面那条警告）。
+             */
             dropdown.toggleAttribute("inert", !v);
+            if (!supportsInert) dropdown.setAttribute("aria-hidden", String(!v));
             dropdown.classList.toggle("nav-dropdown--open", v);
         }
     };
