@@ -31,7 +31,6 @@ import { rehypeEncrypted } from "./src/remark-plugin/rehype-encrypted.ts";
 import expressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
-import partytown from "@astrojs/partytown";
 import redirectAttributeByLink from "./src/integrations/redirect.ts";
 import { searchPagefind } from "./src/integrations/pagefind.ts";
 import ogImage from "./src/integrations/og-image.ts";
@@ -313,7 +312,6 @@ export default defineConfig({
             renderInPlace: true,
         }),
         mdx(),
-        partytown(),
         {
             name: "pagefind-integration",
             hooks: {

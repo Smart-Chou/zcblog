@@ -14,7 +14,7 @@ type UmamiTracker = { track: (name: string, data?: Record<string, unknown>) => v
 
 /**
  * 上报 share 事件（Umami）。
- * 坑：全站 umami 以 Partytown 方式加载（type="text/partytown"），脚本运行在 Web Worker 中，
+ * 注意：umami 若运行在 Web Worker 中（此前接入 Partytown 时），
  * 主线程不存在 window.umami。因此优先用 tracker；缺失时按官方 tracker 同款 payload 直接 POST /api/send。
  * 域名守卫与 tracker 的 data-domains 行为一致（dev/localhost 静默跳过）。
  */

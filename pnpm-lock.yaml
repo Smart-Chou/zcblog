@@ -182,9 +182,6 @@ importers:
       '@astrojs/mdx':
         specifier: ^7.0.8
         version: 7.0.8(astro@7.3.6(@astrojs/markdown-remark@7.3.2(supports-color@5.5.0))(@types/node@24.19.1)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(supports-color@5.5.0)
-      '@astrojs/partytown':
-        specifier: ^2.1.8
-        version: 2.1.8
       '@astrojs/rss':
         specifier: ^4.0.19
         version: 4.0.19
@@ -500,9 +497,6 @@ packages:
     peerDependenciesMeta:
       '@astrojs/markdown-satteri':
         optional: true
-
-  '@astrojs/partytown@2.1.8':
-    resolution: {integrity: sha512-iCRNNPqvdQEORyAYC8jN8nTCN2wW66WS+Pft2fhqq52cj3GcWvzlAZlyfjtpCeiEYI0op6u5OtWqqItiS7INDA==}
 
   '@astrojs/prism@4.0.2':
     resolution: {integrity: sha512-KTivpmnz6lDsC6o9H4+DNm2SrE/GHzw8cNAvEJwAvUT+eoaEnn/4NtbDNfRRaxaJHdp15gf+tfHAWiXR4wB3BA==}
@@ -1716,11 +1710,6 @@ packages:
   '@playwright/test@1.63.0':
     resolution: {integrity: sha512-oxMK4vllB9RK5NQ2l1pq1IfOf2AvnEuj/vYGDj0H2nMtmtZpKtCwt/l00GEO6xjGfpBNAvjovvYdCm50dRQkpQ==}
     engines: {node: '>=20'}
-    hasBin: true
-
-  '@qwik.dev/partytown@0.14.5':
-    resolution: {integrity: sha512-DxVGNgz2oWZvNT76LmMwxSroN1+r8rHqH/55fLGpO7tiVbYtC8PoXICyS1vGwL2mvmvfQhccqbudKrDnQO1mgg==}
-    engines: {node: '>=18.0.0'}
     hasBin: true
 
   '@rolldown/binding-android-arm-eabi@1.2.13':
@@ -6920,11 +6909,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/partytown@2.1.8':
-    dependencies:
-      '@qwik.dev/partytown': 0.14.5
-      mrmime: 2.0.1
-
   '@astrojs/prism@4.0.2':
     dependencies:
       prismjs: 1.30.0
@@ -8215,8 +8199,6 @@ snapshots:
   '@playwright/test@1.63.0':
     dependencies:
       playwright: 1.63.0
-
-  '@qwik.dev/partytown@0.14.5': {}
 
   '@rolldown/binding-android-arm-eabi@1.2.13':
     optional: true

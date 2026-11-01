@@ -19,9 +19,8 @@ gtag("config", "${gaId}");`
             <script
                 is:inline
                 data-swup-ignore-script
-                type="text/partytown"
                 src={`${umami.umamiBaseUrl}/script.js`}
-                defer
+                async
                 data-website-id={String(umami.umamiId)}
                 data-domains={site.domains.join(",")}
             />
@@ -36,10 +35,10 @@ gtag("config", "${gaId}");`
             <script
                 is:inline
                 data-swup-ignore-script
-                type="text/partytown"
                 src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+                async
             />
-            <script is:inline data-swup-ignore-script type="text/partytown" set:html={gtagScript} />
+            <script is:inline data-swup-ignore-script set:html={gtagScript} />
         </>
     )
 }

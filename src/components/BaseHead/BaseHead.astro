@@ -151,25 +151,6 @@ const {
     <Robots noindex={noindex} />
     <Favicon />
     <JsonLd title={title} description={description} image={image} modifiedTime={modifiedTime} />
-    <script is:inline data-swup-ignore-script>
-        // @astrojs/partytown 的迁移脚本读 `event.newDocument.body` —— 那是 Astro
-        // ViewTransitions 的事件字段。换成 swup 后事件里没有 newDocument，于是每次
-        // 换页都抛 "Cannot read properties of undefined (reading 'body')"。
-        // 在 window 的捕获阶段先补上（事件路径里 window 先于 document），让它的
-        // append 安全落到当前文档：不抛错，partytown 的 iframe 也不会被搬走。
-        window.addEventListener(
-            "astro:before-swap",
-            function (event) {
-                if (!("newDocument" in event)) {
-                    Object.defineProperty(event, "newDocument", {
-                        value: document,
-                        configurable: true,
-                    });
-                }
-            },
-            true,
-        );
-    </script>
 
     <Analytics />
     <KatexManager mathjax={mathjax} katex={katex} />
