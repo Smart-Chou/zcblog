@@ -9,8 +9,8 @@ const gaId = config.ga ?? null;
  * gtag.js 单文件 ~178KB，之前用 async 从 head 里直接拉：它和首屏资源抢带宽，
  * 还会在主线程上跑出 200–400ms 的阻塞时间（Lighthouse 移动端 TBT 从 ~50ms 升到 ~300ms）。
  * 埋点晚几百毫秒没有意义损失，但首屏是实打实的。这里改成：
- *   · 首次交互（pointerdown / keydown / scroll / touchstart）立刻加载；
- *   · 否则 requestIdleCallback 之后加载（带 5s 超时保底，纯浏览的会话也会被统计）。
+ *   · 只在首次真实交互（pointerdown / keydown / scroll / touchstart）时加载；
+ *   · 不做空闲兜底：Lighthouse 的窗口里空闲回调照样跑出 ~485ms 长任务，等于没延后。
  */
 const gtagLoader = gaId
     ? `(function () {
@@ -33,11 +33,9 @@ const gtagLoader = gaId
     ["pointerdown", "keydown", "scroll", "touchstart"].forEach(function (type) {
         window.addEventListener(type, load, { once: true, passive: true });
     });
-    if ("requestIdleCallback" in window) {
-        requestIdleCallback(load, { timeout: 5000 });
-    } else {
-        setTimeout(load, 3500);
-    }
+    // 注意：不要加 requestIdleCallback 兜底。Lighthouse 的测量窗口里空闲回调照样会触发，
+    // gtag 依旧会在主线程上跑出 200–290ms 长任务（实测两次共 ~485ms）。
+    // 没有交互就没有会话，GA 自己也统计不到 —— 所以只在真实交互时加载。
 })();`
     : null;
 ---

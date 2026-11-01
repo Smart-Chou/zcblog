@@ -3,7 +3,6 @@ import BaseLayout from "~/layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import HeroMasthead from "~/components/Index/HeroMasthead.astro";
 import TypewriterText from "~/components/UI/TypewriterText.astro";
-import LoadingIntro from "~/components/UI/LoadingIntro.astro";
 import Talk from "~/components/Index/Talk.astro";
 import Posts from "~/components/Index/Posts.astro";
 import Popular from "~/components/Index/Popular.astro";
@@ -60,7 +59,6 @@ const tagsCount = new Set(getAllTags(allArticles).map(normalizeTag)).size;
     modifiedTime={latestModified}
     locale={locale}
 >
-    <LoadingIntro />
     <div class="page-container home-page">
         <div class="hero-background"></div>
         <div class="main-content">

@@ -16,6 +16,12 @@ const {
 } = Astro.props;
 const textData = Array.isArray(text) ? JSON.stringify(text) : text;
 const isEmpty = Array.isArray(text) && text.length === 0;
+// 首句直接由构建期渲染，别留给 JS（D-0087）：
+// 原来 span 是空的、全靠 JS 从零打字，首屏那一行在整个打字过程中都是空的，
+// 浏览器找不到「最大的内容元素」，LCP 就落到了 64px 的 logo 上 —— 实测 LCP 2.8~3.1s，
+// 且耗时全在 logo 的加载排队上（Load Delay 0~535ms、Load Time 0~1936ms）。
+// 现在首句随 HTML 一起到，用户第一眼就有内容，JS 只负责后续的循环（停留→删除→下一句）。
+const firstText = Array.isArray(text) ? (text[0] ?? "") : text;
 ---
 
 {
@@ -26,7 +32,9 @@ const isEmpty = Array.isArray(text) && text.length === 0;
             data-speed={speed}
             data-delete-speed={deleteSpeed}
             data-pause-time={pauseTime}
-        />
+        >
+            {firstText}
+        </span>
     )
 }
 
@@ -42,7 +50,7 @@ const isEmpty = Array.isArray(text) && text.length === 0;
         private isDeleting: boolean = false;
         private timeoutId: number | null = null;
 
-        constructor(element: HTMLElement) {
+        constructor(element: HTMLElement, initialText = "") {
             this.element = element;
             const textData = element.dataset.text || "";
             try {
@@ -57,6 +65,17 @@ const isEmpty = Array.isArray(text) && text.length === 0;
 
             if (this.texts.length > 1 && !this.isTypewriterEnabled()) {
                 this.showRandomText();
+            } else if (initialText) {
+                // 首句已经在 HTML 里了：先停 pauseTime，再走「删除 → 打下一句」的循环，
+                // 不要从零重打（会闪一下空白，也把已经画好的首屏内容抹掉）。
+                this.currentTextIndex = 0;
+                this.currentIndex = this.segmentText(initialText).length;
+                if (this.texts.length > 1) {
+                    this.timeoutId = window.setTimeout(() => {
+                        this.isDeleting = true;
+                        this.type();
+                    }, this.pauseTime);
+                }
             } else {
                 this.start();
             }
@@ -131,9 +150,11 @@ const isEmpty = Array.isArray(text) && text.length === 0;
             const el = element as HTMLElement & {
                 __typewriterInstance?: TypewriterEffect;
             };
-            if (el.__typewriterInstance) el.__typewriterInstance.destroy();
-            el.textContent = "";
-            el.__typewriterInstance = new TypewriterEffect(el);
+            // 已经接管过的元素直接跳过：initTypewriterElements 会跑两次
+            // （立即一次 + 220ms 兜底一次），重复接管会把已经画出来的首句清掉重打。
+            if (el.__typewriterInstance) return;
+            const initialText = (el.textContent || "").trim();
+            el.__typewriterInstance = new TypewriterEffect(el, initialText);
         });
     }
 
