@@ -12,10 +12,19 @@
     --heatmap-hover-outline: #555;
 }
 
-/* Defer rendering of heatmap until scrolled into view */
+/* 高度必须一开始就占住。
+ *
+ * 原来用 `content-visibility: auto` + `contain-intrinsic-size` 撑高度，是错的：
+ * 占位尺寸**只在元素被跳过渲染时**生效。热力图在视口内，一进入渲染分支、而 JS 还没把格子填进去，
+ * 容器真实高度就是 0 —— 下面所有内容整体上跳一次；等 JS 填好又跳回来。
+ * /archives/ 那两段 CLS（0.097 + 0.070）就是这一上一下。
+ *
+ * 真实高度 = 月份行 18 + 网格 7×(格 + 2 间隙) + 8 间距 + 图例 17 + 12 上边距
+ *          = 144（桌面，格 11px）/ 130（≤768px，格 9px，见文件末尾媒体查询）。
+ * 改 --heatmap-cell-size 时这些值要一起改。
+ */
 .heatmap-container {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 180px;
+    min-height: 144px;
     margin-left: -8px;
 }
 
@@ -125,5 +134,13 @@
     :root {
         --heatmap-cell-size: 9px;
         --heatmap-gap: 2px;
+    }
+
+    /* 53 列网格在小屏放不下（实测 601px 挤在 410px 里），改成容器内横向滚动；
+       高度跟着这个断点的真实高度走 */
+    .heatmap-container {
+        min-height: 130px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 }

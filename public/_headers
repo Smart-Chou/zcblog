@@ -9,8 +9,14 @@
 # 通配规则，不再给 /assets/rss/styles.css 单独开例外。
 # 代价：那份 RSS 预览样式最多缓存 7 天，它极少变，可以接受。
 
+# 带内容哈希的构建产物：文件名变了才会变，可以放心长缓存
+# （/assets 是 Astro 的资源目录，/_astro 是 JS chunk 目录 —— 两个都要，
+#   之前只写了 /assets，所有 JS chunk 每次访问都回源验证一遍）
 /assets/*
-  Cache-Control: public, max-age=604800
+  Cache-Control: public, max-age=31536000, immutable
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
 
 # HTML 每次验证，保证发版即时可见
 /*.html
