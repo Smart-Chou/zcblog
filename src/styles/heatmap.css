@@ -136,11 +136,8 @@
         --heatmap-gap: 2px;
     }
 
-    /* 53 列网格在小屏放不下（实测 601px 挤在 410px 里），改成容器内横向滚动；
-       高度跟着这个断点的真实高度走 */
+    /* 高度跟着这个断点的真实高度走（小屏网格溢出容器是**有意的设计**，不要加 overflow 裁剪） */
     .heatmap-container {
         min-height: 130px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
     }
 }
