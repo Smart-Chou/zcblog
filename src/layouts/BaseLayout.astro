@@ -123,6 +123,10 @@ const lang = locale === "en" ? "en" : "zh-CN";
             import "~/scripts/a11y-scroll";
             import "~/scripts/anchor-scroll";
             import "~/scripts/tab-nav";
+            // 文章浏览量：常驻模块 + 按需动态 import（D-0090，SPA 换页后模块不会重新执行）
+            import "~/scripts/pageview";
+            // 阅读进度条（D-0089）：常驻监听，SPA 换页后换的是元素不是监听器
+            import "~/scripts/reading-progress";
             import "~/scripts/pwa-register";
         </script>
     </body>

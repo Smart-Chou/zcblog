@@ -1,8 +1,7 @@
-import { onPageReady } from "./page-lifecycle";
 import { pageviewCount } from "@waline/client/pageview";
 import { waline } from "~/config";
 
-function initWalinePageview() {
+export function initWalinePageview(): void {
     if (!waline.enable) return;
 
     const serverURL = waline.serverUrl;
@@ -22,6 +21,5 @@ function initWalinePageview() {
     }
 }
 
-if (typeof document !== "undefined") {
-    onPageReady(initWalinePageview);
-}
+// 不在这里自动跑：由 ~/scripts/pageview（BaseLayout 常驻模块）按需动态 import 并调用，
+// 否则 SPA 换页时模块不会重新执行，计数永远停在 0（D-0090）。

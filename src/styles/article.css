@@ -34,6 +34,16 @@
     backface-visibility: hidden;
 }
 
+/*
+ * 阅读进度条（D-0089）
+ *
+ * 进度由 src/scripts/reading-progress.ts 用 scroll + rAF 直接写 transform。
+ * 不再用 CSS 滚动动画：压缩器会把 `animation` 简写与 `animation-timeline` 合并成
+ * `animation: linear reading-progress scroll(root)`，Chrome 判定非法后整条丢弃
+ * （computed 成了 animation-name: none），进度条就变成一条不动的 2px 实线；
+ * 而且滚动时间轴在部分环境里本身就不活跃。
+ * 初始 scaleX(0)：JS 没跑时宁可不可见，也不要显示一条「满格」的进度。
+ */
 .reading-progress {
     position: fixed;
     left: 0;
@@ -43,19 +53,9 @@
     height: 2px;
     background: linear-gradient(to right, var(--color-accent), #d98a5f);
     transform-origin: left;
-    animation: reading-progress linear;
-    animation-timeline: scroll(root);
+    transform: scaleX(0);
     will-change: transform;
     contain: strict;
-}
-
-@keyframes reading-progress {
-    from {
-        transform: scaleX(0);
-    }
-    to {
-        transform: scaleX(1);
-    }
 }
 
 .post-header {
