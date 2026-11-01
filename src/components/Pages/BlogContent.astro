@@ -58,6 +58,14 @@ const nextUrl = page.url.next ? new URL(page.url.next, Astro.site).toString() : 
     locale={locale}
     noindex={page.currentPage > 1}
 >
+    {
+        /* 列表页视觉上没有大标题（靠卡片承载），但每页应有且仅有一个 h1：
+        swup 的 a11y 插件会检查 main h1，缺失时会报 "No main heading found"。
+        分页时把页码写进去，屏幕阅读器能听出「这是第几页」。 */
+    }
+    <h1 class="sr-only">
+        {t(loc, "blog.title")}{page.currentPage > 1 ? ` · ${page.currentPage}` : ""}
+    </h1>
     <Hitokoto />
     {pageView.author && <Author />}
     <div class="post">

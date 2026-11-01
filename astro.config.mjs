@@ -239,6 +239,13 @@ export default defineConfig({
             // 不在网络。@swup/astro 的 theme 默认值就是 "fade"，所以必须显式传 false 才真的关掉；
             // 改用「先替换、再用 CSS 播 0.18s 淡入」的写法（page-lifecycle.ts + base.css）。
             theme: false,
+            // 页面切换不靠 swup 的 CSS 过渡类：站内没有 [class*="transition-"] 元素，
+            // 默认 animationSelector 每次换页都会打一条
+            // `[swup] No elements found matching animationSelector` 的噪音。
+            // 注意：@swup/astro 不认 `animationSelector`，它自己用 animationClass 拼：
+            //   animationSelector = animationClass ? `[class*="${animationClass}"]` : false
+            // 所以要关的是 animationClass，传 animationSelector 会被静默忽略。
+            animationClass: false,
             containers: ["main"],
             cache: true,
             // 预取：悬停 + 进入视口的链接（默认只开 hover，visible 要显式开）

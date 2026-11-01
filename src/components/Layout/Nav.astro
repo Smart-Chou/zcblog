@@ -111,6 +111,17 @@ function isActive(href: string) {
             btn.classList.toggle("nav-menu-btn--open", v);
         }
         if (dropdown) {
+            // 关闭前先把焦点移出下拉：Chrome 不允许给「仍有后代持有焦点」的元素加 aria-hidden
+            // （控制台会报 Blocked aria-hidden on an element because its descendant retained focus）。
+            // 典型触发场景：点导航链接（焦点停在 .nav-dropdown-link 上）→ 换页 → after-swap 收起菜单。
+            // 这里只 blur，不把焦点抢到按钮上：换页场景下焦点交给新页面更合适；
+            // Esc 关闭时由下面的 keydown 处理显式 focus 回按钮。
+            if (!v) {
+                const active = document.activeElement as HTMLElement | null;
+                if (active && dropdown.contains(active) && typeof active.blur === "function") {
+                    active.blur();
+                }
+            }
             dropdown.setAttribute("aria-hidden", String(!v));
             // inert：关闭时连键盘焦点一起移出（只靠 aria-hidden 会让里面的链接仍可 Tab 到）
             dropdown.toggleAttribute("inert", !v);
