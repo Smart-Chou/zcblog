@@ -145,3 +145,27 @@ hr:before {
         padding: calc(var(--space) * 0.75) 0 calc(var(--space) * 0.75) !important;
     }
 }
+
+/* 换页入场动画（D-0084）——只做 opacity，不碰 transform：
+   main 上任何 transform 都会给 fixed 的 TOC / 返回顶部造出新的包含块，滚动时它们会跳。 */
+/* 起点不用 0：万一动画被浏览器节流/暂停（后台标签页、系统省电），
+   页面会停在起始帧上 —— 从 0 开始就等于「整页看不见」。0.55 起步，最差也只是略暗。 */
+@keyframes page-enter {
+    from {
+        opacity: 0.55;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 不写 fill-mode：动画没跑/没跑完时，元素的默认透明度 1 依然生效 */
+main.page-enter {
+    animation: page-enter 0.18s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    main.page-enter {
+        animation: none;
+    }
+}

@@ -8,19 +8,19 @@
    ======================================== */
 
 /* Defer rendering of cards below the fold */
-.post-card:nth-child(n + 4) {
+.home-page .post-card:nth-child(n + 4) {
     content-visibility: auto;
     contain-intrinsic-size: auto 280px;
 }
 
 /* 移动端卡片更矮，缩小首次渲染占位避免 CLS */
 @media (max-width: 768px) {
-    .post-card:nth-child(n + 4) {
+    .home-page .post-card:nth-child(n + 4) {
         contain-intrinsic-size: auto 220px;
     }
 }
 
-.page-container {
+.home-page .page-container {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -28,7 +28,7 @@
 }
 
 /* Subtle geometric grid pattern */
-.hero-background {
+.home-page .hero-background {
     position: absolute;
     inset: 0;
     z-index: -1;
@@ -39,7 +39,7 @@
     background-size: 60px 60px;
     background-position: center center;
 
-    html[data-theme="dark"] & {
+    html[data-theme="dark"] .home-page & {
         background-color: var(--color-bg);
         background-image:
             linear-gradient(rgba(232, 115, 106, 0.04) 1px, transparent 1px),
@@ -48,7 +48,7 @@
 }
 
 /* Main content wrapper */
-.main-content {
+.home-page .main-content {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -61,7 +61,7 @@
 /* ========================================
    2. Hero Masthead
    ======================================== */
-.hero-masthead {
+.home-page .hero-masthead {
     position: relative;
     padding: 4.5rem 0 2.5rem;
     text-align: center;
@@ -91,7 +91,7 @@
     }
 }
 
-.hero-title {
+.home-page .hero-title {
     font-family: var(--font-heading);
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 400;
@@ -101,11 +101,11 @@
     letter-spacing: -0.02em;
 }
 
-.hero-title-accent {
+.home-page .hero-title-accent {
     color: var(--color-accent);
 }
 
-.hero-subtitle {
+.home-page .hero-subtitle {
     font-family: var(--font-body);
     font-size: var(--text-lg);
     color: var(--color-text-muted);
@@ -116,7 +116,7 @@
 }
 
 /* Decorative divider */
-.hero-divider {
+.home-page .hero-divider {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -133,7 +133,7 @@
     }
 }
 
-.hero-divider-dot {
+.home-page .hero-divider-dot {
     width: 6px;
     height: 6px;
     background: var(--color-accent);
@@ -142,7 +142,7 @@
 }
 
 /* Stats row */
-.hero-stats {
+.home-page .hero-stats {
     display: flex;
     justify-content: center;
     gap: 2.5rem;
@@ -154,11 +154,11 @@
     letter-spacing: 0.05em;
 }
 
-.hero-stat {
+.home-page .hero-stat {
     text-align: center;
 }
 
-.hero-stat-value {
+.home-page .hero-stat-value {
     display: block;
     font-family: var(--font-heading);
     font-size: var(--text-2xl);
@@ -166,7 +166,7 @@
     line-height: 1.2;
 }
 
-.hero-typewriter {
+.home-page .hero-typewriter {
     text-align: center;
     margin: -1rem auto 0;
     padding-bottom: 1.5rem;
@@ -178,14 +178,14 @@
 /* ========================================
    3. Talk Ticker
    ======================================== */
-.talk-container {
+.home-page .talk-container {
     width: 100%;
     max-width: 720px;
     margin: 0 auto 4rem;
     position: relative;
 }
 
-#bber-talk {
+.home-page #bber-talk {
     display: flex;
     align-items: center;
     width: 100%;
@@ -199,7 +199,7 @@
     overflow: hidden;
     position: relative;
 
-    html[data-theme="dark"] & {
+    html[data-theme="dark"] .home-page & {
         background: var(--color-bg-surface);
     }
 
@@ -218,23 +218,23 @@
 
 @keyframes pulse-dot {
     0%,
-    100% {
+    .home-page 100% {
         opacity: 1;
         transform: scale(1);
     }
-    50% {
+    .home-page 50% {
         opacity: 0.5;
         transform: scale(0.75);
     }
 }
 
-.talk-wrap {
+.home-page .talk-wrap {
     flex: 1;
     overflow: hidden;
     min-width: 0;
 }
 
-.talk-list {
+.home-page .talk-list {
     margin: 0;
     height: 44px;
     display: flex;
@@ -272,7 +272,7 @@
 /* ========================================
    4. Section Headers
    ======================================== */
-.section-header {
+.home-page .section-header {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -292,7 +292,7 @@
     }
 }
 
-.section-label {
+.home-page .section-label {
     font-family: var(--font-heading);
     font-size: var(--text-xl);
     color: var(--color-title);
@@ -301,7 +301,7 @@
     letter-spacing: -0.01em;
 }
 
-.section-link {
+.home-page .section-link {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-text-muted);
@@ -317,14 +317,14 @@
     }
 }
 
-.section-link-arrow {
+.home-page .section-link-arrow {
     display: inline-block;
     margin-left: 2px;
     transition: transform var(--duration-normal) var(--ease-out);
 }
 
 @media (hover: hover) {
-    .section-link:hover .section-link-arrow {
+    .home-page .section-link:hover .section-link-arrow {
         transform: translateX(3px);
     }
 }
@@ -332,7 +332,7 @@
 /* ========================================
    5. Posts — Editorial Layout
    ======================================== */
-.posts-home {
+.home-page .posts-home {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
@@ -341,7 +341,7 @@
 }
 
 /* Featured post — spans full width */
-.post-featured {
+.home-page .post-featured {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -367,20 +367,20 @@
     }
 }
 
-.post-featured-cover {
+.home-page .post-featured-cover {
     width: 100%;
     aspect-ratio: 16 / 10;
     object-fit: cover;
     border-radius: var(--radius-md);
 }
 
-.post-featured-body {
+.home-page .post-featured-body {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
 }
 
-.post-featured-label {
+.home-page .post-featured-label {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-accent);
@@ -388,7 +388,7 @@
     letter-spacing: 0.1em;
 }
 
-.post-featured-title {
+.home-page .post-featured-title {
     font-family: var(--font-heading);
     font-size: clamp(1.5rem, 3vw, 2rem);
     line-height: 1.2;
@@ -408,14 +408,14 @@
     }
 }
 
-.post-featured-date {
+.home-page .post-featured-date {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-text-muted);
 }
 
 /* Secondary posts — 2-column grid */
-.post-card {
+.home-page .post-card {
     background: var(--color-bg-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -463,7 +463,7 @@
     }
 }
 
-.post-card-title {
+.home-page .post-card-title {
     font-family: var(--font-heading);
     font-size: var(--text-lg);
     line-height: 1.3;
@@ -483,7 +483,7 @@
     }
 }
 
-.post-card-meta {
+.home-page .post-card-meta {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-text-muted);
@@ -492,11 +492,11 @@
 /* ========================================
    6. Photos — Variable Grid
    ======================================== */
-.photos-section {
+.home-page .photos-section {
     margin-bottom: 4rem;
 }
 
-.photos-grid {
+.home-page .photos-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     grid-template-rows: 200px 200px;
@@ -509,7 +509,7 @@
     }
 }
 
-.photo-item {
+.home-page .photo-item {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-md);
@@ -539,7 +539,7 @@
     }
 }
 
-.photo-overlay {
+.home-page .photo-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 50%);
@@ -556,7 +556,7 @@
     }
 }
 
-.photo-caption {
+.home-page .photo-caption {
     color: #fff;
     font-size: var(--text-sm);
     font-family: var(--font-body);
@@ -565,7 +565,7 @@
 /* ========================================
    7. Friends — Floating Pills
    ======================================== */
-.friends-section {
+.home-page .friends-section {
     /* 全宽突破父容器：100vw 撑满视口 + 负 margin 居中 */
     /* scrollbar-gutter 已限制为桌面端，移动端不会因此溢出 */
     width: 100vw;
@@ -578,13 +578,13 @@
     border-bottom: 1px solid var(--color-border);
 }
 
-.friends-inner {
+.home-page .friends-inner {
     max-width: var(--content-width);
     margin: 0 auto;
     padding: 0 24px;
 }
 
-#friArticle {
+.home-page #friArticle {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
@@ -592,7 +592,7 @@
     margin-top: 1rem;
 }
 
-.fri-item {
+.home-page .fri-item {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
@@ -615,20 +615,20 @@
     }
 }
 
-.fri-avatar {
+.home-page .fri-avatar {
     width: 32px;
     height: 32px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.fri-cont {
+.home-page .fri-cont {
     display: flex;
     flex-direction: column;
     line-height: 1.2;
 }
 
-.fri-title {
+.home-page .fri-title {
     font-size: var(--text-sm);
     color: var(--color-text);
     white-space: nowrap;
@@ -645,7 +645,7 @@
     }
 }
 
-.fri-updated {
+.home-page .fri-updated {
     font-size: var(--text-xs);
     color: var(--color-text-muted);
     font-style: italic;
@@ -654,14 +654,14 @@
 /* ========================================
    9. Media — Side by Side
    ======================================== */
-.media-duo {
+.home-page .media-duo {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     margin-bottom: 4rem;
 }
 
-.media-panel {
+.home-page .media-panel {
     background: var(--color-bg-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -672,7 +672,7 @@
     }
 }
 
-.rating {
+.home-page .rating {
     font-size: var(--text-xs);
     display: flex;
     align-items: center;
@@ -694,12 +694,12 @@
         }
     }
 
-    .animate-in {
+    .home-page .animate-in {
         animation: fade-up 0.6s var(--ease-out) both;
     }
 
     /* Stagger children */
-    .stagger-children > * {
+    .home-page .stagger-children > * {
         opacity: 0;
         animation: fade-up 0.6s var(--ease-out) forwards;
 
@@ -725,7 +725,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .stagger-children > * {
+    .home-page .stagger-children > * {
         opacity: 1;
     }
 }
@@ -734,7 +734,7 @@
    12. Responsive
    ======================================== */
 @media (max-width: 768px) {
-    .hero-masthead {
+    .home-page .hero-masthead {
         padding: 3rem 0 2rem;
 
         &::after {
@@ -744,22 +744,22 @@
         }
     }
 
-    .hero-stats {
+    .home-page .hero-stats {
         gap: 1.5rem;
     }
 
-    .posts-home {
+    .home-page .posts-home {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
 
-    .post-featured {
+    .home-page .post-featured {
         grid-template-columns: 1fr;
         gap: 1rem;
         padding: 1.25rem;
     }
 
-    .photos-grid {
+    .home-page .photos-grid {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
         grid-auto-rows: auto;
@@ -770,11 +770,11 @@
         }
     }
 
-    .photo-item {
+    .home-page .photo-item {
         aspect-ratio: 4 / 3;
     }
 
-    .photo-item:first-child {
+    .home-page .photo-item:first-child {
         grid-column: 1 / -1;
         grid-row: auto;
 
@@ -784,32 +784,32 @@
         }
     }
 
-    .media-duo {
+    .home-page .media-duo {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 640px) {
-    .post-featured {
+    .home-page .post-featured {
         grid-template-columns: 1fr;
         gap: 1rem;
         padding: 1rem;
     }
 
-    .post-featured-cover {
+    .home-page .post-featured-cover {
         aspect-ratio: 16 / 9;
     }
 
-    .post-featured-title {
+    .home-page .post-featured-title {
         font-size: var(--text-lg);
     }
 }
 
 @media (max-width: 450px) {
-    .main-content {
+    .home-page .main-content {
         padding: 0 16px;
     }
-    .hero-masthead {
+    .home-page .hero-masthead {
         padding: 2.5rem 0 1.5rem;
 
         &::after {
@@ -817,46 +817,46 @@
         }
     }
 
-    .hero-typewriter {
+    .home-page .hero-typewriter {
         margin-top: 0;
         font-size: 0.95em;
         padding-bottom: 1rem;
     }
 
-    .hero-stats {
+    .home-page .hero-stats {
         gap: 1rem;
         flex-wrap: wrap;
     }
 
-    .hero-stat-value {
+    .home-page .hero-stat-value {
         font-size: var(--text-lg);
     }
 
-    .posts-home {
+    .home-page .posts-home {
         grid-template-columns: 1fr;
     }
 
     .photos-grid,
-    .photos-grid--large {
+    .home-page .photos-grid--large {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
         grid-auto-rows: auto;
         gap: 0.5rem;
     }
 
-    .friends-section {
+    .home-page .friends-section {
         padding: 1.25rem 0;
     }
 
-    .friends-inner {
+    .home-page .friends-inner {
         padding: 0 16px;
     }
 
-    #friArticle {
+    .home-page #friArticle {
         gap: 0.5rem;
     }
 
-    .fri-item {
+    .home-page .fri-item {
         padding: 0.4rem 0.9rem 0.4rem 0.4rem;
     }
 }
@@ -866,6 +866,6 @@
    ======================================== */
 html[data-theme="dark"] .post-featured-cover,
 html[data-theme="dark"] .photo-item img,
-html[data-theme="dark"] .media-panel img {
+html[data-theme="dark"] .home-page .media-panel img {
     filter: brightness(0.88) saturate(0.92);
 }

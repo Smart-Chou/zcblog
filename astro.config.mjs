@@ -233,7 +233,12 @@ export default defineConfig({
         // 站内导航过渡（D-0049）：swup core 9.0KB gz + scroll-plugin 3.8KB gz，
         // 替代已移除的 ClientRouter（98.5KB gz）。容器取 <main>，导航/页脚不动。
         swup({
-            theme: "fade",
+            // 不用 fade 主题（D-0084）：@swup/astro 的默认值就是 "fade"，必须显式 false 才关得掉。：它把「淡出 → 替换内容 → 淡入」串成一条链，
+            // swup 必须等淡出跑完才换内容。本地实测 content:replace 落在
+            // 0s→46ms、0.2s→831ms、0.4s→673ms、1s→2403ms —— 换页慢的主因在这里，
+            // 不在网络。@swup/astro 的 theme 默认值就是 "fade"，所以必须显式传 false 才真的关掉；
+            // 改用「先替换、再用 CSS 播 0.18s 淡入」的写法（page-lifecycle.ts + base.css）。
+            theme: false,
             containers: ["main"],
             cache: true,
             // 预取：悬停 + 进入视口的链接（默认只开 hover，visible 要显式开）

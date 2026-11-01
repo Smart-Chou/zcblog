@@ -85,23 +85,6 @@ const {
         }
     </style>
 
-    <!--
-      swup 淡入淡出时长（插件默认 0.4s，换页像「点了要等一下」）。
-      插件是在运行时把 `html{--swup-fade-theme-duration:0.4s}` 注入成**未分层**的 <style>，
-      而站内 CSS 全部进了 @layer（分层规则无条件输给未分层），所以在 base.css 里覆盖无效。
-      这里放一条未分层 + 更高特异性的规则压过去。
-    -->
-    <style is:inline>
-        html:root {
-            --swup-fade-theme-duration: 0.2s;
-        }
-        @media (prefers-reduced-motion: reduce) {
-            html:root {
-                --swup-fade-theme-duration: 0s;
-            }
-        }
-    </style>
-
     <script is:inline data-swup-ignore-script>
         (function () {
             function getTheme() {

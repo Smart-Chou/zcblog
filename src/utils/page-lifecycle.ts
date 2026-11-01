@@ -38,7 +38,28 @@ function registry(): Registry {
     return w.__pageReadyRegistry;
 }
 
+/**
+ * 换页后的入场动画（D-0084）。
+ *
+ * 不用 @swup/fade-theme：它把淡出和淡入串在换页链路里，swup 要等淡出结束才替换内容，
+ * 实测每次换页多花 0.7–2.4s。这里改成「先换、再淡入」——动画不参与换页时序。
+ * 只动 opacity，不加 transform：`main` 上任何 transform 都会给 fixed 的 TOC / 返回顶部
+ * 造出新的包含块，滚动时它们会跳。
+ */
+function playEnterAnimation(): void {
+    const main = document.querySelector("main");
+    if (!main) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    // 后台标签页里动画时间轴会被节流成「停在第一帧」，那种情况下宁可不播（否则整页偏暗）
+    if (document.visibilityState !== "visible") return;
+    main.classList.remove("page-enter");
+    // 强制重排，让动画能被重新触发
+    void main.getBoundingClientRect();
+    main.classList.add("page-enter");
+}
+
 function dispatch(): void {
+    playEnterAnimation();
     const { fns } = registry();
     fns.forEach((fn) => {
         try {

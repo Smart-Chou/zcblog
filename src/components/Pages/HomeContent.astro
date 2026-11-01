@@ -1,5 +1,4 @@
 ---
-import "~/styles/home.css";
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import HeroMasthead from "~/components/Index/HeroMasthead.astro";
@@ -62,7 +61,7 @@ const tagsCount = new Set(getAllTags(allArticles).map(normalizeTag)).size;
     locale={locale}
 >
     <LoadingIntro />
-    <div class="page-container">
+    <div class="page-container home-page">
         <div class="hero-background"></div>
         <div class="main-content">
             <HeroMasthead
