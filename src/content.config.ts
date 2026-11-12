@@ -63,6 +63,29 @@ export const article = defineCollection({
                 /** 需要额外渲染器时才写。空数组 = 全部关闭（等同现状的 false）。 */
                 features: z.array(z.enum(FEATURE)).default([]),
 
+                /**
+                 * 系列归属（D-0145）：同一主题的多篇文章聚成一条阅读线。
+                 * 取值是 ASCII 小写 kebab slug，与 v2 的 `src/utils/series.ts` 同一套规则，
+                 * 所以 `/series/<slug>/` 不需要 encodeURI。
+                 *
+                 * 生产仓只做**契约兼容**，不建 `/series/` 路由：内容仓自 2026-11-09 起
+                 * 已有 6 篇文章写入该字段，而 v2 的系列页尚未进生产。这里声明它，
+                 * 是为了让「内容先带上字段、主题后跟上」这条路走得通，
+                 * 而不是让构建为一个未启用的功能炸掉（D-0166）。
+                 * 不写该字段的文章完全不受影响。
+                 */
+                series: z
+                    .string()
+                    .min(1)
+                    .max(48)
+                    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
+                        message: "series 必须是 ASCII 小写 kebab slug（例：self-hosted）",
+                    })
+                    .optional(),
+
+                /** 系列内顺序（升序）。缺省 = 排在已编号文章之后（D-0145）。 */
+                seriesOrder: z.number().int().min(0).max(999).optional(),
+
                 draft: z.boolean().default(false),
                 // 置顶权重（v1 遗留字段，内容仓 77 篇带着 sticky: 0）。blog-paths 用它排序，
                 // 所以收进 schema 而不是在归一化时删掉（见 scripts/normalize-frontmatter.mjs）。
