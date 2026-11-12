@@ -57,6 +57,12 @@ jobs:
             - name: Normalize frontmatter (v1 布尔键 → v2 features)
               run: node scripts/normalize-frontmatter.mjs src/content/article
 
+            # 内容契约门禁：内容仓新增的字段，生产 schema 是否认识。
+            # 2026-11-09 内容仓加 series/seriesOrder，schema 不认 → 定时部署连炸 4 天。
+            # 放在归一化之后：这里校验的就是 astro build 实际吃进去的那份 frontmatter。
+            - name: Content contract (schema 是否认识内容仓的键)
+              run: python3 scripts/gates/check-content-contract.py src/content/article
+
             - name: Set expected counts from content
               run: |
                   content=$(ls src/content/article/*.md src/content/article/*.mdx 2>/dev/null | wc -l | tr -d ' ')
